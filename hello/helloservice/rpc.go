@@ -7,6 +7,6 @@ import (
 )
 
 func SayHello(ctx context.Context, req *hello.SayHelloReq, callOptions ...client.Option) (resp *hello.SayHelloResp, err error) {
-	clients := MustNewClient("helloservice", callOptions...)
+	clients := MustNewClient("hello", callOptions...)
 	return clients.SayHello(ctx, req)
 }
