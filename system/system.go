@@ -10,18 +10,18 @@ import (
 )
 
 type ModelUser struct {
-	Id          int32  `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
-	CreatedAt   int32  `thrift:"created_at,2" frugal:"2,default,i32" json:"created_at"`
-	UpdatedAt   int32  `thrift:"updated_at,3" frugal:"3,default,i32" json:"updated_at"`
-	DeletedAt   int32  `thrift:"deleted_at,4" frugal:"4,default,i32" json:"deleted_at"`
-	UserId      string `thrift:"user_id,5" frugal:"5,default,string" json:"user_id"`
-	Password    string `thrift:"password,6" frugal:"6,default,string" json:"-" gorm:"column:password""`
-	Mobile      string `thrift:"mobile,7" frugal:"7,default,string" json:"mobile"`
-	Email       string `thrift:"email,8" frugal:"8,default,string" json:"email"`
-	Nickname    string `thrift:"nickname,9" frugal:"9,default,string" json:"nickname"`
-	Avatar      string `thrift:"avatar,10" frugal:"10,default,string" json:"avatar"`
-	Status      bool   `thrift:"status,11" frugal:"11,default,bool" json:"status"`
-	LastLoginAt int32  `thrift:"last_login_at,12" frugal:"12,default,i32" json:"last_login_at"`
+	Id          int32   `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
+	CreatedAt   int32   `thrift:"created_at,2" frugal:"2,default,i32" json:"created_at"`
+	UpdatedAt   int32   `thrift:"updated_at,3" frugal:"3,default,i32" json:"updated_at"`
+	DeletedAt   int32   `thrift:"deleted_at,4" frugal:"4,default,i32" json:"deleted_at"`
+	UserId      string  `thrift:"user_id,5" frugal:"5,default,string" json:"user_id"`
+	Password    *string `thrift:"password,6,optional" frugal:"6,optional,string" json:"-" gorm:"column:password"`
+	Mobile      string  `thrift:"mobile,7" frugal:"7,default,string" json:"mobile"`
+	Email       string  `thrift:"email,8" frugal:"8,default,string" json:"email"`
+	Nickname    string  `thrift:"nickname,9" frugal:"9,default,string" json:"nickname"`
+	Avatar      string  `thrift:"avatar,10" frugal:"10,default,string" json:"avatar"`
+	Status      bool    `thrift:"status,11" frugal:"11,default,bool" json:"status"`
+	LastLoginAt int32   `thrift:"last_login_at,12" frugal:"12,default,i32" json:"last_login_at"`
 }
 
 func NewModelUser() *ModelUser {
@@ -51,8 +51,13 @@ func (p *ModelUser) GetUserId() (v string) {
 	return p.UserId
 }
 
+var ModelUser_Password_DEFAULT string
+
 func (p *ModelUser) GetPassword() (v string) {
-	return p.Password
+	if !p.IsSetPassword() {
+		return ModelUser_Password_DEFAULT
+	}
+	return *p.Password
 }
 
 func (p *ModelUser) GetMobile() (v string) {
@@ -93,7 +98,7 @@ func (p *ModelUser) SetDeletedAt(val int32) {
 func (p *ModelUser) SetUserId(val string) {
 	p.UserId = val
 }
-func (p *ModelUser) SetPassword(val string) {
+func (p *ModelUser) SetPassword(val *string) {
 	p.Password = val
 }
 func (p *ModelUser) SetMobile(val string) {
@@ -128,6 +133,10 @@ var fieldIDToName_ModelUser = map[int16]string{
 	10: "avatar",
 	11: "status",
 	12: "last_login_at",
+}
+
+func (p *ModelUser) IsSetPassword() bool {
+	return p.Password != nil
 }
 
 func (p *ModelUser) Read(iprot thrift.TProtocol) (err error) {
@@ -331,11 +340,11 @@ func (p *ModelUser) ReadField5(iprot thrift.TProtocol) error {
 }
 func (p *ModelUser) ReadField6(iprot thrift.TProtocol) error {
 
-	var _field string
+	var _field *string
 	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
-		_field = v
+		_field = &v
 	}
 	p.Password = _field
 	return nil
@@ -565,14 +574,16 @@ WriteFieldEndError:
 }
 
 func (p *ModelUser) writeField6(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("password", thrift.STRING, 6); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := oprot.WriteString(p.Password); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
+	if p.IsSetPassword() {
+		if err = oprot.WriteFieldBegin("password", thrift.STRING, 6); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := oprot.WriteString(*p.Password); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
 	}
 	return nil
 WriteFieldBeginError:
@@ -771,9 +782,14 @@ func (p *ModelUser) Field5DeepEqual(src string) bool {
 	}
 	return true
 }
-func (p *ModelUser) Field6DeepEqual(src string) bool {
+func (p *ModelUser) Field6DeepEqual(src *string) bool {
 
-	if strings.Compare(p.Password, src) != 0 {
+	if p.Password == src {
+		return true
+	} else if p.Password == nil || src == nil {
+		return false
+	}
+	if strings.Compare(*p.Password, *src) != 0 {
 		return false
 	}
 	return true
@@ -2890,8 +2906,8 @@ func (p *ModelRolePermission) Field6DeepEqual(src string) bool {
 }
 
 type LoginReq struct {
-	UserId   string `thrift:"user_id,1" frugal:"1,default,string" json:"user_id"`
-	Password string `thrift:"password,2" frugal:"2,default,string" json:"password"`
+	UserId   string `thrift:"user_id,1,required" frugal:"1,required,string" json:"user_id"`
+	Password string `thrift:"password,2,required" frugal:"2,required,string" json:"password"`
 	Captcha  string `thrift:"captcha,3" frugal:"3,default,string" json:"captcha"`
 }
 
@@ -2933,6 +2949,8 @@ func (p *LoginReq) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
+	var issetUserId bool = false
+	var issetPassword bool = false
 
 	if _, err = iprot.ReadStructBegin(); err != nil {
 		goto ReadStructBeginError
@@ -2953,6 +2971,7 @@ func (p *LoginReq) Read(iprot thrift.TProtocol) (err error) {
 				if err = p.ReadField1(iprot); err != nil {
 					goto ReadFieldError
 				}
+				issetUserId = true
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
 				goto SkipFieldError
 			}
@@ -2961,6 +2980,7 @@ func (p *LoginReq) Read(iprot thrift.TProtocol) (err error) {
 				if err = p.ReadField2(iprot); err != nil {
 					goto ReadFieldError
 				}
+				issetPassword = true
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
 				goto SkipFieldError
 			}
@@ -2985,6 +3005,15 @@ func (p *LoginReq) Read(iprot thrift.TProtocol) (err error) {
 		goto ReadStructEndError
 	}
 
+	if !issetUserId {
+		fieldId = 1
+		goto RequiredFieldNotSetError
+	}
+
+	if !issetPassword {
+		fieldId = 2
+		goto RequiredFieldNotSetError
+	}
 	return nil
 ReadStructBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
@@ -2999,6 +3028,8 @@ ReadFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
 ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+RequiredFieldNotSetError:
+	return thrift.NewTProtocolExceptionWithType(thrift.INVALID_DATA, fmt.Errorf("required field %s is not set", fieldIDToName_LoginReq[fieldId]))
 }
 
 func (p *LoginReq) ReadField1(iprot thrift.TProtocol) error {
