@@ -15,7 +15,7 @@ type ModelUser struct {
 	UpdatedAt   int32  `thrift:"updated_at,3" frugal:"3,default,i32" json:"updated_at"`
 	DeletedAt   int32  `thrift:"deleted_at,4" frugal:"4,default,i32" json:"deleted_at"`
 	UserId      string `thrift:"user_id,5" frugal:"5,default,string" json:"user_id"`
-	Password    string `thrift:"password,6,required" frugal:"6,required,string" json:"-" gorm:"column:password"`
+	Password    string `thrift:"password,6" frugal:"6,default,string" json:"-" gorm:"column:password"`
 	Mobile      string `thrift:"mobile,7" frugal:"7,default,string" json:"mobile"`
 	Email       string `thrift:"email,8" frugal:"8,default,string" json:"email"`
 	Nickname    string `thrift:"nickname,9" frugal:"9,default,string" json:"nickname"`
@@ -134,7 +134,6 @@ func (p *ModelUser) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
-	var issetPassword bool = false
 
 	if _, err = iprot.ReadStructBegin(); err != nil {
 		goto ReadStructBeginError
@@ -195,7 +194,6 @@ func (p *ModelUser) Read(iprot thrift.TProtocol) (err error) {
 				if err = p.ReadField6(iprot); err != nil {
 					goto ReadFieldError
 				}
-				issetPassword = true
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
 				goto SkipFieldError
 			}
@@ -260,10 +258,6 @@ func (p *ModelUser) Read(iprot thrift.TProtocol) (err error) {
 		goto ReadStructEndError
 	}
 
-	if !issetPassword {
-		fieldId = 6
-		goto RequiredFieldNotSetError
-	}
 	return nil
 ReadStructBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
@@ -278,8 +272,6 @@ ReadFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
 ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
-RequiredFieldNotSetError:
-	return thrift.NewTProtocolExceptionWithType(thrift.INVALID_DATA, fmt.Errorf("required field %s is not set", fieldIDToName_ModelUser[fieldId]))
 }
 
 func (p *ModelUser) ReadField1(iprot thrift.TProtocol) error {
@@ -3195,7 +3187,7 @@ func (p *LoginReq) Field3DeepEqual(src string) bool {
 
 type LoginResp struct {
 	Token string     `thrift:"token,1" frugal:"1,default,string" json:"token"`
-	User  *ModelUser `thrift:"user,2" frugal:"2,default,ModelUser" json:"user"`
+	User  *ModelUser `thrift:"user,2,optional" frugal:"2,optional,ModelUser" json:"user,omitempty"`
 }
 
 func NewLoginResp() *LoginResp {
@@ -3367,14 +3359,16 @@ WriteFieldEndError:
 }
 
 func (p *LoginResp) writeField2(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("user", thrift.STRUCT, 2); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := p.User.Write(oprot); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
+	if p.IsSetUser() {
+		if err = oprot.WriteFieldBegin("user", thrift.STRUCT, 2); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.User.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
 	}
 	return nil
 WriteFieldBeginError:
