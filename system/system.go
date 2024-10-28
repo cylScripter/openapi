@@ -15,7 +15,7 @@ type ModelUser struct {
 	UpdatedAt   int32  `thrift:"updated_at,3" frugal:"3,default,i32" json:"updated_at"`
 	DeletedAt   int32  `thrift:"deleted_at,4" frugal:"4,default,i32" json:"deleted_at"`
 	UserId      string `thrift:"user_id,5" frugal:"5,default,string" json:"user_id"`
-	Password    string `thrift:"password,6" frugal:"6,default,string" json:"-,omitempty"`
+	Password    string `thrift:"password,6" frugal:"6,default,string" json:"-,optional" thrift:"password,6,optional"`
 	Mobile      string `thrift:"mobile,7" frugal:"7,default,string" json:"mobile"`
 	Email       string `thrift:"email,8" frugal:"8,default,string" json:"email"`
 	Nickname    string `thrift:"nickname,9" frugal:"9,default,string" json:"nickname"`
