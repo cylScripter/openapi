@@ -32,6 +32,7 @@ func (p *ModelUser) FastRead(buf []byte) (int, error) {
 	var l int
 	var fieldTypeId thrift.TType
 	var fieldId int16
+	var issetPassword bool = false
 	for {
 		fieldTypeId, fieldId, l, err = thrift.Binary.ReadFieldBegin(buf[offset:])
 		offset += l
@@ -119,6 +120,7 @@ func (p *ModelUser) FastRead(buf []byte) (int, error) {
 				if err != nil {
 					goto ReadFieldError
 				}
+				issetPassword = true
 			} else {
 				l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
 				offset += l
@@ -219,6 +221,10 @@ func (p *ModelUser) FastRead(buf []byte) (int, error) {
 		}
 	}
 
+	if !issetPassword {
+		fieldId = 6
+		goto RequiredFieldNotSetError
+	}
 	return offset, nil
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
@@ -226,6 +232,8 @@ ReadFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ModelUser[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+RequiredFieldNotSetError:
+	return offset, thrift.NewProtocolException(thrift.INVALID_DATA, fmt.Sprintf("required field %s is not set", fieldIDToName_ModelUser[fieldId]))
 }
 
 func (p *ModelUser) FastReadField1(buf []byte) (int, error) {
@@ -301,12 +309,12 @@ func (p *ModelUser) FastReadField5(buf []byte) (int, error) {
 func (p *ModelUser) FastReadField6(buf []byte) (int, error) {
 	offset := 0
 
-	var _field *string
+	var _field string
 	if v, l, err := thrift.Binary.ReadString(buf[offset:]); err != nil {
 		return offset, err
 	} else {
 		offset += l
-		_field = &v
+		_field = v
 	}
 	p.Password = _field
 	return offset, nil
@@ -478,10 +486,8 @@ func (p *ModelUser) fastWriteField5(buf []byte, w thrift.NocopyWriter) int {
 
 func (p *ModelUser) fastWriteField6(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
-	if p.IsSetPassword() {
-		offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 6)
-		offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, *p.Password)
-	}
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 6)
+	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.Password)
 	return offset
 }
 
@@ -564,10 +570,8 @@ func (p *ModelUser) field5Length() int {
 
 func (p *ModelUser) field6Length() int {
 	l := 0
-	if p.IsSetPassword() {
-		l += thrift.Binary.FieldBeginLength()
-		l += thrift.Binary.StringLengthNocopy(*p.Password)
-	}
+	l += thrift.Binary.FieldBeginLength()
+	l += thrift.Binary.StringLengthNocopy(p.Password)
 	return l
 }
 
