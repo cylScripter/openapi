@@ -12,6 +12,11 @@ import (
 // Client is designed to provide IDL-compatible methods with call-option parameter for kitex framework.
 type Client interface {
 	Login(ctx context.Context, req *system.LoginReq, callOptions ...callopt.Option) (r *system.LoginResp, err error)
+	CreateUser(ctx context.Context, req *system.CreateUserReq, callOptions ...callopt.Option) (r *system.CreateUserResp, err error)
+	CreateRole(ctx context.Context, req *system.CreateRoleReq, callOptions ...callopt.Option) (r *system.CreateRoleResp, err error)
+	CreatePermission(ctx context.Context, req *system.CreatePermissionReq, callOptions ...callopt.Option) (r *system.CreatePermissionResp, err error)
+	SetUserRole(ctx context.Context, req *system.SetUserRoleReq, callOptions ...callopt.Option) (r *system.SetUserRoleResp, err error)
+	SetRolePermission(ctx context.Context, req *system.SetRolePermissionReq, callOptions ...callopt.Option) (r *system.SetRolePermissionResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -46,4 +51,29 @@ type kSystemserviceClient struct {
 func (p *kSystemserviceClient) Login(ctx context.Context, req *system.LoginReq, callOptions ...callopt.Option) (r *system.LoginResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.Login(ctx, req)
+}
+
+func (p *kSystemserviceClient) CreateUser(ctx context.Context, req *system.CreateUserReq, callOptions ...callopt.Option) (r *system.CreateUserResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.CreateUser(ctx, req)
+}
+
+func (p *kSystemserviceClient) CreateRole(ctx context.Context, req *system.CreateRoleReq, callOptions ...callopt.Option) (r *system.CreateRoleResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.CreateRole(ctx, req)
+}
+
+func (p *kSystemserviceClient) CreatePermission(ctx context.Context, req *system.CreatePermissionReq, callOptions ...callopt.Option) (r *system.CreatePermissionResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.CreatePermission(ctx, req)
+}
+
+func (p *kSystemserviceClient) SetUserRole(ctx context.Context, req *system.SetUserRoleReq, callOptions ...callopt.Option) (r *system.SetUserRoleResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.SetUserRole(ctx, req)
+}
+
+func (p *kSystemserviceClient) SetRolePermission(ctx context.Context, req *system.SetRolePermissionReq, callOptions ...callopt.Option) (r *system.SetRolePermissionResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.SetRolePermission(ctx, req)
 }

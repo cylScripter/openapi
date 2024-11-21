@@ -20,6 +20,41 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"CreateUser": kitex.NewMethodInfo(
+		createUserHandler,
+		newSystemserviceCreateUserArgs,
+		newSystemserviceCreateUserResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"CreateRole": kitex.NewMethodInfo(
+		createRoleHandler,
+		newSystemserviceCreateRoleArgs,
+		newSystemserviceCreateRoleResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"CreatePermission": kitex.NewMethodInfo(
+		createPermissionHandler,
+		newSystemserviceCreatePermissionArgs,
+		newSystemserviceCreatePermissionResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"SetUserRole": kitex.NewMethodInfo(
+		setUserRoleHandler,
+		newSystemserviceSetUserRoleArgs,
+		newSystemserviceSetUserRoleResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"SetRolePermission": kitex.NewMethodInfo(
+		setRolePermissionHandler,
+		newSystemserviceSetRolePermissionArgs,
+		newSystemserviceSetRolePermissionResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -104,6 +139,96 @@ func newSystemserviceLoginResult() interface{} {
 	return system.NewSystemserviceLoginResult()
 }
 
+func createUserHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*system.SystemserviceCreateUserArgs)
+	realResult := result.(*system.SystemserviceCreateUserResult)
+	success, err := handler.(system.Systemservice).CreateUser(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newSystemserviceCreateUserArgs() interface{} {
+	return system.NewSystemserviceCreateUserArgs()
+}
+
+func newSystemserviceCreateUserResult() interface{} {
+	return system.NewSystemserviceCreateUserResult()
+}
+
+func createRoleHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*system.SystemserviceCreateRoleArgs)
+	realResult := result.(*system.SystemserviceCreateRoleResult)
+	success, err := handler.(system.Systemservice).CreateRole(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newSystemserviceCreateRoleArgs() interface{} {
+	return system.NewSystemserviceCreateRoleArgs()
+}
+
+func newSystemserviceCreateRoleResult() interface{} {
+	return system.NewSystemserviceCreateRoleResult()
+}
+
+func createPermissionHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*system.SystemserviceCreatePermissionArgs)
+	realResult := result.(*system.SystemserviceCreatePermissionResult)
+	success, err := handler.(system.Systemservice).CreatePermission(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newSystemserviceCreatePermissionArgs() interface{} {
+	return system.NewSystemserviceCreatePermissionArgs()
+}
+
+func newSystemserviceCreatePermissionResult() interface{} {
+	return system.NewSystemserviceCreatePermissionResult()
+}
+
+func setUserRoleHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*system.SystemserviceSetUserRoleArgs)
+	realResult := result.(*system.SystemserviceSetUserRoleResult)
+	success, err := handler.(system.Systemservice).SetUserRole(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newSystemserviceSetUserRoleArgs() interface{} {
+	return system.NewSystemserviceSetUserRoleArgs()
+}
+
+func newSystemserviceSetUserRoleResult() interface{} {
+	return system.NewSystemserviceSetUserRoleResult()
+}
+
+func setRolePermissionHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*system.SystemserviceSetRolePermissionArgs)
+	realResult := result.(*system.SystemserviceSetRolePermissionResult)
+	success, err := handler.(system.Systemservice).SetRolePermission(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newSystemserviceSetRolePermissionArgs() interface{} {
+	return system.NewSystemserviceSetRolePermissionArgs()
+}
+
+func newSystemserviceSetRolePermissionResult() interface{} {
+	return system.NewSystemserviceSetRolePermissionResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -119,6 +244,56 @@ func (p *kClient) Login(ctx context.Context, req *system.LoginReq) (r *system.Lo
 	_args.Req = req
 	var _result system.SystemserviceLoginResult
 	if err = p.c.Call(ctx, "Login", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) CreateUser(ctx context.Context, req *system.CreateUserReq) (r *system.CreateUserResp, err error) {
+	var _args system.SystemserviceCreateUserArgs
+	_args.Req = req
+	var _result system.SystemserviceCreateUserResult
+	if err = p.c.Call(ctx, "CreateUser", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) CreateRole(ctx context.Context, req *system.CreateRoleReq) (r *system.CreateRoleResp, err error) {
+	var _args system.SystemserviceCreateRoleArgs
+	_args.Req = req
+	var _result system.SystemserviceCreateRoleResult
+	if err = p.c.Call(ctx, "CreateRole", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) CreatePermission(ctx context.Context, req *system.CreatePermissionReq) (r *system.CreatePermissionResp, err error) {
+	var _args system.SystemserviceCreatePermissionArgs
+	_args.Req = req
+	var _result system.SystemserviceCreatePermissionResult
+	if err = p.c.Call(ctx, "CreatePermission", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) SetUserRole(ctx context.Context, req *system.SetUserRoleReq) (r *system.SetUserRoleResp, err error) {
+	var _args system.SystemserviceSetUserRoleArgs
+	_args.Req = req
+	var _result system.SystemserviceSetUserRoleResult
+	if err = p.c.Call(ctx, "SetUserRole", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) SetRolePermission(ctx context.Context, req *system.SetRolePermissionReq) (r *system.SetRolePermissionResp, err error) {
+	var _args system.SystemserviceSetRolePermissionArgs
+	_args.Req = req
+	var _result system.SystemserviceSetRolePermissionResult
+	if err = p.c.Call(ctx, "SetRolePermission", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
