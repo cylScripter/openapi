@@ -2495,7 +2495,7 @@ func (p *CreateUserReq) FastRead(buf []byte) (int, error) {
 				}
 			}
 		case 6:
-			if fieldTypeId == thrift.I32 {
+			if fieldTypeId == thrift.STRING {
 				l, err = p.FastReadField6(buf[offset:])
 				offset += l
 				if err != nil {
@@ -2509,7 +2509,7 @@ func (p *CreateUserReq) FastRead(buf []byte) (int, error) {
 				}
 			}
 		case 7:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.I32 {
 				l, err = p.FastReadField7(buf[offset:])
 				offset += l
 				if err != nil {
@@ -2550,7 +2550,7 @@ func (p *CreateUserReq) FastReadField1(buf []byte) (int, error) {
 		offset += l
 		_field = v
 	}
-	p.Password = _field
+	p.UserId = _field
 	return offset, nil
 }
 
@@ -2564,7 +2564,7 @@ func (p *CreateUserReq) FastReadField2(buf []byte) (int, error) {
 		offset += l
 		_field = v
 	}
-	p.Mobile = _field
+	p.Password = _field
 	return offset, nil
 }
 
@@ -2578,7 +2578,7 @@ func (p *CreateUserReq) FastReadField3(buf []byte) (int, error) {
 		offset += l
 		_field = v
 	}
-	p.Email = _field
+	p.Mobile = _field
 	return offset, nil
 }
 
@@ -2592,7 +2592,7 @@ func (p *CreateUserReq) FastReadField4(buf []byte) (int, error) {
 		offset += l
 		_field = v
 	}
-	p.Nickname = _field
+	p.Email = _field
 	return offset, nil
 }
 
@@ -2606,11 +2606,25 @@ func (p *CreateUserReq) FastReadField5(buf []byte) (int, error) {
 		offset += l
 		_field = v
 	}
-	p.Avatar = _field
+	p.Nickname = _field
 	return offset, nil
 }
 
 func (p *CreateUserReq) FastReadField6(buf []byte) (int, error) {
+	offset := 0
+
+	var _field string
+	if v, l, err := thrift.Binary.ReadString(buf[offset:]); err != nil {
+		return offset, err
+	} else {
+		offset += l
+		_field = v
+	}
+	p.Avatar = _field
+	return offset, nil
+}
+
+func (p *CreateUserReq) FastReadField7(buf []byte) (int, error) {
 	offset := 0
 
 	var _field int32
@@ -2624,20 +2638,6 @@ func (p *CreateUserReq) FastReadField6(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *CreateUserReq) FastReadField7(buf []byte) (int, error) {
-	offset := 0
-
-	var _field string
-	if v, l, err := thrift.Binary.ReadString(buf[offset:]); err != nil {
-		return offset, err
-	} else {
-		offset += l
-		_field = v
-	}
-	p.UserId = _field
-	return offset, nil
-}
-
 // for compatibility
 func (p *CreateUserReq) FastWrite(buf []byte) int {
 	return 0
@@ -2646,13 +2646,13 @@ func (p *CreateUserReq) FastWrite(buf []byte) int {
 func (p *CreateUserReq) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p != nil {
-		offset += p.fastWriteField6(buf[offset:], w)
+		offset += p.fastWriteField7(buf[offset:], w)
 		offset += p.fastWriteField1(buf[offset:], w)
 		offset += p.fastWriteField2(buf[offset:], w)
 		offset += p.fastWriteField3(buf[offset:], w)
 		offset += p.fastWriteField4(buf[offset:], w)
 		offset += p.fastWriteField5(buf[offset:], w)
-		offset += p.fastWriteField7(buf[offset:], w)
+		offset += p.fastWriteField6(buf[offset:], w)
 	}
 	offset += thrift.Binary.WriteFieldStop(buf[offset:])
 	return offset
@@ -2676,98 +2676,98 @@ func (p *CreateUserReq) BLength() int {
 func (p *CreateUserReq) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 1)
-	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.Password)
+	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.UserId)
 	return offset
 }
 
 func (p *CreateUserReq) fastWriteField2(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 2)
-	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.Mobile)
+	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.Password)
 	return offset
 }
 
 func (p *CreateUserReq) fastWriteField3(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 3)
-	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.Email)
+	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.Mobile)
 	return offset
 }
 
 func (p *CreateUserReq) fastWriteField4(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 4)
-	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.Nickname)
+	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.Email)
 	return offset
 }
 
 func (p *CreateUserReq) fastWriteField5(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 5)
-	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.Avatar)
+	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.Nickname)
 	return offset
 }
 
 func (p *CreateUserReq) fastWriteField6(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
-	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 6)
-	offset += thrift.Binary.WriteI32(buf[offset:], p.RoleId)
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 6)
+	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.Avatar)
 	return offset
 }
 
 func (p *CreateUserReq) fastWriteField7(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
-	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 7)
-	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.UserId)
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 7)
+	offset += thrift.Binary.WriteI32(buf[offset:], p.RoleId)
 	return offset
 }
 
 func (p *CreateUserReq) field1Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.StringLengthNocopy(p.Password)
+	l += thrift.Binary.StringLengthNocopy(p.UserId)
 	return l
 }
 
 func (p *CreateUserReq) field2Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.StringLengthNocopy(p.Mobile)
+	l += thrift.Binary.StringLengthNocopy(p.Password)
 	return l
 }
 
 func (p *CreateUserReq) field3Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.StringLengthNocopy(p.Email)
+	l += thrift.Binary.StringLengthNocopy(p.Mobile)
 	return l
 }
 
 func (p *CreateUserReq) field4Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.StringLengthNocopy(p.Nickname)
+	l += thrift.Binary.StringLengthNocopy(p.Email)
 	return l
 }
 
 func (p *CreateUserReq) field5Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.StringLengthNocopy(p.Avatar)
+	l += thrift.Binary.StringLengthNocopy(p.Nickname)
 	return l
 }
 
 func (p *CreateUserReq) field6Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.I32Length()
+	l += thrift.Binary.StringLengthNocopy(p.Avatar)
 	return l
 }
 
 func (p *CreateUserReq) field7Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.StringLengthNocopy(p.UserId)
+	l += thrift.Binary.I32Length()
 	return l
 }
 

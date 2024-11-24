@@ -3485,13 +3485,13 @@ func (p *LoginResp) Field2DeepEqual(src *ModelUser) bool {
 }
 
 type CreateUserReq struct {
-	Password string `thrift:"password,1" frugal:"1,default,string" json:"password" binding:"required"`
-	Mobile   string `thrift:"mobile,2" frugal:"2,default,string" json:"mobile" binding:"required"`
-	Email    string `thrift:"email,3" frugal:"3,default,string" json:"email"`
-	Nickname string `thrift:"nickname,4" frugal:"4,default,string" json:"nickname"`
-	Avatar   string `thrift:"avatar,5" frugal:"5,default,string" json:"avatar"`
-	RoleId   int32  `thrift:"role_id,6" frugal:"6,default,i32" json:"role_id"`
-	UserId   string `thrift:"user_id,7" frugal:"7,default,string" json:"user_id" binding:"required"`
+	UserId   string `thrift:"user_id,1" frugal:"1,default,string" json:"user_id" binding:"required"`
+	Password string `thrift:"password,2" frugal:"2,default,string" json:"password" binding:"required"`
+	Mobile   string `thrift:"mobile,3" frugal:"3,default,string" json:"mobile" binding:"required"`
+	Email    string `thrift:"email,4" frugal:"4,default,string" json:"email"`
+	Nickname string `thrift:"nickname,5" frugal:"5,default,string" json:"nickname"`
+	Avatar   string `thrift:"avatar,6" frugal:"6,default,string" json:"avatar"`
+	RoleId   int32  `thrift:"role_id,7" frugal:"7,default,i32" json:"role_id"`
 }
 
 func NewCreateUserReq() *CreateUserReq {
@@ -3499,6 +3499,10 @@ func NewCreateUserReq() *CreateUserReq {
 }
 
 func (p *CreateUserReq) InitDefault() {
+}
+
+func (p *CreateUserReq) GetUserId() (v string) {
+	return p.UserId
 }
 
 func (p *CreateUserReq) GetPassword() (v string) {
@@ -3524,9 +3528,8 @@ func (p *CreateUserReq) GetAvatar() (v string) {
 func (p *CreateUserReq) GetRoleId() (v int32) {
 	return p.RoleId
 }
-
-func (p *CreateUserReq) GetUserId() (v string) {
-	return p.UserId
+func (p *CreateUserReq) SetUserId(val string) {
+	p.UserId = val
 }
 func (p *CreateUserReq) SetPassword(val string) {
 	p.Password = val
@@ -3546,18 +3549,15 @@ func (p *CreateUserReq) SetAvatar(val string) {
 func (p *CreateUserReq) SetRoleId(val int32) {
 	p.RoleId = val
 }
-func (p *CreateUserReq) SetUserId(val string) {
-	p.UserId = val
-}
 
 var fieldIDToName_CreateUserReq = map[int16]string{
-	1: "password",
-	2: "mobile",
-	3: "email",
-	4: "nickname",
-	5: "avatar",
-	6: "role_id",
-	7: "user_id",
+	1: "user_id",
+	2: "password",
+	3: "mobile",
+	4: "email",
+	5: "nickname",
+	6: "avatar",
+	7: "role_id",
 }
 
 func (p *CreateUserReq) Read(iprot thrift.TProtocol) (err error) {
@@ -3620,7 +3620,7 @@ func (p *CreateUserReq) Read(iprot thrift.TProtocol) (err error) {
 				goto SkipFieldError
 			}
 		case 6:
-			if fieldTypeId == thrift.I32 {
+			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField6(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -3628,7 +3628,7 @@ func (p *CreateUserReq) Read(iprot thrift.TProtocol) (err error) {
 				goto SkipFieldError
 			}
 		case 7:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.I32 {
 				if err = p.ReadField7(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -3672,7 +3672,7 @@ func (p *CreateUserReq) ReadField1(iprot thrift.TProtocol) error {
 	} else {
 		_field = v
 	}
-	p.Password = _field
+	p.UserId = _field
 	return nil
 }
 func (p *CreateUserReq) ReadField2(iprot thrift.TProtocol) error {
@@ -3683,7 +3683,7 @@ func (p *CreateUserReq) ReadField2(iprot thrift.TProtocol) error {
 	} else {
 		_field = v
 	}
-	p.Mobile = _field
+	p.Password = _field
 	return nil
 }
 func (p *CreateUserReq) ReadField3(iprot thrift.TProtocol) error {
@@ -3694,7 +3694,7 @@ func (p *CreateUserReq) ReadField3(iprot thrift.TProtocol) error {
 	} else {
 		_field = v
 	}
-	p.Email = _field
+	p.Mobile = _field
 	return nil
 }
 func (p *CreateUserReq) ReadField4(iprot thrift.TProtocol) error {
@@ -3705,7 +3705,7 @@ func (p *CreateUserReq) ReadField4(iprot thrift.TProtocol) error {
 	} else {
 		_field = v
 	}
-	p.Nickname = _field
+	p.Email = _field
 	return nil
 }
 func (p *CreateUserReq) ReadField5(iprot thrift.TProtocol) error {
@@ -3716,10 +3716,21 @@ func (p *CreateUserReq) ReadField5(iprot thrift.TProtocol) error {
 	} else {
 		_field = v
 	}
-	p.Avatar = _field
+	p.Nickname = _field
 	return nil
 }
 func (p *CreateUserReq) ReadField6(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Avatar = _field
+	return nil
+}
+func (p *CreateUserReq) ReadField7(iprot thrift.TProtocol) error {
 
 	var _field int32
 	if v, err := iprot.ReadI32(); err != nil {
@@ -3728,17 +3739,6 @@ func (p *CreateUserReq) ReadField6(iprot thrift.TProtocol) error {
 		_field = v
 	}
 	p.RoleId = _field
-	return nil
-}
-func (p *CreateUserReq) ReadField7(iprot thrift.TProtocol) error {
-
-	var _field string
-	if v, err := iprot.ReadString(); err != nil {
-		return err
-	} else {
-		_field = v
-	}
-	p.UserId = _field
 	return nil
 }
 
@@ -3795,10 +3795,10 @@ WriteStructEndError:
 }
 
 func (p *CreateUserReq) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("password", thrift.STRING, 1); err != nil {
+	if err = oprot.WriteFieldBegin("user_id", thrift.STRING, 1); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.Password); err != nil {
+	if err := oprot.WriteString(p.UserId); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -3812,10 +3812,10 @@ WriteFieldEndError:
 }
 
 func (p *CreateUserReq) writeField2(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("mobile", thrift.STRING, 2); err != nil {
+	if err = oprot.WriteFieldBegin("password", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.Mobile); err != nil {
+	if err := oprot.WriteString(p.Password); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -3829,10 +3829,10 @@ WriteFieldEndError:
 }
 
 func (p *CreateUserReq) writeField3(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("email", thrift.STRING, 3); err != nil {
+	if err = oprot.WriteFieldBegin("mobile", thrift.STRING, 3); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.Email); err != nil {
+	if err := oprot.WriteString(p.Mobile); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -3846,10 +3846,10 @@ WriteFieldEndError:
 }
 
 func (p *CreateUserReq) writeField4(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("nickname", thrift.STRING, 4); err != nil {
+	if err = oprot.WriteFieldBegin("email", thrift.STRING, 4); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.Nickname); err != nil {
+	if err := oprot.WriteString(p.Email); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -3863,10 +3863,10 @@ WriteFieldEndError:
 }
 
 func (p *CreateUserReq) writeField5(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("avatar", thrift.STRING, 5); err != nil {
+	if err = oprot.WriteFieldBegin("nickname", thrift.STRING, 5); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.Avatar); err != nil {
+	if err := oprot.WriteString(p.Nickname); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -3880,10 +3880,10 @@ WriteFieldEndError:
 }
 
 func (p *CreateUserReq) writeField6(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("role_id", thrift.I32, 6); err != nil {
+	if err = oprot.WriteFieldBegin("avatar", thrift.STRING, 6); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteI32(p.RoleId); err != nil {
+	if err := oprot.WriteString(p.Avatar); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -3897,10 +3897,10 @@ WriteFieldEndError:
 }
 
 func (p *CreateUserReq) writeField7(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("user_id", thrift.STRING, 7); err != nil {
+	if err = oprot.WriteFieldBegin("role_id", thrift.I32, 7); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.UserId); err != nil {
+	if err := oprot.WriteI32(p.RoleId); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -3927,25 +3927,25 @@ func (p *CreateUserReq) DeepEqual(ano *CreateUserReq) bool {
 	} else if p == nil || ano == nil {
 		return false
 	}
-	if !p.Field1DeepEqual(ano.Password) {
+	if !p.Field1DeepEqual(ano.UserId) {
 		return false
 	}
-	if !p.Field2DeepEqual(ano.Mobile) {
+	if !p.Field2DeepEqual(ano.Password) {
 		return false
 	}
-	if !p.Field3DeepEqual(ano.Email) {
+	if !p.Field3DeepEqual(ano.Mobile) {
 		return false
 	}
-	if !p.Field4DeepEqual(ano.Nickname) {
+	if !p.Field4DeepEqual(ano.Email) {
 		return false
 	}
-	if !p.Field5DeepEqual(ano.Avatar) {
+	if !p.Field5DeepEqual(ano.Nickname) {
 		return false
 	}
-	if !p.Field6DeepEqual(ano.RoleId) {
+	if !p.Field6DeepEqual(ano.Avatar) {
 		return false
 	}
-	if !p.Field7DeepEqual(ano.UserId) {
+	if !p.Field7DeepEqual(ano.RoleId) {
 		return false
 	}
 	return true
@@ -3953,49 +3953,49 @@ func (p *CreateUserReq) DeepEqual(ano *CreateUserReq) bool {
 
 func (p *CreateUserReq) Field1DeepEqual(src string) bool {
 
-	if strings.Compare(p.Password, src) != 0 {
+	if strings.Compare(p.UserId, src) != 0 {
 		return false
 	}
 	return true
 }
 func (p *CreateUserReq) Field2DeepEqual(src string) bool {
 
-	if strings.Compare(p.Mobile, src) != 0 {
+	if strings.Compare(p.Password, src) != 0 {
 		return false
 	}
 	return true
 }
 func (p *CreateUserReq) Field3DeepEqual(src string) bool {
 
-	if strings.Compare(p.Email, src) != 0 {
+	if strings.Compare(p.Mobile, src) != 0 {
 		return false
 	}
 	return true
 }
 func (p *CreateUserReq) Field4DeepEqual(src string) bool {
 
-	if strings.Compare(p.Nickname, src) != 0 {
+	if strings.Compare(p.Email, src) != 0 {
 		return false
 	}
 	return true
 }
 func (p *CreateUserReq) Field5DeepEqual(src string) bool {
 
+	if strings.Compare(p.Nickname, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *CreateUserReq) Field6DeepEqual(src string) bool {
+
 	if strings.Compare(p.Avatar, src) != 0 {
 		return false
 	}
 	return true
 }
-func (p *CreateUserReq) Field6DeepEqual(src int32) bool {
+func (p *CreateUserReq) Field7DeepEqual(src int32) bool {
 
 	if p.RoleId != src {
-		return false
-	}
-	return true
-}
-func (p *CreateUserReq) Field7DeepEqual(src string) bool {
-
-	if strings.Compare(p.UserId, src) != 0 {
 		return false
 	}
 	return true
