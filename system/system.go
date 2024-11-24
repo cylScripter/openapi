@@ -4953,8 +4953,8 @@ func (p *CreatePermissionResp) Field1DeepEqual(src *ModelPermission) bool {
 }
 
 type SetUserRoleReq struct {
-	UserId string `thrift:"user_id,1" frugal:"1,default,string" json:"user_id" binding:"required"`
-	RoleId string `thrift:"role_id,2" frugal:"2,default,string" json:"role_id" binding:"required"`
+	UserId int32   `thrift:"user_id,1" frugal:"1,default,i32" json:"user_id" binding:"required"`
+	RoleId []int32 `thrift:"role_id,2" frugal:"2,default,list<i32>" json:"role_id" binding:"required"`
 }
 
 func NewSetUserRoleReq() *SetUserRoleReq {
@@ -4964,17 +4964,17 @@ func NewSetUserRoleReq() *SetUserRoleReq {
 func (p *SetUserRoleReq) InitDefault() {
 }
 
-func (p *SetUserRoleReq) GetUserId() (v string) {
+func (p *SetUserRoleReq) GetUserId() (v int32) {
 	return p.UserId
 }
 
-func (p *SetUserRoleReq) GetRoleId() (v string) {
+func (p *SetUserRoleReq) GetRoleId() (v []int32) {
 	return p.RoleId
 }
-func (p *SetUserRoleReq) SetUserId(val string) {
+func (p *SetUserRoleReq) SetUserId(val int32) {
 	p.UserId = val
 }
-func (p *SetUserRoleReq) SetRoleId(val string) {
+func (p *SetUserRoleReq) SetRoleId(val []int32) {
 	p.RoleId = val
 }
 
@@ -5003,7 +5003,7 @@ func (p *SetUserRoleReq) Read(iprot thrift.TProtocol) (err error) {
 
 		switch fieldId {
 		case 1:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.I32 {
 				if err = p.ReadField1(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -5011,7 +5011,7 @@ func (p *SetUserRoleReq) Read(iprot thrift.TProtocol) (err error) {
 				goto SkipFieldError
 			}
 		case 2:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.LIST {
 				if err = p.ReadField2(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -5049,8 +5049,8 @@ ReadStructEndError:
 
 func (p *SetUserRoleReq) ReadField1(iprot thrift.TProtocol) error {
 
-	var _field string
-	if v, err := iprot.ReadString(); err != nil {
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
 		return err
 	} else {
 		_field = v
@@ -5059,12 +5059,24 @@ func (p *SetUserRoleReq) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 func (p *SetUserRoleReq) ReadField2(iprot thrift.TProtocol) error {
-
-	var _field string
-	if v, err := iprot.ReadString(); err != nil {
+	_, size, err := iprot.ReadListBegin()
+	if err != nil {
 		return err
-	} else {
-		_field = v
+	}
+	_field := make([]int32, 0, size)
+	for i := 0; i < size; i++ {
+
+		var _elem int32
+		if v, err := iprot.ReadI32(); err != nil {
+			return err
+		} else {
+			_elem = v
+		}
+
+		_field = append(_field, _elem)
+	}
+	if err := iprot.ReadListEnd(); err != nil {
+		return err
 	}
 	p.RoleId = _field
 	return nil
@@ -5103,10 +5115,10 @@ WriteStructEndError:
 }
 
 func (p *SetUserRoleReq) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("user_id", thrift.STRING, 1); err != nil {
+	if err = oprot.WriteFieldBegin("user_id", thrift.I32, 1); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.UserId); err != nil {
+	if err := oprot.WriteI32(p.UserId); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -5120,10 +5132,18 @@ WriteFieldEndError:
 }
 
 func (p *SetUserRoleReq) writeField2(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("role_id", thrift.STRING, 2); err != nil {
+	if err = oprot.WriteFieldBegin("role_id", thrift.LIST, 2); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.RoleId); err != nil {
+	if err := oprot.WriteListBegin(thrift.I32, len(p.RoleId)); err != nil {
+		return err
+	}
+	for _, v := range p.RoleId {
+		if err := oprot.WriteI32(v); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteListEnd(); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -5159,23 +5179,28 @@ func (p *SetUserRoleReq) DeepEqual(ano *SetUserRoleReq) bool {
 	return true
 }
 
-func (p *SetUserRoleReq) Field1DeepEqual(src string) bool {
+func (p *SetUserRoleReq) Field1DeepEqual(src int32) bool {
 
-	if strings.Compare(p.UserId, src) != 0 {
+	if p.UserId != src {
 		return false
 	}
 	return true
 }
-func (p *SetUserRoleReq) Field2DeepEqual(src string) bool {
+func (p *SetUserRoleReq) Field2DeepEqual(src []int32) bool {
 
-	if strings.Compare(p.RoleId, src) != 0 {
+	if len(p.RoleId) != len(src) {
 		return false
+	}
+	for i, v := range p.RoleId {
+		_src := src[i]
+		if v != _src {
+			return false
+		}
 	}
 	return true
 }
 
 type SetUserRoleResp struct {
-	UserRole *ModelUserRole `thrift:"user_role,1" frugal:"1,default,ModelUserRole" json:"user_role"`
 }
 
 func NewSetUserRoleResp() *SetUserRoleResp {
@@ -5185,25 +5210,7 @@ func NewSetUserRoleResp() *SetUserRoleResp {
 func (p *SetUserRoleResp) InitDefault() {
 }
 
-var SetUserRoleResp_UserRole_DEFAULT *ModelUserRole
-
-func (p *SetUserRoleResp) GetUserRole() (v *ModelUserRole) {
-	if !p.IsSetUserRole() {
-		return SetUserRoleResp_UserRole_DEFAULT
-	}
-	return p.UserRole
-}
-func (p *SetUserRoleResp) SetUserRole(val *ModelUserRole) {
-	p.UserRole = val
-}
-
-var fieldIDToName_SetUserRoleResp = map[int16]string{
-	1: "user_role",
-}
-
-func (p *SetUserRoleResp) IsSetUserRole() bool {
-	return p.UserRole != nil
-}
+var fieldIDToName_SetUserRoleResp = map[int16]string{}
 
 func (p *SetUserRoleResp) Read(iprot thrift.TProtocol) (err error) {
 
@@ -5222,20 +5229,8 @@ func (p *SetUserRoleResp) Read(iprot thrift.TProtocol) (err error) {
 		if fieldTypeId == thrift.STOP {
 			break
 		}
-
-		switch fieldId {
-		case 1:
-			if fieldTypeId == thrift.STRUCT {
-				if err = p.ReadField1(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		default:
-			if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
+		if err = iprot.Skip(fieldTypeId); err != nil {
+			goto SkipFieldTypeError
 		}
 		if err = iprot.ReadFieldEnd(); err != nil {
 			goto ReadFieldEndError
@@ -5250,10 +5245,8 @@ ReadStructBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
-ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_SetUserRoleResp[fieldId]), err)
-SkipFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+SkipFieldTypeError:
+	return thrift.PrependError(fmt.Sprintf("%T skip field type %d error", p, fieldTypeId), err)
 
 ReadFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
@@ -5261,25 +5254,11 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *SetUserRoleResp) ReadField1(iprot thrift.TProtocol) error {
-	_field := NewModelUserRole()
-	if err := _field.Read(iprot); err != nil {
-		return err
-	}
-	p.UserRole = _field
-	return nil
-}
-
 func (p *SetUserRoleResp) Write(oprot thrift.TProtocol) (err error) {
-	var fieldId int16
 	if err = oprot.WriteStructBegin("SetUserRoleResp"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
-		if err = p.writeField1(oprot); err != nil {
-			fieldId = 1
-			goto WriteFieldError
-		}
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -5290,29 +5269,10 @@ func (p *SetUserRoleResp) Write(oprot thrift.TProtocol) (err error) {
 	return nil
 WriteStructBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
-WriteFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
 WriteFieldStopError:
 	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
 WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
-}
-
-func (p *SetUserRoleResp) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("user_role", thrift.STRUCT, 1); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := p.UserRole.Write(oprot); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
 func (p *SetUserRoleResp) String() string {
@@ -5329,23 +5289,12 @@ func (p *SetUserRoleResp) DeepEqual(ano *SetUserRoleResp) bool {
 	} else if p == nil || ano == nil {
 		return false
 	}
-	if !p.Field1DeepEqual(ano.UserRole) {
-		return false
-	}
-	return true
-}
-
-func (p *SetUserRoleResp) Field1DeepEqual(src *ModelUserRole) bool {
-
-	if !p.UserRole.DeepEqual(src) {
-		return false
-	}
 	return true
 }
 
 type SetRolePermissionReq struct {
-	RoleId       string `thrift:"role_id,1" frugal:"1,default,string" json:"role_id" binding:"required"`
-	PermissionId string `thrift:"permission_id,2" frugal:"2,default,string" json:"permission_id" binding:"required"`
+	RoleId       int32   `thrift:"role_id,1" frugal:"1,default,i32" json:"role_id" binding:"required"`
+	PermissionId []int32 `thrift:"permission_id,2" frugal:"2,default,list<i32>" json:"permission_id" binding:"required"`
 }
 
 func NewSetRolePermissionReq() *SetRolePermissionReq {
@@ -5355,17 +5304,17 @@ func NewSetRolePermissionReq() *SetRolePermissionReq {
 func (p *SetRolePermissionReq) InitDefault() {
 }
 
-func (p *SetRolePermissionReq) GetRoleId() (v string) {
+func (p *SetRolePermissionReq) GetRoleId() (v int32) {
 	return p.RoleId
 }
 
-func (p *SetRolePermissionReq) GetPermissionId() (v string) {
+func (p *SetRolePermissionReq) GetPermissionId() (v []int32) {
 	return p.PermissionId
 }
-func (p *SetRolePermissionReq) SetRoleId(val string) {
+func (p *SetRolePermissionReq) SetRoleId(val int32) {
 	p.RoleId = val
 }
-func (p *SetRolePermissionReq) SetPermissionId(val string) {
+func (p *SetRolePermissionReq) SetPermissionId(val []int32) {
 	p.PermissionId = val
 }
 
@@ -5394,7 +5343,7 @@ func (p *SetRolePermissionReq) Read(iprot thrift.TProtocol) (err error) {
 
 		switch fieldId {
 		case 1:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.I32 {
 				if err = p.ReadField1(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -5402,7 +5351,7 @@ func (p *SetRolePermissionReq) Read(iprot thrift.TProtocol) (err error) {
 				goto SkipFieldError
 			}
 		case 2:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.LIST {
 				if err = p.ReadField2(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -5440,8 +5389,8 @@ ReadStructEndError:
 
 func (p *SetRolePermissionReq) ReadField1(iprot thrift.TProtocol) error {
 
-	var _field string
-	if v, err := iprot.ReadString(); err != nil {
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
 		return err
 	} else {
 		_field = v
@@ -5450,12 +5399,24 @@ func (p *SetRolePermissionReq) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 func (p *SetRolePermissionReq) ReadField2(iprot thrift.TProtocol) error {
-
-	var _field string
-	if v, err := iprot.ReadString(); err != nil {
+	_, size, err := iprot.ReadListBegin()
+	if err != nil {
 		return err
-	} else {
-		_field = v
+	}
+	_field := make([]int32, 0, size)
+	for i := 0; i < size; i++ {
+
+		var _elem int32
+		if v, err := iprot.ReadI32(); err != nil {
+			return err
+		} else {
+			_elem = v
+		}
+
+		_field = append(_field, _elem)
+	}
+	if err := iprot.ReadListEnd(); err != nil {
+		return err
 	}
 	p.PermissionId = _field
 	return nil
@@ -5494,10 +5455,10 @@ WriteStructEndError:
 }
 
 func (p *SetRolePermissionReq) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("role_id", thrift.STRING, 1); err != nil {
+	if err = oprot.WriteFieldBegin("role_id", thrift.I32, 1); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.RoleId); err != nil {
+	if err := oprot.WriteI32(p.RoleId); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -5511,10 +5472,18 @@ WriteFieldEndError:
 }
 
 func (p *SetRolePermissionReq) writeField2(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("permission_id", thrift.STRING, 2); err != nil {
+	if err = oprot.WriteFieldBegin("permission_id", thrift.LIST, 2); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.PermissionId); err != nil {
+	if err := oprot.WriteListBegin(thrift.I32, len(p.PermissionId)); err != nil {
+		return err
+	}
+	for _, v := range p.PermissionId {
+		if err := oprot.WriteI32(v); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteListEnd(); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -5550,23 +5519,28 @@ func (p *SetRolePermissionReq) DeepEqual(ano *SetRolePermissionReq) bool {
 	return true
 }
 
-func (p *SetRolePermissionReq) Field1DeepEqual(src string) bool {
+func (p *SetRolePermissionReq) Field1DeepEqual(src int32) bool {
 
-	if strings.Compare(p.RoleId, src) != 0 {
+	if p.RoleId != src {
 		return false
 	}
 	return true
 }
-func (p *SetRolePermissionReq) Field2DeepEqual(src string) bool {
+func (p *SetRolePermissionReq) Field2DeepEqual(src []int32) bool {
 
-	if strings.Compare(p.PermissionId, src) != 0 {
+	if len(p.PermissionId) != len(src) {
 		return false
+	}
+	for i, v := range p.PermissionId {
+		_src := src[i]
+		if v != _src {
+			return false
+		}
 	}
 	return true
 }
 
 type SetRolePermissionResp struct {
-	RolePermission *ModelRolePermission `thrift:"role_permission,1" frugal:"1,default,ModelRolePermission" json:"role_permission"`
 }
 
 func NewSetRolePermissionResp() *SetRolePermissionResp {
@@ -5576,25 +5550,7 @@ func NewSetRolePermissionResp() *SetRolePermissionResp {
 func (p *SetRolePermissionResp) InitDefault() {
 }
 
-var SetRolePermissionResp_RolePermission_DEFAULT *ModelRolePermission
-
-func (p *SetRolePermissionResp) GetRolePermission() (v *ModelRolePermission) {
-	if !p.IsSetRolePermission() {
-		return SetRolePermissionResp_RolePermission_DEFAULT
-	}
-	return p.RolePermission
-}
-func (p *SetRolePermissionResp) SetRolePermission(val *ModelRolePermission) {
-	p.RolePermission = val
-}
-
-var fieldIDToName_SetRolePermissionResp = map[int16]string{
-	1: "role_permission",
-}
-
-func (p *SetRolePermissionResp) IsSetRolePermission() bool {
-	return p.RolePermission != nil
-}
+var fieldIDToName_SetRolePermissionResp = map[int16]string{}
 
 func (p *SetRolePermissionResp) Read(iprot thrift.TProtocol) (err error) {
 
@@ -5613,20 +5569,8 @@ func (p *SetRolePermissionResp) Read(iprot thrift.TProtocol) (err error) {
 		if fieldTypeId == thrift.STOP {
 			break
 		}
-
-		switch fieldId {
-		case 1:
-			if fieldTypeId == thrift.STRUCT {
-				if err = p.ReadField1(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		default:
-			if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
+		if err = iprot.Skip(fieldTypeId); err != nil {
+			goto SkipFieldTypeError
 		}
 		if err = iprot.ReadFieldEnd(); err != nil {
 			goto ReadFieldEndError
@@ -5641,10 +5585,8 @@ ReadStructBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
-ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_SetRolePermissionResp[fieldId]), err)
-SkipFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+SkipFieldTypeError:
+	return thrift.PrependError(fmt.Sprintf("%T skip field type %d error", p, fieldTypeId), err)
 
 ReadFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
@@ -5652,25 +5594,11 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *SetRolePermissionResp) ReadField1(iprot thrift.TProtocol) error {
-	_field := NewModelRolePermission()
-	if err := _field.Read(iprot); err != nil {
-		return err
-	}
-	p.RolePermission = _field
-	return nil
-}
-
 func (p *SetRolePermissionResp) Write(oprot thrift.TProtocol) (err error) {
-	var fieldId int16
 	if err = oprot.WriteStructBegin("SetRolePermissionResp"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
-		if err = p.writeField1(oprot); err != nil {
-			fieldId = 1
-			goto WriteFieldError
-		}
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -5681,29 +5609,10 @@ func (p *SetRolePermissionResp) Write(oprot thrift.TProtocol) (err error) {
 	return nil
 WriteStructBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
-WriteFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
 WriteFieldStopError:
 	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
 WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
-}
-
-func (p *SetRolePermissionResp) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("role_permission", thrift.STRUCT, 1); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := p.RolePermission.Write(oprot); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
 func (p *SetRolePermissionResp) String() string {
@@ -5718,17 +5627,6 @@ func (p *SetRolePermissionResp) DeepEqual(ano *SetRolePermissionResp) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
-		return false
-	}
-	if !p.Field1DeepEqual(ano.RolePermission) {
-		return false
-	}
-	return true
-}
-
-func (p *SetRolePermissionResp) Field1DeepEqual(src *ModelRolePermission) bool {
-
-	if !p.RolePermission.DeepEqual(src) {
 		return false
 	}
 	return true
