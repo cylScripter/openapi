@@ -3485,12 +3485,13 @@ func (p *LoginResp) Field2DeepEqual(src *ModelUser) bool {
 }
 
 type CreateUserReq struct {
-	Password string `thrift:"password,1" frugal:"1,default,string" json:"password" format:"password,required"`
-	Mobile   string `thrift:"mobile,2" frugal:"2,default,string" json:"mobile" format:"mobile,required"`
-	Email    string `thrift:"email,3" frugal:"3,default,string" json:"email" format:"email"`
+	Password string `thrift:"password,1" frugal:"1,default,string" json:"password" binding:"required"`
+	Mobile   string `thrift:"mobile,2" frugal:"2,default,string" json:"mobile" binding:"required"`
+	Email    string `thrift:"email,3" frugal:"3,default,string" json:"email"`
 	Nickname string `thrift:"nickname,4" frugal:"4,default,string" json:"nickname"`
 	Avatar   string `thrift:"avatar,5" frugal:"5,default,string" json:"avatar"`
 	RoleId   int32  `thrift:"role_id,6" frugal:"6,default,i32" json:"role_id"`
+	UserId   string `thrift:"user_id,7" frugal:"7,default,string" json:"user_id" binding:"required`
 }
 
 func NewCreateUserReq() *CreateUserReq {
@@ -3523,6 +3524,10 @@ func (p *CreateUserReq) GetAvatar() (v string) {
 func (p *CreateUserReq) GetRoleId() (v int32) {
 	return p.RoleId
 }
+
+func (p *CreateUserReq) GetUserId() (v string) {
+	return p.UserId
+}
 func (p *CreateUserReq) SetPassword(val string) {
 	p.Password = val
 }
@@ -3541,6 +3546,9 @@ func (p *CreateUserReq) SetAvatar(val string) {
 func (p *CreateUserReq) SetRoleId(val int32) {
 	p.RoleId = val
 }
+func (p *CreateUserReq) SetUserId(val string) {
+	p.UserId = val
+}
 
 var fieldIDToName_CreateUserReq = map[int16]string{
 	1: "password",
@@ -3549,6 +3557,7 @@ var fieldIDToName_CreateUserReq = map[int16]string{
 	4: "nickname",
 	5: "avatar",
 	6: "role_id",
+	7: "user_id",
 }
 
 func (p *CreateUserReq) Read(iprot thrift.TProtocol) (err error) {
@@ -3613,6 +3622,14 @@ func (p *CreateUserReq) Read(iprot thrift.TProtocol) (err error) {
 		case 6:
 			if fieldTypeId == thrift.I32 {
 				if err = p.ReadField6(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 7:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField7(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -3713,6 +3730,17 @@ func (p *CreateUserReq) ReadField6(iprot thrift.TProtocol) error {
 	p.RoleId = _field
 	return nil
 }
+func (p *CreateUserReq) ReadField7(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.UserId = _field
+	return nil
+}
 
 func (p *CreateUserReq) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -3742,6 +3770,10 @@ func (p *CreateUserReq) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField6(oprot); err != nil {
 			fieldId = 6
+			goto WriteFieldError
+		}
+		if err = p.writeField7(oprot); err != nil {
+			fieldId = 7
 			goto WriteFieldError
 		}
 	}
@@ -3864,6 +3896,23 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 6 end error: ", p), err)
 }
 
+func (p *CreateUserReq) writeField7(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("user_id", thrift.STRING, 7); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.UserId); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 7 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 7 end error: ", p), err)
+}
+
 func (p *CreateUserReq) String() string {
 	if p == nil {
 		return "<nil>"
@@ -3894,6 +3943,9 @@ func (p *CreateUserReq) DeepEqual(ano *CreateUserReq) bool {
 		return false
 	}
 	if !p.Field6DeepEqual(ano.RoleId) {
+		return false
+	}
+	if !p.Field7DeepEqual(ano.UserId) {
 		return false
 	}
 	return true
@@ -3937,6 +3989,13 @@ func (p *CreateUserReq) Field5DeepEqual(src string) bool {
 func (p *CreateUserReq) Field6DeepEqual(src int32) bool {
 
 	if p.RoleId != src {
+		return false
+	}
+	return true
+}
+func (p *CreateUserReq) Field7DeepEqual(src string) bool {
+
+	if strings.Compare(p.UserId, src) != 0 {
 		return false
 	}
 	return true
@@ -4112,7 +4171,7 @@ func (p *CreateUserResp) Field1DeepEqual(src *ModelUser) bool {
 }
 
 type CreateRoleReq struct {
-	Name        string `thrift:"name,1" frugal:"1,default,string" json:"name"`
+	Name        string `thrift:"name,1" frugal:"1,default,string" json:"name" binding:"required`
 	Description string `thrift:"description,2" frugal:"2,default,string" json:"description"`
 }
 
@@ -4503,7 +4562,7 @@ func (p *CreateRoleResp) Field1DeepEqual(src *ModelRole) bool {
 }
 
 type CreatePermissionReq struct {
-	Name        string `thrift:"name,1" frugal:"1,default,string" json:"name"`
+	Name        string `thrift:"name,1" frugal:"1,default,string" json:"name" binding:"required`
 	Description string `thrift:"description,2" frugal:"2,default,string" json:"description"`
 }
 
@@ -4894,8 +4953,8 @@ func (p *CreatePermissionResp) Field1DeepEqual(src *ModelPermission) bool {
 }
 
 type SetUserRoleReq struct {
-	UserId string `thrift:"user_id,1" frugal:"1,default,string" json:"user_id"`
-	RoleId string `thrift:"role_id,2" frugal:"2,default,string" json:"role_id"`
+	UserId string `thrift:"user_id,1" frugal:"1,default,string" json:"user_id" binding:"required`
+	RoleId string `thrift:"role_id,2" frugal:"2,default,string" json:"role_id" binding:"required`
 }
 
 func NewSetUserRoleReq() *SetUserRoleReq {
@@ -5285,8 +5344,8 @@ func (p *SetUserRoleResp) Field1DeepEqual(src *ModelUserRole) bool {
 }
 
 type SetRolePermissionReq struct {
-	RoleId       string `thrift:"role_id,1" frugal:"1,default,string" json:"role_id"`
-	PermissionId string `thrift:"permission_id,2" frugal:"2,default,string" json:"permission_id"`
+	RoleId       string `thrift:"role_id,1" frugal:"1,default,string" json:"role_id" binding:"required`
+	PermissionId string `thrift:"permission_id,2" frugal:"2,default,string" json:"permission_id" binding:"required`
 }
 
 func NewSetRolePermissionReq() *SetRolePermissionReq {
