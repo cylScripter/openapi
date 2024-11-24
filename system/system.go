@@ -4171,7 +4171,7 @@ func (p *CreateUserResp) Field1DeepEqual(src *ModelUser) bool {
 }
 
 type CreateRoleReq struct {
-	Name        string `thrift:"name,1" frugal:"1,default,string" json:"name" binding:"required`
+	Name        string `thrift:"name,1" frugal:"1,default,string" json:"name" binding:"required"`
 	Description string `thrift:"description,2" frugal:"2,default,string" json:"description"`
 }
 
@@ -4562,7 +4562,7 @@ func (p *CreateRoleResp) Field1DeepEqual(src *ModelRole) bool {
 }
 
 type CreatePermissionReq struct {
-	Name        string `thrift:"name,1" frugal:"1,default,string" json:"name" binding:"required`
+	Name        string `thrift:"name,1" frugal:"1,default,string" json:"name" binding:"required"`
 	Description string `thrift:"description,2" frugal:"2,default,string" json:"description"`
 }
 
@@ -4953,8 +4953,8 @@ func (p *CreatePermissionResp) Field1DeepEqual(src *ModelPermission) bool {
 }
 
 type SetUserRoleReq struct {
-	UserId string `thrift:"user_id,1" frugal:"1,default,string" json:"user_id" binding:"required`
-	RoleId string `thrift:"role_id,2" frugal:"2,default,string" json:"role_id" binding:"required`
+	UserId string `thrift:"user_id,1" frugal:"1,default,string" json:"user_id" binding:"required"`
+	RoleId string `thrift:"role_id,2" frugal:"2,default,string" json:"role_id" binding:"required"`
 }
 
 func NewSetUserRoleReq() *SetUserRoleReq {
@@ -5344,8 +5344,8 @@ func (p *SetUserRoleResp) Field1DeepEqual(src *ModelUserRole) bool {
 }
 
 type SetRolePermissionReq struct {
-	RoleId       string `thrift:"role_id,1" frugal:"1,default,string" json:"role_id" binding:"required`
-	PermissionId string `thrift:"permission_id,2" frugal:"2,default,string" json:"permission_id" binding:"required`
+	RoleId       string `thrift:"role_id,1" frugal:"1,default,string" json:"role_id" binding:"required"`
+	PermissionId string `thrift:"permission_id,2" frugal:"2,default,string" json:"permission_id" binding:"required"`
 }
 
 func NewSetRolePermissionReq() *SetRolePermissionReq {
