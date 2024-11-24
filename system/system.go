@@ -3018,8 +3018,8 @@ func (p *ModelRolePermission) Field6DeepEqual(src string) bool {
 }
 
 type LoginReq struct {
-	UserId   string `thrift:"user_id,1,required" frugal:"1,required,string" json:"user_id,required" format:"email,required"`
-	Password string `thrift:"password,2,required" frugal:"2,required,string" json:"password,required" format:"password,required"`
+	UserId   string `thrift:"user_id,1,required" frugal:"1,required,string" json:"user_id,required" binding:"required"`
+	Password string `thrift:"password,2,required" frugal:"2,required,string" json:"password,required" binding:"required"`
 }
 
 func NewLoginReq() *LoginReq {
@@ -3491,7 +3491,7 @@ type CreateUserReq struct {
 	Nickname string `thrift:"nickname,4" frugal:"4,default,string" json:"nickname"`
 	Avatar   string `thrift:"avatar,5" frugal:"5,default,string" json:"avatar"`
 	RoleId   int32  `thrift:"role_id,6" frugal:"6,default,i32" json:"role_id"`
-	UserId   string `thrift:"user_id,7" frugal:"7,default,string" json:"user_id" binding:"required`
+	UserId   string `thrift:"user_id,7" frugal:"7,default,string" json:"user_id" binding:"required"`
 }
 
 func NewCreateUserReq() *CreateUserReq {
