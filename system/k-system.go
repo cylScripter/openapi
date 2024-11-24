@@ -1133,7 +1133,7 @@ func (p *ModelUserRole) FastRead(buf []byte) (int, error) {
 				}
 			}
 		case 5:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.I32 {
 				l, err = p.FastReadField5(buf[offset:])
 				offset += l
 				if err != nil {
@@ -1147,7 +1147,7 @@ func (p *ModelUserRole) FastRead(buf []byte) (int, error) {
 				}
 			}
 		case 6:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.I32 {
 				l, err = p.FastReadField6(buf[offset:])
 				offset += l
 				if err != nil {
@@ -1237,8 +1237,8 @@ func (p *ModelUserRole) FastReadField4(buf []byte) (int, error) {
 func (p *ModelUserRole) FastReadField5(buf []byte) (int, error) {
 	offset := 0
 
-	var _field string
-	if v, l, err := thrift.Binary.ReadString(buf[offset:]); err != nil {
+	var _field int32
+	if v, l, err := thrift.Binary.ReadI32(buf[offset:]); err != nil {
 		return offset, err
 	} else {
 		offset += l
@@ -1251,8 +1251,8 @@ func (p *ModelUserRole) FastReadField5(buf []byte) (int, error) {
 func (p *ModelUserRole) FastReadField6(buf []byte) (int, error) {
 	offset := 0
 
-	var _field string
-	if v, l, err := thrift.Binary.ReadString(buf[offset:]); err != nil {
+	var _field int32
+	if v, l, err := thrift.Binary.ReadI32(buf[offset:]); err != nil {
 		return offset, err
 	} else {
 		offset += l
@@ -1325,15 +1325,15 @@ func (p *ModelUserRole) fastWriteField4(buf []byte, w thrift.NocopyWriter) int {
 
 func (p *ModelUserRole) fastWriteField5(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
-	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 5)
-	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.UserId)
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 5)
+	offset += thrift.Binary.WriteI32(buf[offset:], p.UserId)
 	return offset
 }
 
 func (p *ModelUserRole) fastWriteField6(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
-	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 6)
-	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.RoleId)
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 6)
+	offset += thrift.Binary.WriteI32(buf[offset:], p.RoleId)
 	return offset
 }
 
@@ -1368,14 +1368,14 @@ func (p *ModelUserRole) field4Length() int {
 func (p *ModelUserRole) field5Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.StringLengthNocopy(p.UserId)
+	l += thrift.Binary.I32Length()
 	return l
 }
 
 func (p *ModelUserRole) field6Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.StringLengthNocopy(p.RoleId)
+	l += thrift.Binary.I32Length()
 	return l
 }
 
@@ -1619,7 +1619,7 @@ func (p *ModelPermission) FastReadField7(buf []byte) (int, error) {
 		offset += l
 		_field = v
 	}
-	p.PermissionId = _field
+	p.StrPermissionId = _field
 	return offset, nil
 }
 
@@ -1719,7 +1719,7 @@ func (p *ModelPermission) fastWriteField6(buf []byte, w thrift.NocopyWriter) int
 func (p *ModelPermission) fastWriteField7(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 7)
-	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.PermissionId)
+	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.StrPermissionId)
 	return offset
 }
 
@@ -1775,7 +1775,7 @@ func (p *ModelPermission) field6Length() int {
 func (p *ModelPermission) field7Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.StringLengthNocopy(p.PermissionId)
+	l += thrift.Binary.StringLengthNocopy(p.StrPermissionId)
 	return l
 }
 
@@ -1859,7 +1859,7 @@ func (p *ModelRolePermission) FastRead(buf []byte) (int, error) {
 				}
 			}
 		case 5:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.I32 {
 				l, err = p.FastReadField5(buf[offset:])
 				offset += l
 				if err != nil {
@@ -1873,7 +1873,7 @@ func (p *ModelRolePermission) FastRead(buf []byte) (int, error) {
 				}
 			}
 		case 6:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.I32 {
 				l, err = p.FastReadField6(buf[offset:])
 				offset += l
 				if err != nil {
@@ -1963,8 +1963,8 @@ func (p *ModelRolePermission) FastReadField4(buf []byte) (int, error) {
 func (p *ModelRolePermission) FastReadField5(buf []byte) (int, error) {
 	offset := 0
 
-	var _field string
-	if v, l, err := thrift.Binary.ReadString(buf[offset:]); err != nil {
+	var _field int32
+	if v, l, err := thrift.Binary.ReadI32(buf[offset:]); err != nil {
 		return offset, err
 	} else {
 		offset += l
@@ -1977,8 +1977,8 @@ func (p *ModelRolePermission) FastReadField5(buf []byte) (int, error) {
 func (p *ModelRolePermission) FastReadField6(buf []byte) (int, error) {
 	offset := 0
 
-	var _field string
-	if v, l, err := thrift.Binary.ReadString(buf[offset:]); err != nil {
+	var _field int32
+	if v, l, err := thrift.Binary.ReadI32(buf[offset:]); err != nil {
 		return offset, err
 	} else {
 		offset += l
@@ -2051,15 +2051,15 @@ func (p *ModelRolePermission) fastWriteField4(buf []byte, w thrift.NocopyWriter)
 
 func (p *ModelRolePermission) fastWriteField5(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
-	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 5)
-	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.RoleId)
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 5)
+	offset += thrift.Binary.WriteI32(buf[offset:], p.RoleId)
 	return offset
 }
 
 func (p *ModelRolePermission) fastWriteField6(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
-	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 6)
-	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.PermissionId)
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 6)
+	offset += thrift.Binary.WriteI32(buf[offset:], p.PermissionId)
 	return offset
 }
 
@@ -2094,14 +2094,14 @@ func (p *ModelRolePermission) field4Length() int {
 func (p *ModelRolePermission) field5Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.StringLengthNocopy(p.RoleId)
+	l += thrift.Binary.I32Length()
 	return l
 }
 
 func (p *ModelRolePermission) field6Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.StringLengthNocopy(p.PermissionId)
+	l += thrift.Binary.I32Length()
 	return l
 }
 

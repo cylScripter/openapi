@@ -1526,12 +1526,12 @@ func (p *ModelRole) Field8DeepEqual(src string) bool {
 }
 
 type ModelUserRole struct {
-	Id        int32  `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
-	CreatedAt int32  `thrift:"created_at,2" frugal:"2,default,i32" json:"created_at"`
-	UpdatedAt int32  `thrift:"updated_at,3" frugal:"3,default,i32" json:"updated_at"`
-	DeletedAt int32  `thrift:"deleted_at,4" frugal:"4,default,i32" json:"deleted_at"`
-	UserId    string `thrift:"user_id,5" frugal:"5,default,string" json:"user_id"`
-	RoleId    string `thrift:"role_id,6" frugal:"6,default,string" json:"role_id"`
+	Id        int32 `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
+	CreatedAt int32 `thrift:"created_at,2" frugal:"2,default,i32" json:"created_at"`
+	UpdatedAt int32 `thrift:"updated_at,3" frugal:"3,default,i32" json:"updated_at"`
+	DeletedAt int32 `thrift:"deleted_at,4" frugal:"4,default,i32" json:"deleted_at"`
+	UserId    int32 `thrift:"user_id,5" frugal:"5,default,i32" json:"user_id"`
+	RoleId    int32 `thrift:"role_id,6" frugal:"6,default,i32" json:"role_id"`
 }
 
 func NewModelUserRole() *ModelUserRole {
@@ -1557,11 +1557,11 @@ func (p *ModelUserRole) GetDeletedAt() (v int32) {
 	return p.DeletedAt
 }
 
-func (p *ModelUserRole) GetUserId() (v string) {
+func (p *ModelUserRole) GetUserId() (v int32) {
 	return p.UserId
 }
 
-func (p *ModelUserRole) GetRoleId() (v string) {
+func (p *ModelUserRole) GetRoleId() (v int32) {
 	return p.RoleId
 }
 func (p *ModelUserRole) SetId(val int32) {
@@ -1576,10 +1576,10 @@ func (p *ModelUserRole) SetUpdatedAt(val int32) {
 func (p *ModelUserRole) SetDeletedAt(val int32) {
 	p.DeletedAt = val
 }
-func (p *ModelUserRole) SetUserId(val string) {
+func (p *ModelUserRole) SetUserId(val int32) {
 	p.UserId = val
 }
-func (p *ModelUserRole) SetRoleId(val string) {
+func (p *ModelUserRole) SetRoleId(val int32) {
 	p.RoleId = val
 }
 
@@ -1644,7 +1644,7 @@ func (p *ModelUserRole) Read(iprot thrift.TProtocol) (err error) {
 				goto SkipFieldError
 			}
 		case 5:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.I32 {
 				if err = p.ReadField5(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -1652,7 +1652,7 @@ func (p *ModelUserRole) Read(iprot thrift.TProtocol) (err error) {
 				goto SkipFieldError
 			}
 		case 6:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.I32 {
 				if err = p.ReadField6(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -1734,8 +1734,8 @@ func (p *ModelUserRole) ReadField4(iprot thrift.TProtocol) error {
 }
 func (p *ModelUserRole) ReadField5(iprot thrift.TProtocol) error {
 
-	var _field string
-	if v, err := iprot.ReadString(); err != nil {
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
 		return err
 	} else {
 		_field = v
@@ -1745,8 +1745,8 @@ func (p *ModelUserRole) ReadField5(iprot thrift.TProtocol) error {
 }
 func (p *ModelUserRole) ReadField6(iprot thrift.TProtocol) error {
 
-	var _field string
-	if v, err := iprot.ReadString(); err != nil {
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
 		return err
 	} else {
 		_field = v
@@ -1872,10 +1872,10 @@ WriteFieldEndError:
 }
 
 func (p *ModelUserRole) writeField5(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("user_id", thrift.STRING, 5); err != nil {
+	if err = oprot.WriteFieldBegin("user_id", thrift.I32, 5); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.UserId); err != nil {
+	if err := oprot.WriteI32(p.UserId); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -1889,10 +1889,10 @@ WriteFieldEndError:
 }
 
 func (p *ModelUserRole) writeField6(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("role_id", thrift.STRING, 6); err != nil {
+	if err = oprot.WriteFieldBegin("role_id", thrift.I32, 6); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.RoleId); err != nil {
+	if err := oprot.WriteI32(p.RoleId); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -1968,30 +1968,30 @@ func (p *ModelUserRole) Field4DeepEqual(src int32) bool {
 	}
 	return true
 }
-func (p *ModelUserRole) Field5DeepEqual(src string) bool {
+func (p *ModelUserRole) Field5DeepEqual(src int32) bool {
 
-	if strings.Compare(p.UserId, src) != 0 {
+	if p.UserId != src {
 		return false
 	}
 	return true
 }
-func (p *ModelUserRole) Field6DeepEqual(src string) bool {
+func (p *ModelUserRole) Field6DeepEqual(src int32) bool {
 
-	if strings.Compare(p.RoleId, src) != 0 {
+	if p.RoleId != src {
 		return false
 	}
 	return true
 }
 
 type ModelPermission struct {
-	Id           int32  `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
-	CreatedAt    int32  `thrift:"created_at,2" frugal:"2,default,i32" json:"created_at"`
-	UpdatedAt    int32  `thrift:"updated_at,3" frugal:"3,default,i32" json:"updated_at"`
-	DeletedAt    int32  `thrift:"deleted_at,4" frugal:"4,default,i32" json:"deleted_at"`
-	Name         string `thrift:"name,5" frugal:"5,default,string" json:"name"`
-	Description  string `thrift:"description,6" frugal:"6,default,string" json:"description"`
-	PermissionId string `thrift:"permission_id,7" frugal:"7,default,string" json:"permission_id"`
-	Status       bool   `thrift:"status,8" frugal:"8,default,bool" json:"status"`
+	Id              int32  `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
+	CreatedAt       int32  `thrift:"created_at,2" frugal:"2,default,i32" json:"created_at"`
+	UpdatedAt       int32  `thrift:"updated_at,3" frugal:"3,default,i32" json:"updated_at"`
+	DeletedAt       int32  `thrift:"deleted_at,4" frugal:"4,default,i32" json:"deleted_at"`
+	Name            string `thrift:"name,5" frugal:"5,default,string" json:"name"`
+	Description     string `thrift:"description,6" frugal:"6,default,string" json:"description"`
+	StrPermissionId string `thrift:"str_permission_id,7" frugal:"7,default,string" json:"str_permission_id"`
+	Status          bool   `thrift:"status,8" frugal:"8,default,bool" json:"status"`
 }
 
 func NewModelPermission() *ModelPermission {
@@ -2025,8 +2025,8 @@ func (p *ModelPermission) GetDescription() (v string) {
 	return p.Description
 }
 
-func (p *ModelPermission) GetPermissionId() (v string) {
-	return p.PermissionId
+func (p *ModelPermission) GetStrPermissionId() (v string) {
+	return p.StrPermissionId
 }
 
 func (p *ModelPermission) GetStatus() (v bool) {
@@ -2050,8 +2050,8 @@ func (p *ModelPermission) SetName(val string) {
 func (p *ModelPermission) SetDescription(val string) {
 	p.Description = val
 }
-func (p *ModelPermission) SetPermissionId(val string) {
-	p.PermissionId = val
+func (p *ModelPermission) SetStrPermissionId(val string) {
+	p.StrPermissionId = val
 }
 func (p *ModelPermission) SetStatus(val bool) {
 	p.Status = val
@@ -2064,7 +2064,7 @@ var fieldIDToName_ModelPermission = map[int16]string{
 	4: "deleted_at",
 	5: "name",
 	6: "description",
-	7: "permission_id",
+	7: "str_permission_id",
 	8: "status",
 }
 
@@ -2254,7 +2254,7 @@ func (p *ModelPermission) ReadField7(iprot thrift.TProtocol) error {
 	} else {
 		_field = v
 	}
-	p.PermissionId = _field
+	p.StrPermissionId = _field
 	return nil
 }
 func (p *ModelPermission) ReadField8(iprot thrift.TProtocol) error {
@@ -2428,10 +2428,10 @@ WriteFieldEndError:
 }
 
 func (p *ModelPermission) writeField7(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("permission_id", thrift.STRING, 7); err != nil {
+	if err = oprot.WriteFieldBegin("str_permission_id", thrift.STRING, 7); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.PermissionId); err != nil {
+	if err := oprot.WriteString(p.StrPermissionId); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -2493,7 +2493,7 @@ func (p *ModelPermission) DeepEqual(ano *ModelPermission) bool {
 	if !p.Field6DeepEqual(ano.Description) {
 		return false
 	}
-	if !p.Field7DeepEqual(ano.PermissionId) {
+	if !p.Field7DeepEqual(ano.StrPermissionId) {
 		return false
 	}
 	if !p.Field8DeepEqual(ano.Status) {
@@ -2546,7 +2546,7 @@ func (p *ModelPermission) Field6DeepEqual(src string) bool {
 }
 func (p *ModelPermission) Field7DeepEqual(src string) bool {
 
-	if strings.Compare(p.PermissionId, src) != 0 {
+	if strings.Compare(p.StrPermissionId, src) != 0 {
 		return false
 	}
 	return true
@@ -2560,12 +2560,12 @@ func (p *ModelPermission) Field8DeepEqual(src bool) bool {
 }
 
 type ModelRolePermission struct {
-	Id           int32  `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
-	CreatedAt    int32  `thrift:"created_at,2" frugal:"2,default,i32" json:"created_at"`
-	UpdatedAt    int32  `thrift:"updated_at,3" frugal:"3,default,i32" json:"updated_at"`
-	DeletedAt    int32  `thrift:"deleted_at,4" frugal:"4,default,i32" json:"deleted_at"`
-	RoleId       string `thrift:"role_id,5" frugal:"5,default,string" json:"role_id"`
-	PermissionId string `thrift:"permission_id,6" frugal:"6,default,string" json:"permission_id"`
+	Id           int32 `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
+	CreatedAt    int32 `thrift:"created_at,2" frugal:"2,default,i32" json:"created_at"`
+	UpdatedAt    int32 `thrift:"updated_at,3" frugal:"3,default,i32" json:"updated_at"`
+	DeletedAt    int32 `thrift:"deleted_at,4" frugal:"4,default,i32" json:"deleted_at"`
+	RoleId       int32 `thrift:"role_id,5" frugal:"5,default,i32" json:"role_id"`
+	PermissionId int32 `thrift:"permission_id,6" frugal:"6,default,i32" json:"permission_id"`
 }
 
 func NewModelRolePermission() *ModelRolePermission {
@@ -2591,11 +2591,11 @@ func (p *ModelRolePermission) GetDeletedAt() (v int32) {
 	return p.DeletedAt
 }
 
-func (p *ModelRolePermission) GetRoleId() (v string) {
+func (p *ModelRolePermission) GetRoleId() (v int32) {
 	return p.RoleId
 }
 
-func (p *ModelRolePermission) GetPermissionId() (v string) {
+func (p *ModelRolePermission) GetPermissionId() (v int32) {
 	return p.PermissionId
 }
 func (p *ModelRolePermission) SetId(val int32) {
@@ -2610,10 +2610,10 @@ func (p *ModelRolePermission) SetUpdatedAt(val int32) {
 func (p *ModelRolePermission) SetDeletedAt(val int32) {
 	p.DeletedAt = val
 }
-func (p *ModelRolePermission) SetRoleId(val string) {
+func (p *ModelRolePermission) SetRoleId(val int32) {
 	p.RoleId = val
 }
-func (p *ModelRolePermission) SetPermissionId(val string) {
+func (p *ModelRolePermission) SetPermissionId(val int32) {
 	p.PermissionId = val
 }
 
@@ -2678,7 +2678,7 @@ func (p *ModelRolePermission) Read(iprot thrift.TProtocol) (err error) {
 				goto SkipFieldError
 			}
 		case 5:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.I32 {
 				if err = p.ReadField5(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -2686,7 +2686,7 @@ func (p *ModelRolePermission) Read(iprot thrift.TProtocol) (err error) {
 				goto SkipFieldError
 			}
 		case 6:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.I32 {
 				if err = p.ReadField6(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -2768,8 +2768,8 @@ func (p *ModelRolePermission) ReadField4(iprot thrift.TProtocol) error {
 }
 func (p *ModelRolePermission) ReadField5(iprot thrift.TProtocol) error {
 
-	var _field string
-	if v, err := iprot.ReadString(); err != nil {
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
 		return err
 	} else {
 		_field = v
@@ -2779,8 +2779,8 @@ func (p *ModelRolePermission) ReadField5(iprot thrift.TProtocol) error {
 }
 func (p *ModelRolePermission) ReadField6(iprot thrift.TProtocol) error {
 
-	var _field string
-	if v, err := iprot.ReadString(); err != nil {
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
 		return err
 	} else {
 		_field = v
@@ -2906,10 +2906,10 @@ WriteFieldEndError:
 }
 
 func (p *ModelRolePermission) writeField5(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("role_id", thrift.STRING, 5); err != nil {
+	if err = oprot.WriteFieldBegin("role_id", thrift.I32, 5); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.RoleId); err != nil {
+	if err := oprot.WriteI32(p.RoleId); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -2923,10 +2923,10 @@ WriteFieldEndError:
 }
 
 func (p *ModelRolePermission) writeField6(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("permission_id", thrift.STRING, 6); err != nil {
+	if err = oprot.WriteFieldBegin("permission_id", thrift.I32, 6); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.PermissionId); err != nil {
+	if err := oprot.WriteI32(p.PermissionId); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -3002,16 +3002,16 @@ func (p *ModelRolePermission) Field4DeepEqual(src int32) bool {
 	}
 	return true
 }
-func (p *ModelRolePermission) Field5DeepEqual(src string) bool {
+func (p *ModelRolePermission) Field5DeepEqual(src int32) bool {
 
-	if strings.Compare(p.RoleId, src) != 0 {
+	if p.RoleId != src {
 		return false
 	}
 	return true
 }
-func (p *ModelRolePermission) Field6DeepEqual(src string) bool {
+func (p *ModelRolePermission) Field6DeepEqual(src int32) bool {
 
-	if strings.Compare(p.PermissionId, src) != 0 {
+	if p.PermissionId != src {
 		return false
 	}
 	return true
