@@ -88,12 +88,12 @@ type ModelMenu struct {
 	Hidden     bool         `thrift:"hidden,7" frugal:"7,default,bool" gorm:"column:hidden" json:"hidden"`
 	Sort       int32        `thrift:"sort,9" frugal:"9,default,i32" gorm:"column:sort" json:"sort"`
 	Meta       *Meta        `thrift:"meta,10" frugal:"10,default,Meta" gorm:"embedded;column:meta" json:"meta"`
-	Authoritys []string     `thrift:"authoritys,11" frugal:"11,default,list<string>" gorm:"column:authoritys" json:"authoritys"`
-	MenuBtn    []string     `thrift:"menu_btn,12" frugal:"12,default,list<string>" gorm:"column:menu_btn" json:"menuBtn"`
+	Authoritys string       `thrift:"authoritys,11" frugal:"11,default,string" gorm:"column:authoritys" json:"authoritys"`
+	MenuBtn    string       `thrift:"menu_btn,12" frugal:"12,default,string" gorm:"column:menu_btn" json:"menuBtn"`
 	MenuId     int32        `thrift:"menu_id,13" frugal:"13,default,i32" gorm:"column:menu_id" json:"menuId"`
 	Children   []*ModelMenu `thrift:"children,14" frugal:"14,default,list<ModelMenu>" gorm:"-" json:"children"`
-	Parameters []*Parameter `thrift:"parameters,15" frugal:"15,default,list<Parameter>" gorm:"column:parameters" json:"parameters"`
-	Btns       []string     `thrift:"btns,16" frugal:"16,default,list<string>" gorm:"column:btns" json:"btns"`
+	Parameters []*Parameter `thrift:"parameters,15" frugal:"15,default,list<Parameter>" gorm:"type:text;column:parameters" json:"parameters"`
+	Btns       []string     `thrift:"btns,16" frugal:"16,default,list<string>" gorm:"type:text;column:btns" json:"btns"`
 	DeletedAt  int32        `thrift:"deleted_at,17" frugal:"17,default,i32" json:"deleted_at"`
 }
 
@@ -145,11 +145,11 @@ func (p *ModelMenu) GetMeta() (v *Meta) {
 	return p.Meta
 }
 
-func (p *ModelMenu) GetAuthoritys() (v []string) {
+func (p *ModelMenu) GetAuthoritys() (v string) {
 	return p.Authoritys
 }
 
-func (p *ModelMenu) GetMenuBtn() (v []string) {
+func (p *ModelMenu) GetMenuBtn() (v string) {
 	return p.MenuBtn
 }
 
@@ -199,10 +199,10 @@ func (p *ModelMenu) SetSort(val int32) {
 func (p *ModelMenu) SetMeta(val *Meta) {
 	p.Meta = val
 }
-func (p *ModelMenu) SetAuthoritys(val []string) {
+func (p *ModelMenu) SetAuthoritys(val string) {
 	p.Authoritys = val
 }
-func (p *ModelMenu) SetMenuBtn(val []string) {
+func (p *ModelMenu) SetMenuBtn(val string) {
 	p.MenuBtn = val
 }
 func (p *ModelMenu) SetMenuId(val int32) {
@@ -336,7 +336,7 @@ func (p *ModelMenu) Read(iprot thrift.TProtocol) (err error) {
 				goto SkipFieldError
 			}
 		case 11:
-			if fieldTypeId == thrift.LIST {
+			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField11(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -344,7 +344,7 @@ func (p *ModelMenu) Read(iprot thrift.TProtocol) (err error) {
 				goto SkipFieldError
 			}
 		case 12:
-			if fieldTypeId == thrift.LIST {
+			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField12(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -517,47 +517,23 @@ func (p *ModelMenu) ReadField10(iprot thrift.TProtocol) error {
 	return nil
 }
 func (p *ModelMenu) ReadField11(iprot thrift.TProtocol) error {
-	_, size, err := iprot.ReadListBegin()
-	if err != nil {
-		return err
-	}
-	_field := make([]string, 0, size)
-	for i := 0; i < size; i++ {
 
-		var _elem string
-		if v, err := iprot.ReadString(); err != nil {
-			return err
-		} else {
-			_elem = v
-		}
-
-		_field = append(_field, _elem)
-	}
-	if err := iprot.ReadListEnd(); err != nil {
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
 		return err
+	} else {
+		_field = v
 	}
 	p.Authoritys = _field
 	return nil
 }
 func (p *ModelMenu) ReadField12(iprot thrift.TProtocol) error {
-	_, size, err := iprot.ReadListBegin()
-	if err != nil {
-		return err
-	}
-	_field := make([]string, 0, size)
-	for i := 0; i < size; i++ {
 
-		var _elem string
-		if v, err := iprot.ReadString(); err != nil {
-			return err
-		} else {
-			_elem = v
-		}
-
-		_field = append(_field, _elem)
-	}
-	if err := iprot.ReadListEnd(); err != nil {
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
 		return err
+	} else {
+		_field = v
 	}
 	p.MenuBtn = _field
 	return nil
@@ -896,18 +872,10 @@ WriteFieldEndError:
 }
 
 func (p *ModelMenu) writeField11(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("authoritys", thrift.LIST, 11); err != nil {
+	if err = oprot.WriteFieldBegin("authoritys", thrift.STRING, 11); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteListBegin(thrift.STRING, len(p.Authoritys)); err != nil {
-		return err
-	}
-	for _, v := range p.Authoritys {
-		if err := oprot.WriteString(v); err != nil {
-			return err
-		}
-	}
-	if err := oprot.WriteListEnd(); err != nil {
+	if err := oprot.WriteString(p.Authoritys); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -921,18 +889,10 @@ WriteFieldEndError:
 }
 
 func (p *ModelMenu) writeField12(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("menu_btn", thrift.LIST, 12); err != nil {
+	if err = oprot.WriteFieldBegin("menu_btn", thrift.STRING, 12); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteListBegin(thrift.STRING, len(p.MenuBtn)); err != nil {
-		return err
-	}
-	for _, v := range p.MenuBtn {
-		if err := oprot.WriteString(v); err != nil {
-			return err
-		}
-	}
-	if err := oprot.WriteListEnd(); err != nil {
+	if err := oprot.WriteString(p.MenuBtn); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -1182,29 +1142,17 @@ func (p *ModelMenu) Field10DeepEqual(src *Meta) bool {
 	}
 	return true
 }
-func (p *ModelMenu) Field11DeepEqual(src []string) bool {
+func (p *ModelMenu) Field11DeepEqual(src string) bool {
 
-	if len(p.Authoritys) != len(src) {
+	if strings.Compare(p.Authoritys, src) != 0 {
 		return false
-	}
-	for i, v := range p.Authoritys {
-		_src := src[i]
-		if strings.Compare(v, _src) != 0 {
-			return false
-		}
 	}
 	return true
 }
-func (p *ModelMenu) Field12DeepEqual(src []string) bool {
+func (p *ModelMenu) Field12DeepEqual(src string) bool {
 
-	if len(p.MenuBtn) != len(src) {
+	if strings.Compare(p.MenuBtn, src) != 0 {
 		return false
-	}
-	for i, v := range p.MenuBtn {
-		_src := src[i]
-		if strings.Compare(v, _src) != 0 {
-			return false
-		}
 	}
 	return true
 }
