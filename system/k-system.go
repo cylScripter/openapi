@@ -266,6 +266,20 @@ func (p *ModelMenu) FastRead(buf []byte) (int, error) {
 					goto SkipFieldError
 				}
 			}
+		case 18:
+			if fieldTypeId == thrift.STRING {
+				l, err = p.FastReadField18(buf[offset:])
+				offset += l
+				if err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
+				offset += l
+				if err != nil {
+					goto SkipFieldError
+				}
+			}
 		default:
 			l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
 			offset += l
@@ -538,6 +552,20 @@ func (p *ModelMenu) FastReadField17(buf []byte) (int, error) {
 	return offset, nil
 }
 
+func (p *ModelMenu) FastReadField18(buf []byte) (int, error) {
+	offset := 0
+
+	var _field string
+	if v, l, err := thrift.Binary.ReadString(buf[offset:]); err != nil {
+		return offset, err
+	} else {
+		offset += l
+		_field = v
+	}
+	p.Component = _field
+	return offset, nil
+}
+
 // for compatibility
 func (p *ModelMenu) FastWrite(buf []byte) int {
 	return 0
@@ -562,6 +590,7 @@ func (p *ModelMenu) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
 		offset += p.fastWriteField14(buf[offset:], w)
 		offset += p.fastWriteField15(buf[offset:], w)
 		offset += p.fastWriteField16(buf[offset:], w)
+		offset += p.fastWriteField18(buf[offset:], w)
 	}
 	offset += thrift.Binary.WriteFieldStop(buf[offset:])
 	return offset
@@ -586,6 +615,7 @@ func (p *ModelMenu) BLength() int {
 		l += p.field15Length()
 		l += p.field16Length()
 		l += p.field17Length()
+		l += p.field18Length()
 	}
 	l += thrift.Binary.FieldStopLength()
 	return l
@@ -724,6 +754,13 @@ func (p *ModelMenu) fastWriteField17(buf []byte, w thrift.NocopyWriter) int {
 	return offset
 }
 
+func (p *ModelMenu) fastWriteField18(buf []byte, w thrift.NocopyWriter) int {
+	offset := 0
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 18)
+	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.Component)
+	return offset
+}
+
 func (p *ModelMenu) field1Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
@@ -845,6 +882,13 @@ func (p *ModelMenu) field17Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.I32Length()
+	return l
+}
+
+func (p *ModelMenu) field18Length() int {
+	l := 0
+	l += thrift.Binary.FieldBeginLength()
+	l += thrift.Binary.StringLengthNocopy(p.Component)
 	return l
 }
 

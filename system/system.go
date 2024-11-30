@@ -95,6 +95,7 @@ type ModelMenu struct {
 	Parameters []*Parameter `thrift:"parameters,15" frugal:"15,default,list<Parameter>" gorm:"type:text;column:parameters" json:"parameters"`
 	Btns       []string     `thrift:"btns,16" frugal:"16,default,list<string>" gorm:"type:text;column:btns" json:"btns"`
 	DeletedAt  int32        `thrift:"deleted_at,17" frugal:"17,default,i32" json:"deleted_at"`
+	Component  string       `thrift:"component,18" frugal:"18,default,string" gorm:"column:component" json:"component"`
 }
 
 func NewModelMenu() *ModelMenu {
@@ -172,6 +173,10 @@ func (p *ModelMenu) GetBtns() (v []string) {
 func (p *ModelMenu) GetDeletedAt() (v int32) {
 	return p.DeletedAt
 }
+
+func (p *ModelMenu) GetComponent() (v string) {
+	return p.Component
+}
 func (p *ModelMenu) SetId(val int32) {
 	p.Id = val
 }
@@ -220,6 +225,9 @@ func (p *ModelMenu) SetBtns(val []string) {
 func (p *ModelMenu) SetDeletedAt(val int32) {
 	p.DeletedAt = val
 }
+func (p *ModelMenu) SetComponent(val string) {
+	p.Component = val
+}
 
 var fieldIDToName_ModelMenu = map[int16]string{
 	1:  "id",
@@ -238,6 +246,7 @@ var fieldIDToName_ModelMenu = map[int16]string{
 	15: "parameters",
 	16: "btns",
 	17: "deleted_at",
+	18: "component",
 }
 
 func (p *ModelMenu) IsSetMeta() bool {
@@ -386,6 +395,14 @@ func (p *ModelMenu) Read(iprot thrift.TProtocol) (err error) {
 		case 17:
 			if fieldTypeId == thrift.I32 {
 				if err = p.ReadField17(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 18:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField18(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -629,6 +646,17 @@ func (p *ModelMenu) ReadField17(iprot thrift.TProtocol) error {
 	p.DeletedAt = _field
 	return nil
 }
+func (p *ModelMenu) ReadField18(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Component = _field
+	return nil
+}
 
 func (p *ModelMenu) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -698,6 +726,10 @@ func (p *ModelMenu) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField17(oprot); err != nil {
 			fieldId = 17
+			goto WriteFieldError
+		}
+		if err = p.writeField18(oprot); err != nil {
+			fieldId = 18
 			goto WriteFieldError
 		}
 	}
@@ -1014,6 +1046,23 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 17 end error: ", p), err)
 }
 
+func (p *ModelMenu) writeField18(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("component", thrift.STRING, 18); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Component); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 18 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 18 end error: ", p), err)
+}
+
 func (p *ModelMenu) String() string {
 	if p == nil {
 		return "<nil>"
@@ -1074,6 +1123,9 @@ func (p *ModelMenu) DeepEqual(ano *ModelMenu) bool {
 		return false
 	}
 	if !p.Field17DeepEqual(ano.DeletedAt) {
+		return false
+	}
+	if !p.Field18DeepEqual(ano.Component) {
 		return false
 	}
 	return true
@@ -1205,6 +1257,13 @@ func (p *ModelMenu) Field16DeepEqual(src []string) bool {
 func (p *ModelMenu) Field17DeepEqual(src int32) bool {
 
 	if p.DeletedAt != src {
+		return false
+	}
+	return true
+}
+func (p *ModelMenu) Field18DeepEqual(src string) bool {
+
+	if strings.Compare(p.Component, src) != 0 {
 		return false
 	}
 	return true
