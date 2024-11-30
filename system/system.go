@@ -1355,12 +1355,12 @@ func (p *Parameter) DeepEqual(ano *Parameter) bool {
 }
 
 type Meta struct {
-	ActiveName  string `thrift:"active_name,1" frugal:"1,default,string" gorm:"column:active_name" json:"activeName"`
-	KeepAlive   bool   `thrift:"keep_alive,2" frugal:"2,default,bool" gorm:"column:keep_alive" json:"keepAlive"`
-	DefaultMenu bool   `thrift:"default_menu,3" frugal:"3,default,bool" gorm:"column:default_menu" json:"defaultMenu"`
-	Title       string `thrift:"title,4" frugal:"4,default,string" gorm:"column:title" json:"title"`
-	Icon        string `thrift:"icon,5" frugal:"5,default,string" gorm:"column:icon" json:"icon"`
-	CloseTab    bool   `thrift:"close_tab,6" frugal:"6,default,bool" gorm:"column:close_tab" json:"closeTab"`
+	ActiveName  string `thrift:"active_name,1" frugal:"1,default,string"  json:"activeName"`
+	KeepAlive   bool   `thrift:"keep_alive,2" frugal:"2,default,bool"  json:"keepAlive"`
+	DefaultMenu bool   `thrift:"default_menu,3" frugal:"3,default,bool"  json:"defaultMenu"`
+	Title       string `thrift:"title,4" frugal:"4,default,string"  json:"title"`
+	Icon        string `thrift:"icon,5" frugal:"5,default,string" json:"icon"`
+	CloseTab    bool   `thrift:"close_tab,6" frugal:"6,default,bool" gorm:" json:"closeTab"`
 }
 
 func NewMeta() *Meta {
