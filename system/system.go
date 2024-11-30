@@ -79,22 +79,22 @@ func (p *ErrorCode) Value() (driver.Value, error) {
 }
 
 type ModelMenu struct {
-	Id         int32        `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
-	CreatedAt  int32        `thrift:"created_at,2" frugal:"2,default,i32" json:"created_at"`
-	UpdatedAt  int32        `thrift:"updated_at,3" frugal:"3,default,i32" json:"updated_at"`
-	ParentId   int32        `thrift:"parent_id,4" frugal:"4,default,i32" gorm:"column:parent_id" json:"parentId"`
-	Path       string       `thrift:"path,5" frugal:"5,default,string" gorm:"column:path" json:"path"`
-	Name       string       `thrift:"name,6" frugal:"6,default,string" gorm:"column:name" json:"name"`
-	Hidden     bool         `thrift:"hidden,7" frugal:"7,default,bool" gorm:"column:hidden" json:"hidden"`
-	Sort       int32        `thrift:"sort,9" frugal:"9,default,i32" gorm:"column:sort" json:"sort"`
-	Meta       *Meta        `thrift:"meta,10" frugal:"10,default,Meta" gorm:"embedded,column:meta" json:"meta"`
-	Authoritys []string     `thrift:"authoritys,11" frugal:"11,default,list<string>" gorm:"column:authoritys" json:"authoritys"`
-	MenuBtn    []string     `thrift:"menu_btn,12" frugal:"12,default,list<string>" gorm:"column:menu_btn" json:"menuBtn"`
-	MenuId     int32        `thrift:"menu_id,13" frugal:"13,default,i32" gorm:"column:menu_id" json:"menuId"`
-	Children   []*ModelMenu `thrift:"children,14" frugal:"14,default,list<ModelMenu>" gorm:"-" json:"children"`
-	Parameters []*Parameter `thrift:"parameters,15" frugal:"15,default,list<Parameter>" gorm:"column:parameters" json:"parameters"`
-	Btns       []string     `thrift:"btns,16" frugal:"16,default,list<string>" gorm:"column:btns" json:"btns"`
-	DeletedAt  int32        `thrift:"deleted_at,17" frugal:"17,default,i32" json:"deleted_at"`
+	Id         int32       `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
+	CreatedAt  int32       `thrift:"created_at,2" frugal:"2,default,i32" json:"created_at"`
+	UpdatedAt  int32       `thrift:"updated_at,3" frugal:"3,default,i32" json:"updated_at"`
+	ParentId   int32       `thrift:"parent_id,4" frugal:"4,default,i32" gorm:"column:parent_id" json:"parentId"`
+	Path       string      `thrift:"path,5" frugal:"5,default,string" gorm:"column:path" json:"path"`
+	Name       string      `thrift:"name,6" frugal:"6,default,string" gorm:"column:name" json:"name"`
+	Hidden     bool        `thrift:"hidden,7" frugal:"7,default,bool" gorm:"column:hidden" json:"hidden"`
+	Sort       int32       `thrift:"sort,9" frugal:"9,default,i32" gorm:"column:sort" json:"sort"`
+	Meta       Meta        `thrift:"meta,10" frugal:"10,default,Meta" gorm:"embedded,column:meta" json:"meta"`
+	Authoritys []string    `thrift:"authoritys,11" frugal:"11,default,list<string>" gorm:"column:authoritys" json:"authoritys"`
+	MenuBtn    []string    `thrift:"menu_btn,12" frugal:"12,default,list<string>" gorm:"column:menu_btn" json:"menuBtn"`
+	MenuId     int32       `thrift:"menu_id,13" frugal:"13,default,i32" gorm:"column:menu_id" json:"menuId"`
+	Children   []ModelMenu `thrift:"children,14" frugal:"14,default,list<ModelMenu>" gorm:"-" json:"children"`
+	Parameters []Parameter `thrift:"parameters,15" frugal:"15,default,list<Parameter>" gorm:"column:parameters" json:"parameters"`
+	Btns       []string    `thrift:"btns,16" frugal:"16,default,list<string>" gorm:"column:btns" json:"btns"`
+	DeletedAt  int32       `thrift:"deleted_at,17" frugal:"17,default,i32" json:"deleted_at"`
 }
 
 func NewModelMenu() *ModelMenu {
