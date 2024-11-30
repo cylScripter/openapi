@@ -87,7 +87,7 @@ type ModelMenu struct {
 	Name       string       `thrift:"name,6" frugal:"6,default,string" gorm:"column:name" json:"name"`
 	Hidden     bool         `thrift:"hidden,7" frugal:"7,default,bool" gorm:"column:hidden" json:"hidden"`
 	Sort       int32        `thrift:"sort,9" frugal:"9,default,i32" gorm:"column:sort" json:"sort"`
-	Meta       *Meta        `thrift:"meta,10" frugal:"10,default,Meta" gorm:"column:meta" json:"meta"`
+	Meta       *Meta        `thrift:"meta,10" frugal:"10,default,Meta" gorm:"embedded,column:meta" json:"meta"`
 	Authoritys []string     `thrift:"authoritys,11" frugal:"11,default,list<string>" gorm:"column:authoritys" json:"authoritys"`
 	MenuBtn    []string     `thrift:"menu_btn,12" frugal:"12,default,list<string>" gorm:"column:menu_btn" json:"menuBtn"`
 	MenuId     int32        `thrift:"menu_id,13" frugal:"13,default,i32" gorm:"column:menu_id" json:"menuId"`
