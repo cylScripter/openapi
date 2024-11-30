@@ -55,6 +55,13 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"GetMenu": kitex.NewMethodInfo(
+		getMenuHandler,
+		newSystemserviceGetMenuArgs,
+		newSystemserviceGetMenuResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -229,6 +236,24 @@ func newSystemserviceSetRolePermissionResult() interface{} {
 	return system.NewSystemserviceSetRolePermissionResult()
 }
 
+func getMenuHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*system.SystemserviceGetMenuArgs)
+	realResult := result.(*system.SystemserviceGetMenuResult)
+	success, err := handler.(system.Systemservice).GetMenu(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newSystemserviceGetMenuArgs() interface{} {
+	return system.NewSystemserviceGetMenuArgs()
+}
+
+func newSystemserviceGetMenuResult() interface{} {
+	return system.NewSystemserviceGetMenuResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -294,6 +319,16 @@ func (p *kClient) SetRolePermission(ctx context.Context, req *system.SetRolePerm
 	_args.Req = req
 	var _result system.SystemserviceSetRolePermissionResult
 	if err = p.c.Call(ctx, "SetRolePermission", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetMenu(ctx context.Context, req *system.GetMenuReq) (r *system.GetMenuResp, err error) {
+	var _args system.SystemserviceGetMenuArgs
+	_args.Req = req
+	var _result system.SystemserviceGetMenuResult
+	if err = p.c.Call(ctx, "GetMenu", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

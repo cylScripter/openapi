@@ -17,6 +17,7 @@ type Client interface {
 	CreatePermission(ctx context.Context, req *system.CreatePermissionReq, callOptions ...callopt.Option) (r *system.CreatePermissionResp, err error)
 	SetUserRole(ctx context.Context, req *system.SetUserRoleReq, callOptions ...callopt.Option) (r *system.SetUserRoleResp, err error)
 	SetRolePermission(ctx context.Context, req *system.SetRolePermissionReq, callOptions ...callopt.Option) (r *system.SetRolePermissionResp, err error)
+	GetMenu(ctx context.Context, req *system.GetMenuReq, callOptions ...callopt.Option) (r *system.GetMenuResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -76,4 +77,9 @@ func (p *kSystemserviceClient) SetUserRole(ctx context.Context, req *system.SetU
 func (p *kSystemserviceClient) SetRolePermission(ctx context.Context, req *system.SetRolePermissionReq, callOptions ...callopt.Option) (r *system.SetRolePermissionResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.SetRolePermission(ctx, req)
+}
+
+func (p *kSystemserviceClient) GetMenu(ctx context.Context, req *system.GetMenuReq, callOptions ...callopt.Option) (r *system.GetMenuResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetMenu(ctx, req)
 }

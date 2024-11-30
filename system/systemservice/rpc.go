@@ -35,3 +35,8 @@ func SetRolePermission(ctx context.Context, req *system.SetRolePermissionReq, ca
 	clients := MustNewClient("system", callOptions...)
 	return clients.SetRolePermission(ctx, req)
 }
+
+func GetMenu(ctx context.Context, req *system.GetMenuReq, callOptions ...client.Option) (resp *system.GetMenuResp, err error) {
+	clients := MustNewClient("system", callOptions...)
+	return clients.GetMenu(ctx, req)
+}
