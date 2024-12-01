@@ -40,3 +40,8 @@ func GetMenu(ctx context.Context, req *system.GetMenuReq, callOptions ...client.
 	clients := MustNewClient("system", callOptions...)
 	return clients.GetMenu(ctx, req)
 }
+
+func GetUserInfo(ctx context.Context, req *system.GetUserInfoReq, callOptions ...client.Option) (resp *system.GetUserInfoResp, err error) {
+	clients := MustNewClient("system", callOptions...)
+	return clients.GetUserInfo(ctx, req)
+}
