@@ -286,13 +286,13 @@ func (p *ModelMenu) FastReadField5(buf []byte) (int, error) {
 
 func (p *ModelMenu) FastReadField6(buf []byte) (int, error) {
 	offset := 0
-	_field := NewMate()
+	_field := NewMeta()
 	if l, err := _field.FastRead(buf[offset:]); err != nil {
 		return offset, err
 	} else {
 		offset += l
 	}
-	p.Mate = _field
+	p.Mete = _field
 	return offset, nil
 }
 
@@ -458,7 +458,7 @@ func (p *ModelMenu) fastWriteField5(buf []byte, w thrift.NocopyWriter) int {
 func (p *ModelMenu) fastWriteField6(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRUCT, 6)
-	offset += p.Mate.FastWriteNocopy(buf[offset:], w)
+	offset += p.Mete.FastWriteNocopy(buf[offset:], w)
 	return offset
 }
 
@@ -542,7 +542,7 @@ func (p *ModelMenu) field5Length() int {
 func (p *ModelMenu) field6Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += p.Mate.BLength()
+	l += p.Mete.BLength()
 	return l
 }
 
@@ -719,13 +719,13 @@ func (p *MenuItem) FastReadField1(buf []byte) (int, error) {
 
 func (p *MenuItem) FastReadField2(buf []byte) (int, error) {
 	offset := 0
-	_field := NewMate()
+	_field := NewMeta()
 	if l, err := _field.FastRead(buf[offset:]); err != nil {
 		return offset, err
 	} else {
 		offset += l
 	}
-	p.Mate = _field
+	p.Meta = _field
 	return offset, nil
 }
 
@@ -839,7 +839,7 @@ func (p *MenuItem) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
 func (p *MenuItem) fastWriteField2(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRUCT, 2)
-	offset += p.Mate.FastWriteNocopy(buf[offset:], w)
+	offset += p.Meta.FastWriteNocopy(buf[offset:], w)
 	return offset
 }
 
@@ -888,7 +888,7 @@ func (p *MenuItem) field1Length() int {
 func (p *MenuItem) field2Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += p.Mate.BLength()
+	l += p.Meta.BLength()
 	return l
 }
 
@@ -924,7 +924,7 @@ func (p *MenuItem) field6Length() int {
 	return l
 }
 
-func (p *Mate) FastRead(buf []byte) (int, error) {
+func (p *Meta) FastRead(buf []byte) (int, error) {
 	var err error
 	var offset int
 	var l int
@@ -1247,12 +1247,12 @@ func (p *Mate) FastRead(buf []byte) (int, error) {
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_Mate[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_Meta[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 }
 
-func (p *Mate) FastReadField1(buf []byte) (int, error) {
+func (p *Meta) FastReadField1(buf []byte) (int, error) {
 	offset := 0
 
 	var _field string
@@ -1266,7 +1266,7 @@ func (p *Mate) FastReadField1(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *Mate) FastReadField2(buf []byte) (int, error) {
+func (p *Meta) FastReadField2(buf []byte) (int, error) {
 	offset := 0
 
 	var _field int32
@@ -1280,7 +1280,7 @@ func (p *Mate) FastReadField2(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *Mate) FastReadField3(buf []byte) (int, error) {
+func (p *Meta) FastReadField3(buf []byte) (int, error) {
 	offset := 0
 
 	var _field string
@@ -1294,7 +1294,7 @@ func (p *Mate) FastReadField3(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *Mate) FastReadField4(buf []byte) (int, error) {
+func (p *Meta) FastReadField4(buf []byte) (int, error) {
 	offset := 0
 
 	var _field string
@@ -1308,7 +1308,7 @@ func (p *Mate) FastReadField4(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *Mate) FastReadField5(buf []byte) (int, error) {
+func (p *Meta) FastReadField5(buf []byte) (int, error) {
 	offset := 0
 
 	var _field string
@@ -1322,7 +1322,7 @@ func (p *Mate) FastReadField5(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *Mate) FastReadField6(buf []byte) (int, error) {
+func (p *Meta) FastReadField6(buf []byte) (int, error) {
 	offset := 0
 
 	var _field string
@@ -1336,7 +1336,7 @@ func (p *Mate) FastReadField6(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *Mate) FastReadField7(buf []byte) (int, error) {
+func (p *Meta) FastReadField7(buf []byte) (int, error) {
 	offset := 0
 
 	var _field bool
@@ -1350,7 +1350,7 @@ func (p *Mate) FastReadField7(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *Mate) FastReadField8(buf []byte) (int, error) {
+func (p *Meta) FastReadField8(buf []byte) (int, error) {
 	offset := 0
 
 	var _field string
@@ -1364,7 +1364,7 @@ func (p *Mate) FastReadField8(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *Mate) FastReadField9(buf []byte) (int, error) {
+func (p *Meta) FastReadField9(buf []byte) (int, error) {
 	offset := 0
 
 	var _field string
@@ -1378,7 +1378,7 @@ func (p *Mate) FastReadField9(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *Mate) FastReadField10(buf []byte) (int, error) {
+func (p *Meta) FastReadField10(buf []byte) (int, error) {
 	offset := 0
 
 	var _field string
@@ -1392,7 +1392,7 @@ func (p *Mate) FastReadField10(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *Mate) FastReadField11(buf []byte) (int, error) {
+func (p *Meta) FastReadField11(buf []byte) (int, error) {
 	offset := 0
 
 	var _field string
@@ -1406,7 +1406,7 @@ func (p *Mate) FastReadField11(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *Mate) FastReadField12(buf []byte) (int, error) {
+func (p *Meta) FastReadField12(buf []byte) (int, error) {
 	offset := 0
 
 	var _field bool
@@ -1420,7 +1420,7 @@ func (p *Mate) FastReadField12(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *Mate) FastReadField13(buf []byte) (int, error) {
+func (p *Meta) FastReadField13(buf []byte) (int, error) {
 	offset := 0
 
 	var _field bool
@@ -1434,7 +1434,7 @@ func (p *Mate) FastReadField13(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *Mate) FastReadField14(buf []byte) (int, error) {
+func (p *Meta) FastReadField14(buf []byte) (int, error) {
 	offset := 0
 
 	var _field bool
@@ -1448,7 +1448,7 @@ func (p *Mate) FastReadField14(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *Mate) FastReadField15(buf []byte) (int, error) {
+func (p *Meta) FastReadField15(buf []byte) (int, error) {
 	offset := 0
 
 	var _field bool
@@ -1462,7 +1462,7 @@ func (p *Mate) FastReadField15(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *Mate) FastReadField16(buf []byte) (int, error) {
+func (p *Meta) FastReadField16(buf []byte) (int, error) {
 	offset := 0
 
 	var _field string
@@ -1476,7 +1476,7 @@ func (p *Mate) FastReadField16(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *Mate) FastReadField17(buf []byte) (int, error) {
+func (p *Meta) FastReadField17(buf []byte) (int, error) {
 	offset := 0
 
 	var _field bool
@@ -1490,7 +1490,7 @@ func (p *Mate) FastReadField17(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *Mate) FastReadField18(buf []byte) (int, error) {
+func (p *Meta) FastReadField18(buf []byte) (int, error) {
 	offset := 0
 
 	var _field bool
@@ -1504,7 +1504,7 @@ func (p *Mate) FastReadField18(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *Mate) FastReadField19(buf []byte) (int, error) {
+func (p *Meta) FastReadField19(buf []byte) (int, error) {
 	offset := 0
 
 	var _field string
@@ -1518,7 +1518,7 @@ func (p *Mate) FastReadField19(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *Mate) FastReadField20(buf []byte) (int, error) {
+func (p *Meta) FastReadField20(buf []byte) (int, error) {
 	offset := 0
 
 	var _field bool
@@ -1532,7 +1532,7 @@ func (p *Mate) FastReadField20(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *Mate) FastReadField21(buf []byte) (int, error) {
+func (p *Meta) FastReadField21(buf []byte) (int, error) {
 	offset := 0
 
 	var _field int32
@@ -1547,11 +1547,11 @@ func (p *Mate) FastReadField21(buf []byte) (int, error) {
 }
 
 // for compatibility
-func (p *Mate) FastWrite(buf []byte) int {
+func (p *Meta) FastWrite(buf []byte) int {
 	return 0
 }
 
-func (p *Mate) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
+func (p *Meta) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p != nil {
 		offset += p.fastWriteField2(buf[offset:], w)
@@ -1580,7 +1580,7 @@ func (p *Mate) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
 	return offset
 }
 
-func (p *Mate) BLength() int {
+func (p *Meta) BLength() int {
 	l := 0
 	if p != nil {
 		l += p.field1Length()
@@ -1609,294 +1609,294 @@ func (p *Mate) BLength() int {
 	return l
 }
 
-func (p *Mate) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
+func (p *Meta) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 1)
 	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.Title)
 	return offset
 }
 
-func (p *Mate) fastWriteField2(buf []byte, w thrift.NocopyWriter) int {
+func (p *Meta) fastWriteField2(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 2)
 	offset += thrift.Binary.WriteI32(buf[offset:], p.Order)
 	return offset
 }
 
-func (p *Mate) fastWriteField3(buf []byte, w thrift.NocopyWriter) int {
+func (p *Meta) fastWriteField3(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 3)
 	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.Icon)
 	return offset
 }
 
-func (p *Mate) fastWriteField4(buf []byte, w thrift.NocopyWriter) int {
+func (p *Meta) fastWriteField4(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 4)
 	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.Badge)
 	return offset
 }
 
-func (p *Mate) fastWriteField5(buf []byte, w thrift.NocopyWriter) int {
+func (p *Meta) fastWriteField5(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 5)
 	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.ActiveIcon)
 	return offset
 }
 
-func (p *Mate) fastWriteField6(buf []byte, w thrift.NocopyWriter) int {
+func (p *Meta) fastWriteField6(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 6)
 	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.IframeSrc)
 	return offset
 }
 
-func (p *Mate) fastWriteField7(buf []byte, w thrift.NocopyWriter) int {
+func (p *Meta) fastWriteField7(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.BOOL, 7)
 	offset += thrift.Binary.WriteBool(buf[offset:], p.AffixTab)
 	return offset
 }
 
-func (p *Mate) fastWriteField8(buf []byte, w thrift.NocopyWriter) int {
+func (p *Meta) fastWriteField8(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 8)
 	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.ActivePath)
 	return offset
 }
 
-func (p *Mate) fastWriteField9(buf []byte, w thrift.NocopyWriter) int {
+func (p *Meta) fastWriteField9(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 9)
 	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.BadgeVariants)
 	return offset
 }
 
-func (p *Mate) fastWriteField10(buf []byte, w thrift.NocopyWriter) int {
+func (p *Meta) fastWriteField10(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 10)
 	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.BadgeType)
 	return offset
 }
 
-func (p *Mate) fastWriteField11(buf []byte, w thrift.NocopyWriter) int {
+func (p *Meta) fastWriteField11(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 11)
 	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.BadgeText)
 	return offset
 }
 
-func (p *Mate) fastWriteField12(buf []byte, w thrift.NocopyWriter) int {
+func (p *Meta) fastWriteField12(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.BOOL, 12)
 	offset += thrift.Binary.WriteBool(buf[offset:], p.HideChildrenInMenu)
 	return offset
 }
 
-func (p *Mate) fastWriteField13(buf []byte, w thrift.NocopyWriter) int {
+func (p *Meta) fastWriteField13(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.BOOL, 13)
 	offset += thrift.Binary.WriteBool(buf[offset:], p.HideInTab)
 	return offset
 }
 
-func (p *Mate) fastWriteField14(buf []byte, w thrift.NocopyWriter) int {
+func (p *Meta) fastWriteField14(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.BOOL, 14)
 	offset += thrift.Binary.WriteBool(buf[offset:], p.HideInMenu)
 	return offset
 }
 
-func (p *Mate) fastWriteField15(buf []byte, w thrift.NocopyWriter) int {
+func (p *Meta) fastWriteField15(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.BOOL, 15)
 	offset += thrift.Binary.WriteBool(buf[offset:], p.KeepAlive)
 	return offset
 }
 
-func (p *Mate) fastWriteField16(buf []byte, w thrift.NocopyWriter) int {
+func (p *Meta) fastWriteField16(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 16)
 	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.ActiveIcon_)
 	return offset
 }
 
-func (p *Mate) fastWriteField17(buf []byte, w thrift.NocopyWriter) int {
+func (p *Meta) fastWriteField17(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.BOOL, 17)
 	offset += thrift.Binary.WriteBool(buf[offset:], p.HideInBreadcrumb)
 	return offset
 }
 
-func (p *Mate) fastWriteField18(buf []byte, w thrift.NocopyWriter) int {
+func (p *Meta) fastWriteField18(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.BOOL, 18)
 	offset += thrift.Binary.WriteBool(buf[offset:], p.IgnoreAccess)
 	return offset
 }
 
-func (p *Mate) fastWriteField19(buf []byte, w thrift.NocopyWriter) int {
+func (p *Meta) fastWriteField19(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 19)
 	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.Link)
 	return offset
 }
 
-func (p *Mate) fastWriteField20(buf []byte, w thrift.NocopyWriter) int {
+func (p *Meta) fastWriteField20(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.BOOL, 20)
 	offset += thrift.Binary.WriteBool(buf[offset:], p.OpenInNewWindow)
 	return offset
 }
 
-func (p *Mate) fastWriteField21(buf []byte, w thrift.NocopyWriter) int {
+func (p *Meta) fastWriteField21(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 21)
 	offset += thrift.Binary.WriteI32(buf[offset:], p.MaxNumOfOpenTab)
 	return offset
 }
 
-func (p *Mate) field1Length() int {
+func (p *Meta) field1Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.StringLengthNocopy(p.Title)
 	return l
 }
 
-func (p *Mate) field2Length() int {
+func (p *Meta) field2Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.I32Length()
 	return l
 }
 
-func (p *Mate) field3Length() int {
+func (p *Meta) field3Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.StringLengthNocopy(p.Icon)
 	return l
 }
 
-func (p *Mate) field4Length() int {
+func (p *Meta) field4Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.StringLengthNocopy(p.Badge)
 	return l
 }
 
-func (p *Mate) field5Length() int {
+func (p *Meta) field5Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.StringLengthNocopy(p.ActiveIcon)
 	return l
 }
 
-func (p *Mate) field6Length() int {
+func (p *Meta) field6Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.StringLengthNocopy(p.IframeSrc)
 	return l
 }
 
-func (p *Mate) field7Length() int {
+func (p *Meta) field7Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.BoolLength()
 	return l
 }
 
-func (p *Mate) field8Length() int {
+func (p *Meta) field8Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.StringLengthNocopy(p.ActivePath)
 	return l
 }
 
-func (p *Mate) field9Length() int {
+func (p *Meta) field9Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.StringLengthNocopy(p.BadgeVariants)
 	return l
 }
 
-func (p *Mate) field10Length() int {
+func (p *Meta) field10Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.StringLengthNocopy(p.BadgeType)
 	return l
 }
 
-func (p *Mate) field11Length() int {
+func (p *Meta) field11Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.StringLengthNocopy(p.BadgeText)
 	return l
 }
 
-func (p *Mate) field12Length() int {
+func (p *Meta) field12Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.BoolLength()
 	return l
 }
 
-func (p *Mate) field13Length() int {
+func (p *Meta) field13Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.BoolLength()
 	return l
 }
 
-func (p *Mate) field14Length() int {
+func (p *Meta) field14Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.BoolLength()
 	return l
 }
 
-func (p *Mate) field15Length() int {
+func (p *Meta) field15Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.BoolLength()
 	return l
 }
 
-func (p *Mate) field16Length() int {
+func (p *Meta) field16Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.StringLengthNocopy(p.ActiveIcon_)
 	return l
 }
 
-func (p *Mate) field17Length() int {
+func (p *Meta) field17Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.BoolLength()
 	return l
 }
 
-func (p *Mate) field18Length() int {
+func (p *Meta) field18Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.BoolLength()
 	return l
 }
 
-func (p *Mate) field19Length() int {
+func (p *Meta) field19Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.StringLengthNocopy(p.Link)
 	return l
 }
 
-func (p *Mate) field20Length() int {
+func (p *Meta) field20Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.BoolLength()
 	return l
 }
 
-func (p *Mate) field21Length() int {
+func (p *Meta) field21Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.I32Length()
