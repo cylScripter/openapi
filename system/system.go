@@ -12,6 +12,63 @@ import (
 	"strings"
 )
 
+type BadgeVariantsType int64
+
+const (
+	BadgeVariantsType_Default     BadgeVariantsType = 1
+	BadgeVariantsType_Destructive BadgeVariantsType = 2
+	BadgeVariantsType_Primary     BadgeVariantsType = 3
+	BadgeVariantsType_Success     BadgeVariantsType = 4
+	BadgeVariantsType_Warning     BadgeVariantsType = 5
+)
+
+func (p BadgeVariantsType) String() string {
+	switch p {
+	case BadgeVariantsType_Default:
+		return "Default"
+	case BadgeVariantsType_Destructive:
+		return "Destructive"
+	case BadgeVariantsType_Primary:
+		return "Primary"
+	case BadgeVariantsType_Success:
+		return "Success"
+	case BadgeVariantsType_Warning:
+		return "Warning"
+	}
+	return "<UNSET>"
+}
+
+func BadgeVariantsTypeFromString(s string) (BadgeVariantsType, error) {
+	switch s {
+	case "Default":
+		return BadgeVariantsType_Default, nil
+	case "Destructive":
+		return BadgeVariantsType_Destructive, nil
+	case "Primary":
+		return BadgeVariantsType_Primary, nil
+	case "Success":
+		return BadgeVariantsType_Success, nil
+	case "Warning":
+		return BadgeVariantsType_Warning, nil
+	}
+	return BadgeVariantsType(0), fmt.Errorf("not a valid BadgeVariantsType string")
+}
+
+func BadgeVariantsTypePtr(v BadgeVariantsType) *BadgeVariantsType { return &v }
+func (p *BadgeVariantsType) Scan(value interface{}) (err error) {
+	var result sql.NullInt64
+	err = result.Scan(value)
+	*p = BadgeVariantsType(result.Int64)
+	return
+}
+
+func (p *BadgeVariantsType) Value() (driver.Value, error) {
+	if p == nil {
+		return nil, nil
+	}
+	return int64(*p), nil
+}
+
 type ErrorCode int64
 
 const (
@@ -952,12 +1009,27 @@ func (p *ModelMenu) Field11DeepEqual(src []*ModelMenu) bool {
 }
 
 type Mate struct {
-	Title      string `thrift:"title,1" frugal:"1,default,string" json:"title"`
-	Order      int32  `thrift:"order,2" frugal:"2,default,i32" json:"order"`
-	Icon       string `thrift:"icon,3" frugal:"3,default,string" json:"icon"`
-	Badge      string `thrift:"badge,4" frugal:"4,default,string" json:"badge"`
-	ActiveIcon string `thrift:"active_icon,5" frugal:"5,default,string" json:"active_icon"`
-	IframeSrc  string `thrift:"iframe_src,6" frugal:"6,default,string" json:"iframe_src"`
+	Title              string `thrift:"title,1" frugal:"1,default,string" json:"title"`
+	Order              int32  `thrift:"order,2" frugal:"2,default,i32" json:"order"`
+	Icon               string `thrift:"icon,3" frugal:"3,default,string" json:"icon"`
+	Badge              string `thrift:"badge,4" frugal:"4,default,string" json:"badge"`
+	ActiveIcon         string `thrift:"active_icon,5" frugal:"5,default,string" json:"active_icon"`
+	IframeSrc          string `thrift:"iframe_src,6" frugal:"6,default,string" json:"iframe_src"`
+	AffixTab           bool   `thrift:"affixTab,7" frugal:"7,default,bool" json:"affixTab"`
+	ActivePath         string `thrift:"activePath,8" frugal:"8,default,string" json:"activePath"`
+	BadgeVariants      string `thrift:"badgeVariants,9" frugal:"9,default,string" json:"badgeVariants"`
+	BadgeType          string `thrift:"badgeType,10" frugal:"10,default,string" json:"hide"`
+	BadgeText          string `thrift:"badgeText,11" frugal:"11,default,string" json:"badgeText"`
+	HideChildrenInMenu bool   `thrift:"hideChildrenInMenu,12" frugal:"12,default,bool" json:"hideChildrenInMenu"`
+	HideInTab          bool   `thrift:"hideInTab,13" frugal:"13,default,bool" json:"hideInTab"`
+	HideInMenu         bool   `thrift:"hideInMenu,14" frugal:"14,default,bool" json:"hideInMenu"`
+	KeepAlive          bool   `thrift:"keepAlive,15" frugal:"15,default,bool" json:"keepAlive"`
+	ActiveIcon_        string `thrift:"activeIcon,16" frugal:"16,default,string" json:"activeIcon"`
+	HideInBreadcrumb   bool   `thrift:"hideInBreadcrumb,17" frugal:"17,default,bool" json:"hideInBreadcrumb"`
+	IgnoreAccess       bool   `thrift:"ignoreAccess,18" frugal:"18,default,bool" json:"ignoreAccess"`
+	Link               string `thrift:"link,19" frugal:"19,default,string" json:"link"`
+	OpenInNewWindow    bool   `thrift:"openInNewWindow,20" frugal:"20,default,bool" json:"openInNewWindow"`
+	MaxNumOfOpenTab    int32  `thrift:"maxNumOfOpenTab,21" frugal:"21,default,i32" json:"maxNumOfOpenTab"`
 }
 
 func NewMate() *Mate {
@@ -990,6 +1062,66 @@ func (p *Mate) GetActiveIcon() (v string) {
 func (p *Mate) GetIframeSrc() (v string) {
 	return p.IframeSrc
 }
+
+func (p *Mate) GetAffixTab() (v bool) {
+	return p.AffixTab
+}
+
+func (p *Mate) GetActivePath() (v string) {
+	return p.ActivePath
+}
+
+func (p *Mate) GetBadgeVariants() (v string) {
+	return p.BadgeVariants
+}
+
+func (p *Mate) GetBadgeType() (v string) {
+	return p.BadgeType
+}
+
+func (p *Mate) GetBadgeText() (v string) {
+	return p.BadgeText
+}
+
+func (p *Mate) GetHideChildrenInMenu() (v bool) {
+	return p.HideChildrenInMenu
+}
+
+func (p *Mate) GetHideInTab() (v bool) {
+	return p.HideInTab
+}
+
+func (p *Mate) GetHideInMenu() (v bool) {
+	return p.HideInMenu
+}
+
+func (p *Mate) GetKeepAlive() (v bool) {
+	return p.KeepAlive
+}
+
+func (p *Mate) GetActiveIcon_() (v string) {
+	return p.ActiveIcon_
+}
+
+func (p *Mate) GetHideInBreadcrumb() (v bool) {
+	return p.HideInBreadcrumb
+}
+
+func (p *Mate) GetIgnoreAccess() (v bool) {
+	return p.IgnoreAccess
+}
+
+func (p *Mate) GetLink() (v string) {
+	return p.Link
+}
+
+func (p *Mate) GetOpenInNewWindow() (v bool) {
+	return p.OpenInNewWindow
+}
+
+func (p *Mate) GetMaxNumOfOpenTab() (v int32) {
+	return p.MaxNumOfOpenTab
+}
 func (p *Mate) SetTitle(val string) {
 	p.Title = val
 }
@@ -1008,14 +1140,74 @@ func (p *Mate) SetActiveIcon(val string) {
 func (p *Mate) SetIframeSrc(val string) {
 	p.IframeSrc = val
 }
+func (p *Mate) SetAffixTab(val bool) {
+	p.AffixTab = val
+}
+func (p *Mate) SetActivePath(val string) {
+	p.ActivePath = val
+}
+func (p *Mate) SetBadgeVariants(val string) {
+	p.BadgeVariants = val
+}
+func (p *Mate) SetBadgeType(val string) {
+	p.BadgeType = val
+}
+func (p *Mate) SetBadgeText(val string) {
+	p.BadgeText = val
+}
+func (p *Mate) SetHideChildrenInMenu(val bool) {
+	p.HideChildrenInMenu = val
+}
+func (p *Mate) SetHideInTab(val bool) {
+	p.HideInTab = val
+}
+func (p *Mate) SetHideInMenu(val bool) {
+	p.HideInMenu = val
+}
+func (p *Mate) SetKeepAlive(val bool) {
+	p.KeepAlive = val
+}
+func (p *Mate) SetActiveIcon_(val string) {
+	p.ActiveIcon_ = val
+}
+func (p *Mate) SetHideInBreadcrumb(val bool) {
+	p.HideInBreadcrumb = val
+}
+func (p *Mate) SetIgnoreAccess(val bool) {
+	p.IgnoreAccess = val
+}
+func (p *Mate) SetLink(val string) {
+	p.Link = val
+}
+func (p *Mate) SetOpenInNewWindow(val bool) {
+	p.OpenInNewWindow = val
+}
+func (p *Mate) SetMaxNumOfOpenTab(val int32) {
+	p.MaxNumOfOpenTab = val
+}
 
 var fieldIDToName_Mate = map[int16]string{
-	1: "title",
-	2: "order",
-	3: "icon",
-	4: "badge",
-	5: "active_icon",
-	6: "iframe_src",
+	1:  "title",
+	2:  "order",
+	3:  "icon",
+	4:  "badge",
+	5:  "active_icon",
+	6:  "iframe_src",
+	7:  "affixTab",
+	8:  "activePath",
+	9:  "badgeVariants",
+	10: "badgeType",
+	11: "badgeText",
+	12: "hideChildrenInMenu",
+	13: "hideInTab",
+	14: "hideInMenu",
+	15: "keepAlive",
+	16: "activeIcon",
+	17: "hideInBreadcrumb",
+	18: "ignoreAccess",
+	19: "link",
+	20: "openInNewWindow",
+	21: "maxNumOfOpenTab",
 }
 
 func (p *Mate) Read(iprot thrift.TProtocol) (err error) {
@@ -1080,6 +1272,126 @@ func (p *Mate) Read(iprot thrift.TProtocol) (err error) {
 		case 6:
 			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField6(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 7:
+			if fieldTypeId == thrift.BOOL {
+				if err = p.ReadField7(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 8:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField8(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 9:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField9(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 10:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField10(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 11:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField11(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 12:
+			if fieldTypeId == thrift.BOOL {
+				if err = p.ReadField12(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 13:
+			if fieldTypeId == thrift.BOOL {
+				if err = p.ReadField13(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 14:
+			if fieldTypeId == thrift.BOOL {
+				if err = p.ReadField14(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 15:
+			if fieldTypeId == thrift.BOOL {
+				if err = p.ReadField15(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 16:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField16(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 17:
+			if fieldTypeId == thrift.BOOL {
+				if err = p.ReadField17(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 18:
+			if fieldTypeId == thrift.BOOL {
+				if err = p.ReadField18(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 19:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField19(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 20:
+			if fieldTypeId == thrift.BOOL {
+				if err = p.ReadField20(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 21:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField21(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -1180,6 +1492,171 @@ func (p *Mate) ReadField6(iprot thrift.TProtocol) error {
 	p.IframeSrc = _field
 	return nil
 }
+func (p *Mate) ReadField7(iprot thrift.TProtocol) error {
+
+	var _field bool
+	if v, err := iprot.ReadBool(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.AffixTab = _field
+	return nil
+}
+func (p *Mate) ReadField8(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.ActivePath = _field
+	return nil
+}
+func (p *Mate) ReadField9(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.BadgeVariants = _field
+	return nil
+}
+func (p *Mate) ReadField10(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.BadgeType = _field
+	return nil
+}
+func (p *Mate) ReadField11(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.BadgeText = _field
+	return nil
+}
+func (p *Mate) ReadField12(iprot thrift.TProtocol) error {
+
+	var _field bool
+	if v, err := iprot.ReadBool(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.HideChildrenInMenu = _field
+	return nil
+}
+func (p *Mate) ReadField13(iprot thrift.TProtocol) error {
+
+	var _field bool
+	if v, err := iprot.ReadBool(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.HideInTab = _field
+	return nil
+}
+func (p *Mate) ReadField14(iprot thrift.TProtocol) error {
+
+	var _field bool
+	if v, err := iprot.ReadBool(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.HideInMenu = _field
+	return nil
+}
+func (p *Mate) ReadField15(iprot thrift.TProtocol) error {
+
+	var _field bool
+	if v, err := iprot.ReadBool(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.KeepAlive = _field
+	return nil
+}
+func (p *Mate) ReadField16(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.ActiveIcon_ = _field
+	return nil
+}
+func (p *Mate) ReadField17(iprot thrift.TProtocol) error {
+
+	var _field bool
+	if v, err := iprot.ReadBool(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.HideInBreadcrumb = _field
+	return nil
+}
+func (p *Mate) ReadField18(iprot thrift.TProtocol) error {
+
+	var _field bool
+	if v, err := iprot.ReadBool(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.IgnoreAccess = _field
+	return nil
+}
+func (p *Mate) ReadField19(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Link = _field
+	return nil
+}
+func (p *Mate) ReadField20(iprot thrift.TProtocol) error {
+
+	var _field bool
+	if v, err := iprot.ReadBool(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.OpenInNewWindow = _field
+	return nil
+}
+func (p *Mate) ReadField21(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.MaxNumOfOpenTab = _field
+	return nil
+}
 
 func (p *Mate) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -1209,6 +1686,66 @@ func (p *Mate) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField6(oprot); err != nil {
 			fieldId = 6
+			goto WriteFieldError
+		}
+		if err = p.writeField7(oprot); err != nil {
+			fieldId = 7
+			goto WriteFieldError
+		}
+		if err = p.writeField8(oprot); err != nil {
+			fieldId = 8
+			goto WriteFieldError
+		}
+		if err = p.writeField9(oprot); err != nil {
+			fieldId = 9
+			goto WriteFieldError
+		}
+		if err = p.writeField10(oprot); err != nil {
+			fieldId = 10
+			goto WriteFieldError
+		}
+		if err = p.writeField11(oprot); err != nil {
+			fieldId = 11
+			goto WriteFieldError
+		}
+		if err = p.writeField12(oprot); err != nil {
+			fieldId = 12
+			goto WriteFieldError
+		}
+		if err = p.writeField13(oprot); err != nil {
+			fieldId = 13
+			goto WriteFieldError
+		}
+		if err = p.writeField14(oprot); err != nil {
+			fieldId = 14
+			goto WriteFieldError
+		}
+		if err = p.writeField15(oprot); err != nil {
+			fieldId = 15
+			goto WriteFieldError
+		}
+		if err = p.writeField16(oprot); err != nil {
+			fieldId = 16
+			goto WriteFieldError
+		}
+		if err = p.writeField17(oprot); err != nil {
+			fieldId = 17
+			goto WriteFieldError
+		}
+		if err = p.writeField18(oprot); err != nil {
+			fieldId = 18
+			goto WriteFieldError
+		}
+		if err = p.writeField19(oprot); err != nil {
+			fieldId = 19
+			goto WriteFieldError
+		}
+		if err = p.writeField20(oprot); err != nil {
+			fieldId = 20
+			goto WriteFieldError
+		}
+		if err = p.writeField21(oprot); err != nil {
+			fieldId = 21
 			goto WriteFieldError
 		}
 	}
@@ -1331,6 +1868,261 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 6 end error: ", p), err)
 }
 
+func (p *Mate) writeField7(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("affixTab", thrift.BOOL, 7); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteBool(p.AffixTab); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 7 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 7 end error: ", p), err)
+}
+
+func (p *Mate) writeField8(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("activePath", thrift.STRING, 8); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.ActivePath); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 8 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 8 end error: ", p), err)
+}
+
+func (p *Mate) writeField9(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("badgeVariants", thrift.STRING, 9); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.BadgeVariants); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 9 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 9 end error: ", p), err)
+}
+
+func (p *Mate) writeField10(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("badgeType", thrift.STRING, 10); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.BadgeType); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 10 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 10 end error: ", p), err)
+}
+
+func (p *Mate) writeField11(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("badgeText", thrift.STRING, 11); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.BadgeText); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 11 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 11 end error: ", p), err)
+}
+
+func (p *Mate) writeField12(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("hideChildrenInMenu", thrift.BOOL, 12); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteBool(p.HideChildrenInMenu); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 12 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 12 end error: ", p), err)
+}
+
+func (p *Mate) writeField13(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("hideInTab", thrift.BOOL, 13); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteBool(p.HideInTab); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 13 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 13 end error: ", p), err)
+}
+
+func (p *Mate) writeField14(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("hideInMenu", thrift.BOOL, 14); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteBool(p.HideInMenu); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 14 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 14 end error: ", p), err)
+}
+
+func (p *Mate) writeField15(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("keepAlive", thrift.BOOL, 15); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteBool(p.KeepAlive); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 15 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 15 end error: ", p), err)
+}
+
+func (p *Mate) writeField16(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("activeIcon", thrift.STRING, 16); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.ActiveIcon_); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 16 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 16 end error: ", p), err)
+}
+
+func (p *Mate) writeField17(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("hideInBreadcrumb", thrift.BOOL, 17); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteBool(p.HideInBreadcrumb); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 17 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 17 end error: ", p), err)
+}
+
+func (p *Mate) writeField18(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("ignoreAccess", thrift.BOOL, 18); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteBool(p.IgnoreAccess); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 18 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 18 end error: ", p), err)
+}
+
+func (p *Mate) writeField19(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("link", thrift.STRING, 19); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Link); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 19 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 19 end error: ", p), err)
+}
+
+func (p *Mate) writeField20(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("openInNewWindow", thrift.BOOL, 20); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteBool(p.OpenInNewWindow); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 20 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 20 end error: ", p), err)
+}
+
+func (p *Mate) writeField21(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("maxNumOfOpenTab", thrift.I32, 21); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.MaxNumOfOpenTab); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 21 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 21 end error: ", p), err)
+}
+
 func (p *Mate) String() string {
 	if p == nil {
 		return "<nil>"
@@ -1361,6 +2153,51 @@ func (p *Mate) DeepEqual(ano *Mate) bool {
 		return false
 	}
 	if !p.Field6DeepEqual(ano.IframeSrc) {
+		return false
+	}
+	if !p.Field7DeepEqual(ano.AffixTab) {
+		return false
+	}
+	if !p.Field8DeepEqual(ano.ActivePath) {
+		return false
+	}
+	if !p.Field9DeepEqual(ano.BadgeVariants) {
+		return false
+	}
+	if !p.Field10DeepEqual(ano.BadgeType) {
+		return false
+	}
+	if !p.Field11DeepEqual(ano.BadgeText) {
+		return false
+	}
+	if !p.Field12DeepEqual(ano.HideChildrenInMenu) {
+		return false
+	}
+	if !p.Field13DeepEqual(ano.HideInTab) {
+		return false
+	}
+	if !p.Field14DeepEqual(ano.HideInMenu) {
+		return false
+	}
+	if !p.Field15DeepEqual(ano.KeepAlive) {
+		return false
+	}
+	if !p.Field16DeepEqual(ano.ActiveIcon_) {
+		return false
+	}
+	if !p.Field17DeepEqual(ano.HideInBreadcrumb) {
+		return false
+	}
+	if !p.Field18DeepEqual(ano.IgnoreAccess) {
+		return false
+	}
+	if !p.Field19DeepEqual(ano.Link) {
+		return false
+	}
+	if !p.Field20DeepEqual(ano.OpenInNewWindow) {
+		return false
+	}
+	if !p.Field21DeepEqual(ano.MaxNumOfOpenTab) {
 		return false
 	}
 	return true
@@ -1404,6 +2241,111 @@ func (p *Mate) Field5DeepEqual(src string) bool {
 func (p *Mate) Field6DeepEqual(src string) bool {
 
 	if strings.Compare(p.IframeSrc, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *Mate) Field7DeepEqual(src bool) bool {
+
+	if p.AffixTab != src {
+		return false
+	}
+	return true
+}
+func (p *Mate) Field8DeepEqual(src string) bool {
+
+	if strings.Compare(p.ActivePath, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *Mate) Field9DeepEqual(src string) bool {
+
+	if strings.Compare(p.BadgeVariants, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *Mate) Field10DeepEqual(src string) bool {
+
+	if strings.Compare(p.BadgeType, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *Mate) Field11DeepEqual(src string) bool {
+
+	if strings.Compare(p.BadgeText, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *Mate) Field12DeepEqual(src bool) bool {
+
+	if p.HideChildrenInMenu != src {
+		return false
+	}
+	return true
+}
+func (p *Mate) Field13DeepEqual(src bool) bool {
+
+	if p.HideInTab != src {
+		return false
+	}
+	return true
+}
+func (p *Mate) Field14DeepEqual(src bool) bool {
+
+	if p.HideInMenu != src {
+		return false
+	}
+	return true
+}
+func (p *Mate) Field15DeepEqual(src bool) bool {
+
+	if p.KeepAlive != src {
+		return false
+	}
+	return true
+}
+func (p *Mate) Field16DeepEqual(src string) bool {
+
+	if strings.Compare(p.ActiveIcon_, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *Mate) Field17DeepEqual(src bool) bool {
+
+	if p.HideInBreadcrumb != src {
+		return false
+	}
+	return true
+}
+func (p *Mate) Field18DeepEqual(src bool) bool {
+
+	if p.IgnoreAccess != src {
+		return false
+	}
+	return true
+}
+func (p *Mate) Field19DeepEqual(src string) bool {
+
+	if strings.Compare(p.Link, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *Mate) Field20DeepEqual(src bool) bool {
+
+	if p.OpenInNewWindow != src {
+		return false
+	}
+	return true
+}
+func (p *Mate) Field21DeepEqual(src int32) bool {
+
+	if p.MaxNumOfOpenTab != src {
 		return false
 	}
 	return true
