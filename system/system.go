@@ -167,17 +167,17 @@ func (p *GetUserListOrderBy) Value() (driver.Value, error) {
 }
 
 type ModelMenu struct {
-	Id        int32      `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
-	CreatedAt int32      `thrift:"created_at,2" frugal:"2,default,i32" json:"created_at"`
-	UpdatedAt int32      `thrift:"updated_at,3" frugal:"3,default,i32" json:"updated_at"`
-	DeletedAt int32      `thrift:"deleted_at,4" frugal:"4,default,i32" json:"deleted_at"`
-	Component string     `thrift:"component,5" frugal:"5,default,string" json:"component" gorm:"column:component;default:BasicLayout"`
-	Mate      *Mate      `thrift:"mate,6" frugal:"6,default,Mate" json:"mate" gorm:"column:mate;embedded"`
-	Name      string     `thrift:"name,7" frugal:"7,default,string" json:"name"`
-	Path      string     `thrift:"path,8" frugal:"8,default,string" json:"path"`
-	Redirect  string     `thrift:"redirect,9" frugal:"9,default,string" json:"redirect"`
-	ParentId  int32      `thrift:"parent_id,10" frugal:"10,default,i32" json:"parent_id"`
-	Children  *ModelMenu `thrift:"children,11" frugal:"11,default,ModelMenu" json:"children" gorm:"-"`
+	Id        int32        `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
+	CreatedAt int32        `thrift:"created_at,2" frugal:"2,default,i32" json:"created_at"`
+	UpdatedAt int32        `thrift:"updated_at,3" frugal:"3,default,i32" json:"updated_at"`
+	DeletedAt int32        `thrift:"deleted_at,4" frugal:"4,default,i32" json:"deleted_at"`
+	Component string       `thrift:"component,5" frugal:"5,default,string" json:"component" gorm:"column:component;default:BasicLayout"`
+	Mate      *Mate        `thrift:"mate,6" frugal:"6,default,Mate" json:"mate" gorm:"column:mate;embedded"`
+	Name      string       `thrift:"name,7" frugal:"7,default,string" json:"name"`
+	Path      string       `thrift:"path,8" frugal:"8,default,string" json:"path"`
+	Redirect  string       `thrift:"redirect,9" frugal:"9,default,string" json:"redirect"`
+	ParentId  int32        `thrift:"parent_id,10" frugal:"10,default,i32" json:"parent_id"`
+	Children  []*ModelMenu `thrift:"children,11" frugal:"11,default,list<ModelMenu>" json:"children" gorm:"-"`
 }
 
 func NewModelMenu() *ModelMenu {
@@ -232,12 +232,7 @@ func (p *ModelMenu) GetParentId() (v int32) {
 	return p.ParentId
 }
 
-var ModelMenu_Children_DEFAULT *ModelMenu
-
-func (p *ModelMenu) GetChildren() (v *ModelMenu) {
-	if !p.IsSetChildren() {
-		return ModelMenu_Children_DEFAULT
-	}
+func (p *ModelMenu) GetChildren() (v []*ModelMenu) {
 	return p.Children
 }
 func (p *ModelMenu) SetId(val int32) {
@@ -270,7 +265,7 @@ func (p *ModelMenu) SetRedirect(val string) {
 func (p *ModelMenu) SetParentId(val int32) {
 	p.ParentId = val
 }
-func (p *ModelMenu) SetChildren(val *ModelMenu) {
+func (p *ModelMenu) SetChildren(val []*ModelMenu) {
 	p.Children = val
 }
 
@@ -290,10 +285,6 @@ var fieldIDToName_ModelMenu = map[int16]string{
 
 func (p *ModelMenu) IsSetMate() bool {
 	return p.Mate != nil
-}
-
-func (p *ModelMenu) IsSetChildren() bool {
-	return p.Children != nil
 }
 
 func (p *ModelMenu) Read(iprot thrift.TProtocol) (err error) {
@@ -396,7 +387,7 @@ func (p *ModelMenu) Read(iprot thrift.TProtocol) (err error) {
 				goto SkipFieldError
 			}
 		case 11:
-			if fieldTypeId == thrift.STRUCT {
+			if fieldTypeId == thrift.LIST {
 				if err = p.ReadField11(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -540,8 +531,23 @@ func (p *ModelMenu) ReadField10(iprot thrift.TProtocol) error {
 	return nil
 }
 func (p *ModelMenu) ReadField11(iprot thrift.TProtocol) error {
-	_field := NewModelMenu()
-	if err := _field.Read(iprot); err != nil {
+	_, size, err := iprot.ReadListBegin()
+	if err != nil {
+		return err
+	}
+	_field := make([]*ModelMenu, 0, size)
+	values := make([]ModelMenu, size)
+	for i := 0; i < size; i++ {
+		_elem := &values[i]
+		_elem.InitDefault()
+
+		if err := _elem.Read(iprot); err != nil {
+			return err
+		}
+
+		_field = append(_field, _elem)
+	}
+	if err := iprot.ReadListEnd(); err != nil {
 		return err
 	}
 	p.Children = _field
@@ -787,10 +793,18 @@ WriteFieldEndError:
 }
 
 func (p *ModelMenu) writeField11(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("children", thrift.STRUCT, 11); err != nil {
+	if err = oprot.WriteFieldBegin("children", thrift.LIST, 11); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := p.Children.Write(oprot); err != nil {
+	if err := oprot.WriteListBegin(thrift.STRUCT, len(p.Children)); err != nil {
+		return err
+	}
+	for _, v := range p.Children {
+		if err := v.Write(oprot); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteListEnd(); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -923,10 +937,16 @@ func (p *ModelMenu) Field10DeepEqual(src int32) bool {
 	}
 	return true
 }
-func (p *ModelMenu) Field11DeepEqual(src *ModelMenu) bool {
+func (p *ModelMenu) Field11DeepEqual(src []*ModelMenu) bool {
 
-	if !p.Children.DeepEqual(src) {
+	if len(p.Children) != len(src) {
 		return false
+	}
+	for i, v := range p.Children {
+		_src := src[i]
+		if !v.DeepEqual(_src) {
+			return false
+		}
 	}
 	return true
 }
