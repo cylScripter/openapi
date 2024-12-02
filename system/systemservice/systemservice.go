@@ -69,6 +69,13 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"GetUserList": kitex.NewMethodInfo(
+		getUserListHandler,
+		newSystemserviceGetUserListArgs,
+		newSystemserviceGetUserListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -279,6 +286,24 @@ func newSystemserviceGetUserInfoResult() interface{} {
 	return system.NewSystemserviceGetUserInfoResult()
 }
 
+func getUserListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*system.SystemserviceGetUserListArgs)
+	realResult := result.(*system.SystemserviceGetUserListResult)
+	success, err := handler.(system.Systemservice).GetUserList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newSystemserviceGetUserListArgs() interface{} {
+	return system.NewSystemserviceGetUserListArgs()
+}
+
+func newSystemserviceGetUserListResult() interface{} {
+	return system.NewSystemserviceGetUserListResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -364,6 +389,16 @@ func (p *kClient) GetUserInfo(ctx context.Context, req *system.GetUserInfoReq) (
 	_args.Req = req
 	var _result system.SystemserviceGetUserInfoResult
 	if err = p.c.Call(ctx, "GetUserInfo", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetUserList(ctx context.Context, req *system.GetUserListReq) (r *system.GetUserListResp, err error) {
+	var _args system.SystemserviceGetUserListArgs
+	_args.Req = req
+	var _result system.SystemserviceGetUserListResult
+	if err = p.c.Call(ctx, "GetUserList", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

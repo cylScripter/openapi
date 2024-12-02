@@ -45,3 +45,8 @@ func GetUserInfo(ctx context.Context, req *system.GetUserInfoReq, callOptions ..
 	clients := MustNewClient("system", callOptions...)
 	return clients.GetUserInfo(ctx, req)
 }
+
+func GetUserList(ctx context.Context, req *system.GetUserListReq, callOptions ...client.Option) (resp *system.GetUserListResp, err error) {
+	clients := MustNewClient("system", callOptions...)
+	return clients.GetUserList(ctx, req)
+}
