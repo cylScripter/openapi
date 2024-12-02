@@ -1015,20 +1015,20 @@ type Mate struct {
 	Badge              string `thrift:"badge,4" frugal:"4,default,string" json:"badge"`
 	ActiveIcon         string `thrift:"active_icon,5" frugal:"5,default,string" json:"active_icon"`
 	IframeSrc          string `thrift:"iframe_src,6" frugal:"6,default,string" json:"iframe_src"`
-	AffixTab           bool   `thrift:"affixTab,7" frugal:"7,default,bool" json:"affixTab"`
+	AffixTab           bool   `thrift:"affixTab,7" frugal:"7,default,bool" json:"affixTab" gorm:"column:affix_tab;default:false"`
 	ActivePath         string `thrift:"activePath,8" frugal:"8,default,string" json:"activePath"`
 	BadgeVariants      string `thrift:"badgeVariants,9" frugal:"9,default,string" json:"badgeVariants"`
 	BadgeType          string `thrift:"badgeType,10" frugal:"10,default,string" json:"hide"`
 	BadgeText          string `thrift:"badgeText,11" frugal:"11,default,string" json:"badgeText"`
-	HideChildrenInMenu bool   `thrift:"hideChildrenInMenu,12" frugal:"12,default,bool" json:"hideChildrenInMenu"`
-	HideInTab          bool   `thrift:"hideInTab,13" frugal:"13,default,bool" json:"hideInTab"`
-	HideInMenu         bool   `thrift:"hideInMenu,14" frugal:"14,default,bool" json:"hideInMenu"`
-	KeepAlive          bool   `thrift:"keepAlive,15" frugal:"15,default,bool" json:"keepAlive"`
+	HideChildrenInMenu bool   `thrift:"hideChildrenInMenu,12" frugal:"12,default,bool" json:"hideChildrenInMenu" gorm:"column:hide_children_in_menu;default:false"`
+	HideInTab          bool   `thrift:"hideInTab,13" frugal:"13,default,bool" json:"hideInTab" gorm:"column:hide_in_tab;default:false"`
+	HideInMenu         bool   `thrift:"hideInMenu,14" frugal:"14,default,bool" json:"hideInMenu" gorm:"column:hide_in_menu;default:false"`
+	KeepAlive          bool   `thrift:"keepAlive,15" frugal:"15,default,bool" json:"keepAlive" gorm:"column:keep_alive;default:false"`
 	ActiveIcon_        string `thrift:"activeIcon,16" frugal:"16,default,string" json:"activeIcon"`
-	HideInBreadcrumb   bool   `thrift:"hideInBreadcrumb,17" frugal:"17,default,bool" json:"hideInBreadcrumb"`
-	IgnoreAccess       bool   `thrift:"ignoreAccess,18" frugal:"18,default,bool" json:"ignoreAccess"`
+	HideInBreadcrumb   bool   `thrift:"hideInBreadcrumb,17" frugal:"17,default,bool" json:"hideInBreadcrumb" gorm:"column:hide_in_breadcrumb;default:false"`
+	IgnoreAccess       bool   `thrift:"ignoreAccess,18" frugal:"18,default,bool" json:"ignoreAccess" gorm:"column:ignore_access;default:false"`
 	Link               string `thrift:"link,19" frugal:"19,default,string" json:"link"`
-	OpenInNewWindow    bool   `thrift:"openInNewWindow,20" frugal:"20,default,bool" json:"openInNewWindow"`
+	OpenInNewWindow    bool   `thrift:"openInNewWindow,20" frugal:"20,default,bool" json:"openInNewWindow"  gorm:"column:open_in_new_window;default:false"`
 	MaxNumOfOpenTab    int32  `thrift:"maxNumOfOpenTab,21" frugal:"21,default,i32" json:"maxNumOfOpenTab"`
 }
 
