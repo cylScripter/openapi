@@ -1010,7 +1010,7 @@ func (p *ModelMenu) Field11DeepEqual(src []*ModelMenu) bool {
 
 type MenuItem struct {
 	Component string      `thrift:"component,1" frugal:"1,default,string" json:"component"`
-	Mate      *Mate       `thrift:"mate,2" frugal:"2,default,Mate" json:"mate"`
+	Mate      *Mate       `thrift:"mate,2" frugal:"2,default,Mate" json:"mate" gorm:"column:mate;embedded"`
 	Name      string      `thrift:"name,3" frugal:"3,default,string" json:"name"`
 	Path      string      `thrift:"path,4" frugal:"4,default,string" json:"path"`
 	Redirect  string      `thrift:"redirect,5" frugal:"5,default,string" json:"redirect"`
