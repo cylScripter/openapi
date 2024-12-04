@@ -20,6 +20,10 @@ type Client interface {
 	GetMenu(ctx context.Context, req *system.GetMenuReq, callOptions ...callopt.Option) (r *system.GetMenuResp, err error)
 	GetUserInfo(ctx context.Context, req *system.GetUserInfoReq, callOptions ...callopt.Option) (r *system.GetUserInfoResp, err error)
 	GetUserList(ctx context.Context, req *system.GetUserListReq, callOptions ...callopt.Option) (r *system.GetUserListResp, err error)
+	GetAuthCode(ctx context.Context, req *system.GetAuthCodeReq, callOptions ...callopt.Option) (r *system.GetAuthCodeResp, err error)
+	GetMenuList(ctx context.Context, req *system.GetMenuListReq, callOptions ...callopt.Option) (r *system.GetMenuListResp, err error)
+	GetRoleList(ctx context.Context, req *system.GetRoleListReq, callOptions ...callopt.Option) (r *system.GetRoleListResp, err error)
+	CreateMenu(ctx context.Context, req *system.CreateMenuReq, callOptions ...callopt.Option) (r *system.CreateMenuResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -94,4 +98,24 @@ func (p *kSystemserviceClient) GetUserInfo(ctx context.Context, req *system.GetU
 func (p *kSystemserviceClient) GetUserList(ctx context.Context, req *system.GetUserListReq, callOptions ...callopt.Option) (r *system.GetUserListResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.GetUserList(ctx, req)
+}
+
+func (p *kSystemserviceClient) GetAuthCode(ctx context.Context, req *system.GetAuthCodeReq, callOptions ...callopt.Option) (r *system.GetAuthCodeResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetAuthCode(ctx, req)
+}
+
+func (p *kSystemserviceClient) GetMenuList(ctx context.Context, req *system.GetMenuListReq, callOptions ...callopt.Option) (r *system.GetMenuListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetMenuList(ctx, req)
+}
+
+func (p *kSystemserviceClient) GetRoleList(ctx context.Context, req *system.GetRoleListReq, callOptions ...callopt.Option) (r *system.GetRoleListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetRoleList(ctx, req)
+}
+
+func (p *kSystemserviceClient) CreateMenu(ctx context.Context, req *system.CreateMenuReq, callOptions ...callopt.Option) (r *system.CreateMenuResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.CreateMenu(ctx, req)
 }

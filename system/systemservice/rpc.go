@@ -50,3 +50,23 @@ func GetUserList(ctx context.Context, req *system.GetUserListReq, callOptions ..
 	clients := MustNewClient("system", callOptions...)
 	return clients.GetUserList(ctx, req)
 }
+
+func GetAuthCode(ctx context.Context, req *system.GetAuthCodeReq, callOptions ...client.Option) (resp *system.GetAuthCodeResp, err error) {
+	clients := MustNewClient("system", callOptions...)
+	return clients.GetAuthCode(ctx, req)
+}
+
+func GetMenuList(ctx context.Context, req *system.GetMenuListReq, callOptions ...client.Option) (resp *system.GetMenuListResp, err error) {
+	clients := MustNewClient("system", callOptions...)
+	return clients.GetMenuList(ctx, req)
+}
+
+func GetRoleList(ctx context.Context, req *system.GetRoleListReq, callOptions ...client.Option) (resp *system.GetRoleListResp, err error) {
+	clients := MustNewClient("system", callOptions...)
+	return clients.GetRoleList(ctx, req)
+}
+
+func CreateMenu(ctx context.Context, req *system.CreateMenuReq, callOptions ...client.Option) (resp *system.CreateMenuResp, err error) {
+	clients := MustNewClient("system", callOptions...)
+	return clients.CreateMenu(ctx, req)
+}

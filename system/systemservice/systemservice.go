@@ -76,6 +76,34 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"GetAuthCode": kitex.NewMethodInfo(
+		getAuthCodeHandler,
+		newSystemserviceGetAuthCodeArgs,
+		newSystemserviceGetAuthCodeResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetMenuList": kitex.NewMethodInfo(
+		getMenuListHandler,
+		newSystemserviceGetMenuListArgs,
+		newSystemserviceGetMenuListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetRoleList": kitex.NewMethodInfo(
+		getRoleListHandler,
+		newSystemserviceGetRoleListArgs,
+		newSystemserviceGetRoleListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"CreateMenu": kitex.NewMethodInfo(
+		createMenuHandler,
+		newSystemserviceCreateMenuArgs,
+		newSystemserviceCreateMenuResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -304,6 +332,78 @@ func newSystemserviceGetUserListResult() interface{} {
 	return system.NewSystemserviceGetUserListResult()
 }
 
+func getAuthCodeHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*system.SystemserviceGetAuthCodeArgs)
+	realResult := result.(*system.SystemserviceGetAuthCodeResult)
+	success, err := handler.(system.Systemservice).GetAuthCode(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newSystemserviceGetAuthCodeArgs() interface{} {
+	return system.NewSystemserviceGetAuthCodeArgs()
+}
+
+func newSystemserviceGetAuthCodeResult() interface{} {
+	return system.NewSystemserviceGetAuthCodeResult()
+}
+
+func getMenuListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*system.SystemserviceGetMenuListArgs)
+	realResult := result.(*system.SystemserviceGetMenuListResult)
+	success, err := handler.(system.Systemservice).GetMenuList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newSystemserviceGetMenuListArgs() interface{} {
+	return system.NewSystemserviceGetMenuListArgs()
+}
+
+func newSystemserviceGetMenuListResult() interface{} {
+	return system.NewSystemserviceGetMenuListResult()
+}
+
+func getRoleListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*system.SystemserviceGetRoleListArgs)
+	realResult := result.(*system.SystemserviceGetRoleListResult)
+	success, err := handler.(system.Systemservice).GetRoleList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newSystemserviceGetRoleListArgs() interface{} {
+	return system.NewSystemserviceGetRoleListArgs()
+}
+
+func newSystemserviceGetRoleListResult() interface{} {
+	return system.NewSystemserviceGetRoleListResult()
+}
+
+func createMenuHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*system.SystemserviceCreateMenuArgs)
+	realResult := result.(*system.SystemserviceCreateMenuResult)
+	success, err := handler.(system.Systemservice).CreateMenu(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newSystemserviceCreateMenuArgs() interface{} {
+	return system.NewSystemserviceCreateMenuArgs()
+}
+
+func newSystemserviceCreateMenuResult() interface{} {
+	return system.NewSystemserviceCreateMenuResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -399,6 +499,46 @@ func (p *kClient) GetUserList(ctx context.Context, req *system.GetUserListReq) (
 	_args.Req = req
 	var _result system.SystemserviceGetUserListResult
 	if err = p.c.Call(ctx, "GetUserList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetAuthCode(ctx context.Context, req *system.GetAuthCodeReq) (r *system.GetAuthCodeResp, err error) {
+	var _args system.SystemserviceGetAuthCodeArgs
+	_args.Req = req
+	var _result system.SystemserviceGetAuthCodeResult
+	if err = p.c.Call(ctx, "GetAuthCode", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetMenuList(ctx context.Context, req *system.GetMenuListReq) (r *system.GetMenuListResp, err error) {
+	var _args system.SystemserviceGetMenuListArgs
+	_args.Req = req
+	var _result system.SystemserviceGetMenuListResult
+	if err = p.c.Call(ctx, "GetMenuList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetRoleList(ctx context.Context, req *system.GetRoleListReq) (r *system.GetRoleListResp, err error) {
+	var _args system.SystemserviceGetRoleListArgs
+	_args.Req = req
+	var _result system.SystemserviceGetRoleListResult
+	if err = p.c.Call(ctx, "GetRoleList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) CreateMenu(ctx context.Context, req *system.CreateMenuReq) (r *system.CreateMenuResp, err error) {
+	var _args system.SystemserviceCreateMenuArgs
+	_args.Req = req
+	var _result system.SystemserviceCreateMenuResult
+	if err = p.c.Call(ctx, "CreateMenu", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
