@@ -224,7 +224,7 @@ type ModelMenu struct {
 	UpdatedAt int32        `thrift:"updated_at,3" frugal:"3,default,i32" json:"updated_at"`
 	DeletedAt int32        `thrift:"deleted_at,4" frugal:"4,default,i32" json:"deleted_at"`
 	Component string       `thrift:"component,5" frugal:"5,default,string" json:"component" gorm:"column:component;default:BasicLayout"`
-	Mete      *Meta        `thrift:"mete,6" frugal:"6,default,Meta" json:"mate" gorm:"column:meta;embedded"`
+	Mete      *Meta        `thrift:"mete,6" frugal:"6,default,Meta" json:"meta" gorm:"column:meta;embedded"`
 	Name      string       `thrift:"name,7" frugal:"7,default,string" json:"name"`
 	Path      string       `thrift:"path,8" frugal:"8,default,string" json:"path"`
 	Redirect  string       `thrift:"redirect,9" frugal:"9,default,string" json:"redirect"`
