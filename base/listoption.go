@@ -58,6 +58,13 @@ type ListOptionProcessor struct {
 	handlers   map[int32]*ListOptionHandler
 }
 
+func NewListOptionProcessor(listOption *ListOption) *ListOptionProcessor {
+	return &ListOptionProcessor{
+		listOption: listOption,
+		handlers:   make(map[int32]*ListOptionHandler),
+	}
+}
+
 func toInt32(typ interface{}) int32 {
 	// Assuming typ is an int32 or can be converted to int32
 	return typ.(int32)
