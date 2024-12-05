@@ -1498,8 +1498,8 @@ type Meta struct {
 	Order              int32  `thrift:"order,2" frugal:"2,default,i32" json:"order"`
 	Icon               string `thrift:"icon,3" frugal:"3,default,string" json:"icon"`
 	Badge              string `thrift:"badge,4" frugal:"4,default,string" json:"badge"`
-	ActiveIcon         string `thrift:"active_icon,5" frugal:"5,default,string" json:"active_icon"`
-	IframeSrc          string `thrift:"iframe_src,6" frugal:"6,default,string" json:"iframe_src"`
+	ActiveIcon         string `thrift:"activeIcon,5" frugal:"5,default,string" json:"activeIcon"`
+	IframeSrc          string `thrift:"iframeSrc,6" frugal:"6,default,string" json:"iframeSrc"`
 	AffixTab           bool   `thrift:"affixTab,7" frugal:"7,default,bool" json:"affixTab" gorm:"column:affix_tab;default:false"`
 	ActivePath         string `thrift:"activePath,8" frugal:"8,default,string" json:"activePath"`
 	BadgeVariants      string `thrift:"badgeVariants,9" frugal:"9,default,string" json:"badgeVariants"`
@@ -1509,12 +1509,11 @@ type Meta struct {
 	HideInTab          bool   `thrift:"hideInTab,13" frugal:"13,default,bool" json:"hideInTab" gorm:"column:hide_in_tab;default:false"`
 	HideInMenu         bool   `thrift:"hideInMenu,14" frugal:"14,default,bool" json:"hideInMenu" gorm:"column:hide_in_menu;default:false"`
 	KeepAlive          bool   `thrift:"keepAlive,15" frugal:"15,default,bool" json:"keepAlive" gorm:"column:keep_alive;default:false"`
-	ActiveIcon_        string `thrift:"activeIcon,16" frugal:"16,default,string" json:"activeIcon"`
-	HideInBreadcrumb   bool   `thrift:"hideInBreadcrumb,17" frugal:"17,default,bool" json:"hideInBreadcrumb" gorm:"column:hide_in_breadcrumb;default:false"`
-	IgnoreAccess       bool   `thrift:"ignoreAccess,18" frugal:"18,default,bool" json:"ignoreAccess" gorm:"column:ignore_access;default:false"`
-	Link               string `thrift:"link,19" frugal:"19,default,string" json:"link"`
-	OpenInNewWindow    bool   `thrift:"openInNewWindow,20" frugal:"20,default,bool" json:"openInNewWindow"  gorm:"column:open_in_new_window;default:false"`
-	MaxNumOfOpenTab    int32  `thrift:"maxNumOfOpenTab,21" frugal:"21,default,i32" json:"maxNumOfOpenTab"`
+	HideInBreadcrumb   bool   `thrift:"hideInBreadcrumb,16" frugal:"16,default,bool" json:"hideInBreadcrumb" gorm:"column:hide_in_breadcrumb;default:false"`
+	IgnoreAccess       bool   `thrift:"ignoreAccess,17" frugal:"17,default,bool" json:"ignoreAccess" gorm:"column:ignore_access;default:false"`
+	Link               string `thrift:"link,18" frugal:"18,default,string" json:"link"`
+	OpenInNewWindow    bool   `thrift:"openInNewWindow,19" frugal:"19,default,bool" json:"openInNewWindow"  gorm:"column:open_in_new_window;default:false"`
+	MaxNumOfOpenTab    int32  `thrift:"maxNumOfOpenTab,20" frugal:"20,default,i32" json:"maxNumOfOpenTab"`
 }
 
 func NewMeta() *Meta {
@@ -1584,10 +1583,6 @@ func (p *Meta) GetKeepAlive() (v bool) {
 	return p.KeepAlive
 }
 
-func (p *Meta) GetActiveIcon_() (v string) {
-	return p.ActiveIcon_
-}
-
 func (p *Meta) GetHideInBreadcrumb() (v bool) {
 	return p.HideInBreadcrumb
 }
@@ -1652,9 +1647,6 @@ func (p *Meta) SetHideInMenu(val bool) {
 func (p *Meta) SetKeepAlive(val bool) {
 	p.KeepAlive = val
 }
-func (p *Meta) SetActiveIcon_(val string) {
-	p.ActiveIcon_ = val
-}
 func (p *Meta) SetHideInBreadcrumb(val bool) {
 	p.HideInBreadcrumb = val
 }
@@ -1676,8 +1668,8 @@ var fieldIDToName_Meta = map[int16]string{
 	2:  "order",
 	3:  "icon",
 	4:  "badge",
-	5:  "active_icon",
-	6:  "iframe_src",
+	5:  "activeIcon",
+	6:  "iframeSrc",
 	7:  "affixTab",
 	8:  "activePath",
 	9:  "badgeVariants",
@@ -1687,12 +1679,11 @@ var fieldIDToName_Meta = map[int16]string{
 	13: "hideInTab",
 	14: "hideInMenu",
 	15: "keepAlive",
-	16: "activeIcon",
-	17: "hideInBreadcrumb",
-	18: "ignoreAccess",
-	19: "link",
-	20: "openInNewWindow",
-	21: "maxNumOfOpenTab",
+	16: "hideInBreadcrumb",
+	17: "ignoreAccess",
+	18: "link",
+	19: "openInNewWindow",
+	20: "maxNumOfOpenTab",
 }
 
 func (p *Meta) Read(iprot thrift.TProtocol) (err error) {
@@ -1835,7 +1826,7 @@ func (p *Meta) Read(iprot thrift.TProtocol) (err error) {
 				goto SkipFieldError
 			}
 		case 16:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.BOOL {
 				if err = p.ReadField16(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -1851,7 +1842,7 @@ func (p *Meta) Read(iprot thrift.TProtocol) (err error) {
 				goto SkipFieldError
 			}
 		case 18:
-			if fieldTypeId == thrift.BOOL {
+			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField18(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -1859,7 +1850,7 @@ func (p *Meta) Read(iprot thrift.TProtocol) (err error) {
 				goto SkipFieldError
 			}
 		case 19:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.BOOL {
 				if err = p.ReadField19(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -1867,16 +1858,8 @@ func (p *Meta) Read(iprot thrift.TProtocol) (err error) {
 				goto SkipFieldError
 			}
 		case 20:
-			if fieldTypeId == thrift.BOOL {
-				if err = p.ReadField20(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		case 21:
 			if fieldTypeId == thrift.I32 {
-				if err = p.ReadField21(iprot); err != nil {
+				if err = p.ReadField20(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -2078,13 +2061,13 @@ func (p *Meta) ReadField15(iprot thrift.TProtocol) error {
 }
 func (p *Meta) ReadField16(iprot thrift.TProtocol) error {
 
-	var _field string
-	if v, err := iprot.ReadString(); err != nil {
+	var _field bool
+	if v, err := iprot.ReadBool(); err != nil {
 		return err
 	} else {
 		_field = v
 	}
-	p.ActiveIcon_ = _field
+	p.HideInBreadcrumb = _field
 	return nil
 }
 func (p *Meta) ReadField17(iprot thrift.TProtocol) error {
@@ -2095,21 +2078,10 @@ func (p *Meta) ReadField17(iprot thrift.TProtocol) error {
 	} else {
 		_field = v
 	}
-	p.HideInBreadcrumb = _field
-	return nil
-}
-func (p *Meta) ReadField18(iprot thrift.TProtocol) error {
-
-	var _field bool
-	if v, err := iprot.ReadBool(); err != nil {
-		return err
-	} else {
-		_field = v
-	}
 	p.IgnoreAccess = _field
 	return nil
 }
-func (p *Meta) ReadField19(iprot thrift.TProtocol) error {
+func (p *Meta) ReadField18(iprot thrift.TProtocol) error {
 
 	var _field string
 	if v, err := iprot.ReadString(); err != nil {
@@ -2120,7 +2092,7 @@ func (p *Meta) ReadField19(iprot thrift.TProtocol) error {
 	p.Link = _field
 	return nil
 }
-func (p *Meta) ReadField20(iprot thrift.TProtocol) error {
+func (p *Meta) ReadField19(iprot thrift.TProtocol) error {
 
 	var _field bool
 	if v, err := iprot.ReadBool(); err != nil {
@@ -2131,7 +2103,7 @@ func (p *Meta) ReadField20(iprot thrift.TProtocol) error {
 	p.OpenInNewWindow = _field
 	return nil
 }
-func (p *Meta) ReadField21(iprot thrift.TProtocol) error {
+func (p *Meta) ReadField20(iprot thrift.TProtocol) error {
 
 	var _field int32
 	if v, err := iprot.ReadI32(); err != nil {
@@ -2229,10 +2201,6 @@ func (p *Meta) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 20
 			goto WriteFieldError
 		}
-		if err = p.writeField21(oprot); err != nil {
-			fieldId = 21
-			goto WriteFieldError
-		}
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -2320,7 +2288,7 @@ WriteFieldEndError:
 }
 
 func (p *Meta) writeField5(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("active_icon", thrift.STRING, 5); err != nil {
+	if err = oprot.WriteFieldBegin("activeIcon", thrift.STRING, 5); err != nil {
 		goto WriteFieldBeginError
 	}
 	if err := oprot.WriteString(p.ActiveIcon); err != nil {
@@ -2337,7 +2305,7 @@ WriteFieldEndError:
 }
 
 func (p *Meta) writeField6(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("iframe_src", thrift.STRING, 6); err != nil {
+	if err = oprot.WriteFieldBegin("iframeSrc", thrift.STRING, 6); err != nil {
 		goto WriteFieldBeginError
 	}
 	if err := oprot.WriteString(p.IframeSrc); err != nil {
@@ -2507,10 +2475,10 @@ WriteFieldEndError:
 }
 
 func (p *Meta) writeField16(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("activeIcon", thrift.STRING, 16); err != nil {
+	if err = oprot.WriteFieldBegin("hideInBreadcrumb", thrift.BOOL, 16); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.ActiveIcon_); err != nil {
+	if err := oprot.WriteBool(p.HideInBreadcrumb); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -2524,10 +2492,10 @@ WriteFieldEndError:
 }
 
 func (p *Meta) writeField17(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("hideInBreadcrumb", thrift.BOOL, 17); err != nil {
+	if err = oprot.WriteFieldBegin("ignoreAccess", thrift.BOOL, 17); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteBool(p.HideInBreadcrumb); err != nil {
+	if err := oprot.WriteBool(p.IgnoreAccess); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -2541,10 +2509,10 @@ WriteFieldEndError:
 }
 
 func (p *Meta) writeField18(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("ignoreAccess", thrift.BOOL, 18); err != nil {
+	if err = oprot.WriteFieldBegin("link", thrift.STRING, 18); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteBool(p.IgnoreAccess); err != nil {
+	if err := oprot.WriteString(p.Link); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -2558,10 +2526,10 @@ WriteFieldEndError:
 }
 
 func (p *Meta) writeField19(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("link", thrift.STRING, 19); err != nil {
+	if err = oprot.WriteFieldBegin("openInNewWindow", thrift.BOOL, 19); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.Link); err != nil {
+	if err := oprot.WriteBool(p.OpenInNewWindow); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -2575,24 +2543,7 @@ WriteFieldEndError:
 }
 
 func (p *Meta) writeField20(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("openInNewWindow", thrift.BOOL, 20); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := oprot.WriteBool(p.OpenInNewWindow); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 20 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 20 end error: ", p), err)
-}
-
-func (p *Meta) writeField21(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("maxNumOfOpenTab", thrift.I32, 21); err != nil {
+	if err = oprot.WriteFieldBegin("maxNumOfOpenTab", thrift.I32, 20); err != nil {
 		goto WriteFieldBeginError
 	}
 	if err := oprot.WriteI32(p.MaxNumOfOpenTab); err != nil {
@@ -2603,9 +2554,9 @@ func (p *Meta) writeField21(oprot thrift.TProtocol) (err error) {
 	}
 	return nil
 WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 21 begin error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field 20 begin error: ", p), err)
 WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 21 end error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field 20 end error: ", p), err)
 }
 
 func (p *Meta) String() string {
@@ -2667,22 +2618,19 @@ func (p *Meta) DeepEqual(ano *Meta) bool {
 	if !p.Field15DeepEqual(ano.KeepAlive) {
 		return false
 	}
-	if !p.Field16DeepEqual(ano.ActiveIcon_) {
+	if !p.Field16DeepEqual(ano.HideInBreadcrumb) {
 		return false
 	}
-	if !p.Field17DeepEqual(ano.HideInBreadcrumb) {
+	if !p.Field17DeepEqual(ano.IgnoreAccess) {
 		return false
 	}
-	if !p.Field18DeepEqual(ano.IgnoreAccess) {
+	if !p.Field18DeepEqual(ano.Link) {
 		return false
 	}
-	if !p.Field19DeepEqual(ano.Link) {
+	if !p.Field19DeepEqual(ano.OpenInNewWindow) {
 		return false
 	}
-	if !p.Field20DeepEqual(ano.OpenInNewWindow) {
-		return false
-	}
-	if !p.Field21DeepEqual(ano.MaxNumOfOpenTab) {
+	if !p.Field20DeepEqual(ano.MaxNumOfOpenTab) {
 		return false
 	}
 	return true
@@ -2793,42 +2741,35 @@ func (p *Meta) Field15DeepEqual(src bool) bool {
 	}
 	return true
 }
-func (p *Meta) Field16DeepEqual(src string) bool {
-
-	if strings.Compare(p.ActiveIcon_, src) != 0 {
-		return false
-	}
-	return true
-}
-func (p *Meta) Field17DeepEqual(src bool) bool {
+func (p *Meta) Field16DeepEqual(src bool) bool {
 
 	if p.HideInBreadcrumb != src {
 		return false
 	}
 	return true
 }
-func (p *Meta) Field18DeepEqual(src bool) bool {
+func (p *Meta) Field17DeepEqual(src bool) bool {
 
 	if p.IgnoreAccess != src {
 		return false
 	}
 	return true
 }
-func (p *Meta) Field19DeepEqual(src string) bool {
+func (p *Meta) Field18DeepEqual(src string) bool {
 
 	if strings.Compare(p.Link, src) != 0 {
 		return false
 	}
 	return true
 }
-func (p *Meta) Field20DeepEqual(src bool) bool {
+func (p *Meta) Field19DeepEqual(src bool) bool {
 
 	if p.OpenInNewWindow != src {
 		return false
 	}
 	return true
 }
-func (p *Meta) Field21DeepEqual(src int32) bool {
+func (p *Meta) Field20DeepEqual(src int32) bool {
 
 	if p.MaxNumOfOpenTab != src {
 		return false
