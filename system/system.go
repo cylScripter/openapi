@@ -218,6 +218,78 @@ func (p *GetUserListOption) Value() (driver.Value, error) {
 	return int64(*p), nil
 }
 
+type GetMenuListOption int64
+
+const (
+	GetMenuListOption_id         GetMenuListOption = 1
+	GetMenuListOption_name       GetMenuListOption = 2
+	GetMenuListOption_path       GetMenuListOption = 3
+	GetMenuListOption_component  GetMenuListOption = 4
+	GetMenuListOption_redirect   GetMenuListOption = 5
+	GetMenuListOption_parent_id  GetMenuListOption = 6
+	GetMenuListOption_title      GetMenuListOption = 7
+	GetMenuListOption_created_at GetMenuListOption = 8
+)
+
+func (p GetMenuListOption) String() string {
+	switch p {
+	case GetMenuListOption_id:
+		return "id"
+	case GetMenuListOption_name:
+		return "name"
+	case GetMenuListOption_path:
+		return "path"
+	case GetMenuListOption_component:
+		return "component"
+	case GetMenuListOption_redirect:
+		return "redirect"
+	case GetMenuListOption_parent_id:
+		return "parent_id"
+	case GetMenuListOption_title:
+		return "title"
+	case GetMenuListOption_created_at:
+		return "created_at"
+	}
+	return "<UNSET>"
+}
+
+func GetMenuListOptionFromString(s string) (GetMenuListOption, error) {
+	switch s {
+	case "id":
+		return GetMenuListOption_id, nil
+	case "name":
+		return GetMenuListOption_name, nil
+	case "path":
+		return GetMenuListOption_path, nil
+	case "component":
+		return GetMenuListOption_component, nil
+	case "redirect":
+		return GetMenuListOption_redirect, nil
+	case "parent_id":
+		return GetMenuListOption_parent_id, nil
+	case "title":
+		return GetMenuListOption_title, nil
+	case "created_at":
+		return GetMenuListOption_created_at, nil
+	}
+	return GetMenuListOption(0), fmt.Errorf("not a valid GetMenuListOption string")
+}
+
+func GetMenuListOptionPtr(v GetMenuListOption) *GetMenuListOption { return &v }
+func (p *GetMenuListOption) Scan(value interface{}) (err error) {
+	var result sql.NullInt64
+	err = result.Scan(value)
+	*p = GetMenuListOption(result.Int64)
+	return
+}
+
+func (p *GetMenuListOption) Value() (driver.Value, error) {
+	if p == nil {
+		return nil, nil
+	}
+	return int64(*p), nil
+}
+
 type ModelMenu struct {
 	Id        int32        `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
 	CreatedAt int32        `thrift:"created_at,2" frugal:"2,default,i32" json:"created_at"`
