@@ -2,6 +2,7 @@ package base
 
 import (
 	"fmt"
+	"reflect"
 	"strconv"
 	"strings"
 )
@@ -23,39 +24,56 @@ func (l *ListOption) AddOption(name int32, value string) {
 	})
 }
 
-type ListOptionValueType int
-
 const (
-	ListOptionValueTypeNil ListOptionValueType = iota
-	ListOptionValueTypeUint32
-	ListOptionValueTypeString
-	ListOptionValueTypeStringList
-	ListOptionValueTypeUint32List
-	ListOptionValueTypeUint64
-	ListOptionValueTypeTimeStampRange
-	ListOptionValueTypeUint64List
-	ListOptionValueTypeBool
-	ListOptionValueTypeInt32
+	ListOptionValueTypeNil            = 0
+	ListOptionValueTypeUint32         = 1
+	ListOptionValueTypeString         = 2
+	ListOptionValueTypeUint32List     = 3
+	ListOptionValueTypeUint64         = 4
+	ListOptionValueTypeTimeStampRange = 5
+	ListOptionValueTypeUint64List     = 6
+	ListOptionValueTypeBool           = 7
+	ListOptionValueTypeStringList     = 8
+	ListOptionValueTypeInt32          = 9
 )
 
 type ListOptionHandler struct {
-	typ              ListOptionValueType
+	typ              int
 	cbNone           func() error
 	cbUint32         func(val uint32) error
+	cbInt32          func(val int32) error
 	cbString         func(val string) error
-	cbStringList     func(val []string) error
 	cbUint32List     func(valList []uint32) error
 	cbUint64         func(val uint64) error
-	cbUint64List     func(valList []uint64) error
 	cbTimeStampRange func(beginAt, endAt uint32) error
+	cbUint64List     func(val []uint64) error
 	cbBool           func(val bool) error
+	cbStringList     func(val []string) error
 	ignoreZeroValue  bool
-	cbInt32          func(val int32) error
 }
-
 type ListOptionProcessor struct {
 	listOption *ListOption
 	handlers   map[int32]*ListOptionHandler
+}
+
+func toInt32(i interface{}) int32 {
+	t := reflect.TypeOf(i)
+	k := t.Kind()
+	switch k {
+	case reflect.Int,
+		reflect.Int32,
+		reflect.Int64,
+		reflect.Int16,
+		reflect.Int8:
+		return int32(reflect.ValueOf(i).Int())
+	case reflect.Uint,
+		reflect.Uint32,
+		reflect.Uint64,
+		reflect.Uint16,
+		reflect.Uint8:
+		return int32(reflect.ValueOf(i).Uint())
+	}
+	return 0
 }
 
 func NewListOptionProcessor(listOption *ListOption) *ListOptionProcessor {
@@ -65,9 +83,41 @@ func NewListOptionProcessor(listOption *ListOption) *ListOptionProcessor {
 	}
 }
 
-func toInt32(typ interface{}) int32 {
-	// Assuming typ is an int32 or can be converted to int32
-	return typ.(int32)
+func (p *ListOptionProcessor) AddNone(typ interface{}, cb func() error) *ListOptionProcessor {
+	x := toInt32(typ)
+	p.handlers[x] = &ListOptionHandler{
+		typ:    ListOptionValueTypeNil,
+		cbNone: cb,
+	}
+	return p
+}
+
+func (p *ListOptionProcessor) AddUint32(typ interface{}, cb func(val uint32) error) *ListOptionProcessor {
+	x := toInt32(typ)
+	p.handlers[x] = &ListOptionHandler{
+		typ:      ListOptionValueTypeUint32,
+		cbUint32: cb,
+	}
+	return p
+}
+
+func (p *ListOptionProcessor) AddInt32(typ interface{}, cb func(val int32) error) *ListOptionProcessor {
+	x := toInt32(typ)
+	p.handlers[x] = &ListOptionHandler{
+		typ:     ListOptionValueTypeInt32,
+		cbInt32: cb,
+	}
+	return p
+}
+
+func (p *ListOptionProcessor) AddString(typ interface{}, cb func(val string) error) *ListOptionProcessor {
+	x := toInt32(typ)
+	p.handlers[x] = &ListOptionHandler{
+		typ:             ListOptionValueTypeString,
+		cbString:        cb,
+		ignoreZeroValue: true,
+	}
+	return p
 }
 
 func (p *ListOptionProcessor) AddStringIgnoreZero(typ interface{}, cb func(val string) error) *ListOptionProcessor {
@@ -137,7 +187,6 @@ func (p *ListOptionProcessor) AddBool(typ interface{}, cb func(val bool) error) 
 	return p
 }
 
-// Process processes the list options and applies the corresponding callbacks.
 func (p *ListOptionProcessor) Process() error {
 	if p.listOption == nil || p.handlers == nil || len(p.handlers) == 0 {
 		return nil
@@ -148,149 +197,206 @@ func (p *ListOptionProcessor) Process() error {
 		if h == nil {
 			continue
 		}
-		if v.Value == "" && h.ignoreZeroValue {
-			continue
-		}
-		err = p.processOption(h, v)
-		if err != nil {
-			return err
+		switch h.typ {
+		case ListOptionValueTypeNil:
+			if h.cbNone != nil {
+				err = h.cbNone()
+				if err != nil {
+					return err
+				}
+			}
+
+		case ListOptionValueTypeUint32:
+			if v.Value == "" {
+				continue
+			}
+			x, err := strconv.ParseInt(v.Value, 10, 32)
+			if err != nil {
+				return err
+			}
+			if h.cbUint32 != nil {
+				err = h.cbUint32(uint32(x))
+				if err != nil {
+					return err
+				}
+			}
+
+		case ListOptionValueTypeString:
+			if v.Value == "" && h.ignoreZeroValue {
+				continue
+			}
+			if h.cbString != nil {
+				if err = h.cbString(v.Value); err != nil {
+					return err
+				}
+			}
+
+		case ListOptionValueTypeStringList:
+			if v.Value == "" && h.ignoreZeroValue {
+				continue
+			}
+			if h.cbStringList != nil {
+				list := strings.Split(v.Value, ",")
+				// 过滤掉空串
+				var nonEmptyList []string
+				for _, v := range list {
+					if v != "" {
+						nonEmptyList = append(nonEmptyList, v)
+					}
+				}
+				if len(nonEmptyList) == 0 && h.ignoreZeroValue {
+					continue
+				}
+				if err = h.cbStringList(nonEmptyList); err != nil {
+					return err
+				}
+			}
+
+		case ListOptionValueTypeUint32List:
+			if v.Value == "" && h.ignoreZeroValue {
+				continue
+			}
+			list := strings.Split(v.Value, ",")
+			var intList []uint32
+			for _, item := range list {
+				x, err := strconv.ParseInt(item, 10, 32)
+				if err != nil {
+					return err
+				}
+				intList = append(intList, uint32(x))
+			}
+			if h.cbUint32List != nil {
+				if err = h.cbUint32List(intList); err != nil {
+					return err
+				}
+			}
+
+		case ListOptionValueTypeUint64:
+			if v.Value == "" {
+				continue
+			}
+			x, err := strconv.ParseUint(v.Value, 10, 64)
+			if err != nil {
+				return err
+			}
+			if h.cbUint64 != nil {
+				err = h.cbUint64(x)
+				if err != nil {
+					return err
+				}
+			}
+
+		case ListOptionValueTypeTimeStampRange:
+			var tStr []string
+			if strings.Index(v.Value, ",") > 0 {
+				tStr = strings.Split(v.Value, ",")
+				if len(tStr) != 2 && h.ignoreZeroValue {
+					continue
+				}
+			} else {
+				tStr = strings.Split(v.Value, "-")
+				if len(tStr) != 2 && h.ignoreZeroValue {
+					continue
+				}
+			}
+			t1, err := strconv.ParseUint(tStr[0], 10, 64)
+			if err != nil {
+				return err
+			}
+			t2, err := strconv.ParseUint(tStr[1], 10, 64)
+			if err != nil {
+				return err
+			}
+			if h.cbTimeStampRange != nil {
+				if err = h.cbTimeStampRange(uint32(t1), uint32(t2)); err != nil {
+					return err
+				}
+			}
+
+		case ListOptionValueTypeUint64List:
+			if v.Value == "" && h.ignoreZeroValue {
+				continue
+			}
+			list := strings.Split(v.Value, ",")
+			var intList []uint64
+			for _, item := range list {
+				x, err := strconv.ParseUint(item, 10, 64)
+				if err != nil {
+					return err
+				}
+				intList = append(intList, x)
+			}
+			if h.cbUint64List != nil {
+				if err = h.cbUint64List(intList); err != nil {
+					return err
+				}
+			}
+
+		case ListOptionValueTypeBool:
+			//if v.Value != "0" && v.Value != "1" {
+			// continue
+			//}
+			value := strings.ToLower(v.Value)
+			var x bool
+			if InSliceStr(value, []string{"1", "true"}) {
+				x = true
+			} else if InSliceStr(value, []string{"0", "false"}) {
+				x = false
+			} else {
+				continue
+			}
+			if h.cbBool != nil {
+				err = h.cbBool(x)
+				if err != nil {
+					return err
+				}
+			}
+
+		case ListOptionValueTypeInt32:
+			if v.Value == "" {
+				continue
+			}
+			x, err := strconv.ParseInt(v.Value, 10, 32)
+			if err != nil {
+				return err
+			}
+			if h.cbInt32 != nil {
+				err = h.cbInt32(int32(x))
+				if err != nil {
+					return err
+				}
+			}
 		}
 	}
 	return nil
 }
 
-// processOption processes a single option based on its type and applies the callback.
-func (p *ListOptionProcessor) processOption(h *ListOptionHandler, v *Option) error {
-	switch h.typ {
-	case ListOptionValueTypeNil:
-		if h.cbNone != nil {
-			return h.cbNone()
-		}
-	case ListOptionValueTypeUint32:
-		x, err := strconv.ParseInt(v.Value, 10, 32)
-		if err != nil {
-			return err
-		}
-		if h.cbUint32 != nil {
-			return h.cbUint32(uint32(x))
-		}
-	case ListOptionValueTypeString:
-		if h.cbString != nil {
-			return h.cbString(v.Value)
-		}
-	case ListOptionValueTypeStringList:
-		list := strings.Split(v.Value, ",")
-		nonEmptyList := filterNonEmptyStrings(list)
-		if len(nonEmptyList) == 0 && h.ignoreZeroValue {
-			return nil
-		}
-		if h.cbStringList != nil {
-			return h.cbStringList(nonEmptyList)
-		}
-	case ListOptionValueTypeUint32List:
-		list := strings.Split(v.Value, ",")
-		intList, err := parseUint32List(list)
-		if err != nil {
-			return err
-		}
-		if h.cbUint32List != nil {
-			return h.cbUint32List(intList)
-		}
-	case ListOptionValueTypeUint64:
-		x, err := strconv.ParseUint(v.Value, 10, 64)
-		if err != nil {
-			return err
-		}
-		if h.cbUint64 != nil {
-			return h.cbUint64(x)
-		}
-	case ListOptionValueTypeTimeStampRange:
-		tStr := splitTimeRange(v.Value)
-		if len(tStr) != 2 && h.ignoreZeroValue {
-			return nil
-		}
-		t1, err := strconv.ParseUint(tStr[0], 10, 64)
-		if err != nil {
-			return err
-		}
-		t2, err := strconv.ParseUint(tStr[1], 10, 64)
-		if err != nil {
-			return err
-		}
-		if h.cbTimeStampRange != nil {
-			return h.cbTimeStampRange(uint32(t1), uint32(t2))
-		}
-	case ListOptionValueTypeUint64List:
-		list := strings.Split(v.Value, ",")
-		intList, err := parseUint64List(list)
-		if err != nil {
-			return err
-		}
-		if h.cbUint64List != nil {
-			return h.cbUint64List(intList)
-		}
-	case ListOptionValueTypeBool:
-		value := strings.ToLower(v.Value)
-		if !InSliceStr(value, []string{"1", "true", "0", "false"}) {
-			return nil
-		}
-		x := value == "1" || value == "true"
-		if h.cbBool != nil {
-			return h.cbBool(x)
-		}
-	case ListOptionValueTypeInt32:
-		x, err := strconv.ParseInt(v.Value, 10, 32)
-		if err != nil {
-			return err
-		}
-		if h.cbInt32 != nil {
-			return h.cbInt32(int32(x))
-		}
-	default:
-		return fmt.Errorf("unknown option type: %d", h.typ)
-	}
-	return nil
-}
-
-func filterNonEmptyStrings(list []string) []string {
-	var nonEmptyList []string
-	for _, v := range list {
-		if v != "" {
-			nonEmptyList = append(nonEmptyList, v)
+func toStr(i interface{}) string {
+	t := reflect.TypeOf(i)
+	k := t.Kind()
+	switch k {
+	case reflect.Int,
+		reflect.Int32,
+		reflect.Int64,
+		reflect.Int16,
+		reflect.Int8:
+		return strconv.FormatInt(reflect.ValueOf(i).Int(), 10)
+	case reflect.Uint,
+		reflect.Uint32,
+		reflect.Uint64,
+		reflect.Uint16,
+		reflect.Uint8:
+		return strconv.FormatUint(reflect.ValueOf(i).Uint(), 10)
+	case reflect.String:
+		return reflect.ValueOf(i).String()
+	case reflect.Bool:
+		if reflect.ValueOf(i).Bool() {
+			return "1"
+		} else {
+			return "0"
 		}
 	}
-	return nonEmptyList
-}
-
-func parseUint32List(list []string) ([]uint32, error) {
-	var intList []uint32
-	for _, item := range list {
-		x, err := strconv.ParseInt(item, 10, 32)
-		if err != nil {
-			return nil, err
-		}
-		intList = append(intList, uint32(x))
-	}
-	return intList, nil
-}
-
-func parseUint64List(list []string) ([]uint64, error) {
-	var intList []uint64
-	for _, item := range list {
-		x, err := strconv.ParseUint(item, 10, 64)
-		if err != nil {
-			return nil, err
-		}
-		intList = append(intList, x)
-	}
-	return intList, nil
-}
-
-func splitTimeRange(value string) []string {
-	if strings.Contains(value, ",") {
-		return strings.Split(value, ",")
-	}
-	return strings.Split(value, "-")
+	return fmt.Sprintf("%v", i)
 }
 
 func InSliceStr(s string, list []string) bool {
