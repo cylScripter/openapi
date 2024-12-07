@@ -24,6 +24,8 @@ type Client interface {
 	GetMenuList(ctx context.Context, req *system.GetMenuListReq, callOptions ...callopt.Option) (r *system.GetMenuListResp, err error)
 	GetRoleList(ctx context.Context, req *system.GetRoleListReq, callOptions ...callopt.Option) (r *system.GetRoleListResp, err error)
 	CreateMenu(ctx context.Context, req *system.CreateMenuReq, callOptions ...callopt.Option) (r *system.CreateMenuResp, err error)
+	UpdateMenu(ctx context.Context, req *system.UpdateMenuReq, callOptions ...callopt.Option) (r *system.UpdateMenuResp, err error)
+	GetApiList(ctx context.Context, req *system.GetApiListReq, callOptions ...callopt.Option) (r *system.GetApiListResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -118,4 +120,14 @@ func (p *kSystemserviceClient) GetRoleList(ctx context.Context, req *system.GetR
 func (p *kSystemserviceClient) CreateMenu(ctx context.Context, req *system.CreateMenuReq, callOptions ...callopt.Option) (r *system.CreateMenuResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.CreateMenu(ctx, req)
+}
+
+func (p *kSystemserviceClient) UpdateMenu(ctx context.Context, req *system.UpdateMenuReq, callOptions ...callopt.Option) (r *system.UpdateMenuResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.UpdateMenu(ctx, req)
+}
+
+func (p *kSystemserviceClient) GetApiList(ctx context.Context, req *system.GetApiListReq, callOptions ...callopt.Option) (r *system.GetApiListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetApiList(ctx, req)
 }

@@ -70,3 +70,13 @@ func CreateMenu(ctx context.Context, req *system.CreateMenuReq, callOptions ...c
 	clients := MustNewClient("system", callOptions...)
 	return clients.CreateMenu(ctx, req)
 }
+
+func UpdateMenu(ctx context.Context, req *system.UpdateMenuReq, callOptions ...client.Option) (resp *system.UpdateMenuResp, err error) {
+	clients := MustNewClient("system", callOptions...)
+	return clients.UpdateMenu(ctx, req)
+}
+
+func GetApiList(ctx context.Context, req *system.GetApiListReq, callOptions ...client.Option) (resp *system.GetApiListResp, err error) {
+	clients := MustNewClient("system", callOptions...)
+	return clients.GetApiList(ctx, req)
+}

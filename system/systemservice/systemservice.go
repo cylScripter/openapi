@@ -104,6 +104,20 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"UpdateMenu": kitex.NewMethodInfo(
+		updateMenuHandler,
+		newSystemserviceUpdateMenuArgs,
+		newSystemserviceUpdateMenuResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetApiList": kitex.NewMethodInfo(
+		getApiListHandler,
+		newSystemserviceGetApiListArgs,
+		newSystemserviceGetApiListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -404,6 +418,42 @@ func newSystemserviceCreateMenuResult() interface{} {
 	return system.NewSystemserviceCreateMenuResult()
 }
 
+func updateMenuHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*system.SystemserviceUpdateMenuArgs)
+	realResult := result.(*system.SystemserviceUpdateMenuResult)
+	success, err := handler.(system.Systemservice).UpdateMenu(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newSystemserviceUpdateMenuArgs() interface{} {
+	return system.NewSystemserviceUpdateMenuArgs()
+}
+
+func newSystemserviceUpdateMenuResult() interface{} {
+	return system.NewSystemserviceUpdateMenuResult()
+}
+
+func getApiListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*system.SystemserviceGetApiListArgs)
+	realResult := result.(*system.SystemserviceGetApiListResult)
+	success, err := handler.(system.Systemservice).GetApiList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newSystemserviceGetApiListArgs() interface{} {
+	return system.NewSystemserviceGetApiListArgs()
+}
+
+func newSystemserviceGetApiListResult() interface{} {
+	return system.NewSystemserviceGetApiListResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -539,6 +589,26 @@ func (p *kClient) CreateMenu(ctx context.Context, req *system.CreateMenuReq) (r 
 	_args.Req = req
 	var _result system.SystemserviceCreateMenuResult
 	if err = p.c.Call(ctx, "CreateMenu", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) UpdateMenu(ctx context.Context, req *system.UpdateMenuReq) (r *system.UpdateMenuResp, err error) {
+	var _args system.SystemserviceUpdateMenuArgs
+	_args.Req = req
+	var _result system.SystemserviceUpdateMenuResult
+	if err = p.c.Call(ctx, "UpdateMenu", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetApiList(ctx context.Context, req *system.GetApiListReq) (r *system.GetApiListResp, err error) {
+	var _args system.SystemserviceGetApiListArgs
+	_args.Req = req
+	var _result system.SystemserviceGetApiListResult
+	if err = p.c.Call(ctx, "GetApiList", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
