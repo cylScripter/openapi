@@ -80,3 +80,8 @@ func GetApiList(ctx context.Context, req *system.GetApiListReq, callOptions ...c
 	clients := MustNewClient("system", callOptions...)
 	return clients.GetApiList(ctx, req)
 }
+
+func DeleteMenu(ctx context.Context, req *system.DeleteMenuReq, callOptions ...client.Option) (resp *system.DeleteMenuResp, err error) {
+	clients := MustNewClient("system", callOptions...)
+	return clients.DeleteMenu(ctx, req)
+}
