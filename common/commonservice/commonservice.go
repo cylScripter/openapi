@@ -13,10 +13,52 @@ import (
 var errInvalidMessageType = errors.New("invalid message type for service method handler")
 
 var serviceMethods = map[string]kitex.MethodInfo{
-	"UploadImage": kitex.NewMethodInfo(
-		uploadImageHandler,
-		newCommonserviceUploadImageArgs,
-		newCommonserviceUploadImageResult,
+	"UploadFile": kitex.NewMethodInfo(
+		uploadFileHandler,
+		newCommonserviceUploadFileArgs,
+		newCommonserviceUploadFileResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"NewMultipart": kitex.NewMethodInfo(
+		newMultipart_Handler,
+		newCommonserviceNewMultipartArgs,
+		newCommonserviceNewMultipartResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetPresignedUrlList": kitex.NewMethodInfo(
+		getPresignedUrlListHandler,
+		newCommonserviceGetPresignedUrlListArgs,
+		newCommonserviceGetPresignedUrlListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"CompleteMultipart": kitex.NewMethodInfo(
+		completeMultipartHandler,
+		newCommonserviceCompleteMultipartArgs,
+		newCommonserviceCompleteMultipartResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"AbortMultipart": kitex.NewMethodInfo(
+		abortMultipartHandler,
+		newCommonserviceAbortMultipartArgs,
+		newCommonserviceAbortMultipartResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetObject": kitex.NewMethodInfo(
+		getObjectHandler,
+		newCommonserviceGetObjectArgs,
+		newCommonserviceGetObjectResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"DeleteObject": kitex.NewMethodInfo(
+		deleteObjectHandler,
+		newCommonserviceDeleteObjectArgs,
+		newCommonserviceDeleteObjectResult,
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
@@ -86,22 +128,130 @@ func newServiceInfo(hasStreaming bool, keepStreamingMethods bool, keepNonStreami
 	return svcInfo
 }
 
-func uploadImageHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
-	realArg := arg.(*common.CommonserviceUploadImageArgs)
-	realResult := result.(*common.CommonserviceUploadImageResult)
-	success, err := handler.(common.Commonservice).UploadImage(ctx, realArg.Req)
+func uploadFileHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*common.CommonserviceUploadFileArgs)
+	realResult := result.(*common.CommonserviceUploadFileResult)
+	success, err := handler.(common.Commonservice).UploadFile(ctx, realArg.Req)
 	if err != nil {
 		return err
 	}
 	realResult.Success = success
 	return nil
 }
-func newCommonserviceUploadImageArgs() interface{} {
-	return common.NewCommonserviceUploadImageArgs()
+func newCommonserviceUploadFileArgs() interface{} {
+	return common.NewCommonserviceUploadFileArgs()
 }
 
-func newCommonserviceUploadImageResult() interface{} {
-	return common.NewCommonserviceUploadImageResult()
+func newCommonserviceUploadFileResult() interface{} {
+	return common.NewCommonserviceUploadFileResult()
+}
+
+func newMultipart_Handler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*common.CommonserviceNewMultipartArgs)
+	realResult := result.(*common.CommonserviceNewMultipartResult)
+	success, err := handler.(common.Commonservice).NewMultipart_(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newCommonserviceNewMultipartArgs() interface{} {
+	return common.NewCommonserviceNewMultipartArgs()
+}
+
+func newCommonserviceNewMultipartResult() interface{} {
+	return common.NewCommonserviceNewMultipartResult()
+}
+
+func getPresignedUrlListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*common.CommonserviceGetPresignedUrlListArgs)
+	realResult := result.(*common.CommonserviceGetPresignedUrlListResult)
+	success, err := handler.(common.Commonservice).GetPresignedUrlList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newCommonserviceGetPresignedUrlListArgs() interface{} {
+	return common.NewCommonserviceGetPresignedUrlListArgs()
+}
+
+func newCommonserviceGetPresignedUrlListResult() interface{} {
+	return common.NewCommonserviceGetPresignedUrlListResult()
+}
+
+func completeMultipartHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*common.CommonserviceCompleteMultipartArgs)
+	realResult := result.(*common.CommonserviceCompleteMultipartResult)
+	success, err := handler.(common.Commonservice).CompleteMultipart(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newCommonserviceCompleteMultipartArgs() interface{} {
+	return common.NewCommonserviceCompleteMultipartArgs()
+}
+
+func newCommonserviceCompleteMultipartResult() interface{} {
+	return common.NewCommonserviceCompleteMultipartResult()
+}
+
+func abortMultipartHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*common.CommonserviceAbortMultipartArgs)
+	realResult := result.(*common.CommonserviceAbortMultipartResult)
+	success, err := handler.(common.Commonservice).AbortMultipart(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newCommonserviceAbortMultipartArgs() interface{} {
+	return common.NewCommonserviceAbortMultipartArgs()
+}
+
+func newCommonserviceAbortMultipartResult() interface{} {
+	return common.NewCommonserviceAbortMultipartResult()
+}
+
+func getObjectHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*common.CommonserviceGetObjectArgs)
+	realResult := result.(*common.CommonserviceGetObjectResult)
+	success, err := handler.(common.Commonservice).GetObject(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newCommonserviceGetObjectArgs() interface{} {
+	return common.NewCommonserviceGetObjectArgs()
+}
+
+func newCommonserviceGetObjectResult() interface{} {
+	return common.NewCommonserviceGetObjectResult()
+}
+
+func deleteObjectHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*common.CommonserviceDeleteObjectArgs)
+	realResult := result.(*common.CommonserviceDeleteObjectResult)
+	success, err := handler.(common.Commonservice).DeleteObject(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newCommonserviceDeleteObjectArgs() interface{} {
+	return common.NewCommonserviceDeleteObjectArgs()
+}
+
+func newCommonserviceDeleteObjectResult() interface{} {
+	return common.NewCommonserviceDeleteObjectResult()
 }
 
 type kClient struct {
@@ -114,11 +264,71 @@ func newServiceClient(c client.Client) *kClient {
 	}
 }
 
-func (p *kClient) UploadImage(ctx context.Context, req *common.UploadImageReq) (r *common.UploadImageResp, err error) {
-	var _args common.CommonserviceUploadImageArgs
+func (p *kClient) UploadFile(ctx context.Context, req *common.UploadFileReq) (r *common.UploadFileResp, err error) {
+	var _args common.CommonserviceUploadFileArgs
 	_args.Req = req
-	var _result common.CommonserviceUploadImageResult
-	if err = p.c.Call(ctx, "UploadImage", &_args, &_result); err != nil {
+	var _result common.CommonserviceUploadFileResult
+	if err = p.c.Call(ctx, "UploadFile", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) NewMultipart_(ctx context.Context, req *common.NewMultipartReq_) (r *common.NewMultipartResp_, err error) {
+	var _args common.CommonserviceNewMultipartArgs
+	_args.Req = req
+	var _result common.CommonserviceNewMultipartResult
+	if err = p.c.Call(ctx, "NewMultipart", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetPresignedUrlList(ctx context.Context, req *common.GetPresignedUrlListReq) (r *common.GetPresignedUrlListResp, err error) {
+	var _args common.CommonserviceGetPresignedUrlListArgs
+	_args.Req = req
+	var _result common.CommonserviceGetPresignedUrlListResult
+	if err = p.c.Call(ctx, "GetPresignedUrlList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) CompleteMultipart(ctx context.Context, req *common.CompleteMultipartReq) (r *common.CompleteMultipartResp, err error) {
+	var _args common.CommonserviceCompleteMultipartArgs
+	_args.Req = req
+	var _result common.CommonserviceCompleteMultipartResult
+	if err = p.c.Call(ctx, "CompleteMultipart", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) AbortMultipart(ctx context.Context, req *common.AbortMultipartReq) (r *common.AbortMultipartResp, err error) {
+	var _args common.CommonserviceAbortMultipartArgs
+	_args.Req = req
+	var _result common.CommonserviceAbortMultipartResult
+	if err = p.c.Call(ctx, "AbortMultipart", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetObject(ctx context.Context, req *common.GetObjectReq) (r *common.GetObjectResp, err error) {
+	var _args common.CommonserviceGetObjectArgs
+	_args.Req = req
+	var _result common.CommonserviceGetObjectResult
+	if err = p.c.Call(ctx, "GetObject", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) DeleteObject(ctx context.Context, req *common.DeleteObjectReq) (r *common.DeleteObjectResp, err error) {
+	var _args common.CommonserviceDeleteObjectArgs
+	_args.Req = req
+	var _result common.CommonserviceDeleteObjectResult
+	if err = p.c.Call(ctx, "DeleteObject", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

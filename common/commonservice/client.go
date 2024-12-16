@@ -11,7 +11,13 @@ import (
 
 // Client is designed to provide IDL-compatible methods with call-option parameter for kitex framework.
 type Client interface {
-	UploadImage(ctx context.Context, req *common.UploadImageReq, callOptions ...callopt.Option) (r *common.UploadImageResp, err error)
+	UploadFile(ctx context.Context, req *common.UploadFileReq, callOptions ...callopt.Option) (r *common.UploadFileResp, err error)
+	NewMultipart_(ctx context.Context, req *common.NewMultipartReq_, callOptions ...callopt.Option) (r *common.NewMultipartResp_, err error)
+	GetPresignedUrlList(ctx context.Context, req *common.GetPresignedUrlListReq, callOptions ...callopt.Option) (r *common.GetPresignedUrlListResp, err error)
+	CompleteMultipart(ctx context.Context, req *common.CompleteMultipartReq, callOptions ...callopt.Option) (r *common.CompleteMultipartResp, err error)
+	AbortMultipart(ctx context.Context, req *common.AbortMultipartReq, callOptions ...callopt.Option) (r *common.AbortMultipartResp, err error)
+	GetObject(ctx context.Context, req *common.GetObjectReq, callOptions ...callopt.Option) (r *common.GetObjectResp, err error)
+	DeleteObject(ctx context.Context, req *common.DeleteObjectReq, callOptions ...callopt.Option) (r *common.DeleteObjectResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -43,7 +49,37 @@ type kCommonserviceClient struct {
 	*kClient
 }
 
-func (p *kCommonserviceClient) UploadImage(ctx context.Context, req *common.UploadImageReq, callOptions ...callopt.Option) (r *common.UploadImageResp, err error) {
+func (p *kCommonserviceClient) UploadFile(ctx context.Context, req *common.UploadFileReq, callOptions ...callopt.Option) (r *common.UploadFileResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
-	return p.kClient.UploadImage(ctx, req)
+	return p.kClient.UploadFile(ctx, req)
+}
+
+func (p *kCommonserviceClient) NewMultipart_(ctx context.Context, req *common.NewMultipartReq_, callOptions ...callopt.Option) (r *common.NewMultipartResp_, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.NewMultipart_(ctx, req)
+}
+
+func (p *kCommonserviceClient) GetPresignedUrlList(ctx context.Context, req *common.GetPresignedUrlListReq, callOptions ...callopt.Option) (r *common.GetPresignedUrlListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetPresignedUrlList(ctx, req)
+}
+
+func (p *kCommonserviceClient) CompleteMultipart(ctx context.Context, req *common.CompleteMultipartReq, callOptions ...callopt.Option) (r *common.CompleteMultipartResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.CompleteMultipart(ctx, req)
+}
+
+func (p *kCommonserviceClient) AbortMultipart(ctx context.Context, req *common.AbortMultipartReq, callOptions ...callopt.Option) (r *common.AbortMultipartResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.AbortMultipart(ctx, req)
+}
+
+func (p *kCommonserviceClient) GetObject(ctx context.Context, req *common.GetObjectReq, callOptions ...callopt.Option) (r *common.GetObjectResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetObject(ctx, req)
+}
+
+func (p *kCommonserviceClient) DeleteObject(ctx context.Context, req *common.DeleteObjectReq, callOptions ...callopt.Option) (r *common.DeleteObjectResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.DeleteObject(ctx, req)
 }
