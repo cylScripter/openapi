@@ -149,7 +149,7 @@ func (p *ModelFile) FastRead(buf []byte) (int, error) {
 				}
 			}
 		case 9:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.STRUCT {
 				l, err = p.FastReadField9(buf[offset:])
 				offset += l
 				if err != nil {
@@ -336,13 +336,11 @@ func (p *ModelFile) FastReadField8(buf []byte) (int, error) {
 
 func (p *ModelFile) FastReadField9(buf []byte) (int, error) {
 	offset := 0
-
-	var _field string
-	if v, l, err := thrift.Binary.ReadString(buf[offset:]); err != nil {
+	_field := NewModelFile_Meta()
+	if l, err := _field.FastRead(buf[offset:]); err != nil {
 		return offset, err
 	} else {
 		offset += l
-		_field = v
 	}
 	p.Meta = _field
 	return offset, nil
@@ -493,8 +491,8 @@ func (p *ModelFile) fastWriteField8(buf []byte, w thrift.NocopyWriter) int {
 
 func (p *ModelFile) fastWriteField9(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
-	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 9)
-	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.Meta)
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRUCT, 9)
+	offset += p.Meta.FastWriteNocopy(buf[offset:], w)
 	return offset
 }
 
@@ -578,7 +576,7 @@ func (p *ModelFile) field8Length() int {
 func (p *ModelFile) field9Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.StringLengthNocopy(p.Meta)
+	l += p.Meta.BLength()
 	return l
 }
 
@@ -600,6 +598,56 @@ func (p *ModelFile) field12Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.StringLengthNocopy(p.BucketName)
+	return l
+}
+
+func (p *ModelFile_Meta) FastRead(buf []byte) (int, error) {
+	var err error
+	var offset int
+	var l int
+	var fieldTypeId thrift.TType
+	var fieldId int16
+	for {
+		fieldTypeId, fieldId, l, err = thrift.Binary.ReadFieldBegin(buf[offset:])
+		offset += l
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+		l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
+		offset += l
+		if err != nil {
+			goto SkipFieldError
+		}
+	}
+
+	return offset, nil
+ReadFieldBeginError:
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+SkipFieldError:
+	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+}
+
+// for compatibility
+func (p *ModelFile_Meta) FastWrite(buf []byte) int {
+	return 0
+}
+
+func (p *ModelFile_Meta) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
+	offset := 0
+	if p != nil {
+	}
+	offset += thrift.Binary.WriteFieldStop(buf[offset:])
+	return offset
+}
+
+func (p *ModelFile_Meta) BLength() int {
+	l := 0
+	if p != nil {
+	}
+	l += thrift.Binary.FieldStopLength()
 	return l
 }
 
