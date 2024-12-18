@@ -1022,7 +1022,7 @@ func (p *UploadFileResp) field2Length() int {
 	return l
 }
 
-func (p *NewMultipartReq_) FastRead(buf []byte) (int, error) {
+func (p *UploadNewMultipartReq) FastRead(buf []byte) (int, error) {
 	var err error
 	var offset int
 	var l int
@@ -1121,12 +1121,12 @@ func (p *NewMultipartReq_) FastRead(buf []byte) (int, error) {
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_NewMultipartReq_[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_UploadNewMultipartReq[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 }
 
-func (p *NewMultipartReq_) FastReadField1(buf []byte) (int, error) {
+func (p *UploadNewMultipartReq) FastReadField1(buf []byte) (int, error) {
 	offset := 0
 
 	var _field string
@@ -1140,7 +1140,7 @@ func (p *NewMultipartReq_) FastReadField1(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *NewMultipartReq_) FastReadField2(buf []byte) (int, error) {
+func (p *UploadNewMultipartReq) FastReadField2(buf []byte) (int, error) {
 	offset := 0
 
 	var _field string
@@ -1154,7 +1154,7 @@ func (p *NewMultipartReq_) FastReadField2(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *NewMultipartReq_) FastReadField3(buf []byte) (int, error) {
+func (p *UploadNewMultipartReq) FastReadField3(buf []byte) (int, error) {
 	offset := 0
 
 	var _field string
@@ -1168,7 +1168,7 @@ func (p *NewMultipartReq_) FastReadField3(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *NewMultipartReq_) FastReadField4(buf []byte) (int, error) {
+func (p *UploadNewMultipartReq) FastReadField4(buf []byte) (int, error) {
 	offset := 0
 
 	var _field string
@@ -1182,7 +1182,7 @@ func (p *NewMultipartReq_) FastReadField4(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *NewMultipartReq_) FastReadField5(buf []byte) (int, error) {
+func (p *UploadNewMultipartReq) FastReadField5(buf []byte) (int, error) {
 	offset := 0
 
 	var _field int32
@@ -1197,11 +1197,11 @@ func (p *NewMultipartReq_) FastReadField5(buf []byte) (int, error) {
 }
 
 // for compatibility
-func (p *NewMultipartReq_) FastWrite(buf []byte) int {
+func (p *UploadNewMultipartReq) FastWrite(buf []byte) int {
 	return 0
 }
 
-func (p *NewMultipartReq_) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
+func (p *UploadNewMultipartReq) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p != nil {
 		offset += p.fastWriteField5(buf[offset:], w)
@@ -1214,7 +1214,7 @@ func (p *NewMultipartReq_) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) in
 	return offset
 }
 
-func (p *NewMultipartReq_) BLength() int {
+func (p *UploadNewMultipartReq) BLength() int {
 	l := 0
 	if p != nil {
 		l += p.field1Length()
@@ -1227,77 +1227,77 @@ func (p *NewMultipartReq_) BLength() int {
 	return l
 }
 
-func (p *NewMultipartReq_) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
+func (p *UploadNewMultipartReq) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 1)
 	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.ObjectPath)
 	return offset
 }
 
-func (p *NewMultipartReq_) fastWriteField2(buf []byte, w thrift.NocopyWriter) int {
+func (p *UploadNewMultipartReq) fastWriteField2(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 2)
 	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.FileName)
 	return offset
 }
 
-func (p *NewMultipartReq_) fastWriteField3(buf []byte, w thrift.NocopyWriter) int {
+func (p *UploadNewMultipartReq) fastWriteField3(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 3)
 	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.StrFileId)
 	return offset
 }
 
-func (p *NewMultipartReq_) fastWriteField4(buf []byte, w thrift.NocopyWriter) int {
+func (p *UploadNewMultipartReq) fastWriteField4(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 4)
 	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.BucketName)
 	return offset
 }
 
-func (p *NewMultipartReq_) fastWriteField5(buf []byte, w thrift.NocopyWriter) int {
+func (p *UploadNewMultipartReq) fastWriteField5(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 5)
 	offset += thrift.Binary.WriteI32(buf[offset:], p.FileType)
 	return offset
 }
 
-func (p *NewMultipartReq_) field1Length() int {
+func (p *UploadNewMultipartReq) field1Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.StringLengthNocopy(p.ObjectPath)
 	return l
 }
 
-func (p *NewMultipartReq_) field2Length() int {
+func (p *UploadNewMultipartReq) field2Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.StringLengthNocopy(p.FileName)
 	return l
 }
 
-func (p *NewMultipartReq_) field3Length() int {
+func (p *UploadNewMultipartReq) field3Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.StringLengthNocopy(p.StrFileId)
 	return l
 }
 
-func (p *NewMultipartReq_) field4Length() int {
+func (p *UploadNewMultipartReq) field4Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.StringLengthNocopy(p.BucketName)
 	return l
 }
 
-func (p *NewMultipartReq_) field5Length() int {
+func (p *UploadNewMultipartReq) field5Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.I32Length()
 	return l
 }
 
-func (p *NewMultipartResp_) FastRead(buf []byte) (int, error) {
+func (p *UploadNewMultipartResp) FastRead(buf []byte) (int, error) {
 	var err error
 	var offset int
 	var l int
@@ -1340,12 +1340,12 @@ func (p *NewMultipartResp_) FastRead(buf []byte) (int, error) {
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_NewMultipartResp_[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_UploadNewMultipartResp[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 }
 
-func (p *NewMultipartResp_) FastReadField1(buf []byte) (int, error) {
+func (p *UploadNewMultipartResp) FastReadField1(buf []byte) (int, error) {
 	offset := 0
 
 	var _field string
@@ -1360,11 +1360,11 @@ func (p *NewMultipartResp_) FastReadField1(buf []byte) (int, error) {
 }
 
 // for compatibility
-func (p *NewMultipartResp_) FastWrite(buf []byte) int {
+func (p *UploadNewMultipartResp) FastWrite(buf []byte) int {
 	return 0
 }
 
-func (p *NewMultipartResp_) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
+func (p *UploadNewMultipartResp) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p != nil {
 		offset += p.fastWriteField1(buf[offset:], w)
@@ -1373,7 +1373,7 @@ func (p *NewMultipartResp_) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) i
 	return offset
 }
 
-func (p *NewMultipartResp_) BLength() int {
+func (p *UploadNewMultipartResp) BLength() int {
 	l := 0
 	if p != nil {
 		l += p.field1Length()
@@ -1382,14 +1382,14 @@ func (p *NewMultipartResp_) BLength() int {
 	return l
 }
 
-func (p *NewMultipartResp_) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
+func (p *UploadNewMultipartResp) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 1)
 	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.UploadId)
 	return offset
 }
 
-func (p *NewMultipartResp_) field1Length() int {
+func (p *UploadNewMultipartResp) field1Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.StringLengthNocopy(p.UploadId)
@@ -3012,7 +3012,7 @@ func (p *CommonserviceUploadFileResult) field0Length() int {
 	return l
 }
 
-func (p *CommonserviceNewMultipartArgs) FastRead(buf []byte) (int, error) {
+func (p *CommonserviceUploadNewMultipartArgs) FastRead(buf []byte) (int, error) {
 	var err error
 	var offset int
 	var l int
@@ -3055,14 +3055,14 @@ func (p *CommonserviceNewMultipartArgs) FastRead(buf []byte) (int, error) {
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CommonserviceNewMultipartArgs[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CommonserviceUploadNewMultipartArgs[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 }
 
-func (p *CommonserviceNewMultipartArgs) FastReadField1(buf []byte) (int, error) {
+func (p *CommonserviceUploadNewMultipartArgs) FastReadField1(buf []byte) (int, error) {
 	offset := 0
-	_field := NewNewMultipartReq_()
+	_field := NewUploadNewMultipartReq()
 	if l, err := _field.FastRead(buf[offset:]); err != nil {
 		return offset, err
 	} else {
@@ -3073,11 +3073,11 @@ func (p *CommonserviceNewMultipartArgs) FastReadField1(buf []byte) (int, error) 
 }
 
 // for compatibility
-func (p *CommonserviceNewMultipartArgs) FastWrite(buf []byte) int {
+func (p *CommonserviceUploadNewMultipartArgs) FastWrite(buf []byte) int {
 	return 0
 }
 
-func (p *CommonserviceNewMultipartArgs) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
+func (p *CommonserviceUploadNewMultipartArgs) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p != nil {
 		offset += p.fastWriteField1(buf[offset:], w)
@@ -3086,7 +3086,7 @@ func (p *CommonserviceNewMultipartArgs) FastWriteNocopy(buf []byte, w thrift.Noc
 	return offset
 }
 
-func (p *CommonserviceNewMultipartArgs) BLength() int {
+func (p *CommonserviceUploadNewMultipartArgs) BLength() int {
 	l := 0
 	if p != nil {
 		l += p.field1Length()
@@ -3095,21 +3095,21 @@ func (p *CommonserviceNewMultipartArgs) BLength() int {
 	return l
 }
 
-func (p *CommonserviceNewMultipartArgs) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
+func (p *CommonserviceUploadNewMultipartArgs) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRUCT, 1)
 	offset += p.Req.FastWriteNocopy(buf[offset:], w)
 	return offset
 }
 
-func (p *CommonserviceNewMultipartArgs) field1Length() int {
+func (p *CommonserviceUploadNewMultipartArgs) field1Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += p.Req.BLength()
 	return l
 }
 
-func (p *CommonserviceNewMultipartResult) FastRead(buf []byte) (int, error) {
+func (p *CommonserviceUploadNewMultipartResult) FastRead(buf []byte) (int, error) {
 	var err error
 	var offset int
 	var l int
@@ -3152,14 +3152,14 @@ func (p *CommonserviceNewMultipartResult) FastRead(buf []byte) (int, error) {
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CommonserviceNewMultipartResult[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CommonserviceUploadNewMultipartResult[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 }
 
-func (p *CommonserviceNewMultipartResult) FastReadField0(buf []byte) (int, error) {
+func (p *CommonserviceUploadNewMultipartResult) FastReadField0(buf []byte) (int, error) {
 	offset := 0
-	_field := NewNewMultipartResp_()
+	_field := NewUploadNewMultipartResp()
 	if l, err := _field.FastRead(buf[offset:]); err != nil {
 		return offset, err
 	} else {
@@ -3170,11 +3170,11 @@ func (p *CommonserviceNewMultipartResult) FastReadField0(buf []byte) (int, error
 }
 
 // for compatibility
-func (p *CommonserviceNewMultipartResult) FastWrite(buf []byte) int {
+func (p *CommonserviceUploadNewMultipartResult) FastWrite(buf []byte) int {
 	return 0
 }
 
-func (p *CommonserviceNewMultipartResult) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
+func (p *CommonserviceUploadNewMultipartResult) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p != nil {
 		offset += p.fastWriteField0(buf[offset:], w)
@@ -3183,7 +3183,7 @@ func (p *CommonserviceNewMultipartResult) FastWriteNocopy(buf []byte, w thrift.N
 	return offset
 }
 
-func (p *CommonserviceNewMultipartResult) BLength() int {
+func (p *CommonserviceUploadNewMultipartResult) BLength() int {
 	l := 0
 	if p != nil {
 		l += p.field0Length()
@@ -3192,7 +3192,7 @@ func (p *CommonserviceNewMultipartResult) BLength() int {
 	return l
 }
 
-func (p *CommonserviceNewMultipartResult) fastWriteField0(buf []byte, w thrift.NocopyWriter) int {
+func (p *CommonserviceUploadNewMultipartResult) fastWriteField0(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p.IsSetSuccess() {
 		offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRUCT, 0)
@@ -3201,7 +3201,7 @@ func (p *CommonserviceNewMultipartResult) fastWriteField0(buf []byte, w thrift.N
 	return offset
 }
 
-func (p *CommonserviceNewMultipartResult) field0Length() int {
+func (p *CommonserviceUploadNewMultipartResult) field0Length() int {
 	l := 0
 	if p.IsSetSuccess() {
 		l += thrift.Binary.FieldBeginLength()
@@ -4208,11 +4208,11 @@ func (p *CommonserviceUploadFileResult) GetResult() interface{} {
 	return p.Success
 }
 
-func (p *CommonserviceNewMultipartArgs) GetFirstArgument() interface{} {
+func (p *CommonserviceUploadNewMultipartArgs) GetFirstArgument() interface{} {
 	return p.Req
 }
 
-func (p *CommonserviceNewMultipartResult) GetResult() interface{} {
+func (p *CommonserviceUploadNewMultipartResult) GetResult() interface{} {
 	return p.Success
 }
 

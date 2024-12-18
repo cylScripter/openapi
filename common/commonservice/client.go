@@ -12,7 +12,7 @@ import (
 // Client is designed to provide IDL-compatible methods with call-option parameter for kitex framework.
 type Client interface {
 	UploadFile(ctx context.Context, req *common.UploadFileReq, callOptions ...callopt.Option) (r *common.UploadFileResp, err error)
-	NewMultipart_(ctx context.Context, req *common.NewMultipartReq_, callOptions ...callopt.Option) (r *common.NewMultipartResp_, err error)
+	UploadNewMultipart(ctx context.Context, req *common.UploadNewMultipartReq, callOptions ...callopt.Option) (r *common.UploadNewMultipartResp, err error)
 	GetPresignedUrlList(ctx context.Context, req *common.GetPresignedUrlListReq, callOptions ...callopt.Option) (r *common.GetPresignedUrlListResp, err error)
 	CompleteMultipart(ctx context.Context, req *common.CompleteMultipartReq, callOptions ...callopt.Option) (r *common.CompleteMultipartResp, err error)
 	AbortMultipart(ctx context.Context, req *common.AbortMultipartReq, callOptions ...callopt.Option) (r *common.AbortMultipartResp, err error)
@@ -54,9 +54,9 @@ func (p *kCommonserviceClient) UploadFile(ctx context.Context, req *common.Uploa
 	return p.kClient.UploadFile(ctx, req)
 }
 
-func (p *kCommonserviceClient) NewMultipart_(ctx context.Context, req *common.NewMultipartReq_, callOptions ...callopt.Option) (r *common.NewMultipartResp_, err error) {
+func (p *kCommonserviceClient) UploadNewMultipart(ctx context.Context, req *common.UploadNewMultipartReq, callOptions ...callopt.Option) (r *common.UploadNewMultipartResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
-	return p.kClient.NewMultipart_(ctx, req)
+	return p.kClient.UploadNewMultipart(ctx, req)
 }
 
 func (p *kCommonserviceClient) GetPresignedUrlList(ctx context.Context, req *common.GetPresignedUrlListReq, callOptions ...callopt.Option) (r *common.GetPresignedUrlListResp, err error) {

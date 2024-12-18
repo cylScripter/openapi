@@ -20,10 +20,10 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
-	"NewMultipart": kitex.NewMethodInfo(
-		newMultipart_Handler,
-		newCommonserviceNewMultipartArgs,
-		newCommonserviceNewMultipartResult,
+	"UploadNewMultipart": kitex.NewMethodInfo(
+		uploadNewMultipartHandler,
+		newCommonserviceUploadNewMultipartArgs,
+		newCommonserviceUploadNewMultipartResult,
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
@@ -146,22 +146,22 @@ func newCommonserviceUploadFileResult() interface{} {
 	return common.NewCommonserviceUploadFileResult()
 }
 
-func newMultipart_Handler(ctx context.Context, handler interface{}, arg, result interface{}) error {
-	realArg := arg.(*common.CommonserviceNewMultipartArgs)
-	realResult := result.(*common.CommonserviceNewMultipartResult)
-	success, err := handler.(common.Commonservice).NewMultipart_(ctx, realArg.Req)
+func uploadNewMultipartHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*common.CommonserviceUploadNewMultipartArgs)
+	realResult := result.(*common.CommonserviceUploadNewMultipartResult)
+	success, err := handler.(common.Commonservice).UploadNewMultipart(ctx, realArg.Req)
 	if err != nil {
 		return err
 	}
 	realResult.Success = success
 	return nil
 }
-func newCommonserviceNewMultipartArgs() interface{} {
-	return common.NewCommonserviceNewMultipartArgs()
+func newCommonserviceUploadNewMultipartArgs() interface{} {
+	return common.NewCommonserviceUploadNewMultipartArgs()
 }
 
-func newCommonserviceNewMultipartResult() interface{} {
-	return common.NewCommonserviceNewMultipartResult()
+func newCommonserviceUploadNewMultipartResult() interface{} {
+	return common.NewCommonserviceUploadNewMultipartResult()
 }
 
 func getPresignedUrlListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
@@ -274,11 +274,11 @@ func (p *kClient) UploadFile(ctx context.Context, req *common.UploadFileReq) (r 
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) NewMultipart_(ctx context.Context, req *common.NewMultipartReq_) (r *common.NewMultipartResp_, err error) {
-	var _args common.CommonserviceNewMultipartArgs
+func (p *kClient) UploadNewMultipart(ctx context.Context, req *common.UploadNewMultipartReq) (r *common.UploadNewMultipartResp, err error) {
+	var _args common.CommonserviceUploadNewMultipartArgs
 	_args.Req = req
-	var _result common.CommonserviceNewMultipartResult
-	if err = p.c.Call(ctx, "NewMultipart", &_args, &_result); err != nil {
+	var _result common.CommonserviceUploadNewMultipartResult
+	if err = p.c.Call(ctx, "UploadNewMultipart", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

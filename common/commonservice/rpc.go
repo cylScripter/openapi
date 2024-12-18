@@ -11,9 +11,9 @@ func UploadFile(ctx context.Context, req *common.UploadFileReq, callOptions ...c
 	return clients.UploadFile(ctx, req)
 }
 
-func NewMultipart_(ctx context.Context, req *common.NewMultipartReq_, callOptions ...client.Option) (resp *common.NewMultipartResp_, err error) {
+func UploadNewMultipart(ctx context.Context, req *common.UploadNewMultipartReq, callOptions ...client.Option) (resp *common.UploadNewMultipartResp, err error) {
 	clients := MustNewClient("common", callOptions...)
-	return clients.NewMultipart_(ctx, req)
+	return clients.UploadNewMultipart(ctx, req)
 }
 
 func GetPresignedUrlList(ctx context.Context, req *common.GetPresignedUrlListReq, callOptions ...client.Option) (resp *common.GetPresignedUrlListResp, err error) {
