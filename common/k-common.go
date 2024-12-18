@@ -412,7 +412,7 @@ func (p *ModelFile) FastReadField13(buf []byte) (int, error) {
 		offset += l
 		_field = v
 	}
-	p.DeleteAt = _field
+	p.DeletedAt = _field
 	return offset, nil
 }
 
@@ -550,7 +550,7 @@ func (p *ModelFile) fastWriteField12(buf []byte, w thrift.NocopyWriter) int {
 func (p *ModelFile) fastWriteField13(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 13)
-	offset += thrift.Binary.WriteI32(buf[offset:], p.DeleteAt)
+	offset += thrift.Binary.WriteI32(buf[offset:], p.DeletedAt)
 	return offset
 }
 
