@@ -153,7 +153,7 @@ type ModelFile struct {
 	Suffix     string          `thrift:"suffix,10" frugal:"10,default,string" gorm:"column:suffix" json:"suffix"`
 	StrFileId  string          `thrift:"str_file_id,11" frugal:"11,default,string" gorm:"column:hash" json:"hash"`
 	BucketName string          `thrift:"bucket_name,12" frugal:"12,default,string" gorm:"column:bucket_name" json:"bucket_name"`
-	DeleteAt   int32           `thrift:"delete_at,13" frugal:"13,default,i32" json:"delete_at"`
+	DeletedAt  int32           `thrift:"deleted_at,13" frugal:"13,default,i32" json:"deleted_at"`
 }
 
 func NewModelFile() *ModelFile {
@@ -216,8 +216,8 @@ func (p *ModelFile) GetBucketName() (v string) {
 	return p.BucketName
 }
 
-func (p *ModelFile) GetDeleteAt() (v int32) {
-	return p.DeleteAt
+func (p *ModelFile) GetDeletedAt() (v int32) {
+	return p.DeletedAt
 }
 func (p *ModelFile) SetId(val int32) {
 	p.Id = val
@@ -255,8 +255,8 @@ func (p *ModelFile) SetStrFileId(val string) {
 func (p *ModelFile) SetBucketName(val string) {
 	p.BucketName = val
 }
-func (p *ModelFile) SetDeleteAt(val int32) {
-	p.DeleteAt = val
+func (p *ModelFile) SetDeletedAt(val int32) {
+	p.DeletedAt = val
 }
 
 var fieldIDToName_ModelFile = map[int16]string{
@@ -272,7 +272,7 @@ var fieldIDToName_ModelFile = map[int16]string{
 	10: "suffix",
 	11: "str_file_id",
 	12: "bucket_name",
-	13: "delete_at",
+	13: "deleted_at",
 }
 
 func (p *ModelFile) IsSetMeta() bool {
@@ -568,7 +568,7 @@ func (p *ModelFile) ReadField13(iprot thrift.TProtocol) error {
 	} else {
 		_field = v
 	}
-	p.DeleteAt = _field
+	p.DeletedAt = _field
 	return nil
 }
 
@@ -853,10 +853,10 @@ WriteFieldEndError:
 }
 
 func (p *ModelFile) writeField13(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("delete_at", thrift.I32, 13); err != nil {
+	if err = oprot.WriteFieldBegin("deleted_at", thrift.I32, 13); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteI32(p.DeleteAt); err != nil {
+	if err := oprot.WriteI32(p.DeletedAt); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -919,7 +919,7 @@ func (p *ModelFile) DeepEqual(ano *ModelFile) bool {
 	if !p.Field12DeepEqual(ano.BucketName) {
 		return false
 	}
-	if !p.Field13DeepEqual(ano.DeleteAt) {
+	if !p.Field13DeepEqual(ano.DeletedAt) {
 		return false
 	}
 	return true
@@ -1011,7 +1011,7 @@ func (p *ModelFile) Field12DeepEqual(src string) bool {
 }
 func (p *ModelFile) Field13DeepEqual(src int32) bool {
 
-	if p.DeleteAt != src {
+	if p.DeletedAt != src {
 		return false
 	}
 	return true
