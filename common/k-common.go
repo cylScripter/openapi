@@ -149,7 +149,7 @@ func (p *ModelFile) FastRead(buf []byte) (int, error) {
 				}
 			}
 		case 9:
-			if fieldTypeId == thrift.STRUCT {
+			if fieldTypeId == thrift.LIST {
 				l, err = p.FastReadField9(buf[offset:])
 				offset += l
 				if err != nil {
@@ -350,11 +350,23 @@ func (p *ModelFile) FastReadField8(buf []byte) (int, error) {
 
 func (p *ModelFile) FastReadField9(buf []byte) (int, error) {
 	offset := 0
-	_field := NewModelFile_Meta()
-	if l, err := _field.FastRead(buf[offset:]); err != nil {
+
+	_, size, l, err := thrift.Binary.ReadListBegin(buf[offset:])
+	offset += l
+	if err != nil {
 		return offset, err
-	} else {
-		offset += l
+	}
+	_field := make([]int32, 0, size)
+	for i := 0; i < size; i++ {
+		var _elem int32
+		if v, l, err := thrift.Binary.ReadI32(buf[offset:]); err != nil {
+			return offset, err
+		} else {
+			offset += l
+			_elem = v
+		}
+
+		_field = append(_field, _elem)
 	}
 	p.Meta = _field
 	return offset, nil
@@ -521,8 +533,15 @@ func (p *ModelFile) fastWriteField8(buf []byte, w thrift.NocopyWriter) int {
 
 func (p *ModelFile) fastWriteField9(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
-	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRUCT, 9)
-	offset += p.Meta.FastWriteNocopy(buf[offset:], w)
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.LIST, 9)
+	listBeginOffset := offset
+	offset += thrift.Binary.ListBeginLength()
+	var length int
+	for _, v := range p.Meta {
+		length++
+		offset += thrift.Binary.WriteI32(buf[offset:], v)
+	}
+	thrift.Binary.WriteListBegin(buf[listBeginOffset:], thrift.I32, length)
 	return offset
 }
 
@@ -613,7 +632,9 @@ func (p *ModelFile) field8Length() int {
 func (p *ModelFile) field9Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += p.Meta.BLength()
+	l += thrift.Binary.ListBeginLength()
+	l +=
+		thrift.Binary.I32Length() * len(p.Meta)
 	return l
 }
 

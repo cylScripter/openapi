@@ -141,19 +141,19 @@ func (p *FileStatus) Value() (driver.Value, error) {
 }
 
 type ModelFile struct {
-	Id         int32           `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id;index" json:"id"`
-	CreatedAt  int32           `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_a;indext" json:"created_at"`
-	UpdatedAt  int32           `thrift:"updated_at,3" frugal:"3,default,i32" json:"updated_at"`
-	FileName   string          `thrift:"file_name,4" frugal:"4,default,string" gorm:"column:file_name" json:"file_name"`
-	FilePath   string          `thrift:"file_path,5" frugal:"5,default,string" gorm:"column:file_path" json:"file_path"`
-	FileType   int32           `thrift:"file_type,6" frugal:"6,default,i32" gorm:"column:file_type" json:"file_type"`
-	Status     int32           `thrift:"status,7" frugal:"7,default,i32" gorm:"column:status" json:"status"`
-	UploadId   string          `thrift:"upload_id,8" frugal:"8,default,string" gorm:"column:str_file_id" json:"str_file_id"`
-	Meta       *ModelFile_Meta `thrift:"meta,9" frugal:"9,default,ModelFile_Meta" gorm:"column:meta;type:json" json:"meta"`
-	Suffix     string          `thrift:"suffix,10" frugal:"10,default,string" gorm:"column:suffix" json:"suffix"`
-	StrFileId  string          `thrift:"str_file_id,11" frugal:"11,default,string" gorm:"column:hash" json:"hash"`
-	BucketName string          `thrift:"bucket_name,12" frugal:"12,default,string" gorm:"column:bucket_name" json:"bucket_name"`
-	DeletedAt  int32           `thrift:"deleted_at,13" frugal:"13,default,i32" json:"deleted_at"`
+	Id         int32   `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id;index" json:"id"`
+	CreatedAt  int32   `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_a;indext" json:"created_at"`
+	UpdatedAt  int32   `thrift:"updated_at,3" frugal:"3,default,i32" json:"updated_at"`
+	FileName   string  `thrift:"file_name,4" frugal:"4,default,string" gorm:"column:file_name" json:"file_name"`
+	FilePath   string  `thrift:"file_path,5" frugal:"5,default,string" gorm:"column:file_path" json:"file_path"`
+	FileType   int32   `thrift:"file_type,6" frugal:"6,default,i32" gorm:"column:file_type" json:"file_type"`
+	Status     int32   `thrift:"status,7" frugal:"7,default,i32" gorm:"column:status" json:"status"`
+	UploadId   string  `thrift:"upload_id,8" frugal:"8,default,string" gorm:"column:str_file_id" json:"str_file_id"`
+	Meta       []int32 `thrift:"meta,9" frugal:"9,default,list<i32>" gorm:"column:meta;type:json" json:"meta"`
+	Suffix     string  `thrift:"suffix,10" frugal:"10,default,string" gorm:"column:suffix" json:"suffix"`
+	StrFileId  string  `thrift:"str_file_id,11" frugal:"11,default,string" gorm:"column:hash" json:"hash"`
+	BucketName string  `thrift:"bucket_name,12" frugal:"12,default,string" gorm:"column:bucket_name" json:"bucket_name"`
+	DeletedAt  int32   `thrift:"deleted_at,13" frugal:"13,default,i32" json:"deleted_at"`
 }
 
 func NewModelFile() *ModelFile {
@@ -195,12 +195,7 @@ func (p *ModelFile) GetUploadId() (v string) {
 	return p.UploadId
 }
 
-var ModelFile_Meta_DEFAULT *ModelFile_Meta
-
-func (p *ModelFile) GetMeta() (v *ModelFile_Meta) {
-	if !p.IsSetMeta() {
-		return ModelFile_Meta_DEFAULT
-	}
+func (p *ModelFile) GetMeta() (v []int32) {
 	return p.Meta
 }
 
@@ -243,7 +238,7 @@ func (p *ModelFile) SetStatus(val int32) {
 func (p *ModelFile) SetUploadId(val string) {
 	p.UploadId = val
 }
-func (p *ModelFile) SetMeta(val *ModelFile_Meta) {
+func (p *ModelFile) SetMeta(val []int32) {
 	p.Meta = val
 }
 func (p *ModelFile) SetSuffix(val string) {
@@ -273,10 +268,6 @@ var fieldIDToName_ModelFile = map[int16]string{
 	11: "str_file_id",
 	12: "bucket_name",
 	13: "deleted_at",
-}
-
-func (p *ModelFile) IsSetMeta() bool {
-	return p.Meta != nil
 }
 
 func (p *ModelFile) Read(iprot thrift.TProtocol) (err error) {
@@ -363,7 +354,7 @@ func (p *ModelFile) Read(iprot thrift.TProtocol) (err error) {
 				goto SkipFieldError
 			}
 		case 9:
-			if fieldTypeId == thrift.STRUCT {
+			if fieldTypeId == thrift.LIST {
 				if err = p.ReadField9(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -520,8 +511,23 @@ func (p *ModelFile) ReadField8(iprot thrift.TProtocol) error {
 	return nil
 }
 func (p *ModelFile) ReadField9(iprot thrift.TProtocol) error {
-	_field := NewModelFile_Meta()
-	if err := _field.Read(iprot); err != nil {
+	_, size, err := iprot.ReadListBegin()
+	if err != nil {
+		return err
+	}
+	_field := make([]int32, 0, size)
+	for i := 0; i < size; i++ {
+
+		var _elem int32
+		if v, err := iprot.ReadI32(); err != nil {
+			return err
+		} else {
+			_elem = v
+		}
+
+		_field = append(_field, _elem)
+	}
+	if err := iprot.ReadListEnd(); err != nil {
 		return err
 	}
 	p.Meta = _field
@@ -785,10 +791,18 @@ WriteFieldEndError:
 }
 
 func (p *ModelFile) writeField9(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("meta", thrift.STRUCT, 9); err != nil {
+	if err = oprot.WriteFieldBegin("meta", thrift.LIST, 9); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := p.Meta.Write(oprot); err != nil {
+	if err := oprot.WriteListBegin(thrift.I32, len(p.Meta)); err != nil {
+		return err
+	}
+	for _, v := range p.Meta {
+		if err := oprot.WriteI32(v); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteListEnd(); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -981,10 +995,16 @@ func (p *ModelFile) Field8DeepEqual(src string) bool {
 	}
 	return true
 }
-func (p *ModelFile) Field9DeepEqual(src *ModelFile_Meta) bool {
+func (p *ModelFile) Field9DeepEqual(src []int32) bool {
 
-	if !p.Meta.DeepEqual(src) {
+	if len(p.Meta) != len(src) {
 		return false
+	}
+	for i, v := range p.Meta {
+		_src := src[i]
+		if v != _src {
+			return false
+		}
 	}
 	return true
 }
