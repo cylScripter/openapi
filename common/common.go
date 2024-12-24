@@ -141,19 +141,20 @@ func (p *FileStatus) Value() (driver.Value, error) {
 }
 
 type ModelFile struct {
-	Id         int32   `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id;index" json:"id"`
-	CreatedAt  int32   `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_a;indext" json:"created_at"`
-	UpdatedAt  int32   `thrift:"updated_at,3" frugal:"3,default,i32" json:"updated_at"`
-	FileName   string  `thrift:"file_name,4" frugal:"4,default,string" gorm:"column:file_name" json:"file_name"`
-	FilePath   string  `thrift:"file_path,5" frugal:"5,default,string" gorm:"column:file_path" json:"file_path"`
-	FileType   int32   `thrift:"file_type,6" frugal:"6,default,i32" gorm:"column:file_type" json:"file_type"`
-	Status     int32   `thrift:"status,7" frugal:"7,default,i32" gorm:"column:status" json:"status"`
-	UploadId   string  `thrift:"upload_id,8" frugal:"8,default,string" gorm:"column:str_file_id" json:"str_file_id"`
-	Meta       []int32 `thrift:"meta,9" frugal:"9,default,list<i32>" gorm:"column:meta;type:json" json:"meta"`
-	Suffix     string  `thrift:"suffix,10" frugal:"10,default,string" gorm:"column:suffix" json:"suffix"`
-	StrFileId  string  `thrift:"str_file_id,11" frugal:"11,default,string" gorm:"column:hash" json:"hash"`
-	BucketName string  `thrift:"bucket_name,12" frugal:"12,default,string" gorm:"column:bucket_name" json:"bucket_name"`
-	DeletedAt  int32   `thrift:"deleted_at,13" frugal:"13,default,i32" json:"deleted_at"`
+	Id         int32           `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id;index" json:"id"`
+	CreatedAt  int32           `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_a;indext" json:"created_at"`
+	UpdatedAt  int32           `thrift:"updated_at,3" frugal:"3,default,i32" json:"updated_at"`
+	FileName   string          `thrift:"file_name,4" frugal:"4,default,string" gorm:"column:file_name" json:"file_name"`
+	FilePath   string          `thrift:"file_path,5" frugal:"5,default,string" gorm:"column:file_path" json:"file_path"`
+	FileType   int32           `thrift:"file_type,6" frugal:"6,default,i32" gorm:"column:file_type" json:"file_type"`
+	Status     int32           `thrift:"status,7" frugal:"7,default,i32" gorm:"column:status" json:"status"`
+	UploadId   string          `thrift:"upload_id,8" frugal:"8,default,string" gorm:"column:str_file_id" json:"str_file_id"`
+	JsonMeta   string          `thrift:"json_meta,9" frugal:"9,default,string" gorm:"column:meta;type:json" json:"-"`
+	Suffix     string          `thrift:"suffix,10" frugal:"10,default,string" gorm:"column:suffix" json:"suffix"`
+	StrFileId  string          `thrift:"str_file_id,11" frugal:"11,default,string" gorm:"column:hash" json:"hash"`
+	BucketName string          `thrift:"bucket_name,12" frugal:"12,default,string" gorm:"column:bucket_name" json:"bucket_name"`
+	DeletedAt  int32           `thrift:"deleted_at,13" frugal:"13,default,i32" json:"deleted_at"`
+	Meta       *ModelFile_Meta `thrift:"meta,14" frugal:"14,default,ModelFile_Meta" gorm:"-" json:"meta"`
 }
 
 func NewModelFile() *ModelFile {
@@ -195,8 +196,8 @@ func (p *ModelFile) GetUploadId() (v string) {
 	return p.UploadId
 }
 
-func (p *ModelFile) GetMeta() (v []int32) {
-	return p.Meta
+func (p *ModelFile) GetJsonMeta() (v string) {
+	return p.JsonMeta
 }
 
 func (p *ModelFile) GetSuffix() (v string) {
@@ -213,6 +214,15 @@ func (p *ModelFile) GetBucketName() (v string) {
 
 func (p *ModelFile) GetDeletedAt() (v int32) {
 	return p.DeletedAt
+}
+
+var ModelFile_Meta_DEFAULT *ModelFile_Meta
+
+func (p *ModelFile) GetMeta() (v *ModelFile_Meta) {
+	if !p.IsSetMeta() {
+		return ModelFile_Meta_DEFAULT
+	}
+	return p.Meta
 }
 func (p *ModelFile) SetId(val int32) {
 	p.Id = val
@@ -238,8 +248,8 @@ func (p *ModelFile) SetStatus(val int32) {
 func (p *ModelFile) SetUploadId(val string) {
 	p.UploadId = val
 }
-func (p *ModelFile) SetMeta(val []int32) {
-	p.Meta = val
+func (p *ModelFile) SetJsonMeta(val string) {
+	p.JsonMeta = val
 }
 func (p *ModelFile) SetSuffix(val string) {
 	p.Suffix = val
@@ -253,6 +263,9 @@ func (p *ModelFile) SetBucketName(val string) {
 func (p *ModelFile) SetDeletedAt(val int32) {
 	p.DeletedAt = val
 }
+func (p *ModelFile) SetMeta(val *ModelFile_Meta) {
+	p.Meta = val
+}
 
 var fieldIDToName_ModelFile = map[int16]string{
 	1:  "id",
@@ -263,11 +276,16 @@ var fieldIDToName_ModelFile = map[int16]string{
 	6:  "file_type",
 	7:  "status",
 	8:  "upload_id",
-	9:  "meta",
+	9:  "json_meta",
 	10: "suffix",
 	11: "str_file_id",
 	12: "bucket_name",
 	13: "deleted_at",
+	14: "meta",
+}
+
+func (p *ModelFile) IsSetMeta() bool {
+	return p.Meta != nil
 }
 
 func (p *ModelFile) Read(iprot thrift.TProtocol) (err error) {
@@ -354,7 +372,7 @@ func (p *ModelFile) Read(iprot thrift.TProtocol) (err error) {
 				goto SkipFieldError
 			}
 		case 9:
-			if fieldTypeId == thrift.LIST {
+			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField9(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -388,6 +406,14 @@ func (p *ModelFile) Read(iprot thrift.TProtocol) (err error) {
 		case 13:
 			if fieldTypeId == thrift.I32 {
 				if err = p.ReadField13(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 14:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField14(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -511,26 +537,14 @@ func (p *ModelFile) ReadField8(iprot thrift.TProtocol) error {
 	return nil
 }
 func (p *ModelFile) ReadField9(iprot thrift.TProtocol) error {
-	_, size, err := iprot.ReadListBegin()
-	if err != nil {
-		return err
-	}
-	_field := make([]int32, 0, size)
-	for i := 0; i < size; i++ {
 
-		var _elem int32
-		if v, err := iprot.ReadI32(); err != nil {
-			return err
-		} else {
-			_elem = v
-		}
-
-		_field = append(_field, _elem)
-	}
-	if err := iprot.ReadListEnd(); err != nil {
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
 		return err
+	} else {
+		_field = v
 	}
-	p.Meta = _field
+	p.JsonMeta = _field
 	return nil
 }
 func (p *ModelFile) ReadField10(iprot thrift.TProtocol) error {
@@ -575,6 +589,14 @@ func (p *ModelFile) ReadField13(iprot thrift.TProtocol) error {
 		_field = v
 	}
 	p.DeletedAt = _field
+	return nil
+}
+func (p *ModelFile) ReadField14(iprot thrift.TProtocol) error {
+	_field := NewModelFile_Meta()
+	if err := _field.Read(iprot); err != nil {
+		return err
+	}
+	p.Meta = _field
 	return nil
 }
 
@@ -634,6 +656,10 @@ func (p *ModelFile) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField13(oprot); err != nil {
 			fieldId = 13
+			goto WriteFieldError
+		}
+		if err = p.writeField14(oprot); err != nil {
+			fieldId = 14
 			goto WriteFieldError
 		}
 	}
@@ -791,18 +817,10 @@ WriteFieldEndError:
 }
 
 func (p *ModelFile) writeField9(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("meta", thrift.LIST, 9); err != nil {
+	if err = oprot.WriteFieldBegin("json_meta", thrift.STRING, 9); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteListBegin(thrift.I32, len(p.Meta)); err != nil {
-		return err
-	}
-	for _, v := range p.Meta {
-		if err := oprot.WriteI32(v); err != nil {
-			return err
-		}
-	}
-	if err := oprot.WriteListEnd(); err != nil {
+	if err := oprot.WriteString(p.JsonMeta); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -883,6 +901,23 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 13 end error: ", p), err)
 }
 
+func (p *ModelFile) writeField14(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("meta", thrift.STRUCT, 14); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Meta.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 14 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 14 end error: ", p), err)
+}
+
 func (p *ModelFile) String() string {
 	if p == nil {
 		return "<nil>"
@@ -921,7 +956,7 @@ func (p *ModelFile) DeepEqual(ano *ModelFile) bool {
 	if !p.Field8DeepEqual(ano.UploadId) {
 		return false
 	}
-	if !p.Field9DeepEqual(ano.Meta) {
+	if !p.Field9DeepEqual(ano.JsonMeta) {
 		return false
 	}
 	if !p.Field10DeepEqual(ano.Suffix) {
@@ -934,6 +969,9 @@ func (p *ModelFile) DeepEqual(ano *ModelFile) bool {
 		return false
 	}
 	if !p.Field13DeepEqual(ano.DeletedAt) {
+		return false
+	}
+	if !p.Field14DeepEqual(ano.Meta) {
 		return false
 	}
 	return true
@@ -995,16 +1033,10 @@ func (p *ModelFile) Field8DeepEqual(src string) bool {
 	}
 	return true
 }
-func (p *ModelFile) Field9DeepEqual(src []int32) bool {
+func (p *ModelFile) Field9DeepEqual(src string) bool {
 
-	if len(p.Meta) != len(src) {
+	if strings.Compare(p.JsonMeta, src) != 0 {
 		return false
-	}
-	for i, v := range p.Meta {
-		_src := src[i]
-		if v != _src {
-			return false
-		}
 	}
 	return true
 }
@@ -1036,10 +1068,15 @@ func (p *ModelFile) Field13DeepEqual(src int32) bool {
 	}
 	return true
 }
+func (p *ModelFile) Field14DeepEqual(src *ModelFile_Meta) bool {
+
+	if !p.Meta.DeepEqual(src) {
+		return false
+	}
+	return true
+}
 
 type ModelFile_Meta struct {
-	Name string `thrift:"name,1" frugal:"1,default,string" json:"name"`
-	Size string `thrift:"size,2" frugal:"2,default,string" json:"size"`
 }
 
 func NewModelFile_Meta() *ModelFile_Meta {
@@ -1049,24 +1086,7 @@ func NewModelFile_Meta() *ModelFile_Meta {
 func (p *ModelFile_Meta) InitDefault() {
 }
 
-func (p *ModelFile_Meta) GetName() (v string) {
-	return p.Name
-}
-
-func (p *ModelFile_Meta) GetSize() (v string) {
-	return p.Size
-}
-func (p *ModelFile_Meta) SetName(val string) {
-	p.Name = val
-}
-func (p *ModelFile_Meta) SetSize(val string) {
-	p.Size = val
-}
-
-var fieldIDToName_ModelFile_Meta = map[int16]string{
-	1: "name",
-	2: "size",
-}
+var fieldIDToName_ModelFile_Meta = map[int16]string{}
 
 func (p *ModelFile_Meta) Read(iprot thrift.TProtocol) (err error) {
 
@@ -1085,28 +1105,8 @@ func (p *ModelFile_Meta) Read(iprot thrift.TProtocol) (err error) {
 		if fieldTypeId == thrift.STOP {
 			break
 		}
-
-		switch fieldId {
-		case 1:
-			if fieldTypeId == thrift.STRING {
-				if err = p.ReadField1(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		case 2:
-			if fieldTypeId == thrift.STRING {
-				if err = p.ReadField2(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		default:
-			if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
+		if err = iprot.Skip(fieldTypeId); err != nil {
+			goto SkipFieldTypeError
 		}
 		if err = iprot.ReadFieldEnd(); err != nil {
 			goto ReadFieldEndError
@@ -1121,10 +1121,8 @@ ReadStructBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
-ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ModelFile_Meta[fieldId]), err)
-SkipFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+SkipFieldTypeError:
+	return thrift.PrependError(fmt.Sprintf("%T skip field type %d error", p, fieldTypeId), err)
 
 ReadFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
@@ -1132,43 +1130,11 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *ModelFile_Meta) ReadField1(iprot thrift.TProtocol) error {
-
-	var _field string
-	if v, err := iprot.ReadString(); err != nil {
-		return err
-	} else {
-		_field = v
-	}
-	p.Name = _field
-	return nil
-}
-func (p *ModelFile_Meta) ReadField2(iprot thrift.TProtocol) error {
-
-	var _field string
-	if v, err := iprot.ReadString(); err != nil {
-		return err
-	} else {
-		_field = v
-	}
-	p.Size = _field
-	return nil
-}
-
 func (p *ModelFile_Meta) Write(oprot thrift.TProtocol) (err error) {
-	var fieldId int16
 	if err = oprot.WriteStructBegin("ModelFile_Meta"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
-		if err = p.writeField1(oprot); err != nil {
-			fieldId = 1
-			goto WriteFieldError
-		}
-		if err = p.writeField2(oprot); err != nil {
-			fieldId = 2
-			goto WriteFieldError
-		}
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -1179,46 +1145,10 @@ func (p *ModelFile_Meta) Write(oprot thrift.TProtocol) (err error) {
 	return nil
 WriteStructBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
-WriteFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
 WriteFieldStopError:
 	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
 WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
-}
-
-func (p *ModelFile_Meta) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("name", thrift.STRING, 1); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := oprot.WriteString(p.Name); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
-}
-
-func (p *ModelFile_Meta) writeField2(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("size", thrift.STRING, 2); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := oprot.WriteString(p.Size); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
 func (p *ModelFile_Meta) String() string {
@@ -1233,27 +1163,6 @@ func (p *ModelFile_Meta) DeepEqual(ano *ModelFile_Meta) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
-		return false
-	}
-	if !p.Field1DeepEqual(ano.Name) {
-		return false
-	}
-	if !p.Field2DeepEqual(ano.Size) {
-		return false
-	}
-	return true
-}
-
-func (p *ModelFile_Meta) Field1DeepEqual(src string) bool {
-
-	if strings.Compare(p.Name, src) != 0 {
-		return false
-	}
-	return true
-}
-func (p *ModelFile_Meta) Field2DeepEqual(src string) bool {
-
-	if strings.Compare(p.Size, src) != 0 {
 		return false
 	}
 	return true
