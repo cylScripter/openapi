@@ -27,6 +27,27 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"CreateUser": kitex.NewMethodInfo(
+		createUserHandler,
+		newEducationserviceCreateUserArgs,
+		newEducationserviceCreateUserResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"CreateRole": kitex.NewMethodInfo(
+		createRoleHandler,
+		newEducationserviceCreateRoleArgs,
+		newEducationserviceCreateRoleResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"DeleteUser": kitex.NewMethodInfo(
+		deleteUserHandler,
+		newEducationserviceDeleteUserArgs,
+		newEducationserviceDeleteUserResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 	"GetUserList": kitex.NewMethodInfo(
 		getUserListHandler,
 		newEducationserviceGetUserListArgs,
@@ -41,6 +62,13 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"CreatePermission": kitex.NewMethodInfo(
+		createPermissionHandler,
+		newEducationserviceCreatePermissionArgs,
+		newEducationserviceCreatePermissionResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 	"GetPermissionList": kitex.NewMethodInfo(
 		getPermissionListHandler,
 		newEducationserviceGetPermissionListArgs,
@@ -48,10 +76,59 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"GetMenu": kitex.NewMethodInfo(
+		getMenuHandler,
+		newEducationserviceGetMenuArgs,
+		newEducationserviceGetMenuResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 	"GetMenuList": kitex.NewMethodInfo(
 		getMenuListHandler,
 		newEducationserviceGetMenuListArgs,
 		newEducationserviceGetMenuListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"SetUserRole": kitex.NewMethodInfo(
+		setUserRoleHandler,
+		newEducationserviceSetUserRoleArgs,
+		newEducationserviceSetUserRoleResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"SetRolePermission": kitex.NewMethodInfo(
+		setRolePermissionHandler,
+		newEducationserviceSetRolePermissionArgs,
+		newEducationserviceSetRolePermissionResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"SetRoleMenu": kitex.NewMethodInfo(
+		setRoleMenuHandler,
+		newEducationserviceSetRoleMenuArgs,
+		newEducationserviceSetRoleMenuResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"CreateMenu": kitex.NewMethodInfo(
+		createMenuHandler,
+		newEducationserviceCreateMenuArgs,
+		newEducationserviceCreateMenuResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"CreateOffice": kitex.NewMethodInfo(
+		createOfficeHandler,
+		newEducationserviceCreateOfficeArgs,
+		newEducationserviceCreateOfficeResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetOfficeList": kitex.NewMethodInfo(
+		getOfficeListHandler,
+		newEducationserviceGetOfficeListArgs,
+		newEducationserviceGetOfficeListResult,
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
@@ -157,6 +234,60 @@ func newEducationserviceLoginResult() interface{} {
 	return education.NewEducationserviceLoginResult()
 }
 
+func createUserHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceCreateUserArgs)
+	realResult := result.(*education.EducationserviceCreateUserResult)
+	success, err := handler.(education.Educationservice).CreateUser(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceCreateUserArgs() interface{} {
+	return education.NewEducationserviceCreateUserArgs()
+}
+
+func newEducationserviceCreateUserResult() interface{} {
+	return education.NewEducationserviceCreateUserResult()
+}
+
+func createRoleHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceCreateRoleArgs)
+	realResult := result.(*education.EducationserviceCreateRoleResult)
+	success, err := handler.(education.Educationservice).CreateRole(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceCreateRoleArgs() interface{} {
+	return education.NewEducationserviceCreateRoleArgs()
+}
+
+func newEducationserviceCreateRoleResult() interface{} {
+	return education.NewEducationserviceCreateRoleResult()
+}
+
+func deleteUserHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceDeleteUserArgs)
+	realResult := result.(*education.EducationserviceDeleteUserResult)
+	success, err := handler.(education.Educationservice).DeleteUser(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceDeleteUserArgs() interface{} {
+	return education.NewEducationserviceDeleteUserArgs()
+}
+
+func newEducationserviceDeleteUserResult() interface{} {
+	return education.NewEducationserviceDeleteUserResult()
+}
+
 func getUserListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
 	realArg := arg.(*education.EducationserviceGetUserListArgs)
 	realResult := result.(*education.EducationserviceGetUserListResult)
@@ -193,6 +324,24 @@ func newEducationserviceGetRoleListResult() interface{} {
 	return education.NewEducationserviceGetRoleListResult()
 }
 
+func createPermissionHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceCreatePermissionArgs)
+	realResult := result.(*education.EducationserviceCreatePermissionResult)
+	success, err := handler.(education.Educationservice).CreatePermission(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceCreatePermissionArgs() interface{} {
+	return education.NewEducationserviceCreatePermissionArgs()
+}
+
+func newEducationserviceCreatePermissionResult() interface{} {
+	return education.NewEducationserviceCreatePermissionResult()
+}
+
 func getPermissionListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
 	realArg := arg.(*education.EducationserviceGetPermissionListArgs)
 	realResult := result.(*education.EducationserviceGetPermissionListResult)
@@ -211,6 +360,24 @@ func newEducationserviceGetPermissionListResult() interface{} {
 	return education.NewEducationserviceGetPermissionListResult()
 }
 
+func getMenuHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceGetMenuArgs)
+	realResult := result.(*education.EducationserviceGetMenuResult)
+	success, err := handler.(education.Educationservice).GetMenu(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceGetMenuArgs() interface{} {
+	return education.NewEducationserviceGetMenuArgs()
+}
+
+func newEducationserviceGetMenuResult() interface{} {
+	return education.NewEducationserviceGetMenuResult()
+}
+
 func getMenuListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
 	realArg := arg.(*education.EducationserviceGetMenuListArgs)
 	realResult := result.(*education.EducationserviceGetMenuListResult)
@@ -227,6 +394,114 @@ func newEducationserviceGetMenuListArgs() interface{} {
 
 func newEducationserviceGetMenuListResult() interface{} {
 	return education.NewEducationserviceGetMenuListResult()
+}
+
+func setUserRoleHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceSetUserRoleArgs)
+	realResult := result.(*education.EducationserviceSetUserRoleResult)
+	success, err := handler.(education.Educationservice).SetUserRole(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceSetUserRoleArgs() interface{} {
+	return education.NewEducationserviceSetUserRoleArgs()
+}
+
+func newEducationserviceSetUserRoleResult() interface{} {
+	return education.NewEducationserviceSetUserRoleResult()
+}
+
+func setRolePermissionHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceSetRolePermissionArgs)
+	realResult := result.(*education.EducationserviceSetRolePermissionResult)
+	success, err := handler.(education.Educationservice).SetRolePermission(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceSetRolePermissionArgs() interface{} {
+	return education.NewEducationserviceSetRolePermissionArgs()
+}
+
+func newEducationserviceSetRolePermissionResult() interface{} {
+	return education.NewEducationserviceSetRolePermissionResult()
+}
+
+func setRoleMenuHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceSetRoleMenuArgs)
+	realResult := result.(*education.EducationserviceSetRoleMenuResult)
+	success, err := handler.(education.Educationservice).SetRoleMenu(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceSetRoleMenuArgs() interface{} {
+	return education.NewEducationserviceSetRoleMenuArgs()
+}
+
+func newEducationserviceSetRoleMenuResult() interface{} {
+	return education.NewEducationserviceSetRoleMenuResult()
+}
+
+func createMenuHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceCreateMenuArgs)
+	realResult := result.(*education.EducationserviceCreateMenuResult)
+	success, err := handler.(education.Educationservice).CreateMenu(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceCreateMenuArgs() interface{} {
+	return education.NewEducationserviceCreateMenuArgs()
+}
+
+func newEducationserviceCreateMenuResult() interface{} {
+	return education.NewEducationserviceCreateMenuResult()
+}
+
+func createOfficeHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceCreateOfficeArgs)
+	realResult := result.(*education.EducationserviceCreateOfficeResult)
+	success, err := handler.(education.Educationservice).CreateOffice(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceCreateOfficeArgs() interface{} {
+	return education.NewEducationserviceCreateOfficeArgs()
+}
+
+func newEducationserviceCreateOfficeResult() interface{} {
+	return education.NewEducationserviceCreateOfficeResult()
+}
+
+func getOfficeListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceGetOfficeListArgs)
+	realResult := result.(*education.EducationserviceGetOfficeListResult)
+	success, err := handler.(education.Educationservice).GetOfficeList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceGetOfficeListArgs() interface{} {
+	return education.NewEducationserviceGetOfficeListArgs()
+}
+
+func newEducationserviceGetOfficeListResult() interface{} {
+	return education.NewEducationserviceGetOfficeListResult()
 }
 
 type kClient struct {
@@ -259,6 +534,36 @@ func (p *kClient) Login(ctx context.Context, req *education.LoginReq) (r *educat
 	return _result.GetSuccess(), nil
 }
 
+func (p *kClient) CreateUser(ctx context.Context, req *education.CreateUserReq) (r *education.CreateUserResp, err error) {
+	var _args education.EducationserviceCreateUserArgs
+	_args.Req = req
+	var _result education.EducationserviceCreateUserResult
+	if err = p.c.Call(ctx, "CreateUser", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) CreateRole(ctx context.Context, req *education.CreateRoleReq) (r *education.CreateRoleResp, err error) {
+	var _args education.EducationserviceCreateRoleArgs
+	_args.Req = req
+	var _result education.EducationserviceCreateRoleResult
+	if err = p.c.Call(ctx, "CreateRole", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) DeleteUser(ctx context.Context, req *education.DeleteUserReq) (r *education.DeleteUserResp, err error) {
+	var _args education.EducationserviceDeleteUserArgs
+	_args.Req = req
+	var _result education.EducationserviceDeleteUserResult
+	if err = p.c.Call(ctx, "DeleteUser", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
 func (p *kClient) GetUserList(ctx context.Context, req *education.GetUserListReq) (r *education.GetUserListResp, err error) {
 	var _args education.EducationserviceGetUserListArgs
 	_args.Req = req
@@ -279,6 +584,16 @@ func (p *kClient) GetRoleList(ctx context.Context, req *education.GetRoleListReq
 	return _result.GetSuccess(), nil
 }
 
+func (p *kClient) CreatePermission(ctx context.Context, req *education.CreatePermissionReq) (r *education.CreatePermissionResp, err error) {
+	var _args education.EducationserviceCreatePermissionArgs
+	_args.Req = req
+	var _result education.EducationserviceCreatePermissionResult
+	if err = p.c.Call(ctx, "CreatePermission", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
 func (p *kClient) GetPermissionList(ctx context.Context, req *education.GetPermissionListReq) (r *education.GetPermissionListResp, err error) {
 	var _args education.EducationserviceGetPermissionListArgs
 	_args.Req = req
@@ -289,11 +604,81 @@ func (p *kClient) GetPermissionList(ctx context.Context, req *education.GetPermi
 	return _result.GetSuccess(), nil
 }
 
+func (p *kClient) GetMenu(ctx context.Context, req *education.GetMenuReq) (r *education.GetMenuResp, err error) {
+	var _args education.EducationserviceGetMenuArgs
+	_args.Req = req
+	var _result education.EducationserviceGetMenuResult
+	if err = p.c.Call(ctx, "GetMenu", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
 func (p *kClient) GetMenuList(ctx context.Context, req *education.GetMenuReq) (r *education.GetMenuResp, err error) {
 	var _args education.EducationserviceGetMenuListArgs
 	_args.Req = req
 	var _result education.EducationserviceGetMenuListResult
 	if err = p.c.Call(ctx, "GetMenuList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) SetUserRole(ctx context.Context, req *education.SetUserRoleReq) (r *education.SetUserRoleResp, err error) {
+	var _args education.EducationserviceSetUserRoleArgs
+	_args.Req = req
+	var _result education.EducationserviceSetUserRoleResult
+	if err = p.c.Call(ctx, "SetUserRole", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) SetRolePermission(ctx context.Context, req *education.SetRolePermissionReq) (r *education.SetRolePermissionResp, err error) {
+	var _args education.EducationserviceSetRolePermissionArgs
+	_args.Req = req
+	var _result education.EducationserviceSetRolePermissionResult
+	if err = p.c.Call(ctx, "SetRolePermission", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) SetRoleMenu(ctx context.Context, req *education.SetRoleMenuReq) (r *education.SetRoleMenuResp, err error) {
+	var _args education.EducationserviceSetRoleMenuArgs
+	_args.Req = req
+	var _result education.EducationserviceSetRoleMenuResult
+	if err = p.c.Call(ctx, "SetRoleMenu", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) CreateMenu(ctx context.Context, req *education.CreateMenuReq) (r *education.CreateMenuResp, err error) {
+	var _args education.EducationserviceCreateMenuArgs
+	_args.Req = req
+	var _result education.EducationserviceCreateMenuResult
+	if err = p.c.Call(ctx, "CreateMenu", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) CreateOffice(ctx context.Context, req *education.CreateOfficeReq) (r *education.CreateOfficeResp, err error) {
+	var _args education.EducationserviceCreateOfficeArgs
+	_args.Req = req
+	var _result education.EducationserviceCreateOfficeResult
+	if err = p.c.Call(ctx, "CreateOffice", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetOfficeList(ctx context.Context, req *education.GetOfficeListReq) (r *education.GetOfficeListResp, err error) {
+	var _args education.EducationserviceGetOfficeListArgs
+	_args.Req = req
+	var _result education.EducationserviceGetOfficeListResult
+	if err = p.c.Call(ctx, "GetOfficeList", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

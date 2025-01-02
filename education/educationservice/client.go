@@ -13,10 +13,21 @@ import (
 type Client interface {
 	CreateApp(ctx context.Context, req *education.CreateAppReq, callOptions ...callopt.Option) (r *education.CreateAppResp, err error)
 	Login(ctx context.Context, req *education.LoginReq, callOptions ...callopt.Option) (r *education.LoginResp, err error)
+	CreateUser(ctx context.Context, req *education.CreateUserReq, callOptions ...callopt.Option) (r *education.CreateUserResp, err error)
+	CreateRole(ctx context.Context, req *education.CreateRoleReq, callOptions ...callopt.Option) (r *education.CreateRoleResp, err error)
+	DeleteUser(ctx context.Context, req *education.DeleteUserReq, callOptions ...callopt.Option) (r *education.DeleteUserResp, err error)
 	GetUserList(ctx context.Context, req *education.GetUserListReq, callOptions ...callopt.Option) (r *education.GetUserListResp, err error)
 	GetRoleList(ctx context.Context, req *education.GetRoleListReq, callOptions ...callopt.Option) (r *education.GetRoleListResp, err error)
+	CreatePermission(ctx context.Context, req *education.CreatePermissionReq, callOptions ...callopt.Option) (r *education.CreatePermissionResp, err error)
 	GetPermissionList(ctx context.Context, req *education.GetPermissionListReq, callOptions ...callopt.Option) (r *education.GetPermissionListResp, err error)
+	GetMenu(ctx context.Context, req *education.GetMenuReq, callOptions ...callopt.Option) (r *education.GetMenuResp, err error)
 	GetMenuList(ctx context.Context, req *education.GetMenuReq, callOptions ...callopt.Option) (r *education.GetMenuResp, err error)
+	SetUserRole(ctx context.Context, req *education.SetUserRoleReq, callOptions ...callopt.Option) (r *education.SetUserRoleResp, err error)
+	SetRolePermission(ctx context.Context, req *education.SetRolePermissionReq, callOptions ...callopt.Option) (r *education.SetRolePermissionResp, err error)
+	SetRoleMenu(ctx context.Context, req *education.SetRoleMenuReq, callOptions ...callopt.Option) (r *education.SetRoleMenuResp, err error)
+	CreateMenu(ctx context.Context, req *education.CreateMenuReq, callOptions ...callopt.Option) (r *education.CreateMenuResp, err error)
+	CreateOffice(ctx context.Context, req *education.CreateOfficeReq, callOptions ...callopt.Option) (r *education.CreateOfficeResp, err error)
+	GetOfficeList(ctx context.Context, req *education.GetOfficeListReq, callOptions ...callopt.Option) (r *education.GetOfficeListResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -58,6 +69,21 @@ func (p *kEducationserviceClient) Login(ctx context.Context, req *education.Logi
 	return p.kClient.Login(ctx, req)
 }
 
+func (p *kEducationserviceClient) CreateUser(ctx context.Context, req *education.CreateUserReq, callOptions ...callopt.Option) (r *education.CreateUserResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.CreateUser(ctx, req)
+}
+
+func (p *kEducationserviceClient) CreateRole(ctx context.Context, req *education.CreateRoleReq, callOptions ...callopt.Option) (r *education.CreateRoleResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.CreateRole(ctx, req)
+}
+
+func (p *kEducationserviceClient) DeleteUser(ctx context.Context, req *education.DeleteUserReq, callOptions ...callopt.Option) (r *education.DeleteUserResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.DeleteUser(ctx, req)
+}
+
 func (p *kEducationserviceClient) GetUserList(ctx context.Context, req *education.GetUserListReq, callOptions ...callopt.Option) (r *education.GetUserListResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.GetUserList(ctx, req)
@@ -68,12 +94,52 @@ func (p *kEducationserviceClient) GetRoleList(ctx context.Context, req *educatio
 	return p.kClient.GetRoleList(ctx, req)
 }
 
+func (p *kEducationserviceClient) CreatePermission(ctx context.Context, req *education.CreatePermissionReq, callOptions ...callopt.Option) (r *education.CreatePermissionResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.CreatePermission(ctx, req)
+}
+
 func (p *kEducationserviceClient) GetPermissionList(ctx context.Context, req *education.GetPermissionListReq, callOptions ...callopt.Option) (r *education.GetPermissionListResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.GetPermissionList(ctx, req)
 }
 
+func (p *kEducationserviceClient) GetMenu(ctx context.Context, req *education.GetMenuReq, callOptions ...callopt.Option) (r *education.GetMenuResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetMenu(ctx, req)
+}
+
 func (p *kEducationserviceClient) GetMenuList(ctx context.Context, req *education.GetMenuReq, callOptions ...callopt.Option) (r *education.GetMenuResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.GetMenuList(ctx, req)
+}
+
+func (p *kEducationserviceClient) SetUserRole(ctx context.Context, req *education.SetUserRoleReq, callOptions ...callopt.Option) (r *education.SetUserRoleResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.SetUserRole(ctx, req)
+}
+
+func (p *kEducationserviceClient) SetRolePermission(ctx context.Context, req *education.SetRolePermissionReq, callOptions ...callopt.Option) (r *education.SetRolePermissionResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.SetRolePermission(ctx, req)
+}
+
+func (p *kEducationserviceClient) SetRoleMenu(ctx context.Context, req *education.SetRoleMenuReq, callOptions ...callopt.Option) (r *education.SetRoleMenuResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.SetRoleMenu(ctx, req)
+}
+
+func (p *kEducationserviceClient) CreateMenu(ctx context.Context, req *education.CreateMenuReq, callOptions ...callopt.Option) (r *education.CreateMenuResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.CreateMenu(ctx, req)
+}
+
+func (p *kEducationserviceClient) CreateOffice(ctx context.Context, req *education.CreateOfficeReq, callOptions ...callopt.Option) (r *education.CreateOfficeResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.CreateOffice(ctx, req)
+}
+
+func (p *kEducationserviceClient) GetOfficeList(ctx context.Context, req *education.GetOfficeListReq, callOptions ...callopt.Option) (r *education.GetOfficeListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetOfficeList(ctx, req)
 }
