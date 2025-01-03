@@ -836,7 +836,7 @@ type ModelUser struct {
 	UpdatedAt int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at" json:"updated_at"`
 	DeletedAt int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at" json:"deleted_at"`
 	UserName  string `thrift:"user_name,5" frugal:"5,default,string" gorm:"column:user_name" json:"user_name"`
-	Password  string `thrift:"password,6" frugal:"6,default,string" gorm:"column:password" json:"password"`
+	Password  string `thrift:"password,6" frugal:"6,default,string" gorm:"column:password" json:"-"`
 	NickName  string `thrift:"nick_name,7" frugal:"7,default,string" gorm:"column:nick_name" json:"nick_name"`
 	Mobile    string `thrift:"mobile,8" frugal:"8,default,string" gorm:"column:mobile" json:"mobile"`
 	Email     string `thrift:"email,9" frugal:"9,default,string" gorm:"column:email" json:"email"`
@@ -13275,9 +13275,9 @@ func (p *LoginReq) Field2DeepEqual(src string) bool {
 }
 
 type LoginResp struct {
-	Token string       `thrift:"token,1" frugal:"1,default,string" json:"token"`
-	User  *ModelUser   `thrift:"user,2" frugal:"2,default,ModelUser" json:"user"`
-	Roles []*ModelRole `thrift:"roles,3" frugal:"3,default,list<ModelRole>" json:"roles"`
+	Token string     `thrift:"token,1" frugal:"1,default,string" json:"token"`
+	User  *ModelUser `thrift:"user,2" frugal:"2,default,ModelUser" json:"user"`
+	Roles []string   `thrift:"roles,3" frugal:"3,default,list<string>" json:"roles"`
 }
 
 func NewLoginResp() *LoginResp {
@@ -13300,7 +13300,7 @@ func (p *LoginResp) GetUser() (v *ModelUser) {
 	return p.User
 }
 
-func (p *LoginResp) GetRoles() (v []*ModelRole) {
+func (p *LoginResp) GetRoles() (v []string) {
 	return p.Roles
 }
 func (p *LoginResp) SetToken(val string) {
@@ -13309,7 +13309,7 @@ func (p *LoginResp) SetToken(val string) {
 func (p *LoginResp) SetUser(val *ModelUser) {
 	p.User = val
 }
-func (p *LoginResp) SetRoles(val []*ModelRole) {
+func (p *LoginResp) SetRoles(val []string) {
 	p.Roles = val
 }
 
@@ -13419,14 +13419,14 @@ func (p *LoginResp) ReadField3(iprot thrift.TProtocol) error {
 	if err != nil {
 		return err
 	}
-	_field := make([]*ModelRole, 0, size)
-	values := make([]ModelRole, size)
+	_field := make([]string, 0, size)
 	for i := 0; i < size; i++ {
-		_elem := &values[i]
-		_elem.InitDefault()
 
-		if err := _elem.Read(iprot); err != nil {
+		var _elem string
+		if v, err := iprot.ReadString(); err != nil {
 			return err
+		} else {
+			_elem = v
 		}
 
 		_field = append(_field, _elem)
@@ -13512,11 +13512,11 @@ func (p *LoginResp) writeField3(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("roles", thrift.LIST, 3); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteListBegin(thrift.STRUCT, len(p.Roles)); err != nil {
+	if err := oprot.WriteListBegin(thrift.STRING, len(p.Roles)); err != nil {
 		return err
 	}
 	for _, v := range p.Roles {
-		if err := v.Write(oprot); err != nil {
+		if err := oprot.WriteString(v); err != nil {
 			return err
 		}
 	}
@@ -13573,14 +13573,14 @@ func (p *LoginResp) Field2DeepEqual(src *ModelUser) bool {
 	}
 	return true
 }
-func (p *LoginResp) Field3DeepEqual(src []*ModelRole) bool {
+func (p *LoginResp) Field3DeepEqual(src []string) bool {
 
 	if len(p.Roles) != len(src) {
 		return false
 	}
 	for i, v := range p.Roles {
 		_src := src[i]
-		if !v.DeepEqual(_src) {
+		if strings.Compare(v, _src) != 0 {
 			return false
 		}
 	}
@@ -13816,9 +13816,9 @@ func (p *GetUserListReq) Field2DeepEqual(src int32) bool {
 }
 
 type GetUserListResp struct {
-	List     []*ModelUser          `thrift:"list,1" frugal:"1,default,list<ModelUser>" json:"list"`
-	Paginate *base.Paginate        `thrift:"paginate,2" frugal:"2,default,base.Paginate" json:"paginate"`
-	RoleMap  map[string]*ModelRole `thrift:"role_map,3" frugal:"3,default,map<string:ModelRole>" json:"role_map"`
+	List     []*ModelUser         `thrift:"list,1" frugal:"1,default,list<ModelUser>" json:"list"`
+	Paginate *base.Paginate       `thrift:"paginate,2" frugal:"2,default,base.Paginate" json:"paginate"`
+	RoleMap  map[int32]*ModelRole `thrift:"role_map,3" frugal:"3,default,map<i32:ModelRole>" json:"role_map"`
 }
 
 func NewGetUserListResp() *GetUserListResp {
@@ -13841,7 +13841,7 @@ func (p *GetUserListResp) GetPaginate() (v *base.Paginate) {
 	return p.Paginate
 }
 
-func (p *GetUserListResp) GetRoleMap() (v map[string]*ModelRole) {
+func (p *GetUserListResp) GetRoleMap() (v map[int32]*ModelRole) {
 	return p.RoleMap
 }
 func (p *GetUserListResp) SetList(val []*ModelUser) {
@@ -13850,7 +13850,7 @@ func (p *GetUserListResp) SetList(val []*ModelUser) {
 func (p *GetUserListResp) SetPaginate(val *base.Paginate) {
 	p.Paginate = val
 }
-func (p *GetUserListResp) SetRoleMap(val map[string]*ModelRole) {
+func (p *GetUserListResp) SetRoleMap(val map[int32]*ModelRole) {
 	p.RoleMap = val
 }
 
@@ -13972,11 +13972,11 @@ func (p *GetUserListResp) ReadField3(iprot thrift.TProtocol) error {
 	if err != nil {
 		return err
 	}
-	_field := make(map[string]*ModelRole, size)
+	_field := make(map[int32]*ModelRole, size)
 	values := make([]ModelRole, size)
 	for i := 0; i < size; i++ {
-		var _key string
-		if v, err := iprot.ReadString(); err != nil {
+		var _key int32
+		if v, err := iprot.ReadI32(); err != nil {
 			return err
 		} else {
 			_key = v
@@ -14079,11 +14079,11 @@ func (p *GetUserListResp) writeField3(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("role_map", thrift.MAP, 3); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteMapBegin(thrift.STRING, thrift.STRUCT, len(p.RoleMap)); err != nil {
+	if err := oprot.WriteMapBegin(thrift.I32, thrift.STRUCT, len(p.RoleMap)); err != nil {
 		return err
 	}
 	for k, v := range p.RoleMap {
-		if err := oprot.WriteString(k); err != nil {
+		if err := oprot.WriteI32(k); err != nil {
 			return err
 		}
 		if err := v.Write(oprot); err != nil {
@@ -14149,7 +14149,7 @@ func (p *GetUserListResp) Field2DeepEqual(src *base.Paginate) bool {
 	}
 	return true
 }
-func (p *GetUserListResp) Field3DeepEqual(src map[string]*ModelRole) bool {
+func (p *GetUserListResp) Field3DeepEqual(src map[int32]*ModelRole) bool {
 
 	if len(p.RoleMap) != len(src) {
 		return false
