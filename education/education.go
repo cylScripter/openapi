@@ -13589,7 +13589,6 @@ func (p *LoginResp) Field3DeepEqual(src []string) bool {
 
 type GetUserListReq struct {
 	ListOption *base.ListOption `thrift:"list_option,1" frugal:"1,default,base.ListOption" json:"list_option"`
-	Id         int32            `thrift:"id,2" frugal:"2,default,i32" json:"id"`
 }
 
 func NewGetUserListReq() *GetUserListReq {
@@ -13607,20 +13606,12 @@ func (p *GetUserListReq) GetListOption() (v *base.ListOption) {
 	}
 	return p.ListOption
 }
-
-func (p *GetUserListReq) GetId() (v int32) {
-	return p.Id
-}
 func (p *GetUserListReq) SetListOption(val *base.ListOption) {
 	p.ListOption = val
-}
-func (p *GetUserListReq) SetId(val int32) {
-	p.Id = val
 }
 
 var fieldIDToName_GetUserListReq = map[int16]string{
 	1: "list_option",
-	2: "id",
 }
 
 func (p *GetUserListReq) IsSetListOption() bool {
@@ -13649,14 +13640,6 @@ func (p *GetUserListReq) Read(iprot thrift.TProtocol) (err error) {
 		case 1:
 			if fieldTypeId == thrift.STRUCT {
 				if err = p.ReadField1(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		case 2:
-			if fieldTypeId == thrift.I32 {
-				if err = p.ReadField2(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -13699,17 +13682,6 @@ func (p *GetUserListReq) ReadField1(iprot thrift.TProtocol) error {
 	p.ListOption = _field
 	return nil
 }
-func (p *GetUserListReq) ReadField2(iprot thrift.TProtocol) error {
-
-	var _field int32
-	if v, err := iprot.ReadI32(); err != nil {
-		return err
-	} else {
-		_field = v
-	}
-	p.Id = _field
-	return nil
-}
 
 func (p *GetUserListReq) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -13719,10 +13691,6 @@ func (p *GetUserListReq) Write(oprot thrift.TProtocol) (err error) {
 	if p != nil {
 		if err = p.writeField1(oprot); err != nil {
 			fieldId = 1
-			goto WriteFieldError
-		}
-		if err = p.writeField2(oprot); err != nil {
-			fieldId = 2
 			goto WriteFieldError
 		}
 	}
@@ -13760,23 +13728,6 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *GetUserListReq) writeField2(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("id", thrift.I32, 2); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := oprot.WriteI32(p.Id); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
-}
-
 func (p *GetUserListReq) String() string {
 	if p == nil {
 		return "<nil>"
@@ -13794,22 +13745,12 @@ func (p *GetUserListReq) DeepEqual(ano *GetUserListReq) bool {
 	if !p.Field1DeepEqual(ano.ListOption) {
 		return false
 	}
-	if !p.Field2DeepEqual(ano.Id) {
-		return false
-	}
 	return true
 }
 
 func (p *GetUserListReq) Field1DeepEqual(src *base.ListOption) bool {
 
 	if !p.ListOption.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-func (p *GetUserListReq) Field2DeepEqual(src int32) bool {
-
-	if p.Id != src {
 		return false
 	}
 	return true
@@ -14165,7 +14106,6 @@ func (p *GetUserListResp) Field3DeepEqual(src map[int32]*ModelRole) bool {
 
 type GetRoleListReq struct {
 	ListOption *base.ListOption `thrift:"list_option,1" frugal:"1,default,base.ListOption" json:"list_option"`
-	Id         int32            `thrift:"id,2" frugal:"2,default,i32" json:"id"`
 }
 
 func NewGetRoleListReq() *GetRoleListReq {
@@ -14183,20 +14123,12 @@ func (p *GetRoleListReq) GetListOption() (v *base.ListOption) {
 	}
 	return p.ListOption
 }
-
-func (p *GetRoleListReq) GetId() (v int32) {
-	return p.Id
-}
 func (p *GetRoleListReq) SetListOption(val *base.ListOption) {
 	p.ListOption = val
-}
-func (p *GetRoleListReq) SetId(val int32) {
-	p.Id = val
 }
 
 var fieldIDToName_GetRoleListReq = map[int16]string{
 	1: "list_option",
-	2: "id",
 }
 
 func (p *GetRoleListReq) IsSetListOption() bool {
@@ -14225,14 +14157,6 @@ func (p *GetRoleListReq) Read(iprot thrift.TProtocol) (err error) {
 		case 1:
 			if fieldTypeId == thrift.STRUCT {
 				if err = p.ReadField1(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		case 2:
-			if fieldTypeId == thrift.I32 {
-				if err = p.ReadField2(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -14275,17 +14199,6 @@ func (p *GetRoleListReq) ReadField1(iprot thrift.TProtocol) error {
 	p.ListOption = _field
 	return nil
 }
-func (p *GetRoleListReq) ReadField2(iprot thrift.TProtocol) error {
-
-	var _field int32
-	if v, err := iprot.ReadI32(); err != nil {
-		return err
-	} else {
-		_field = v
-	}
-	p.Id = _field
-	return nil
-}
 
 func (p *GetRoleListReq) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -14295,10 +14208,6 @@ func (p *GetRoleListReq) Write(oprot thrift.TProtocol) (err error) {
 	if p != nil {
 		if err = p.writeField1(oprot); err != nil {
 			fieldId = 1
-			goto WriteFieldError
-		}
-		if err = p.writeField2(oprot); err != nil {
-			fieldId = 2
 			goto WriteFieldError
 		}
 	}
@@ -14336,23 +14245,6 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *GetRoleListReq) writeField2(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("id", thrift.I32, 2); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := oprot.WriteI32(p.Id); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
-}
-
 func (p *GetRoleListReq) String() string {
 	if p == nil {
 		return "<nil>"
@@ -14370,22 +14262,12 @@ func (p *GetRoleListReq) DeepEqual(ano *GetRoleListReq) bool {
 	if !p.Field1DeepEqual(ano.ListOption) {
 		return false
 	}
-	if !p.Field2DeepEqual(ano.Id) {
-		return false
-	}
 	return true
 }
 
 func (p *GetRoleListReq) Field1DeepEqual(src *base.ListOption) bool {
 
 	if !p.ListOption.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-func (p *GetRoleListReq) Field2DeepEqual(src int32) bool {
-
-	if p.Id != src {
 		return false
 	}
 	return true
@@ -14928,7 +14810,6 @@ func (p *GetMenuResp) Field1DeepEqual(src []*ModelMenu) bool {
 
 type GetPermissionListReq struct {
 	ListOption *base.ListOption `thrift:"list_option,1" frugal:"1,default,base.ListOption" json:"list_option"`
-	Id         int32            `thrift:"id,2" frugal:"2,default,i32" json:"id"`
 }
 
 func NewGetPermissionListReq() *GetPermissionListReq {
@@ -14946,20 +14827,12 @@ func (p *GetPermissionListReq) GetListOption() (v *base.ListOption) {
 	}
 	return p.ListOption
 }
-
-func (p *GetPermissionListReq) GetId() (v int32) {
-	return p.Id
-}
 func (p *GetPermissionListReq) SetListOption(val *base.ListOption) {
 	p.ListOption = val
-}
-func (p *GetPermissionListReq) SetId(val int32) {
-	p.Id = val
 }
 
 var fieldIDToName_GetPermissionListReq = map[int16]string{
 	1: "list_option",
-	2: "id",
 }
 
 func (p *GetPermissionListReq) IsSetListOption() bool {
@@ -14988,14 +14861,6 @@ func (p *GetPermissionListReq) Read(iprot thrift.TProtocol) (err error) {
 		case 1:
 			if fieldTypeId == thrift.STRUCT {
 				if err = p.ReadField1(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		case 2:
-			if fieldTypeId == thrift.I32 {
-				if err = p.ReadField2(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -15038,17 +14903,6 @@ func (p *GetPermissionListReq) ReadField1(iprot thrift.TProtocol) error {
 	p.ListOption = _field
 	return nil
 }
-func (p *GetPermissionListReq) ReadField2(iprot thrift.TProtocol) error {
-
-	var _field int32
-	if v, err := iprot.ReadI32(); err != nil {
-		return err
-	} else {
-		_field = v
-	}
-	p.Id = _field
-	return nil
-}
 
 func (p *GetPermissionListReq) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -15058,10 +14912,6 @@ func (p *GetPermissionListReq) Write(oprot thrift.TProtocol) (err error) {
 	if p != nil {
 		if err = p.writeField1(oprot); err != nil {
 			fieldId = 1
-			goto WriteFieldError
-		}
-		if err = p.writeField2(oprot); err != nil {
-			fieldId = 2
 			goto WriteFieldError
 		}
 	}
@@ -15099,23 +14949,6 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *GetPermissionListReq) writeField2(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("id", thrift.I32, 2); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := oprot.WriteI32(p.Id); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
-}
-
 func (p *GetPermissionListReq) String() string {
 	if p == nil {
 		return "<nil>"
@@ -15133,22 +14966,12 @@ func (p *GetPermissionListReq) DeepEqual(ano *GetPermissionListReq) bool {
 	if !p.Field1DeepEqual(ano.ListOption) {
 		return false
 	}
-	if !p.Field2DeepEqual(ano.Id) {
-		return false
-	}
 	return true
 }
 
 func (p *GetPermissionListReq) Field1DeepEqual(src *base.ListOption) bool {
 
 	if !p.ListOption.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-func (p *GetPermissionListReq) Field2DeepEqual(src int32) bool {
-
-	if p.Id != src {
 		return false
 	}
 	return true
@@ -18520,7 +18343,6 @@ func (p *CreateOfficeResp) DeepEqual(ano *CreateOfficeResp) bool {
 
 type GetOfficeListReq struct {
 	ListOption *base.ListOption `thrift:"list_option,1" frugal:"1,default,base.ListOption" json:"list_option"`
-	Id         int32            `thrift:"id,2" frugal:"2,default,i32" json:"id"`
 }
 
 func NewGetOfficeListReq() *GetOfficeListReq {
@@ -18538,20 +18360,12 @@ func (p *GetOfficeListReq) GetListOption() (v *base.ListOption) {
 	}
 	return p.ListOption
 }
-
-func (p *GetOfficeListReq) GetId() (v int32) {
-	return p.Id
-}
 func (p *GetOfficeListReq) SetListOption(val *base.ListOption) {
 	p.ListOption = val
-}
-func (p *GetOfficeListReq) SetId(val int32) {
-	p.Id = val
 }
 
 var fieldIDToName_GetOfficeListReq = map[int16]string{
 	1: "list_option",
-	2: "id",
 }
 
 func (p *GetOfficeListReq) IsSetListOption() bool {
@@ -18580,14 +18394,6 @@ func (p *GetOfficeListReq) Read(iprot thrift.TProtocol) (err error) {
 		case 1:
 			if fieldTypeId == thrift.STRUCT {
 				if err = p.ReadField1(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		case 2:
-			if fieldTypeId == thrift.I32 {
-				if err = p.ReadField2(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -18630,17 +18436,6 @@ func (p *GetOfficeListReq) ReadField1(iprot thrift.TProtocol) error {
 	p.ListOption = _field
 	return nil
 }
-func (p *GetOfficeListReq) ReadField2(iprot thrift.TProtocol) error {
-
-	var _field int32
-	if v, err := iprot.ReadI32(); err != nil {
-		return err
-	} else {
-		_field = v
-	}
-	p.Id = _field
-	return nil
-}
 
 func (p *GetOfficeListReq) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -18650,10 +18445,6 @@ func (p *GetOfficeListReq) Write(oprot thrift.TProtocol) (err error) {
 	if p != nil {
 		if err = p.writeField1(oprot); err != nil {
 			fieldId = 1
-			goto WriteFieldError
-		}
-		if err = p.writeField2(oprot); err != nil {
-			fieldId = 2
 			goto WriteFieldError
 		}
 	}
@@ -18691,23 +18482,6 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *GetOfficeListReq) writeField2(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("id", thrift.I32, 2); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := oprot.WriteI32(p.Id); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
-}
-
 func (p *GetOfficeListReq) String() string {
 	if p == nil {
 		return "<nil>"
@@ -18725,22 +18499,12 @@ func (p *GetOfficeListReq) DeepEqual(ano *GetOfficeListReq) bool {
 	if !p.Field1DeepEqual(ano.ListOption) {
 		return false
 	}
-	if !p.Field2DeepEqual(ano.Id) {
-		return false
-	}
 	return true
 }
 
 func (p *GetOfficeListReq) Field1DeepEqual(src *base.ListOption) bool {
 
 	if !p.ListOption.DeepEqual(src) {
-		return false
-	}
-	return true
-}
-func (p *GetOfficeListReq) Field2DeepEqual(src int32) bool {
-
-	if p.Id != src {
 		return false
 	}
 	return true
