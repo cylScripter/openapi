@@ -9761,8 +9761,7 @@ func (p *GetUserListResp) FastReadField3(buf []byte) (int, error) {
 	if err != nil {
 		return offset, err
 	}
-	_field := make(map[int32]*ModelRole, size)
-	values := make([]ModelRole, size)
+	_field := make(map[int32][]*ModelRole, size)
 	for i := 0; i < size; i++ {
 		var _key int32
 		if v, l, err := thrift.Binary.ReadI32(buf[offset:]); err != nil {
@@ -9772,12 +9771,23 @@ func (p *GetUserListResp) FastReadField3(buf []byte) (int, error) {
 			_key = v
 		}
 
-		_val := &values[i]
-		_val.InitDefault()
-		if l, err := _val.FastRead(buf[offset:]); err != nil {
+		_, size, l, err := thrift.Binary.ReadListBegin(buf[offset:])
+		offset += l
+		if err != nil {
 			return offset, err
-		} else {
-			offset += l
+		}
+		_val := make([]*ModelRole, 0, size)
+		values := make([]ModelRole, size)
+		for i := 0; i < size; i++ {
+			_elem := &values[i]
+			_elem.InitDefault()
+			if l, err := _elem.FastRead(buf[offset:]); err != nil {
+				return offset, err
+			} else {
+				offset += l
+			}
+
+			_val = append(_val, _elem)
 		}
 
 		_field[_key] = _val
@@ -9843,9 +9853,16 @@ func (p *GetUserListResp) fastWriteField3(buf []byte, w thrift.NocopyWriter) int
 	for k, v := range p.RoleMap {
 		length++
 		offset += thrift.Binary.WriteI32(buf[offset:], k)
-		offset += v.FastWriteNocopy(buf[offset:], w)
+		listBeginOffset := offset
+		offset += thrift.Binary.ListBeginLength()
+		var length int
+		for _, v := range v {
+			length++
+			offset += v.FastWriteNocopy(buf[offset:], w)
+		}
+		thrift.Binary.WriteListBegin(buf[listBeginOffset:], thrift.STRUCT, length)
 	}
-	thrift.Binary.WriteMapBegin(buf[mapBeginOffset:], thrift.I32, thrift.STRUCT, length)
+	thrift.Binary.WriteMapBegin(buf[mapBeginOffset:], thrift.I32, thrift.LIST, length)
 	return offset
 }
 
@@ -9875,7 +9892,11 @@ func (p *GetUserListResp) field3Length() int {
 		_, _ = k, v
 
 		l += thrift.Binary.I32Length()
-		l += v.BLength()
+		l += thrift.Binary.ListBeginLength()
+		for _, v := range v {
+			_ = v
+			l += v.BLength()
+		}
 	}
 	return l
 }
