@@ -153,6 +153,157 @@ func (p *IsExternalType) Value() (driver.Value, error) {
 	return int64(*p), nil
 }
 
+type GetUserListOption int64
+
+const (
+	GetUserListOption_id        GetUserListOption = 1
+	GetUserListOption_nick_name GetUserListOption = 2
+	GetUserListOption_user_name GetUserListOption = 3
+	GetUserListOption_email     GetUserListOption = 4
+	GetUserListOption_mobile    GetUserListOption = 5
+)
+
+func (p GetUserListOption) String() string {
+	switch p {
+	case GetUserListOption_id:
+		return "id"
+	case GetUserListOption_nick_name:
+		return "nick_name"
+	case GetUserListOption_user_name:
+		return "user_name"
+	case GetUserListOption_email:
+		return "email"
+	case GetUserListOption_mobile:
+		return "mobile"
+	}
+	return "<UNSET>"
+}
+
+func GetUserListOptionFromString(s string) (GetUserListOption, error) {
+	switch s {
+	case "id":
+		return GetUserListOption_id, nil
+	case "nick_name":
+		return GetUserListOption_nick_name, nil
+	case "user_name":
+		return GetUserListOption_user_name, nil
+	case "email":
+		return GetUserListOption_email, nil
+	case "mobile":
+		return GetUserListOption_mobile, nil
+	}
+	return GetUserListOption(0), fmt.Errorf("not a valid GetUserListOption string")
+}
+
+func GetUserListOptionPtr(v GetUserListOption) *GetUserListOption { return &v }
+func (p *GetUserListOption) Scan(value interface{}) (err error) {
+	var result sql.NullInt64
+	err = result.Scan(value)
+	*p = GetUserListOption(result.Int64)
+	return
+}
+
+func (p *GetUserListOption) Value() (driver.Value, error) {
+	if p == nil {
+		return nil, nil
+	}
+	return int64(*p), nil
+}
+
+type GetRoleListOption int64
+
+const (
+	GetRoleListOption_id          GetRoleListOption = 1
+	GetRoleListOption_name        GetRoleListOption = 2
+	GetRoleListOption_str_role_id GetRoleListOption = 3
+)
+
+func (p GetRoleListOption) String() string {
+	switch p {
+	case GetRoleListOption_id:
+		return "id"
+	case GetRoleListOption_name:
+		return "name"
+	case GetRoleListOption_str_role_id:
+		return "str_role_id"
+	}
+	return "<UNSET>"
+}
+
+func GetRoleListOptionFromString(s string) (GetRoleListOption, error) {
+	switch s {
+	case "id":
+		return GetRoleListOption_id, nil
+	case "name":
+		return GetRoleListOption_name, nil
+	case "str_role_id":
+		return GetRoleListOption_str_role_id, nil
+	}
+	return GetRoleListOption(0), fmt.Errorf("not a valid GetRoleListOption string")
+}
+
+func GetRoleListOptionPtr(v GetRoleListOption) *GetRoleListOption { return &v }
+func (p *GetRoleListOption) Scan(value interface{}) (err error) {
+	var result sql.NullInt64
+	err = result.Scan(value)
+	*p = GetRoleListOption(result.Int64)
+	return
+}
+
+func (p *GetRoleListOption) Value() (driver.Value, error) {
+	if p == nil {
+		return nil, nil
+	}
+	return int64(*p), nil
+}
+
+type GetPermissionListOption int64
+
+const (
+	GetPermissionListOption_id                GetPermissionListOption = 1
+	GetPermissionListOption_name              GetPermissionListOption = 2
+	GetPermissionListOption_str_permission_id GetPermissionListOption = 3
+)
+
+func (p GetPermissionListOption) String() string {
+	switch p {
+	case GetPermissionListOption_id:
+		return "id"
+	case GetPermissionListOption_name:
+		return "name"
+	case GetPermissionListOption_str_permission_id:
+		return "str_permission_id"
+	}
+	return "<UNSET>"
+}
+
+func GetPermissionListOptionFromString(s string) (GetPermissionListOption, error) {
+	switch s {
+	case "id":
+		return GetPermissionListOption_id, nil
+	case "name":
+		return GetPermissionListOption_name, nil
+	case "str_permission_id":
+		return GetPermissionListOption_str_permission_id, nil
+	}
+	return GetPermissionListOption(0), fmt.Errorf("not a valid GetPermissionListOption string")
+}
+
+func GetPermissionListOptionPtr(v GetPermissionListOption) *GetPermissionListOption { return &v }
+func (p *GetPermissionListOption) Scan(value interface{}) (err error) {
+	var result sql.NullInt64
+	err = result.Scan(value)
+	*p = GetPermissionListOption(result.Int64)
+	return
+}
+
+func (p *GetPermissionListOption) Value() (driver.Value, error) {
+	if p == nil {
+		return nil, nil
+	}
+	return int64(*p), nil
+}
+
 type GetOfficeListOption int64
 
 const (
