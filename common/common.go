@@ -141,17 +141,17 @@ func (p *FileStatus) Value() (driver.Value, error) {
 }
 
 type ModelFile struct {
-	Id         int32           `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id;index" json:"id"`
+	Id         int32           `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id;" json:"id"`
 	CreatedAt  int32           `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_a;indext" json:"created_at"`
 	UpdatedAt  int32           `thrift:"updated_at,3" frugal:"3,default,i32" json:"updated_at"`
 	FileName   string          `thrift:"file_name,4" frugal:"4,default,string" gorm:"column:file_name" json:"file_name"`
 	FilePath   string          `thrift:"file_path,5" frugal:"5,default,string" gorm:"column:file_path" json:"file_path"`
 	FileType   int32           `thrift:"file_type,6" frugal:"6,default,i32" gorm:"column:file_type" json:"file_type"`
 	Status     int32           `thrift:"status,7" frugal:"7,default,i32" gorm:"column:status" json:"status"`
-	UploadId   string          `thrift:"upload_id,8" frugal:"8,default,string" gorm:"column:str_file_id" json:"str_file_id"`
+	UploadId   string          `thrift:"upload_id,8" frugal:"8,default,string" gorm:"column:upload_id" json:"upload_id"`
 	JsonMeta   string          `thrift:"json_meta,9" frugal:"9,default,string" gorm:"column:meta;type:json" json:"json_meta"`
 	Suffix     string          `thrift:"suffix,10" frugal:"10,default,string" gorm:"column:suffix" json:"suffix"`
-	StrFileId  string          `thrift:"str_file_id,11" frugal:"11,default,string" gorm:"column:hash" json:"hash"`
+	StrFileId  string          `thrift:"str_file_id,11" frugal:"11,default,string" gorm:"column:str_file_id" json:"str_file_id"`
 	BucketName string          `thrift:"bucket_name,12" frugal:"12,default,string" gorm:"column:bucket_name" json:"bucket_name"`
 	DeletedAt  int32           `thrift:"deleted_at,13" frugal:"13,default,i32" json:"deleted_at"`
 	Meta       *ModelFile_Meta `thrift:"meta,14" frugal:"14,default,ModelFile_Meta" gorm:"-" json:"meta"`
