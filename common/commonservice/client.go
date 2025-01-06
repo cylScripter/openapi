@@ -12,6 +12,7 @@ import (
 // Client is designed to provide IDL-compatible methods with call-option parameter for kitex framework.
 type Client interface {
 	UploadFile(ctx context.Context, req *common.UploadFileReq, callOptions ...callopt.Option) (r *common.UploadFileResp, err error)
+	CompleteFile(ctx context.Context, req *common.CompleteFileReq, callOptions ...callopt.Option) (r *common.CompleteFileResp, err error)
 	UploadNewMultipart(ctx context.Context, req *common.UploadNewMultipartReq, callOptions ...callopt.Option) (r *common.UploadNewMultipartResp, err error)
 	GetPresignedUrlList(ctx context.Context, req *common.GetPresignedUrlListReq, callOptions ...callopt.Option) (r *common.GetPresignedUrlListResp, err error)
 	CompleteMultipart(ctx context.Context, req *common.CompleteMultipartReq, callOptions ...callopt.Option) (r *common.CompleteMultipartResp, err error)
@@ -52,6 +53,11 @@ type kCommonserviceClient struct {
 func (p *kCommonserviceClient) UploadFile(ctx context.Context, req *common.UploadFileReq, callOptions ...callopt.Option) (r *common.UploadFileResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.UploadFile(ctx, req)
+}
+
+func (p *kCommonserviceClient) CompleteFile(ctx context.Context, req *common.CompleteFileReq, callOptions ...callopt.Option) (r *common.CompleteFileResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.CompleteFile(ctx, req)
 }
 
 func (p *kCommonserviceClient) UploadNewMultipart(ctx context.Context, req *common.UploadNewMultipartReq, callOptions ...callopt.Option) (r *common.UploadNewMultipartResp, err error) {

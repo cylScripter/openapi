@@ -3,7 +3,6 @@
 package common
 
 import (
-	"bytes"
 	"context"
 	"database/sql"
 	"database/sql/driver"
@@ -1169,7 +1168,7 @@ func (p *ModelFile_Meta) DeepEqual(ano *ModelFile_Meta) bool {
 }
 
 type UploadFileReq struct {
-	Buffer     []byte `thrift:"buffer,1" frugal:"1,default,binary" json:"buffer" binding:"required"`
+	StrFileId  string `thrift:"str_file_id,1" frugal:"1,default,string" json:"str_file_id"`
 	ObjectPath string `thrift:"object_path,2" frugal:"2,default,string" json:"object_path"`
 	FileName   string `thrift:"file_name,3" frugal:"3,default,string" json:"file_name"`
 	BucketName string `thrift:"bucket_name,4" frugal:"4,default,string" json:"bucket_name"`
@@ -1183,8 +1182,8 @@ func NewUploadFileReq() *UploadFileReq {
 func (p *UploadFileReq) InitDefault() {
 }
 
-func (p *UploadFileReq) GetBuffer() (v []byte) {
-	return p.Buffer
+func (p *UploadFileReq) GetStrFileId() (v string) {
+	return p.StrFileId
 }
 
 func (p *UploadFileReq) GetObjectPath() (v string) {
@@ -1202,8 +1201,8 @@ func (p *UploadFileReq) GetBucketName() (v string) {
 func (p *UploadFileReq) GetFileType() (v int32) {
 	return p.FileType
 }
-func (p *UploadFileReq) SetBuffer(val []byte) {
-	p.Buffer = val
+func (p *UploadFileReq) SetStrFileId(val string) {
+	p.StrFileId = val
 }
 func (p *UploadFileReq) SetObjectPath(val string) {
 	p.ObjectPath = val
@@ -1219,7 +1218,7 @@ func (p *UploadFileReq) SetFileType(val int32) {
 }
 
 var fieldIDToName_UploadFileReq = map[int16]string{
-	1: "buffer",
+	1: "str_file_id",
 	2: "object_path",
 	3: "file_name",
 	4: "bucket_name",
@@ -1316,13 +1315,13 @@ ReadStructEndError:
 
 func (p *UploadFileReq) ReadField1(iprot thrift.TProtocol) error {
 
-	var _field []byte
-	if v, err := iprot.ReadBinary(); err != nil {
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
-		_field = []byte(v)
+		_field = v
 	}
-	p.Buffer = _field
+	p.StrFileId = _field
 	return nil
 }
 func (p *UploadFileReq) ReadField2(iprot thrift.TProtocol) error {
@@ -1415,10 +1414,10 @@ WriteStructEndError:
 }
 
 func (p *UploadFileReq) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("buffer", thrift.STRING, 1); err != nil {
+	if err = oprot.WriteFieldBegin("str_file_id", thrift.STRING, 1); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteBinary([]byte(p.Buffer)); err != nil {
+	if err := oprot.WriteString(p.StrFileId); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -1513,7 +1512,7 @@ func (p *UploadFileReq) DeepEqual(ano *UploadFileReq) bool {
 	} else if p == nil || ano == nil {
 		return false
 	}
-	if !p.Field1DeepEqual(ano.Buffer) {
+	if !p.Field1DeepEqual(ano.StrFileId) {
 		return false
 	}
 	if !p.Field2DeepEqual(ano.ObjectPath) {
@@ -1531,9 +1530,9 @@ func (p *UploadFileReq) DeepEqual(ano *UploadFileReq) bool {
 	return true
 }
 
-func (p *UploadFileReq) Field1DeepEqual(src []byte) bool {
+func (p *UploadFileReq) Field1DeepEqual(src string) bool {
 
-	if bytes.Compare(p.Buffer, src) != 0 {
+	if strings.Compare(p.StrFileId, src) != 0 {
 		return false
 	}
 	return true
@@ -1568,8 +1567,8 @@ func (p *UploadFileReq) Field5DeepEqual(src int32) bool {
 }
 
 type UploadFileResp struct {
-	StrFileId string `thrift:"str_file_id,1" frugal:"1,default,string" json:"str_file_id"`
-	Url       string `thrift:"url,2" frugal:"2,default,string" json:"url"`
+	UploadId  string `thrift:"upload_id,1" frugal:"1,default,string" json:"upload_id"`
+	UploadUrl string `thrift:"upload_url,2" frugal:"2,default,string" json:"upload_url"`
 }
 
 func NewUploadFileResp() *UploadFileResp {
@@ -1579,23 +1578,23 @@ func NewUploadFileResp() *UploadFileResp {
 func (p *UploadFileResp) InitDefault() {
 }
 
-func (p *UploadFileResp) GetStrFileId() (v string) {
-	return p.StrFileId
+func (p *UploadFileResp) GetUploadId() (v string) {
+	return p.UploadId
 }
 
-func (p *UploadFileResp) GetUrl() (v string) {
-	return p.Url
+func (p *UploadFileResp) GetUploadUrl() (v string) {
+	return p.UploadUrl
 }
-func (p *UploadFileResp) SetStrFileId(val string) {
-	p.StrFileId = val
+func (p *UploadFileResp) SetUploadId(val string) {
+	p.UploadId = val
 }
-func (p *UploadFileResp) SetUrl(val string) {
-	p.Url = val
+func (p *UploadFileResp) SetUploadUrl(val string) {
+	p.UploadUrl = val
 }
 
 var fieldIDToName_UploadFileResp = map[int16]string{
-	1: "str_file_id",
-	2: "url",
+	1: "upload_id",
+	2: "upload_url",
 }
 
 func (p *UploadFileResp) Read(iprot thrift.TProtocol) (err error) {
@@ -1670,7 +1669,7 @@ func (p *UploadFileResp) ReadField1(iprot thrift.TProtocol) error {
 	} else {
 		_field = v
 	}
-	p.StrFileId = _field
+	p.UploadId = _field
 	return nil
 }
 func (p *UploadFileResp) ReadField2(iprot thrift.TProtocol) error {
@@ -1681,7 +1680,7 @@ func (p *UploadFileResp) ReadField2(iprot thrift.TProtocol) error {
 	} else {
 		_field = v
 	}
-	p.Url = _field
+	p.UploadUrl = _field
 	return nil
 }
 
@@ -1718,10 +1717,10 @@ WriteStructEndError:
 }
 
 func (p *UploadFileResp) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("str_file_id", thrift.STRING, 1); err != nil {
+	if err = oprot.WriteFieldBegin("upload_id", thrift.STRING, 1); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.StrFileId); err != nil {
+	if err := oprot.WriteString(p.UploadId); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -1735,10 +1734,10 @@ WriteFieldEndError:
 }
 
 func (p *UploadFileResp) writeField2(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("url", thrift.STRING, 2); err != nil {
+	if err = oprot.WriteFieldBegin("upload_url", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.Url); err != nil {
+	if err := oprot.WriteString(p.UploadUrl); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -1765,10 +1764,10 @@ func (p *UploadFileResp) DeepEqual(ano *UploadFileResp) bool {
 	} else if p == nil || ano == nil {
 		return false
 	}
-	if !p.Field1DeepEqual(ano.StrFileId) {
+	if !p.Field1DeepEqual(ano.UploadId) {
 		return false
 	}
-	if !p.Field2DeepEqual(ano.Url) {
+	if !p.Field2DeepEqual(ano.UploadUrl) {
 		return false
 	}
 	return true
@@ -1776,14 +1775,458 @@ func (p *UploadFileResp) DeepEqual(ano *UploadFileResp) bool {
 
 func (p *UploadFileResp) Field1DeepEqual(src string) bool {
 
-	if strings.Compare(p.StrFileId, src) != 0 {
+	if strings.Compare(p.UploadId, src) != 0 {
 		return false
 	}
 	return true
 }
 func (p *UploadFileResp) Field2DeepEqual(src string) bool {
 
+	if strings.Compare(p.UploadUrl, src) != 0 {
+		return false
+	}
+	return true
+}
+
+type CompleteFile struct {
+	StrFileId string `thrift:"str_file_id,1" frugal:"1,default,string" json:"str_file_id"`
+	UploadId  string `thrift:"upload_id,2" frugal:"2,default,string" json:"upload_id"`
+}
+
+func NewCompleteFile() *CompleteFile {
+	return &CompleteFile{}
+}
+
+func (p *CompleteFile) InitDefault() {
+}
+
+func (p *CompleteFile) GetStrFileId() (v string) {
+	return p.StrFileId
+}
+
+func (p *CompleteFile) GetUploadId() (v string) {
+	return p.UploadId
+}
+func (p *CompleteFile) SetStrFileId(val string) {
+	p.StrFileId = val
+}
+func (p *CompleteFile) SetUploadId(val string) {
+	p.UploadId = val
+}
+
+var fieldIDToName_CompleteFile = map[int16]string{
+	1: "str_file_id",
+	2: "upload_id",
+}
+
+func (p *CompleteFile) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 2:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CompleteFile[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *CompleteFile) ReadField1(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.StrFileId = _field
+	return nil
+}
+func (p *CompleteFile) ReadField2(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.UploadId = _field
+	return nil
+}
+
+func (p *CompleteFile) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("CompleteFile"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *CompleteFile) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("str_file_id", thrift.STRING, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.StrFileId); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *CompleteFile) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("upload_id", thrift.STRING, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.UploadId); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
+func (p *CompleteFile) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("CompleteFile(%+v)", *p)
+
+}
+
+func (p *CompleteFile) DeepEqual(ano *CompleteFile) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.StrFileId) {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.UploadId) {
+		return false
+	}
+	return true
+}
+
+func (p *CompleteFile) Field1DeepEqual(src string) bool {
+
+	if strings.Compare(p.StrFileId, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *CompleteFile) Field2DeepEqual(src string) bool {
+
+	if strings.Compare(p.UploadId, src) != 0 {
+		return false
+	}
+	return true
+}
+
+type CompleteFileResp struct {
+	Url      string `thrift:"url,1" frugal:"1,default,string" json:"url"`
+	FileName string `thrift:"file_name,2" frugal:"2,default,string" json:"file_name"`
+}
+
+func NewCompleteFileResp() *CompleteFileResp {
+	return &CompleteFileResp{}
+}
+
+func (p *CompleteFileResp) InitDefault() {
+}
+
+func (p *CompleteFileResp) GetUrl() (v string) {
+	return p.Url
+}
+
+func (p *CompleteFileResp) GetFileName() (v string) {
+	return p.FileName
+}
+func (p *CompleteFileResp) SetUrl(val string) {
+	p.Url = val
+}
+func (p *CompleteFileResp) SetFileName(val string) {
+	p.FileName = val
+}
+
+var fieldIDToName_CompleteFileResp = map[int16]string{
+	1: "url",
+	2: "file_name",
+}
+
+func (p *CompleteFileResp) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 2:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CompleteFileResp[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *CompleteFileResp) ReadField1(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Url = _field
+	return nil
+}
+func (p *CompleteFileResp) ReadField2(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.FileName = _field
+	return nil
+}
+
+func (p *CompleteFileResp) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("CompleteFileResp"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *CompleteFileResp) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("url", thrift.STRING, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Url); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *CompleteFileResp) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("file_name", thrift.STRING, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.FileName); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
+func (p *CompleteFileResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("CompleteFileResp(%+v)", *p)
+
+}
+
+func (p *CompleteFileResp) DeepEqual(ano *CompleteFileResp) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Url) {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.FileName) {
+		return false
+	}
+	return true
+}
+
+func (p *CompleteFileResp) Field1DeepEqual(src string) bool {
+
 	if strings.Compare(p.Url, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *CompleteFileResp) Field2DeepEqual(src string) bool {
+
+	if strings.Compare(p.FileName, src) != 0 {
 		return false
 	}
 	return true
@@ -4540,8 +4983,291 @@ func (p *DeleteObjectResp) DeepEqual(ano *DeleteObjectResp) bool {
 	return true
 }
 
+type CompleteFileReq struct {
+	StrFileId  string `thrift:"str_file_id,1" frugal:"1,default,string" json:"str_file_id"`
+	BucketName string `thrift:"bucket_name,2" frugal:"2,default,string" json:"bucket_name"`
+	ObjectPath string `thrift:"object_path,3" frugal:"3,default,string" json:"object_path"`
+}
+
+func NewCompleteFileReq() *CompleteFileReq {
+	return &CompleteFileReq{}
+}
+
+func (p *CompleteFileReq) InitDefault() {
+}
+
+func (p *CompleteFileReq) GetStrFileId() (v string) {
+	return p.StrFileId
+}
+
+func (p *CompleteFileReq) GetBucketName() (v string) {
+	return p.BucketName
+}
+
+func (p *CompleteFileReq) GetObjectPath() (v string) {
+	return p.ObjectPath
+}
+func (p *CompleteFileReq) SetStrFileId(val string) {
+	p.StrFileId = val
+}
+func (p *CompleteFileReq) SetBucketName(val string) {
+	p.BucketName = val
+}
+func (p *CompleteFileReq) SetObjectPath(val string) {
+	p.ObjectPath = val
+}
+
+var fieldIDToName_CompleteFileReq = map[int16]string{
+	1: "str_file_id",
+	2: "bucket_name",
+	3: "object_path",
+}
+
+func (p *CompleteFileReq) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 2:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 3:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField3(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CompleteFileReq[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *CompleteFileReq) ReadField1(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.StrFileId = _field
+	return nil
+}
+func (p *CompleteFileReq) ReadField2(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.BucketName = _field
+	return nil
+}
+func (p *CompleteFileReq) ReadField3(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.ObjectPath = _field
+	return nil
+}
+
+func (p *CompleteFileReq) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("CompleteFileReq"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
+			goto WriteFieldError
+		}
+		if err = p.writeField3(oprot); err != nil {
+			fieldId = 3
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *CompleteFileReq) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("str_file_id", thrift.STRING, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.StrFileId); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *CompleteFileReq) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("bucket_name", thrift.STRING, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.BucketName); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
+func (p *CompleteFileReq) writeField3(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("object_path", thrift.STRING, 3); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.ObjectPath); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
+}
+
+func (p *CompleteFileReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("CompleteFileReq(%+v)", *p)
+
+}
+
+func (p *CompleteFileReq) DeepEqual(ano *CompleteFileReq) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.StrFileId) {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.BucketName) {
+		return false
+	}
+	if !p.Field3DeepEqual(ano.ObjectPath) {
+		return false
+	}
+	return true
+}
+
+func (p *CompleteFileReq) Field1DeepEqual(src string) bool {
+
+	if strings.Compare(p.StrFileId, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *CompleteFileReq) Field2DeepEqual(src string) bool {
+
+	if strings.Compare(p.BucketName, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *CompleteFileReq) Field3DeepEqual(src string) bool {
+
+	if strings.Compare(p.ObjectPath, src) != 0 {
+		return false
+	}
+	return true
+}
+
 type Commonservice interface {
 	UploadFile(ctx context.Context, req *UploadFileReq) (r *UploadFileResp, err error)
+
+	CompleteFile(ctx context.Context, req *CompleteFileReq) (r *CompleteFileResp, err error)
 
 	UploadNewMultipart(ctx context.Context, req *UploadNewMultipartReq) (r *UploadNewMultipartResp, err error)
 
@@ -4889,6 +5615,346 @@ func (p *CommonserviceUploadFileResult) DeepEqual(ano *CommonserviceUploadFileRe
 }
 
 func (p *CommonserviceUploadFileResult) Field0DeepEqual(src *UploadFileResp) bool {
+
+	if !p.Success.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type CommonserviceCompleteFileArgs struct {
+	Req *CompleteFileReq `thrift:"req,1" frugal:"1,default,CompleteFileReq" json:"req"`
+}
+
+func NewCommonserviceCompleteFileArgs() *CommonserviceCompleteFileArgs {
+	return &CommonserviceCompleteFileArgs{}
+}
+
+func (p *CommonserviceCompleteFileArgs) InitDefault() {
+}
+
+var CommonserviceCompleteFileArgs_Req_DEFAULT *CompleteFileReq
+
+func (p *CommonserviceCompleteFileArgs) GetReq() (v *CompleteFileReq) {
+	if !p.IsSetReq() {
+		return CommonserviceCompleteFileArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *CommonserviceCompleteFileArgs) SetReq(val *CompleteFileReq) {
+	p.Req = val
+}
+
+var fieldIDToName_CommonserviceCompleteFileArgs = map[int16]string{
+	1: "req",
+}
+
+func (p *CommonserviceCompleteFileArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *CommonserviceCompleteFileArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CommonserviceCompleteFileArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *CommonserviceCompleteFileArgs) ReadField1(iprot thrift.TProtocol) error {
+	_field := NewCompleteFileReq()
+	if err := _field.Read(iprot); err != nil {
+		return err
+	}
+	p.Req = _field
+	return nil
+}
+
+func (p *CommonserviceCompleteFileArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("CompleteFile_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *CommonserviceCompleteFileArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *CommonserviceCompleteFileArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("CommonserviceCompleteFileArgs(%+v)", *p)
+
+}
+
+func (p *CommonserviceCompleteFileArgs) DeepEqual(ano *CommonserviceCompleteFileArgs) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Req) {
+		return false
+	}
+	return true
+}
+
+func (p *CommonserviceCompleteFileArgs) Field1DeepEqual(src *CompleteFileReq) bool {
+
+	if !p.Req.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type CommonserviceCompleteFileResult struct {
+	Success *CompleteFileResp `thrift:"success,0,optional" frugal:"0,optional,CompleteFileResp" json:"success,omitempty"`
+}
+
+func NewCommonserviceCompleteFileResult() *CommonserviceCompleteFileResult {
+	return &CommonserviceCompleteFileResult{}
+}
+
+func (p *CommonserviceCompleteFileResult) InitDefault() {
+}
+
+var CommonserviceCompleteFileResult_Success_DEFAULT *CompleteFileResp
+
+func (p *CommonserviceCompleteFileResult) GetSuccess() (v *CompleteFileResp) {
+	if !p.IsSetSuccess() {
+		return CommonserviceCompleteFileResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *CommonserviceCompleteFileResult) SetSuccess(x interface{}) {
+	p.Success = x.(*CompleteFileResp)
+}
+
+var fieldIDToName_CommonserviceCompleteFileResult = map[int16]string{
+	0: "success",
+}
+
+func (p *CommonserviceCompleteFileResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *CommonserviceCompleteFileResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CommonserviceCompleteFileResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *CommonserviceCompleteFileResult) ReadField0(iprot thrift.TProtocol) error {
+	_field := NewCompleteFileResp()
+	if err := _field.Read(iprot); err != nil {
+		return err
+	}
+	p.Success = _field
+	return nil
+}
+
+func (p *CommonserviceCompleteFileResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("CompleteFile_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *CommonserviceCompleteFileResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *CommonserviceCompleteFileResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("CommonserviceCompleteFileResult(%+v)", *p)
+
+}
+
+func (p *CommonserviceCompleteFileResult) DeepEqual(ano *CommonserviceCompleteFileResult) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field0DeepEqual(ano.Success) {
+		return false
+	}
+	return true
+}
+
+func (p *CommonserviceCompleteFileResult) Field0DeepEqual(src *CompleteFileResp) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false

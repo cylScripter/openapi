@@ -20,6 +20,13 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"CompleteFile": kitex.NewMethodInfo(
+		completeFileHandler,
+		newCommonserviceCompleteFileArgs,
+		newCommonserviceCompleteFileResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 	"UploadNewMultipart": kitex.NewMethodInfo(
 		uploadNewMultipartHandler,
 		newCommonserviceUploadNewMultipartArgs,
@@ -146,6 +153,24 @@ func newCommonserviceUploadFileResult() interface{} {
 	return common.NewCommonserviceUploadFileResult()
 }
 
+func completeFileHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*common.CommonserviceCompleteFileArgs)
+	realResult := result.(*common.CommonserviceCompleteFileResult)
+	success, err := handler.(common.Commonservice).CompleteFile(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newCommonserviceCompleteFileArgs() interface{} {
+	return common.NewCommonserviceCompleteFileArgs()
+}
+
+func newCommonserviceCompleteFileResult() interface{} {
+	return common.NewCommonserviceCompleteFileResult()
+}
+
 func uploadNewMultipartHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
 	realArg := arg.(*common.CommonserviceUploadNewMultipartArgs)
 	realResult := result.(*common.CommonserviceUploadNewMultipartResult)
@@ -269,6 +294,16 @@ func (p *kClient) UploadFile(ctx context.Context, req *common.UploadFileReq) (r 
 	_args.Req = req
 	var _result common.CommonserviceUploadFileResult
 	if err = p.c.Call(ctx, "UploadFile", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) CompleteFile(ctx context.Context, req *common.CompleteFileReq) (r *common.CompleteFileResp, err error) {
+	var _args common.CommonserviceCompleteFileArgs
+	_args.Req = req
+	var _result common.CommonserviceCompleteFileResult
+	if err = p.c.Call(ctx, "CompleteFile", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

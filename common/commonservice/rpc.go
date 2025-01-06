@@ -11,6 +11,11 @@ func UploadFile(ctx context.Context, req *common.UploadFileReq, callOptions ...c
 	return clients.UploadFile(ctx, req)
 }
 
+func CompleteFile(ctx context.Context, req *common.CompleteFileReq, callOptions ...client.Option) (resp *common.CompleteFileResp, err error) {
+	clients := MustNewClient("common", callOptions...)
+	return clients.CompleteFile(ctx, req)
+}
+
 func UploadNewMultipart(ctx context.Context, req *common.UploadNewMultipartReq, callOptions ...client.Option) (resp *common.UploadNewMultipartResp, err error) {
 	clients := MustNewClient("common", callOptions...)
 	return clients.UploadNewMultipart(ctx, req)
