@@ -46,12 +46,12 @@ func DeleteObject(ctx context.Context, req *common.DeleteObjectReq, callOptions 
 	return clients.DeleteObject(ctx, req)
 }
 
-func CreateAyncTask(ctx context.Context, req *common.CreateAyncTaskReq, callOptions ...client.Option) (resp *common.CreateAyncTaskResp, err error) {
+func CreateAsyncTask(ctx context.Context, req *common.CreateAsyncTaskReq, callOptions ...client.Option) (resp *common.CreateAsyncTaskResp, err error) {
 	clients := MustNewClient("common", callOptions...)
-	return clients.CreateAyncTask(ctx, req)
+	return clients.CreateAsyncTask(ctx, req)
 }
 
-func GetAyncTaskResult_(ctx context.Context, req *common.GetAyncTaskResultReq, callOptions ...client.Option) (resp *common.GetAyncTaskResultResp, err error) {
+func GetAsyncTaskResult_(ctx context.Context, req *common.GetAsyncTaskResultReq, callOptions ...client.Option) (resp *common.GetAsyncTaskResultResp, err error) {
 	clients := MustNewClient("common", callOptions...)
-	return clients.GetAyncTaskResult_(ctx, req)
+	return clients.GetAsyncTaskResult_(ctx, req)
 }

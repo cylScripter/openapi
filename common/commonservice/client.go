@@ -19,8 +19,8 @@ type Client interface {
 	AbortMultipart(ctx context.Context, req *common.AbortMultipartReq, callOptions ...callopt.Option) (r *common.AbortMultipartResp, err error)
 	GetObject(ctx context.Context, req *common.GetObjectReq, callOptions ...callopt.Option) (r *common.GetObjectResp, err error)
 	DeleteObject(ctx context.Context, req *common.DeleteObjectReq, callOptions ...callopt.Option) (r *common.DeleteObjectResp, err error)
-	CreateAyncTask(ctx context.Context, req *common.CreateAyncTaskReq, callOptions ...callopt.Option) (r *common.CreateAyncTaskResp, err error)
-	GetAyncTaskResult_(ctx context.Context, req *common.GetAyncTaskResultReq, callOptions ...callopt.Option) (r *common.GetAyncTaskResultResp, err error)
+	CreateAsyncTask(ctx context.Context, req *common.CreateAsyncTaskReq, callOptions ...callopt.Option) (r *common.CreateAsyncTaskResp, err error)
+	GetAsyncTaskResult_(ctx context.Context, req *common.GetAsyncTaskResultReq, callOptions ...callopt.Option) (r *common.GetAsyncTaskResultResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -92,12 +92,12 @@ func (p *kCommonserviceClient) DeleteObject(ctx context.Context, req *common.Del
 	return p.kClient.DeleteObject(ctx, req)
 }
 
-func (p *kCommonserviceClient) CreateAyncTask(ctx context.Context, req *common.CreateAyncTaskReq, callOptions ...callopt.Option) (r *common.CreateAyncTaskResp, err error) {
+func (p *kCommonserviceClient) CreateAsyncTask(ctx context.Context, req *common.CreateAsyncTaskReq, callOptions ...callopt.Option) (r *common.CreateAsyncTaskResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
-	return p.kClient.CreateAyncTask(ctx, req)
+	return p.kClient.CreateAsyncTask(ctx, req)
 }
 
-func (p *kCommonserviceClient) GetAyncTaskResult_(ctx context.Context, req *common.GetAyncTaskResultReq, callOptions ...callopt.Option) (r *common.GetAyncTaskResultResp, err error) {
+func (p *kCommonserviceClient) GetAsyncTaskResult_(ctx context.Context, req *common.GetAsyncTaskResultReq, callOptions ...callopt.Option) (r *common.GetAsyncTaskResultResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
-	return p.kClient.GetAyncTaskResult_(ctx, req)
+	return p.kClient.GetAsyncTaskResult_(ctx, req)
 }
