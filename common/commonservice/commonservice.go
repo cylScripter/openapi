@@ -76,10 +76,10 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
-	"GetAsyncTaskResult": kitex.NewMethodInfo(
-		getAsyncTaskResult_Handler,
-		newCommonserviceGetAsyncTaskResultArgs,
-		newCommonserviceGetAsyncTaskResultResult,
+	"GetAsyncTaskResults": kitex.NewMethodInfo(
+		getAsyncTaskResultsHandler,
+		newCommonserviceGetAsyncTaskResultsArgs,
+		newCommonserviceGetAsyncTaskResultsResult,
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
@@ -311,22 +311,22 @@ func newCommonserviceCreateAsyncTaskResult() interface{} {
 	return common.NewCommonserviceCreateAsyncTaskResult()
 }
 
-func getAsyncTaskResult_Handler(ctx context.Context, handler interface{}, arg, result interface{}) error {
-	realArg := arg.(*common.CommonserviceGetAsyncTaskResultArgs)
-	realResult := result.(*common.CommonserviceGetAsyncTaskResultResult)
-	success, err := handler.(common.Commonservice).GetAsyncTaskResult_(ctx, realArg.Req)
+func getAsyncTaskResultsHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*common.CommonserviceGetAsyncTaskResultsArgs)
+	realResult := result.(*common.CommonserviceGetAsyncTaskResultsResult)
+	success, err := handler.(common.Commonservice).GetAsyncTaskResults(ctx, realArg.Req)
 	if err != nil {
 		return err
 	}
 	realResult.Success = success
 	return nil
 }
-func newCommonserviceGetAsyncTaskResultArgs() interface{} {
-	return common.NewCommonserviceGetAsyncTaskResultArgs()
+func newCommonserviceGetAsyncTaskResultsArgs() interface{} {
+	return common.NewCommonserviceGetAsyncTaskResultsArgs()
 }
 
-func newCommonserviceGetAsyncTaskResultResult() interface{} {
-	return common.NewCommonserviceGetAsyncTaskResultResult()
+func newCommonserviceGetAsyncTaskResultsResult() interface{} {
+	return common.NewCommonserviceGetAsyncTaskResultsResult()
 }
 
 type kClient struct {
@@ -429,11 +429,11 @@ func (p *kClient) CreateAsyncTask(ctx context.Context, req *common.CreateAsyncTa
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) GetAsyncTaskResult_(ctx context.Context, req *common.GetAsyncTaskResultReq) (r *common.GetAsyncTaskResultResp, err error) {
-	var _args common.CommonserviceGetAsyncTaskResultArgs
+func (p *kClient) GetAsyncTaskResults(ctx context.Context, req *common.GetAsyncTaskResultReq) (r *common.GetAsyncTaskResultResp, err error) {
+	var _args common.CommonserviceGetAsyncTaskResultsArgs
 	_args.Req = req
-	var _result common.CommonserviceGetAsyncTaskResultResult
-	if err = p.c.Call(ctx, "GetAsyncTaskResult", &_args, &_result); err != nil {
+	var _result common.CommonserviceGetAsyncTaskResultsResult
+	if err = p.c.Call(ctx, "GetAsyncTaskResults", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

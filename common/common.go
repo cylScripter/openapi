@@ -6005,7 +6005,7 @@ func (p *GetAsyncTaskResultReq) Field1DeepEqual(src string) bool {
 type GetAsyncTaskResultResp struct {
 	Status   int32  `thrift:"status,1" frugal:"1,default,i32" json:"status"`
 	Message  string `thrift:"message,2" frugal:"2,default,string" json:"message"`
-	Result_  string `thrift:"result,3" frugal:"3,default,string" json:"result"`
+	Results  string `thrift:"results,3" frugal:"3,default,string" json:"results"`
 	TaskKey  string `thrift:"task_key,4" frugal:"4,default,string" json:"task_key"`
 	Progress int32  `thrift:"progress,5" frugal:"5,default,i32" json:"progress"`
 }
@@ -6025,8 +6025,8 @@ func (p *GetAsyncTaskResultResp) GetMessage() (v string) {
 	return p.Message
 }
 
-func (p *GetAsyncTaskResultResp) GetResult_() (v string) {
-	return p.Result_
+func (p *GetAsyncTaskResultResp) GetResults() (v string) {
+	return p.Results
 }
 
 func (p *GetAsyncTaskResultResp) GetTaskKey() (v string) {
@@ -6042,8 +6042,8 @@ func (p *GetAsyncTaskResultResp) SetStatus(val int32) {
 func (p *GetAsyncTaskResultResp) SetMessage(val string) {
 	p.Message = val
 }
-func (p *GetAsyncTaskResultResp) SetResult_(val string) {
-	p.Result_ = val
+func (p *GetAsyncTaskResultResp) SetResults(val string) {
+	p.Results = val
 }
 func (p *GetAsyncTaskResultResp) SetTaskKey(val string) {
 	p.TaskKey = val
@@ -6055,7 +6055,7 @@ func (p *GetAsyncTaskResultResp) SetProgress(val int32) {
 var fieldIDToName_GetAsyncTaskResultResp = map[int16]string{
 	1: "status",
 	2: "message",
-	3: "result",
+	3: "results",
 	4: "task_key",
 	5: "progress",
 }
@@ -6178,7 +6178,7 @@ func (p *GetAsyncTaskResultResp) ReadField3(iprot thrift.TProtocol) error {
 	} else {
 		_field = v
 	}
-	p.Result_ = _field
+	p.Results = _field
 	return nil
 }
 func (p *GetAsyncTaskResultResp) ReadField4(iprot thrift.TProtocol) error {
@@ -6283,10 +6283,10 @@ WriteFieldEndError:
 }
 
 func (p *GetAsyncTaskResultResp) writeField3(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("result", thrift.STRING, 3); err != nil {
+	if err = oprot.WriteFieldBegin("results", thrift.STRING, 3); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.Result_); err != nil {
+	if err := oprot.WriteString(p.Results); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -6353,7 +6353,7 @@ func (p *GetAsyncTaskResultResp) DeepEqual(ano *GetAsyncTaskResultResp) bool {
 	if !p.Field2DeepEqual(ano.Message) {
 		return false
 	}
-	if !p.Field3DeepEqual(ano.Result_) {
+	if !p.Field3DeepEqual(ano.Results) {
 		return false
 	}
 	if !p.Field4DeepEqual(ano.TaskKey) {
@@ -6381,7 +6381,7 @@ func (p *GetAsyncTaskResultResp) Field2DeepEqual(src string) bool {
 }
 func (p *GetAsyncTaskResultResp) Field3DeepEqual(src string) bool {
 
-	if strings.Compare(p.Result_, src) != 0 {
+	if strings.Compare(p.Results, src) != 0 {
 		return false
 	}
 	return true
@@ -6420,7 +6420,7 @@ type Commonservice interface {
 
 	CreateAsyncTask(ctx context.Context, req *CreateAsyncTaskReq) (r *CreateAsyncTaskResp, err error)
 
-	GetAsyncTaskResult_(ctx context.Context, req *GetAsyncTaskResultReq) (r *GetAsyncTaskResultResp, err error)
+	GetAsyncTaskResults(ctx context.Context, req *GetAsyncTaskResultReq) (r *GetAsyncTaskResultResp, err error)
 }
 
 type CommonserviceUploadFileArgs struct {
@@ -9483,38 +9483,38 @@ func (p *CommonserviceCreateAsyncTaskResult) Field0DeepEqual(src *CreateAsyncTas
 	return true
 }
 
-type CommonserviceGetAsyncTaskResultArgs struct {
+type CommonserviceGetAsyncTaskResultsArgs struct {
 	Req *GetAsyncTaskResultReq `thrift:"req,1" frugal:"1,default,GetAsyncTaskResultReq" json:"req"`
 }
 
-func NewCommonserviceGetAsyncTaskResultArgs() *CommonserviceGetAsyncTaskResultArgs {
-	return &CommonserviceGetAsyncTaskResultArgs{}
+func NewCommonserviceGetAsyncTaskResultsArgs() *CommonserviceGetAsyncTaskResultsArgs {
+	return &CommonserviceGetAsyncTaskResultsArgs{}
 }
 
-func (p *CommonserviceGetAsyncTaskResultArgs) InitDefault() {
+func (p *CommonserviceGetAsyncTaskResultsArgs) InitDefault() {
 }
 
-var CommonserviceGetAsyncTaskResultArgs_Req_DEFAULT *GetAsyncTaskResultReq
+var CommonserviceGetAsyncTaskResultsArgs_Req_DEFAULT *GetAsyncTaskResultReq
 
-func (p *CommonserviceGetAsyncTaskResultArgs) GetReq() (v *GetAsyncTaskResultReq) {
+func (p *CommonserviceGetAsyncTaskResultsArgs) GetReq() (v *GetAsyncTaskResultReq) {
 	if !p.IsSetReq() {
-		return CommonserviceGetAsyncTaskResultArgs_Req_DEFAULT
+		return CommonserviceGetAsyncTaskResultsArgs_Req_DEFAULT
 	}
 	return p.Req
 }
-func (p *CommonserviceGetAsyncTaskResultArgs) SetReq(val *GetAsyncTaskResultReq) {
+func (p *CommonserviceGetAsyncTaskResultsArgs) SetReq(val *GetAsyncTaskResultReq) {
 	p.Req = val
 }
 
-var fieldIDToName_CommonserviceGetAsyncTaskResultArgs = map[int16]string{
+var fieldIDToName_CommonserviceGetAsyncTaskResultsArgs = map[int16]string{
 	1: "req",
 }
 
-func (p *CommonserviceGetAsyncTaskResultArgs) IsSetReq() bool {
+func (p *CommonserviceGetAsyncTaskResultsArgs) IsSetReq() bool {
 	return p.Req != nil
 }
 
-func (p *CommonserviceGetAsyncTaskResultArgs) Read(iprot thrift.TProtocol) (err error) {
+func (p *CommonserviceGetAsyncTaskResultsArgs) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -9560,7 +9560,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CommonserviceGetAsyncTaskResultArgs[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CommonserviceGetAsyncTaskResultsArgs[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -9570,7 +9570,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *CommonserviceGetAsyncTaskResultArgs) ReadField1(iprot thrift.TProtocol) error {
+func (p *CommonserviceGetAsyncTaskResultsArgs) ReadField1(iprot thrift.TProtocol) error {
 	_field := NewGetAsyncTaskResultReq()
 	if err := _field.Read(iprot); err != nil {
 		return err
@@ -9579,9 +9579,9 @@ func (p *CommonserviceGetAsyncTaskResultArgs) ReadField1(iprot thrift.TProtocol)
 	return nil
 }
 
-func (p *CommonserviceGetAsyncTaskResultArgs) Write(oprot thrift.TProtocol) (err error) {
+func (p *CommonserviceGetAsyncTaskResultsArgs) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("GetAsyncTaskResult_args"); err != nil {
+	if err = oprot.WriteStructBegin("GetAsyncTaskResults_args"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -9607,7 +9607,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *CommonserviceGetAsyncTaskResultArgs) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *CommonserviceGetAsyncTaskResultsArgs) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -9624,15 +9624,15 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *CommonserviceGetAsyncTaskResultArgs) String() string {
+func (p *CommonserviceGetAsyncTaskResultsArgs) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("CommonserviceGetAsyncTaskResultArgs(%+v)", *p)
+	return fmt.Sprintf("CommonserviceGetAsyncTaskResultsArgs(%+v)", *p)
 
 }
 
-func (p *CommonserviceGetAsyncTaskResultArgs) DeepEqual(ano *CommonserviceGetAsyncTaskResultArgs) bool {
+func (p *CommonserviceGetAsyncTaskResultsArgs) DeepEqual(ano *CommonserviceGetAsyncTaskResultsArgs) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -9644,7 +9644,7 @@ func (p *CommonserviceGetAsyncTaskResultArgs) DeepEqual(ano *CommonserviceGetAsy
 	return true
 }
 
-func (p *CommonserviceGetAsyncTaskResultArgs) Field1DeepEqual(src *GetAsyncTaskResultReq) bool {
+func (p *CommonserviceGetAsyncTaskResultsArgs) Field1DeepEqual(src *GetAsyncTaskResultReq) bool {
 
 	if !p.Req.DeepEqual(src) {
 		return false
@@ -9652,38 +9652,38 @@ func (p *CommonserviceGetAsyncTaskResultArgs) Field1DeepEqual(src *GetAsyncTaskR
 	return true
 }
 
-type CommonserviceGetAsyncTaskResultResult struct {
+type CommonserviceGetAsyncTaskResultsResult struct {
 	Success *GetAsyncTaskResultResp `thrift:"success,0,optional" frugal:"0,optional,GetAsyncTaskResultResp" json:"success,omitempty"`
 }
 
-func NewCommonserviceGetAsyncTaskResultResult() *CommonserviceGetAsyncTaskResultResult {
-	return &CommonserviceGetAsyncTaskResultResult{}
+func NewCommonserviceGetAsyncTaskResultsResult() *CommonserviceGetAsyncTaskResultsResult {
+	return &CommonserviceGetAsyncTaskResultsResult{}
 }
 
-func (p *CommonserviceGetAsyncTaskResultResult) InitDefault() {
+func (p *CommonserviceGetAsyncTaskResultsResult) InitDefault() {
 }
 
-var CommonserviceGetAsyncTaskResultResult_Success_DEFAULT *GetAsyncTaskResultResp
+var CommonserviceGetAsyncTaskResultsResult_Success_DEFAULT *GetAsyncTaskResultResp
 
-func (p *CommonserviceGetAsyncTaskResultResult) GetSuccess() (v *GetAsyncTaskResultResp) {
+func (p *CommonserviceGetAsyncTaskResultsResult) GetSuccess() (v *GetAsyncTaskResultResp) {
 	if !p.IsSetSuccess() {
-		return CommonserviceGetAsyncTaskResultResult_Success_DEFAULT
+		return CommonserviceGetAsyncTaskResultsResult_Success_DEFAULT
 	}
 	return p.Success
 }
-func (p *CommonserviceGetAsyncTaskResultResult) SetSuccess(x interface{}) {
+func (p *CommonserviceGetAsyncTaskResultsResult) SetSuccess(x interface{}) {
 	p.Success = x.(*GetAsyncTaskResultResp)
 }
 
-var fieldIDToName_CommonserviceGetAsyncTaskResultResult = map[int16]string{
+var fieldIDToName_CommonserviceGetAsyncTaskResultsResult = map[int16]string{
 	0: "success",
 }
 
-func (p *CommonserviceGetAsyncTaskResultResult) IsSetSuccess() bool {
+func (p *CommonserviceGetAsyncTaskResultsResult) IsSetSuccess() bool {
 	return p.Success != nil
 }
 
-func (p *CommonserviceGetAsyncTaskResultResult) Read(iprot thrift.TProtocol) (err error) {
+func (p *CommonserviceGetAsyncTaskResultsResult) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -9729,7 +9729,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CommonserviceGetAsyncTaskResultResult[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CommonserviceGetAsyncTaskResultsResult[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -9739,7 +9739,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *CommonserviceGetAsyncTaskResultResult) ReadField0(iprot thrift.TProtocol) error {
+func (p *CommonserviceGetAsyncTaskResultsResult) ReadField0(iprot thrift.TProtocol) error {
 	_field := NewGetAsyncTaskResultResp()
 	if err := _field.Read(iprot); err != nil {
 		return err
@@ -9748,9 +9748,9 @@ func (p *CommonserviceGetAsyncTaskResultResult) ReadField0(iprot thrift.TProtoco
 	return nil
 }
 
-func (p *CommonserviceGetAsyncTaskResultResult) Write(oprot thrift.TProtocol) (err error) {
+func (p *CommonserviceGetAsyncTaskResultsResult) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("GetAsyncTaskResult_result"); err != nil {
+	if err = oprot.WriteStructBegin("GetAsyncTaskResults_result"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -9776,7 +9776,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *CommonserviceGetAsyncTaskResultResult) writeField0(oprot thrift.TProtocol) (err error) {
+func (p *CommonserviceGetAsyncTaskResultsResult) writeField0(oprot thrift.TProtocol) (err error) {
 	if p.IsSetSuccess() {
 		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
 			goto WriteFieldBeginError
@@ -9795,15 +9795,15 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
 }
 
-func (p *CommonserviceGetAsyncTaskResultResult) String() string {
+func (p *CommonserviceGetAsyncTaskResultsResult) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("CommonserviceGetAsyncTaskResultResult(%+v)", *p)
+	return fmt.Sprintf("CommonserviceGetAsyncTaskResultsResult(%+v)", *p)
 
 }
 
-func (p *CommonserviceGetAsyncTaskResultResult) DeepEqual(ano *CommonserviceGetAsyncTaskResultResult) bool {
+func (p *CommonserviceGetAsyncTaskResultsResult) DeepEqual(ano *CommonserviceGetAsyncTaskResultsResult) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -9815,7 +9815,7 @@ func (p *CommonserviceGetAsyncTaskResultResult) DeepEqual(ano *CommonserviceGetA
 	return true
 }
 
-func (p *CommonserviceGetAsyncTaskResultResult) Field0DeepEqual(src *GetAsyncTaskResultResp) bool {
+func (p *CommonserviceGetAsyncTaskResultsResult) Field0DeepEqual(src *GetAsyncTaskResultResp) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false

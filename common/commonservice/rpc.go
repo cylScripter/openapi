@@ -51,7 +51,7 @@ func CreateAsyncTask(ctx context.Context, req *common.CreateAsyncTaskReq, callOp
 	return clients.CreateAsyncTask(ctx, req)
 }
 
-func GetAsyncTaskResult_(ctx context.Context, req *common.GetAsyncTaskResultReq, callOptions ...client.Option) (resp *common.GetAsyncTaskResultResp, err error) {
+func GetAsyncTaskResults(ctx context.Context, req *common.GetAsyncTaskResultReq, callOptions ...client.Option) (resp *common.GetAsyncTaskResultResp, err error) {
 	clients := MustNewClient("common", callOptions...)
-	return clients.GetAsyncTaskResult_(ctx, req)
+	return clients.GetAsyncTaskResults(ctx, req)
 }
