@@ -429,7 +429,7 @@ func (p *kClient) CreateAsyncTask(ctx context.Context, req *common.CreateAsyncTa
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) GetAsyncTaskResults(ctx context.Context, req *common.GetAsyncTaskResultReq) (r *common.GetAsyncTaskResultResp, err error) {
+func (p *kClient) GetAsyncTaskResults(ctx context.Context, req *common.GetAsyncTaskResultsReq) (r *common.GetAsyncTaskResultsResp, err error) {
 	var _args common.CommonserviceGetAsyncTaskResultsArgs
 	_args.Req = req
 	var _result common.CommonserviceGetAsyncTaskResultsResult

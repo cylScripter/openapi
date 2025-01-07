@@ -3742,7 +3742,7 @@ func (p *CreateAsyncTaskResp) field1Length() int {
 	return l
 }
 
-func (p *GetAsyncTaskResultReq) FastRead(buf []byte) (int, error) {
+func (p *GetAsyncTaskResultsReq) FastRead(buf []byte) (int, error) {
 	var err error
 	var offset int
 	var l int
@@ -3785,12 +3785,12 @@ func (p *GetAsyncTaskResultReq) FastRead(buf []byte) (int, error) {
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_GetAsyncTaskResultReq[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_GetAsyncTaskResultsReq[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 }
 
-func (p *GetAsyncTaskResultReq) FastReadField1(buf []byte) (int, error) {
+func (p *GetAsyncTaskResultsReq) FastReadField1(buf []byte) (int, error) {
 	offset := 0
 
 	var _field string
@@ -3805,11 +3805,11 @@ func (p *GetAsyncTaskResultReq) FastReadField1(buf []byte) (int, error) {
 }
 
 // for compatibility
-func (p *GetAsyncTaskResultReq) FastWrite(buf []byte) int {
+func (p *GetAsyncTaskResultsReq) FastWrite(buf []byte) int {
 	return 0
 }
 
-func (p *GetAsyncTaskResultReq) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
+func (p *GetAsyncTaskResultsReq) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p != nil {
 		offset += p.fastWriteField1(buf[offset:], w)
@@ -3818,7 +3818,7 @@ func (p *GetAsyncTaskResultReq) FastWriteNocopy(buf []byte, w thrift.NocopyWrite
 	return offset
 }
 
-func (p *GetAsyncTaskResultReq) BLength() int {
+func (p *GetAsyncTaskResultsReq) BLength() int {
 	l := 0
 	if p != nil {
 		l += p.field1Length()
@@ -3827,21 +3827,21 @@ func (p *GetAsyncTaskResultReq) BLength() int {
 	return l
 }
 
-func (p *GetAsyncTaskResultReq) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
+func (p *GetAsyncTaskResultsReq) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 1)
 	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.TaskKey)
 	return offset
 }
 
-func (p *GetAsyncTaskResultReq) field1Length() int {
+func (p *GetAsyncTaskResultsReq) field1Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.StringLengthNocopy(p.TaskKey)
 	return l
 }
 
-func (p *GetAsyncTaskResultResp) FastRead(buf []byte) (int, error) {
+func (p *GetAsyncTaskResultsResp) FastRead(buf []byte) (int, error) {
 	var err error
 	var offset int
 	var l int
@@ -3940,12 +3940,12 @@ func (p *GetAsyncTaskResultResp) FastRead(buf []byte) (int, error) {
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_GetAsyncTaskResultResp[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_GetAsyncTaskResultsResp[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 }
 
-func (p *GetAsyncTaskResultResp) FastReadField1(buf []byte) (int, error) {
+func (p *GetAsyncTaskResultsResp) FastReadField1(buf []byte) (int, error) {
 	offset := 0
 
 	var _field int32
@@ -3959,7 +3959,7 @@ func (p *GetAsyncTaskResultResp) FastReadField1(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *GetAsyncTaskResultResp) FastReadField2(buf []byte) (int, error) {
+func (p *GetAsyncTaskResultsResp) FastReadField2(buf []byte) (int, error) {
 	offset := 0
 
 	var _field string
@@ -3973,7 +3973,7 @@ func (p *GetAsyncTaskResultResp) FastReadField2(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *GetAsyncTaskResultResp) FastReadField3(buf []byte) (int, error) {
+func (p *GetAsyncTaskResultsResp) FastReadField3(buf []byte) (int, error) {
 	offset := 0
 
 	var _field string
@@ -3987,7 +3987,7 @@ func (p *GetAsyncTaskResultResp) FastReadField3(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *GetAsyncTaskResultResp) FastReadField4(buf []byte) (int, error) {
+func (p *GetAsyncTaskResultsResp) FastReadField4(buf []byte) (int, error) {
 	offset := 0
 
 	var _field string
@@ -4001,7 +4001,7 @@ func (p *GetAsyncTaskResultResp) FastReadField4(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *GetAsyncTaskResultResp) FastReadField5(buf []byte) (int, error) {
+func (p *GetAsyncTaskResultsResp) FastReadField5(buf []byte) (int, error) {
 	offset := 0
 
 	var _field int32
@@ -4016,11 +4016,11 @@ func (p *GetAsyncTaskResultResp) FastReadField5(buf []byte) (int, error) {
 }
 
 // for compatibility
-func (p *GetAsyncTaskResultResp) FastWrite(buf []byte) int {
+func (p *GetAsyncTaskResultsResp) FastWrite(buf []byte) int {
 	return 0
 }
 
-func (p *GetAsyncTaskResultResp) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
+func (p *GetAsyncTaskResultsResp) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p != nil {
 		offset += p.fastWriteField1(buf[offset:], w)
@@ -4033,7 +4033,7 @@ func (p *GetAsyncTaskResultResp) FastWriteNocopy(buf []byte, w thrift.NocopyWrit
 	return offset
 }
 
-func (p *GetAsyncTaskResultResp) BLength() int {
+func (p *GetAsyncTaskResultsResp) BLength() int {
 	l := 0
 	if p != nil {
 		l += p.field1Length()
@@ -4046,70 +4046,70 @@ func (p *GetAsyncTaskResultResp) BLength() int {
 	return l
 }
 
-func (p *GetAsyncTaskResultResp) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
+func (p *GetAsyncTaskResultsResp) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 1)
 	offset += thrift.Binary.WriteI32(buf[offset:], p.Status)
 	return offset
 }
 
-func (p *GetAsyncTaskResultResp) fastWriteField2(buf []byte, w thrift.NocopyWriter) int {
+func (p *GetAsyncTaskResultsResp) fastWriteField2(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 2)
 	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.Message)
 	return offset
 }
 
-func (p *GetAsyncTaskResultResp) fastWriteField3(buf []byte, w thrift.NocopyWriter) int {
+func (p *GetAsyncTaskResultsResp) fastWriteField3(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 3)
 	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.Results)
 	return offset
 }
 
-func (p *GetAsyncTaskResultResp) fastWriteField4(buf []byte, w thrift.NocopyWriter) int {
+func (p *GetAsyncTaskResultsResp) fastWriteField4(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 4)
 	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.TaskKey)
 	return offset
 }
 
-func (p *GetAsyncTaskResultResp) fastWriteField5(buf []byte, w thrift.NocopyWriter) int {
+func (p *GetAsyncTaskResultsResp) fastWriteField5(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 5)
 	offset += thrift.Binary.WriteI32(buf[offset:], p.Progress)
 	return offset
 }
 
-func (p *GetAsyncTaskResultResp) field1Length() int {
+func (p *GetAsyncTaskResultsResp) field1Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.I32Length()
 	return l
 }
 
-func (p *GetAsyncTaskResultResp) field2Length() int {
+func (p *GetAsyncTaskResultsResp) field2Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.StringLengthNocopy(p.Message)
 	return l
 }
 
-func (p *GetAsyncTaskResultResp) field3Length() int {
+func (p *GetAsyncTaskResultsResp) field3Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.StringLengthNocopy(p.Results)
 	return l
 }
 
-func (p *GetAsyncTaskResultResp) field4Length() int {
+func (p *GetAsyncTaskResultsResp) field4Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.StringLengthNocopy(p.TaskKey)
 	return l
 }
 
-func (p *GetAsyncTaskResultResp) field5Length() int {
+func (p *GetAsyncTaskResultsResp) field5Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.I32Length()
@@ -5948,7 +5948,7 @@ SkipFieldError:
 
 func (p *CommonserviceGetAsyncTaskResultsArgs) FastReadField1(buf []byte) (int, error) {
 	offset := 0
-	_field := NewGetAsyncTaskResultReq()
+	_field := NewGetAsyncTaskResultsReq()
 	if l, err := _field.FastRead(buf[offset:]); err != nil {
 		return offset, err
 	} else {
@@ -6045,7 +6045,7 @@ SkipFieldError:
 
 func (p *CommonserviceGetAsyncTaskResultsResult) FastReadField0(buf []byte) (int, error) {
 	offset := 0
-	_field := NewGetAsyncTaskResultResp()
+	_field := NewGetAsyncTaskResultsResp()
 	if l, err := _field.FastRead(buf[offset:]); err != nil {
 		return offset, err
 	} else {
