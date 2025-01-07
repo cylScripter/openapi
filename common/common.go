@@ -3,6 +3,7 @@
 package common
 
 import (
+	"bytes"
 	"context"
 	"database/sql"
 	"database/sql/driver"
@@ -133,6 +134,122 @@ func (p *FileStatus) Scan(value interface{}) (err error) {
 }
 
 func (p *FileStatus) Value() (driver.Value, error) {
+	if p == nil {
+		return nil, nil
+	}
+	return int64(*p), nil
+}
+
+type TaskType int64
+
+const (
+	TaskType_Unknown   TaskType = 0
+	TaskType_Export    TaskType = 1
+	TaskType_Import    TaskType = 2
+	TaskType_Sync      TaskType = 3
+	TaskType_SendEmail TaskType = 4
+)
+
+func (p TaskType) String() string {
+	switch p {
+	case TaskType_Unknown:
+		return "Unknown"
+	case TaskType_Export:
+		return "Export"
+	case TaskType_Import:
+		return "Import"
+	case TaskType_Sync:
+		return "Sync"
+	case TaskType_SendEmail:
+		return "SendEmail"
+	}
+	return "<UNSET>"
+}
+
+func TaskTypeFromString(s string) (TaskType, error) {
+	switch s {
+	case "Unknown":
+		return TaskType_Unknown, nil
+	case "Export":
+		return TaskType_Export, nil
+	case "Import":
+		return TaskType_Import, nil
+	case "Sync":
+		return TaskType_Sync, nil
+	case "SendEmail":
+		return TaskType_SendEmail, nil
+	}
+	return TaskType(0), fmt.Errorf("not a valid TaskType string")
+}
+
+func TaskTypePtr(v TaskType) *TaskType { return &v }
+func (p *TaskType) Scan(value interface{}) (err error) {
+	var result sql.NullInt64
+	err = result.Scan(value)
+	*p = TaskType(result.Int64)
+	return
+}
+
+func (p *TaskType) Value() (driver.Value, error) {
+	if p == nil {
+		return nil, nil
+	}
+	return int64(*p), nil
+}
+
+type GetAyncTaskResultResp_Status int64
+
+const (
+	GetAyncTaskResultResp_Status_Unknown    GetAyncTaskResultResp_Status = 0
+	GetAyncTaskResultResp_Status_Success    GetAyncTaskResultResp_Status = 1
+	GetAyncTaskResultResp_Status_Failed     GetAyncTaskResultResp_Status = 2
+	GetAyncTaskResultResp_Status_Processing GetAyncTaskResultResp_Status = 3
+	GetAyncTaskResultResp_Status_Canceled   GetAyncTaskResultResp_Status = 4
+)
+
+func (p GetAyncTaskResultResp_Status) String() string {
+	switch p {
+	case GetAyncTaskResultResp_Status_Unknown:
+		return "Unknown"
+	case GetAyncTaskResultResp_Status_Success:
+		return "Success"
+	case GetAyncTaskResultResp_Status_Failed:
+		return "Failed"
+	case GetAyncTaskResultResp_Status_Processing:
+		return "Processing"
+	case GetAyncTaskResultResp_Status_Canceled:
+		return "Canceled"
+	}
+	return "<UNSET>"
+}
+
+func GetAyncTaskResultResp_StatusFromString(s string) (GetAyncTaskResultResp_Status, error) {
+	switch s {
+	case "Unknown":
+		return GetAyncTaskResultResp_Status_Unknown, nil
+	case "Success":
+		return GetAyncTaskResultResp_Status_Success, nil
+	case "Failed":
+		return GetAyncTaskResultResp_Status_Failed, nil
+	case "Processing":
+		return GetAyncTaskResultResp_Status_Processing, nil
+	case "Canceled":
+		return GetAyncTaskResultResp_Status_Canceled, nil
+	}
+	return GetAyncTaskResultResp_Status(0), fmt.Errorf("not a valid GetAyncTaskResultResp_Status string")
+}
+
+func GetAyncTaskResultResp_StatusPtr(v GetAyncTaskResultResp_Status) *GetAyncTaskResultResp_Status {
+	return &v
+}
+func (p *GetAyncTaskResultResp_Status) Scan(value interface{}) (err error) {
+	var result sql.NullInt64
+	err = result.Scan(value)
+	*p = GetAyncTaskResultResp_Status(result.Int64)
+	return
+}
+
+func (p *GetAyncTaskResultResp_Status) Value() (driver.Value, error) {
 	if p == nil {
 		return nil, nil
 	}
@@ -4924,6 +5041,1366 @@ func (p *DeleteObjectResp) DeepEqual(ano *DeleteObjectResp) bool {
 	return true
 }
 
+type CreateAyncTaskReq struct {
+	TaskKeyPre  string `thrift:"task_key_pre,1" frugal:"1,default,string" json:"task_key_pre"`
+	TaskName    string `thrift:"task_name,2" frugal:"2,default,string" json:"task_name"`
+	TaskKey     string `thrift:"task_key,3" frugal:"3,default,string" json:"task_key" `
+	TaskType    string `thrift:"task_type,4" frugal:"4,default,string" json:"task_type"`
+	Body        []byte `thrift:"body,5" frugal:"5,default,binary" json:"body"`
+	ServiceName string `thrift:"service_name,6" frugal:"6,default,string" json:"service_name"`
+	MaxRetry    int32  `thrift:"max_retry,7" frugal:"7,default,i32" json:"max_retry"`
+	IsUnique    bool   `thrift:"is_unique,8" frugal:"8,default,bool" json:"is_unique"`
+	DelayTime   int32  `thrift:"delay_time,9" frugal:"9,default,i32" json:"delay_time"`
+}
+
+func NewCreateAyncTaskReq() *CreateAyncTaskReq {
+	return &CreateAyncTaskReq{}
+}
+
+func (p *CreateAyncTaskReq) InitDefault() {
+}
+
+func (p *CreateAyncTaskReq) GetTaskKeyPre() (v string) {
+	return p.TaskKeyPre
+}
+
+func (p *CreateAyncTaskReq) GetTaskName() (v string) {
+	return p.TaskName
+}
+
+func (p *CreateAyncTaskReq) GetTaskKey() (v string) {
+	return p.TaskKey
+}
+
+func (p *CreateAyncTaskReq) GetTaskType() (v string) {
+	return p.TaskType
+}
+
+func (p *CreateAyncTaskReq) GetBody() (v []byte) {
+	return p.Body
+}
+
+func (p *CreateAyncTaskReq) GetServiceName() (v string) {
+	return p.ServiceName
+}
+
+func (p *CreateAyncTaskReq) GetMaxRetry() (v int32) {
+	return p.MaxRetry
+}
+
+func (p *CreateAyncTaskReq) GetIsUnique() (v bool) {
+	return p.IsUnique
+}
+
+func (p *CreateAyncTaskReq) GetDelayTime() (v int32) {
+	return p.DelayTime
+}
+func (p *CreateAyncTaskReq) SetTaskKeyPre(val string) {
+	p.TaskKeyPre = val
+}
+func (p *CreateAyncTaskReq) SetTaskName(val string) {
+	p.TaskName = val
+}
+func (p *CreateAyncTaskReq) SetTaskKey(val string) {
+	p.TaskKey = val
+}
+func (p *CreateAyncTaskReq) SetTaskType(val string) {
+	p.TaskType = val
+}
+func (p *CreateAyncTaskReq) SetBody(val []byte) {
+	p.Body = val
+}
+func (p *CreateAyncTaskReq) SetServiceName(val string) {
+	p.ServiceName = val
+}
+func (p *CreateAyncTaskReq) SetMaxRetry(val int32) {
+	p.MaxRetry = val
+}
+func (p *CreateAyncTaskReq) SetIsUnique(val bool) {
+	p.IsUnique = val
+}
+func (p *CreateAyncTaskReq) SetDelayTime(val int32) {
+	p.DelayTime = val
+}
+
+var fieldIDToName_CreateAyncTaskReq = map[int16]string{
+	1: "task_key_pre",
+	2: "task_name",
+	3: "task_key",
+	4: "task_type",
+	5: "body",
+	6: "service_name",
+	7: "max_retry",
+	8: "is_unique",
+	9: "delay_time",
+}
+
+func (p *CreateAyncTaskReq) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 2:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 3:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField3(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 4:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField4(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 5:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField5(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 6:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField6(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 7:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField7(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 8:
+			if fieldTypeId == thrift.BOOL {
+				if err = p.ReadField8(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 9:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField9(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CreateAyncTaskReq[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *CreateAyncTaskReq) ReadField1(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.TaskKeyPre = _field
+	return nil
+}
+func (p *CreateAyncTaskReq) ReadField2(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.TaskName = _field
+	return nil
+}
+func (p *CreateAyncTaskReq) ReadField3(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.TaskKey = _field
+	return nil
+}
+func (p *CreateAyncTaskReq) ReadField4(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.TaskType = _field
+	return nil
+}
+func (p *CreateAyncTaskReq) ReadField5(iprot thrift.TProtocol) error {
+
+	var _field []byte
+	if v, err := iprot.ReadBinary(); err != nil {
+		return err
+	} else {
+		_field = []byte(v)
+	}
+	p.Body = _field
+	return nil
+}
+func (p *CreateAyncTaskReq) ReadField6(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.ServiceName = _field
+	return nil
+}
+func (p *CreateAyncTaskReq) ReadField7(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.MaxRetry = _field
+	return nil
+}
+func (p *CreateAyncTaskReq) ReadField8(iprot thrift.TProtocol) error {
+
+	var _field bool
+	if v, err := iprot.ReadBool(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.IsUnique = _field
+	return nil
+}
+func (p *CreateAyncTaskReq) ReadField9(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.DelayTime = _field
+	return nil
+}
+
+func (p *CreateAyncTaskReq) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("CreateAyncTaskReq"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
+			goto WriteFieldError
+		}
+		if err = p.writeField3(oprot); err != nil {
+			fieldId = 3
+			goto WriteFieldError
+		}
+		if err = p.writeField4(oprot); err != nil {
+			fieldId = 4
+			goto WriteFieldError
+		}
+		if err = p.writeField5(oprot); err != nil {
+			fieldId = 5
+			goto WriteFieldError
+		}
+		if err = p.writeField6(oprot); err != nil {
+			fieldId = 6
+			goto WriteFieldError
+		}
+		if err = p.writeField7(oprot); err != nil {
+			fieldId = 7
+			goto WriteFieldError
+		}
+		if err = p.writeField8(oprot); err != nil {
+			fieldId = 8
+			goto WriteFieldError
+		}
+		if err = p.writeField9(oprot); err != nil {
+			fieldId = 9
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *CreateAyncTaskReq) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("task_key_pre", thrift.STRING, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.TaskKeyPre); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *CreateAyncTaskReq) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("task_name", thrift.STRING, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.TaskName); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
+func (p *CreateAyncTaskReq) writeField3(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("task_key", thrift.STRING, 3); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.TaskKey); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
+}
+
+func (p *CreateAyncTaskReq) writeField4(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("task_type", thrift.STRING, 4); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.TaskType); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 end error: ", p), err)
+}
+
+func (p *CreateAyncTaskReq) writeField5(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("body", thrift.STRING, 5); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteBinary([]byte(p.Body)); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 5 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 5 end error: ", p), err)
+}
+
+func (p *CreateAyncTaskReq) writeField6(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("service_name", thrift.STRING, 6); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.ServiceName); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 6 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 6 end error: ", p), err)
+}
+
+func (p *CreateAyncTaskReq) writeField7(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("max_retry", thrift.I32, 7); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.MaxRetry); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 7 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 7 end error: ", p), err)
+}
+
+func (p *CreateAyncTaskReq) writeField8(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("is_unique", thrift.BOOL, 8); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteBool(p.IsUnique); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 8 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 8 end error: ", p), err)
+}
+
+func (p *CreateAyncTaskReq) writeField9(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("delay_time", thrift.I32, 9); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.DelayTime); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 9 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 9 end error: ", p), err)
+}
+
+func (p *CreateAyncTaskReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("CreateAyncTaskReq(%+v)", *p)
+
+}
+
+func (p *CreateAyncTaskReq) DeepEqual(ano *CreateAyncTaskReq) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.TaskKeyPre) {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.TaskName) {
+		return false
+	}
+	if !p.Field3DeepEqual(ano.TaskKey) {
+		return false
+	}
+	if !p.Field4DeepEqual(ano.TaskType) {
+		return false
+	}
+	if !p.Field5DeepEqual(ano.Body) {
+		return false
+	}
+	if !p.Field6DeepEqual(ano.ServiceName) {
+		return false
+	}
+	if !p.Field7DeepEqual(ano.MaxRetry) {
+		return false
+	}
+	if !p.Field8DeepEqual(ano.IsUnique) {
+		return false
+	}
+	if !p.Field9DeepEqual(ano.DelayTime) {
+		return false
+	}
+	return true
+}
+
+func (p *CreateAyncTaskReq) Field1DeepEqual(src string) bool {
+
+	if strings.Compare(p.TaskKeyPre, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *CreateAyncTaskReq) Field2DeepEqual(src string) bool {
+
+	if strings.Compare(p.TaskName, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *CreateAyncTaskReq) Field3DeepEqual(src string) bool {
+
+	if strings.Compare(p.TaskKey, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *CreateAyncTaskReq) Field4DeepEqual(src string) bool {
+
+	if strings.Compare(p.TaskType, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *CreateAyncTaskReq) Field5DeepEqual(src []byte) bool {
+
+	if bytes.Compare(p.Body, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *CreateAyncTaskReq) Field6DeepEqual(src string) bool {
+
+	if strings.Compare(p.ServiceName, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *CreateAyncTaskReq) Field7DeepEqual(src int32) bool {
+
+	if p.MaxRetry != src {
+		return false
+	}
+	return true
+}
+func (p *CreateAyncTaskReq) Field8DeepEqual(src bool) bool {
+
+	if p.IsUnique != src {
+		return false
+	}
+	return true
+}
+func (p *CreateAyncTaskReq) Field9DeepEqual(src int32) bool {
+
+	if p.DelayTime != src {
+		return false
+	}
+	return true
+}
+
+type CreateAyncTaskResp struct {
+	TaskKey string `thrift:"task_key,1" frugal:"1,default,string" json:"task_key"`
+}
+
+func NewCreateAyncTaskResp() *CreateAyncTaskResp {
+	return &CreateAyncTaskResp{}
+}
+
+func (p *CreateAyncTaskResp) InitDefault() {
+}
+
+func (p *CreateAyncTaskResp) GetTaskKey() (v string) {
+	return p.TaskKey
+}
+func (p *CreateAyncTaskResp) SetTaskKey(val string) {
+	p.TaskKey = val
+}
+
+var fieldIDToName_CreateAyncTaskResp = map[int16]string{
+	1: "task_key",
+}
+
+func (p *CreateAyncTaskResp) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CreateAyncTaskResp[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *CreateAyncTaskResp) ReadField1(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.TaskKey = _field
+	return nil
+}
+
+func (p *CreateAyncTaskResp) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("CreateAyncTaskResp"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *CreateAyncTaskResp) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("task_key", thrift.STRING, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.TaskKey); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *CreateAyncTaskResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("CreateAyncTaskResp(%+v)", *p)
+
+}
+
+func (p *CreateAyncTaskResp) DeepEqual(ano *CreateAyncTaskResp) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.TaskKey) {
+		return false
+	}
+	return true
+}
+
+func (p *CreateAyncTaskResp) Field1DeepEqual(src string) bool {
+
+	if strings.Compare(p.TaskKey, src) != 0 {
+		return false
+	}
+	return true
+}
+
+type GetAyncTaskResultReq struct {
+	TaskKey string `thrift:"task_key,1" frugal:"1,default,string" json:"task_key" binding:"required"`
+}
+
+func NewGetAyncTaskResultReq() *GetAyncTaskResultReq {
+	return &GetAyncTaskResultReq{}
+}
+
+func (p *GetAyncTaskResultReq) InitDefault() {
+}
+
+func (p *GetAyncTaskResultReq) GetTaskKey() (v string) {
+	return p.TaskKey
+}
+func (p *GetAyncTaskResultReq) SetTaskKey(val string) {
+	p.TaskKey = val
+}
+
+var fieldIDToName_GetAyncTaskResultReq = map[int16]string{
+	1: "task_key",
+}
+
+func (p *GetAyncTaskResultReq) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_GetAyncTaskResultReq[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *GetAyncTaskResultReq) ReadField1(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.TaskKey = _field
+	return nil
+}
+
+func (p *GetAyncTaskResultReq) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("GetAyncTaskResultReq"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *GetAyncTaskResultReq) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("task_key", thrift.STRING, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.TaskKey); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *GetAyncTaskResultReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("GetAyncTaskResultReq(%+v)", *p)
+
+}
+
+func (p *GetAyncTaskResultReq) DeepEqual(ano *GetAyncTaskResultReq) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.TaskKey) {
+		return false
+	}
+	return true
+}
+
+func (p *GetAyncTaskResultReq) Field1DeepEqual(src string) bool {
+
+	if strings.Compare(p.TaskKey, src) != 0 {
+		return false
+	}
+	return true
+}
+
+type GetAyncTaskResultResp struct {
+	Status   int32  `thrift:"status,1" frugal:"1,default,i32" json:"status"`
+	Message  string `thrift:"message,2" frugal:"2,default,string" json:"message"`
+	Result_  string `thrift:"result,3" frugal:"3,default,string" json:"result"`
+	TaskKey  string `thrift:"task_key,4" frugal:"4,default,string" json:"task_key"`
+	Progress int32  `thrift:"progress,5" frugal:"5,default,i32" json:"progress"`
+}
+
+func NewGetAyncTaskResultResp() *GetAyncTaskResultResp {
+	return &GetAyncTaskResultResp{}
+}
+
+func (p *GetAyncTaskResultResp) InitDefault() {
+}
+
+func (p *GetAyncTaskResultResp) GetStatus() (v int32) {
+	return p.Status
+}
+
+func (p *GetAyncTaskResultResp) GetMessage() (v string) {
+	return p.Message
+}
+
+func (p *GetAyncTaskResultResp) GetResult_() (v string) {
+	return p.Result_
+}
+
+func (p *GetAyncTaskResultResp) GetTaskKey() (v string) {
+	return p.TaskKey
+}
+
+func (p *GetAyncTaskResultResp) GetProgress() (v int32) {
+	return p.Progress
+}
+func (p *GetAyncTaskResultResp) SetStatus(val int32) {
+	p.Status = val
+}
+func (p *GetAyncTaskResultResp) SetMessage(val string) {
+	p.Message = val
+}
+func (p *GetAyncTaskResultResp) SetResult_(val string) {
+	p.Result_ = val
+}
+func (p *GetAyncTaskResultResp) SetTaskKey(val string) {
+	p.TaskKey = val
+}
+func (p *GetAyncTaskResultResp) SetProgress(val int32) {
+	p.Progress = val
+}
+
+var fieldIDToName_GetAyncTaskResultResp = map[int16]string{
+	1: "status",
+	2: "message",
+	3: "result",
+	4: "task_key",
+	5: "progress",
+}
+
+func (p *GetAyncTaskResultResp) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 2:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 3:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField3(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 4:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField4(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 5:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField5(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_GetAyncTaskResultResp[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *GetAyncTaskResultResp) ReadField1(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Status = _field
+	return nil
+}
+func (p *GetAyncTaskResultResp) ReadField2(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Message = _field
+	return nil
+}
+func (p *GetAyncTaskResultResp) ReadField3(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Result_ = _field
+	return nil
+}
+func (p *GetAyncTaskResultResp) ReadField4(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.TaskKey = _field
+	return nil
+}
+func (p *GetAyncTaskResultResp) ReadField5(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Progress = _field
+	return nil
+}
+
+func (p *GetAyncTaskResultResp) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("GetAyncTaskResultResp"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
+			goto WriteFieldError
+		}
+		if err = p.writeField3(oprot); err != nil {
+			fieldId = 3
+			goto WriteFieldError
+		}
+		if err = p.writeField4(oprot); err != nil {
+			fieldId = 4
+			goto WriteFieldError
+		}
+		if err = p.writeField5(oprot); err != nil {
+			fieldId = 5
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *GetAyncTaskResultResp) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("status", thrift.I32, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.Status); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *GetAyncTaskResultResp) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("message", thrift.STRING, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Message); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
+func (p *GetAyncTaskResultResp) writeField3(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("result", thrift.STRING, 3); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Result_); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
+}
+
+func (p *GetAyncTaskResultResp) writeField4(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("task_key", thrift.STRING, 4); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.TaskKey); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 end error: ", p), err)
+}
+
+func (p *GetAyncTaskResultResp) writeField5(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("progress", thrift.I32, 5); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.Progress); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 5 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 5 end error: ", p), err)
+}
+
+func (p *GetAyncTaskResultResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("GetAyncTaskResultResp(%+v)", *p)
+
+}
+
+func (p *GetAyncTaskResultResp) DeepEqual(ano *GetAyncTaskResultResp) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Status) {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.Message) {
+		return false
+	}
+	if !p.Field3DeepEqual(ano.Result_) {
+		return false
+	}
+	if !p.Field4DeepEqual(ano.TaskKey) {
+		return false
+	}
+	if !p.Field5DeepEqual(ano.Progress) {
+		return false
+	}
+	return true
+}
+
+func (p *GetAyncTaskResultResp) Field1DeepEqual(src int32) bool {
+
+	if p.Status != src {
+		return false
+	}
+	return true
+}
+func (p *GetAyncTaskResultResp) Field2DeepEqual(src string) bool {
+
+	if strings.Compare(p.Message, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *GetAyncTaskResultResp) Field3DeepEqual(src string) bool {
+
+	if strings.Compare(p.Result_, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *GetAyncTaskResultResp) Field4DeepEqual(src string) bool {
+
+	if strings.Compare(p.TaskKey, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *GetAyncTaskResultResp) Field5DeepEqual(src int32) bool {
+
+	if p.Progress != src {
+		return false
+	}
+	return true
+}
+
 type Commonservice interface {
 	UploadFile(ctx context.Context, req *UploadFileReq) (r *UploadFileResp, err error)
 
@@ -4940,6 +6417,10 @@ type Commonservice interface {
 	GetObject(ctx context.Context, req *GetObjectReq) (r *GetObjectResp, err error)
 
 	DeleteObject(ctx context.Context, req *DeleteObjectReq) (r *DeleteObjectResp, err error)
+
+	CreateAyncTask(ctx context.Context, req *CreateAyncTaskReq) (r *CreateAyncTaskResp, err error)
+
+	GetAyncTaskResult_(ctx context.Context, req *GetAyncTaskResultReq) (r *GetAyncTaskResultResp, err error)
 }
 
 type CommonserviceUploadFileArgs struct {
@@ -7655,6 +9136,686 @@ func (p *CommonserviceDeleteObjectResult) DeepEqual(ano *CommonserviceDeleteObje
 }
 
 func (p *CommonserviceDeleteObjectResult) Field0DeepEqual(src *DeleteObjectResp) bool {
+
+	if !p.Success.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type CommonserviceCreateAyncTaskArgs struct {
+	Req *CreateAyncTaskReq `thrift:"req,1" frugal:"1,default,CreateAyncTaskReq" json:"req"`
+}
+
+func NewCommonserviceCreateAyncTaskArgs() *CommonserviceCreateAyncTaskArgs {
+	return &CommonserviceCreateAyncTaskArgs{}
+}
+
+func (p *CommonserviceCreateAyncTaskArgs) InitDefault() {
+}
+
+var CommonserviceCreateAyncTaskArgs_Req_DEFAULT *CreateAyncTaskReq
+
+func (p *CommonserviceCreateAyncTaskArgs) GetReq() (v *CreateAyncTaskReq) {
+	if !p.IsSetReq() {
+		return CommonserviceCreateAyncTaskArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *CommonserviceCreateAyncTaskArgs) SetReq(val *CreateAyncTaskReq) {
+	p.Req = val
+}
+
+var fieldIDToName_CommonserviceCreateAyncTaskArgs = map[int16]string{
+	1: "req",
+}
+
+func (p *CommonserviceCreateAyncTaskArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *CommonserviceCreateAyncTaskArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CommonserviceCreateAyncTaskArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *CommonserviceCreateAyncTaskArgs) ReadField1(iprot thrift.TProtocol) error {
+	_field := NewCreateAyncTaskReq()
+	if err := _field.Read(iprot); err != nil {
+		return err
+	}
+	p.Req = _field
+	return nil
+}
+
+func (p *CommonserviceCreateAyncTaskArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("CreateAyncTask_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *CommonserviceCreateAyncTaskArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *CommonserviceCreateAyncTaskArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("CommonserviceCreateAyncTaskArgs(%+v)", *p)
+
+}
+
+func (p *CommonserviceCreateAyncTaskArgs) DeepEqual(ano *CommonserviceCreateAyncTaskArgs) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Req) {
+		return false
+	}
+	return true
+}
+
+func (p *CommonserviceCreateAyncTaskArgs) Field1DeepEqual(src *CreateAyncTaskReq) bool {
+
+	if !p.Req.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type CommonserviceCreateAyncTaskResult struct {
+	Success *CreateAyncTaskResp `thrift:"success,0,optional" frugal:"0,optional,CreateAyncTaskResp" json:"success,omitempty"`
+}
+
+func NewCommonserviceCreateAyncTaskResult() *CommonserviceCreateAyncTaskResult {
+	return &CommonserviceCreateAyncTaskResult{}
+}
+
+func (p *CommonserviceCreateAyncTaskResult) InitDefault() {
+}
+
+var CommonserviceCreateAyncTaskResult_Success_DEFAULT *CreateAyncTaskResp
+
+func (p *CommonserviceCreateAyncTaskResult) GetSuccess() (v *CreateAyncTaskResp) {
+	if !p.IsSetSuccess() {
+		return CommonserviceCreateAyncTaskResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *CommonserviceCreateAyncTaskResult) SetSuccess(x interface{}) {
+	p.Success = x.(*CreateAyncTaskResp)
+}
+
+var fieldIDToName_CommonserviceCreateAyncTaskResult = map[int16]string{
+	0: "success",
+}
+
+func (p *CommonserviceCreateAyncTaskResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *CommonserviceCreateAyncTaskResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CommonserviceCreateAyncTaskResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *CommonserviceCreateAyncTaskResult) ReadField0(iprot thrift.TProtocol) error {
+	_field := NewCreateAyncTaskResp()
+	if err := _field.Read(iprot); err != nil {
+		return err
+	}
+	p.Success = _field
+	return nil
+}
+
+func (p *CommonserviceCreateAyncTaskResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("CreateAyncTask_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *CommonserviceCreateAyncTaskResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *CommonserviceCreateAyncTaskResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("CommonserviceCreateAyncTaskResult(%+v)", *p)
+
+}
+
+func (p *CommonserviceCreateAyncTaskResult) DeepEqual(ano *CommonserviceCreateAyncTaskResult) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field0DeepEqual(ano.Success) {
+		return false
+	}
+	return true
+}
+
+func (p *CommonserviceCreateAyncTaskResult) Field0DeepEqual(src *CreateAyncTaskResp) bool {
+
+	if !p.Success.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type CommonserviceGetAyncTaskResultArgs struct {
+	Req *GetAyncTaskResultReq `thrift:"req,1" frugal:"1,default,GetAyncTaskResultReq" json:"req"`
+}
+
+func NewCommonserviceGetAyncTaskResultArgs() *CommonserviceGetAyncTaskResultArgs {
+	return &CommonserviceGetAyncTaskResultArgs{}
+}
+
+func (p *CommonserviceGetAyncTaskResultArgs) InitDefault() {
+}
+
+var CommonserviceGetAyncTaskResultArgs_Req_DEFAULT *GetAyncTaskResultReq
+
+func (p *CommonserviceGetAyncTaskResultArgs) GetReq() (v *GetAyncTaskResultReq) {
+	if !p.IsSetReq() {
+		return CommonserviceGetAyncTaskResultArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *CommonserviceGetAyncTaskResultArgs) SetReq(val *GetAyncTaskResultReq) {
+	p.Req = val
+}
+
+var fieldIDToName_CommonserviceGetAyncTaskResultArgs = map[int16]string{
+	1: "req",
+}
+
+func (p *CommonserviceGetAyncTaskResultArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *CommonserviceGetAyncTaskResultArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CommonserviceGetAyncTaskResultArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *CommonserviceGetAyncTaskResultArgs) ReadField1(iprot thrift.TProtocol) error {
+	_field := NewGetAyncTaskResultReq()
+	if err := _field.Read(iprot); err != nil {
+		return err
+	}
+	p.Req = _field
+	return nil
+}
+
+func (p *CommonserviceGetAyncTaskResultArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("GetAyncTaskResult_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *CommonserviceGetAyncTaskResultArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *CommonserviceGetAyncTaskResultArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("CommonserviceGetAyncTaskResultArgs(%+v)", *p)
+
+}
+
+func (p *CommonserviceGetAyncTaskResultArgs) DeepEqual(ano *CommonserviceGetAyncTaskResultArgs) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Req) {
+		return false
+	}
+	return true
+}
+
+func (p *CommonserviceGetAyncTaskResultArgs) Field1DeepEqual(src *GetAyncTaskResultReq) bool {
+
+	if !p.Req.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type CommonserviceGetAyncTaskResultResult struct {
+	Success *GetAyncTaskResultResp `thrift:"success,0,optional" frugal:"0,optional,GetAyncTaskResultResp" json:"success,omitempty"`
+}
+
+func NewCommonserviceGetAyncTaskResultResult() *CommonserviceGetAyncTaskResultResult {
+	return &CommonserviceGetAyncTaskResultResult{}
+}
+
+func (p *CommonserviceGetAyncTaskResultResult) InitDefault() {
+}
+
+var CommonserviceGetAyncTaskResultResult_Success_DEFAULT *GetAyncTaskResultResp
+
+func (p *CommonserviceGetAyncTaskResultResult) GetSuccess() (v *GetAyncTaskResultResp) {
+	if !p.IsSetSuccess() {
+		return CommonserviceGetAyncTaskResultResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *CommonserviceGetAyncTaskResultResult) SetSuccess(x interface{}) {
+	p.Success = x.(*GetAyncTaskResultResp)
+}
+
+var fieldIDToName_CommonserviceGetAyncTaskResultResult = map[int16]string{
+	0: "success",
+}
+
+func (p *CommonserviceGetAyncTaskResultResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *CommonserviceGetAyncTaskResultResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CommonserviceGetAyncTaskResultResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *CommonserviceGetAyncTaskResultResult) ReadField0(iprot thrift.TProtocol) error {
+	_field := NewGetAyncTaskResultResp()
+	if err := _field.Read(iprot); err != nil {
+		return err
+	}
+	p.Success = _field
+	return nil
+}
+
+func (p *CommonserviceGetAyncTaskResultResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("GetAyncTaskResult_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *CommonserviceGetAyncTaskResultResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *CommonserviceGetAyncTaskResultResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("CommonserviceGetAyncTaskResultResult(%+v)", *p)
+
+}
+
+func (p *CommonserviceGetAyncTaskResultResult) DeepEqual(ano *CommonserviceGetAyncTaskResultResult) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field0DeepEqual(ano.Success) {
+		return false
+	}
+	return true
+}
+
+func (p *CommonserviceGetAyncTaskResultResult) Field0DeepEqual(src *GetAyncTaskResultResp) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false

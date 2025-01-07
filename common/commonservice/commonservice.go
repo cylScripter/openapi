@@ -69,6 +69,20 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"CreateAyncTask": kitex.NewMethodInfo(
+		createAyncTaskHandler,
+		newCommonserviceCreateAyncTaskArgs,
+		newCommonserviceCreateAyncTaskResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetAyncTaskResult": kitex.NewMethodInfo(
+		getAyncTaskResult_Handler,
+		newCommonserviceGetAyncTaskResultArgs,
+		newCommonserviceGetAyncTaskResultResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -279,6 +293,42 @@ func newCommonserviceDeleteObjectResult() interface{} {
 	return common.NewCommonserviceDeleteObjectResult()
 }
 
+func createAyncTaskHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*common.CommonserviceCreateAyncTaskArgs)
+	realResult := result.(*common.CommonserviceCreateAyncTaskResult)
+	success, err := handler.(common.Commonservice).CreateAyncTask(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newCommonserviceCreateAyncTaskArgs() interface{} {
+	return common.NewCommonserviceCreateAyncTaskArgs()
+}
+
+func newCommonserviceCreateAyncTaskResult() interface{} {
+	return common.NewCommonserviceCreateAyncTaskResult()
+}
+
+func getAyncTaskResult_Handler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*common.CommonserviceGetAyncTaskResultArgs)
+	realResult := result.(*common.CommonserviceGetAyncTaskResultResult)
+	success, err := handler.(common.Commonservice).GetAyncTaskResult_(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newCommonserviceGetAyncTaskResultArgs() interface{} {
+	return common.NewCommonserviceGetAyncTaskResultArgs()
+}
+
+func newCommonserviceGetAyncTaskResultResult() interface{} {
+	return common.NewCommonserviceGetAyncTaskResultResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -364,6 +414,26 @@ func (p *kClient) DeleteObject(ctx context.Context, req *common.DeleteObjectReq)
 	_args.Req = req
 	var _result common.CommonserviceDeleteObjectResult
 	if err = p.c.Call(ctx, "DeleteObject", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) CreateAyncTask(ctx context.Context, req *common.CreateAyncTaskReq) (r *common.CreateAyncTaskResp, err error) {
+	var _args common.CommonserviceCreateAyncTaskArgs
+	_args.Req = req
+	var _result common.CommonserviceCreateAyncTaskResult
+	if err = p.c.Call(ctx, "CreateAyncTask", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetAyncTaskResult_(ctx context.Context, req *common.GetAyncTaskResultReq) (r *common.GetAyncTaskResultResp, err error) {
+	var _args common.CommonserviceGetAyncTaskResultArgs
+	_args.Req = req
+	var _result common.CommonserviceGetAyncTaskResultResult
+	if err = p.c.Call(ctx, "GetAyncTaskResult", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

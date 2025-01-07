@@ -45,3 +45,13 @@ func DeleteObject(ctx context.Context, req *common.DeleteObjectReq, callOptions 
 	clients := MustNewClient("common", callOptions...)
 	return clients.DeleteObject(ctx, req)
 }
+
+func CreateAyncTask(ctx context.Context, req *common.CreateAyncTaskReq, callOptions ...client.Option) (resp *common.CreateAyncTaskResp, err error) {
+	clients := MustNewClient("common", callOptions...)
+	return clients.CreateAyncTask(ctx, req)
+}
+
+func GetAyncTaskResult_(ctx context.Context, req *common.GetAyncTaskResultReq, callOptions ...client.Option) (resp *common.GetAyncTaskResultResp, err error) {
+	clients := MustNewClient("common", callOptions...)
+	return clients.GetAyncTaskResult_(ctx, req)
+}
