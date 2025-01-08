@@ -11,6 +11,7 @@ import (
 
 // Client is designed to provide IDL-compatible methods with call-option parameter for kitex framework.
 type Client interface {
+	GetFile(ctx context.Context, req *common.GetFileReq, callOptions ...callopt.Option) (r *common.GetFileResp, err error)
 	UploadFile(ctx context.Context, req *common.UploadFileReq, callOptions ...callopt.Option) (r *common.UploadFileResp, err error)
 	CompleteFile(ctx context.Context, req *common.CompleteFileReq, callOptions ...callopt.Option) (r *common.CompleteFileResp, err error)
 	UploadNewMultipart(ctx context.Context, req *common.UploadNewMultipartReq, callOptions ...callopt.Option) (r *common.UploadNewMultipartResp, err error)
@@ -51,6 +52,11 @@ func MustNewClient(destService string, opts ...client.Option) Client {
 
 type kCommonserviceClient struct {
 	*kClient
+}
+
+func (p *kCommonserviceClient) GetFile(ctx context.Context, req *common.GetFileReq, callOptions ...callopt.Option) (r *common.GetFileResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetFile(ctx, req)
 }
 
 func (p *kCommonserviceClient) UploadFile(ctx context.Context, req *common.UploadFileReq, callOptions ...callopt.Option) (r *common.UploadFileResp, err error) {

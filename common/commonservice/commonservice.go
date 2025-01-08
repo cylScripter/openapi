@@ -13,6 +13,13 @@ import (
 var errInvalidMessageType = errors.New("invalid message type for service method handler")
 
 var serviceMethods = map[string]kitex.MethodInfo{
+	"GetFile": kitex.NewMethodInfo(
+		getFileHandler,
+		newCommonserviceGetFileArgs,
+		newCommonserviceGetFileResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 	"UploadFile": kitex.NewMethodInfo(
 		uploadFileHandler,
 		newCommonserviceUploadFileArgs,
@@ -154,6 +161,24 @@ func newServiceInfo(hasStreaming bool, keepStreamingMethods bool, keepNonStreami
 		Extra:           extra,
 	}
 	return svcInfo
+}
+
+func getFileHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*common.CommonserviceGetFileArgs)
+	realResult := result.(*common.CommonserviceGetFileResult)
+	success, err := handler.(common.Commonservice).GetFile(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newCommonserviceGetFileArgs() interface{} {
+	return common.NewCommonserviceGetFileArgs()
+}
+
+func newCommonserviceGetFileResult() interface{} {
+	return common.NewCommonserviceGetFileResult()
 }
 
 func uploadFileHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
@@ -362,6 +387,16 @@ func newServiceClient(c client.Client) *kClient {
 	return &kClient{
 		c: c,
 	}
+}
+
+func (p *kClient) GetFile(ctx context.Context, req *common.GetFileReq) (r *common.GetFileResp, err error) {
+	var _args common.CommonserviceGetFileArgs
+	_args.Req = req
+	var _result common.CommonserviceGetFileResult
+	if err = p.c.Call(ctx, "GetFile", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
 }
 
 func (p *kClient) UploadFile(ctx context.Context, req *common.UploadFileReq) (r *common.UploadFileResp, err error) {

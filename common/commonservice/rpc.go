@@ -6,6 +6,11 @@ import (
 	"github.com/cylScripter/openapi/common"
 )
 
+func GetFile(ctx context.Context, req *common.GetFileReq, callOptions ...client.Option) (resp *common.GetFileResp, err error) {
+	clients := MustNewClient("common", callOptions...)
+	return clients.GetFile(ctx, req)
+}
+
 func UploadFile(ctx context.Context, req *common.UploadFileReq, callOptions ...client.Option) (resp *common.UploadFileResp, err error) {
 	clients := MustNewClient("common", callOptions...)
 	return clients.UploadFile(ctx, req)
