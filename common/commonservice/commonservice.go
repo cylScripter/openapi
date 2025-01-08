@@ -83,6 +83,13 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"UpdateAsyncTask": kitex.NewMethodInfo(
+		updateAsyncTaskHandler,
+		newCommonserviceUpdateAsyncTaskArgs,
+		newCommonserviceUpdateAsyncTaskResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -329,6 +336,24 @@ func newCommonserviceGetAsyncTaskResultsResult() interface{} {
 	return common.NewCommonserviceGetAsyncTaskResultsResult()
 }
 
+func updateAsyncTaskHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*common.CommonserviceUpdateAsyncTaskArgs)
+	realResult := result.(*common.CommonserviceUpdateAsyncTaskResult)
+	success, err := handler.(common.Commonservice).UpdateAsyncTask(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newCommonserviceUpdateAsyncTaskArgs() interface{} {
+	return common.NewCommonserviceUpdateAsyncTaskArgs()
+}
+
+func newCommonserviceUpdateAsyncTaskResult() interface{} {
+	return common.NewCommonserviceUpdateAsyncTaskResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -434,6 +459,16 @@ func (p *kClient) GetAsyncTaskResults(ctx context.Context, req *common.GetAsyncT
 	_args.Req = req
 	var _result common.CommonserviceGetAsyncTaskResultsResult
 	if err = p.c.Call(ctx, "GetAsyncTaskResults", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) UpdateAsyncTask(ctx context.Context, req *common.UpdateAsyncTaskReq) (r *common.UpdateAsyncTaskResp, err error) {
+	var _args common.CommonserviceUpdateAsyncTaskArgs
+	_args.Req = req
+	var _result common.CommonserviceUpdateAsyncTaskResult
+	if err = p.c.Call(ctx, "UpdateAsyncTask", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

@@ -56,7 +56,7 @@ func GetMenu(ctx context.Context, req *education.GetMenuReq, callOptions ...clie
 	return clients.GetMenu(ctx, req)
 }
 
-func GetMenuList(ctx context.Context, req *education.GetMenuReq, callOptions ...client.Option) (resp *education.GetMenuResp, err error) {
+func GetMenuList(ctx context.Context, req *education.GetMenuListReq, callOptions ...client.Option) (resp *education.GetMenuListResp, err error) {
 	clients := MustNewClient("education", callOptions...)
 	return clients.GetMenuList(ctx, req)
 }
@@ -89,4 +89,34 @@ func CreateOffice(ctx context.Context, req *education.CreateOfficeReq, callOptio
 func GetOfficeList(ctx context.Context, req *education.GetOfficeListReq, callOptions ...client.Option) (resp *education.GetOfficeListResp, err error) {
 	clients := MustNewClient("education", callOptions...)
 	return clients.GetOfficeList(ctx, req)
+}
+
+func ImportCourseApply(ctx context.Context, req *education.ImportCourseApplyReq, callOptions ...client.Option) (resp *education.ImportCourseApplyResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.ImportCourseApply(ctx, req)
+}
+
+func GetCourseApplyList(ctx context.Context, req *education.GetCourseApplyListReq, callOptions ...client.Option) (resp *education.GetCourseApplyListResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.GetCourseApplyList(ctx, req)
+}
+
+func GetMyCourseApplyList(ctx context.Context, req *education.GetSelfCourseApplyListReq, callOptions ...client.Option) (resp *education.GetSelfCourseApplyListResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.GetMyCourseApplyList(ctx, req)
+}
+
+func DeleteCourseApply(ctx context.Context, req *education.DeleteCourseApplyReq, callOptions ...client.Option) (resp *education.DeleteCourseApplyResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.DeleteCourseApply(ctx, req)
+}
+
+func ApproveCourseApply(ctx context.Context, req *education.ApproveCourseApplyReq, callOptions ...client.Option) (resp *education.ApproveCourseApplyResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.ApproveCourseApply(ctx, req)
+}
+
+func ResetCourseApply(ctx context.Context, req *education.ResetCourseApplyReq, callOptions ...client.Option) (resp *education.ResetCourseApplyResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.ResetCourseApply(ctx, req)
 }

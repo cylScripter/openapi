@@ -21,6 +21,7 @@ type Client interface {
 	DeleteObject(ctx context.Context, req *common.DeleteObjectReq, callOptions ...callopt.Option) (r *common.DeleteObjectResp, err error)
 	CreateAsyncTask(ctx context.Context, req *common.CreateAsyncTaskReq, callOptions ...callopt.Option) (r *common.CreateAsyncTaskResp, err error)
 	GetAsyncTaskResults(ctx context.Context, req *common.GetAsyncTaskResultsReq, callOptions ...callopt.Option) (r *common.GetAsyncTaskResultsResp, err error)
+	UpdateAsyncTask(ctx context.Context, req *common.UpdateAsyncTaskReq, callOptions ...callopt.Option) (r *common.UpdateAsyncTaskResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -100,4 +101,9 @@ func (p *kCommonserviceClient) CreateAsyncTask(ctx context.Context, req *common.
 func (p *kCommonserviceClient) GetAsyncTaskResults(ctx context.Context, req *common.GetAsyncTaskResultsReq, callOptions ...callopt.Option) (r *common.GetAsyncTaskResultsResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.GetAsyncTaskResults(ctx, req)
+}
+
+func (p *kCommonserviceClient) UpdateAsyncTask(ctx context.Context, req *common.UpdateAsyncTaskReq, callOptions ...callopt.Option) (r *common.UpdateAsyncTaskResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.UpdateAsyncTask(ctx, req)
 }

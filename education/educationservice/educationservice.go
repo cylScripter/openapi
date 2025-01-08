@@ -132,6 +132,48 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"ImportCourseApply": kitex.NewMethodInfo(
+		importCourseApplyHandler,
+		newEducationserviceImportCourseApplyArgs,
+		newEducationserviceImportCourseApplyResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetCourseApplyList": kitex.NewMethodInfo(
+		getCourseApplyListHandler,
+		newEducationserviceGetCourseApplyListArgs,
+		newEducationserviceGetCourseApplyListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetMyCourseApplyList": kitex.NewMethodInfo(
+		getMyCourseApplyListHandler,
+		newEducationserviceGetMyCourseApplyListArgs,
+		newEducationserviceGetMyCourseApplyListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"DeleteCourseApply": kitex.NewMethodInfo(
+		deleteCourseApplyHandler,
+		newEducationserviceDeleteCourseApplyArgs,
+		newEducationserviceDeleteCourseApplyResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"ApproveCourseApply": kitex.NewMethodInfo(
+		approveCourseApplyHandler,
+		newEducationserviceApproveCourseApplyArgs,
+		newEducationserviceApproveCourseApplyResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"ResetCourseApply": kitex.NewMethodInfo(
+		resetCourseApplyHandler,
+		newEducationserviceResetCourseApplyArgs,
+		newEducationserviceResetCourseApplyResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -504,6 +546,114 @@ func newEducationserviceGetOfficeListResult() interface{} {
 	return education.NewEducationserviceGetOfficeListResult()
 }
 
+func importCourseApplyHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceImportCourseApplyArgs)
+	realResult := result.(*education.EducationserviceImportCourseApplyResult)
+	success, err := handler.(education.Educationservice).ImportCourseApply(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceImportCourseApplyArgs() interface{} {
+	return education.NewEducationserviceImportCourseApplyArgs()
+}
+
+func newEducationserviceImportCourseApplyResult() interface{} {
+	return education.NewEducationserviceImportCourseApplyResult()
+}
+
+func getCourseApplyListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceGetCourseApplyListArgs)
+	realResult := result.(*education.EducationserviceGetCourseApplyListResult)
+	success, err := handler.(education.Educationservice).GetCourseApplyList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceGetCourseApplyListArgs() interface{} {
+	return education.NewEducationserviceGetCourseApplyListArgs()
+}
+
+func newEducationserviceGetCourseApplyListResult() interface{} {
+	return education.NewEducationserviceGetCourseApplyListResult()
+}
+
+func getMyCourseApplyListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceGetMyCourseApplyListArgs)
+	realResult := result.(*education.EducationserviceGetMyCourseApplyListResult)
+	success, err := handler.(education.Educationservice).GetMyCourseApplyList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceGetMyCourseApplyListArgs() interface{} {
+	return education.NewEducationserviceGetMyCourseApplyListArgs()
+}
+
+func newEducationserviceGetMyCourseApplyListResult() interface{} {
+	return education.NewEducationserviceGetMyCourseApplyListResult()
+}
+
+func deleteCourseApplyHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceDeleteCourseApplyArgs)
+	realResult := result.(*education.EducationserviceDeleteCourseApplyResult)
+	success, err := handler.(education.Educationservice).DeleteCourseApply(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceDeleteCourseApplyArgs() interface{} {
+	return education.NewEducationserviceDeleteCourseApplyArgs()
+}
+
+func newEducationserviceDeleteCourseApplyResult() interface{} {
+	return education.NewEducationserviceDeleteCourseApplyResult()
+}
+
+func approveCourseApplyHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceApproveCourseApplyArgs)
+	realResult := result.(*education.EducationserviceApproveCourseApplyResult)
+	success, err := handler.(education.Educationservice).ApproveCourseApply(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceApproveCourseApplyArgs() interface{} {
+	return education.NewEducationserviceApproveCourseApplyArgs()
+}
+
+func newEducationserviceApproveCourseApplyResult() interface{} {
+	return education.NewEducationserviceApproveCourseApplyResult()
+}
+
+func resetCourseApplyHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceResetCourseApplyArgs)
+	realResult := result.(*education.EducationserviceResetCourseApplyResult)
+	success, err := handler.(education.Educationservice).ResetCourseApply(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceResetCourseApplyArgs() interface{} {
+	return education.NewEducationserviceResetCourseApplyArgs()
+}
+
+func newEducationserviceResetCourseApplyResult() interface{} {
+	return education.NewEducationserviceResetCourseApplyResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -614,7 +764,7 @@ func (p *kClient) GetMenu(ctx context.Context, req *education.GetMenuReq) (r *ed
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) GetMenuList(ctx context.Context, req *education.GetMenuReq) (r *education.GetMenuResp, err error) {
+func (p *kClient) GetMenuList(ctx context.Context, req *education.GetMenuListReq) (r *education.GetMenuListResp, err error) {
 	var _args education.EducationserviceGetMenuListArgs
 	_args.Req = req
 	var _result education.EducationserviceGetMenuListResult
@@ -679,6 +829,66 @@ func (p *kClient) GetOfficeList(ctx context.Context, req *education.GetOfficeLis
 	_args.Req = req
 	var _result education.EducationserviceGetOfficeListResult
 	if err = p.c.Call(ctx, "GetOfficeList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ImportCourseApply(ctx context.Context, req *education.ImportCourseApplyReq) (r *education.ImportCourseApplyResp, err error) {
+	var _args education.EducationserviceImportCourseApplyArgs
+	_args.Req = req
+	var _result education.EducationserviceImportCourseApplyResult
+	if err = p.c.Call(ctx, "ImportCourseApply", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetCourseApplyList(ctx context.Context, req *education.GetCourseApplyListReq) (r *education.GetCourseApplyListResp, err error) {
+	var _args education.EducationserviceGetCourseApplyListArgs
+	_args.Req = req
+	var _result education.EducationserviceGetCourseApplyListResult
+	if err = p.c.Call(ctx, "GetCourseApplyList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetMyCourseApplyList(ctx context.Context, req *education.GetSelfCourseApplyListReq) (r *education.GetSelfCourseApplyListResp, err error) {
+	var _args education.EducationserviceGetMyCourseApplyListArgs
+	_args.Req = req
+	var _result education.EducationserviceGetMyCourseApplyListResult
+	if err = p.c.Call(ctx, "GetMyCourseApplyList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) DeleteCourseApply(ctx context.Context, req *education.DeleteCourseApplyReq) (r *education.DeleteCourseApplyResp, err error) {
+	var _args education.EducationserviceDeleteCourseApplyArgs
+	_args.Req = req
+	var _result education.EducationserviceDeleteCourseApplyResult
+	if err = p.c.Call(ctx, "DeleteCourseApply", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ApproveCourseApply(ctx context.Context, req *education.ApproveCourseApplyReq) (r *education.ApproveCourseApplyResp, err error) {
+	var _args education.EducationserviceApproveCourseApplyArgs
+	_args.Req = req
+	var _result education.EducationserviceApproveCourseApplyResult
+	if err = p.c.Call(ctx, "ApproveCourseApply", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ResetCourseApply(ctx context.Context, req *education.ResetCourseApplyReq) (r *education.ResetCourseApplyResp, err error) {
+	var _args education.EducationserviceResetCourseApplyArgs
+	_args.Req = req
+	var _result education.EducationserviceResetCourseApplyResult
+	if err = p.c.Call(ctx, "ResetCourseApply", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

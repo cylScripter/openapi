@@ -55,3 +55,8 @@ func GetAsyncTaskResults(ctx context.Context, req *common.GetAsyncTaskResultsReq
 	clients := MustNewClient("common", callOptions...)
 	return clients.GetAsyncTaskResults(ctx, req)
 }
+
+func UpdateAsyncTask(ctx context.Context, req *common.UpdateAsyncTaskReq, callOptions ...client.Option) (resp *common.UpdateAsyncTaskResp, err error) {
+	clients := MustNewClient("common", callOptions...)
+	return clients.UpdateAsyncTask(ctx, req)
+}
