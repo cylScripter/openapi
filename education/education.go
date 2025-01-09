@@ -10697,42 +10697,42 @@ func (p *ModelClass) Field7DeepEqual(src int32) bool {
 }
 
 type ModelCourseApply struct {
-	Id                      int32  `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
-	CreatedAt               int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index" json:"created_at"`
-	UpdatedAt               int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at" json:"updated_at"`
-	DeletedAt               int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at" json:"deleted_at"`
-	Department              string `thrift:"department,5" frugal:"5,default,string" json:"department" gorm:"column:department"`
-	AcademicYear            string `thrift:"academic_year,6" frugal:"6,default,string" json:"academic_year" gorm:"column:academic_year"`
-	Semester                string `thrift:"semester,7" frugal:"7,default,string" json:"semester" gorm:"column:semester"`
-	AppId                   int32  `thrift:"app_id,8" frugal:"8,default,i32" json:"app_id" gorm:"column:app_id"`
-	OfficeId                int32  `thrift:"office_id,9" frugal:"9,default,i32" json:"office_id" gorm:"column:office_id"`
-	CourseName              string `thrift:"course_name,10" frugal:"10,default,string" json:"course_name" gorm:"column:course_name"`
-	ClassId                 int32  `thrift:"class_id,11" frugal:"11,default,i32" json:"class_id" gorm:"column:class_id"`
-	TeachClassName          string `thrift:"teach_class_name,12" frugal:"12,default,string" json:"teach_name" gorm:"column:teach_name"`
-	TeacherName             string `thrift:"teacher_name,13" frugal:"13,default,string" json:"teacher_name" gorm:"column:teacher_name"`
-	TotalHours              int64  `thrift:"total_hours,14" frugal:"14,default,i64" json:"total_hours" gorm:"column:total_hours"`
-	TotalStudents           int64  `thrift:"total_students,15" frugal:"15,default,i64" json:"total_students" gorm:"column:total_students"`
-	Credit                  int64  `thrift:"credit,16" frugal:"16,default,i64" json:"credit" gorm:"column:credit"`
-	CourseNature            string `thrift:"course_nature,17" frugal:"17,default,string" json:"course_nature" gorm:"column:course_nature"`
-	StartWeek               int32  `thrift:"start_week,18" frugal:"18,default,i32" json:"start_week" gorm:"column:start_week"`
-	OnlinePlatformName      string `thrift:"online_platform_name,19" frugal:"19,default,string" json:"online_platform_name" gorm:"column:online_platform_name"`
-	TeacherId               string `thrift:"teacher_id,20" frugal:"20,default,string" json:"teacher_id" gorm:"column:teacher_id"`
-	OtherOnlinePlatformName string `thrift:"other_online_platform_name,21" frugal:"21,default,string" json:"other_online_platform_name" gorm:"column:other_online_platform_name"`
-	TeachingResourceName    string `thrift:"teaching_resource_name,22" frugal:"22,default,string" json:"teaching_resource_name" gorm:"column:teaching_resource_name"`
-	IsBuildPartner          int32  `thrift:"is_build_partner,23" frugal:"23,default,i32" json:"is_build_partner" gorm:"column:is_build_partner;default:2"`
-	IsSelfProperty          int32  `thrift:"is_self_property,24" frugal:"24,default,i32" json:"is_self_property" gorm:"column:is_self_property;default:2"`
-	IsUseOtherResource      int32  `thrift:"is_use_other_resource,25" frugal:"25,default,i32" json:"is_use_other_resource" gorm:"column:is_use_other_resource;default:2"`
-	OtherResourceName       string `thrift:"other_resource_name,26" frugal:"26,default,string" json:"other_resource_name" gorm:"column:other_resource_name;type:text"`
-	ResourceBuildPartner    string `thrift:"resource_build_partner,27" frugal:"27,default,string" json:"resource_build_partner" gorm:"column:resource_build_partner"`
-	TeamTeacherName         string `thrift:"team_teacher_name,28" frugal:"28,default,string" json:"team_teacher_name" gorm:"column:team_teacher_name"`
-	Remark                  string `thrift:"remark,29" frugal:"29,default,string" json:"remark" gorm:"column:remark;type:text"`
-	Url                     string `thrift:"url,30" frugal:"30,default,string" json:"url" gorm:"column:url;type:text"`
-	IsnotAccount            string `thrift:"isnot_account,31" frugal:"31,default,string" json:"isnot_account" gorm:"column:isnot_account"`
-	IsnotPassword           string `thrift:"isnot_password,32" frugal:"32,default,string" json:"isnot_password" gorm:"column:isnot_password"`
-	Opinion                 string `thrift:"opinion,33" frugal:"33,default,string" json:"opinion" gorm:"column:opinion"`
-	Examination             int32  `thrift:"examination,34" frugal:"34,default,i32" json:"examination" gorm:"column:examination"`
-	IsActive                int32  `thrift:"is_active,35" frugal:"35,default,i32" json:"is_active" gorm:"column:is_active;default:1"`
-	IsFill                  bool   `thrift:"is_fill,36" frugal:"36,default,bool" json:"is_fill" gorm:"column:is_fill;default:false"`
+	Id                      int32   `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
+	CreatedAt               int32   `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index" json:"created_at"`
+	UpdatedAt               int32   `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at" json:"updated_at"`
+	DeletedAt               int32   `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at" json:"deleted_at"`
+	Department              string  `thrift:"department,5" frugal:"5,default,string" json:"department" gorm:"column:department"`
+	AcademicYear            string  `thrift:"academic_year,6" frugal:"6,default,string" json:"academic_year" gorm:"column:academic_year"`
+	Semester                string  `thrift:"semester,7" frugal:"7,default,string" json:"semester" gorm:"column:semester"`
+	AppId                   int32   `thrift:"app_id,8" frugal:"8,default,i32" json:"app_id" gorm:"column:app_id"`
+	OfficeId                int32   `thrift:"office_id,9" frugal:"9,default,i32" json:"office_id" gorm:"column:office_id"`
+	CourseName              string  `thrift:"course_name,10" frugal:"10,default,string" json:"course_name" gorm:"column:course_name"`
+	ClassId                 int32   `thrift:"class_id,11" frugal:"11,default,i32" json:"class_id" gorm:"column:class_id"`
+	TeachClassName          string  `thrift:"teach_class_name,12" frugal:"12,default,string" json:"teach_name" gorm:"column:teach_name"`
+	TeacherName             string  `thrift:"teacher_name,13" frugal:"13,default,string" json:"teacher_name" gorm:"column:teacher_name"`
+	TotalHours              int64   `thrift:"total_hours,14" frugal:"14,default,i64" json:"total_hours" gorm:"column:total_hours"`
+	TotalStudents           int64   `thrift:"total_students,15" frugal:"15,default,i64" json:"total_students" gorm:"column:total_students"`
+	Credit                  float64 `thrift:"credit,16" frugal:"16,default,double" json:"credit" gorm:"column:credit"`
+	CourseNature            string  `thrift:"course_nature,17" frugal:"17,default,string" json:"course_nature" gorm:"column:course_nature"`
+	StartWeek               int32   `thrift:"start_week,18" frugal:"18,default,i32" json:"start_week" gorm:"column:start_week"`
+	OnlinePlatformName      string  `thrift:"online_platform_name,19" frugal:"19,default,string" json:"online_platform_name" gorm:"column:online_platform_name"`
+	TeacherId               string  `thrift:"teacher_id,20" frugal:"20,default,string" json:"teacher_id" gorm:"column:teacher_id"`
+	OtherOnlinePlatformName string  `thrift:"other_online_platform_name,21" frugal:"21,default,string" json:"other_online_platform_name" gorm:"column:other_online_platform_name"`
+	TeachingResourceName    string  `thrift:"teaching_resource_name,22" frugal:"22,default,string" json:"teaching_resource_name" gorm:"column:teaching_resource_name"`
+	IsBuildPartner          int32   `thrift:"is_build_partner,23" frugal:"23,default,i32" json:"is_build_partner" gorm:"column:is_build_partner;default:2"`
+	IsSelfProperty          int32   `thrift:"is_self_property,24" frugal:"24,default,i32" json:"is_self_property" gorm:"column:is_self_property;default:2"`
+	IsUseOtherResource      int32   `thrift:"is_use_other_resource,25" frugal:"25,default,i32" json:"is_use_other_resource" gorm:"column:is_use_other_resource;default:2"`
+	OtherResourceName       string  `thrift:"other_resource_name,26" frugal:"26,default,string" json:"other_resource_name" gorm:"column:other_resource_name;type:text"`
+	ResourceBuildPartner    string  `thrift:"resource_build_partner,27" frugal:"27,default,string" json:"resource_build_partner" gorm:"column:resource_build_partner"`
+	TeamTeacherName         string  `thrift:"team_teacher_name,28" frugal:"28,default,string" json:"team_teacher_name" gorm:"column:team_teacher_name"`
+	Remark                  string  `thrift:"remark,29" frugal:"29,default,string" json:"remark" gorm:"column:remark;type:text"`
+	Url                     string  `thrift:"url,30" frugal:"30,default,string" json:"url" gorm:"column:url;type:text"`
+	IsnotAccount            string  `thrift:"isnot_account,31" frugal:"31,default,string" json:"isnot_account" gorm:"column:isnot_account"`
+	IsnotPassword           string  `thrift:"isnot_password,32" frugal:"32,default,string" json:"isnot_password" gorm:"column:isnot_password"`
+	Opinion                 string  `thrift:"opinion,33" frugal:"33,default,string" json:"opinion" gorm:"column:opinion"`
+	Examination             int32   `thrift:"examination,34" frugal:"34,default,i32" json:"examination" gorm:"column:examination"`
+	IsActive                int32   `thrift:"is_active,35" frugal:"35,default,i32" json:"is_active" gorm:"column:is_active;default:1"`
+	IsFill                  bool    `thrift:"is_fill,36" frugal:"36,default,bool" json:"is_fill" gorm:"column:is_fill;default:false"`
 }
 
 func NewModelCourseApply() *ModelCourseApply {
@@ -10802,7 +10802,7 @@ func (p *ModelCourseApply) GetTotalStudents() (v int64) {
 	return p.TotalStudents
 }
 
-func (p *ModelCourseApply) GetCredit() (v int64) {
+func (p *ModelCourseApply) GetCredit() (v float64) {
 	return p.Credit
 }
 
@@ -10930,7 +10930,7 @@ func (p *ModelCourseApply) SetTotalHours(val int64) {
 func (p *ModelCourseApply) SetTotalStudents(val int64) {
 	p.TotalStudents = val
 }
-func (p *ModelCourseApply) SetCredit(val int64) {
+func (p *ModelCourseApply) SetCredit(val float64) {
 	p.Credit = val
 }
 func (p *ModelCourseApply) SetCourseNature(val string) {
@@ -11173,7 +11173,7 @@ func (p *ModelCourseApply) Read(iprot thrift.TProtocol) (err error) {
 				goto SkipFieldError
 			}
 		case 16:
-			if fieldTypeId == thrift.I64 {
+			if fieldTypeId == thrift.DOUBLE {
 				if err = p.ReadField16(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -11536,8 +11536,8 @@ func (p *ModelCourseApply) ReadField15(iprot thrift.TProtocol) error {
 }
 func (p *ModelCourseApply) ReadField16(iprot thrift.TProtocol) error {
 
-	var _field int64
-	if v, err := iprot.ReadI64(); err != nil {
+	var _field float64
+	if v, err := iprot.ReadDouble(); err != nil {
 		return err
 	} else {
 		_field = v
@@ -12190,10 +12190,10 @@ WriteFieldEndError:
 }
 
 func (p *ModelCourseApply) writeField16(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("credit", thrift.I64, 16); err != nil {
+	if err = oprot.WriteFieldBegin("credit", thrift.DOUBLE, 16); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteI64(p.Credit); err != nil {
+	if err := oprot.WriteDouble(p.Credit); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -12776,7 +12776,7 @@ func (p *ModelCourseApply) Field15DeepEqual(src int64) bool {
 	}
 	return true
 }
-func (p *ModelCourseApply) Field16DeepEqual(src int64) bool {
+func (p *ModelCourseApply) Field16DeepEqual(src float64) bool {
 
 	if p.Credit != src {
 		return false

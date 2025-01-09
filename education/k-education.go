@@ -7478,7 +7478,7 @@ func (p *ModelCourseApply) FastRead(buf []byte) (int, error) {
 				}
 			}
 		case 16:
-			if fieldTypeId == thrift.I64 {
+			if fieldTypeId == thrift.DOUBLE {
 				l, err = p.FastReadField16(buf[offset:])
 				offset += l
 				if err != nil {
@@ -8002,8 +8002,8 @@ func (p *ModelCourseApply) FastReadField15(buf []byte) (int, error) {
 func (p *ModelCourseApply) FastReadField16(buf []byte) (int, error) {
 	offset := 0
 
-	var _field int64
-	if v, l, err := thrift.Binary.ReadI64(buf[offset:]); err != nil {
+	var _field float64
+	if v, l, err := thrift.Binary.ReadDouble(buf[offset:]); err != nil {
 		return offset, err
 	} else {
 		offset += l
@@ -8493,8 +8493,8 @@ func (p *ModelCourseApply) fastWriteField15(buf []byte, w thrift.NocopyWriter) i
 
 func (p *ModelCourseApply) fastWriteField16(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
-	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I64, 16)
-	offset += thrift.Binary.WriteI64(buf[offset:], p.Credit)
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.DOUBLE, 16)
+	offset += thrift.Binary.WriteDouble(buf[offset:], p.Credit)
 	return offset
 }
 
@@ -8746,7 +8746,7 @@ func (p *ModelCourseApply) field15Length() int {
 func (p *ModelCourseApply) field16Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.I64Length()
+	l += thrift.Binary.DoubleLength()
 	return l
 }
 
