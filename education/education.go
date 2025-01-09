@@ -10714,7 +10714,7 @@ type ModelCourseApply struct {
 	TotalStudents           int64   `thrift:"total_students,15" frugal:"15,default,i64" json:"total_students" gorm:"column:total_students"`
 	Credit                  float64 `thrift:"credit,16" frugal:"16,default,double" json:"credit" gorm:"column:credit"`
 	CourseNature            string  `thrift:"course_nature,17" frugal:"17,default,string" json:"course_nature" gorm:"column:course_nature"`
-	StartWeek               int32   `thrift:"start_week,18" frugal:"18,default,i32" json:"start_week" gorm:"column:start_week"`
+	StartWeek               string  `thrift:"start_week,18" frugal:"18,default,string" json:"start_week" gorm:"column:start_week"`
 	OnlinePlatformName      string  `thrift:"online_platform_name,19" frugal:"19,default,string" json:"online_platform_name" gorm:"column:online_platform_name"`
 	TeacherId               string  `thrift:"teacher_id,20" frugal:"20,default,string" json:"teacher_id" gorm:"column:teacher_id"`
 	OtherOnlinePlatformName string  `thrift:"other_online_platform_name,21" frugal:"21,default,string" json:"other_online_platform_name" gorm:"column:other_online_platform_name"`
@@ -10810,7 +10810,7 @@ func (p *ModelCourseApply) GetCourseNature() (v string) {
 	return p.CourseNature
 }
 
-func (p *ModelCourseApply) GetStartWeek() (v int32) {
+func (p *ModelCourseApply) GetStartWeek() (v string) {
 	return p.StartWeek
 }
 
@@ -10936,7 +10936,7 @@ func (p *ModelCourseApply) SetCredit(val float64) {
 func (p *ModelCourseApply) SetCourseNature(val string) {
 	p.CourseNature = val
 }
-func (p *ModelCourseApply) SetStartWeek(val int32) {
+func (p *ModelCourseApply) SetStartWeek(val string) {
 	p.StartWeek = val
 }
 func (p *ModelCourseApply) SetOnlinePlatformName(val string) {
@@ -11189,7 +11189,7 @@ func (p *ModelCourseApply) Read(iprot thrift.TProtocol) (err error) {
 				goto SkipFieldError
 			}
 		case 18:
-			if fieldTypeId == thrift.I32 {
+			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField18(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -11558,8 +11558,8 @@ func (p *ModelCourseApply) ReadField17(iprot thrift.TProtocol) error {
 }
 func (p *ModelCourseApply) ReadField18(iprot thrift.TProtocol) error {
 
-	var _field int32
-	if v, err := iprot.ReadI32(); err != nil {
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
 		_field = v
@@ -12224,10 +12224,10 @@ WriteFieldEndError:
 }
 
 func (p *ModelCourseApply) writeField18(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("start_week", thrift.I32, 18); err != nil {
+	if err = oprot.WriteFieldBegin("start_week", thrift.STRING, 18); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteI32(p.StartWeek); err != nil {
+	if err := oprot.WriteString(p.StartWeek); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -12790,9 +12790,9 @@ func (p *ModelCourseApply) Field17DeepEqual(src string) bool {
 	}
 	return true
 }
-func (p *ModelCourseApply) Field18DeepEqual(src int32) bool {
+func (p *ModelCourseApply) Field18DeepEqual(src string) bool {
 
-	if p.StartWeek != src {
+	if strings.Compare(p.StartWeek, src) != 0 {
 		return false
 	}
 	return true

@@ -7506,7 +7506,7 @@ func (p *ModelCourseApply) FastRead(buf []byte) (int, error) {
 				}
 			}
 		case 18:
-			if fieldTypeId == thrift.I32 {
+			if fieldTypeId == thrift.STRING {
 				l, err = p.FastReadField18(buf[offset:])
 				offset += l
 				if err != nil {
@@ -8030,8 +8030,8 @@ func (p *ModelCourseApply) FastReadField17(buf []byte) (int, error) {
 func (p *ModelCourseApply) FastReadField18(buf []byte) (int, error) {
 	offset := 0
 
-	var _field int32
-	if v, l, err := thrift.Binary.ReadI32(buf[offset:]); err != nil {
+	var _field string
+	if v, l, err := thrift.Binary.ReadString(buf[offset:]); err != nil {
 		return offset, err
 	} else {
 		offset += l
@@ -8311,7 +8311,6 @@ func (p *ModelCourseApply) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) in
 		offset += p.fastWriteField14(buf[offset:], w)
 		offset += p.fastWriteField15(buf[offset:], w)
 		offset += p.fastWriteField16(buf[offset:], w)
-		offset += p.fastWriteField18(buf[offset:], w)
 		offset += p.fastWriteField23(buf[offset:], w)
 		offset += p.fastWriteField24(buf[offset:], w)
 		offset += p.fastWriteField25(buf[offset:], w)
@@ -8325,6 +8324,7 @@ func (p *ModelCourseApply) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) in
 		offset += p.fastWriteField12(buf[offset:], w)
 		offset += p.fastWriteField13(buf[offset:], w)
 		offset += p.fastWriteField17(buf[offset:], w)
+		offset += p.fastWriteField18(buf[offset:], w)
 		offset += p.fastWriteField19(buf[offset:], w)
 		offset += p.fastWriteField20(buf[offset:], w)
 		offset += p.fastWriteField21(buf[offset:], w)
@@ -8507,8 +8507,8 @@ func (p *ModelCourseApply) fastWriteField17(buf []byte, w thrift.NocopyWriter) i
 
 func (p *ModelCourseApply) fastWriteField18(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
-	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 18)
-	offset += thrift.Binary.WriteI32(buf[offset:], p.StartWeek)
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 18)
+	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.StartWeek)
 	return offset
 }
 
@@ -8760,7 +8760,7 @@ func (p *ModelCourseApply) field17Length() int {
 func (p *ModelCourseApply) field18Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.I32Length()
+	l += thrift.Binary.StringLengthNocopy(p.StartWeek)
 	return l
 }
 
