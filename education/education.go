@@ -505,6 +505,8 @@ type GetSelfCourseApplyListOption int64
 const (
 	GetSelfCourseApplyListOption_id            GetSelfCourseApplyListOption = 1
 	GetSelfCourseApplyListOption_course_name   GetSelfCourseApplyListOption = 2
+	GetSelfCourseApplyListOption_academic_year GetSelfCourseApplyListOption = 3
+	GetSelfCourseApplyListOption_semester      GetSelfCourseApplyListOption = 4
 	GetSelfCourseApplyListOption_course_nature GetSelfCourseApplyListOption = 9
 )
 
@@ -514,6 +516,10 @@ func (p GetSelfCourseApplyListOption) String() string {
 		return "id"
 	case GetSelfCourseApplyListOption_course_name:
 		return "course_name"
+	case GetSelfCourseApplyListOption_academic_year:
+		return "academic_year"
+	case GetSelfCourseApplyListOption_semester:
+		return "semester"
 	case GetSelfCourseApplyListOption_course_nature:
 		return "course_nature"
 	}
@@ -526,6 +532,10 @@ func GetSelfCourseApplyListOptionFromString(s string) (GetSelfCourseApplyListOpt
 		return GetSelfCourseApplyListOption_id, nil
 	case "course_name":
 		return GetSelfCourseApplyListOption_course_name, nil
+	case "academic_year":
+		return GetSelfCourseApplyListOption_academic_year, nil
+	case "semester":
+		return GetSelfCourseApplyListOption_semester, nil
 	case "course_nature":
 		return GetSelfCourseApplyListOption_course_nature, nil
 	}
