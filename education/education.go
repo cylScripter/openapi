@@ -22584,7 +22584,7 @@ type Educationservice interface {
 
 	GetCourseApplyList(ctx context.Context, req *GetCourseApplyListReq) (r *GetCourseApplyListResp, err error)
 
-	GetMyCourseApplyList(ctx context.Context, req *GetSelfCourseApplyListReq) (r *GetSelfCourseApplyListResp, err error)
+	GetSelfCourseApplyList(ctx context.Context, req *GetSelfCourseApplyListReq) (r *GetSelfCourseApplyListResp, err error)
 
 	DeleteCourseApply(ctx context.Context, req *DeleteCourseApplyReq) (r *DeleteCourseApplyResp, err error)
 
@@ -29053,38 +29053,38 @@ func (p *EducationserviceGetCourseApplyListResult) Field0DeepEqual(src *GetCours
 	return true
 }
 
-type EducationserviceGetMyCourseApplyListArgs struct {
+type EducationserviceGetSelfCourseApplyListArgs struct {
 	Req *GetSelfCourseApplyListReq `thrift:"req,1" frugal:"1,default,GetSelfCourseApplyListReq" json:"req"`
 }
 
-func NewEducationserviceGetMyCourseApplyListArgs() *EducationserviceGetMyCourseApplyListArgs {
-	return &EducationserviceGetMyCourseApplyListArgs{}
+func NewEducationserviceGetSelfCourseApplyListArgs() *EducationserviceGetSelfCourseApplyListArgs {
+	return &EducationserviceGetSelfCourseApplyListArgs{}
 }
 
-func (p *EducationserviceGetMyCourseApplyListArgs) InitDefault() {
+func (p *EducationserviceGetSelfCourseApplyListArgs) InitDefault() {
 }
 
-var EducationserviceGetMyCourseApplyListArgs_Req_DEFAULT *GetSelfCourseApplyListReq
+var EducationserviceGetSelfCourseApplyListArgs_Req_DEFAULT *GetSelfCourseApplyListReq
 
-func (p *EducationserviceGetMyCourseApplyListArgs) GetReq() (v *GetSelfCourseApplyListReq) {
+func (p *EducationserviceGetSelfCourseApplyListArgs) GetReq() (v *GetSelfCourseApplyListReq) {
 	if !p.IsSetReq() {
-		return EducationserviceGetMyCourseApplyListArgs_Req_DEFAULT
+		return EducationserviceGetSelfCourseApplyListArgs_Req_DEFAULT
 	}
 	return p.Req
 }
-func (p *EducationserviceGetMyCourseApplyListArgs) SetReq(val *GetSelfCourseApplyListReq) {
+func (p *EducationserviceGetSelfCourseApplyListArgs) SetReq(val *GetSelfCourseApplyListReq) {
 	p.Req = val
 }
 
-var fieldIDToName_EducationserviceGetMyCourseApplyListArgs = map[int16]string{
+var fieldIDToName_EducationserviceGetSelfCourseApplyListArgs = map[int16]string{
 	1: "req",
 }
 
-func (p *EducationserviceGetMyCourseApplyListArgs) IsSetReq() bool {
+func (p *EducationserviceGetSelfCourseApplyListArgs) IsSetReq() bool {
 	return p.Req != nil
 }
 
-func (p *EducationserviceGetMyCourseApplyListArgs) Read(iprot thrift.TProtocol) (err error) {
+func (p *EducationserviceGetSelfCourseApplyListArgs) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -29130,7 +29130,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_EducationserviceGetMyCourseApplyListArgs[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_EducationserviceGetSelfCourseApplyListArgs[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -29140,7 +29140,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *EducationserviceGetMyCourseApplyListArgs) ReadField1(iprot thrift.TProtocol) error {
+func (p *EducationserviceGetSelfCourseApplyListArgs) ReadField1(iprot thrift.TProtocol) error {
 	_field := NewGetSelfCourseApplyListReq()
 	if err := _field.Read(iprot); err != nil {
 		return err
@@ -29149,9 +29149,9 @@ func (p *EducationserviceGetMyCourseApplyListArgs) ReadField1(iprot thrift.TProt
 	return nil
 }
 
-func (p *EducationserviceGetMyCourseApplyListArgs) Write(oprot thrift.TProtocol) (err error) {
+func (p *EducationserviceGetSelfCourseApplyListArgs) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("GetMyCourseApplyList_args"); err != nil {
+	if err = oprot.WriteStructBegin("GetSelfCourseApplyList_args"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -29177,7 +29177,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *EducationserviceGetMyCourseApplyListArgs) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *EducationserviceGetSelfCourseApplyListArgs) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -29194,15 +29194,15 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *EducationserviceGetMyCourseApplyListArgs) String() string {
+func (p *EducationserviceGetSelfCourseApplyListArgs) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("EducationserviceGetMyCourseApplyListArgs(%+v)", *p)
+	return fmt.Sprintf("EducationserviceGetSelfCourseApplyListArgs(%+v)", *p)
 
 }
 
-func (p *EducationserviceGetMyCourseApplyListArgs) DeepEqual(ano *EducationserviceGetMyCourseApplyListArgs) bool {
+func (p *EducationserviceGetSelfCourseApplyListArgs) DeepEqual(ano *EducationserviceGetSelfCourseApplyListArgs) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -29214,7 +29214,7 @@ func (p *EducationserviceGetMyCourseApplyListArgs) DeepEqual(ano *Educationservi
 	return true
 }
 
-func (p *EducationserviceGetMyCourseApplyListArgs) Field1DeepEqual(src *GetSelfCourseApplyListReq) bool {
+func (p *EducationserviceGetSelfCourseApplyListArgs) Field1DeepEqual(src *GetSelfCourseApplyListReq) bool {
 
 	if !p.Req.DeepEqual(src) {
 		return false
@@ -29222,38 +29222,38 @@ func (p *EducationserviceGetMyCourseApplyListArgs) Field1DeepEqual(src *GetSelfC
 	return true
 }
 
-type EducationserviceGetMyCourseApplyListResult struct {
+type EducationserviceGetSelfCourseApplyListResult struct {
 	Success *GetSelfCourseApplyListResp `thrift:"success,0,optional" frugal:"0,optional,GetSelfCourseApplyListResp" json:"success,omitempty"`
 }
 
-func NewEducationserviceGetMyCourseApplyListResult() *EducationserviceGetMyCourseApplyListResult {
-	return &EducationserviceGetMyCourseApplyListResult{}
+func NewEducationserviceGetSelfCourseApplyListResult() *EducationserviceGetSelfCourseApplyListResult {
+	return &EducationserviceGetSelfCourseApplyListResult{}
 }
 
-func (p *EducationserviceGetMyCourseApplyListResult) InitDefault() {
+func (p *EducationserviceGetSelfCourseApplyListResult) InitDefault() {
 }
 
-var EducationserviceGetMyCourseApplyListResult_Success_DEFAULT *GetSelfCourseApplyListResp
+var EducationserviceGetSelfCourseApplyListResult_Success_DEFAULT *GetSelfCourseApplyListResp
 
-func (p *EducationserviceGetMyCourseApplyListResult) GetSuccess() (v *GetSelfCourseApplyListResp) {
+func (p *EducationserviceGetSelfCourseApplyListResult) GetSuccess() (v *GetSelfCourseApplyListResp) {
 	if !p.IsSetSuccess() {
-		return EducationserviceGetMyCourseApplyListResult_Success_DEFAULT
+		return EducationserviceGetSelfCourseApplyListResult_Success_DEFAULT
 	}
 	return p.Success
 }
-func (p *EducationserviceGetMyCourseApplyListResult) SetSuccess(x interface{}) {
+func (p *EducationserviceGetSelfCourseApplyListResult) SetSuccess(x interface{}) {
 	p.Success = x.(*GetSelfCourseApplyListResp)
 }
 
-var fieldIDToName_EducationserviceGetMyCourseApplyListResult = map[int16]string{
+var fieldIDToName_EducationserviceGetSelfCourseApplyListResult = map[int16]string{
 	0: "success",
 }
 
-func (p *EducationserviceGetMyCourseApplyListResult) IsSetSuccess() bool {
+func (p *EducationserviceGetSelfCourseApplyListResult) IsSetSuccess() bool {
 	return p.Success != nil
 }
 
-func (p *EducationserviceGetMyCourseApplyListResult) Read(iprot thrift.TProtocol) (err error) {
+func (p *EducationserviceGetSelfCourseApplyListResult) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -29299,7 +29299,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_EducationserviceGetMyCourseApplyListResult[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_EducationserviceGetSelfCourseApplyListResult[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -29309,7 +29309,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *EducationserviceGetMyCourseApplyListResult) ReadField0(iprot thrift.TProtocol) error {
+func (p *EducationserviceGetSelfCourseApplyListResult) ReadField0(iprot thrift.TProtocol) error {
 	_field := NewGetSelfCourseApplyListResp()
 	if err := _field.Read(iprot); err != nil {
 		return err
@@ -29318,9 +29318,9 @@ func (p *EducationserviceGetMyCourseApplyListResult) ReadField0(iprot thrift.TPr
 	return nil
 }
 
-func (p *EducationserviceGetMyCourseApplyListResult) Write(oprot thrift.TProtocol) (err error) {
+func (p *EducationserviceGetSelfCourseApplyListResult) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("GetMyCourseApplyList_result"); err != nil {
+	if err = oprot.WriteStructBegin("GetSelfCourseApplyList_result"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -29346,7 +29346,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *EducationserviceGetMyCourseApplyListResult) writeField0(oprot thrift.TProtocol) (err error) {
+func (p *EducationserviceGetSelfCourseApplyListResult) writeField0(oprot thrift.TProtocol) (err error) {
 	if p.IsSetSuccess() {
 		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
 			goto WriteFieldBeginError
@@ -29365,15 +29365,15 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
 }
 
-func (p *EducationserviceGetMyCourseApplyListResult) String() string {
+func (p *EducationserviceGetSelfCourseApplyListResult) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("EducationserviceGetMyCourseApplyListResult(%+v)", *p)
+	return fmt.Sprintf("EducationserviceGetSelfCourseApplyListResult(%+v)", *p)
 
 }
 
-func (p *EducationserviceGetMyCourseApplyListResult) DeepEqual(ano *EducationserviceGetMyCourseApplyListResult) bool {
+func (p *EducationserviceGetSelfCourseApplyListResult) DeepEqual(ano *EducationserviceGetSelfCourseApplyListResult) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -29385,7 +29385,7 @@ func (p *EducationserviceGetMyCourseApplyListResult) DeepEqual(ano *Educationser
 	return true
 }
 
-func (p *EducationserviceGetMyCourseApplyListResult) Field0DeepEqual(src *GetSelfCourseApplyListResp) bool {
+func (p *EducationserviceGetSelfCourseApplyListResult) Field0DeepEqual(src *GetSelfCourseApplyListResp) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false

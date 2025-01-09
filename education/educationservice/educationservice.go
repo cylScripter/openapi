@@ -146,10 +146,10 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
-	"GetMyCourseApplyList": kitex.NewMethodInfo(
-		getMyCourseApplyListHandler,
-		newEducationserviceGetMyCourseApplyListArgs,
-		newEducationserviceGetMyCourseApplyListResult,
+	"GetSelfCourseApplyList": kitex.NewMethodInfo(
+		getSelfCourseApplyListHandler,
+		newEducationserviceGetSelfCourseApplyListArgs,
+		newEducationserviceGetSelfCourseApplyListResult,
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
@@ -582,22 +582,22 @@ func newEducationserviceGetCourseApplyListResult() interface{} {
 	return education.NewEducationserviceGetCourseApplyListResult()
 }
 
-func getMyCourseApplyListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
-	realArg := arg.(*education.EducationserviceGetMyCourseApplyListArgs)
-	realResult := result.(*education.EducationserviceGetMyCourseApplyListResult)
-	success, err := handler.(education.Educationservice).GetMyCourseApplyList(ctx, realArg.Req)
+func getSelfCourseApplyListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceGetSelfCourseApplyListArgs)
+	realResult := result.(*education.EducationserviceGetSelfCourseApplyListResult)
+	success, err := handler.(education.Educationservice).GetSelfCourseApplyList(ctx, realArg.Req)
 	if err != nil {
 		return err
 	}
 	realResult.Success = success
 	return nil
 }
-func newEducationserviceGetMyCourseApplyListArgs() interface{} {
-	return education.NewEducationserviceGetMyCourseApplyListArgs()
+func newEducationserviceGetSelfCourseApplyListArgs() interface{} {
+	return education.NewEducationserviceGetSelfCourseApplyListArgs()
 }
 
-func newEducationserviceGetMyCourseApplyListResult() interface{} {
-	return education.NewEducationserviceGetMyCourseApplyListResult()
+func newEducationserviceGetSelfCourseApplyListResult() interface{} {
+	return education.NewEducationserviceGetSelfCourseApplyListResult()
 }
 
 func deleteCourseApplyHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
@@ -854,11 +854,11 @@ func (p *kClient) GetCourseApplyList(ctx context.Context, req *education.GetCour
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) GetMyCourseApplyList(ctx context.Context, req *education.GetSelfCourseApplyListReq) (r *education.GetSelfCourseApplyListResp, err error) {
-	var _args education.EducationserviceGetMyCourseApplyListArgs
+func (p *kClient) GetSelfCourseApplyList(ctx context.Context, req *education.GetSelfCourseApplyListReq) (r *education.GetSelfCourseApplyListResp, err error) {
+	var _args education.EducationserviceGetSelfCourseApplyListArgs
 	_args.Req = req
-	var _result education.EducationserviceGetMyCourseApplyListResult
-	if err = p.c.Call(ctx, "GetMyCourseApplyList", &_args, &_result); err != nil {
+	var _result education.EducationserviceGetSelfCourseApplyListResult
+	if err = p.c.Call(ctx, "GetSelfCourseApplyList", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

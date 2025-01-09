@@ -30,7 +30,7 @@ type Client interface {
 	GetOfficeList(ctx context.Context, req *education.GetOfficeListReq, callOptions ...callopt.Option) (r *education.GetOfficeListResp, err error)
 	ImportCourseApply(ctx context.Context, req *education.ImportCourseApplyReq, callOptions ...callopt.Option) (r *education.ImportCourseApplyResp, err error)
 	GetCourseApplyList(ctx context.Context, req *education.GetCourseApplyListReq, callOptions ...callopt.Option) (r *education.GetCourseApplyListResp, err error)
-	GetMyCourseApplyList(ctx context.Context, req *education.GetSelfCourseApplyListReq, callOptions ...callopt.Option) (r *education.GetSelfCourseApplyListResp, err error)
+	GetSelfCourseApplyList(ctx context.Context, req *education.GetSelfCourseApplyListReq, callOptions ...callopt.Option) (r *education.GetSelfCourseApplyListResp, err error)
 	DeleteCourseApply(ctx context.Context, req *education.DeleteCourseApplyReq, callOptions ...callopt.Option) (r *education.DeleteCourseApplyResp, err error)
 	ApproveCourseApply(ctx context.Context, req *education.ApproveCourseApplyReq, callOptions ...callopt.Option) (r *education.ApproveCourseApplyResp, err error)
 	ResetCourseApply(ctx context.Context, req *education.ResetCourseApplyReq, callOptions ...callopt.Option) (r *education.ResetCourseApplyResp, err error)
@@ -160,9 +160,9 @@ func (p *kEducationserviceClient) GetCourseApplyList(ctx context.Context, req *e
 	return p.kClient.GetCourseApplyList(ctx, req)
 }
 
-func (p *kEducationserviceClient) GetMyCourseApplyList(ctx context.Context, req *education.GetSelfCourseApplyListReq, callOptions ...callopt.Option) (r *education.GetSelfCourseApplyListResp, err error) {
+func (p *kEducationserviceClient) GetSelfCourseApplyList(ctx context.Context, req *education.GetSelfCourseApplyListReq, callOptions ...callopt.Option) (r *education.GetSelfCourseApplyListResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
-	return p.kClient.GetMyCourseApplyList(ctx, req)
+	return p.kClient.GetSelfCourseApplyList(ctx, req)
 }
 
 func (p *kEducationserviceClient) DeleteCourseApply(ctx context.Context, req *education.DeleteCourseApplyReq, callOptions ...callopt.Option) (r *education.DeleteCourseApplyResp, err error) {

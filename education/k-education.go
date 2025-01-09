@@ -18730,7 +18730,7 @@ func (p *EducationserviceGetCourseApplyListResult) field0Length() int {
 	return l
 }
 
-func (p *EducationserviceGetMyCourseApplyListArgs) FastRead(buf []byte) (int, error) {
+func (p *EducationserviceGetSelfCourseApplyListArgs) FastRead(buf []byte) (int, error) {
 	var err error
 	var offset int
 	var l int
@@ -18773,12 +18773,12 @@ func (p *EducationserviceGetMyCourseApplyListArgs) FastRead(buf []byte) (int, er
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_EducationserviceGetMyCourseApplyListArgs[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_EducationserviceGetSelfCourseApplyListArgs[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 }
 
-func (p *EducationserviceGetMyCourseApplyListArgs) FastReadField1(buf []byte) (int, error) {
+func (p *EducationserviceGetSelfCourseApplyListArgs) FastReadField1(buf []byte) (int, error) {
 	offset := 0
 	_field := NewGetSelfCourseApplyListReq()
 	if l, err := _field.FastRead(buf[offset:]); err != nil {
@@ -18791,11 +18791,11 @@ func (p *EducationserviceGetMyCourseApplyListArgs) FastReadField1(buf []byte) (i
 }
 
 // for compatibility
-func (p *EducationserviceGetMyCourseApplyListArgs) FastWrite(buf []byte) int {
+func (p *EducationserviceGetSelfCourseApplyListArgs) FastWrite(buf []byte) int {
 	return 0
 }
 
-func (p *EducationserviceGetMyCourseApplyListArgs) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
+func (p *EducationserviceGetSelfCourseApplyListArgs) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p != nil {
 		offset += p.fastWriteField1(buf[offset:], w)
@@ -18804,7 +18804,7 @@ func (p *EducationserviceGetMyCourseApplyListArgs) FastWriteNocopy(buf []byte, w
 	return offset
 }
 
-func (p *EducationserviceGetMyCourseApplyListArgs) BLength() int {
+func (p *EducationserviceGetSelfCourseApplyListArgs) BLength() int {
 	l := 0
 	if p != nil {
 		l += p.field1Length()
@@ -18813,21 +18813,21 @@ func (p *EducationserviceGetMyCourseApplyListArgs) BLength() int {
 	return l
 }
 
-func (p *EducationserviceGetMyCourseApplyListArgs) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
+func (p *EducationserviceGetSelfCourseApplyListArgs) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRUCT, 1)
 	offset += p.Req.FastWriteNocopy(buf[offset:], w)
 	return offset
 }
 
-func (p *EducationserviceGetMyCourseApplyListArgs) field1Length() int {
+func (p *EducationserviceGetSelfCourseApplyListArgs) field1Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += p.Req.BLength()
 	return l
 }
 
-func (p *EducationserviceGetMyCourseApplyListResult) FastRead(buf []byte) (int, error) {
+func (p *EducationserviceGetSelfCourseApplyListResult) FastRead(buf []byte) (int, error) {
 	var err error
 	var offset int
 	var l int
@@ -18870,12 +18870,12 @@ func (p *EducationserviceGetMyCourseApplyListResult) FastRead(buf []byte) (int, 
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_EducationserviceGetMyCourseApplyListResult[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_EducationserviceGetSelfCourseApplyListResult[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 }
 
-func (p *EducationserviceGetMyCourseApplyListResult) FastReadField0(buf []byte) (int, error) {
+func (p *EducationserviceGetSelfCourseApplyListResult) FastReadField0(buf []byte) (int, error) {
 	offset := 0
 	_field := NewGetSelfCourseApplyListResp()
 	if l, err := _field.FastRead(buf[offset:]); err != nil {
@@ -18888,11 +18888,11 @@ func (p *EducationserviceGetMyCourseApplyListResult) FastReadField0(buf []byte) 
 }
 
 // for compatibility
-func (p *EducationserviceGetMyCourseApplyListResult) FastWrite(buf []byte) int {
+func (p *EducationserviceGetSelfCourseApplyListResult) FastWrite(buf []byte) int {
 	return 0
 }
 
-func (p *EducationserviceGetMyCourseApplyListResult) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
+func (p *EducationserviceGetSelfCourseApplyListResult) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p != nil {
 		offset += p.fastWriteField0(buf[offset:], w)
@@ -18901,7 +18901,7 @@ func (p *EducationserviceGetMyCourseApplyListResult) FastWriteNocopy(buf []byte,
 	return offset
 }
 
-func (p *EducationserviceGetMyCourseApplyListResult) BLength() int {
+func (p *EducationserviceGetSelfCourseApplyListResult) BLength() int {
 	l := 0
 	if p != nil {
 		l += p.field0Length()
@@ -18910,7 +18910,7 @@ func (p *EducationserviceGetMyCourseApplyListResult) BLength() int {
 	return l
 }
 
-func (p *EducationserviceGetMyCourseApplyListResult) fastWriteField0(buf []byte, w thrift.NocopyWriter) int {
+func (p *EducationserviceGetSelfCourseApplyListResult) fastWriteField0(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p.IsSetSuccess() {
 		offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRUCT, 0)
@@ -18919,7 +18919,7 @@ func (p *EducationserviceGetMyCourseApplyListResult) fastWriteField0(buf []byte,
 	return offset
 }
 
-func (p *EducationserviceGetMyCourseApplyListResult) field0Length() int {
+func (p *EducationserviceGetSelfCourseApplyListResult) field0Length() int {
 	l := 0
 	if p.IsSetSuccess() {
 		l += thrift.Binary.FieldBeginLength()
@@ -19674,11 +19674,11 @@ func (p *EducationserviceGetCourseApplyListResult) GetResult() interface{} {
 	return p.Success
 }
 
-func (p *EducationserviceGetMyCourseApplyListArgs) GetFirstArgument() interface{} {
+func (p *EducationserviceGetSelfCourseApplyListArgs) GetFirstArgument() interface{} {
 	return p.Req
 }
 
-func (p *EducationserviceGetMyCourseApplyListResult) GetResult() interface{} {
+func (p *EducationserviceGetSelfCourseApplyListResult) GetResult() interface{} {
 	return p.Success
 }
 

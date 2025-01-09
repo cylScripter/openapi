@@ -101,9 +101,9 @@ func GetCourseApplyList(ctx context.Context, req *education.GetCourseApplyListRe
 	return clients.GetCourseApplyList(ctx, req)
 }
 
-func GetMyCourseApplyList(ctx context.Context, req *education.GetSelfCourseApplyListReq, callOptions ...client.Option) (resp *education.GetSelfCourseApplyListResp, err error) {
+func GetSelfCourseApplyList(ctx context.Context, req *education.GetSelfCourseApplyListReq, callOptions ...client.Option) (resp *education.GetSelfCourseApplyListResp, err error) {
 	clients := MustNewClient("education", callOptions...)
-	return clients.GetMyCourseApplyList(ctx, req)
+	return clients.GetSelfCourseApplyList(ctx, req)
 }
 
 func DeleteCourseApply(ctx context.Context, req *education.DeleteCourseApplyReq, callOptions ...client.Option) (resp *education.DeleteCourseApplyResp, err error) {
