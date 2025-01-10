@@ -120,3 +120,43 @@ func ResetCourseApply(ctx context.Context, req *education.ResetCourseApplyReq, c
 	clients := MustNewClient("education", callOptions...)
 	return clients.ResetCourseApply(ctx, req)
 }
+
+func FillCourseApply(ctx context.Context, req *education.FillCourseApplyReq, callOptions ...client.Option) (resp *education.FillCourseApplyResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.FillCourseApply(ctx, req)
+}
+
+func ExportSelfCheckTable(ctx context.Context, req *education.ExportSelfCheckTableReq, callOptions ...client.Option) (resp *education.ExportSelfCheckTableResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.ExportSelfCheckTable(ctx, req)
+}
+
+func ExportResponsibility(ctx context.Context, req *education.ExportResponsibilityReq, callOptions ...client.Option) (resp *education.ExportResponsibilityResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.ExportResponsibility(ctx, req)
+}
+
+func ExportAllSelfCheckTable(ctx context.Context, req *education.ExportAllSelfCheckTableReq, callOptions ...client.Option) (resp *education.ExportAllSelfCheckTableResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.ExportAllSelfCheckTable(ctx, req)
+}
+
+func UpdateCourseApply(ctx context.Context, req *education.UpdateCourseApplyReq, callOptions ...client.Option) (resp *education.UpdateCourseApplyResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.UpdateCourseApply(ctx, req)
+}
+
+func ExportCourseApply(ctx context.Context, req *education.ExportCourseApplyReq, callOptions ...client.Option) (resp *education.ExportCourseApplyResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.ExportCourseApply(ctx, req)
+}
+
+func ExportCourseApplySummary(ctx context.Context, req *education.ExportCourseApplySummaryReq, callOptions ...client.Option) (resp *education.ExportCourseApplySummaryResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.ExportCourseApplySummary(ctx, req)
+}
+
+func OneKeyApproveCourseApply(ctx context.Context, req *education.OneKeyApproveCourseApplyReq, callOptions ...client.Option) (resp *education.OneKeyApproveCourseApplyResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.OneKeyApproveCourseApply(ctx, req)
+}

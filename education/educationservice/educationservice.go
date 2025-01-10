@@ -174,6 +174,62 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"FillCourseApply": kitex.NewMethodInfo(
+		fillCourseApplyHandler,
+		newEducationserviceFillCourseApplyArgs,
+		newEducationserviceFillCourseApplyResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"ExportSelfCheckTable": kitex.NewMethodInfo(
+		exportSelfCheckTableHandler,
+		newEducationserviceExportSelfCheckTableArgs,
+		newEducationserviceExportSelfCheckTableResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"ExportResponsibility": kitex.NewMethodInfo(
+		exportResponsibilityHandler,
+		newEducationserviceExportResponsibilityArgs,
+		newEducationserviceExportResponsibilityResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"ExportAllSelfCheckTable": kitex.NewMethodInfo(
+		exportAllSelfCheckTableHandler,
+		newEducationserviceExportAllSelfCheckTableArgs,
+		newEducationserviceExportAllSelfCheckTableResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"UpdateCourseApply": kitex.NewMethodInfo(
+		updateCourseApplyHandler,
+		newEducationserviceUpdateCourseApplyArgs,
+		newEducationserviceUpdateCourseApplyResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"ExportCourseApply": kitex.NewMethodInfo(
+		exportCourseApplyHandler,
+		newEducationserviceExportCourseApplyArgs,
+		newEducationserviceExportCourseApplyResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"ExportCourseApplySummary": kitex.NewMethodInfo(
+		exportCourseApplySummaryHandler,
+		newEducationserviceExportCourseApplySummaryArgs,
+		newEducationserviceExportCourseApplySummaryResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"OneKeyApproveCourseApply": kitex.NewMethodInfo(
+		oneKeyApproveCourseApplyHandler,
+		newEducationserviceOneKeyApproveCourseApplyArgs,
+		newEducationserviceOneKeyApproveCourseApplyResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -654,6 +710,150 @@ func newEducationserviceResetCourseApplyResult() interface{} {
 	return education.NewEducationserviceResetCourseApplyResult()
 }
 
+func fillCourseApplyHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceFillCourseApplyArgs)
+	realResult := result.(*education.EducationserviceFillCourseApplyResult)
+	success, err := handler.(education.Educationservice).FillCourseApply(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceFillCourseApplyArgs() interface{} {
+	return education.NewEducationserviceFillCourseApplyArgs()
+}
+
+func newEducationserviceFillCourseApplyResult() interface{} {
+	return education.NewEducationserviceFillCourseApplyResult()
+}
+
+func exportSelfCheckTableHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceExportSelfCheckTableArgs)
+	realResult := result.(*education.EducationserviceExportSelfCheckTableResult)
+	success, err := handler.(education.Educationservice).ExportSelfCheckTable(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceExportSelfCheckTableArgs() interface{} {
+	return education.NewEducationserviceExportSelfCheckTableArgs()
+}
+
+func newEducationserviceExportSelfCheckTableResult() interface{} {
+	return education.NewEducationserviceExportSelfCheckTableResult()
+}
+
+func exportResponsibilityHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceExportResponsibilityArgs)
+	realResult := result.(*education.EducationserviceExportResponsibilityResult)
+	success, err := handler.(education.Educationservice).ExportResponsibility(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceExportResponsibilityArgs() interface{} {
+	return education.NewEducationserviceExportResponsibilityArgs()
+}
+
+func newEducationserviceExportResponsibilityResult() interface{} {
+	return education.NewEducationserviceExportResponsibilityResult()
+}
+
+func exportAllSelfCheckTableHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceExportAllSelfCheckTableArgs)
+	realResult := result.(*education.EducationserviceExportAllSelfCheckTableResult)
+	success, err := handler.(education.Educationservice).ExportAllSelfCheckTable(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceExportAllSelfCheckTableArgs() interface{} {
+	return education.NewEducationserviceExportAllSelfCheckTableArgs()
+}
+
+func newEducationserviceExportAllSelfCheckTableResult() interface{} {
+	return education.NewEducationserviceExportAllSelfCheckTableResult()
+}
+
+func updateCourseApplyHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceUpdateCourseApplyArgs)
+	realResult := result.(*education.EducationserviceUpdateCourseApplyResult)
+	success, err := handler.(education.Educationservice).UpdateCourseApply(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceUpdateCourseApplyArgs() interface{} {
+	return education.NewEducationserviceUpdateCourseApplyArgs()
+}
+
+func newEducationserviceUpdateCourseApplyResult() interface{} {
+	return education.NewEducationserviceUpdateCourseApplyResult()
+}
+
+func exportCourseApplyHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceExportCourseApplyArgs)
+	realResult := result.(*education.EducationserviceExportCourseApplyResult)
+	success, err := handler.(education.Educationservice).ExportCourseApply(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceExportCourseApplyArgs() interface{} {
+	return education.NewEducationserviceExportCourseApplyArgs()
+}
+
+func newEducationserviceExportCourseApplyResult() interface{} {
+	return education.NewEducationserviceExportCourseApplyResult()
+}
+
+func exportCourseApplySummaryHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceExportCourseApplySummaryArgs)
+	realResult := result.(*education.EducationserviceExportCourseApplySummaryResult)
+	success, err := handler.(education.Educationservice).ExportCourseApplySummary(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceExportCourseApplySummaryArgs() interface{} {
+	return education.NewEducationserviceExportCourseApplySummaryArgs()
+}
+
+func newEducationserviceExportCourseApplySummaryResult() interface{} {
+	return education.NewEducationserviceExportCourseApplySummaryResult()
+}
+
+func oneKeyApproveCourseApplyHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceOneKeyApproveCourseApplyArgs)
+	realResult := result.(*education.EducationserviceOneKeyApproveCourseApplyResult)
+	success, err := handler.(education.Educationservice).OneKeyApproveCourseApply(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceOneKeyApproveCourseApplyArgs() interface{} {
+	return education.NewEducationserviceOneKeyApproveCourseApplyArgs()
+}
+
+func newEducationserviceOneKeyApproveCourseApplyResult() interface{} {
+	return education.NewEducationserviceOneKeyApproveCourseApplyResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -889,6 +1089,86 @@ func (p *kClient) ResetCourseApply(ctx context.Context, req *education.ResetCour
 	_args.Req = req
 	var _result education.EducationserviceResetCourseApplyResult
 	if err = p.c.Call(ctx, "ResetCourseApply", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) FillCourseApply(ctx context.Context, req *education.FillCourseApplyReq) (r *education.FillCourseApplyResp, err error) {
+	var _args education.EducationserviceFillCourseApplyArgs
+	_args.Req = req
+	var _result education.EducationserviceFillCourseApplyResult
+	if err = p.c.Call(ctx, "FillCourseApply", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ExportSelfCheckTable(ctx context.Context, req *education.ExportSelfCheckTableReq) (r *education.ExportSelfCheckTableResp, err error) {
+	var _args education.EducationserviceExportSelfCheckTableArgs
+	_args.Req = req
+	var _result education.EducationserviceExportSelfCheckTableResult
+	if err = p.c.Call(ctx, "ExportSelfCheckTable", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ExportResponsibility(ctx context.Context, req *education.ExportResponsibilityReq) (r *education.ExportResponsibilityResp, err error) {
+	var _args education.EducationserviceExportResponsibilityArgs
+	_args.Req = req
+	var _result education.EducationserviceExportResponsibilityResult
+	if err = p.c.Call(ctx, "ExportResponsibility", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ExportAllSelfCheckTable(ctx context.Context, req *education.ExportAllSelfCheckTableReq) (r *education.ExportAllSelfCheckTableResp, err error) {
+	var _args education.EducationserviceExportAllSelfCheckTableArgs
+	_args.Req = req
+	var _result education.EducationserviceExportAllSelfCheckTableResult
+	if err = p.c.Call(ctx, "ExportAllSelfCheckTable", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) UpdateCourseApply(ctx context.Context, req *education.UpdateCourseApplyReq) (r *education.UpdateCourseApplyResp, err error) {
+	var _args education.EducationserviceUpdateCourseApplyArgs
+	_args.Req = req
+	var _result education.EducationserviceUpdateCourseApplyResult
+	if err = p.c.Call(ctx, "UpdateCourseApply", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ExportCourseApply(ctx context.Context, req *education.ExportCourseApplyReq) (r *education.ExportCourseApplyResp, err error) {
+	var _args education.EducationserviceExportCourseApplyArgs
+	_args.Req = req
+	var _result education.EducationserviceExportCourseApplyResult
+	if err = p.c.Call(ctx, "ExportCourseApply", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ExportCourseApplySummary(ctx context.Context, req *education.ExportCourseApplySummaryReq) (r *education.ExportCourseApplySummaryResp, err error) {
+	var _args education.EducationserviceExportCourseApplySummaryArgs
+	_args.Req = req
+	var _result education.EducationserviceExportCourseApplySummaryResult
+	if err = p.c.Call(ctx, "ExportCourseApplySummary", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) OneKeyApproveCourseApply(ctx context.Context, req *education.OneKeyApproveCourseApplyReq) (r *education.OneKeyApproveCourseApplyResp, err error) {
+	var _args education.EducationserviceOneKeyApproveCourseApplyArgs
+	_args.Req = req
+	var _result education.EducationserviceOneKeyApproveCourseApplyResult
+	if err = p.c.Call(ctx, "OneKeyApproveCourseApply", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

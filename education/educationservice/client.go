@@ -34,6 +34,14 @@ type Client interface {
 	DeleteCourseApply(ctx context.Context, req *education.DeleteCourseApplyReq, callOptions ...callopt.Option) (r *education.DeleteCourseApplyResp, err error)
 	ApproveCourseApply(ctx context.Context, req *education.ApproveCourseApplyReq, callOptions ...callopt.Option) (r *education.ApproveCourseApplyResp, err error)
 	ResetCourseApply(ctx context.Context, req *education.ResetCourseApplyReq, callOptions ...callopt.Option) (r *education.ResetCourseApplyResp, err error)
+	FillCourseApply(ctx context.Context, req *education.FillCourseApplyReq, callOptions ...callopt.Option) (r *education.FillCourseApplyResp, err error)
+	ExportSelfCheckTable(ctx context.Context, req *education.ExportSelfCheckTableReq, callOptions ...callopt.Option) (r *education.ExportSelfCheckTableResp, err error)
+	ExportResponsibility(ctx context.Context, req *education.ExportResponsibilityReq, callOptions ...callopt.Option) (r *education.ExportResponsibilityResp, err error)
+	ExportAllSelfCheckTable(ctx context.Context, req *education.ExportAllSelfCheckTableReq, callOptions ...callopt.Option) (r *education.ExportAllSelfCheckTableResp, err error)
+	UpdateCourseApply(ctx context.Context, req *education.UpdateCourseApplyReq, callOptions ...callopt.Option) (r *education.UpdateCourseApplyResp, err error)
+	ExportCourseApply(ctx context.Context, req *education.ExportCourseApplyReq, callOptions ...callopt.Option) (r *education.ExportCourseApplyResp, err error)
+	ExportCourseApplySummary(ctx context.Context, req *education.ExportCourseApplySummaryReq, callOptions ...callopt.Option) (r *education.ExportCourseApplySummaryResp, err error)
+	OneKeyApproveCourseApply(ctx context.Context, req *education.OneKeyApproveCourseApplyReq, callOptions ...callopt.Option) (r *education.OneKeyApproveCourseApplyResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -178,4 +186,44 @@ func (p *kEducationserviceClient) ApproveCourseApply(ctx context.Context, req *e
 func (p *kEducationserviceClient) ResetCourseApply(ctx context.Context, req *education.ResetCourseApplyReq, callOptions ...callopt.Option) (r *education.ResetCourseApplyResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.ResetCourseApply(ctx, req)
+}
+
+func (p *kEducationserviceClient) FillCourseApply(ctx context.Context, req *education.FillCourseApplyReq, callOptions ...callopt.Option) (r *education.FillCourseApplyResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.FillCourseApply(ctx, req)
+}
+
+func (p *kEducationserviceClient) ExportSelfCheckTable(ctx context.Context, req *education.ExportSelfCheckTableReq, callOptions ...callopt.Option) (r *education.ExportSelfCheckTableResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ExportSelfCheckTable(ctx, req)
+}
+
+func (p *kEducationserviceClient) ExportResponsibility(ctx context.Context, req *education.ExportResponsibilityReq, callOptions ...callopt.Option) (r *education.ExportResponsibilityResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ExportResponsibility(ctx, req)
+}
+
+func (p *kEducationserviceClient) ExportAllSelfCheckTable(ctx context.Context, req *education.ExportAllSelfCheckTableReq, callOptions ...callopt.Option) (r *education.ExportAllSelfCheckTableResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ExportAllSelfCheckTable(ctx, req)
+}
+
+func (p *kEducationserviceClient) UpdateCourseApply(ctx context.Context, req *education.UpdateCourseApplyReq, callOptions ...callopt.Option) (r *education.UpdateCourseApplyResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.UpdateCourseApply(ctx, req)
+}
+
+func (p *kEducationserviceClient) ExportCourseApply(ctx context.Context, req *education.ExportCourseApplyReq, callOptions ...callopt.Option) (r *education.ExportCourseApplyResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ExportCourseApply(ctx, req)
+}
+
+func (p *kEducationserviceClient) ExportCourseApplySummary(ctx context.Context, req *education.ExportCourseApplySummaryReq, callOptions ...callopt.Option) (r *education.ExportCourseApplySummaryResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ExportCourseApplySummary(ctx, req)
+}
+
+func (p *kEducationserviceClient) OneKeyApproveCourseApply(ctx context.Context, req *education.OneKeyApproveCourseApplyReq, callOptions ...callopt.Option) (r *education.OneKeyApproveCourseApplyResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.OneKeyApproveCourseApply(ctx, req)
 }

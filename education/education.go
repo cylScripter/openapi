@@ -12,6 +12,157 @@ import (
 	"strings"
 )
 
+var (
+	CourseApplyFieldMap = map[int32]string{
+		1:  "开课部门",
+		2:  "课程所属教研室",
+		3:  "课程名称",
+		4:  "教学班名称",
+		5:  "行政班名称",
+		6:  "教师名称",
+		7:  "任务总学时",
+		8:  "选课人数",
+		9:  "学分",
+		10: "课程性质",
+		11: "起始周",
+		12: "线上授课平台名称",
+		13: "是否与其他教师共建资源",
+		14: "是否校内教师自主知识产权",
+		15: "资源共建分工情况",
+		16: "备注",
+		17: "课程资源准确网址",
+		18: "非三大平台须填写登录账户和密码",
+		19: "教研室主任审查意见",
+	}
+)
+
+type CourseApplyField int64
+
+const (
+	CourseApplyField_department             CourseApplyField = 1
+	CourseApplyField_office_id              CourseApplyField = 2
+	CourseApplyField_course_name            CourseApplyField = 3
+	CourseApplyField_teach_class_name       CourseApplyField = 4
+	CourseApplyField_class_id               CourseApplyField = 5
+	CourseApplyField_teacher_name           CourseApplyField = 6
+	CourseApplyField_total_hours            CourseApplyField = 7
+	CourseApplyField_total_students         CourseApplyField = 8
+	CourseApplyField_credit                 CourseApplyField = 9
+	CourseApplyField_course_nature          CourseApplyField = 10
+	CourseApplyField_start_week             CourseApplyField = 11
+	CourseApplyField_online_platform_name   CourseApplyField = 12
+	CourseApplyField_is_build_partner       CourseApplyField = 13
+	CourseApplyField_is_self_property       CourseApplyField = 14
+	CourseApplyField_resource_build_partner CourseApplyField = 15
+	CourseApplyField_remark                 CourseApplyField = 16
+	CourseApplyField_url                    CourseApplyField = 17
+	CourseApplyField_isnot_account_password CourseApplyField = 18
+	CourseApplyField_opinion                CourseApplyField = 19
+)
+
+func (p CourseApplyField) String() string {
+	switch p {
+	case CourseApplyField_department:
+		return "department"
+	case CourseApplyField_office_id:
+		return "office_id"
+	case CourseApplyField_course_name:
+		return "course_name"
+	case CourseApplyField_teach_class_name:
+		return "teach_class_name"
+	case CourseApplyField_class_id:
+		return "class_id"
+	case CourseApplyField_teacher_name:
+		return "teacher_name"
+	case CourseApplyField_total_hours:
+		return "total_hours"
+	case CourseApplyField_total_students:
+		return "total_students"
+	case CourseApplyField_credit:
+		return "credit"
+	case CourseApplyField_course_nature:
+		return "course_nature"
+	case CourseApplyField_start_week:
+		return "start_week"
+	case CourseApplyField_online_platform_name:
+		return "online_platform_name"
+	case CourseApplyField_is_build_partner:
+		return "is_build_partner"
+	case CourseApplyField_is_self_property:
+		return "is_self_property"
+	case CourseApplyField_resource_build_partner:
+		return "resource_build_partner"
+	case CourseApplyField_remark:
+		return "remark"
+	case CourseApplyField_url:
+		return "url"
+	case CourseApplyField_isnot_account_password:
+		return "isnot_account_password"
+	case CourseApplyField_opinion:
+		return "opinion"
+	}
+	return "<UNSET>"
+}
+
+func CourseApplyFieldFromString(s string) (CourseApplyField, error) {
+	switch s {
+	case "department":
+		return CourseApplyField_department, nil
+	case "office_id":
+		return CourseApplyField_office_id, nil
+	case "course_name":
+		return CourseApplyField_course_name, nil
+	case "teach_class_name":
+		return CourseApplyField_teach_class_name, nil
+	case "class_id":
+		return CourseApplyField_class_id, nil
+	case "teacher_name":
+		return CourseApplyField_teacher_name, nil
+	case "total_hours":
+		return CourseApplyField_total_hours, nil
+	case "total_students":
+		return CourseApplyField_total_students, nil
+	case "credit":
+		return CourseApplyField_credit, nil
+	case "course_nature":
+		return CourseApplyField_course_nature, nil
+	case "start_week":
+		return CourseApplyField_start_week, nil
+	case "online_platform_name":
+		return CourseApplyField_online_platform_name, nil
+	case "is_build_partner":
+		return CourseApplyField_is_build_partner, nil
+	case "is_self_property":
+		return CourseApplyField_is_self_property, nil
+	case "resource_build_partner":
+		return CourseApplyField_resource_build_partner, nil
+	case "remark":
+		return CourseApplyField_remark, nil
+	case "url":
+		return CourseApplyField_url, nil
+	case "isnot_account_password":
+		return CourseApplyField_isnot_account_password, nil
+	case "opinion":
+		return CourseApplyField_opinion, nil
+	}
+	return CourseApplyField(0), fmt.Errorf("not a valid CourseApplyField string")
+}
+
+func CourseApplyFieldPtr(v CourseApplyField) *CourseApplyField { return &v }
+func (p *CourseApplyField) Scan(value interface{}) (err error) {
+	var result sql.NullInt64
+	err = result.Scan(value)
+	*p = CourseApplyField(result.Int64)
+	return
+}
+
+func (p *CourseApplyField) Value() (driver.Value, error) {
+	if p == nil {
+		return nil, nil
+	}
+	return int64(*p), nil
+}
+
 type BooleanType int64
 
 const (
@@ -22555,6 +22706,4445 @@ func (p *ResetCourseApplyResp) DeepEqual(ano *ResetCourseApplyResp) bool {
 	return true
 }
 
+type FillCourseApplyReq struct {
+	Id                      int32  `thrift:"id,1" frugal:"1,default,i32" json:"id" binding:"required"`
+	OnlinePlatformName      string `thrift:"online_platform_name,2" frugal:"2,default,string" json:"online_platform_name" binding:"required"`
+	OtherOnlinePlatformName string `thrift:"other_online_platform_name,3" frugal:"3,default,string" json:"other_online_platform_name"`
+	TeachingResourceName    string `thrift:"teaching_resource_name,4" frugal:"4,default,string" json:"teaching_resource_name"`
+	IsBuildPartner          int32  `thrift:"is_build_partner,5" frugal:"5,default,i32" json:"is_build_partner" binding:"required"`
+	IsSelfProperty          int32  `thrift:"is_self_property,6" frugal:"6,default,i32" json:"is_self_property" binding:"required"`
+	TotalHours              int32  `thrift:"total_hours,7" frugal:"7,default,i32" json:"total_hours" binding:"required"`
+	TeamTeacherName         string `thrift:"team_teacher_name,8" frugal:"8,default,string" json:"team_teacher_name" `
+	ResourceBuildPartner    string `thrift:"resource_build_partner,9" frugal:"9,default,string" json:"resource_build_partner"`
+	Remark                  string `thrift:"remark,10" frugal:"10,default,string" json:"remark"`
+	Url                     string `thrift:"url,11" frugal:"11,default,string" json:"url"`
+	IsnotAccount            string `thrift:"isnot_account,12" frugal:"12,default,string" json:"isnot_account"`
+	IsnotPassword           string `thrift:"isnot_password,13" frugal:"13,default,string" json:"isnot_password"`
+	IsUseOtherResource      int32  `thrift:"is_use_other_resource,14" frugal:"14,default,i32" json:"is_use_other_resource"`
+	OtherResourceName       string `thrift:"other_resource_name,15" frugal:"15,default,string" json:"other_resource_name"`
+}
+
+func NewFillCourseApplyReq() *FillCourseApplyReq {
+	return &FillCourseApplyReq{}
+}
+
+func (p *FillCourseApplyReq) InitDefault() {
+}
+
+func (p *FillCourseApplyReq) GetId() (v int32) {
+	return p.Id
+}
+
+func (p *FillCourseApplyReq) GetOnlinePlatformName() (v string) {
+	return p.OnlinePlatformName
+}
+
+func (p *FillCourseApplyReq) GetOtherOnlinePlatformName() (v string) {
+	return p.OtherOnlinePlatformName
+}
+
+func (p *FillCourseApplyReq) GetTeachingResourceName() (v string) {
+	return p.TeachingResourceName
+}
+
+func (p *FillCourseApplyReq) GetIsBuildPartner() (v int32) {
+	return p.IsBuildPartner
+}
+
+func (p *FillCourseApplyReq) GetIsSelfProperty() (v int32) {
+	return p.IsSelfProperty
+}
+
+func (p *FillCourseApplyReq) GetTotalHours() (v int32) {
+	return p.TotalHours
+}
+
+func (p *FillCourseApplyReq) GetTeamTeacherName() (v string) {
+	return p.TeamTeacherName
+}
+
+func (p *FillCourseApplyReq) GetResourceBuildPartner() (v string) {
+	return p.ResourceBuildPartner
+}
+
+func (p *FillCourseApplyReq) GetRemark() (v string) {
+	return p.Remark
+}
+
+func (p *FillCourseApplyReq) GetUrl() (v string) {
+	return p.Url
+}
+
+func (p *FillCourseApplyReq) GetIsnotAccount() (v string) {
+	return p.IsnotAccount
+}
+
+func (p *FillCourseApplyReq) GetIsnotPassword() (v string) {
+	return p.IsnotPassword
+}
+
+func (p *FillCourseApplyReq) GetIsUseOtherResource() (v int32) {
+	return p.IsUseOtherResource
+}
+
+func (p *FillCourseApplyReq) GetOtherResourceName() (v string) {
+	return p.OtherResourceName
+}
+func (p *FillCourseApplyReq) SetId(val int32) {
+	p.Id = val
+}
+func (p *FillCourseApplyReq) SetOnlinePlatformName(val string) {
+	p.OnlinePlatformName = val
+}
+func (p *FillCourseApplyReq) SetOtherOnlinePlatformName(val string) {
+	p.OtherOnlinePlatformName = val
+}
+func (p *FillCourseApplyReq) SetTeachingResourceName(val string) {
+	p.TeachingResourceName = val
+}
+func (p *FillCourseApplyReq) SetIsBuildPartner(val int32) {
+	p.IsBuildPartner = val
+}
+func (p *FillCourseApplyReq) SetIsSelfProperty(val int32) {
+	p.IsSelfProperty = val
+}
+func (p *FillCourseApplyReq) SetTotalHours(val int32) {
+	p.TotalHours = val
+}
+func (p *FillCourseApplyReq) SetTeamTeacherName(val string) {
+	p.TeamTeacherName = val
+}
+func (p *FillCourseApplyReq) SetResourceBuildPartner(val string) {
+	p.ResourceBuildPartner = val
+}
+func (p *FillCourseApplyReq) SetRemark(val string) {
+	p.Remark = val
+}
+func (p *FillCourseApplyReq) SetUrl(val string) {
+	p.Url = val
+}
+func (p *FillCourseApplyReq) SetIsnotAccount(val string) {
+	p.IsnotAccount = val
+}
+func (p *FillCourseApplyReq) SetIsnotPassword(val string) {
+	p.IsnotPassword = val
+}
+func (p *FillCourseApplyReq) SetIsUseOtherResource(val int32) {
+	p.IsUseOtherResource = val
+}
+func (p *FillCourseApplyReq) SetOtherResourceName(val string) {
+	p.OtherResourceName = val
+}
+
+var fieldIDToName_FillCourseApplyReq = map[int16]string{
+	1:  "id",
+	2:  "online_platform_name",
+	3:  "other_online_platform_name",
+	4:  "teaching_resource_name",
+	5:  "is_build_partner",
+	6:  "is_self_property",
+	7:  "total_hours",
+	8:  "team_teacher_name",
+	9:  "resource_build_partner",
+	10: "remark",
+	11: "url",
+	12: "isnot_account",
+	13: "isnot_password",
+	14: "is_use_other_resource",
+	15: "other_resource_name",
+}
+
+func (p *FillCourseApplyReq) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 2:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 3:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField3(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 4:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField4(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 5:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField5(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 6:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField6(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 7:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField7(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 8:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField8(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 9:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField9(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 10:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField10(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 11:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField11(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 12:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField12(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 13:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField13(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 14:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField14(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 15:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField15(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_FillCourseApplyReq[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *FillCourseApplyReq) ReadField1(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Id = _field
+	return nil
+}
+func (p *FillCourseApplyReq) ReadField2(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.OnlinePlatformName = _field
+	return nil
+}
+func (p *FillCourseApplyReq) ReadField3(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.OtherOnlinePlatformName = _field
+	return nil
+}
+func (p *FillCourseApplyReq) ReadField4(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.TeachingResourceName = _field
+	return nil
+}
+func (p *FillCourseApplyReq) ReadField5(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.IsBuildPartner = _field
+	return nil
+}
+func (p *FillCourseApplyReq) ReadField6(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.IsSelfProperty = _field
+	return nil
+}
+func (p *FillCourseApplyReq) ReadField7(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.TotalHours = _field
+	return nil
+}
+func (p *FillCourseApplyReq) ReadField8(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.TeamTeacherName = _field
+	return nil
+}
+func (p *FillCourseApplyReq) ReadField9(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.ResourceBuildPartner = _field
+	return nil
+}
+func (p *FillCourseApplyReq) ReadField10(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Remark = _field
+	return nil
+}
+func (p *FillCourseApplyReq) ReadField11(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Url = _field
+	return nil
+}
+func (p *FillCourseApplyReq) ReadField12(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.IsnotAccount = _field
+	return nil
+}
+func (p *FillCourseApplyReq) ReadField13(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.IsnotPassword = _field
+	return nil
+}
+func (p *FillCourseApplyReq) ReadField14(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.IsUseOtherResource = _field
+	return nil
+}
+func (p *FillCourseApplyReq) ReadField15(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.OtherResourceName = _field
+	return nil
+}
+
+func (p *FillCourseApplyReq) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("FillCourseApplyReq"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
+			goto WriteFieldError
+		}
+		if err = p.writeField3(oprot); err != nil {
+			fieldId = 3
+			goto WriteFieldError
+		}
+		if err = p.writeField4(oprot); err != nil {
+			fieldId = 4
+			goto WriteFieldError
+		}
+		if err = p.writeField5(oprot); err != nil {
+			fieldId = 5
+			goto WriteFieldError
+		}
+		if err = p.writeField6(oprot); err != nil {
+			fieldId = 6
+			goto WriteFieldError
+		}
+		if err = p.writeField7(oprot); err != nil {
+			fieldId = 7
+			goto WriteFieldError
+		}
+		if err = p.writeField8(oprot); err != nil {
+			fieldId = 8
+			goto WriteFieldError
+		}
+		if err = p.writeField9(oprot); err != nil {
+			fieldId = 9
+			goto WriteFieldError
+		}
+		if err = p.writeField10(oprot); err != nil {
+			fieldId = 10
+			goto WriteFieldError
+		}
+		if err = p.writeField11(oprot); err != nil {
+			fieldId = 11
+			goto WriteFieldError
+		}
+		if err = p.writeField12(oprot); err != nil {
+			fieldId = 12
+			goto WriteFieldError
+		}
+		if err = p.writeField13(oprot); err != nil {
+			fieldId = 13
+			goto WriteFieldError
+		}
+		if err = p.writeField14(oprot); err != nil {
+			fieldId = 14
+			goto WriteFieldError
+		}
+		if err = p.writeField15(oprot); err != nil {
+			fieldId = 15
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *FillCourseApplyReq) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("id", thrift.I32, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.Id); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *FillCourseApplyReq) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("online_platform_name", thrift.STRING, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.OnlinePlatformName); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
+func (p *FillCourseApplyReq) writeField3(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("other_online_platform_name", thrift.STRING, 3); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.OtherOnlinePlatformName); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
+}
+
+func (p *FillCourseApplyReq) writeField4(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("teaching_resource_name", thrift.STRING, 4); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.TeachingResourceName); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 end error: ", p), err)
+}
+
+func (p *FillCourseApplyReq) writeField5(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("is_build_partner", thrift.I32, 5); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.IsBuildPartner); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 5 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 5 end error: ", p), err)
+}
+
+func (p *FillCourseApplyReq) writeField6(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("is_self_property", thrift.I32, 6); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.IsSelfProperty); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 6 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 6 end error: ", p), err)
+}
+
+func (p *FillCourseApplyReq) writeField7(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("total_hours", thrift.I32, 7); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.TotalHours); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 7 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 7 end error: ", p), err)
+}
+
+func (p *FillCourseApplyReq) writeField8(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("team_teacher_name", thrift.STRING, 8); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.TeamTeacherName); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 8 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 8 end error: ", p), err)
+}
+
+func (p *FillCourseApplyReq) writeField9(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("resource_build_partner", thrift.STRING, 9); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.ResourceBuildPartner); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 9 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 9 end error: ", p), err)
+}
+
+func (p *FillCourseApplyReq) writeField10(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("remark", thrift.STRING, 10); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Remark); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 10 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 10 end error: ", p), err)
+}
+
+func (p *FillCourseApplyReq) writeField11(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("url", thrift.STRING, 11); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Url); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 11 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 11 end error: ", p), err)
+}
+
+func (p *FillCourseApplyReq) writeField12(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("isnot_account", thrift.STRING, 12); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.IsnotAccount); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 12 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 12 end error: ", p), err)
+}
+
+func (p *FillCourseApplyReq) writeField13(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("isnot_password", thrift.STRING, 13); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.IsnotPassword); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 13 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 13 end error: ", p), err)
+}
+
+func (p *FillCourseApplyReq) writeField14(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("is_use_other_resource", thrift.I32, 14); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.IsUseOtherResource); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 14 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 14 end error: ", p), err)
+}
+
+func (p *FillCourseApplyReq) writeField15(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("other_resource_name", thrift.STRING, 15); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.OtherResourceName); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 15 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 15 end error: ", p), err)
+}
+
+func (p *FillCourseApplyReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("FillCourseApplyReq(%+v)", *p)
+
+}
+
+func (p *FillCourseApplyReq) DeepEqual(ano *FillCourseApplyReq) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Id) {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.OnlinePlatformName) {
+		return false
+	}
+	if !p.Field3DeepEqual(ano.OtherOnlinePlatformName) {
+		return false
+	}
+	if !p.Field4DeepEqual(ano.TeachingResourceName) {
+		return false
+	}
+	if !p.Field5DeepEqual(ano.IsBuildPartner) {
+		return false
+	}
+	if !p.Field6DeepEqual(ano.IsSelfProperty) {
+		return false
+	}
+	if !p.Field7DeepEqual(ano.TotalHours) {
+		return false
+	}
+	if !p.Field8DeepEqual(ano.TeamTeacherName) {
+		return false
+	}
+	if !p.Field9DeepEqual(ano.ResourceBuildPartner) {
+		return false
+	}
+	if !p.Field10DeepEqual(ano.Remark) {
+		return false
+	}
+	if !p.Field11DeepEqual(ano.Url) {
+		return false
+	}
+	if !p.Field12DeepEqual(ano.IsnotAccount) {
+		return false
+	}
+	if !p.Field13DeepEqual(ano.IsnotPassword) {
+		return false
+	}
+	if !p.Field14DeepEqual(ano.IsUseOtherResource) {
+		return false
+	}
+	if !p.Field15DeepEqual(ano.OtherResourceName) {
+		return false
+	}
+	return true
+}
+
+func (p *FillCourseApplyReq) Field1DeepEqual(src int32) bool {
+
+	if p.Id != src {
+		return false
+	}
+	return true
+}
+func (p *FillCourseApplyReq) Field2DeepEqual(src string) bool {
+
+	if strings.Compare(p.OnlinePlatformName, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *FillCourseApplyReq) Field3DeepEqual(src string) bool {
+
+	if strings.Compare(p.OtherOnlinePlatformName, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *FillCourseApplyReq) Field4DeepEqual(src string) bool {
+
+	if strings.Compare(p.TeachingResourceName, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *FillCourseApplyReq) Field5DeepEqual(src int32) bool {
+
+	if p.IsBuildPartner != src {
+		return false
+	}
+	return true
+}
+func (p *FillCourseApplyReq) Field6DeepEqual(src int32) bool {
+
+	if p.IsSelfProperty != src {
+		return false
+	}
+	return true
+}
+func (p *FillCourseApplyReq) Field7DeepEqual(src int32) bool {
+
+	if p.TotalHours != src {
+		return false
+	}
+	return true
+}
+func (p *FillCourseApplyReq) Field8DeepEqual(src string) bool {
+
+	if strings.Compare(p.TeamTeacherName, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *FillCourseApplyReq) Field9DeepEqual(src string) bool {
+
+	if strings.Compare(p.ResourceBuildPartner, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *FillCourseApplyReq) Field10DeepEqual(src string) bool {
+
+	if strings.Compare(p.Remark, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *FillCourseApplyReq) Field11DeepEqual(src string) bool {
+
+	if strings.Compare(p.Url, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *FillCourseApplyReq) Field12DeepEqual(src string) bool {
+
+	if strings.Compare(p.IsnotAccount, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *FillCourseApplyReq) Field13DeepEqual(src string) bool {
+
+	if strings.Compare(p.IsnotPassword, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *FillCourseApplyReq) Field14DeepEqual(src int32) bool {
+
+	if p.IsUseOtherResource != src {
+		return false
+	}
+	return true
+}
+func (p *FillCourseApplyReq) Field15DeepEqual(src string) bool {
+
+	if strings.Compare(p.OtherResourceName, src) != 0 {
+		return false
+	}
+	return true
+}
+
+type FillCourseApplyResp struct {
+}
+
+func NewFillCourseApplyResp() *FillCourseApplyResp {
+	return &FillCourseApplyResp{}
+}
+
+func (p *FillCourseApplyResp) InitDefault() {
+}
+
+var fieldIDToName_FillCourseApplyResp = map[int16]string{}
+
+func (p *FillCourseApplyResp) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+		if err = iprot.Skip(fieldTypeId); err != nil {
+			goto SkipFieldTypeError
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+SkipFieldTypeError:
+	return thrift.PrependError(fmt.Sprintf("%T skip field type %d error", p, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *FillCourseApplyResp) Write(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteStructBegin("FillCourseApplyResp"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *FillCourseApplyResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("FillCourseApplyResp(%+v)", *p)
+
+}
+
+func (p *FillCourseApplyResp) DeepEqual(ano *FillCourseApplyResp) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	return true
+}
+
+type ExportSelfCheckTableReq struct {
+	CourseId int32 `thrift:"course_id,1" frugal:"1,default,i32" json:"course_id" binding:"required"`
+}
+
+func NewExportSelfCheckTableReq() *ExportSelfCheckTableReq {
+	return &ExportSelfCheckTableReq{}
+}
+
+func (p *ExportSelfCheckTableReq) InitDefault() {
+}
+
+func (p *ExportSelfCheckTableReq) GetCourseId() (v int32) {
+	return p.CourseId
+}
+func (p *ExportSelfCheckTableReq) SetCourseId(val int32) {
+	p.CourseId = val
+}
+
+var fieldIDToName_ExportSelfCheckTableReq = map[int16]string{
+	1: "course_id",
+}
+
+func (p *ExportSelfCheckTableReq) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ExportSelfCheckTableReq[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ExportSelfCheckTableReq) ReadField1(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.CourseId = _field
+	return nil
+}
+
+func (p *ExportSelfCheckTableReq) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ExportSelfCheckTableReq"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ExportSelfCheckTableReq) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("course_id", thrift.I32, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.CourseId); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *ExportSelfCheckTableReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ExportSelfCheckTableReq(%+v)", *p)
+
+}
+
+func (p *ExportSelfCheckTableReq) DeepEqual(ano *ExportSelfCheckTableReq) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.CourseId) {
+		return false
+	}
+	return true
+}
+
+func (p *ExportSelfCheckTableReq) Field1DeepEqual(src int32) bool {
+
+	if p.CourseId != src {
+		return false
+	}
+	return true
+}
+
+type ExportSelfCheckTableResp struct {
+	TaskKey string `thrift:"task_key,1" frugal:"1,default,string" json:"task_key"`
+}
+
+func NewExportSelfCheckTableResp() *ExportSelfCheckTableResp {
+	return &ExportSelfCheckTableResp{}
+}
+
+func (p *ExportSelfCheckTableResp) InitDefault() {
+}
+
+func (p *ExportSelfCheckTableResp) GetTaskKey() (v string) {
+	return p.TaskKey
+}
+func (p *ExportSelfCheckTableResp) SetTaskKey(val string) {
+	p.TaskKey = val
+}
+
+var fieldIDToName_ExportSelfCheckTableResp = map[int16]string{
+	1: "task_key",
+}
+
+func (p *ExportSelfCheckTableResp) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ExportSelfCheckTableResp[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ExportSelfCheckTableResp) ReadField1(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.TaskKey = _field
+	return nil
+}
+
+func (p *ExportSelfCheckTableResp) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ExportSelfCheckTableResp"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ExportSelfCheckTableResp) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("task_key", thrift.STRING, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.TaskKey); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *ExportSelfCheckTableResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ExportSelfCheckTableResp(%+v)", *p)
+
+}
+
+func (p *ExportSelfCheckTableResp) DeepEqual(ano *ExportSelfCheckTableResp) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.TaskKey) {
+		return false
+	}
+	return true
+}
+
+func (p *ExportSelfCheckTableResp) Field1DeepEqual(src string) bool {
+
+	if strings.Compare(p.TaskKey, src) != 0 {
+		return false
+	}
+	return true
+}
+
+type ExportResponsibilityReq struct {
+	TeacherName  int32  `thrift:"teacher_name,1" frugal:"1,default,i32" json:"teacher_name"`
+	Username     string `thrift:"username,2" frugal:"2,default,string" json:"username"`
+	AcademicYear string `thrift:"academic_year,3" frugal:"3,default,string" json:"academic_year"`
+	Semester     string `thrift:"semester,4" frugal:"4,default,string" json:"semester"`
+}
+
+func NewExportResponsibilityReq() *ExportResponsibilityReq {
+	return &ExportResponsibilityReq{}
+}
+
+func (p *ExportResponsibilityReq) InitDefault() {
+}
+
+func (p *ExportResponsibilityReq) GetTeacherName() (v int32) {
+	return p.TeacherName
+}
+
+func (p *ExportResponsibilityReq) GetUsername() (v string) {
+	return p.Username
+}
+
+func (p *ExportResponsibilityReq) GetAcademicYear() (v string) {
+	return p.AcademicYear
+}
+
+func (p *ExportResponsibilityReq) GetSemester() (v string) {
+	return p.Semester
+}
+func (p *ExportResponsibilityReq) SetTeacherName(val int32) {
+	p.TeacherName = val
+}
+func (p *ExportResponsibilityReq) SetUsername(val string) {
+	p.Username = val
+}
+func (p *ExportResponsibilityReq) SetAcademicYear(val string) {
+	p.AcademicYear = val
+}
+func (p *ExportResponsibilityReq) SetSemester(val string) {
+	p.Semester = val
+}
+
+var fieldIDToName_ExportResponsibilityReq = map[int16]string{
+	1: "teacher_name",
+	2: "username",
+	3: "academic_year",
+	4: "semester",
+}
+
+func (p *ExportResponsibilityReq) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 2:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 3:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField3(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 4:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField4(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ExportResponsibilityReq[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ExportResponsibilityReq) ReadField1(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.TeacherName = _field
+	return nil
+}
+func (p *ExportResponsibilityReq) ReadField2(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Username = _field
+	return nil
+}
+func (p *ExportResponsibilityReq) ReadField3(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.AcademicYear = _field
+	return nil
+}
+func (p *ExportResponsibilityReq) ReadField4(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Semester = _field
+	return nil
+}
+
+func (p *ExportResponsibilityReq) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ExportResponsibilityReq"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
+			goto WriteFieldError
+		}
+		if err = p.writeField3(oprot); err != nil {
+			fieldId = 3
+			goto WriteFieldError
+		}
+		if err = p.writeField4(oprot); err != nil {
+			fieldId = 4
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ExportResponsibilityReq) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("teacher_name", thrift.I32, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.TeacherName); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *ExportResponsibilityReq) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("username", thrift.STRING, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Username); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
+func (p *ExportResponsibilityReq) writeField3(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("academic_year", thrift.STRING, 3); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.AcademicYear); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
+}
+
+func (p *ExportResponsibilityReq) writeField4(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("semester", thrift.STRING, 4); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Semester); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 end error: ", p), err)
+}
+
+func (p *ExportResponsibilityReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ExportResponsibilityReq(%+v)", *p)
+
+}
+
+func (p *ExportResponsibilityReq) DeepEqual(ano *ExportResponsibilityReq) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.TeacherName) {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.Username) {
+		return false
+	}
+	if !p.Field3DeepEqual(ano.AcademicYear) {
+		return false
+	}
+	if !p.Field4DeepEqual(ano.Semester) {
+		return false
+	}
+	return true
+}
+
+func (p *ExportResponsibilityReq) Field1DeepEqual(src int32) bool {
+
+	if p.TeacherName != src {
+		return false
+	}
+	return true
+}
+func (p *ExportResponsibilityReq) Field2DeepEqual(src string) bool {
+
+	if strings.Compare(p.Username, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *ExportResponsibilityReq) Field3DeepEqual(src string) bool {
+
+	if strings.Compare(p.AcademicYear, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *ExportResponsibilityReq) Field4DeepEqual(src string) bool {
+
+	if strings.Compare(p.Semester, src) != 0 {
+		return false
+	}
+	return true
+}
+
+type ExportResponsibilityResp struct {
+	TaskKey string `thrift:"task_key,1" frugal:"1,default,string" json:"task_key"`
+}
+
+func NewExportResponsibilityResp() *ExportResponsibilityResp {
+	return &ExportResponsibilityResp{}
+}
+
+func (p *ExportResponsibilityResp) InitDefault() {
+}
+
+func (p *ExportResponsibilityResp) GetTaskKey() (v string) {
+	return p.TaskKey
+}
+func (p *ExportResponsibilityResp) SetTaskKey(val string) {
+	p.TaskKey = val
+}
+
+var fieldIDToName_ExportResponsibilityResp = map[int16]string{
+	1: "task_key",
+}
+
+func (p *ExportResponsibilityResp) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ExportResponsibilityResp[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ExportResponsibilityResp) ReadField1(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.TaskKey = _field
+	return nil
+}
+
+func (p *ExportResponsibilityResp) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ExportResponsibilityResp"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ExportResponsibilityResp) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("task_key", thrift.STRING, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.TaskKey); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *ExportResponsibilityResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ExportResponsibilityResp(%+v)", *p)
+
+}
+
+func (p *ExportResponsibilityResp) DeepEqual(ano *ExportResponsibilityResp) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.TaskKey) {
+		return false
+	}
+	return true
+}
+
+func (p *ExportResponsibilityResp) Field1DeepEqual(src string) bool {
+
+	if strings.Compare(p.TaskKey, src) != 0 {
+		return false
+	}
+	return true
+}
+
+type ExportAllSelfCheckTableReq struct {
+	AcademicYear string `thrift:"academic_year,1" frugal:"1,default,string" json:"academic_year" binding:"required"`
+	Semester     string `thrift:"semester,2" frugal:"2,default,string" json:"semester" binding:"required"`
+}
+
+func NewExportAllSelfCheckTableReq() *ExportAllSelfCheckTableReq {
+	return &ExportAllSelfCheckTableReq{}
+}
+
+func (p *ExportAllSelfCheckTableReq) InitDefault() {
+}
+
+func (p *ExportAllSelfCheckTableReq) GetAcademicYear() (v string) {
+	return p.AcademicYear
+}
+
+func (p *ExportAllSelfCheckTableReq) GetSemester() (v string) {
+	return p.Semester
+}
+func (p *ExportAllSelfCheckTableReq) SetAcademicYear(val string) {
+	p.AcademicYear = val
+}
+func (p *ExportAllSelfCheckTableReq) SetSemester(val string) {
+	p.Semester = val
+}
+
+var fieldIDToName_ExportAllSelfCheckTableReq = map[int16]string{
+	1: "academic_year",
+	2: "semester",
+}
+
+func (p *ExportAllSelfCheckTableReq) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 2:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ExportAllSelfCheckTableReq[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ExportAllSelfCheckTableReq) ReadField1(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.AcademicYear = _field
+	return nil
+}
+func (p *ExportAllSelfCheckTableReq) ReadField2(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Semester = _field
+	return nil
+}
+
+func (p *ExportAllSelfCheckTableReq) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ExportAllSelfCheckTableReq"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ExportAllSelfCheckTableReq) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("academic_year", thrift.STRING, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.AcademicYear); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *ExportAllSelfCheckTableReq) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("semester", thrift.STRING, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Semester); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
+func (p *ExportAllSelfCheckTableReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ExportAllSelfCheckTableReq(%+v)", *p)
+
+}
+
+func (p *ExportAllSelfCheckTableReq) DeepEqual(ano *ExportAllSelfCheckTableReq) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.AcademicYear) {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.Semester) {
+		return false
+	}
+	return true
+}
+
+func (p *ExportAllSelfCheckTableReq) Field1DeepEqual(src string) bool {
+
+	if strings.Compare(p.AcademicYear, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *ExportAllSelfCheckTableReq) Field2DeepEqual(src string) bool {
+
+	if strings.Compare(p.Semester, src) != 0 {
+		return false
+	}
+	return true
+}
+
+type ExportAllSelfCheckTableResp struct {
+	TaskKey string `thrift:"task_key,1" frugal:"1,default,string" json:"task_key"`
+}
+
+func NewExportAllSelfCheckTableResp() *ExportAllSelfCheckTableResp {
+	return &ExportAllSelfCheckTableResp{}
+}
+
+func (p *ExportAllSelfCheckTableResp) InitDefault() {
+}
+
+func (p *ExportAllSelfCheckTableResp) GetTaskKey() (v string) {
+	return p.TaskKey
+}
+func (p *ExportAllSelfCheckTableResp) SetTaskKey(val string) {
+	p.TaskKey = val
+}
+
+var fieldIDToName_ExportAllSelfCheckTableResp = map[int16]string{
+	1: "task_key",
+}
+
+func (p *ExportAllSelfCheckTableResp) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ExportAllSelfCheckTableResp[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ExportAllSelfCheckTableResp) ReadField1(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.TaskKey = _field
+	return nil
+}
+
+func (p *ExportAllSelfCheckTableResp) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ExportAllSelfCheckTableResp"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ExportAllSelfCheckTableResp) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("task_key", thrift.STRING, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.TaskKey); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *ExportAllSelfCheckTableResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ExportAllSelfCheckTableResp(%+v)", *p)
+
+}
+
+func (p *ExportAllSelfCheckTableResp) DeepEqual(ano *ExportAllSelfCheckTableResp) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.TaskKey) {
+		return false
+	}
+	return true
+}
+
+func (p *ExportAllSelfCheckTableResp) Field1DeepEqual(src string) bool {
+
+	if strings.Compare(p.TaskKey, src) != 0 {
+		return false
+	}
+	return true
+}
+
+type UpdateCourseApplyReq struct {
+	Id             int32   `thrift:"id,1" frugal:"1,default,i32" json:"id" binding:"required"`
+	CourseName     string  `thrift:"course_name,2" frugal:"2,default,string" json:"course_name" binding:"required"`
+	CourseNature   string  `thrift:"course_nature,3" frugal:"3,default,string" json:"course_nature"`
+	OfficeId       int32   `thrift:"office_id,4" frugal:"4,default,i32" json:"office_id"`
+	ClassId        int32   `thrift:"class_id,5" frugal:"5,default,i32" json:"class_id"`
+	Department     string  `thrift:"department,6" frugal:"6,default,string" json:"department"`
+	TeachClassName string  `thrift:"teach_class_name,7" frugal:"7,default,string" json:"teach_class_name"`
+	TeacherName    string  `thrift:"teacher_name,8" frugal:"8,default,string" json:"teacher_name"`
+	TotalHours     int64   `thrift:"total_hours,9" frugal:"9,default,i64" json:"total_hours"`
+	TotalStudents  int64   `thrift:"total_students,10" frugal:"10,default,i64" json:"total_students"`
+	Credit         float64 `thrift:"credit,11" frugal:"11,default,double" json:"credit"`
+	StartWeek      string  `thrift:"start_week,12" frugal:"12,default,string" json:"start_week"`
+}
+
+func NewUpdateCourseApplyReq() *UpdateCourseApplyReq {
+	return &UpdateCourseApplyReq{}
+}
+
+func (p *UpdateCourseApplyReq) InitDefault() {
+}
+
+func (p *UpdateCourseApplyReq) GetId() (v int32) {
+	return p.Id
+}
+
+func (p *UpdateCourseApplyReq) GetCourseName() (v string) {
+	return p.CourseName
+}
+
+func (p *UpdateCourseApplyReq) GetCourseNature() (v string) {
+	return p.CourseNature
+}
+
+func (p *UpdateCourseApplyReq) GetOfficeId() (v int32) {
+	return p.OfficeId
+}
+
+func (p *UpdateCourseApplyReq) GetClassId() (v int32) {
+	return p.ClassId
+}
+
+func (p *UpdateCourseApplyReq) GetDepartment() (v string) {
+	return p.Department
+}
+
+func (p *UpdateCourseApplyReq) GetTeachClassName() (v string) {
+	return p.TeachClassName
+}
+
+func (p *UpdateCourseApplyReq) GetTeacherName() (v string) {
+	return p.TeacherName
+}
+
+func (p *UpdateCourseApplyReq) GetTotalHours() (v int64) {
+	return p.TotalHours
+}
+
+func (p *UpdateCourseApplyReq) GetTotalStudents() (v int64) {
+	return p.TotalStudents
+}
+
+func (p *UpdateCourseApplyReq) GetCredit() (v float64) {
+	return p.Credit
+}
+
+func (p *UpdateCourseApplyReq) GetStartWeek() (v string) {
+	return p.StartWeek
+}
+func (p *UpdateCourseApplyReq) SetId(val int32) {
+	p.Id = val
+}
+func (p *UpdateCourseApplyReq) SetCourseName(val string) {
+	p.CourseName = val
+}
+func (p *UpdateCourseApplyReq) SetCourseNature(val string) {
+	p.CourseNature = val
+}
+func (p *UpdateCourseApplyReq) SetOfficeId(val int32) {
+	p.OfficeId = val
+}
+func (p *UpdateCourseApplyReq) SetClassId(val int32) {
+	p.ClassId = val
+}
+func (p *UpdateCourseApplyReq) SetDepartment(val string) {
+	p.Department = val
+}
+func (p *UpdateCourseApplyReq) SetTeachClassName(val string) {
+	p.TeachClassName = val
+}
+func (p *UpdateCourseApplyReq) SetTeacherName(val string) {
+	p.TeacherName = val
+}
+func (p *UpdateCourseApplyReq) SetTotalHours(val int64) {
+	p.TotalHours = val
+}
+func (p *UpdateCourseApplyReq) SetTotalStudents(val int64) {
+	p.TotalStudents = val
+}
+func (p *UpdateCourseApplyReq) SetCredit(val float64) {
+	p.Credit = val
+}
+func (p *UpdateCourseApplyReq) SetStartWeek(val string) {
+	p.StartWeek = val
+}
+
+var fieldIDToName_UpdateCourseApplyReq = map[int16]string{
+	1:  "id",
+	2:  "course_name",
+	3:  "course_nature",
+	4:  "office_id",
+	5:  "class_id",
+	6:  "department",
+	7:  "teach_class_name",
+	8:  "teacher_name",
+	9:  "total_hours",
+	10: "total_students",
+	11: "credit",
+	12: "start_week",
+}
+
+func (p *UpdateCourseApplyReq) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 2:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 3:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField3(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 4:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField4(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 5:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField5(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 6:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField6(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 7:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField7(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 8:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField8(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 9:
+			if fieldTypeId == thrift.I64 {
+				if err = p.ReadField9(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 10:
+			if fieldTypeId == thrift.I64 {
+				if err = p.ReadField10(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 11:
+			if fieldTypeId == thrift.DOUBLE {
+				if err = p.ReadField11(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 12:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField12(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_UpdateCourseApplyReq[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *UpdateCourseApplyReq) ReadField1(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Id = _field
+	return nil
+}
+func (p *UpdateCourseApplyReq) ReadField2(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.CourseName = _field
+	return nil
+}
+func (p *UpdateCourseApplyReq) ReadField3(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.CourseNature = _field
+	return nil
+}
+func (p *UpdateCourseApplyReq) ReadField4(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.OfficeId = _field
+	return nil
+}
+func (p *UpdateCourseApplyReq) ReadField5(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.ClassId = _field
+	return nil
+}
+func (p *UpdateCourseApplyReq) ReadField6(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Department = _field
+	return nil
+}
+func (p *UpdateCourseApplyReq) ReadField7(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.TeachClassName = _field
+	return nil
+}
+func (p *UpdateCourseApplyReq) ReadField8(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.TeacherName = _field
+	return nil
+}
+func (p *UpdateCourseApplyReq) ReadField9(iprot thrift.TProtocol) error {
+
+	var _field int64
+	if v, err := iprot.ReadI64(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.TotalHours = _field
+	return nil
+}
+func (p *UpdateCourseApplyReq) ReadField10(iprot thrift.TProtocol) error {
+
+	var _field int64
+	if v, err := iprot.ReadI64(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.TotalStudents = _field
+	return nil
+}
+func (p *UpdateCourseApplyReq) ReadField11(iprot thrift.TProtocol) error {
+
+	var _field float64
+	if v, err := iprot.ReadDouble(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Credit = _field
+	return nil
+}
+func (p *UpdateCourseApplyReq) ReadField12(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.StartWeek = _field
+	return nil
+}
+
+func (p *UpdateCourseApplyReq) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("UpdateCourseApplyReq"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
+			goto WriteFieldError
+		}
+		if err = p.writeField3(oprot); err != nil {
+			fieldId = 3
+			goto WriteFieldError
+		}
+		if err = p.writeField4(oprot); err != nil {
+			fieldId = 4
+			goto WriteFieldError
+		}
+		if err = p.writeField5(oprot); err != nil {
+			fieldId = 5
+			goto WriteFieldError
+		}
+		if err = p.writeField6(oprot); err != nil {
+			fieldId = 6
+			goto WriteFieldError
+		}
+		if err = p.writeField7(oprot); err != nil {
+			fieldId = 7
+			goto WriteFieldError
+		}
+		if err = p.writeField8(oprot); err != nil {
+			fieldId = 8
+			goto WriteFieldError
+		}
+		if err = p.writeField9(oprot); err != nil {
+			fieldId = 9
+			goto WriteFieldError
+		}
+		if err = p.writeField10(oprot); err != nil {
+			fieldId = 10
+			goto WriteFieldError
+		}
+		if err = p.writeField11(oprot); err != nil {
+			fieldId = 11
+			goto WriteFieldError
+		}
+		if err = p.writeField12(oprot); err != nil {
+			fieldId = 12
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *UpdateCourseApplyReq) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("id", thrift.I32, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.Id); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *UpdateCourseApplyReq) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("course_name", thrift.STRING, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.CourseName); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
+func (p *UpdateCourseApplyReq) writeField3(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("course_nature", thrift.STRING, 3); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.CourseNature); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
+}
+
+func (p *UpdateCourseApplyReq) writeField4(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("office_id", thrift.I32, 4); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.OfficeId); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 end error: ", p), err)
+}
+
+func (p *UpdateCourseApplyReq) writeField5(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("class_id", thrift.I32, 5); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.ClassId); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 5 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 5 end error: ", p), err)
+}
+
+func (p *UpdateCourseApplyReq) writeField6(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("department", thrift.STRING, 6); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Department); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 6 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 6 end error: ", p), err)
+}
+
+func (p *UpdateCourseApplyReq) writeField7(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("teach_class_name", thrift.STRING, 7); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.TeachClassName); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 7 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 7 end error: ", p), err)
+}
+
+func (p *UpdateCourseApplyReq) writeField8(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("teacher_name", thrift.STRING, 8); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.TeacherName); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 8 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 8 end error: ", p), err)
+}
+
+func (p *UpdateCourseApplyReq) writeField9(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("total_hours", thrift.I64, 9); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI64(p.TotalHours); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 9 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 9 end error: ", p), err)
+}
+
+func (p *UpdateCourseApplyReq) writeField10(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("total_students", thrift.I64, 10); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI64(p.TotalStudents); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 10 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 10 end error: ", p), err)
+}
+
+func (p *UpdateCourseApplyReq) writeField11(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("credit", thrift.DOUBLE, 11); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteDouble(p.Credit); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 11 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 11 end error: ", p), err)
+}
+
+func (p *UpdateCourseApplyReq) writeField12(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("start_week", thrift.STRING, 12); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.StartWeek); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 12 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 12 end error: ", p), err)
+}
+
+func (p *UpdateCourseApplyReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("UpdateCourseApplyReq(%+v)", *p)
+
+}
+
+func (p *UpdateCourseApplyReq) DeepEqual(ano *UpdateCourseApplyReq) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Id) {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.CourseName) {
+		return false
+	}
+	if !p.Field3DeepEqual(ano.CourseNature) {
+		return false
+	}
+	if !p.Field4DeepEqual(ano.OfficeId) {
+		return false
+	}
+	if !p.Field5DeepEqual(ano.ClassId) {
+		return false
+	}
+	if !p.Field6DeepEqual(ano.Department) {
+		return false
+	}
+	if !p.Field7DeepEqual(ano.TeachClassName) {
+		return false
+	}
+	if !p.Field8DeepEqual(ano.TeacherName) {
+		return false
+	}
+	if !p.Field9DeepEqual(ano.TotalHours) {
+		return false
+	}
+	if !p.Field10DeepEqual(ano.TotalStudents) {
+		return false
+	}
+	if !p.Field11DeepEqual(ano.Credit) {
+		return false
+	}
+	if !p.Field12DeepEqual(ano.StartWeek) {
+		return false
+	}
+	return true
+}
+
+func (p *UpdateCourseApplyReq) Field1DeepEqual(src int32) bool {
+
+	if p.Id != src {
+		return false
+	}
+	return true
+}
+func (p *UpdateCourseApplyReq) Field2DeepEqual(src string) bool {
+
+	if strings.Compare(p.CourseName, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *UpdateCourseApplyReq) Field3DeepEqual(src string) bool {
+
+	if strings.Compare(p.CourseNature, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *UpdateCourseApplyReq) Field4DeepEqual(src int32) bool {
+
+	if p.OfficeId != src {
+		return false
+	}
+	return true
+}
+func (p *UpdateCourseApplyReq) Field5DeepEqual(src int32) bool {
+
+	if p.ClassId != src {
+		return false
+	}
+	return true
+}
+func (p *UpdateCourseApplyReq) Field6DeepEqual(src string) bool {
+
+	if strings.Compare(p.Department, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *UpdateCourseApplyReq) Field7DeepEqual(src string) bool {
+
+	if strings.Compare(p.TeachClassName, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *UpdateCourseApplyReq) Field8DeepEqual(src string) bool {
+
+	if strings.Compare(p.TeacherName, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *UpdateCourseApplyReq) Field9DeepEqual(src int64) bool {
+
+	if p.TotalHours != src {
+		return false
+	}
+	return true
+}
+func (p *UpdateCourseApplyReq) Field10DeepEqual(src int64) bool {
+
+	if p.TotalStudents != src {
+		return false
+	}
+	return true
+}
+func (p *UpdateCourseApplyReq) Field11DeepEqual(src float64) bool {
+
+	if p.Credit != src {
+		return false
+	}
+	return true
+}
+func (p *UpdateCourseApplyReq) Field12DeepEqual(src string) bool {
+
+	if strings.Compare(p.StartWeek, src) != 0 {
+		return false
+	}
+	return true
+}
+
+type UpdateCourseApplyResp struct {
+}
+
+func NewUpdateCourseApplyResp() *UpdateCourseApplyResp {
+	return &UpdateCourseApplyResp{}
+}
+
+func (p *UpdateCourseApplyResp) InitDefault() {
+}
+
+var fieldIDToName_UpdateCourseApplyResp = map[int16]string{}
+
+func (p *UpdateCourseApplyResp) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+		if err = iprot.Skip(fieldTypeId); err != nil {
+			goto SkipFieldTypeError
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+SkipFieldTypeError:
+	return thrift.PrependError(fmt.Sprintf("%T skip field type %d error", p, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *UpdateCourseApplyResp) Write(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteStructBegin("UpdateCourseApplyResp"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *UpdateCourseApplyResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("UpdateCourseApplyResp(%+v)", *p)
+
+}
+
+func (p *UpdateCourseApplyResp) DeepEqual(ano *UpdateCourseApplyResp) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	return true
+}
+
+type ExportCourseApplyReq struct {
+	AcademicYear string  `thrift:"academic_year,1" frugal:"1,default,string" json:"academic_year" binding:"required"`
+	Semester     string  `thrift:"semester,2" frugal:"2,default,string" json:"semester" binding:"required"`
+	Fields       []int32 `thrift:"fields,3" frugal:"3,default,list<i32>" json:"fields"`
+}
+
+func NewExportCourseApplyReq() *ExportCourseApplyReq {
+	return &ExportCourseApplyReq{}
+}
+
+func (p *ExportCourseApplyReq) InitDefault() {
+}
+
+func (p *ExportCourseApplyReq) GetAcademicYear() (v string) {
+	return p.AcademicYear
+}
+
+func (p *ExportCourseApplyReq) GetSemester() (v string) {
+	return p.Semester
+}
+
+func (p *ExportCourseApplyReq) GetFields() (v []int32) {
+	return p.Fields
+}
+func (p *ExportCourseApplyReq) SetAcademicYear(val string) {
+	p.AcademicYear = val
+}
+func (p *ExportCourseApplyReq) SetSemester(val string) {
+	p.Semester = val
+}
+func (p *ExportCourseApplyReq) SetFields(val []int32) {
+	p.Fields = val
+}
+
+var fieldIDToName_ExportCourseApplyReq = map[int16]string{
+	1: "academic_year",
+	2: "semester",
+	3: "fields",
+}
+
+func (p *ExportCourseApplyReq) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 2:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 3:
+			if fieldTypeId == thrift.LIST {
+				if err = p.ReadField3(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ExportCourseApplyReq[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ExportCourseApplyReq) ReadField1(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.AcademicYear = _field
+	return nil
+}
+func (p *ExportCourseApplyReq) ReadField2(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Semester = _field
+	return nil
+}
+func (p *ExportCourseApplyReq) ReadField3(iprot thrift.TProtocol) error {
+	_, size, err := iprot.ReadListBegin()
+	if err != nil {
+		return err
+	}
+	_field := make([]int32, 0, size)
+	for i := 0; i < size; i++ {
+
+		var _elem int32
+		if v, err := iprot.ReadI32(); err != nil {
+			return err
+		} else {
+			_elem = v
+		}
+
+		_field = append(_field, _elem)
+	}
+	if err := iprot.ReadListEnd(); err != nil {
+		return err
+	}
+	p.Fields = _field
+	return nil
+}
+
+func (p *ExportCourseApplyReq) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ExportCourseApplyReq"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
+			goto WriteFieldError
+		}
+		if err = p.writeField3(oprot); err != nil {
+			fieldId = 3
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ExportCourseApplyReq) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("academic_year", thrift.STRING, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.AcademicYear); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *ExportCourseApplyReq) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("semester", thrift.STRING, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Semester); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
+func (p *ExportCourseApplyReq) writeField3(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("fields", thrift.LIST, 3); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteListBegin(thrift.I32, len(p.Fields)); err != nil {
+		return err
+	}
+	for _, v := range p.Fields {
+		if err := oprot.WriteI32(v); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteListEnd(); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
+}
+
+func (p *ExportCourseApplyReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ExportCourseApplyReq(%+v)", *p)
+
+}
+
+func (p *ExportCourseApplyReq) DeepEqual(ano *ExportCourseApplyReq) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.AcademicYear) {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.Semester) {
+		return false
+	}
+	if !p.Field3DeepEqual(ano.Fields) {
+		return false
+	}
+	return true
+}
+
+func (p *ExportCourseApplyReq) Field1DeepEqual(src string) bool {
+
+	if strings.Compare(p.AcademicYear, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *ExportCourseApplyReq) Field2DeepEqual(src string) bool {
+
+	if strings.Compare(p.Semester, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *ExportCourseApplyReq) Field3DeepEqual(src []int32) bool {
+
+	if len(p.Fields) != len(src) {
+		return false
+	}
+	for i, v := range p.Fields {
+		_src := src[i]
+		if v != _src {
+			return false
+		}
+	}
+	return true
+}
+
+type ExportCourseApplyResp struct {
+	TaskKey string `thrift:"task_key,1" frugal:"1,default,string" json:"task_key"`
+}
+
+func NewExportCourseApplyResp() *ExportCourseApplyResp {
+	return &ExportCourseApplyResp{}
+}
+
+func (p *ExportCourseApplyResp) InitDefault() {
+}
+
+func (p *ExportCourseApplyResp) GetTaskKey() (v string) {
+	return p.TaskKey
+}
+func (p *ExportCourseApplyResp) SetTaskKey(val string) {
+	p.TaskKey = val
+}
+
+var fieldIDToName_ExportCourseApplyResp = map[int16]string{
+	1: "task_key",
+}
+
+func (p *ExportCourseApplyResp) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ExportCourseApplyResp[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ExportCourseApplyResp) ReadField1(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.TaskKey = _field
+	return nil
+}
+
+func (p *ExportCourseApplyResp) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ExportCourseApplyResp"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ExportCourseApplyResp) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("task_key", thrift.STRING, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.TaskKey); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *ExportCourseApplyResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ExportCourseApplyResp(%+v)", *p)
+
+}
+
+func (p *ExportCourseApplyResp) DeepEqual(ano *ExportCourseApplyResp) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.TaskKey) {
+		return false
+	}
+	return true
+}
+
+func (p *ExportCourseApplyResp) Field1DeepEqual(src string) bool {
+
+	if strings.Compare(p.TaskKey, src) != 0 {
+		return false
+	}
+	return true
+}
+
+type ExportCourseApplySummaryReq struct {
+	AcademicYear string `thrift:"academic_year,1" frugal:"1,default,string" json:"academic_year" binding:"required"`
+	Semester     string `thrift:"semester,2" frugal:"2,default,string" json:"semester" binding:"required"`
+}
+
+func NewExportCourseApplySummaryReq() *ExportCourseApplySummaryReq {
+	return &ExportCourseApplySummaryReq{}
+}
+
+func (p *ExportCourseApplySummaryReq) InitDefault() {
+}
+
+func (p *ExportCourseApplySummaryReq) GetAcademicYear() (v string) {
+	return p.AcademicYear
+}
+
+func (p *ExportCourseApplySummaryReq) GetSemester() (v string) {
+	return p.Semester
+}
+func (p *ExportCourseApplySummaryReq) SetAcademicYear(val string) {
+	p.AcademicYear = val
+}
+func (p *ExportCourseApplySummaryReq) SetSemester(val string) {
+	p.Semester = val
+}
+
+var fieldIDToName_ExportCourseApplySummaryReq = map[int16]string{
+	1: "academic_year",
+	2: "semester",
+}
+
+func (p *ExportCourseApplySummaryReq) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 2:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ExportCourseApplySummaryReq[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ExportCourseApplySummaryReq) ReadField1(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.AcademicYear = _field
+	return nil
+}
+func (p *ExportCourseApplySummaryReq) ReadField2(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Semester = _field
+	return nil
+}
+
+func (p *ExportCourseApplySummaryReq) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ExportCourseApplySummaryReq"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ExportCourseApplySummaryReq) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("academic_year", thrift.STRING, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.AcademicYear); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *ExportCourseApplySummaryReq) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("semester", thrift.STRING, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Semester); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
+func (p *ExportCourseApplySummaryReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ExportCourseApplySummaryReq(%+v)", *p)
+
+}
+
+func (p *ExportCourseApplySummaryReq) DeepEqual(ano *ExportCourseApplySummaryReq) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.AcademicYear) {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.Semester) {
+		return false
+	}
+	return true
+}
+
+func (p *ExportCourseApplySummaryReq) Field1DeepEqual(src string) bool {
+
+	if strings.Compare(p.AcademicYear, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *ExportCourseApplySummaryReq) Field2DeepEqual(src string) bool {
+
+	if strings.Compare(p.Semester, src) != 0 {
+		return false
+	}
+	return true
+}
+
+type ExportCourseApplySummaryResp struct {
+	TaskKey string `thrift:"task_key,1" frugal:"1,default,string" json:"task_key"`
+}
+
+func NewExportCourseApplySummaryResp() *ExportCourseApplySummaryResp {
+	return &ExportCourseApplySummaryResp{}
+}
+
+func (p *ExportCourseApplySummaryResp) InitDefault() {
+}
+
+func (p *ExportCourseApplySummaryResp) GetTaskKey() (v string) {
+	return p.TaskKey
+}
+func (p *ExportCourseApplySummaryResp) SetTaskKey(val string) {
+	p.TaskKey = val
+}
+
+var fieldIDToName_ExportCourseApplySummaryResp = map[int16]string{
+	1: "task_key",
+}
+
+func (p *ExportCourseApplySummaryResp) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ExportCourseApplySummaryResp[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ExportCourseApplySummaryResp) ReadField1(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.TaskKey = _field
+	return nil
+}
+
+func (p *ExportCourseApplySummaryResp) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ExportCourseApplySummaryResp"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ExportCourseApplySummaryResp) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("task_key", thrift.STRING, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.TaskKey); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *ExportCourseApplySummaryResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ExportCourseApplySummaryResp(%+v)", *p)
+
+}
+
+func (p *ExportCourseApplySummaryResp) DeepEqual(ano *ExportCourseApplySummaryResp) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.TaskKey) {
+		return false
+	}
+	return true
+}
+
+func (p *ExportCourseApplySummaryResp) Field1DeepEqual(src string) bool {
+
+	if strings.Compare(p.TaskKey, src) != 0 {
+		return false
+	}
+	return true
+}
+
+type OneKeyApproveCourseApplyReq struct {
+	AcademicYear string `thrift:"academic_year,1" frugal:"1,default,string" json:"academic_year" binding:"required"`
+	Semester     string `thrift:"semester,2" frugal:"2,default,string" json:"semester" binding:"required"`
+}
+
+func NewOneKeyApproveCourseApplyReq() *OneKeyApproveCourseApplyReq {
+	return &OneKeyApproveCourseApplyReq{}
+}
+
+func (p *OneKeyApproveCourseApplyReq) InitDefault() {
+}
+
+func (p *OneKeyApproveCourseApplyReq) GetAcademicYear() (v string) {
+	return p.AcademicYear
+}
+
+func (p *OneKeyApproveCourseApplyReq) GetSemester() (v string) {
+	return p.Semester
+}
+func (p *OneKeyApproveCourseApplyReq) SetAcademicYear(val string) {
+	p.AcademicYear = val
+}
+func (p *OneKeyApproveCourseApplyReq) SetSemester(val string) {
+	p.Semester = val
+}
+
+var fieldIDToName_OneKeyApproveCourseApplyReq = map[int16]string{
+	1: "academic_year",
+	2: "semester",
+}
+
+func (p *OneKeyApproveCourseApplyReq) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 2:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_OneKeyApproveCourseApplyReq[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *OneKeyApproveCourseApplyReq) ReadField1(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.AcademicYear = _field
+	return nil
+}
+func (p *OneKeyApproveCourseApplyReq) ReadField2(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Semester = _field
+	return nil
+}
+
+func (p *OneKeyApproveCourseApplyReq) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("OneKeyApproveCourseApplyReq"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *OneKeyApproveCourseApplyReq) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("academic_year", thrift.STRING, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.AcademicYear); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *OneKeyApproveCourseApplyReq) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("semester", thrift.STRING, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Semester); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
+func (p *OneKeyApproveCourseApplyReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("OneKeyApproveCourseApplyReq(%+v)", *p)
+
+}
+
+func (p *OneKeyApproveCourseApplyReq) DeepEqual(ano *OneKeyApproveCourseApplyReq) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.AcademicYear) {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.Semester) {
+		return false
+	}
+	return true
+}
+
+func (p *OneKeyApproveCourseApplyReq) Field1DeepEqual(src string) bool {
+
+	if strings.Compare(p.AcademicYear, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *OneKeyApproveCourseApplyReq) Field2DeepEqual(src string) bool {
+
+	if strings.Compare(p.Semester, src) != 0 {
+		return false
+	}
+	return true
+}
+
+type OneKeyApproveCourseApplyResp struct {
+	TaskKey string `thrift:"task_key,1" frugal:"1,default,string" json:"task_key"`
+}
+
+func NewOneKeyApproveCourseApplyResp() *OneKeyApproveCourseApplyResp {
+	return &OneKeyApproveCourseApplyResp{}
+}
+
+func (p *OneKeyApproveCourseApplyResp) InitDefault() {
+}
+
+func (p *OneKeyApproveCourseApplyResp) GetTaskKey() (v string) {
+	return p.TaskKey
+}
+func (p *OneKeyApproveCourseApplyResp) SetTaskKey(val string) {
+	p.TaskKey = val
+}
+
+var fieldIDToName_OneKeyApproveCourseApplyResp = map[int16]string{
+	1: "task_key",
+}
+
+func (p *OneKeyApproveCourseApplyResp) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_OneKeyApproveCourseApplyResp[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *OneKeyApproveCourseApplyResp) ReadField1(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.TaskKey = _field
+	return nil
+}
+
+func (p *OneKeyApproveCourseApplyResp) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("OneKeyApproveCourseApplyResp"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *OneKeyApproveCourseApplyResp) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("task_key", thrift.STRING, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.TaskKey); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *OneKeyApproveCourseApplyResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("OneKeyApproveCourseApplyResp(%+v)", *p)
+
+}
+
+func (p *OneKeyApproveCourseApplyResp) DeepEqual(ano *OneKeyApproveCourseApplyResp) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.TaskKey) {
+		return false
+	}
+	return true
+}
+
+func (p *OneKeyApproveCourseApplyResp) Field1DeepEqual(src string) bool {
+
+	if strings.Compare(p.TaskKey, src) != 0 {
+		return false
+	}
+	return true
+}
+
 type Educationservice interface {
 	CreateApp(ctx context.Context, req *CreateAppReq) (r *CreateAppResp, err error)
 
@@ -22601,6 +27191,22 @@ type Educationservice interface {
 	ApproveCourseApply(ctx context.Context, req *ApproveCourseApplyReq) (r *ApproveCourseApplyResp, err error)
 
 	ResetCourseApply(ctx context.Context, req *ResetCourseApplyReq) (r *ResetCourseApplyResp, err error)
+
+	FillCourseApply(ctx context.Context, req *FillCourseApplyReq) (r *FillCourseApplyResp, err error)
+
+	ExportSelfCheckTable(ctx context.Context, req *ExportSelfCheckTableReq) (r *ExportSelfCheckTableResp, err error)
+
+	ExportResponsibility(ctx context.Context, req *ExportResponsibilityReq) (r *ExportResponsibilityResp, err error)
+
+	ExportAllSelfCheckTable(ctx context.Context, req *ExportAllSelfCheckTableReq) (r *ExportAllSelfCheckTableResp, err error)
+
+	UpdateCourseApply(ctx context.Context, req *UpdateCourseApplyReq) (r *UpdateCourseApplyResp, err error)
+
+	ExportCourseApply(ctx context.Context, req *ExportCourseApplyReq) (r *ExportCourseApplyResp, err error)
+
+	ExportCourseApplySummary(ctx context.Context, req *ExportCourseApplySummaryReq) (r *ExportCourseApplySummaryResp, err error)
+
+	OneKeyApproveCourseApply(ctx context.Context, req *OneKeyApproveCourseApplyReq) (r *OneKeyApproveCourseApplyResp, err error)
 }
 
 type EducationserviceCreateAppArgs struct {
@@ -30416,6 +35022,2726 @@ func (p *EducationserviceResetCourseApplyResult) DeepEqual(ano *Educationservice
 }
 
 func (p *EducationserviceResetCourseApplyResult) Field0DeepEqual(src *ResetCourseApplyResp) bool {
+
+	if !p.Success.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type EducationserviceFillCourseApplyArgs struct {
+	Req *FillCourseApplyReq `thrift:"req,1" frugal:"1,default,FillCourseApplyReq" json:"req"`
+}
+
+func NewEducationserviceFillCourseApplyArgs() *EducationserviceFillCourseApplyArgs {
+	return &EducationserviceFillCourseApplyArgs{}
+}
+
+func (p *EducationserviceFillCourseApplyArgs) InitDefault() {
+}
+
+var EducationserviceFillCourseApplyArgs_Req_DEFAULT *FillCourseApplyReq
+
+func (p *EducationserviceFillCourseApplyArgs) GetReq() (v *FillCourseApplyReq) {
+	if !p.IsSetReq() {
+		return EducationserviceFillCourseApplyArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *EducationserviceFillCourseApplyArgs) SetReq(val *FillCourseApplyReq) {
+	p.Req = val
+}
+
+var fieldIDToName_EducationserviceFillCourseApplyArgs = map[int16]string{
+	1: "req",
+}
+
+func (p *EducationserviceFillCourseApplyArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *EducationserviceFillCourseApplyArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_EducationserviceFillCourseApplyArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *EducationserviceFillCourseApplyArgs) ReadField1(iprot thrift.TProtocol) error {
+	_field := NewFillCourseApplyReq()
+	if err := _field.Read(iprot); err != nil {
+		return err
+	}
+	p.Req = _field
+	return nil
+}
+
+func (p *EducationserviceFillCourseApplyArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("FillCourseApply_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *EducationserviceFillCourseApplyArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *EducationserviceFillCourseApplyArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("EducationserviceFillCourseApplyArgs(%+v)", *p)
+
+}
+
+func (p *EducationserviceFillCourseApplyArgs) DeepEqual(ano *EducationserviceFillCourseApplyArgs) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Req) {
+		return false
+	}
+	return true
+}
+
+func (p *EducationserviceFillCourseApplyArgs) Field1DeepEqual(src *FillCourseApplyReq) bool {
+
+	if !p.Req.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type EducationserviceFillCourseApplyResult struct {
+	Success *FillCourseApplyResp `thrift:"success,0,optional" frugal:"0,optional,FillCourseApplyResp" json:"success,omitempty"`
+}
+
+func NewEducationserviceFillCourseApplyResult() *EducationserviceFillCourseApplyResult {
+	return &EducationserviceFillCourseApplyResult{}
+}
+
+func (p *EducationserviceFillCourseApplyResult) InitDefault() {
+}
+
+var EducationserviceFillCourseApplyResult_Success_DEFAULT *FillCourseApplyResp
+
+func (p *EducationserviceFillCourseApplyResult) GetSuccess() (v *FillCourseApplyResp) {
+	if !p.IsSetSuccess() {
+		return EducationserviceFillCourseApplyResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *EducationserviceFillCourseApplyResult) SetSuccess(x interface{}) {
+	p.Success = x.(*FillCourseApplyResp)
+}
+
+var fieldIDToName_EducationserviceFillCourseApplyResult = map[int16]string{
+	0: "success",
+}
+
+func (p *EducationserviceFillCourseApplyResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *EducationserviceFillCourseApplyResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_EducationserviceFillCourseApplyResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *EducationserviceFillCourseApplyResult) ReadField0(iprot thrift.TProtocol) error {
+	_field := NewFillCourseApplyResp()
+	if err := _field.Read(iprot); err != nil {
+		return err
+	}
+	p.Success = _field
+	return nil
+}
+
+func (p *EducationserviceFillCourseApplyResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("FillCourseApply_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *EducationserviceFillCourseApplyResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *EducationserviceFillCourseApplyResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("EducationserviceFillCourseApplyResult(%+v)", *p)
+
+}
+
+func (p *EducationserviceFillCourseApplyResult) DeepEqual(ano *EducationserviceFillCourseApplyResult) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field0DeepEqual(ano.Success) {
+		return false
+	}
+	return true
+}
+
+func (p *EducationserviceFillCourseApplyResult) Field0DeepEqual(src *FillCourseApplyResp) bool {
+
+	if !p.Success.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type EducationserviceExportSelfCheckTableArgs struct {
+	Req *ExportSelfCheckTableReq `thrift:"req,1" frugal:"1,default,ExportSelfCheckTableReq" json:"req"`
+}
+
+func NewEducationserviceExportSelfCheckTableArgs() *EducationserviceExportSelfCheckTableArgs {
+	return &EducationserviceExportSelfCheckTableArgs{}
+}
+
+func (p *EducationserviceExportSelfCheckTableArgs) InitDefault() {
+}
+
+var EducationserviceExportSelfCheckTableArgs_Req_DEFAULT *ExportSelfCheckTableReq
+
+func (p *EducationserviceExportSelfCheckTableArgs) GetReq() (v *ExportSelfCheckTableReq) {
+	if !p.IsSetReq() {
+		return EducationserviceExportSelfCheckTableArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *EducationserviceExportSelfCheckTableArgs) SetReq(val *ExportSelfCheckTableReq) {
+	p.Req = val
+}
+
+var fieldIDToName_EducationserviceExportSelfCheckTableArgs = map[int16]string{
+	1: "req",
+}
+
+func (p *EducationserviceExportSelfCheckTableArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *EducationserviceExportSelfCheckTableArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_EducationserviceExportSelfCheckTableArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *EducationserviceExportSelfCheckTableArgs) ReadField1(iprot thrift.TProtocol) error {
+	_field := NewExportSelfCheckTableReq()
+	if err := _field.Read(iprot); err != nil {
+		return err
+	}
+	p.Req = _field
+	return nil
+}
+
+func (p *EducationserviceExportSelfCheckTableArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ExportSelfCheckTable_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *EducationserviceExportSelfCheckTableArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *EducationserviceExportSelfCheckTableArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("EducationserviceExportSelfCheckTableArgs(%+v)", *p)
+
+}
+
+func (p *EducationserviceExportSelfCheckTableArgs) DeepEqual(ano *EducationserviceExportSelfCheckTableArgs) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Req) {
+		return false
+	}
+	return true
+}
+
+func (p *EducationserviceExportSelfCheckTableArgs) Field1DeepEqual(src *ExportSelfCheckTableReq) bool {
+
+	if !p.Req.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type EducationserviceExportSelfCheckTableResult struct {
+	Success *ExportSelfCheckTableResp `thrift:"success,0,optional" frugal:"0,optional,ExportSelfCheckTableResp" json:"success,omitempty"`
+}
+
+func NewEducationserviceExportSelfCheckTableResult() *EducationserviceExportSelfCheckTableResult {
+	return &EducationserviceExportSelfCheckTableResult{}
+}
+
+func (p *EducationserviceExportSelfCheckTableResult) InitDefault() {
+}
+
+var EducationserviceExportSelfCheckTableResult_Success_DEFAULT *ExportSelfCheckTableResp
+
+func (p *EducationserviceExportSelfCheckTableResult) GetSuccess() (v *ExportSelfCheckTableResp) {
+	if !p.IsSetSuccess() {
+		return EducationserviceExportSelfCheckTableResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *EducationserviceExportSelfCheckTableResult) SetSuccess(x interface{}) {
+	p.Success = x.(*ExportSelfCheckTableResp)
+}
+
+var fieldIDToName_EducationserviceExportSelfCheckTableResult = map[int16]string{
+	0: "success",
+}
+
+func (p *EducationserviceExportSelfCheckTableResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *EducationserviceExportSelfCheckTableResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_EducationserviceExportSelfCheckTableResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *EducationserviceExportSelfCheckTableResult) ReadField0(iprot thrift.TProtocol) error {
+	_field := NewExportSelfCheckTableResp()
+	if err := _field.Read(iprot); err != nil {
+		return err
+	}
+	p.Success = _field
+	return nil
+}
+
+func (p *EducationserviceExportSelfCheckTableResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ExportSelfCheckTable_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *EducationserviceExportSelfCheckTableResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *EducationserviceExportSelfCheckTableResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("EducationserviceExportSelfCheckTableResult(%+v)", *p)
+
+}
+
+func (p *EducationserviceExportSelfCheckTableResult) DeepEqual(ano *EducationserviceExportSelfCheckTableResult) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field0DeepEqual(ano.Success) {
+		return false
+	}
+	return true
+}
+
+func (p *EducationserviceExportSelfCheckTableResult) Field0DeepEqual(src *ExportSelfCheckTableResp) bool {
+
+	if !p.Success.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type EducationserviceExportResponsibilityArgs struct {
+	Req *ExportResponsibilityReq `thrift:"req,1" frugal:"1,default,ExportResponsibilityReq" json:"req"`
+}
+
+func NewEducationserviceExportResponsibilityArgs() *EducationserviceExportResponsibilityArgs {
+	return &EducationserviceExportResponsibilityArgs{}
+}
+
+func (p *EducationserviceExportResponsibilityArgs) InitDefault() {
+}
+
+var EducationserviceExportResponsibilityArgs_Req_DEFAULT *ExportResponsibilityReq
+
+func (p *EducationserviceExportResponsibilityArgs) GetReq() (v *ExportResponsibilityReq) {
+	if !p.IsSetReq() {
+		return EducationserviceExportResponsibilityArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *EducationserviceExportResponsibilityArgs) SetReq(val *ExportResponsibilityReq) {
+	p.Req = val
+}
+
+var fieldIDToName_EducationserviceExportResponsibilityArgs = map[int16]string{
+	1: "req",
+}
+
+func (p *EducationserviceExportResponsibilityArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *EducationserviceExportResponsibilityArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_EducationserviceExportResponsibilityArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *EducationserviceExportResponsibilityArgs) ReadField1(iprot thrift.TProtocol) error {
+	_field := NewExportResponsibilityReq()
+	if err := _field.Read(iprot); err != nil {
+		return err
+	}
+	p.Req = _field
+	return nil
+}
+
+func (p *EducationserviceExportResponsibilityArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ExportResponsibility_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *EducationserviceExportResponsibilityArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *EducationserviceExportResponsibilityArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("EducationserviceExportResponsibilityArgs(%+v)", *p)
+
+}
+
+func (p *EducationserviceExportResponsibilityArgs) DeepEqual(ano *EducationserviceExportResponsibilityArgs) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Req) {
+		return false
+	}
+	return true
+}
+
+func (p *EducationserviceExportResponsibilityArgs) Field1DeepEqual(src *ExportResponsibilityReq) bool {
+
+	if !p.Req.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type EducationserviceExportResponsibilityResult struct {
+	Success *ExportResponsibilityResp `thrift:"success,0,optional" frugal:"0,optional,ExportResponsibilityResp" json:"success,omitempty"`
+}
+
+func NewEducationserviceExportResponsibilityResult() *EducationserviceExportResponsibilityResult {
+	return &EducationserviceExportResponsibilityResult{}
+}
+
+func (p *EducationserviceExportResponsibilityResult) InitDefault() {
+}
+
+var EducationserviceExportResponsibilityResult_Success_DEFAULT *ExportResponsibilityResp
+
+func (p *EducationserviceExportResponsibilityResult) GetSuccess() (v *ExportResponsibilityResp) {
+	if !p.IsSetSuccess() {
+		return EducationserviceExportResponsibilityResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *EducationserviceExportResponsibilityResult) SetSuccess(x interface{}) {
+	p.Success = x.(*ExportResponsibilityResp)
+}
+
+var fieldIDToName_EducationserviceExportResponsibilityResult = map[int16]string{
+	0: "success",
+}
+
+func (p *EducationserviceExportResponsibilityResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *EducationserviceExportResponsibilityResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_EducationserviceExportResponsibilityResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *EducationserviceExportResponsibilityResult) ReadField0(iprot thrift.TProtocol) error {
+	_field := NewExportResponsibilityResp()
+	if err := _field.Read(iprot); err != nil {
+		return err
+	}
+	p.Success = _field
+	return nil
+}
+
+func (p *EducationserviceExportResponsibilityResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ExportResponsibility_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *EducationserviceExportResponsibilityResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *EducationserviceExportResponsibilityResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("EducationserviceExportResponsibilityResult(%+v)", *p)
+
+}
+
+func (p *EducationserviceExportResponsibilityResult) DeepEqual(ano *EducationserviceExportResponsibilityResult) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field0DeepEqual(ano.Success) {
+		return false
+	}
+	return true
+}
+
+func (p *EducationserviceExportResponsibilityResult) Field0DeepEqual(src *ExportResponsibilityResp) bool {
+
+	if !p.Success.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type EducationserviceExportAllSelfCheckTableArgs struct {
+	Req *ExportAllSelfCheckTableReq `thrift:"req,1" frugal:"1,default,ExportAllSelfCheckTableReq" json:"req"`
+}
+
+func NewEducationserviceExportAllSelfCheckTableArgs() *EducationserviceExportAllSelfCheckTableArgs {
+	return &EducationserviceExportAllSelfCheckTableArgs{}
+}
+
+func (p *EducationserviceExportAllSelfCheckTableArgs) InitDefault() {
+}
+
+var EducationserviceExportAllSelfCheckTableArgs_Req_DEFAULT *ExportAllSelfCheckTableReq
+
+func (p *EducationserviceExportAllSelfCheckTableArgs) GetReq() (v *ExportAllSelfCheckTableReq) {
+	if !p.IsSetReq() {
+		return EducationserviceExportAllSelfCheckTableArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *EducationserviceExportAllSelfCheckTableArgs) SetReq(val *ExportAllSelfCheckTableReq) {
+	p.Req = val
+}
+
+var fieldIDToName_EducationserviceExportAllSelfCheckTableArgs = map[int16]string{
+	1: "req",
+}
+
+func (p *EducationserviceExportAllSelfCheckTableArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *EducationserviceExportAllSelfCheckTableArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_EducationserviceExportAllSelfCheckTableArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *EducationserviceExportAllSelfCheckTableArgs) ReadField1(iprot thrift.TProtocol) error {
+	_field := NewExportAllSelfCheckTableReq()
+	if err := _field.Read(iprot); err != nil {
+		return err
+	}
+	p.Req = _field
+	return nil
+}
+
+func (p *EducationserviceExportAllSelfCheckTableArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ExportAllSelfCheckTable_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *EducationserviceExportAllSelfCheckTableArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *EducationserviceExportAllSelfCheckTableArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("EducationserviceExportAllSelfCheckTableArgs(%+v)", *p)
+
+}
+
+func (p *EducationserviceExportAllSelfCheckTableArgs) DeepEqual(ano *EducationserviceExportAllSelfCheckTableArgs) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Req) {
+		return false
+	}
+	return true
+}
+
+func (p *EducationserviceExportAllSelfCheckTableArgs) Field1DeepEqual(src *ExportAllSelfCheckTableReq) bool {
+
+	if !p.Req.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type EducationserviceExportAllSelfCheckTableResult struct {
+	Success *ExportAllSelfCheckTableResp `thrift:"success,0,optional" frugal:"0,optional,ExportAllSelfCheckTableResp" json:"success,omitempty"`
+}
+
+func NewEducationserviceExportAllSelfCheckTableResult() *EducationserviceExportAllSelfCheckTableResult {
+	return &EducationserviceExportAllSelfCheckTableResult{}
+}
+
+func (p *EducationserviceExportAllSelfCheckTableResult) InitDefault() {
+}
+
+var EducationserviceExportAllSelfCheckTableResult_Success_DEFAULT *ExportAllSelfCheckTableResp
+
+func (p *EducationserviceExportAllSelfCheckTableResult) GetSuccess() (v *ExportAllSelfCheckTableResp) {
+	if !p.IsSetSuccess() {
+		return EducationserviceExportAllSelfCheckTableResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *EducationserviceExportAllSelfCheckTableResult) SetSuccess(x interface{}) {
+	p.Success = x.(*ExportAllSelfCheckTableResp)
+}
+
+var fieldIDToName_EducationserviceExportAllSelfCheckTableResult = map[int16]string{
+	0: "success",
+}
+
+func (p *EducationserviceExportAllSelfCheckTableResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *EducationserviceExportAllSelfCheckTableResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_EducationserviceExportAllSelfCheckTableResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *EducationserviceExportAllSelfCheckTableResult) ReadField0(iprot thrift.TProtocol) error {
+	_field := NewExportAllSelfCheckTableResp()
+	if err := _field.Read(iprot); err != nil {
+		return err
+	}
+	p.Success = _field
+	return nil
+}
+
+func (p *EducationserviceExportAllSelfCheckTableResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ExportAllSelfCheckTable_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *EducationserviceExportAllSelfCheckTableResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *EducationserviceExportAllSelfCheckTableResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("EducationserviceExportAllSelfCheckTableResult(%+v)", *p)
+
+}
+
+func (p *EducationserviceExportAllSelfCheckTableResult) DeepEqual(ano *EducationserviceExportAllSelfCheckTableResult) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field0DeepEqual(ano.Success) {
+		return false
+	}
+	return true
+}
+
+func (p *EducationserviceExportAllSelfCheckTableResult) Field0DeepEqual(src *ExportAllSelfCheckTableResp) bool {
+
+	if !p.Success.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type EducationserviceUpdateCourseApplyArgs struct {
+	Req *UpdateCourseApplyReq `thrift:"req,1" frugal:"1,default,UpdateCourseApplyReq" json:"req"`
+}
+
+func NewEducationserviceUpdateCourseApplyArgs() *EducationserviceUpdateCourseApplyArgs {
+	return &EducationserviceUpdateCourseApplyArgs{}
+}
+
+func (p *EducationserviceUpdateCourseApplyArgs) InitDefault() {
+}
+
+var EducationserviceUpdateCourseApplyArgs_Req_DEFAULT *UpdateCourseApplyReq
+
+func (p *EducationserviceUpdateCourseApplyArgs) GetReq() (v *UpdateCourseApplyReq) {
+	if !p.IsSetReq() {
+		return EducationserviceUpdateCourseApplyArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *EducationserviceUpdateCourseApplyArgs) SetReq(val *UpdateCourseApplyReq) {
+	p.Req = val
+}
+
+var fieldIDToName_EducationserviceUpdateCourseApplyArgs = map[int16]string{
+	1: "req",
+}
+
+func (p *EducationserviceUpdateCourseApplyArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *EducationserviceUpdateCourseApplyArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_EducationserviceUpdateCourseApplyArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *EducationserviceUpdateCourseApplyArgs) ReadField1(iprot thrift.TProtocol) error {
+	_field := NewUpdateCourseApplyReq()
+	if err := _field.Read(iprot); err != nil {
+		return err
+	}
+	p.Req = _field
+	return nil
+}
+
+func (p *EducationserviceUpdateCourseApplyArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("UpdateCourseApply_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *EducationserviceUpdateCourseApplyArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *EducationserviceUpdateCourseApplyArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("EducationserviceUpdateCourseApplyArgs(%+v)", *p)
+
+}
+
+func (p *EducationserviceUpdateCourseApplyArgs) DeepEqual(ano *EducationserviceUpdateCourseApplyArgs) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Req) {
+		return false
+	}
+	return true
+}
+
+func (p *EducationserviceUpdateCourseApplyArgs) Field1DeepEqual(src *UpdateCourseApplyReq) bool {
+
+	if !p.Req.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type EducationserviceUpdateCourseApplyResult struct {
+	Success *UpdateCourseApplyResp `thrift:"success,0,optional" frugal:"0,optional,UpdateCourseApplyResp" json:"success,omitempty"`
+}
+
+func NewEducationserviceUpdateCourseApplyResult() *EducationserviceUpdateCourseApplyResult {
+	return &EducationserviceUpdateCourseApplyResult{}
+}
+
+func (p *EducationserviceUpdateCourseApplyResult) InitDefault() {
+}
+
+var EducationserviceUpdateCourseApplyResult_Success_DEFAULT *UpdateCourseApplyResp
+
+func (p *EducationserviceUpdateCourseApplyResult) GetSuccess() (v *UpdateCourseApplyResp) {
+	if !p.IsSetSuccess() {
+		return EducationserviceUpdateCourseApplyResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *EducationserviceUpdateCourseApplyResult) SetSuccess(x interface{}) {
+	p.Success = x.(*UpdateCourseApplyResp)
+}
+
+var fieldIDToName_EducationserviceUpdateCourseApplyResult = map[int16]string{
+	0: "success",
+}
+
+func (p *EducationserviceUpdateCourseApplyResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *EducationserviceUpdateCourseApplyResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_EducationserviceUpdateCourseApplyResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *EducationserviceUpdateCourseApplyResult) ReadField0(iprot thrift.TProtocol) error {
+	_field := NewUpdateCourseApplyResp()
+	if err := _field.Read(iprot); err != nil {
+		return err
+	}
+	p.Success = _field
+	return nil
+}
+
+func (p *EducationserviceUpdateCourseApplyResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("UpdateCourseApply_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *EducationserviceUpdateCourseApplyResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *EducationserviceUpdateCourseApplyResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("EducationserviceUpdateCourseApplyResult(%+v)", *p)
+
+}
+
+func (p *EducationserviceUpdateCourseApplyResult) DeepEqual(ano *EducationserviceUpdateCourseApplyResult) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field0DeepEqual(ano.Success) {
+		return false
+	}
+	return true
+}
+
+func (p *EducationserviceUpdateCourseApplyResult) Field0DeepEqual(src *UpdateCourseApplyResp) bool {
+
+	if !p.Success.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type EducationserviceExportCourseApplyArgs struct {
+	Req *ExportCourseApplyReq `thrift:"req,1" frugal:"1,default,ExportCourseApplyReq" json:"req"`
+}
+
+func NewEducationserviceExportCourseApplyArgs() *EducationserviceExportCourseApplyArgs {
+	return &EducationserviceExportCourseApplyArgs{}
+}
+
+func (p *EducationserviceExportCourseApplyArgs) InitDefault() {
+}
+
+var EducationserviceExportCourseApplyArgs_Req_DEFAULT *ExportCourseApplyReq
+
+func (p *EducationserviceExportCourseApplyArgs) GetReq() (v *ExportCourseApplyReq) {
+	if !p.IsSetReq() {
+		return EducationserviceExportCourseApplyArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *EducationserviceExportCourseApplyArgs) SetReq(val *ExportCourseApplyReq) {
+	p.Req = val
+}
+
+var fieldIDToName_EducationserviceExportCourseApplyArgs = map[int16]string{
+	1: "req",
+}
+
+func (p *EducationserviceExportCourseApplyArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *EducationserviceExportCourseApplyArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_EducationserviceExportCourseApplyArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *EducationserviceExportCourseApplyArgs) ReadField1(iprot thrift.TProtocol) error {
+	_field := NewExportCourseApplyReq()
+	if err := _field.Read(iprot); err != nil {
+		return err
+	}
+	p.Req = _field
+	return nil
+}
+
+func (p *EducationserviceExportCourseApplyArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ExportCourseApply_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *EducationserviceExportCourseApplyArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *EducationserviceExportCourseApplyArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("EducationserviceExportCourseApplyArgs(%+v)", *p)
+
+}
+
+func (p *EducationserviceExportCourseApplyArgs) DeepEqual(ano *EducationserviceExportCourseApplyArgs) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Req) {
+		return false
+	}
+	return true
+}
+
+func (p *EducationserviceExportCourseApplyArgs) Field1DeepEqual(src *ExportCourseApplyReq) bool {
+
+	if !p.Req.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type EducationserviceExportCourseApplyResult struct {
+	Success *ExportCourseApplyResp `thrift:"success,0,optional" frugal:"0,optional,ExportCourseApplyResp" json:"success,omitempty"`
+}
+
+func NewEducationserviceExportCourseApplyResult() *EducationserviceExportCourseApplyResult {
+	return &EducationserviceExportCourseApplyResult{}
+}
+
+func (p *EducationserviceExportCourseApplyResult) InitDefault() {
+}
+
+var EducationserviceExportCourseApplyResult_Success_DEFAULT *ExportCourseApplyResp
+
+func (p *EducationserviceExportCourseApplyResult) GetSuccess() (v *ExportCourseApplyResp) {
+	if !p.IsSetSuccess() {
+		return EducationserviceExportCourseApplyResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *EducationserviceExportCourseApplyResult) SetSuccess(x interface{}) {
+	p.Success = x.(*ExportCourseApplyResp)
+}
+
+var fieldIDToName_EducationserviceExportCourseApplyResult = map[int16]string{
+	0: "success",
+}
+
+func (p *EducationserviceExportCourseApplyResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *EducationserviceExportCourseApplyResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_EducationserviceExportCourseApplyResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *EducationserviceExportCourseApplyResult) ReadField0(iprot thrift.TProtocol) error {
+	_field := NewExportCourseApplyResp()
+	if err := _field.Read(iprot); err != nil {
+		return err
+	}
+	p.Success = _field
+	return nil
+}
+
+func (p *EducationserviceExportCourseApplyResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ExportCourseApply_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *EducationserviceExportCourseApplyResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *EducationserviceExportCourseApplyResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("EducationserviceExportCourseApplyResult(%+v)", *p)
+
+}
+
+func (p *EducationserviceExportCourseApplyResult) DeepEqual(ano *EducationserviceExportCourseApplyResult) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field0DeepEqual(ano.Success) {
+		return false
+	}
+	return true
+}
+
+func (p *EducationserviceExportCourseApplyResult) Field0DeepEqual(src *ExportCourseApplyResp) bool {
+
+	if !p.Success.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type EducationserviceExportCourseApplySummaryArgs struct {
+	Req *ExportCourseApplySummaryReq `thrift:"req,1" frugal:"1,default,ExportCourseApplySummaryReq" json:"req"`
+}
+
+func NewEducationserviceExportCourseApplySummaryArgs() *EducationserviceExportCourseApplySummaryArgs {
+	return &EducationserviceExportCourseApplySummaryArgs{}
+}
+
+func (p *EducationserviceExportCourseApplySummaryArgs) InitDefault() {
+}
+
+var EducationserviceExportCourseApplySummaryArgs_Req_DEFAULT *ExportCourseApplySummaryReq
+
+func (p *EducationserviceExportCourseApplySummaryArgs) GetReq() (v *ExportCourseApplySummaryReq) {
+	if !p.IsSetReq() {
+		return EducationserviceExportCourseApplySummaryArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *EducationserviceExportCourseApplySummaryArgs) SetReq(val *ExportCourseApplySummaryReq) {
+	p.Req = val
+}
+
+var fieldIDToName_EducationserviceExportCourseApplySummaryArgs = map[int16]string{
+	1: "req",
+}
+
+func (p *EducationserviceExportCourseApplySummaryArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *EducationserviceExportCourseApplySummaryArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_EducationserviceExportCourseApplySummaryArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *EducationserviceExportCourseApplySummaryArgs) ReadField1(iprot thrift.TProtocol) error {
+	_field := NewExportCourseApplySummaryReq()
+	if err := _field.Read(iprot); err != nil {
+		return err
+	}
+	p.Req = _field
+	return nil
+}
+
+func (p *EducationserviceExportCourseApplySummaryArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ExportCourseApplySummary_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *EducationserviceExportCourseApplySummaryArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *EducationserviceExportCourseApplySummaryArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("EducationserviceExportCourseApplySummaryArgs(%+v)", *p)
+
+}
+
+func (p *EducationserviceExportCourseApplySummaryArgs) DeepEqual(ano *EducationserviceExportCourseApplySummaryArgs) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Req) {
+		return false
+	}
+	return true
+}
+
+func (p *EducationserviceExportCourseApplySummaryArgs) Field1DeepEqual(src *ExportCourseApplySummaryReq) bool {
+
+	if !p.Req.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type EducationserviceExportCourseApplySummaryResult struct {
+	Success *ExportCourseApplySummaryResp `thrift:"success,0,optional" frugal:"0,optional,ExportCourseApplySummaryResp" json:"success,omitempty"`
+}
+
+func NewEducationserviceExportCourseApplySummaryResult() *EducationserviceExportCourseApplySummaryResult {
+	return &EducationserviceExportCourseApplySummaryResult{}
+}
+
+func (p *EducationserviceExportCourseApplySummaryResult) InitDefault() {
+}
+
+var EducationserviceExportCourseApplySummaryResult_Success_DEFAULT *ExportCourseApplySummaryResp
+
+func (p *EducationserviceExportCourseApplySummaryResult) GetSuccess() (v *ExportCourseApplySummaryResp) {
+	if !p.IsSetSuccess() {
+		return EducationserviceExportCourseApplySummaryResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *EducationserviceExportCourseApplySummaryResult) SetSuccess(x interface{}) {
+	p.Success = x.(*ExportCourseApplySummaryResp)
+}
+
+var fieldIDToName_EducationserviceExportCourseApplySummaryResult = map[int16]string{
+	0: "success",
+}
+
+func (p *EducationserviceExportCourseApplySummaryResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *EducationserviceExportCourseApplySummaryResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_EducationserviceExportCourseApplySummaryResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *EducationserviceExportCourseApplySummaryResult) ReadField0(iprot thrift.TProtocol) error {
+	_field := NewExportCourseApplySummaryResp()
+	if err := _field.Read(iprot); err != nil {
+		return err
+	}
+	p.Success = _field
+	return nil
+}
+
+func (p *EducationserviceExportCourseApplySummaryResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ExportCourseApplySummary_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *EducationserviceExportCourseApplySummaryResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *EducationserviceExportCourseApplySummaryResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("EducationserviceExportCourseApplySummaryResult(%+v)", *p)
+
+}
+
+func (p *EducationserviceExportCourseApplySummaryResult) DeepEqual(ano *EducationserviceExportCourseApplySummaryResult) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field0DeepEqual(ano.Success) {
+		return false
+	}
+	return true
+}
+
+func (p *EducationserviceExportCourseApplySummaryResult) Field0DeepEqual(src *ExportCourseApplySummaryResp) bool {
+
+	if !p.Success.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type EducationserviceOneKeyApproveCourseApplyArgs struct {
+	Req *OneKeyApproveCourseApplyReq `thrift:"req,1" frugal:"1,default,OneKeyApproveCourseApplyReq" json:"req"`
+}
+
+func NewEducationserviceOneKeyApproveCourseApplyArgs() *EducationserviceOneKeyApproveCourseApplyArgs {
+	return &EducationserviceOneKeyApproveCourseApplyArgs{}
+}
+
+func (p *EducationserviceOneKeyApproveCourseApplyArgs) InitDefault() {
+}
+
+var EducationserviceOneKeyApproveCourseApplyArgs_Req_DEFAULT *OneKeyApproveCourseApplyReq
+
+func (p *EducationserviceOneKeyApproveCourseApplyArgs) GetReq() (v *OneKeyApproveCourseApplyReq) {
+	if !p.IsSetReq() {
+		return EducationserviceOneKeyApproveCourseApplyArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *EducationserviceOneKeyApproveCourseApplyArgs) SetReq(val *OneKeyApproveCourseApplyReq) {
+	p.Req = val
+}
+
+var fieldIDToName_EducationserviceOneKeyApproveCourseApplyArgs = map[int16]string{
+	1: "req",
+}
+
+func (p *EducationserviceOneKeyApproveCourseApplyArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *EducationserviceOneKeyApproveCourseApplyArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_EducationserviceOneKeyApproveCourseApplyArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *EducationserviceOneKeyApproveCourseApplyArgs) ReadField1(iprot thrift.TProtocol) error {
+	_field := NewOneKeyApproveCourseApplyReq()
+	if err := _field.Read(iprot); err != nil {
+		return err
+	}
+	p.Req = _field
+	return nil
+}
+
+func (p *EducationserviceOneKeyApproveCourseApplyArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("OneKeyApproveCourseApply_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *EducationserviceOneKeyApproveCourseApplyArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *EducationserviceOneKeyApproveCourseApplyArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("EducationserviceOneKeyApproveCourseApplyArgs(%+v)", *p)
+
+}
+
+func (p *EducationserviceOneKeyApproveCourseApplyArgs) DeepEqual(ano *EducationserviceOneKeyApproveCourseApplyArgs) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Req) {
+		return false
+	}
+	return true
+}
+
+func (p *EducationserviceOneKeyApproveCourseApplyArgs) Field1DeepEqual(src *OneKeyApproveCourseApplyReq) bool {
+
+	if !p.Req.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type EducationserviceOneKeyApproveCourseApplyResult struct {
+	Success *OneKeyApproveCourseApplyResp `thrift:"success,0,optional" frugal:"0,optional,OneKeyApproveCourseApplyResp" json:"success,omitempty"`
+}
+
+func NewEducationserviceOneKeyApproveCourseApplyResult() *EducationserviceOneKeyApproveCourseApplyResult {
+	return &EducationserviceOneKeyApproveCourseApplyResult{}
+}
+
+func (p *EducationserviceOneKeyApproveCourseApplyResult) InitDefault() {
+}
+
+var EducationserviceOneKeyApproveCourseApplyResult_Success_DEFAULT *OneKeyApproveCourseApplyResp
+
+func (p *EducationserviceOneKeyApproveCourseApplyResult) GetSuccess() (v *OneKeyApproveCourseApplyResp) {
+	if !p.IsSetSuccess() {
+		return EducationserviceOneKeyApproveCourseApplyResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *EducationserviceOneKeyApproveCourseApplyResult) SetSuccess(x interface{}) {
+	p.Success = x.(*OneKeyApproveCourseApplyResp)
+}
+
+var fieldIDToName_EducationserviceOneKeyApproveCourseApplyResult = map[int16]string{
+	0: "success",
+}
+
+func (p *EducationserviceOneKeyApproveCourseApplyResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *EducationserviceOneKeyApproveCourseApplyResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_EducationserviceOneKeyApproveCourseApplyResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *EducationserviceOneKeyApproveCourseApplyResult) ReadField0(iprot thrift.TProtocol) error {
+	_field := NewOneKeyApproveCourseApplyResp()
+	if err := _field.Read(iprot); err != nil {
+		return err
+	}
+	p.Success = _field
+	return nil
+}
+
+func (p *EducationserviceOneKeyApproveCourseApplyResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("OneKeyApproveCourseApply_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *EducationserviceOneKeyApproveCourseApplyResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *EducationserviceOneKeyApproveCourseApplyResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("EducationserviceOneKeyApproveCourseApplyResult(%+v)", *p)
+
+}
+
+func (p *EducationserviceOneKeyApproveCourseApplyResult) DeepEqual(ano *EducationserviceOneKeyApproveCourseApplyResult) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field0DeepEqual(ano.Success) {
+		return false
+	}
+	return true
+}
+
+func (p *EducationserviceOneKeyApproveCourseApplyResult) Field0DeepEqual(src *OneKeyApproveCourseApplyResp) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false
