@@ -24114,10 +24114,9 @@ func (p *ExportSelfCheckTableResp) Field1DeepEqual(src string) bool {
 }
 
 type ExportResponsibilityReq struct {
-	TeacherName  int32  `thrift:"teacher_name,1" frugal:"1,default,i32" json:"teacher_name"`
-	Username     string `thrift:"username,2" frugal:"2,default,string" json:"username"`
-	AcademicYear string `thrift:"academic_year,3" frugal:"3,default,string" json:"academic_year"`
-	Semester     string `thrift:"semester,4" frugal:"4,default,string" json:"semester"`
+	TeacherName  string `thrift:"teacher_name,1" frugal:"1,default,string" json:"teacher_name"`
+	AcademicYear string `thrift:"academic_year,2" frugal:"2,default,string" json:"academic_year"`
+	Semester     string `thrift:"semester,3" frugal:"3,default,string" json:"semester"`
 }
 
 func NewExportResponsibilityReq() *ExportResponsibilityReq {
@@ -24127,12 +24126,8 @@ func NewExportResponsibilityReq() *ExportResponsibilityReq {
 func (p *ExportResponsibilityReq) InitDefault() {
 }
 
-func (p *ExportResponsibilityReq) GetTeacherName() (v int32) {
+func (p *ExportResponsibilityReq) GetTeacherName() (v string) {
 	return p.TeacherName
-}
-
-func (p *ExportResponsibilityReq) GetUsername() (v string) {
-	return p.Username
 }
 
 func (p *ExportResponsibilityReq) GetAcademicYear() (v string) {
@@ -24142,11 +24137,8 @@ func (p *ExportResponsibilityReq) GetAcademicYear() (v string) {
 func (p *ExportResponsibilityReq) GetSemester() (v string) {
 	return p.Semester
 }
-func (p *ExportResponsibilityReq) SetTeacherName(val int32) {
+func (p *ExportResponsibilityReq) SetTeacherName(val string) {
 	p.TeacherName = val
-}
-func (p *ExportResponsibilityReq) SetUsername(val string) {
-	p.Username = val
 }
 func (p *ExportResponsibilityReq) SetAcademicYear(val string) {
 	p.AcademicYear = val
@@ -24157,9 +24149,8 @@ func (p *ExportResponsibilityReq) SetSemester(val string) {
 
 var fieldIDToName_ExportResponsibilityReq = map[int16]string{
 	1: "teacher_name",
-	2: "username",
-	3: "academic_year",
-	4: "semester",
+	2: "academic_year",
+	3: "semester",
 }
 
 func (p *ExportResponsibilityReq) Read(iprot thrift.TProtocol) (err error) {
@@ -24182,7 +24173,7 @@ func (p *ExportResponsibilityReq) Read(iprot thrift.TProtocol) (err error) {
 
 		switch fieldId {
 		case 1:
-			if fieldTypeId == thrift.I32 {
+			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField1(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -24200,14 +24191,6 @@ func (p *ExportResponsibilityReq) Read(iprot thrift.TProtocol) (err error) {
 		case 3:
 			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField3(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		case 4:
-			if fieldTypeId == thrift.STRING {
-				if err = p.ReadField4(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -24244,8 +24227,8 @@ ReadStructEndError:
 
 func (p *ExportResponsibilityReq) ReadField1(iprot thrift.TProtocol) error {
 
-	var _field int32
-	if v, err := iprot.ReadI32(); err != nil {
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
 		_field = v
@@ -24261,21 +24244,10 @@ func (p *ExportResponsibilityReq) ReadField2(iprot thrift.TProtocol) error {
 	} else {
 		_field = v
 	}
-	p.Username = _field
-	return nil
-}
-func (p *ExportResponsibilityReq) ReadField3(iprot thrift.TProtocol) error {
-
-	var _field string
-	if v, err := iprot.ReadString(); err != nil {
-		return err
-	} else {
-		_field = v
-	}
 	p.AcademicYear = _field
 	return nil
 }
-func (p *ExportResponsibilityReq) ReadField4(iprot thrift.TProtocol) error {
+func (p *ExportResponsibilityReq) ReadField3(iprot thrift.TProtocol) error {
 
 	var _field string
 	if v, err := iprot.ReadString(); err != nil {
@@ -24305,10 +24277,6 @@ func (p *ExportResponsibilityReq) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 3
 			goto WriteFieldError
 		}
-		if err = p.writeField4(oprot); err != nil {
-			fieldId = 4
-			goto WriteFieldError
-		}
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -24328,10 +24296,10 @@ WriteStructEndError:
 }
 
 func (p *ExportResponsibilityReq) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("teacher_name", thrift.I32, 1); err != nil {
+	if err = oprot.WriteFieldBegin("teacher_name", thrift.STRING, 1); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteI32(p.TeacherName); err != nil {
+	if err := oprot.WriteString(p.TeacherName); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -24345,10 +24313,10 @@ WriteFieldEndError:
 }
 
 func (p *ExportResponsibilityReq) writeField2(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("username", thrift.STRING, 2); err != nil {
+	if err = oprot.WriteFieldBegin("academic_year", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.Username); err != nil {
+	if err := oprot.WriteString(p.AcademicYear); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -24362,24 +24330,7 @@ WriteFieldEndError:
 }
 
 func (p *ExportResponsibilityReq) writeField3(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("academic_year", thrift.STRING, 3); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := oprot.WriteString(p.AcademicYear); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 3 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
-}
-
-func (p *ExportResponsibilityReq) writeField4(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("semester", thrift.STRING, 4); err != nil {
+	if err = oprot.WriteFieldBegin("semester", thrift.STRING, 3); err != nil {
 		goto WriteFieldBeginError
 	}
 	if err := oprot.WriteString(p.Semester); err != nil {
@@ -24390,9 +24341,9 @@ func (p *ExportResponsibilityReq) writeField4(oprot thrift.TProtocol) (err error
 	}
 	return nil
 WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 4 begin error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 begin error: ", p), err)
 WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 4 end error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
 }
 
 func (p *ExportResponsibilityReq) String() string {
@@ -24412,40 +24363,30 @@ func (p *ExportResponsibilityReq) DeepEqual(ano *ExportResponsibilityReq) bool {
 	if !p.Field1DeepEqual(ano.TeacherName) {
 		return false
 	}
-	if !p.Field2DeepEqual(ano.Username) {
+	if !p.Field2DeepEqual(ano.AcademicYear) {
 		return false
 	}
-	if !p.Field3DeepEqual(ano.AcademicYear) {
-		return false
-	}
-	if !p.Field4DeepEqual(ano.Semester) {
+	if !p.Field3DeepEqual(ano.Semester) {
 		return false
 	}
 	return true
 }
 
-func (p *ExportResponsibilityReq) Field1DeepEqual(src int32) bool {
+func (p *ExportResponsibilityReq) Field1DeepEqual(src string) bool {
 
-	if p.TeacherName != src {
+	if strings.Compare(p.TeacherName, src) != 0 {
 		return false
 	}
 	return true
 }
 func (p *ExportResponsibilityReq) Field2DeepEqual(src string) bool {
 
-	if strings.Compare(p.Username, src) != 0 {
-		return false
-	}
-	return true
-}
-func (p *ExportResponsibilityReq) Field3DeepEqual(src string) bool {
-
 	if strings.Compare(p.AcademicYear, src) != 0 {
 		return false
 	}
 	return true
 }
-func (p *ExportResponsibilityReq) Field4DeepEqual(src string) bool {
+func (p *ExportResponsibilityReq) Field3DeepEqual(src string) bool {
 
 	if strings.Compare(p.Semester, src) != 0 {
 		return false
