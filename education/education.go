@@ -23951,7 +23951,8 @@ func (p *ExportSelfCheckTableReq) Field1DeepEqual(src int32) bool {
 }
 
 type ExportSelfCheckTableResp struct {
-	TaskKey string `thrift:"task_key,1" frugal:"1,default,string" json:"task_key"`
+	Url      string `thrift:"url,1" frugal:"1,default,string" json:"url"`
+	FileName string `thrift:"file_name,2" frugal:"2,default,string" json:"file_name"`
 }
 
 func NewExportSelfCheckTableResp() *ExportSelfCheckTableResp {
@@ -23961,15 +23962,23 @@ func NewExportSelfCheckTableResp() *ExportSelfCheckTableResp {
 func (p *ExportSelfCheckTableResp) InitDefault() {
 }
 
-func (p *ExportSelfCheckTableResp) GetTaskKey() (v string) {
-	return p.TaskKey
+func (p *ExportSelfCheckTableResp) GetUrl() (v string) {
+	return p.Url
 }
-func (p *ExportSelfCheckTableResp) SetTaskKey(val string) {
-	p.TaskKey = val
+
+func (p *ExportSelfCheckTableResp) GetFileName() (v string) {
+	return p.FileName
+}
+func (p *ExportSelfCheckTableResp) SetUrl(val string) {
+	p.Url = val
+}
+func (p *ExportSelfCheckTableResp) SetFileName(val string) {
+	p.FileName = val
 }
 
 var fieldIDToName_ExportSelfCheckTableResp = map[int16]string{
-	1: "task_key",
+	1: "url",
+	2: "file_name",
 }
 
 func (p *ExportSelfCheckTableResp) Read(iprot thrift.TProtocol) (err error) {
@@ -23994,6 +24003,14 @@ func (p *ExportSelfCheckTableResp) Read(iprot thrift.TProtocol) (err error) {
 		case 1:
 			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 2:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField2(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -24036,7 +24053,18 @@ func (p *ExportSelfCheckTableResp) ReadField1(iprot thrift.TProtocol) error {
 	} else {
 		_field = v
 	}
-	p.TaskKey = _field
+	p.Url = _field
+	return nil
+}
+func (p *ExportSelfCheckTableResp) ReadField2(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.FileName = _field
 	return nil
 }
 
@@ -24048,6 +24076,10 @@ func (p *ExportSelfCheckTableResp) Write(oprot thrift.TProtocol) (err error) {
 	if p != nil {
 		if err = p.writeField1(oprot); err != nil {
 			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
 			goto WriteFieldError
 		}
 	}
@@ -24069,10 +24101,10 @@ WriteStructEndError:
 }
 
 func (p *ExportSelfCheckTableResp) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("task_key", thrift.STRING, 1); err != nil {
+	if err = oprot.WriteFieldBegin("url", thrift.STRING, 1); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.TaskKey); err != nil {
+	if err := oprot.WriteString(p.Url); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -24083,6 +24115,23 @@ WriteFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
 WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *ExportSelfCheckTableResp) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("file_name", thrift.STRING, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.FileName); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
 func (p *ExportSelfCheckTableResp) String() string {
@@ -24099,7 +24148,10 @@ func (p *ExportSelfCheckTableResp) DeepEqual(ano *ExportSelfCheckTableResp) bool
 	} else if p == nil || ano == nil {
 		return false
 	}
-	if !p.Field1DeepEqual(ano.TaskKey) {
+	if !p.Field1DeepEqual(ano.Url) {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.FileName) {
 		return false
 	}
 	return true
@@ -24107,7 +24159,14 @@ func (p *ExportSelfCheckTableResp) DeepEqual(ano *ExportSelfCheckTableResp) bool
 
 func (p *ExportSelfCheckTableResp) Field1DeepEqual(src string) bool {
 
-	if strings.Compare(p.TaskKey, src) != 0 {
+	if strings.Compare(p.Url, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *ExportSelfCheckTableResp) Field2DeepEqual(src string) bool {
+
+	if strings.Compare(p.FileName, src) != 0 {
 		return false
 	}
 	return true
