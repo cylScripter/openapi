@@ -43,6 +43,7 @@ type Client interface {
 	ExportCourseApply(ctx context.Context, req *education.ExportCourseApplyReq, callOptions ...callopt.Option) (r *education.ExportCourseApplyResp, err error)
 	ExportCourseApplySummary(ctx context.Context, req *education.ExportCourseApplySummaryReq, callOptions ...callopt.Option) (r *education.ExportCourseApplySummaryResp, err error)
 	OneKeyApproveCourseApply(ctx context.Context, req *education.OneKeyApproveCourseApplyReq, callOptions ...callopt.Option) (r *education.OneKeyApproveCourseApplyResp, err error)
+	GetSelectData(ctx context.Context, req *education.GetSelectDataReq, callOptions ...callopt.Option) (r *education.GetSelectDataResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -232,4 +233,9 @@ func (p *kEducationserviceClient) ExportCourseApplySummary(ctx context.Context, 
 func (p *kEducationserviceClient) OneKeyApproveCourseApply(ctx context.Context, req *education.OneKeyApproveCourseApplyReq, callOptions ...callopt.Option) (r *education.OneKeyApproveCourseApplyResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.OneKeyApproveCourseApply(ctx, req)
+}
+
+func (p *kEducationserviceClient) GetSelectData(ctx context.Context, req *education.GetSelectDataReq, callOptions ...callopt.Option) (r *education.GetSelectDataResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetSelectData(ctx, req)
 }

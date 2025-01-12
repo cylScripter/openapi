@@ -237,6 +237,13 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"GetSelectData": kitex.NewMethodInfo(
+		getSelectDataHandler,
+		newEducationserviceGetSelectDataArgs,
+		newEducationserviceGetSelectDataResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -879,6 +886,24 @@ func newEducationserviceOneKeyApproveCourseApplyResult() interface{} {
 	return education.NewEducationserviceOneKeyApproveCourseApplyResult()
 }
 
+func getSelectDataHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceGetSelectDataArgs)
+	realResult := result.(*education.EducationserviceGetSelectDataResult)
+	success, err := handler.(education.Educationservice).GetSelectData(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceGetSelectDataArgs() interface{} {
+	return education.NewEducationserviceGetSelectDataArgs()
+}
+
+func newEducationserviceGetSelectDataResult() interface{} {
+	return education.NewEducationserviceGetSelectDataResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -1204,6 +1229,16 @@ func (p *kClient) OneKeyApproveCourseApply(ctx context.Context, req *education.O
 	_args.Req = req
 	var _result education.EducationserviceOneKeyApproveCourseApplyResult
 	if err = p.c.Call(ctx, "OneKeyApproveCourseApply", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetSelectData(ctx context.Context, req *education.GetSelectDataReq) (r *education.GetSelectDataResp, err error) {
+	var _args education.EducationserviceGetSelectDataArgs
+	_args.Req = req
+	var _result education.EducationserviceGetSelectDataResult
+	if err = p.c.Call(ctx, "GetSelectData", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

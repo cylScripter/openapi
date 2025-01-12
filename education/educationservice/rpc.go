@@ -165,3 +165,8 @@ func OneKeyApproveCourseApply(ctx context.Context, req *education.OneKeyApproveC
 	clients := MustNewClient("education", callOptions...)
 	return clients.OneKeyApproveCourseApply(ctx, req)
 }
+
+func GetSelectData(ctx context.Context, req *education.GetSelectDataReq, callOptions ...client.Option) (resp *education.GetSelectDataResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.GetSelectData(ctx, req)
+}
