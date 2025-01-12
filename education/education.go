@@ -29068,6 +29068,8 @@ type GetSelectDataResp struct {
 	AcademicYear        []string         `thrift:"academic_year,4" frugal:"4,default,list<string>" json:"academic_year"`
 	Semester            []string         `thrift:"semester,5" frugal:"5,default,list<string>" json:"semester"`
 	FieldType           map[int32]string `thrift:"field_type,6" frugal:"6,default,map<i32:string>" json:"field_type"`
+	CurrentAcademicYear string           `thrift:"current_academic_year,7" frugal:"7,default,string" json:"current_academic_year"`
+	CurrentSemester     string           `thrift:"current_semester,8" frugal:"8,default,string" json:"current_semester"`
 }
 
 func NewGetSelectDataResp() *GetSelectDataResp {
@@ -29100,6 +29102,14 @@ func (p *GetSelectDataResp) GetSemester() (v []string) {
 func (p *GetSelectDataResp) GetFieldType() (v map[int32]string) {
 	return p.FieldType
 }
+
+func (p *GetSelectDataResp) GetCurrentAcademicYear() (v string) {
+	return p.CurrentAcademicYear
+}
+
+func (p *GetSelectDataResp) GetCurrentSemester() (v string) {
+	return p.CurrentSemester
+}
 func (p *GetSelectDataResp) SetOnlinePlatform(val []string) {
 	p.OnlinePlatform = val
 }
@@ -29118,6 +29128,12 @@ func (p *GetSelectDataResp) SetSemester(val []string) {
 func (p *GetSelectDataResp) SetFieldType(val map[int32]string) {
 	p.FieldType = val
 }
+func (p *GetSelectDataResp) SetCurrentAcademicYear(val string) {
+	p.CurrentAcademicYear = val
+}
+func (p *GetSelectDataResp) SetCurrentSemester(val string) {
+	p.CurrentSemester = val
+}
 
 var fieldIDToName_GetSelectDataResp = map[int16]string{
 	1: "online_platform",
@@ -29126,6 +29142,8 @@ var fieldIDToName_GetSelectDataResp = map[int16]string{
 	4: "academic_year",
 	5: "semester",
 	6: "field_type",
+	7: "current_academic_year",
+	8: "current_semester",
 }
 
 func (p *GetSelectDataResp) Read(iprot thrift.TProtocol) (err error) {
@@ -29190,6 +29208,22 @@ func (p *GetSelectDataResp) Read(iprot thrift.TProtocol) (err error) {
 		case 6:
 			if fieldTypeId == thrift.MAP {
 				if err = p.ReadField6(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 7:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField7(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 8:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField8(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -29368,6 +29402,28 @@ func (p *GetSelectDataResp) ReadField6(iprot thrift.TProtocol) error {
 	p.FieldType = _field
 	return nil
 }
+func (p *GetSelectDataResp) ReadField7(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.CurrentAcademicYear = _field
+	return nil
+}
+func (p *GetSelectDataResp) ReadField8(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.CurrentSemester = _field
+	return nil
+}
 
 func (p *GetSelectDataResp) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -29397,6 +29453,14 @@ func (p *GetSelectDataResp) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField6(oprot); err != nil {
 			fieldId = 6
+			goto WriteFieldError
+		}
+		if err = p.writeField7(oprot); err != nil {
+			fieldId = 7
+			goto WriteFieldError
+		}
+		if err = p.writeField8(oprot); err != nil {
+			fieldId = 8
 			goto WriteFieldError
 		}
 	}
@@ -29570,6 +29634,40 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 6 end error: ", p), err)
 }
 
+func (p *GetSelectDataResp) writeField7(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("current_academic_year", thrift.STRING, 7); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.CurrentAcademicYear); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 7 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 7 end error: ", p), err)
+}
+
+func (p *GetSelectDataResp) writeField8(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("current_semester", thrift.STRING, 8); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.CurrentSemester); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 8 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 8 end error: ", p), err)
+}
+
 func (p *GetSelectDataResp) String() string {
 	if p == nil {
 		return "<nil>"
@@ -29600,6 +29698,12 @@ func (p *GetSelectDataResp) DeepEqual(ano *GetSelectDataResp) bool {
 		return false
 	}
 	if !p.Field6DeepEqual(ano.FieldType) {
+		return false
+	}
+	if !p.Field7DeepEqual(ano.CurrentAcademicYear) {
+		return false
+	}
+	if !p.Field8DeepEqual(ano.CurrentSemester) {
 		return false
 	}
 	return true
@@ -29680,6 +29784,20 @@ func (p *GetSelectDataResp) Field6DeepEqual(src map[int32]string) bool {
 		if strings.Compare(v, _src) != 0 {
 			return false
 		}
+	}
+	return true
+}
+func (p *GetSelectDataResp) Field7DeepEqual(src string) bool {
+
+	if strings.Compare(p.CurrentAcademicYear, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *GetSelectDataResp) Field8DeepEqual(src string) bool {
+
+	if strings.Compare(p.CurrentSemester, src) != 0 {
+		return false
 	}
 	return true
 }

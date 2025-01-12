@@ -19270,6 +19270,34 @@ func (p *GetSelectDataResp) FastRead(buf []byte) (int, error) {
 					goto SkipFieldError
 				}
 			}
+		case 7:
+			if fieldTypeId == thrift.STRING {
+				l, err = p.FastReadField7(buf[offset:])
+				offset += l
+				if err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
+				offset += l
+				if err != nil {
+					goto SkipFieldError
+				}
+			}
+		case 8:
+			if fieldTypeId == thrift.STRING {
+				l, err = p.FastReadField8(buf[offset:])
+				offset += l
+				if err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
+				offset += l
+				if err != nil {
+					goto SkipFieldError
+				}
+			}
 		default:
 			l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
 			offset += l
@@ -19440,6 +19468,34 @@ func (p *GetSelectDataResp) FastReadField6(buf []byte) (int, error) {
 	return offset, nil
 }
 
+func (p *GetSelectDataResp) FastReadField7(buf []byte) (int, error) {
+	offset := 0
+
+	var _field string
+	if v, l, err := thrift.Binary.ReadString(buf[offset:]); err != nil {
+		return offset, err
+	} else {
+		offset += l
+		_field = v
+	}
+	p.CurrentAcademicYear = _field
+	return offset, nil
+}
+
+func (p *GetSelectDataResp) FastReadField8(buf []byte) (int, error) {
+	offset := 0
+
+	var _field string
+	if v, l, err := thrift.Binary.ReadString(buf[offset:]); err != nil {
+		return offset, err
+	} else {
+		offset += l
+		_field = v
+	}
+	p.CurrentSemester = _field
+	return offset, nil
+}
+
 // for compatibility
 func (p *GetSelectDataResp) FastWrite(buf []byte) int {
 	return 0
@@ -19454,6 +19510,8 @@ func (p *GetSelectDataResp) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) i
 		offset += p.fastWriteField4(buf[offset:], w)
 		offset += p.fastWriteField5(buf[offset:], w)
 		offset += p.fastWriteField6(buf[offset:], w)
+		offset += p.fastWriteField7(buf[offset:], w)
+		offset += p.fastWriteField8(buf[offset:], w)
 	}
 	offset += thrift.Binary.WriteFieldStop(buf[offset:])
 	return offset
@@ -19468,6 +19526,8 @@ func (p *GetSelectDataResp) BLength() int {
 		l += p.field4Length()
 		l += p.field5Length()
 		l += p.field6Length()
+		l += p.field7Length()
+		l += p.field8Length()
 	}
 	l += thrift.Binary.FieldStopLength()
 	return l
@@ -19558,6 +19618,20 @@ func (p *GetSelectDataResp) fastWriteField6(buf []byte, w thrift.NocopyWriter) i
 	return offset
 }
 
+func (p *GetSelectDataResp) fastWriteField7(buf []byte, w thrift.NocopyWriter) int {
+	offset := 0
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 7)
+	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.CurrentAcademicYear)
+	return offset
+}
+
+func (p *GetSelectDataResp) fastWriteField8(buf []byte, w thrift.NocopyWriter) int {
+	offset := 0
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 8)
+	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.CurrentSemester)
+	return offset
+}
+
 func (p *GetSelectDataResp) field1Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
@@ -19623,6 +19697,20 @@ func (p *GetSelectDataResp) field6Length() int {
 		l += thrift.Binary.I32Length()
 		l += thrift.Binary.StringLengthNocopy(v)
 	}
+	return l
+}
+
+func (p *GetSelectDataResp) field7Length() int {
+	l := 0
+	l += thrift.Binary.FieldBeginLength()
+	l += thrift.Binary.StringLengthNocopy(p.CurrentAcademicYear)
+	return l
+}
+
+func (p *GetSelectDataResp) field8Length() int {
+	l := 0
+	l += thrift.Binary.FieldBeginLength()
+	l += thrift.Binary.StringLengthNocopy(p.CurrentSemester)
 	return l
 }
 
