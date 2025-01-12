@@ -132,6 +132,13 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"GetClassList": kitex.NewMethodInfo(
+		getClassListHandler,
+		newEducationserviceGetClassListArgs,
+		newEducationserviceGetClassListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 	"ImportCourseApply": kitex.NewMethodInfo(
 		importCourseApplyHandler,
 		newEducationserviceImportCourseApplyArgs,
@@ -602,6 +609,24 @@ func newEducationserviceGetOfficeListResult() interface{} {
 	return education.NewEducationserviceGetOfficeListResult()
 }
 
+func getClassListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceGetClassListArgs)
+	realResult := result.(*education.EducationserviceGetClassListResult)
+	success, err := handler.(education.Educationservice).GetClassList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceGetClassListArgs() interface{} {
+	return education.NewEducationserviceGetClassListArgs()
+}
+
+func newEducationserviceGetClassListResult() interface{} {
+	return education.NewEducationserviceGetClassListResult()
+}
+
 func importCourseApplyHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
 	realArg := arg.(*education.EducationserviceImportCourseApplyArgs)
 	realResult := result.(*education.EducationserviceImportCourseApplyResult)
@@ -1029,6 +1054,16 @@ func (p *kClient) GetOfficeList(ctx context.Context, req *education.GetOfficeLis
 	_args.Req = req
 	var _result education.EducationserviceGetOfficeListResult
 	if err = p.c.Call(ctx, "GetOfficeList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetClassList(ctx context.Context, req *education.GetClassListReq) (r *education.GetClassListResp, err error) {
+	var _args education.EducationserviceGetClassListArgs
+	_args.Req = req
+	var _result education.EducationserviceGetClassListResult
+	if err = p.c.Call(ctx, "GetClassList", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

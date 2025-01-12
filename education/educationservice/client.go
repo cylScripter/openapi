@@ -28,6 +28,7 @@ type Client interface {
 	CreateMenu(ctx context.Context, req *education.CreateMenuReq, callOptions ...callopt.Option) (r *education.CreateMenuResp, err error)
 	CreateOffice(ctx context.Context, req *education.CreateOfficeReq, callOptions ...callopt.Option) (r *education.CreateOfficeResp, err error)
 	GetOfficeList(ctx context.Context, req *education.GetOfficeListReq, callOptions ...callopt.Option) (r *education.GetOfficeListResp, err error)
+	GetClassList(ctx context.Context, req *education.GetClassListReq, callOptions ...callopt.Option) (r *education.GetClassListResp, err error)
 	ImportCourseApply(ctx context.Context, req *education.ImportCourseApplyReq, callOptions ...callopt.Option) (r *education.ImportCourseApplyResp, err error)
 	GetCourseApplyList(ctx context.Context, req *education.GetCourseApplyListReq, callOptions ...callopt.Option) (r *education.GetCourseApplyListResp, err error)
 	GetSelfCourseApplyList(ctx context.Context, req *education.GetSelfCourseApplyListReq, callOptions ...callopt.Option) (r *education.GetSelfCourseApplyListResp, err error)
@@ -156,6 +157,11 @@ func (p *kEducationserviceClient) CreateOffice(ctx context.Context, req *educati
 func (p *kEducationserviceClient) GetOfficeList(ctx context.Context, req *education.GetOfficeListReq, callOptions ...callopt.Option) (r *education.GetOfficeListResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.GetOfficeList(ctx, req)
+}
+
+func (p *kEducationserviceClient) GetClassList(ctx context.Context, req *education.GetClassListReq, callOptions ...callopt.Option) (r *education.GetClassListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetClassList(ctx, req)
 }
 
 func (p *kEducationserviceClient) ImportCourseApply(ctx context.Context, req *education.ImportCourseApplyReq, callOptions ...callopt.Option) (r *education.ImportCourseApplyResp, err error) {

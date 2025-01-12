@@ -91,6 +91,11 @@ func GetOfficeList(ctx context.Context, req *education.GetOfficeListReq, callOpt
 	return clients.GetOfficeList(ctx, req)
 }
 
+func GetClassList(ctx context.Context, req *education.GetClassListReq, callOptions ...client.Option) (resp *education.GetClassListResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.GetClassList(ctx, req)
+}
+
 func ImportCourseApply(ctx context.Context, req *education.ImportCourseApplyReq, callOptions ...client.Option) (resp *education.ImportCourseApplyResp, err error) {
 	clients := MustNewClient("education", callOptions...)
 	return clients.ImportCourseApply(ctx, req)
