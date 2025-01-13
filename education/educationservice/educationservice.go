@@ -90,6 +90,20 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"GetUserInfo": kitex.NewMethodInfo(
+		getUserInfoHandler,
+		newEducationserviceGetUserInfoArgs,
+		newEducationserviceGetUserInfoResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetAuthCode": kitex.NewMethodInfo(
+		getAuthCodeHandler,
+		newEducationserviceGetAuthCodeArgs,
+		newEducationserviceGetAuthCodeResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 	"SetUserRole": kitex.NewMethodInfo(
 		setUserRoleHandler,
 		newEducationserviceSetUserRoleArgs,
@@ -506,6 +520,42 @@ func newEducationserviceGetMenuListArgs() interface{} {
 
 func newEducationserviceGetMenuListResult() interface{} {
 	return education.NewEducationserviceGetMenuListResult()
+}
+
+func getUserInfoHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceGetUserInfoArgs)
+	realResult := result.(*education.EducationserviceGetUserInfoResult)
+	success, err := handler.(education.Educationservice).GetUserInfo(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceGetUserInfoArgs() interface{} {
+	return education.NewEducationserviceGetUserInfoArgs()
+}
+
+func newEducationserviceGetUserInfoResult() interface{} {
+	return education.NewEducationserviceGetUserInfoResult()
+}
+
+func getAuthCodeHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceGetAuthCodeArgs)
+	realResult := result.(*education.EducationserviceGetAuthCodeResult)
+	success, err := handler.(education.Educationservice).GetAuthCode(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceGetAuthCodeArgs() interface{} {
+	return education.NewEducationserviceGetAuthCodeArgs()
+}
+
+func newEducationserviceGetAuthCodeResult() interface{} {
+	return education.NewEducationserviceGetAuthCodeResult()
 }
 
 func setUserRoleHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
@@ -1019,6 +1069,26 @@ func (p *kClient) GetMenuList(ctx context.Context, req *education.GetMenuListReq
 	_args.Req = req
 	var _result education.EducationserviceGetMenuListResult
 	if err = p.c.Call(ctx, "GetMenuList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetUserInfo(ctx context.Context, req *education.GetUserInfoReq) (r *education.GetUserInfoResp, err error) {
+	var _args education.EducationserviceGetUserInfoArgs
+	_args.Req = req
+	var _result education.EducationserviceGetUserInfoResult
+	if err = p.c.Call(ctx, "GetUserInfo", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetAuthCode(ctx context.Context, req *education.GetAuthCodeReq) (r *education.GetAuthCodeResp, err error) {
+	var _args education.EducationserviceGetAuthCodeArgs
+	_args.Req = req
+	var _result education.EducationserviceGetAuthCodeResult
+	if err = p.c.Call(ctx, "GetAuthCode", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

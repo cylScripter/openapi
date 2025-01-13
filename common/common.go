@@ -6407,7 +6407,7 @@ type UpdateAsyncTaskReq struct {
 	Message  string `thrift:"message,3" frugal:"3,default,string" json:"message"`
 	Results  string `thrift:"results,4" frugal:"4,default,string" json:"results"`
 	Progress int32  `thrift:"progress,5" frugal:"5,default,i32" json:"progress"`
-	Queue    string `thrift:"queue,6" frugal:"6,default,string" json:"queue"`
+	Queue    string `thrift:"queue,6" frugal:"6,default,string" json:"queue" binding:"required"`
 }
 
 func NewUpdateAsyncTaskReq() *UpdateAsyncTaskReq {

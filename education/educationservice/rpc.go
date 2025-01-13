@@ -61,6 +61,16 @@ func GetMenuList(ctx context.Context, req *education.GetMenuListReq, callOptions
 	return clients.GetMenuList(ctx, req)
 }
 
+func GetUserInfo(ctx context.Context, req *education.GetUserInfoReq, callOptions ...client.Option) (resp *education.GetUserInfoResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.GetUserInfo(ctx, req)
+}
+
+func GetAuthCode(ctx context.Context, req *education.GetAuthCodeReq, callOptions ...client.Option) (resp *education.GetAuthCodeResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.GetAuthCode(ctx, req)
+}
+
 func SetUserRole(ctx context.Context, req *education.SetUserRoleReq, callOptions ...client.Option) (resp *education.SetUserRoleResp, err error) {
 	clients := MustNewClient("education", callOptions...)
 	return clients.SetUserRole(ctx, req)

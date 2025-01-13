@@ -22,6 +22,8 @@ type Client interface {
 	GetPermissionList(ctx context.Context, req *education.GetPermissionListReq, callOptions ...callopt.Option) (r *education.GetPermissionListResp, err error)
 	GetMenu(ctx context.Context, req *education.GetMenuReq, callOptions ...callopt.Option) (r *education.GetMenuResp, err error)
 	GetMenuList(ctx context.Context, req *education.GetMenuListReq, callOptions ...callopt.Option) (r *education.GetMenuListResp, err error)
+	GetUserInfo(ctx context.Context, req *education.GetUserInfoReq, callOptions ...callopt.Option) (r *education.GetUserInfoResp, err error)
+	GetAuthCode(ctx context.Context, req *education.GetAuthCodeReq, callOptions ...callopt.Option) (r *education.GetAuthCodeResp, err error)
 	SetUserRole(ctx context.Context, req *education.SetUserRoleReq, callOptions ...callopt.Option) (r *education.SetUserRoleResp, err error)
 	SetRolePermission(ctx context.Context, req *education.SetRolePermissionReq, callOptions ...callopt.Option) (r *education.SetRolePermissionResp, err error)
 	SetRoleMenu(ctx context.Context, req *education.SetRoleMenuReq, callOptions ...callopt.Option) (r *education.SetRoleMenuResp, err error)
@@ -128,6 +130,16 @@ func (p *kEducationserviceClient) GetMenu(ctx context.Context, req *education.Ge
 func (p *kEducationserviceClient) GetMenuList(ctx context.Context, req *education.GetMenuListReq, callOptions ...callopt.Option) (r *education.GetMenuListResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.GetMenuList(ctx, req)
+}
+
+func (p *kEducationserviceClient) GetUserInfo(ctx context.Context, req *education.GetUserInfoReq, callOptions ...callopt.Option) (r *education.GetUserInfoResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetUserInfo(ctx, req)
+}
+
+func (p *kEducationserviceClient) GetAuthCode(ctx context.Context, req *education.GetAuthCodeReq, callOptions ...callopt.Option) (r *education.GetAuthCodeResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetAuthCode(ctx, req)
 }
 
 func (p *kEducationserviceClient) SetUserRole(ctx context.Context, req *education.SetUserRoleReq, callOptions ...callopt.Option) (r *education.SetUserRoleResp, err error) {
