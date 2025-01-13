@@ -5841,6 +5841,7 @@ func (p *CreateAsyncTaskResp) Field1DeepEqual(src string) bool {
 
 type GetAsyncTaskResultsReq struct {
 	TaskKey string `thrift:"task_key,1" frugal:"1,default,string" json:"task_key" binding:"required"`
+	Queue   string `thrift:"queue,2" frugal:"2,default,string" json:"queue"`
 }
 
 func NewGetAsyncTaskResultsReq() *GetAsyncTaskResultsReq {
@@ -5853,12 +5854,20 @@ func (p *GetAsyncTaskResultsReq) InitDefault() {
 func (p *GetAsyncTaskResultsReq) GetTaskKey() (v string) {
 	return p.TaskKey
 }
+
+func (p *GetAsyncTaskResultsReq) GetQueue() (v string) {
+	return p.Queue
+}
 func (p *GetAsyncTaskResultsReq) SetTaskKey(val string) {
 	p.TaskKey = val
+}
+func (p *GetAsyncTaskResultsReq) SetQueue(val string) {
+	p.Queue = val
 }
 
 var fieldIDToName_GetAsyncTaskResultsReq = map[int16]string{
 	1: "task_key",
+	2: "queue",
 }
 
 func (p *GetAsyncTaskResultsReq) Read(iprot thrift.TProtocol) (err error) {
@@ -5883,6 +5892,14 @@ func (p *GetAsyncTaskResultsReq) Read(iprot thrift.TProtocol) (err error) {
 		case 1:
 			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 2:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField2(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -5928,6 +5945,17 @@ func (p *GetAsyncTaskResultsReq) ReadField1(iprot thrift.TProtocol) error {
 	p.TaskKey = _field
 	return nil
 }
+func (p *GetAsyncTaskResultsReq) ReadField2(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Queue = _field
+	return nil
+}
 
 func (p *GetAsyncTaskResultsReq) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -5937,6 +5965,10 @@ func (p *GetAsyncTaskResultsReq) Write(oprot thrift.TProtocol) (err error) {
 	if p != nil {
 		if err = p.writeField1(oprot); err != nil {
 			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
 			goto WriteFieldError
 		}
 	}
@@ -5974,6 +6006,23 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
+func (p *GetAsyncTaskResultsReq) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("queue", thrift.STRING, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Queue); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
 func (p *GetAsyncTaskResultsReq) String() string {
 	if p == nil {
 		return "<nil>"
@@ -5991,12 +6040,22 @@ func (p *GetAsyncTaskResultsReq) DeepEqual(ano *GetAsyncTaskResultsReq) bool {
 	if !p.Field1DeepEqual(ano.TaskKey) {
 		return false
 	}
+	if !p.Field2DeepEqual(ano.Queue) {
+		return false
+	}
 	return true
 }
 
 func (p *GetAsyncTaskResultsReq) Field1DeepEqual(src string) bool {
 
 	if strings.Compare(p.TaskKey, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *GetAsyncTaskResultsReq) Field2DeepEqual(src string) bool {
+
+	if strings.Compare(p.Queue, src) != 0 {
 		return false
 	}
 	return true
