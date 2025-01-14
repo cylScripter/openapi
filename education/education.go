@@ -16043,7 +16043,7 @@ func (p *UpdateTeacherInfoResp) DeepEqual(ano *UpdateTeacherInfoResp) bool {
 }
 
 type SetTeacherInfoStatusReq struct {
-	Item *SetTeacherInfoStatusReq_Value `thrift:"item,1" frugal:"1,default,SetTeacherInfoStatusReq_Value" json:"item" binding:"required"`
+	Item []*SetTeacherInfoStatusReq_Value `thrift:"item,1" frugal:"1,default,list<SetTeacherInfoStatusReq_Value>" json:"item" binding:"required"`
 }
 
 func NewSetTeacherInfoStatusReq() *SetTeacherInfoStatusReq {
@@ -16053,24 +16053,15 @@ func NewSetTeacherInfoStatusReq() *SetTeacherInfoStatusReq {
 func (p *SetTeacherInfoStatusReq) InitDefault() {
 }
 
-var SetTeacherInfoStatusReq_Item_DEFAULT *SetTeacherInfoStatusReq_Value
-
-func (p *SetTeacherInfoStatusReq) GetItem() (v *SetTeacherInfoStatusReq_Value) {
-	if !p.IsSetItem() {
-		return SetTeacherInfoStatusReq_Item_DEFAULT
-	}
+func (p *SetTeacherInfoStatusReq) GetItem() (v []*SetTeacherInfoStatusReq_Value) {
 	return p.Item
 }
-func (p *SetTeacherInfoStatusReq) SetItem(val *SetTeacherInfoStatusReq_Value) {
+func (p *SetTeacherInfoStatusReq) SetItem(val []*SetTeacherInfoStatusReq_Value) {
 	p.Item = val
 }
 
 var fieldIDToName_SetTeacherInfoStatusReq = map[int16]string{
 	1: "item",
-}
-
-func (p *SetTeacherInfoStatusReq) IsSetItem() bool {
-	return p.Item != nil
 }
 
 func (p *SetTeacherInfoStatusReq) Read(iprot thrift.TProtocol) (err error) {
@@ -16093,7 +16084,7 @@ func (p *SetTeacherInfoStatusReq) Read(iprot thrift.TProtocol) (err error) {
 
 		switch fieldId {
 		case 1:
-			if fieldTypeId == thrift.STRUCT {
+			if fieldTypeId == thrift.LIST {
 				if err = p.ReadField1(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -16130,8 +16121,23 @@ ReadStructEndError:
 }
 
 func (p *SetTeacherInfoStatusReq) ReadField1(iprot thrift.TProtocol) error {
-	_field := NewSetTeacherInfoStatusReq_Value()
-	if err := _field.Read(iprot); err != nil {
+	_, size, err := iprot.ReadListBegin()
+	if err != nil {
+		return err
+	}
+	_field := make([]*SetTeacherInfoStatusReq_Value, 0, size)
+	values := make([]SetTeacherInfoStatusReq_Value, size)
+	for i := 0; i < size; i++ {
+		_elem := &values[i]
+		_elem.InitDefault()
+
+		if err := _elem.Read(iprot); err != nil {
+			return err
+		}
+
+		_field = append(_field, _elem)
+	}
+	if err := iprot.ReadListEnd(); err != nil {
 		return err
 	}
 	p.Item = _field
@@ -16167,10 +16173,18 @@ WriteStructEndError:
 }
 
 func (p *SetTeacherInfoStatusReq) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("item", thrift.STRUCT, 1); err != nil {
+	if err = oprot.WriteFieldBegin("item", thrift.LIST, 1); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := p.Item.Write(oprot); err != nil {
+	if err := oprot.WriteListBegin(thrift.STRUCT, len(p.Item)); err != nil {
+		return err
+	}
+	for _, v := range p.Item {
+		if err := v.Write(oprot); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteListEnd(); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -16203,10 +16217,16 @@ func (p *SetTeacherInfoStatusReq) DeepEqual(ano *SetTeacherInfoStatusReq) bool {
 	return true
 }
 
-func (p *SetTeacherInfoStatusReq) Field1DeepEqual(src *SetTeacherInfoStatusReq_Value) bool {
+func (p *SetTeacherInfoStatusReq) Field1DeepEqual(src []*SetTeacherInfoStatusReq_Value) bool {
 
-	if !p.Item.DeepEqual(src) {
+	if len(p.Item) != len(src) {
 		return false
+	}
+	for i, v := range p.Item {
+		_src := src[i]
+		if !v.DeepEqual(_src) {
+			return false
+		}
 	}
 	return true
 }
@@ -20324,9 +20344,8 @@ func (p *CreateUserReq) Field7DeepEqual(src []int32) bool {
 }
 
 type SetUserRoleReq struct {
-	UserId       int32   `thrift:"user_id,1" frugal:"1,default,i32" json:"user_id" binding:"required"`
-	RoleId       []int32 `thrift:"role_id,2" frugal:"2,default,list<i32>" json:"role_id"`
-	DeleteRoleId []int32 `thrift:"delete_role_id,3" frugal:"3,default,list<i32>" json:"delete_role_id"`
+	UserId int32   `thrift:"user_id,1" frugal:"1,default,i32" json:"user_id" binding:"required"`
+	RoleId []int32 `thrift:"role_id,2" frugal:"2,default,list<i32>" json:"role_id"`
 }
 
 func NewSetUserRoleReq() *SetUserRoleReq {
@@ -20343,24 +20362,16 @@ func (p *SetUserRoleReq) GetUserId() (v int32) {
 func (p *SetUserRoleReq) GetRoleId() (v []int32) {
 	return p.RoleId
 }
-
-func (p *SetUserRoleReq) GetDeleteRoleId() (v []int32) {
-	return p.DeleteRoleId
-}
 func (p *SetUserRoleReq) SetUserId(val int32) {
 	p.UserId = val
 }
 func (p *SetUserRoleReq) SetRoleId(val []int32) {
 	p.RoleId = val
 }
-func (p *SetUserRoleReq) SetDeleteRoleId(val []int32) {
-	p.DeleteRoleId = val
-}
 
 var fieldIDToName_SetUserRoleReq = map[int16]string{
 	1: "user_id",
 	2: "role_id",
-	3: "delete_role_id",
 }
 
 func (p *SetUserRoleReq) Read(iprot thrift.TProtocol) (err error) {
@@ -20393,14 +20404,6 @@ func (p *SetUserRoleReq) Read(iprot thrift.TProtocol) (err error) {
 		case 2:
 			if fieldTypeId == thrift.LIST {
 				if err = p.ReadField2(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		case 3:
-			if fieldTypeId == thrift.LIST {
-				if err = p.ReadField3(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -20469,29 +20472,6 @@ func (p *SetUserRoleReq) ReadField2(iprot thrift.TProtocol) error {
 	p.RoleId = _field
 	return nil
 }
-func (p *SetUserRoleReq) ReadField3(iprot thrift.TProtocol) error {
-	_, size, err := iprot.ReadListBegin()
-	if err != nil {
-		return err
-	}
-	_field := make([]int32, 0, size)
-	for i := 0; i < size; i++ {
-
-		var _elem int32
-		if v, err := iprot.ReadI32(); err != nil {
-			return err
-		} else {
-			_elem = v
-		}
-
-		_field = append(_field, _elem)
-	}
-	if err := iprot.ReadListEnd(); err != nil {
-		return err
-	}
-	p.DeleteRoleId = _field
-	return nil
-}
 
 func (p *SetUserRoleReq) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -20505,10 +20485,6 @@ func (p *SetUserRoleReq) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField2(oprot); err != nil {
 			fieldId = 2
-			goto WriteFieldError
-		}
-		if err = p.writeField3(oprot); err != nil {
-			fieldId = 3
 			goto WriteFieldError
 		}
 	}
@@ -20571,31 +20547,6 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *SetUserRoleReq) writeField3(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("delete_role_id", thrift.LIST, 3); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := oprot.WriteListBegin(thrift.I32, len(p.DeleteRoleId)); err != nil {
-		return err
-	}
-	for _, v := range p.DeleteRoleId {
-		if err := oprot.WriteI32(v); err != nil {
-			return err
-		}
-	}
-	if err := oprot.WriteListEnd(); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 3 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
-}
-
 func (p *SetUserRoleReq) String() string {
 	if p == nil {
 		return "<nil>"
@@ -20616,9 +20567,6 @@ func (p *SetUserRoleReq) DeepEqual(ano *SetUserRoleReq) bool {
 	if !p.Field2DeepEqual(ano.RoleId) {
 		return false
 	}
-	if !p.Field3DeepEqual(ano.DeleteRoleId) {
-		return false
-	}
 	return true
 }
 
@@ -20635,19 +20583,6 @@ func (p *SetUserRoleReq) Field2DeepEqual(src []int32) bool {
 		return false
 	}
 	for i, v := range p.RoleId {
-		_src := src[i]
-		if v != _src {
-			return false
-		}
-	}
-	return true
-}
-func (p *SetUserRoleReq) Field3DeepEqual(src []int32) bool {
-
-	if len(p.DeleteRoleId) != len(src) {
-		return false
-	}
-	for i, v := range p.DeleteRoleId {
 		_src := src[i]
 		if v != _src {
 			return false
@@ -20749,9 +20684,8 @@ func (p *SetUserRoleResp) DeepEqual(ano *SetUserRoleResp) bool {
 }
 
 type SetRolePermissionReq struct {
-	RoleId             int32   `thrift:"role_id,1" frugal:"1,default,i32" json:"role_id" binding:"required"`
-	PermissionId       []int32 `thrift:"permission_id,2" frugal:"2,default,list<i32>" json:"permission_id"`
-	DeletePermissionId []int32 `thrift:"delete_permission_id,3" frugal:"3,default,list<i32>" json:"delete_permission_id"`
+	RoleId       int32   `thrift:"role_id,1" frugal:"1,default,i32" json:"role_id" binding:"required"`
+	PermissionId []int32 `thrift:"permission_id,2" frugal:"2,default,list<i32>" json:"permission_id"`
 }
 
 func NewSetRolePermissionReq() *SetRolePermissionReq {
@@ -20768,24 +20702,16 @@ func (p *SetRolePermissionReq) GetRoleId() (v int32) {
 func (p *SetRolePermissionReq) GetPermissionId() (v []int32) {
 	return p.PermissionId
 }
-
-func (p *SetRolePermissionReq) GetDeletePermissionId() (v []int32) {
-	return p.DeletePermissionId
-}
 func (p *SetRolePermissionReq) SetRoleId(val int32) {
 	p.RoleId = val
 }
 func (p *SetRolePermissionReq) SetPermissionId(val []int32) {
 	p.PermissionId = val
 }
-func (p *SetRolePermissionReq) SetDeletePermissionId(val []int32) {
-	p.DeletePermissionId = val
-}
 
 var fieldIDToName_SetRolePermissionReq = map[int16]string{
 	1: "role_id",
 	2: "permission_id",
-	3: "delete_permission_id",
 }
 
 func (p *SetRolePermissionReq) Read(iprot thrift.TProtocol) (err error) {
@@ -20818,14 +20744,6 @@ func (p *SetRolePermissionReq) Read(iprot thrift.TProtocol) (err error) {
 		case 2:
 			if fieldTypeId == thrift.LIST {
 				if err = p.ReadField2(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		case 3:
-			if fieldTypeId == thrift.LIST {
-				if err = p.ReadField3(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -20894,29 +20812,6 @@ func (p *SetRolePermissionReq) ReadField2(iprot thrift.TProtocol) error {
 	p.PermissionId = _field
 	return nil
 }
-func (p *SetRolePermissionReq) ReadField3(iprot thrift.TProtocol) error {
-	_, size, err := iprot.ReadListBegin()
-	if err != nil {
-		return err
-	}
-	_field := make([]int32, 0, size)
-	for i := 0; i < size; i++ {
-
-		var _elem int32
-		if v, err := iprot.ReadI32(); err != nil {
-			return err
-		} else {
-			_elem = v
-		}
-
-		_field = append(_field, _elem)
-	}
-	if err := iprot.ReadListEnd(); err != nil {
-		return err
-	}
-	p.DeletePermissionId = _field
-	return nil
-}
 
 func (p *SetRolePermissionReq) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -20930,10 +20825,6 @@ func (p *SetRolePermissionReq) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField2(oprot); err != nil {
 			fieldId = 2
-			goto WriteFieldError
-		}
-		if err = p.writeField3(oprot); err != nil {
-			fieldId = 3
 			goto WriteFieldError
 		}
 	}
@@ -20996,31 +20887,6 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *SetRolePermissionReq) writeField3(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("delete_permission_id", thrift.LIST, 3); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := oprot.WriteListBegin(thrift.I32, len(p.DeletePermissionId)); err != nil {
-		return err
-	}
-	for _, v := range p.DeletePermissionId {
-		if err := oprot.WriteI32(v); err != nil {
-			return err
-		}
-	}
-	if err := oprot.WriteListEnd(); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 3 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
-}
-
 func (p *SetRolePermissionReq) String() string {
 	if p == nil {
 		return "<nil>"
@@ -21041,9 +20907,6 @@ func (p *SetRolePermissionReq) DeepEqual(ano *SetRolePermissionReq) bool {
 	if !p.Field2DeepEqual(ano.PermissionId) {
 		return false
 	}
-	if !p.Field3DeepEqual(ano.DeletePermissionId) {
-		return false
-	}
 	return true
 }
 
@@ -21060,19 +20923,6 @@ func (p *SetRolePermissionReq) Field2DeepEqual(src []int32) bool {
 		return false
 	}
 	for i, v := range p.PermissionId {
-		_src := src[i]
-		if v != _src {
-			return false
-		}
-	}
-	return true
-}
-func (p *SetRolePermissionReq) Field3DeepEqual(src []int32) bool {
-
-	if len(p.DeletePermissionId) != len(src) {
-		return false
-	}
-	for i, v := range p.DeletePermissionId {
 		_src := src[i]
 		if v != _src {
 			return false
@@ -21174,9 +21024,8 @@ func (p *SetRolePermissionResp) DeepEqual(ano *SetRolePermissionResp) bool {
 }
 
 type SetRoleMenuReq struct {
-	RoleId       int32   `thrift:"role_id,1" frugal:"1,default,i32" json:"role_id" binding:"required"`
-	MenuId       []int32 `thrift:"menu_id,2" frugal:"2,default,list<i32>" json:"menu_id" `
-	DeleteMenuId []int32 `thrift:"delete_menu_id,3" frugal:"3,default,list<i32>" json:"delete_menu_id"`
+	RoleId int32   `thrift:"role_id,1" frugal:"1,default,i32" json:"role_id" binding:"required"`
+	MenuId []int32 `thrift:"menu_id,2" frugal:"2,default,list<i32>" json:"menu_id" `
 }
 
 func NewSetRoleMenuReq() *SetRoleMenuReq {
@@ -21193,24 +21042,16 @@ func (p *SetRoleMenuReq) GetRoleId() (v int32) {
 func (p *SetRoleMenuReq) GetMenuId() (v []int32) {
 	return p.MenuId
 }
-
-func (p *SetRoleMenuReq) GetDeleteMenuId() (v []int32) {
-	return p.DeleteMenuId
-}
 func (p *SetRoleMenuReq) SetRoleId(val int32) {
 	p.RoleId = val
 }
 func (p *SetRoleMenuReq) SetMenuId(val []int32) {
 	p.MenuId = val
 }
-func (p *SetRoleMenuReq) SetDeleteMenuId(val []int32) {
-	p.DeleteMenuId = val
-}
 
 var fieldIDToName_SetRoleMenuReq = map[int16]string{
 	1: "role_id",
 	2: "menu_id",
-	3: "delete_menu_id",
 }
 
 func (p *SetRoleMenuReq) Read(iprot thrift.TProtocol) (err error) {
@@ -21243,14 +21084,6 @@ func (p *SetRoleMenuReq) Read(iprot thrift.TProtocol) (err error) {
 		case 2:
 			if fieldTypeId == thrift.LIST {
 				if err = p.ReadField2(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		case 3:
-			if fieldTypeId == thrift.LIST {
-				if err = p.ReadField3(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -21319,29 +21152,6 @@ func (p *SetRoleMenuReq) ReadField2(iprot thrift.TProtocol) error {
 	p.MenuId = _field
 	return nil
 }
-func (p *SetRoleMenuReq) ReadField3(iprot thrift.TProtocol) error {
-	_, size, err := iprot.ReadListBegin()
-	if err != nil {
-		return err
-	}
-	_field := make([]int32, 0, size)
-	for i := 0; i < size; i++ {
-
-		var _elem int32
-		if v, err := iprot.ReadI32(); err != nil {
-			return err
-		} else {
-			_elem = v
-		}
-
-		_field = append(_field, _elem)
-	}
-	if err := iprot.ReadListEnd(); err != nil {
-		return err
-	}
-	p.DeleteMenuId = _field
-	return nil
-}
 
 func (p *SetRoleMenuReq) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -21355,10 +21165,6 @@ func (p *SetRoleMenuReq) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField2(oprot); err != nil {
 			fieldId = 2
-			goto WriteFieldError
-		}
-		if err = p.writeField3(oprot); err != nil {
-			fieldId = 3
 			goto WriteFieldError
 		}
 	}
@@ -21421,31 +21227,6 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *SetRoleMenuReq) writeField3(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("delete_menu_id", thrift.LIST, 3); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := oprot.WriteListBegin(thrift.I32, len(p.DeleteMenuId)); err != nil {
-		return err
-	}
-	for _, v := range p.DeleteMenuId {
-		if err := oprot.WriteI32(v); err != nil {
-			return err
-		}
-	}
-	if err := oprot.WriteListEnd(); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 3 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
-}
-
 func (p *SetRoleMenuReq) String() string {
 	if p == nil {
 		return "<nil>"
@@ -21466,9 +21247,6 @@ func (p *SetRoleMenuReq) DeepEqual(ano *SetRoleMenuReq) bool {
 	if !p.Field2DeepEqual(ano.MenuId) {
 		return false
 	}
-	if !p.Field3DeepEqual(ano.DeleteMenuId) {
-		return false
-	}
 	return true
 }
 
@@ -21485,19 +21263,6 @@ func (p *SetRoleMenuReq) Field2DeepEqual(src []int32) bool {
 		return false
 	}
 	for i, v := range p.MenuId {
-		_src := src[i]
-		if v != _src {
-			return false
-		}
-	}
-	return true
-}
-func (p *SetRoleMenuReq) Field3DeepEqual(src []int32) bool {
-
-	if len(p.DeleteMenuId) != len(src) {
-		return false
-	}
-	for i, v := range p.DeleteMenuId {
 		_src := src[i]
 		if v != _src {
 			return false
