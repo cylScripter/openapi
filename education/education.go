@@ -369,6 +369,65 @@ func (p *IsExternalType) Value() (driver.Value, error) {
 	return int64(*p), nil
 }
 
+type GetTeacherInfoListReqOption int64
+
+const (
+	GetTeacherInfoListReqOption_id          GetTeacherInfoListReqOption = 1
+	GetTeacherInfoListReqOption_name        GetTeacherInfoListReqOption = 2
+	GetTeacherInfoListReqOption_office_id   GetTeacherInfoListReqOption = 3
+	GetTeacherInfoListReqOption_duties      GetTeacherInfoListReqOption = 4
+	GetTeacherInfoListReqOption_id_category GetTeacherInfoListReqOption = 5
+)
+
+func (p GetTeacherInfoListReqOption) String() string {
+	switch p {
+	case GetTeacherInfoListReqOption_id:
+		return "id"
+	case GetTeacherInfoListReqOption_name:
+		return "name"
+	case GetTeacherInfoListReqOption_office_id:
+		return "office_id"
+	case GetTeacherInfoListReqOption_duties:
+		return "duties"
+	case GetTeacherInfoListReqOption_id_category:
+		return "id_category"
+	}
+	return "<UNSET>"
+}
+
+func GetTeacherInfoListReqOptionFromString(s string) (GetTeacherInfoListReqOption, error) {
+	switch s {
+	case "id":
+		return GetTeacherInfoListReqOption_id, nil
+	case "name":
+		return GetTeacherInfoListReqOption_name, nil
+	case "office_id":
+		return GetTeacherInfoListReqOption_office_id, nil
+	case "duties":
+		return GetTeacherInfoListReqOption_duties, nil
+	case "id_category":
+		return GetTeacherInfoListReqOption_id_category, nil
+	}
+	return GetTeacherInfoListReqOption(0), fmt.Errorf("not a valid GetTeacherInfoListReqOption string")
+}
+
+func GetTeacherInfoListReqOptionPtr(v GetTeacherInfoListReqOption) *GetTeacherInfoListReqOption {
+	return &v
+}
+func (p *GetTeacherInfoListReqOption) Scan(value interface{}) (err error) {
+	var result sql.NullInt64
+	err = result.Scan(value)
+	*p = GetTeacherInfoListReqOption(result.Int64)
+	return
+}
+
+func (p *GetTeacherInfoListReqOption) Value() (driver.Value, error) {
+	if p == nil {
+		return nil, nil
+	}
+	return int64(*p), nil
+}
+
 type GetUserListOption int64
 
 const (
@@ -13383,6 +13442,7 @@ type ModelTeacherInfo struct {
 	IdCategory    string `thrift:"id_category,15" frugal:"15,default,string" json:"id_category" gorm:"column:id_category"`
 	IsActive      int32  `thrift:"is_active,16" frugal:"16,default,i32" json:"is_active" gorm:"column:is_active;default:1"`
 	IsExternal    int32  `thrift:"is_external,17" frugal:"17,default,i32" json:"is_external" gorm:"column:is_external;default:2"`
+	Order         int32  `thrift:"order,18" frugal:"18,default,i32" json:"order" gorm:"column:order;default:1"`
 }
 
 func NewModelTeacherInfo() *ModelTeacherInfo {
@@ -13459,6 +13519,10 @@ func (p *ModelTeacherInfo) GetIsActive() (v int32) {
 func (p *ModelTeacherInfo) GetIsExternal() (v int32) {
 	return p.IsExternal
 }
+
+func (p *ModelTeacherInfo) GetOrder() (v int32) {
+	return p.Order
+}
 func (p *ModelTeacherInfo) SetId(val int32) {
 	p.Id = val
 }
@@ -13510,6 +13574,9 @@ func (p *ModelTeacherInfo) SetIsActive(val int32) {
 func (p *ModelTeacherInfo) SetIsExternal(val int32) {
 	p.IsExternal = val
 }
+func (p *ModelTeacherInfo) SetOrder(val int32) {
+	p.Order = val
+}
 
 var fieldIDToName_ModelTeacherInfo = map[int16]string{
 	1:  "id",
@@ -13529,6 +13596,7 @@ var fieldIDToName_ModelTeacherInfo = map[int16]string{
 	15: "id_category",
 	16: "is_active",
 	17: "is_external",
+	18: "order",
 }
 
 func (p *ModelTeacherInfo) Read(iprot thrift.TProtocol) (err error) {
@@ -13681,6 +13749,14 @@ func (p *ModelTeacherInfo) Read(iprot thrift.TProtocol) (err error) {
 		case 17:
 			if fieldTypeId == thrift.I32 {
 				if err = p.ReadField17(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 18:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField18(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -13902,6 +13978,17 @@ func (p *ModelTeacherInfo) ReadField17(iprot thrift.TProtocol) error {
 	p.IsExternal = _field
 	return nil
 }
+func (p *ModelTeacherInfo) ReadField18(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Order = _field
+	return nil
+}
 
 func (p *ModelTeacherInfo) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -13975,6 +14062,10 @@ func (p *ModelTeacherInfo) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField17(oprot); err != nil {
 			fieldId = 17
+			goto WriteFieldError
+		}
+		if err = p.writeField18(oprot); err != nil {
+			fieldId = 18
 			goto WriteFieldError
 		}
 	}
@@ -14284,6 +14375,23 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 17 end error: ", p), err)
 }
 
+func (p *ModelTeacherInfo) writeField18(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("order", thrift.I32, 18); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.Order); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 18 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 18 end error: ", p), err)
+}
+
 func (p *ModelTeacherInfo) String() string {
 	if p == nil {
 		return "<nil>"
@@ -14347,6 +14455,9 @@ func (p *ModelTeacherInfo) DeepEqual(ano *ModelTeacherInfo) bool {
 		return false
 	}
 	if !p.Field17DeepEqual(ano.IsExternal) {
+		return false
+	}
+	if !p.Field18DeepEqual(ano.Order) {
 		return false
 	}
 	return true
@@ -14467,6 +14578,13 @@ func (p *ModelTeacherInfo) Field16DeepEqual(src int32) bool {
 func (p *ModelTeacherInfo) Field17DeepEqual(src int32) bool {
 
 	if p.IsExternal != src {
+		return false
+	}
+	return true
+}
+func (p *ModelTeacherInfo) Field18DeepEqual(src int32) bool {
+
+	if p.Order != src {
 		return false
 	}
 	return true
@@ -15325,6 +15443,8 @@ type UpdateTeacherInfoReq struct {
 	Remunerate    int64  `thrift:"remunerate,7" frugal:"7,default,i64" json:"remunerate"`
 	IdCategory    string `thrift:"id_category,8" frugal:"8,default,string" json:"id_category"`
 	IsExternal    int32  `thrift:"is_external,9" frugal:"9,default,i32" json:"is_external" binding:"required"`
+	Order         int32  `thrift:"order,10" frugal:"10,default,i32" json:"order"`
+	Department    string `thrift:"department,11" frugal:"11,default,string" json:"department"`
 }
 
 func NewUpdateTeacherInfoReq() *UpdateTeacherInfoReq {
@@ -15369,6 +15489,14 @@ func (p *UpdateTeacherInfoReq) GetIdCategory() (v string) {
 func (p *UpdateTeacherInfoReq) GetIsExternal() (v int32) {
 	return p.IsExternal
 }
+
+func (p *UpdateTeacherInfoReq) GetOrder() (v int32) {
+	return p.Order
+}
+
+func (p *UpdateTeacherInfoReq) GetDepartment() (v string) {
+	return p.Department
+}
 func (p *UpdateTeacherInfoReq) SetUid(val int32) {
 	p.Uid = val
 }
@@ -15396,17 +15524,25 @@ func (p *UpdateTeacherInfoReq) SetIdCategory(val string) {
 func (p *UpdateTeacherInfoReq) SetIsExternal(val int32) {
 	p.IsExternal = val
 }
+func (p *UpdateTeacherInfoReq) SetOrder(val int32) {
+	p.Order = val
+}
+func (p *UpdateTeacherInfoReq) SetDepartment(val string) {
+	p.Department = val
+}
 
 var fieldIDToName_UpdateTeacherInfoReq = map[int16]string{
-	1: "uid",
-	2: "office_id",
-	3: "duties",
-	4: "appoint_time",
-	5: "position_level",
-	6: "cposition_time",
-	7: "remunerate",
-	8: "id_category",
-	9: "is_external",
+	1:  "uid",
+	2:  "office_id",
+	3:  "duties",
+	4:  "appoint_time",
+	5:  "position_level",
+	6:  "cposition_time",
+	7:  "remunerate",
+	8:  "id_category",
+	9:  "is_external",
+	10: "order",
+	11: "department",
 }
 
 func (p *UpdateTeacherInfoReq) Read(iprot thrift.TProtocol) (err error) {
@@ -15495,6 +15631,22 @@ func (p *UpdateTeacherInfoReq) Read(iprot thrift.TProtocol) (err error) {
 		case 9:
 			if fieldTypeId == thrift.I32 {
 				if err = p.ReadField9(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 10:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField10(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 11:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField11(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -15628,6 +15780,28 @@ func (p *UpdateTeacherInfoReq) ReadField9(iprot thrift.TProtocol) error {
 	p.IsExternal = _field
 	return nil
 }
+func (p *UpdateTeacherInfoReq) ReadField10(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Order = _field
+	return nil
+}
+func (p *UpdateTeacherInfoReq) ReadField11(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Department = _field
+	return nil
+}
 
 func (p *UpdateTeacherInfoReq) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -15669,6 +15843,14 @@ func (p *UpdateTeacherInfoReq) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField9(oprot); err != nil {
 			fieldId = 9
+			goto WriteFieldError
+		}
+		if err = p.writeField10(oprot); err != nil {
+			fieldId = 10
+			goto WriteFieldError
+		}
+		if err = p.writeField11(oprot); err != nil {
+			fieldId = 11
 			goto WriteFieldError
 		}
 	}
@@ -15842,6 +16024,40 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 9 end error: ", p), err)
 }
 
+func (p *UpdateTeacherInfoReq) writeField10(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("order", thrift.I32, 10); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.Order); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 10 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 10 end error: ", p), err)
+}
+
+func (p *UpdateTeacherInfoReq) writeField11(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("department", thrift.STRING, 11); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Department); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 11 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 11 end error: ", p), err)
+}
+
 func (p *UpdateTeacherInfoReq) String() string {
 	if p == nil {
 		return "<nil>"
@@ -15881,6 +16097,12 @@ func (p *UpdateTeacherInfoReq) DeepEqual(ano *UpdateTeacherInfoReq) bool {
 		return false
 	}
 	if !p.Field9DeepEqual(ano.IsExternal) {
+		return false
+	}
+	if !p.Field10DeepEqual(ano.Order) {
+		return false
+	}
+	if !p.Field11DeepEqual(ano.Department) {
 		return false
 	}
 	return true
@@ -15945,6 +16167,20 @@ func (p *UpdateTeacherInfoReq) Field8DeepEqual(src string) bool {
 func (p *UpdateTeacherInfoReq) Field9DeepEqual(src int32) bool {
 
 	if p.IsExternal != src {
+		return false
+	}
+	return true
+}
+func (p *UpdateTeacherInfoReq) Field10DeepEqual(src int32) bool {
+
+	if p.Order != src {
+		return false
+	}
+	return true
+}
+func (p *UpdateTeacherInfoReq) Field11DeepEqual(src string) bool {
+
+	if strings.Compare(p.Department, src) != 0 {
 		return false
 	}
 	return true
