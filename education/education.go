@@ -14760,9 +14760,9 @@ func (p *GetTeacherInfoListReq) Field1DeepEqual(src *base.ListOption) bool {
 }
 
 type GetTeacherInfoListResp struct {
-	List      []*ModelTeacherInfo `thrift:"list,1" frugal:"1,default,list<ModelTeacherInfo>" json:"list"`
-	Paginate  *base.Paginate      `thrift:"paginate,2" frugal:"2,default,base.Paginate" json:"paginate"`
-	OfficeMap map[int32]string    `thrift:"office_map,3" frugal:"3,default,map<i32:string>" json:"office_map"`
+	List      []*ModelTeacherInfo           `thrift:"list,1" frugal:"1,default,list<ModelTeacherInfo>" json:"list"`
+	Paginate  *base.Paginate                `thrift:"paginate,2" frugal:"2,default,base.Paginate" json:"paginate"`
+	OfficeMap map[int32]*ModelTeacherOffice `thrift:"office_map,3" frugal:"3,default,map<i32:ModelTeacherOffice>" json:"office_map"`
 }
 
 func NewGetTeacherInfoListResp() *GetTeacherInfoListResp {
@@ -14785,7 +14785,7 @@ func (p *GetTeacherInfoListResp) GetPaginate() (v *base.Paginate) {
 	return p.Paginate
 }
 
-func (p *GetTeacherInfoListResp) GetOfficeMap() (v map[int32]string) {
+func (p *GetTeacherInfoListResp) GetOfficeMap() (v map[int32]*ModelTeacherOffice) {
 	return p.OfficeMap
 }
 func (p *GetTeacherInfoListResp) SetList(val []*ModelTeacherInfo) {
@@ -14794,7 +14794,7 @@ func (p *GetTeacherInfoListResp) SetList(val []*ModelTeacherInfo) {
 func (p *GetTeacherInfoListResp) SetPaginate(val *base.Paginate) {
 	p.Paginate = val
 }
-func (p *GetTeacherInfoListResp) SetOfficeMap(val map[int32]string) {
+func (p *GetTeacherInfoListResp) SetOfficeMap(val map[int32]*ModelTeacherOffice) {
 	p.OfficeMap = val
 }
 
@@ -14916,7 +14916,8 @@ func (p *GetTeacherInfoListResp) ReadField3(iprot thrift.TProtocol) error {
 	if err != nil {
 		return err
 	}
-	_field := make(map[int32]string, size)
+	_field := make(map[int32]*ModelTeacherOffice, size)
+	values := make([]ModelTeacherOffice, size)
 	for i := 0; i < size; i++ {
 		var _key int32
 		if v, err := iprot.ReadI32(); err != nil {
@@ -14925,11 +14926,10 @@ func (p *GetTeacherInfoListResp) ReadField3(iprot thrift.TProtocol) error {
 			_key = v
 		}
 
-		var _val string
-		if v, err := iprot.ReadString(); err != nil {
+		_val := &values[i]
+		_val.InitDefault()
+		if err := _val.Read(iprot); err != nil {
 			return err
-		} else {
-			_val = v
 		}
 
 		_field[_key] = _val
@@ -15023,14 +15023,14 @@ func (p *GetTeacherInfoListResp) writeField3(oprot thrift.TProtocol) (err error)
 	if err = oprot.WriteFieldBegin("office_map", thrift.MAP, 3); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteMapBegin(thrift.I32, thrift.STRING, len(p.OfficeMap)); err != nil {
+	if err := oprot.WriteMapBegin(thrift.I32, thrift.STRUCT, len(p.OfficeMap)); err != nil {
 		return err
 	}
 	for k, v := range p.OfficeMap {
 		if err := oprot.WriteI32(k); err != nil {
 			return err
 		}
-		if err := oprot.WriteString(v); err != nil {
+		if err := v.Write(oprot); err != nil {
 			return err
 		}
 	}
@@ -15093,14 +15093,14 @@ func (p *GetTeacherInfoListResp) Field2DeepEqual(src *base.Paginate) bool {
 	}
 	return true
 }
-func (p *GetTeacherInfoListResp) Field3DeepEqual(src map[int32]string) bool {
+func (p *GetTeacherInfoListResp) Field3DeepEqual(src map[int32]*ModelTeacherOffice) bool {
 
 	if len(p.OfficeMap) != len(src) {
 		return false
 	}
 	for k, v := range p.OfficeMap {
 		_src := src[k]
-		if strings.Compare(v, _src) != 0 {
+		if !v.DeepEqual(_src) {
 			return false
 		}
 	}

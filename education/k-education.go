@@ -10054,7 +10054,8 @@ func (p *GetTeacherInfoListResp) FastReadField3(buf []byte) (int, error) {
 	if err != nil {
 		return offset, err
 	}
-	_field := make(map[int32]string, size)
+	_field := make(map[int32]*ModelTeacherOffice, size)
+	values := make([]ModelTeacherOffice, size)
 	for i := 0; i < size; i++ {
 		var _key int32
 		if v, l, err := thrift.Binary.ReadI32(buf[offset:]); err != nil {
@@ -10064,12 +10065,12 @@ func (p *GetTeacherInfoListResp) FastReadField3(buf []byte) (int, error) {
 			_key = v
 		}
 
-		var _val string
-		if v, l, err := thrift.Binary.ReadString(buf[offset:]); err != nil {
+		_val := &values[i]
+		_val.InitDefault()
+		if l, err := _val.FastRead(buf[offset:]); err != nil {
 			return offset, err
 		} else {
 			offset += l
-			_val = v
 		}
 
 		_field[_key] = _val
@@ -10135,9 +10136,9 @@ func (p *GetTeacherInfoListResp) fastWriteField3(buf []byte, w thrift.NocopyWrit
 	for k, v := range p.OfficeMap {
 		length++
 		offset += thrift.Binary.WriteI32(buf[offset:], k)
-		offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, v)
+		offset += v.FastWriteNocopy(buf[offset:], w)
 	}
-	thrift.Binary.WriteMapBegin(buf[mapBeginOffset:], thrift.I32, thrift.STRING, length)
+	thrift.Binary.WriteMapBegin(buf[mapBeginOffset:], thrift.I32, thrift.STRUCT, length)
 	return offset
 }
 
@@ -10167,7 +10168,7 @@ func (p *GetTeacherInfoListResp) field3Length() int {
 		_, _ = k, v
 
 		l += thrift.Binary.I32Length()
-		l += thrift.Binary.StringLengthNocopy(v)
+		l += v.BLength()
 	}
 	return l
 }
