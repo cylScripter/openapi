@@ -34,6 +34,7 @@ type Client interface {
 	ImportCourseApply(ctx context.Context, req *education.ImportCourseApplyReq, callOptions ...callopt.Option) (r *education.ImportCourseApplyResp, err error)
 	GetCourseApplyList(ctx context.Context, req *education.GetCourseApplyListReq, callOptions ...callopt.Option) (r *education.GetCourseApplyListResp, err error)
 	GetSelfCourseApplyList(ctx context.Context, req *education.GetSelfCourseApplyListReq, callOptions ...callopt.Option) (r *education.GetSelfCourseApplyListResp, err error)
+	ImportUser(ctx context.Context, req *education.ImportUserReq, callOptions ...callopt.Option) (r *education.ImportUserResp, err error)
 	DeleteCourseApply(ctx context.Context, req *education.DeleteCourseApplyReq, callOptions ...callopt.Option) (r *education.DeleteCourseApplyResp, err error)
 	ApproveCourseApply(ctx context.Context, req *education.ApproveCourseApplyReq, callOptions ...callopt.Option) (r *education.ApproveCourseApplyResp, err error)
 	ResetCourseApply(ctx context.Context, req *education.ResetCourseApplyReq, callOptions ...callopt.Option) (r *education.ResetCourseApplyResp, err error)
@@ -46,6 +47,11 @@ type Client interface {
 	ExportCourseApplySummary(ctx context.Context, req *education.ExportCourseApplySummaryReq, callOptions ...callopt.Option) (r *education.ExportCourseApplySummaryResp, err error)
 	OneKeyApproveCourseApply(ctx context.Context, req *education.OneKeyApproveCourseApplyReq, callOptions ...callopt.Option) (r *education.OneKeyApproveCourseApplyResp, err error)
 	GetSelectData(ctx context.Context, req *education.GetSelectDataReq, callOptions ...callopt.Option) (r *education.GetSelectDataResp, err error)
+	GetTeacherInfoList(ctx context.Context, req *education.GetTeacherInfoListReq, callOptions ...callopt.Option) (r *education.GetTeacherInfoListResp, err error)
+	ImportTeacherInfo(ctx context.Context, req *education.ImportTeacherInfoReq, callOptions ...callopt.Option) (r *education.ImportTeacherInfoResp, err error)
+	UpdateTeacherInfo(ctx context.Context, req *education.UpdateTeacherInfoReq, callOptions ...callopt.Option) (r *education.UpdateTeacherInfoResp, err error)
+	SetTeacherInfoStatus(ctx context.Context, req *education.SetTeacherInfoStatusReq, callOptions ...callopt.Option) (r *education.SetTeacherInfoStatusResp, err error)
+	SyncTeacherInfo(ctx context.Context, req *education.SyncTeacherInfoReq, callOptions ...callopt.Option) (r *education.SyncTeacherInfoResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -192,6 +198,11 @@ func (p *kEducationserviceClient) GetSelfCourseApplyList(ctx context.Context, re
 	return p.kClient.GetSelfCourseApplyList(ctx, req)
 }
 
+func (p *kEducationserviceClient) ImportUser(ctx context.Context, req *education.ImportUserReq, callOptions ...callopt.Option) (r *education.ImportUserResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ImportUser(ctx, req)
+}
+
 func (p *kEducationserviceClient) DeleteCourseApply(ctx context.Context, req *education.DeleteCourseApplyReq, callOptions ...callopt.Option) (r *education.DeleteCourseApplyResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.DeleteCourseApply(ctx, req)
@@ -250,4 +261,29 @@ func (p *kEducationserviceClient) OneKeyApproveCourseApply(ctx context.Context, 
 func (p *kEducationserviceClient) GetSelectData(ctx context.Context, req *education.GetSelectDataReq, callOptions ...callopt.Option) (r *education.GetSelectDataResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.GetSelectData(ctx, req)
+}
+
+func (p *kEducationserviceClient) GetTeacherInfoList(ctx context.Context, req *education.GetTeacherInfoListReq, callOptions ...callopt.Option) (r *education.GetTeacherInfoListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetTeacherInfoList(ctx, req)
+}
+
+func (p *kEducationserviceClient) ImportTeacherInfo(ctx context.Context, req *education.ImportTeacherInfoReq, callOptions ...callopt.Option) (r *education.ImportTeacherInfoResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ImportTeacherInfo(ctx, req)
+}
+
+func (p *kEducationserviceClient) UpdateTeacherInfo(ctx context.Context, req *education.UpdateTeacherInfoReq, callOptions ...callopt.Option) (r *education.UpdateTeacherInfoResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.UpdateTeacherInfo(ctx, req)
+}
+
+func (p *kEducationserviceClient) SetTeacherInfoStatus(ctx context.Context, req *education.SetTeacherInfoStatusReq, callOptions ...callopt.Option) (r *education.SetTeacherInfoStatusResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.SetTeacherInfoStatus(ctx, req)
+}
+
+func (p *kEducationserviceClient) SyncTeacherInfo(ctx context.Context, req *education.SyncTeacherInfoReq, callOptions ...callopt.Option) (r *education.SyncTeacherInfoResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.SyncTeacherInfo(ctx, req)
 }

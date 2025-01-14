@@ -174,6 +174,13 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"ImportUser": kitex.NewMethodInfo(
+		importUserHandler,
+		newEducationserviceImportUserArgs,
+		newEducationserviceImportUserResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 	"DeleteCourseApply": kitex.NewMethodInfo(
 		deleteCourseApplyHandler,
 		newEducationserviceDeleteCourseApplyArgs,
@@ -255,6 +262,41 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		getSelectDataHandler,
 		newEducationserviceGetSelectDataArgs,
 		newEducationserviceGetSelectDataResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetTeacherInfoList": kitex.NewMethodInfo(
+		getTeacherInfoListHandler,
+		newEducationserviceGetTeacherInfoListArgs,
+		newEducationserviceGetTeacherInfoListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"ImportTeacherInfo": kitex.NewMethodInfo(
+		importTeacherInfoHandler,
+		newEducationserviceImportTeacherInfoArgs,
+		newEducationserviceImportTeacherInfoResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"UpdateTeacherInfo": kitex.NewMethodInfo(
+		updateTeacherInfoHandler,
+		newEducationserviceUpdateTeacherInfoArgs,
+		newEducationserviceUpdateTeacherInfoResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"SetTeacherInfoStatus": kitex.NewMethodInfo(
+		setTeacherInfoStatusHandler,
+		newEducationserviceSetTeacherInfoStatusArgs,
+		newEducationserviceSetTeacherInfoStatusResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"SyncTeacherInfo": kitex.NewMethodInfo(
+		syncTeacherInfoHandler,
+		newEducationserviceSyncTeacherInfoArgs,
+		newEducationserviceSyncTeacherInfoResult,
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
@@ -738,6 +780,24 @@ func newEducationserviceGetSelfCourseApplyListResult() interface{} {
 	return education.NewEducationserviceGetSelfCourseApplyListResult()
 }
 
+func importUserHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceImportUserArgs)
+	realResult := result.(*education.EducationserviceImportUserResult)
+	success, err := handler.(education.Educationservice).ImportUser(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceImportUserArgs() interface{} {
+	return education.NewEducationserviceImportUserArgs()
+}
+
+func newEducationserviceImportUserResult() interface{} {
+	return education.NewEducationserviceImportUserResult()
+}
+
 func deleteCourseApplyHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
 	realArg := arg.(*education.EducationserviceDeleteCourseApplyArgs)
 	realResult := result.(*education.EducationserviceDeleteCourseApplyResult)
@@ -952,6 +1012,96 @@ func newEducationserviceGetSelectDataArgs() interface{} {
 
 func newEducationserviceGetSelectDataResult() interface{} {
 	return education.NewEducationserviceGetSelectDataResult()
+}
+
+func getTeacherInfoListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceGetTeacherInfoListArgs)
+	realResult := result.(*education.EducationserviceGetTeacherInfoListResult)
+	success, err := handler.(education.Educationservice).GetTeacherInfoList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceGetTeacherInfoListArgs() interface{} {
+	return education.NewEducationserviceGetTeacherInfoListArgs()
+}
+
+func newEducationserviceGetTeacherInfoListResult() interface{} {
+	return education.NewEducationserviceGetTeacherInfoListResult()
+}
+
+func importTeacherInfoHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceImportTeacherInfoArgs)
+	realResult := result.(*education.EducationserviceImportTeacherInfoResult)
+	success, err := handler.(education.Educationservice).ImportTeacherInfo(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceImportTeacherInfoArgs() interface{} {
+	return education.NewEducationserviceImportTeacherInfoArgs()
+}
+
+func newEducationserviceImportTeacherInfoResult() interface{} {
+	return education.NewEducationserviceImportTeacherInfoResult()
+}
+
+func updateTeacherInfoHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceUpdateTeacherInfoArgs)
+	realResult := result.(*education.EducationserviceUpdateTeacherInfoResult)
+	success, err := handler.(education.Educationservice).UpdateTeacherInfo(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceUpdateTeacherInfoArgs() interface{} {
+	return education.NewEducationserviceUpdateTeacherInfoArgs()
+}
+
+func newEducationserviceUpdateTeacherInfoResult() interface{} {
+	return education.NewEducationserviceUpdateTeacherInfoResult()
+}
+
+func setTeacherInfoStatusHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceSetTeacherInfoStatusArgs)
+	realResult := result.(*education.EducationserviceSetTeacherInfoStatusResult)
+	success, err := handler.(education.Educationservice).SetTeacherInfoStatus(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceSetTeacherInfoStatusArgs() interface{} {
+	return education.NewEducationserviceSetTeacherInfoStatusArgs()
+}
+
+func newEducationserviceSetTeacherInfoStatusResult() interface{} {
+	return education.NewEducationserviceSetTeacherInfoStatusResult()
+}
+
+func syncTeacherInfoHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceSyncTeacherInfoArgs)
+	realResult := result.(*education.EducationserviceSyncTeacherInfoResult)
+	success, err := handler.(education.Educationservice).SyncTeacherInfo(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceSyncTeacherInfoArgs() interface{} {
+	return education.NewEducationserviceSyncTeacherInfoArgs()
+}
+
+func newEducationserviceSyncTeacherInfoResult() interface{} {
+	return education.NewEducationserviceSyncTeacherInfoResult()
 }
 
 type kClient struct {
@@ -1194,6 +1344,16 @@ func (p *kClient) GetSelfCourseApplyList(ctx context.Context, req *education.Get
 	return _result.GetSuccess(), nil
 }
 
+func (p *kClient) ImportUser(ctx context.Context, req *education.ImportUserReq) (r *education.ImportUserResp, err error) {
+	var _args education.EducationserviceImportUserArgs
+	_args.Req = req
+	var _result education.EducationserviceImportUserResult
+	if err = p.c.Call(ctx, "ImportUser", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
 func (p *kClient) DeleteCourseApply(ctx context.Context, req *education.DeleteCourseApplyReq) (r *education.DeleteCourseApplyResp, err error) {
 	var _args education.EducationserviceDeleteCourseApplyArgs
 	_args.Req = req
@@ -1309,6 +1469,56 @@ func (p *kClient) GetSelectData(ctx context.Context, req *education.GetSelectDat
 	_args.Req = req
 	var _result education.EducationserviceGetSelectDataResult
 	if err = p.c.Call(ctx, "GetSelectData", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetTeacherInfoList(ctx context.Context, req *education.GetTeacherInfoListReq) (r *education.GetTeacherInfoListResp, err error) {
+	var _args education.EducationserviceGetTeacherInfoListArgs
+	_args.Req = req
+	var _result education.EducationserviceGetTeacherInfoListResult
+	if err = p.c.Call(ctx, "GetTeacherInfoList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ImportTeacherInfo(ctx context.Context, req *education.ImportTeacherInfoReq) (r *education.ImportTeacherInfoResp, err error) {
+	var _args education.EducationserviceImportTeacherInfoArgs
+	_args.Req = req
+	var _result education.EducationserviceImportTeacherInfoResult
+	if err = p.c.Call(ctx, "ImportTeacherInfo", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) UpdateTeacherInfo(ctx context.Context, req *education.UpdateTeacherInfoReq) (r *education.UpdateTeacherInfoResp, err error) {
+	var _args education.EducationserviceUpdateTeacherInfoArgs
+	_args.Req = req
+	var _result education.EducationserviceUpdateTeacherInfoResult
+	if err = p.c.Call(ctx, "UpdateTeacherInfo", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) SetTeacherInfoStatus(ctx context.Context, req *education.SetTeacherInfoStatusReq) (r *education.SetTeacherInfoStatusResp, err error) {
+	var _args education.EducationserviceSetTeacherInfoStatusArgs
+	_args.Req = req
+	var _result education.EducationserviceSetTeacherInfoStatusResult
+	if err = p.c.Call(ctx, "SetTeacherInfoStatus", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) SyncTeacherInfo(ctx context.Context, req *education.SyncTeacherInfoReq) (r *education.SyncTeacherInfoResp, err error) {
+	var _args education.EducationserviceSyncTeacherInfoArgs
+	_args.Req = req
+	var _result education.EducationserviceSyncTeacherInfoResult
+	if err = p.c.Call(ctx, "SyncTeacherInfo", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

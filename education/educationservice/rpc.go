@@ -121,6 +121,11 @@ func GetSelfCourseApplyList(ctx context.Context, req *education.GetSelfCourseApp
 	return clients.GetSelfCourseApplyList(ctx, req)
 }
 
+func ImportUser(ctx context.Context, req *education.ImportUserReq, callOptions ...client.Option) (resp *education.ImportUserResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.ImportUser(ctx, req)
+}
+
 func DeleteCourseApply(ctx context.Context, req *education.DeleteCourseApplyReq, callOptions ...client.Option) (resp *education.DeleteCourseApplyResp, err error) {
 	clients := MustNewClient("education", callOptions...)
 	return clients.DeleteCourseApply(ctx, req)
@@ -179,4 +184,29 @@ func OneKeyApproveCourseApply(ctx context.Context, req *education.OneKeyApproveC
 func GetSelectData(ctx context.Context, req *education.GetSelectDataReq, callOptions ...client.Option) (resp *education.GetSelectDataResp, err error) {
 	clients := MustNewClient("education", callOptions...)
 	return clients.GetSelectData(ctx, req)
+}
+
+func GetTeacherInfoList(ctx context.Context, req *education.GetTeacherInfoListReq, callOptions ...client.Option) (resp *education.GetTeacherInfoListResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.GetTeacherInfoList(ctx, req)
+}
+
+func ImportTeacherInfo(ctx context.Context, req *education.ImportTeacherInfoReq, callOptions ...client.Option) (resp *education.ImportTeacherInfoResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.ImportTeacherInfo(ctx, req)
+}
+
+func UpdateTeacherInfo(ctx context.Context, req *education.UpdateTeacherInfoReq, callOptions ...client.Option) (resp *education.UpdateTeacherInfoResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.UpdateTeacherInfo(ctx, req)
+}
+
+func SetTeacherInfoStatus(ctx context.Context, req *education.SetTeacherInfoStatusReq, callOptions ...client.Option) (resp *education.SetTeacherInfoStatusResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.SetTeacherInfoStatus(ctx, req)
+}
+
+func SyncTeacherInfo(ctx context.Context, req *education.SyncTeacherInfoReq, callOptions ...client.Option) (resp *education.SyncTeacherInfoResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.SyncTeacherInfo(ctx, req)
 }
