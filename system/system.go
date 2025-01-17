@@ -137,6 +137,58 @@ func (p *ErrorCode) Value() (driver.Value, error) {
 	return int64(*p), nil
 }
 
+type GetAppListResOption int64
+
+const (
+	GetAppListResOption_id           GetAppListResOption = 1
+	GetAppListResOption_school_name  GetAppListResOption = 2
+	GetAppListResOption_created_at   GetAppListResOption = 3
+	GetAppListResOption_college_name GetAppListResOption = 4
+)
+
+func (p GetAppListResOption) String() string {
+	switch p {
+	case GetAppListResOption_id:
+		return "id"
+	case GetAppListResOption_school_name:
+		return "school_name"
+	case GetAppListResOption_created_at:
+		return "created_at"
+	case GetAppListResOption_college_name:
+		return "college_name"
+	}
+	return "<UNSET>"
+}
+
+func GetAppListResOptionFromString(s string) (GetAppListResOption, error) {
+	switch s {
+	case "id":
+		return GetAppListResOption_id, nil
+	case "school_name":
+		return GetAppListResOption_school_name, nil
+	case "created_at":
+		return GetAppListResOption_created_at, nil
+	case "college_name":
+		return GetAppListResOption_college_name, nil
+	}
+	return GetAppListResOption(0), fmt.Errorf("not a valid GetAppListResOption string")
+}
+
+func GetAppListResOptionPtr(v GetAppListResOption) *GetAppListResOption { return &v }
+func (p *GetAppListResOption) Scan(value interface{}) (err error) {
+	var result sql.NullInt64
+	err = result.Scan(value)
+	*p = GetAppListResOption(result.Int64)
+	return
+}
+
+func (p *GetAppListResOption) Value() (driver.Value, error) {
+	if p == nil {
+		return nil, nil
+	}
+	return int64(*p), nil
+}
+
 type GetUserListOption int64
 
 const (
