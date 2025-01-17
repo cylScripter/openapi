@@ -901,6 +901,7 @@ type ModelApp struct {
 	AppKey      string `thrift:"app_key,8" frugal:"8,default,string" gorm:"column:app_key" json:"app_key"`
 	AppSecret   string `thrift:"app_secret,9" frugal:"9,default,string" gorm:"column:app_secret" json:"app_secret"`
 	SchoolCode  int32  `thrift:"school_code,10" frugal:"10,default,i32" gorm:"column:school_code" json:"school_code"`
+	Status      bool   `thrift:"status,11" frugal:"11,default,bool" gorm:"column:status;default:1" json:"status"`
 }
 
 func NewModelApp() *ModelApp {
@@ -945,6 +946,10 @@ func (p *ModelApp) GetAppSecret() (v string) {
 func (p *ModelApp) GetSchoolCode() (v int32) {
 	return p.SchoolCode
 }
+
+func (p *ModelApp) GetStatus() (v bool) {
+	return p.Status
+}
 func (p *ModelApp) SetId(val int32) {
 	p.Id = val
 }
@@ -972,6 +977,9 @@ func (p *ModelApp) SetAppSecret(val string) {
 func (p *ModelApp) SetSchoolCode(val int32) {
 	p.SchoolCode = val
 }
+func (p *ModelApp) SetStatus(val bool) {
+	p.Status = val
+}
 
 var fieldIDToName_ModelApp = map[int16]string{
 	1:  "id",
@@ -983,6 +991,7 @@ var fieldIDToName_ModelApp = map[int16]string{
 	8:  "app_key",
 	9:  "app_secret",
 	10: "school_code",
+	11: "status",
 }
 
 func (p *ModelApp) Read(iprot thrift.TProtocol) (err error) {
@@ -1071,6 +1080,14 @@ func (p *ModelApp) Read(iprot thrift.TProtocol) (err error) {
 		case 10:
 			if fieldTypeId == thrift.I32 {
 				if err = p.ReadField10(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 11:
+			if fieldTypeId == thrift.BOOL {
+				if err = p.ReadField11(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -1204,6 +1221,17 @@ func (p *ModelApp) ReadField10(iprot thrift.TProtocol) error {
 	p.SchoolCode = _field
 	return nil
 }
+func (p *ModelApp) ReadField11(iprot thrift.TProtocol) error {
+
+	var _field bool
+	if v, err := iprot.ReadBool(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Status = _field
+	return nil
+}
 
 func (p *ModelApp) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -1245,6 +1273,10 @@ func (p *ModelApp) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField10(oprot); err != nil {
 			fieldId = 10
+			goto WriteFieldError
+		}
+		if err = p.writeField11(oprot); err != nil {
+			fieldId = 11
 			goto WriteFieldError
 		}
 	}
@@ -1418,6 +1450,23 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 10 end error: ", p), err)
 }
 
+func (p *ModelApp) writeField11(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("status", thrift.BOOL, 11); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteBool(p.Status); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 11 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 11 end error: ", p), err)
+}
+
 func (p *ModelApp) String() string {
 	if p == nil {
 		return "<nil>"
@@ -1457,6 +1506,9 @@ func (p *ModelApp) DeepEqual(ano *ModelApp) bool {
 		return false
 	}
 	if !p.Field10DeepEqual(ano.SchoolCode) {
+		return false
+	}
+	if !p.Field11DeepEqual(ano.Status) {
 		return false
 	}
 	return true
@@ -1521,6 +1573,13 @@ func (p *ModelApp) Field9DeepEqual(src string) bool {
 func (p *ModelApp) Field10DeepEqual(src int32) bool {
 
 	if p.SchoolCode != src {
+		return false
+	}
+	return true
+}
+func (p *ModelApp) Field11DeepEqual(src bool) bool {
+
+	if p.Status != src {
 		return false
 	}
 	return true

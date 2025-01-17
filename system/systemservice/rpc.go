@@ -85,3 +85,8 @@ func DeleteMenu(ctx context.Context, req *system.DeleteMenuReq, callOptions ...c
 	clients := MustNewClient("system", callOptions...)
 	return clients.DeleteMenu(ctx, req)
 }
+
+func GetAppList(ctx context.Context, req *system.GetAppListReq, callOptions ...client.Option) (resp *system.GetAppListResp, err error) {
+	clients := MustNewClient("system", callOptions...)
+	return clients.GetAppList(ctx, req)
+}

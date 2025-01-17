@@ -125,6 +125,13 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"GetAppList": kitex.NewMethodInfo(
+		getAppListHandler,
+		newSystemserviceGetAppListArgs,
+		newSystemserviceGetAppListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -479,6 +486,24 @@ func newSystemserviceDeleteMenuResult() interface{} {
 	return system.NewSystemserviceDeleteMenuResult()
 }
 
+func getAppListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*system.SystemserviceGetAppListArgs)
+	realResult := result.(*system.SystemserviceGetAppListResult)
+	success, err := handler.(system.Systemservice).GetAppList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newSystemserviceGetAppListArgs() interface{} {
+	return system.NewSystemserviceGetAppListArgs()
+}
+
+func newSystemserviceGetAppListResult() interface{} {
+	return system.NewSystemserviceGetAppListResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -644,6 +669,16 @@ func (p *kClient) DeleteMenu(ctx context.Context, req *system.DeleteMenuReq) (r 
 	_args.Req = req
 	var _result system.SystemserviceDeleteMenuResult
 	if err = p.c.Call(ctx, "DeleteMenu", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetAppList(ctx context.Context, req *system.GetAppListReq) (r *system.GetAppListResp, err error) {
+	var _args system.SystemserviceGetAppListArgs
+	_args.Req = req
+	var _result system.SystemserviceGetAppListResult
+	if err = p.c.Call(ctx, "GetAppList", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
