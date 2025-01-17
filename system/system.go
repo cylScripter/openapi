@@ -137,52 +137,52 @@ func (p *ErrorCode) Value() (driver.Value, error) {
 	return int64(*p), nil
 }
 
-type GetAppListResOption int64
+type GetAppListReqOption int64
 
 const (
-	GetAppListResOption_id           GetAppListResOption = 1
-	GetAppListResOption_school_name  GetAppListResOption = 2
-	GetAppListResOption_created_at   GetAppListResOption = 3
-	GetAppListResOption_college_name GetAppListResOption = 4
+	GetAppListReqOption_id           GetAppListReqOption = 1
+	GetAppListReqOption_school_name  GetAppListReqOption = 2
+	GetAppListReqOption_created_at   GetAppListReqOption = 3
+	GetAppListReqOption_college_name GetAppListReqOption = 4
 )
 
-func (p GetAppListResOption) String() string {
+func (p GetAppListReqOption) String() string {
 	switch p {
-	case GetAppListResOption_id:
+	case GetAppListReqOption_id:
 		return "id"
-	case GetAppListResOption_school_name:
+	case GetAppListReqOption_school_name:
 		return "school_name"
-	case GetAppListResOption_created_at:
+	case GetAppListReqOption_created_at:
 		return "created_at"
-	case GetAppListResOption_college_name:
+	case GetAppListReqOption_college_name:
 		return "college_name"
 	}
 	return "<UNSET>"
 }
 
-func GetAppListResOptionFromString(s string) (GetAppListResOption, error) {
+func GetAppListReqOptionFromString(s string) (GetAppListReqOption, error) {
 	switch s {
 	case "id":
-		return GetAppListResOption_id, nil
+		return GetAppListReqOption_id, nil
 	case "school_name":
-		return GetAppListResOption_school_name, nil
+		return GetAppListReqOption_school_name, nil
 	case "created_at":
-		return GetAppListResOption_created_at, nil
+		return GetAppListReqOption_created_at, nil
 	case "college_name":
-		return GetAppListResOption_college_name, nil
+		return GetAppListReqOption_college_name, nil
 	}
-	return GetAppListResOption(0), fmt.Errorf("not a valid GetAppListResOption string")
+	return GetAppListReqOption(0), fmt.Errorf("not a valid GetAppListReqOption string")
 }
 
-func GetAppListResOptionPtr(v GetAppListResOption) *GetAppListResOption { return &v }
-func (p *GetAppListResOption) Scan(value interface{}) (err error) {
+func GetAppListReqOptionPtr(v GetAppListReqOption) *GetAppListReqOption { return &v }
+func (p *GetAppListReqOption) Scan(value interface{}) (err error) {
 	var result sql.NullInt64
 	err = result.Scan(value)
-	*p = GetAppListResOption(result.Int64)
+	*p = GetAppListReqOption(result.Int64)
 	return
 }
 
-func (p *GetAppListResOption) Value() (driver.Value, error) {
+func (p *GetAppListReqOption) Value() (driver.Value, error) {
 	if p == nil {
 		return nil, nil
 	}
