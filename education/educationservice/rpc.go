@@ -220,3 +220,8 @@ func DeleteMenu(ctx context.Context, req *education.DeleteMenuReq, callOptions .
 	clients := MustNewClient("education", callOptions...)
 	return clients.DeleteMenu(ctx, req)
 }
+
+func GetToken(ctx context.Context, req *education.GetTokenReq, callOptions ...client.Option) (resp *education.GetTokenResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.GetToken(ctx, req)
+}

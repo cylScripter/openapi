@@ -90,3 +90,73 @@ func GetAppList(ctx context.Context, req *system.GetAppListReq, callOptions ...c
 	clients := MustNewClient("system", callOptions...)
 	return clients.GetAppList(ctx, req)
 }
+
+func CreateApp(ctx context.Context, req *system.CreateAppReq, callOptions ...client.Option) (resp *system.CreateAppResp, err error) {
+	clients := MustNewClient("system", callOptions...)
+	return clients.CreateApp(ctx, req)
+}
+
+func GetApp(ctx context.Context, req *system.GetAppReq, callOptions ...client.Option) (resp *system.GetAppResp, err error) {
+	clients := MustNewClient("system", callOptions...)
+	return clients.GetApp(ctx, req)
+}
+
+func CreateEduUser(ctx context.Context, req *system.CreateEduUserReq, callOptions ...client.Option) (resp *system.CreateEduUserResp, err error) {
+	clients := MustNewClient("system", callOptions...)
+	return clients.CreateEduUser(ctx, req)
+}
+
+func GetEduUserList(ctx context.Context, req *system.GetEduUserListReq, callOptions ...client.Option) (resp *system.GetEduUserListResp, err error) {
+	clients := MustNewClient("system", callOptions...)
+	return clients.GetEduUserList(ctx, req)
+}
+
+func GetPassword(ctx context.Context, req *system.GetPasswordReq, callOptions ...client.Option) (resp *system.GetPasswordResp, err error) {
+	clients := MustNewClient("system", callOptions...)
+	return clients.GetPassword(ctx, req)
+}
+
+func SetAppRoleMenu(ctx context.Context, req *system.SetAppRoleMenuReq, callOptions ...client.Option) (resp *system.SetAppRoleMenuResp, err error) {
+	clients := MustNewClient("system", callOptions...)
+	return clients.SetAppRoleMenu(ctx, req)
+}
+
+func GetEduMenuList(ctx context.Context, req *system.GetEduMenuListReq, callOptions ...client.Option) (resp *system.GetEduMenuListResp, err error) {
+	clients := MustNewClient("system", callOptions...)
+	return clients.GetEduMenuList(ctx, req)
+}
+
+func CreateEduMenu(ctx context.Context, req *system.CreateEduMenuReq, callOptions ...client.Option) (resp *system.CreateEduMenuResp, err error) {
+	clients := MustNewClient("system", callOptions...)
+	return clients.CreateEduMenu(ctx, req)
+}
+
+func UpdateEduMenu(ctx context.Context, req *system.UpdateEduMenuReq, callOptions ...client.Option) (resp *system.UpdateEduMenuResp, err error) {
+	clients := MustNewClient("system", callOptions...)
+	return clients.UpdateEduMenu(ctx, req)
+}
+
+func DeleteEduMenu(ctx context.Context, req *system.DeleteEduMenuReq, callOptions ...client.Option) (resp *system.DeleteEduMenuResp, err error) {
+	clients := MustNewClient("system", callOptions...)
+	return clients.DeleteEduMenu(ctx, req)
+}
+
+func DeleteApp(ctx context.Context, req *system.DeleteAppReq, callOptions ...client.Option) (resp *system.DeleteAppResp, err error) {
+	clients := MustNewClient("system", callOptions...)
+	return clients.DeleteApp(ctx, req)
+}
+
+func SetAppStatus(ctx context.Context, req *system.SetAppStatusReq, callOptions ...client.Option) (resp *system.SetAppStatusResp, err error) {
+	clients := MustNewClient("system", callOptions...)
+	return clients.SetAppStatus(ctx, req)
+}
+
+func SetEduMenuStatus(ctx context.Context, req *system.SetEduMenuStatusReq, callOptions ...client.Option) (resp *system.SetEduMenuStatusResp, err error) {
+	clients := MustNewClient("system", callOptions...)
+	return clients.SetEduMenuStatus(ctx, req)
+}
+
+func GetOperationLogsList(ctx context.Context, req *system.GetOperationLogsListReq, callOptions ...client.Option) (resp *system.GetOperationLogsListResp, err error) {
+	clients := MustNewClient("system", callOptions...)
+	return clients.GetOperationLogsList(ctx, req)
+}

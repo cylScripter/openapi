@@ -28,6 +28,20 @@ type Client interface {
 	GetApiList(ctx context.Context, req *system.GetApiListReq, callOptions ...callopt.Option) (r *system.GetApiListResp, err error)
 	DeleteMenu(ctx context.Context, req *system.DeleteMenuReq, callOptions ...callopt.Option) (r *system.DeleteMenuResp, err error)
 	GetAppList(ctx context.Context, req *system.GetAppListReq, callOptions ...callopt.Option) (r *system.GetAppListResp, err error)
+	CreateApp(ctx context.Context, req *system.CreateAppReq, callOptions ...callopt.Option) (r *system.CreateAppResp, err error)
+	GetApp(ctx context.Context, req *system.GetAppReq, callOptions ...callopt.Option) (r *system.GetAppResp, err error)
+	CreateEduUser(ctx context.Context, req *system.CreateEduUserReq, callOptions ...callopt.Option) (r *system.CreateEduUserResp, err error)
+	GetEduUserList(ctx context.Context, req *system.GetEduUserListReq, callOptions ...callopt.Option) (r *system.GetEduUserListResp, err error)
+	GetPassword(ctx context.Context, req *system.GetPasswordReq, callOptions ...callopt.Option) (r *system.GetPasswordResp, err error)
+	SetAppRoleMenu(ctx context.Context, req *system.SetAppRoleMenuReq, callOptions ...callopt.Option) (r *system.SetAppRoleMenuResp, err error)
+	GetEduMenuList(ctx context.Context, req *system.GetEduMenuListReq, callOptions ...callopt.Option) (r *system.GetEduMenuListResp, err error)
+	CreateEduMenu(ctx context.Context, req *system.CreateEduMenuReq, callOptions ...callopt.Option) (r *system.CreateEduMenuResp, err error)
+	UpdateEduMenu(ctx context.Context, req *system.UpdateEduMenuReq, callOptions ...callopt.Option) (r *system.UpdateEduMenuResp, err error)
+	DeleteEduMenu(ctx context.Context, req *system.DeleteEduMenuReq, callOptions ...callopt.Option) (r *system.DeleteEduMenuResp, err error)
+	DeleteApp(ctx context.Context, req *system.DeleteAppReq, callOptions ...callopt.Option) (r *system.DeleteAppResp, err error)
+	SetAppStatus(ctx context.Context, req *system.SetAppStatusReq, callOptions ...callopt.Option) (r *system.SetAppStatusResp, err error)
+	SetEduMenuStatus(ctx context.Context, req *system.SetEduMenuStatusReq, callOptions ...callopt.Option) (r *system.SetEduMenuStatusResp, err error)
+	GetOperationLogsList(ctx context.Context, req *system.GetOperationLogsListReq, callOptions ...callopt.Option) (r *system.GetOperationLogsListResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -142,4 +156,74 @@ func (p *kSystemserviceClient) DeleteMenu(ctx context.Context, req *system.Delet
 func (p *kSystemserviceClient) GetAppList(ctx context.Context, req *system.GetAppListReq, callOptions ...callopt.Option) (r *system.GetAppListResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.GetAppList(ctx, req)
+}
+
+func (p *kSystemserviceClient) CreateApp(ctx context.Context, req *system.CreateAppReq, callOptions ...callopt.Option) (r *system.CreateAppResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.CreateApp(ctx, req)
+}
+
+func (p *kSystemserviceClient) GetApp(ctx context.Context, req *system.GetAppReq, callOptions ...callopt.Option) (r *system.GetAppResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetApp(ctx, req)
+}
+
+func (p *kSystemserviceClient) CreateEduUser(ctx context.Context, req *system.CreateEduUserReq, callOptions ...callopt.Option) (r *system.CreateEduUserResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.CreateEduUser(ctx, req)
+}
+
+func (p *kSystemserviceClient) GetEduUserList(ctx context.Context, req *system.GetEduUserListReq, callOptions ...callopt.Option) (r *system.GetEduUserListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetEduUserList(ctx, req)
+}
+
+func (p *kSystemserviceClient) GetPassword(ctx context.Context, req *system.GetPasswordReq, callOptions ...callopt.Option) (r *system.GetPasswordResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetPassword(ctx, req)
+}
+
+func (p *kSystemserviceClient) SetAppRoleMenu(ctx context.Context, req *system.SetAppRoleMenuReq, callOptions ...callopt.Option) (r *system.SetAppRoleMenuResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.SetAppRoleMenu(ctx, req)
+}
+
+func (p *kSystemserviceClient) GetEduMenuList(ctx context.Context, req *system.GetEduMenuListReq, callOptions ...callopt.Option) (r *system.GetEduMenuListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetEduMenuList(ctx, req)
+}
+
+func (p *kSystemserviceClient) CreateEduMenu(ctx context.Context, req *system.CreateEduMenuReq, callOptions ...callopt.Option) (r *system.CreateEduMenuResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.CreateEduMenu(ctx, req)
+}
+
+func (p *kSystemserviceClient) UpdateEduMenu(ctx context.Context, req *system.UpdateEduMenuReq, callOptions ...callopt.Option) (r *system.UpdateEduMenuResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.UpdateEduMenu(ctx, req)
+}
+
+func (p *kSystemserviceClient) DeleteEduMenu(ctx context.Context, req *system.DeleteEduMenuReq, callOptions ...callopt.Option) (r *system.DeleteEduMenuResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.DeleteEduMenu(ctx, req)
+}
+
+func (p *kSystemserviceClient) DeleteApp(ctx context.Context, req *system.DeleteAppReq, callOptions ...callopt.Option) (r *system.DeleteAppResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.DeleteApp(ctx, req)
+}
+
+func (p *kSystemserviceClient) SetAppStatus(ctx context.Context, req *system.SetAppStatusReq, callOptions ...callopt.Option) (r *system.SetAppStatusResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.SetAppStatus(ctx, req)
+}
+
+func (p *kSystemserviceClient) SetEduMenuStatus(ctx context.Context, req *system.SetEduMenuStatusReq, callOptions ...callopt.Option) (r *system.SetEduMenuStatusResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.SetEduMenuStatus(ctx, req)
+}
+
+func (p *kSystemserviceClient) GetOperationLogsList(ctx context.Context, req *system.GetOperationLogsListReq, callOptions ...callopt.Option) (r *system.GetOperationLogsListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetOperationLogsList(ctx, req)
 }

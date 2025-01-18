@@ -314,6 +314,13 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"GetToken": kitex.NewMethodInfo(
+		getTokenHandler,
+		newEducationserviceGetTokenArgs,
+		newEducationserviceGetTokenResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -1154,6 +1161,24 @@ func newEducationserviceDeleteMenuResult() interface{} {
 	return education.NewEducationserviceDeleteMenuResult()
 }
 
+func getTokenHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceGetTokenArgs)
+	realResult := result.(*education.EducationserviceGetTokenResult)
+	success, err := handler.(education.Educationservice).GetToken(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceGetTokenArgs() interface{} {
+	return education.NewEducationserviceGetTokenArgs()
+}
+
+func newEducationserviceGetTokenResult() interface{} {
+	return education.NewEducationserviceGetTokenResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -1589,6 +1614,16 @@ func (p *kClient) DeleteMenu(ctx context.Context, req *education.DeleteMenuReq) 
 	_args.Req = req
 	var _result education.EducationserviceDeleteMenuResult
 	if err = p.c.Call(ctx, "DeleteMenu", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetToken(ctx context.Context, req *education.GetTokenReq) (r *education.GetTokenResp, err error) {
+	var _args education.EducationserviceGetTokenArgs
+	_args.Req = req
+	var _result education.EducationserviceGetTokenResult
+	if err = p.c.Call(ctx, "GetToken", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

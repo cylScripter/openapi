@@ -132,6 +132,104 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"CreateApp": kitex.NewMethodInfo(
+		createAppHandler,
+		newSystemserviceCreateAppArgs,
+		newSystemserviceCreateAppResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetApp": kitex.NewMethodInfo(
+		getAppHandler,
+		newSystemserviceGetAppArgs,
+		newSystemserviceGetAppResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"CreateEduUser": kitex.NewMethodInfo(
+		createEduUserHandler,
+		newSystemserviceCreateEduUserArgs,
+		newSystemserviceCreateEduUserResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetEduUserList": kitex.NewMethodInfo(
+		getEduUserListHandler,
+		newSystemserviceGetEduUserListArgs,
+		newSystemserviceGetEduUserListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetPassword": kitex.NewMethodInfo(
+		getPasswordHandler,
+		newSystemserviceGetPasswordArgs,
+		newSystemserviceGetPasswordResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"SetAppRoleMenu": kitex.NewMethodInfo(
+		setAppRoleMenuHandler,
+		newSystemserviceSetAppRoleMenuArgs,
+		newSystemserviceSetAppRoleMenuResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetEduMenuList": kitex.NewMethodInfo(
+		getEduMenuListHandler,
+		newSystemserviceGetEduMenuListArgs,
+		newSystemserviceGetEduMenuListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"CreateEduMenu": kitex.NewMethodInfo(
+		createEduMenuHandler,
+		newSystemserviceCreateEduMenuArgs,
+		newSystemserviceCreateEduMenuResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"UpdateEduMenu": kitex.NewMethodInfo(
+		updateEduMenuHandler,
+		newSystemserviceUpdateEduMenuArgs,
+		newSystemserviceUpdateEduMenuResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"DeleteEduMenu": kitex.NewMethodInfo(
+		deleteEduMenuHandler,
+		newSystemserviceDeleteEduMenuArgs,
+		newSystemserviceDeleteEduMenuResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"DeleteApp": kitex.NewMethodInfo(
+		deleteAppHandler,
+		newSystemserviceDeleteAppArgs,
+		newSystemserviceDeleteAppResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"SetAppStatus": kitex.NewMethodInfo(
+		setAppStatusHandler,
+		newSystemserviceSetAppStatusArgs,
+		newSystemserviceSetAppStatusResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"SetEduMenuStatus": kitex.NewMethodInfo(
+		setEduMenuStatusHandler,
+		newSystemserviceSetEduMenuStatusArgs,
+		newSystemserviceSetEduMenuStatusResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetOperationLogsList": kitex.NewMethodInfo(
+		getOperationLogsListHandler,
+		newSystemserviceGetOperationLogsListArgs,
+		newSystemserviceGetOperationLogsListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -504,6 +602,258 @@ func newSystemserviceGetAppListResult() interface{} {
 	return system.NewSystemserviceGetAppListResult()
 }
 
+func createAppHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*system.SystemserviceCreateAppArgs)
+	realResult := result.(*system.SystemserviceCreateAppResult)
+	success, err := handler.(system.Systemservice).CreateApp(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newSystemserviceCreateAppArgs() interface{} {
+	return system.NewSystemserviceCreateAppArgs()
+}
+
+func newSystemserviceCreateAppResult() interface{} {
+	return system.NewSystemserviceCreateAppResult()
+}
+
+func getAppHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*system.SystemserviceGetAppArgs)
+	realResult := result.(*system.SystemserviceGetAppResult)
+	success, err := handler.(system.Systemservice).GetApp(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newSystemserviceGetAppArgs() interface{} {
+	return system.NewSystemserviceGetAppArgs()
+}
+
+func newSystemserviceGetAppResult() interface{} {
+	return system.NewSystemserviceGetAppResult()
+}
+
+func createEduUserHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*system.SystemserviceCreateEduUserArgs)
+	realResult := result.(*system.SystemserviceCreateEduUserResult)
+	success, err := handler.(system.Systemservice).CreateEduUser(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newSystemserviceCreateEduUserArgs() interface{} {
+	return system.NewSystemserviceCreateEduUserArgs()
+}
+
+func newSystemserviceCreateEduUserResult() interface{} {
+	return system.NewSystemserviceCreateEduUserResult()
+}
+
+func getEduUserListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*system.SystemserviceGetEduUserListArgs)
+	realResult := result.(*system.SystemserviceGetEduUserListResult)
+	success, err := handler.(system.Systemservice).GetEduUserList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newSystemserviceGetEduUserListArgs() interface{} {
+	return system.NewSystemserviceGetEduUserListArgs()
+}
+
+func newSystemserviceGetEduUserListResult() interface{} {
+	return system.NewSystemserviceGetEduUserListResult()
+}
+
+func getPasswordHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*system.SystemserviceGetPasswordArgs)
+	realResult := result.(*system.SystemserviceGetPasswordResult)
+	success, err := handler.(system.Systemservice).GetPassword(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newSystemserviceGetPasswordArgs() interface{} {
+	return system.NewSystemserviceGetPasswordArgs()
+}
+
+func newSystemserviceGetPasswordResult() interface{} {
+	return system.NewSystemserviceGetPasswordResult()
+}
+
+func setAppRoleMenuHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*system.SystemserviceSetAppRoleMenuArgs)
+	realResult := result.(*system.SystemserviceSetAppRoleMenuResult)
+	success, err := handler.(system.Systemservice).SetAppRoleMenu(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newSystemserviceSetAppRoleMenuArgs() interface{} {
+	return system.NewSystemserviceSetAppRoleMenuArgs()
+}
+
+func newSystemserviceSetAppRoleMenuResult() interface{} {
+	return system.NewSystemserviceSetAppRoleMenuResult()
+}
+
+func getEduMenuListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*system.SystemserviceGetEduMenuListArgs)
+	realResult := result.(*system.SystemserviceGetEduMenuListResult)
+	success, err := handler.(system.Systemservice).GetEduMenuList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newSystemserviceGetEduMenuListArgs() interface{} {
+	return system.NewSystemserviceGetEduMenuListArgs()
+}
+
+func newSystemserviceGetEduMenuListResult() interface{} {
+	return system.NewSystemserviceGetEduMenuListResult()
+}
+
+func createEduMenuHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*system.SystemserviceCreateEduMenuArgs)
+	realResult := result.(*system.SystemserviceCreateEduMenuResult)
+	success, err := handler.(system.Systemservice).CreateEduMenu(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newSystemserviceCreateEduMenuArgs() interface{} {
+	return system.NewSystemserviceCreateEduMenuArgs()
+}
+
+func newSystemserviceCreateEduMenuResult() interface{} {
+	return system.NewSystemserviceCreateEduMenuResult()
+}
+
+func updateEduMenuHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*system.SystemserviceUpdateEduMenuArgs)
+	realResult := result.(*system.SystemserviceUpdateEduMenuResult)
+	success, err := handler.(system.Systemservice).UpdateEduMenu(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newSystemserviceUpdateEduMenuArgs() interface{} {
+	return system.NewSystemserviceUpdateEduMenuArgs()
+}
+
+func newSystemserviceUpdateEduMenuResult() interface{} {
+	return system.NewSystemserviceUpdateEduMenuResult()
+}
+
+func deleteEduMenuHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*system.SystemserviceDeleteEduMenuArgs)
+	realResult := result.(*system.SystemserviceDeleteEduMenuResult)
+	success, err := handler.(system.Systemservice).DeleteEduMenu(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newSystemserviceDeleteEduMenuArgs() interface{} {
+	return system.NewSystemserviceDeleteEduMenuArgs()
+}
+
+func newSystemserviceDeleteEduMenuResult() interface{} {
+	return system.NewSystemserviceDeleteEduMenuResult()
+}
+
+func deleteAppHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*system.SystemserviceDeleteAppArgs)
+	realResult := result.(*system.SystemserviceDeleteAppResult)
+	success, err := handler.(system.Systemservice).DeleteApp(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newSystemserviceDeleteAppArgs() interface{} {
+	return system.NewSystemserviceDeleteAppArgs()
+}
+
+func newSystemserviceDeleteAppResult() interface{} {
+	return system.NewSystemserviceDeleteAppResult()
+}
+
+func setAppStatusHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*system.SystemserviceSetAppStatusArgs)
+	realResult := result.(*system.SystemserviceSetAppStatusResult)
+	success, err := handler.(system.Systemservice).SetAppStatus(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newSystemserviceSetAppStatusArgs() interface{} {
+	return system.NewSystemserviceSetAppStatusArgs()
+}
+
+func newSystemserviceSetAppStatusResult() interface{} {
+	return system.NewSystemserviceSetAppStatusResult()
+}
+
+func setEduMenuStatusHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*system.SystemserviceSetEduMenuStatusArgs)
+	realResult := result.(*system.SystemserviceSetEduMenuStatusResult)
+	success, err := handler.(system.Systemservice).SetEduMenuStatus(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newSystemserviceSetEduMenuStatusArgs() interface{} {
+	return system.NewSystemserviceSetEduMenuStatusArgs()
+}
+
+func newSystemserviceSetEduMenuStatusResult() interface{} {
+	return system.NewSystemserviceSetEduMenuStatusResult()
+}
+
+func getOperationLogsListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*system.SystemserviceGetOperationLogsListArgs)
+	realResult := result.(*system.SystemserviceGetOperationLogsListResult)
+	success, err := handler.(system.Systemservice).GetOperationLogsList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newSystemserviceGetOperationLogsListArgs() interface{} {
+	return system.NewSystemserviceGetOperationLogsListArgs()
+}
+
+func newSystemserviceGetOperationLogsListResult() interface{} {
+	return system.NewSystemserviceGetOperationLogsListResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -679,6 +1029,146 @@ func (p *kClient) GetAppList(ctx context.Context, req *system.GetAppListReq) (r 
 	_args.Req = req
 	var _result system.SystemserviceGetAppListResult
 	if err = p.c.Call(ctx, "GetAppList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) CreateApp(ctx context.Context, req *system.CreateAppReq) (r *system.CreateAppResp, err error) {
+	var _args system.SystemserviceCreateAppArgs
+	_args.Req = req
+	var _result system.SystemserviceCreateAppResult
+	if err = p.c.Call(ctx, "CreateApp", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetApp(ctx context.Context, req *system.GetAppReq) (r *system.GetAppResp, err error) {
+	var _args system.SystemserviceGetAppArgs
+	_args.Req = req
+	var _result system.SystemserviceGetAppResult
+	if err = p.c.Call(ctx, "GetApp", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) CreateEduUser(ctx context.Context, req *system.CreateEduUserReq) (r *system.CreateEduUserResp, err error) {
+	var _args system.SystemserviceCreateEduUserArgs
+	_args.Req = req
+	var _result system.SystemserviceCreateEduUserResult
+	if err = p.c.Call(ctx, "CreateEduUser", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetEduUserList(ctx context.Context, req *system.GetEduUserListReq) (r *system.GetEduUserListResp, err error) {
+	var _args system.SystemserviceGetEduUserListArgs
+	_args.Req = req
+	var _result system.SystemserviceGetEduUserListResult
+	if err = p.c.Call(ctx, "GetEduUserList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetPassword(ctx context.Context, req *system.GetPasswordReq) (r *system.GetPasswordResp, err error) {
+	var _args system.SystemserviceGetPasswordArgs
+	_args.Req = req
+	var _result system.SystemserviceGetPasswordResult
+	if err = p.c.Call(ctx, "GetPassword", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) SetAppRoleMenu(ctx context.Context, req *system.SetAppRoleMenuReq) (r *system.SetAppRoleMenuResp, err error) {
+	var _args system.SystemserviceSetAppRoleMenuArgs
+	_args.Req = req
+	var _result system.SystemserviceSetAppRoleMenuResult
+	if err = p.c.Call(ctx, "SetAppRoleMenu", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetEduMenuList(ctx context.Context, req *system.GetEduMenuListReq) (r *system.GetEduMenuListResp, err error) {
+	var _args system.SystemserviceGetEduMenuListArgs
+	_args.Req = req
+	var _result system.SystemserviceGetEduMenuListResult
+	if err = p.c.Call(ctx, "GetEduMenuList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) CreateEduMenu(ctx context.Context, req *system.CreateEduMenuReq) (r *system.CreateEduMenuResp, err error) {
+	var _args system.SystemserviceCreateEduMenuArgs
+	_args.Req = req
+	var _result system.SystemserviceCreateEduMenuResult
+	if err = p.c.Call(ctx, "CreateEduMenu", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) UpdateEduMenu(ctx context.Context, req *system.UpdateEduMenuReq) (r *system.UpdateEduMenuResp, err error) {
+	var _args system.SystemserviceUpdateEduMenuArgs
+	_args.Req = req
+	var _result system.SystemserviceUpdateEduMenuResult
+	if err = p.c.Call(ctx, "UpdateEduMenu", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) DeleteEduMenu(ctx context.Context, req *system.DeleteEduMenuReq) (r *system.DeleteEduMenuResp, err error) {
+	var _args system.SystemserviceDeleteEduMenuArgs
+	_args.Req = req
+	var _result system.SystemserviceDeleteEduMenuResult
+	if err = p.c.Call(ctx, "DeleteEduMenu", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) DeleteApp(ctx context.Context, req *system.DeleteAppReq) (r *system.DeleteAppResp, err error) {
+	var _args system.SystemserviceDeleteAppArgs
+	_args.Req = req
+	var _result system.SystemserviceDeleteAppResult
+	if err = p.c.Call(ctx, "DeleteApp", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) SetAppStatus(ctx context.Context, req *system.SetAppStatusReq) (r *system.SetAppStatusResp, err error) {
+	var _args system.SystemserviceSetAppStatusArgs
+	_args.Req = req
+	var _result system.SystemserviceSetAppStatusResult
+	if err = p.c.Call(ctx, "SetAppStatus", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) SetEduMenuStatus(ctx context.Context, req *system.SetEduMenuStatusReq) (r *system.SetEduMenuStatusResp, err error) {
+	var _args system.SystemserviceSetEduMenuStatusArgs
+	_args.Req = req
+	var _result system.SystemserviceSetEduMenuStatusResult
+	if err = p.c.Call(ctx, "SetEduMenuStatus", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetOperationLogsList(ctx context.Context, req *system.GetOperationLogsListReq) (r *system.GetOperationLogsListResp, err error) {
+	var _args system.SystemserviceGetOperationLogsListArgs
+	_args.Req = req
+	var _result system.SystemserviceGetOperationLogsListResult
+	if err = p.c.Call(ctx, "GetOperationLogsList", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
