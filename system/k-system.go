@@ -6702,7 +6702,7 @@ func (p *GetEduMenuListResp) FastReadField1(buf []byte) (int, error) {
 
 		_field = append(_field, _elem)
 	}
-	p.Menus = _field
+	p.List = _field
 	return offset, nil
 }
 
@@ -6749,7 +6749,7 @@ func (p *GetEduMenuListResp) fastWriteField1(buf []byte, w thrift.NocopyWriter) 
 	listBeginOffset := offset
 	offset += thrift.Binary.ListBeginLength()
 	var length int
-	for _, v := range p.Menus {
+	for _, v := range p.List {
 		length++
 		offset += v.FastWriteNocopy(buf[offset:], w)
 	}
@@ -6768,7 +6768,7 @@ func (p *GetEduMenuListResp) field1Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.ListBeginLength()
-	for _, v := range p.Menus {
+	for _, v := range p.List {
 		_ = v
 		l += v.BLength()
 	}
@@ -7460,7 +7460,7 @@ func (p *GetEduUserListResp) FastReadField1(buf []byte) (int, error) {
 
 		_field = append(_field, _elem)
 	}
-	p.Users = _field
+	p.List = _field
 	return offset, nil
 }
 
@@ -7507,7 +7507,7 @@ func (p *GetEduUserListResp) fastWriteField1(buf []byte, w thrift.NocopyWriter) 
 	listBeginOffset := offset
 	offset += thrift.Binary.ListBeginLength()
 	var length int
-	for _, v := range p.Users {
+	for _, v := range p.List {
 		length++
 		offset += v.FastWriteNocopy(buf[offset:], w)
 	}
@@ -7526,7 +7526,7 @@ func (p *GetEduUserListResp) field1Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.ListBeginLength()
-	for _, v := range p.Users {
+	for _, v := range p.List {
 		_ = v
 		l += v.BLength()
 	}

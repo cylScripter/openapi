@@ -10141,7 +10141,7 @@ func (p *GetEduMenuListReq) Field1DeepEqual(src *base.ListOption) bool {
 }
 
 type GetEduMenuListResp struct {
-	Menus    []*education.ModelMenu `thrift:"menus,1" frugal:"1,default,list<education.ModelMenu>" json:"menus"`
+	List     []*education.ModelMenu `thrift:"list,1" frugal:"1,default,list<education.ModelMenu>" json:"list"`
 	Paginate *base.Paginate         `thrift:"paginate,2" frugal:"2,default,base.Paginate" json:"paginate"`
 }
 
@@ -10152,8 +10152,8 @@ func NewGetEduMenuListResp() *GetEduMenuListResp {
 func (p *GetEduMenuListResp) InitDefault() {
 }
 
-func (p *GetEduMenuListResp) GetMenus() (v []*education.ModelMenu) {
-	return p.Menus
+func (p *GetEduMenuListResp) GetList() (v []*education.ModelMenu) {
+	return p.List
 }
 
 var GetEduMenuListResp_Paginate_DEFAULT *base.Paginate
@@ -10164,15 +10164,15 @@ func (p *GetEduMenuListResp) GetPaginate() (v *base.Paginate) {
 	}
 	return p.Paginate
 }
-func (p *GetEduMenuListResp) SetMenus(val []*education.ModelMenu) {
-	p.Menus = val
+func (p *GetEduMenuListResp) SetList(val []*education.ModelMenu) {
+	p.List = val
 }
 func (p *GetEduMenuListResp) SetPaginate(val *base.Paginate) {
 	p.Paginate = val
 }
 
 var fieldIDToName_GetEduMenuListResp = map[int16]string{
-	1: "menus",
+	1: "list",
 	2: "paginate",
 }
 
@@ -10264,7 +10264,7 @@ func (p *GetEduMenuListResp) ReadField1(iprot thrift.TProtocol) error {
 	if err := iprot.ReadListEnd(); err != nil {
 		return err
 	}
-	p.Menus = _field
+	p.List = _field
 	return nil
 }
 func (p *GetEduMenuListResp) ReadField2(iprot thrift.TProtocol) error {
@@ -10309,13 +10309,13 @@ WriteStructEndError:
 }
 
 func (p *GetEduMenuListResp) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("menus", thrift.LIST, 1); err != nil {
+	if err = oprot.WriteFieldBegin("list", thrift.LIST, 1); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteListBegin(thrift.STRUCT, len(p.Menus)); err != nil {
+	if err := oprot.WriteListBegin(thrift.STRUCT, len(p.List)); err != nil {
 		return err
 	}
-	for _, v := range p.Menus {
+	for _, v := range p.List {
 		if err := v.Write(oprot); err != nil {
 			return err
 		}
@@ -10364,7 +10364,7 @@ func (p *GetEduMenuListResp) DeepEqual(ano *GetEduMenuListResp) bool {
 	} else if p == nil || ano == nil {
 		return false
 	}
-	if !p.Field1DeepEqual(ano.Menus) {
+	if !p.Field1DeepEqual(ano.List) {
 		return false
 	}
 	if !p.Field2DeepEqual(ano.Paginate) {
@@ -10375,10 +10375,10 @@ func (p *GetEduMenuListResp) DeepEqual(ano *GetEduMenuListResp) bool {
 
 func (p *GetEduMenuListResp) Field1DeepEqual(src []*education.ModelMenu) bool {
 
-	if len(p.Menus) != len(src) {
+	if len(p.List) != len(src) {
 		return false
 	}
-	for i, v := range p.Menus {
+	for i, v := range p.List {
 		_src := src[i]
 		if !v.DeepEqual(_src) {
 			return false
@@ -11348,7 +11348,7 @@ func (p *GetEduUserListReq) Field1DeepEqual(src *base.ListOption) bool {
 }
 
 type GetEduUserListResp struct {
-	Users    []*education.ModelUser `thrift:"users,1" frugal:"1,default,list<education.ModelUser>" json:"users"`
+	List     []*education.ModelUser `thrift:"list,1" frugal:"1,default,list<education.ModelUser>" json:"list"`
 	Paginate *base.Paginate         `thrift:"paginate,2" frugal:"2,default,base.Paginate" json:"paginate"`
 }
 
@@ -11359,8 +11359,8 @@ func NewGetEduUserListResp() *GetEduUserListResp {
 func (p *GetEduUserListResp) InitDefault() {
 }
 
-func (p *GetEduUserListResp) GetUsers() (v []*education.ModelUser) {
-	return p.Users
+func (p *GetEduUserListResp) GetList() (v []*education.ModelUser) {
+	return p.List
 }
 
 var GetEduUserListResp_Paginate_DEFAULT *base.Paginate
@@ -11371,15 +11371,15 @@ func (p *GetEduUserListResp) GetPaginate() (v *base.Paginate) {
 	}
 	return p.Paginate
 }
-func (p *GetEduUserListResp) SetUsers(val []*education.ModelUser) {
-	p.Users = val
+func (p *GetEduUserListResp) SetList(val []*education.ModelUser) {
+	p.List = val
 }
 func (p *GetEduUserListResp) SetPaginate(val *base.Paginate) {
 	p.Paginate = val
 }
 
 var fieldIDToName_GetEduUserListResp = map[int16]string{
-	1: "users",
+	1: "list",
 	2: "paginate",
 }
 
@@ -11471,7 +11471,7 @@ func (p *GetEduUserListResp) ReadField1(iprot thrift.TProtocol) error {
 	if err := iprot.ReadListEnd(); err != nil {
 		return err
 	}
-	p.Users = _field
+	p.List = _field
 	return nil
 }
 func (p *GetEduUserListResp) ReadField2(iprot thrift.TProtocol) error {
@@ -11516,13 +11516,13 @@ WriteStructEndError:
 }
 
 func (p *GetEduUserListResp) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("users", thrift.LIST, 1); err != nil {
+	if err = oprot.WriteFieldBegin("list", thrift.LIST, 1); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteListBegin(thrift.STRUCT, len(p.Users)); err != nil {
+	if err := oprot.WriteListBegin(thrift.STRUCT, len(p.List)); err != nil {
 		return err
 	}
-	for _, v := range p.Users {
+	for _, v := range p.List {
 		if err := v.Write(oprot); err != nil {
 			return err
 		}
@@ -11571,7 +11571,7 @@ func (p *GetEduUserListResp) DeepEqual(ano *GetEduUserListResp) bool {
 	} else if p == nil || ano == nil {
 		return false
 	}
-	if !p.Field1DeepEqual(ano.Users) {
+	if !p.Field1DeepEqual(ano.List) {
 		return false
 	}
 	if !p.Field2DeepEqual(ano.Paginate) {
@@ -11582,10 +11582,10 @@ func (p *GetEduUserListResp) DeepEqual(ano *GetEduUserListResp) bool {
 
 func (p *GetEduUserListResp) Field1DeepEqual(src []*education.ModelUser) bool {
 
-	if len(p.Users) != len(src) {
+	if len(p.List) != len(src) {
 		return false
 	}
-	for i, v := range p.Users {
+	for i, v := range p.List {
 		_src := src[i]
 		if !v.DeepEqual(_src) {
 			return false
