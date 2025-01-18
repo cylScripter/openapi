@@ -210,3 +210,13 @@ func SyncTeacherInfo(ctx context.Context, req *education.SyncTeacherInfoReq, cal
 	clients := MustNewClient("education", callOptions...)
 	return clients.SyncTeacherInfo(ctx, req)
 }
+
+func UpdateMenu(ctx context.Context, req *education.UpdateMenuReq, callOptions ...client.Option) (resp *education.UpdateMenuResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.UpdateMenu(ctx, req)
+}
+
+func DeleteMenu(ctx context.Context, req *education.DeleteMenuReq, callOptions ...client.Option) (resp *education.DeleteMenuResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.DeleteMenu(ctx, req)
+}

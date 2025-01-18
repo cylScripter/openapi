@@ -52,6 +52,8 @@ type Client interface {
 	UpdateTeacherInfo(ctx context.Context, req *education.UpdateTeacherInfoReq, callOptions ...callopt.Option) (r *education.UpdateTeacherInfoResp, err error)
 	SetTeacherInfoStatus(ctx context.Context, req *education.SetTeacherInfoStatusReq, callOptions ...callopt.Option) (r *education.SetTeacherInfoStatusResp, err error)
 	SyncTeacherInfo(ctx context.Context, req *education.SyncTeacherInfoReq, callOptions ...callopt.Option) (r *education.SyncTeacherInfoResp, err error)
+	UpdateMenu(ctx context.Context, req *education.UpdateMenuReq, callOptions ...callopt.Option) (r *education.UpdateMenuResp, err error)
+	DeleteMenu(ctx context.Context, req *education.DeleteMenuReq, callOptions ...callopt.Option) (r *education.DeleteMenuResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -286,4 +288,14 @@ func (p *kEducationserviceClient) SetTeacherInfoStatus(ctx context.Context, req 
 func (p *kEducationserviceClient) SyncTeacherInfo(ctx context.Context, req *education.SyncTeacherInfoReq, callOptions ...callopt.Option) (r *education.SyncTeacherInfoResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.SyncTeacherInfo(ctx, req)
+}
+
+func (p *kEducationserviceClient) UpdateMenu(ctx context.Context, req *education.UpdateMenuReq, callOptions ...callopt.Option) (r *education.UpdateMenuResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.UpdateMenu(ctx, req)
+}
+
+func (p *kEducationserviceClient) DeleteMenu(ctx context.Context, req *education.DeleteMenuReq, callOptions ...callopt.Option) (r *education.DeleteMenuResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.DeleteMenu(ctx, req)
 }

@@ -300,6 +300,20 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"UpdateMenu": kitex.NewMethodInfo(
+		updateMenuHandler,
+		newEducationserviceUpdateMenuArgs,
+		newEducationserviceUpdateMenuResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"DeleteMenu": kitex.NewMethodInfo(
+		deleteMenuHandler,
+		newEducationserviceDeleteMenuArgs,
+		newEducationserviceDeleteMenuResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -1104,6 +1118,42 @@ func newEducationserviceSyncTeacherInfoResult() interface{} {
 	return education.NewEducationserviceSyncTeacherInfoResult()
 }
 
+func updateMenuHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceUpdateMenuArgs)
+	realResult := result.(*education.EducationserviceUpdateMenuResult)
+	success, err := handler.(education.Educationservice).UpdateMenu(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceUpdateMenuArgs() interface{} {
+	return education.NewEducationserviceUpdateMenuArgs()
+}
+
+func newEducationserviceUpdateMenuResult() interface{} {
+	return education.NewEducationserviceUpdateMenuResult()
+}
+
+func deleteMenuHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceDeleteMenuArgs)
+	realResult := result.(*education.EducationserviceDeleteMenuResult)
+	success, err := handler.(education.Educationservice).DeleteMenu(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceDeleteMenuArgs() interface{} {
+	return education.NewEducationserviceDeleteMenuArgs()
+}
+
+func newEducationserviceDeleteMenuResult() interface{} {
+	return education.NewEducationserviceDeleteMenuResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -1519,6 +1569,26 @@ func (p *kClient) SyncTeacherInfo(ctx context.Context, req *education.SyncTeache
 	_args.Req = req
 	var _result education.EducationserviceSyncTeacherInfoResult
 	if err = p.c.Call(ctx, "SyncTeacherInfo", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) UpdateMenu(ctx context.Context, req *education.UpdateMenuReq) (r *education.UpdateMenuResp, err error) {
+	var _args education.EducationserviceUpdateMenuArgs
+	_args.Req = req
+	var _result education.EducationserviceUpdateMenuResult
+	if err = p.c.Call(ctx, "UpdateMenu", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) DeleteMenu(ctx context.Context, req *education.DeleteMenuReq) (r *education.DeleteMenuResp, err error) {
+	var _args education.EducationserviceDeleteMenuArgs
+	_args.Req = req
+	var _result education.EducationserviceDeleteMenuResult
+	if err = p.c.Call(ctx, "DeleteMenu", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
