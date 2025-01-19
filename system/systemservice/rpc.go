@@ -160,3 +160,8 @@ func GetOperationLogsList(ctx context.Context, req *system.GetOperationLogsListR
 	clients := MustNewClient("system", callOptions...)
 	return clients.GetOperationLogsList(ctx, req)
 }
+
+func GetEduRoleList(ctx context.Context, req *system.GetEduRoleListReq, callOptions ...client.Option) (resp *system.GetEduRoleListResp, err error) {
+	clients := MustNewClient("system", callOptions...)
+	return clients.GetEduRoleList(ctx, req)
+}

@@ -230,6 +230,13 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"GetEduRoleList": kitex.NewMethodInfo(
+		getEduRoleListHandler,
+		newSystemserviceGetEduRoleListArgs,
+		newSystemserviceGetEduRoleListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -854,6 +861,24 @@ func newSystemserviceGetOperationLogsListResult() interface{} {
 	return system.NewSystemserviceGetOperationLogsListResult()
 }
 
+func getEduRoleListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*system.SystemserviceGetEduRoleListArgs)
+	realResult := result.(*system.SystemserviceGetEduRoleListResult)
+	success, err := handler.(system.Systemservice).GetEduRoleList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newSystemserviceGetEduRoleListArgs() interface{} {
+	return system.NewSystemserviceGetEduRoleListArgs()
+}
+
+func newSystemserviceGetEduRoleListResult() interface{} {
+	return system.NewSystemserviceGetEduRoleListResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -1169,6 +1194,16 @@ func (p *kClient) GetOperationLogsList(ctx context.Context, req *system.GetOpera
 	_args.Req = req
 	var _result system.SystemserviceGetOperationLogsListResult
 	if err = p.c.Call(ctx, "GetOperationLogsList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetEduRoleList(ctx context.Context, req *system.GetEduRoleListReq) (r *system.GetEduRoleListResp, err error) {
+	var _args system.SystemserviceGetEduRoleListArgs
+	_args.Req = req
+	var _result system.SystemserviceGetEduRoleListResult
+	if err = p.c.Call(ctx, "GetEduRoleList", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

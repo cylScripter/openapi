@@ -7031,6 +7031,488 @@ func (p *ModelRolePermission) Field6DeepEqual(src int32) bool {
 	return true
 }
 
+type GetEduRoleListReq struct {
+	ListOption *base.ListOption `thrift:"list_option,1" frugal:"1,default,base.ListOption" json:"list_option"`
+	AppId      int32            `thrift:"app_id,2" frugal:"2,default,i32" json:"app_id" binding:"required"`
+}
+
+func NewGetEduRoleListReq() *GetEduRoleListReq {
+	return &GetEduRoleListReq{}
+}
+
+func (p *GetEduRoleListReq) InitDefault() {
+}
+
+var GetEduRoleListReq_ListOption_DEFAULT *base.ListOption
+
+func (p *GetEduRoleListReq) GetListOption() (v *base.ListOption) {
+	if !p.IsSetListOption() {
+		return GetEduRoleListReq_ListOption_DEFAULT
+	}
+	return p.ListOption
+}
+
+func (p *GetEduRoleListReq) GetAppId() (v int32) {
+	return p.AppId
+}
+func (p *GetEduRoleListReq) SetListOption(val *base.ListOption) {
+	p.ListOption = val
+}
+func (p *GetEduRoleListReq) SetAppId(val int32) {
+	p.AppId = val
+}
+
+var fieldIDToName_GetEduRoleListReq = map[int16]string{
+	1: "list_option",
+	2: "app_id",
+}
+
+func (p *GetEduRoleListReq) IsSetListOption() bool {
+	return p.ListOption != nil
+}
+
+func (p *GetEduRoleListReq) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 2:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_GetEduRoleListReq[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *GetEduRoleListReq) ReadField1(iprot thrift.TProtocol) error {
+	_field := base.NewListOption()
+	if err := _field.Read(iprot); err != nil {
+		return err
+	}
+	p.ListOption = _field
+	return nil
+}
+func (p *GetEduRoleListReq) ReadField2(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.AppId = _field
+	return nil
+}
+
+func (p *GetEduRoleListReq) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("GetEduRoleListReq"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *GetEduRoleListReq) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("list_option", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.ListOption.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *GetEduRoleListReq) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("app_id", thrift.I32, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.AppId); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
+func (p *GetEduRoleListReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("GetEduRoleListReq(%+v)", *p)
+
+}
+
+func (p *GetEduRoleListReq) DeepEqual(ano *GetEduRoleListReq) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.ListOption) {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.AppId) {
+		return false
+	}
+	return true
+}
+
+func (p *GetEduRoleListReq) Field1DeepEqual(src *base.ListOption) bool {
+
+	if !p.ListOption.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+func (p *GetEduRoleListReq) Field2DeepEqual(src int32) bool {
+
+	if p.AppId != src {
+		return false
+	}
+	return true
+}
+
+type GetEduRoleListResp struct {
+	List     []*education.ModelRole `thrift:"list,1" frugal:"1,default,list<education.ModelRole>" json:"list"`
+	Paginate *base.Paginate         `thrift:"paginate,2" frugal:"2,default,base.Paginate" json:"paginate"`
+}
+
+func NewGetEduRoleListResp() *GetEduRoleListResp {
+	return &GetEduRoleListResp{}
+}
+
+func (p *GetEduRoleListResp) InitDefault() {
+}
+
+func (p *GetEduRoleListResp) GetList() (v []*education.ModelRole) {
+	return p.List
+}
+
+var GetEduRoleListResp_Paginate_DEFAULT *base.Paginate
+
+func (p *GetEduRoleListResp) GetPaginate() (v *base.Paginate) {
+	if !p.IsSetPaginate() {
+		return GetEduRoleListResp_Paginate_DEFAULT
+	}
+	return p.Paginate
+}
+func (p *GetEduRoleListResp) SetList(val []*education.ModelRole) {
+	p.List = val
+}
+func (p *GetEduRoleListResp) SetPaginate(val *base.Paginate) {
+	p.Paginate = val
+}
+
+var fieldIDToName_GetEduRoleListResp = map[int16]string{
+	1: "list",
+	2: "paginate",
+}
+
+func (p *GetEduRoleListResp) IsSetPaginate() bool {
+	return p.Paginate != nil
+}
+
+func (p *GetEduRoleListResp) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.LIST {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 2:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_GetEduRoleListResp[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *GetEduRoleListResp) ReadField1(iprot thrift.TProtocol) error {
+	_, size, err := iprot.ReadListBegin()
+	if err != nil {
+		return err
+	}
+	_field := make([]*education.ModelRole, 0, size)
+	values := make([]education.ModelRole, size)
+	for i := 0; i < size; i++ {
+		_elem := &values[i]
+		_elem.InitDefault()
+
+		if err := _elem.Read(iprot); err != nil {
+			return err
+		}
+
+		_field = append(_field, _elem)
+	}
+	if err := iprot.ReadListEnd(); err != nil {
+		return err
+	}
+	p.List = _field
+	return nil
+}
+func (p *GetEduRoleListResp) ReadField2(iprot thrift.TProtocol) error {
+	_field := base.NewPaginate()
+	if err := _field.Read(iprot); err != nil {
+		return err
+	}
+	p.Paginate = _field
+	return nil
+}
+
+func (p *GetEduRoleListResp) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("GetEduRoleListResp"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *GetEduRoleListResp) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("list", thrift.LIST, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteListBegin(thrift.STRUCT, len(p.List)); err != nil {
+		return err
+	}
+	for _, v := range p.List {
+		if err := v.Write(oprot); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteListEnd(); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *GetEduRoleListResp) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("paginate", thrift.STRUCT, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Paginate.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
+func (p *GetEduRoleListResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("GetEduRoleListResp(%+v)", *p)
+
+}
+
+func (p *GetEduRoleListResp) DeepEqual(ano *GetEduRoleListResp) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.List) {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.Paginate) {
+		return false
+	}
+	return true
+}
+
+func (p *GetEduRoleListResp) Field1DeepEqual(src []*education.ModelRole) bool {
+
+	if len(p.List) != len(src) {
+		return false
+	}
+	for i, v := range p.List {
+		_src := src[i]
+		if !v.DeepEqual(_src) {
+			return false
+		}
+	}
+	return true
+}
+func (p *GetEduRoleListResp) Field2DeepEqual(src *base.Paginate) bool {
+
+	if !p.Paginate.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
 type GetOperationLogsListReq struct {
 	ListOption *base.ListOption `thrift:"list_option,1" frugal:"1,default,base.ListOption" json:"list_option"`
 }
@@ -20839,6 +21321,8 @@ type Systemservice interface {
 	SetEduMenuStatus(ctx context.Context, req *SetEduMenuStatusReq) (r *SetEduMenuStatusResp, err error)
 
 	GetOperationLogsList(ctx context.Context, req *GetOperationLogsListReq) (r *GetOperationLogsListResp, err error)
+
+	GetEduRoleList(ctx context.Context, req *GetEduRoleListReq) (r *GetEduRoleListResp, err error)
 }
 
 type SystemserviceLoginArgs struct {
@@ -31374,6 +31858,346 @@ func (p *SystemserviceGetOperationLogsListResult) DeepEqual(ano *SystemserviceGe
 }
 
 func (p *SystemserviceGetOperationLogsListResult) Field0DeepEqual(src *GetOperationLogsListResp) bool {
+
+	if !p.Success.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type SystemserviceGetEduRoleListArgs struct {
+	Req *GetEduRoleListReq `thrift:"req,1" frugal:"1,default,GetEduRoleListReq" json:"req"`
+}
+
+func NewSystemserviceGetEduRoleListArgs() *SystemserviceGetEduRoleListArgs {
+	return &SystemserviceGetEduRoleListArgs{}
+}
+
+func (p *SystemserviceGetEduRoleListArgs) InitDefault() {
+}
+
+var SystemserviceGetEduRoleListArgs_Req_DEFAULT *GetEduRoleListReq
+
+func (p *SystemserviceGetEduRoleListArgs) GetReq() (v *GetEduRoleListReq) {
+	if !p.IsSetReq() {
+		return SystemserviceGetEduRoleListArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *SystemserviceGetEduRoleListArgs) SetReq(val *GetEduRoleListReq) {
+	p.Req = val
+}
+
+var fieldIDToName_SystemserviceGetEduRoleListArgs = map[int16]string{
+	1: "req",
+}
+
+func (p *SystemserviceGetEduRoleListArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *SystemserviceGetEduRoleListArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_SystemserviceGetEduRoleListArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *SystemserviceGetEduRoleListArgs) ReadField1(iprot thrift.TProtocol) error {
+	_field := NewGetEduRoleListReq()
+	if err := _field.Read(iprot); err != nil {
+		return err
+	}
+	p.Req = _field
+	return nil
+}
+
+func (p *SystemserviceGetEduRoleListArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("GetEduRoleList_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *SystemserviceGetEduRoleListArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *SystemserviceGetEduRoleListArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("SystemserviceGetEduRoleListArgs(%+v)", *p)
+
+}
+
+func (p *SystemserviceGetEduRoleListArgs) DeepEqual(ano *SystemserviceGetEduRoleListArgs) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Req) {
+		return false
+	}
+	return true
+}
+
+func (p *SystemserviceGetEduRoleListArgs) Field1DeepEqual(src *GetEduRoleListReq) bool {
+
+	if !p.Req.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type SystemserviceGetEduRoleListResult struct {
+	Success *GetEduRoleListResp `thrift:"success,0,optional" frugal:"0,optional,GetEduRoleListResp" json:"success,omitempty"`
+}
+
+func NewSystemserviceGetEduRoleListResult() *SystemserviceGetEduRoleListResult {
+	return &SystemserviceGetEduRoleListResult{}
+}
+
+func (p *SystemserviceGetEduRoleListResult) InitDefault() {
+}
+
+var SystemserviceGetEduRoleListResult_Success_DEFAULT *GetEduRoleListResp
+
+func (p *SystemserviceGetEduRoleListResult) GetSuccess() (v *GetEduRoleListResp) {
+	if !p.IsSetSuccess() {
+		return SystemserviceGetEduRoleListResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *SystemserviceGetEduRoleListResult) SetSuccess(x interface{}) {
+	p.Success = x.(*GetEduRoleListResp)
+}
+
+var fieldIDToName_SystemserviceGetEduRoleListResult = map[int16]string{
+	0: "success",
+}
+
+func (p *SystemserviceGetEduRoleListResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *SystemserviceGetEduRoleListResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_SystemserviceGetEduRoleListResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *SystemserviceGetEduRoleListResult) ReadField0(iprot thrift.TProtocol) error {
+	_field := NewGetEduRoleListResp()
+	if err := _field.Read(iprot); err != nil {
+		return err
+	}
+	p.Success = _field
+	return nil
+}
+
+func (p *SystemserviceGetEduRoleListResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("GetEduRoleList_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *SystemserviceGetEduRoleListResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *SystemserviceGetEduRoleListResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("SystemserviceGetEduRoleListResult(%+v)", *p)
+
+}
+
+func (p *SystemserviceGetEduRoleListResult) DeepEqual(ano *SystemserviceGetEduRoleListResult) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field0DeepEqual(ano.Success) {
+		return false
+	}
+	return true
+}
+
+func (p *SystemserviceGetEduRoleListResult) Field0DeepEqual(src *GetEduRoleListResp) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false
