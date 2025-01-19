@@ -11407,9 +11407,9 @@ func (p *GetEduUserListReq) Field2DeepEqual(src int32) bool {
 }
 
 type GetEduUserListResp struct {
-	List     []*education.ModelUser          `thrift:"list,1" frugal:"1,default,list<education.ModelUser>" json:"list"`
-	Paginate *base.Paginate                  `thrift:"paginate,2" frugal:"2,default,base.Paginate" json:"paginate"`
-	RoleMap  map[string]*education.ModelRole `thrift:"role_map,3" frugal:"3,default,map<string:education.ModelRole>" json:"role_map"`
+	List     []*education.ModelUser         `thrift:"list,1" frugal:"1,default,list<education.ModelUser>" json:"list"`
+	Paginate *base.Paginate                 `thrift:"paginate,2" frugal:"2,default,base.Paginate" json:"paginate"`
+	RoleMap  map[int32]*education.ModelRole `thrift:"role_map,3" frugal:"3,default,map<i32:education.ModelRole>" json:"role_map"`
 }
 
 func NewGetEduUserListResp() *GetEduUserListResp {
@@ -11432,7 +11432,7 @@ func (p *GetEduUserListResp) GetPaginate() (v *base.Paginate) {
 	return p.Paginate
 }
 
-func (p *GetEduUserListResp) GetRoleMap() (v map[string]*education.ModelRole) {
+func (p *GetEduUserListResp) GetRoleMap() (v map[int32]*education.ModelRole) {
 	return p.RoleMap
 }
 func (p *GetEduUserListResp) SetList(val []*education.ModelUser) {
@@ -11441,7 +11441,7 @@ func (p *GetEduUserListResp) SetList(val []*education.ModelUser) {
 func (p *GetEduUserListResp) SetPaginate(val *base.Paginate) {
 	p.Paginate = val
 }
-func (p *GetEduUserListResp) SetRoleMap(val map[string]*education.ModelRole) {
+func (p *GetEduUserListResp) SetRoleMap(val map[int32]*education.ModelRole) {
 	p.RoleMap = val
 }
 
@@ -11563,11 +11563,11 @@ func (p *GetEduUserListResp) ReadField3(iprot thrift.TProtocol) error {
 	if err != nil {
 		return err
 	}
-	_field := make(map[string]*education.ModelRole, size)
+	_field := make(map[int32]*education.ModelRole, size)
 	values := make([]education.ModelRole, size)
 	for i := 0; i < size; i++ {
-		var _key string
-		if v, err := iprot.ReadString(); err != nil {
+		var _key int32
+		if v, err := iprot.ReadI32(); err != nil {
 			return err
 		} else {
 			_key = v
@@ -11670,11 +11670,11 @@ func (p *GetEduUserListResp) writeField3(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("role_map", thrift.MAP, 3); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteMapBegin(thrift.STRING, thrift.STRUCT, len(p.RoleMap)); err != nil {
+	if err := oprot.WriteMapBegin(thrift.I32, thrift.STRUCT, len(p.RoleMap)); err != nil {
 		return err
 	}
 	for k, v := range p.RoleMap {
-		if err := oprot.WriteString(k); err != nil {
+		if err := oprot.WriteI32(k); err != nil {
 			return err
 		}
 		if err := v.Write(oprot); err != nil {
@@ -11740,7 +11740,7 @@ func (p *GetEduUserListResp) Field2DeepEqual(src *base.Paginate) bool {
 	}
 	return true
 }
-func (p *GetEduUserListResp) Field3DeepEqual(src map[string]*education.ModelRole) bool {
+func (p *GetEduUserListResp) Field3DeepEqual(src map[int32]*education.ModelRole) bool {
 
 	if len(p.RoleMap) != len(src) {
 		return false

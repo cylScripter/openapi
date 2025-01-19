@@ -7542,11 +7542,11 @@ func (p *GetEduUserListResp) FastReadField3(buf []byte) (int, error) {
 	if err != nil {
 		return offset, err
 	}
-	_field := make(map[string]*education.ModelRole, size)
+	_field := make(map[int32]*education.ModelRole, size)
 	values := make([]education.ModelRole, size)
 	for i := 0; i < size; i++ {
-		var _key string
-		if v, l, err := thrift.Binary.ReadString(buf[offset:]); err != nil {
+		var _key int32
+		if v, l, err := thrift.Binary.ReadI32(buf[offset:]); err != nil {
 			return offset, err
 		} else {
 			offset += l
@@ -7623,10 +7623,10 @@ func (p *GetEduUserListResp) fastWriteField3(buf []byte, w thrift.NocopyWriter) 
 	var length int
 	for k, v := range p.RoleMap {
 		length++
-		offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, k)
+		offset += thrift.Binary.WriteI32(buf[offset:], k)
 		offset += v.FastWriteNocopy(buf[offset:], w)
 	}
-	thrift.Binary.WriteMapBegin(buf[mapBeginOffset:], thrift.STRING, thrift.STRUCT, length)
+	thrift.Binary.WriteMapBegin(buf[mapBeginOffset:], thrift.I32, thrift.STRUCT, length)
 	return offset
 }
 
@@ -7655,7 +7655,7 @@ func (p *GetEduUserListResp) field3Length() int {
 	for k, v := range p.RoleMap {
 		_, _ = k, v
 
-		l += thrift.Binary.StringLengthNocopy(k)
+		l += thrift.Binary.I32Length()
 		l += v.BLength()
 	}
 	return l
