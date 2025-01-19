@@ -6345,7 +6345,7 @@ func (p *CreateEduMenuReq) FastReadField5(buf []byte) (int, error) {
 
 func (p *CreateEduMenuReq) FastReadField6(buf []byte) (int, error) {
 	offset := 0
-	_field := NewMeta()
+	_field := education.NewMeta()
 	if l, err := _field.FastRead(buf[offset:]); err != nil {
 		return offset, err
 	} else {

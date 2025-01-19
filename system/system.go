@@ -9416,12 +9416,12 @@ func (p *UpdateEduMenuResp) DeepEqual(ano *UpdateEduMenuResp) bool {
 }
 
 type CreateEduMenuReq struct {
-	Name      string `thrift:"name,1" frugal:"1,default,string" json:"name" binding:"required"`
-	Path      string `thrift:"path,2" frugal:"2,default,string" json:"path" binding:"required"`
-	Component string `thrift:"component,3" frugal:"3,default,string" json:"component" binding:"required"`
-	Redirect  string `thrift:"redirect,4" frugal:"4,default,string" json:"redirect"`
-	ParentId  int32  `thrift:"parent_id,5" frugal:"5,default,i32" json:"parent_id"`
-	Meta      *Meta  `thrift:"meta,6" frugal:"6,default,Meta" json:"meta"`
+	Name      string          `thrift:"name,1" frugal:"1,default,string" json:"name" binding:"required"`
+	Path      string          `thrift:"path,2" frugal:"2,default,string" json:"path" binding:"required"`
+	Component string          `thrift:"component,3" frugal:"3,default,string" json:"component" binding:"required"`
+	Redirect  string          `thrift:"redirect,4" frugal:"4,default,string" json:"redirect"`
+	ParentId  int32           `thrift:"parent_id,5" frugal:"5,default,i32" json:"parent_id"`
+	Meta      *education.Meta `thrift:"meta,6" frugal:"6,default,education.Meta" json:"meta"`
 }
 
 func NewCreateEduMenuReq() *CreateEduMenuReq {
@@ -9451,9 +9451,9 @@ func (p *CreateEduMenuReq) GetParentId() (v int32) {
 	return p.ParentId
 }
 
-var CreateEduMenuReq_Meta_DEFAULT *Meta
+var CreateEduMenuReq_Meta_DEFAULT *education.Meta
 
-func (p *CreateEduMenuReq) GetMeta() (v *Meta) {
+func (p *CreateEduMenuReq) GetMeta() (v *education.Meta) {
 	if !p.IsSetMeta() {
 		return CreateEduMenuReq_Meta_DEFAULT
 	}
@@ -9474,7 +9474,7 @@ func (p *CreateEduMenuReq) SetRedirect(val string) {
 func (p *CreateEduMenuReq) SetParentId(val int32) {
 	p.ParentId = val
 }
-func (p *CreateEduMenuReq) SetMeta(val *Meta) {
+func (p *CreateEduMenuReq) SetMeta(val *education.Meta) {
 	p.Meta = val
 }
 
@@ -9643,7 +9643,7 @@ func (p *CreateEduMenuReq) ReadField5(iprot thrift.TProtocol) error {
 	return nil
 }
 func (p *CreateEduMenuReq) ReadField6(iprot thrift.TProtocol) error {
-	_field := NewMeta()
+	_field := education.NewMeta()
 	if err := _field.Read(iprot); err != nil {
 		return err
 	}
@@ -9871,7 +9871,7 @@ func (p *CreateEduMenuReq) Field5DeepEqual(src int32) bool {
 	}
 	return true
 }
-func (p *CreateEduMenuReq) Field6DeepEqual(src *Meta) bool {
+func (p *CreateEduMenuReq) Field6DeepEqual(src *education.Meta) bool {
 
 	if !p.Meta.DeepEqual(src) {
 		return false
