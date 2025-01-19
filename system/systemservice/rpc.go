@@ -165,3 +165,8 @@ func GetEduRoleList(ctx context.Context, req *system.GetEduRoleListReq, callOpti
 	clients := MustNewClient("system", callOptions...)
 	return clients.GetEduRoleList(ctx, req)
 }
+
+func GetEduRoleMenu(ctx context.Context, req *system.GetEduRoleMenuReq, callOptions ...client.Option) (resp *system.GetEduRoleMenuResp, err error) {
+	clients := MustNewClient("system", callOptions...)
+	return clients.GetEduRoleMenu(ctx, req)
+}

@@ -237,6 +237,13 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"GetEduRoleMenu": kitex.NewMethodInfo(
+		getEduRoleMenuHandler,
+		newSystemserviceGetEduRoleMenuArgs,
+		newSystemserviceGetEduRoleMenuResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -879,6 +886,24 @@ func newSystemserviceGetEduRoleListResult() interface{} {
 	return system.NewSystemserviceGetEduRoleListResult()
 }
 
+func getEduRoleMenuHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*system.SystemserviceGetEduRoleMenuArgs)
+	realResult := result.(*system.SystemserviceGetEduRoleMenuResult)
+	success, err := handler.(system.Systemservice).GetEduRoleMenu(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newSystemserviceGetEduRoleMenuArgs() interface{} {
+	return system.NewSystemserviceGetEduRoleMenuArgs()
+}
+
+func newSystemserviceGetEduRoleMenuResult() interface{} {
+	return system.NewSystemserviceGetEduRoleMenuResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -1204,6 +1229,16 @@ func (p *kClient) GetEduRoleList(ctx context.Context, req *system.GetEduRoleList
 	_args.Req = req
 	var _result system.SystemserviceGetEduRoleListResult
 	if err = p.c.Call(ctx, "GetEduRoleList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetEduRoleMenu(ctx context.Context, req *system.GetEduRoleMenuReq) (r *system.GetEduRoleMenuResp, err error) {
+	var _args system.SystemserviceGetEduRoleMenuArgs
+	_args.Req = req
+	var _result system.SystemserviceGetEduRoleMenuResult
+	if err = p.c.Call(ctx, "GetEduRoleMenu", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

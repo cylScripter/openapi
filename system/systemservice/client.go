@@ -43,6 +43,7 @@ type Client interface {
 	SetEduMenuStatus(ctx context.Context, req *system.SetEduMenuStatusReq, callOptions ...callopt.Option) (r *system.SetEduMenuStatusResp, err error)
 	GetOperationLogsList(ctx context.Context, req *system.GetOperationLogsListReq, callOptions ...callopt.Option) (r *system.GetOperationLogsListResp, err error)
 	GetEduRoleList(ctx context.Context, req *system.GetEduRoleListReq, callOptions ...callopt.Option) (r *system.GetEduRoleListResp, err error)
+	GetEduRoleMenu(ctx context.Context, req *system.GetEduRoleMenuReq, callOptions ...callopt.Option) (r *system.GetEduRoleMenuResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -232,4 +233,9 @@ func (p *kSystemserviceClient) GetOperationLogsList(ctx context.Context, req *sy
 func (p *kSystemserviceClient) GetEduRoleList(ctx context.Context, req *system.GetEduRoleListReq, callOptions ...callopt.Option) (r *system.GetEduRoleListResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.GetEduRoleList(ctx, req)
+}
+
+func (p *kSystemserviceClient) GetEduRoleMenu(ctx context.Context, req *system.GetEduRoleMenuReq, callOptions ...callopt.Option) (r *system.GetEduRoleMenuResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetEduRoleMenu(ctx, req)
 }
