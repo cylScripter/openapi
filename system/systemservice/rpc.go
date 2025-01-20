@@ -170,3 +170,18 @@ func GetEduRoleMenu(ctx context.Context, req *system.GetEduRoleMenuReq, callOpti
 	clients := MustNewClient("system", callOptions...)
 	return clients.GetEduRoleMenu(ctx, req)
 }
+
+func SetEduUserRole(ctx context.Context, req *system.SetEduUserRoleReq, callOptions ...client.Option) (resp *system.SetEduUserRoleResp, err error) {
+	clients := MustNewClient("system", callOptions...)
+	return clients.SetEduUserRole(ctx, req)
+}
+
+func GetEduUserToken(ctx context.Context, req *system.GetEduUserTokenReq, callOptions ...client.Option) (resp *system.GetEduUserTokenResp, err error) {
+	clients := MustNewClient("system", callOptions...)
+	return clients.GetEduUserToken(ctx, req)
+}
+
+func ResetEduUserPassword(ctx context.Context, req *system.ResetEduUserPasswordReq, callOptions ...client.Option) (resp *system.ResetEduUserPasswordResp, err error) {
+	clients := MustNewClient("system", callOptions...)
+	return clients.ResetEduUserPassword(ctx, req)
+}

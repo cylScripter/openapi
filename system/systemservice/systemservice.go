@@ -244,6 +244,27 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"SetEduUserRole": kitex.NewMethodInfo(
+		setEduUserRoleHandler,
+		newSystemserviceSetEduUserRoleArgs,
+		newSystemserviceSetEduUserRoleResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetEduUserToken": kitex.NewMethodInfo(
+		getEduUserTokenHandler,
+		newSystemserviceGetEduUserTokenArgs,
+		newSystemserviceGetEduUserTokenResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"ResetEduUserPassword": kitex.NewMethodInfo(
+		resetEduUserPasswordHandler,
+		newSystemserviceResetEduUserPasswordArgs,
+		newSystemserviceResetEduUserPasswordResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -904,6 +925,60 @@ func newSystemserviceGetEduRoleMenuResult() interface{} {
 	return system.NewSystemserviceGetEduRoleMenuResult()
 }
 
+func setEduUserRoleHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*system.SystemserviceSetEduUserRoleArgs)
+	realResult := result.(*system.SystemserviceSetEduUserRoleResult)
+	success, err := handler.(system.Systemservice).SetEduUserRole(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newSystemserviceSetEduUserRoleArgs() interface{} {
+	return system.NewSystemserviceSetEduUserRoleArgs()
+}
+
+func newSystemserviceSetEduUserRoleResult() interface{} {
+	return system.NewSystemserviceSetEduUserRoleResult()
+}
+
+func getEduUserTokenHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*system.SystemserviceGetEduUserTokenArgs)
+	realResult := result.(*system.SystemserviceGetEduUserTokenResult)
+	success, err := handler.(system.Systemservice).GetEduUserToken(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newSystemserviceGetEduUserTokenArgs() interface{} {
+	return system.NewSystemserviceGetEduUserTokenArgs()
+}
+
+func newSystemserviceGetEduUserTokenResult() interface{} {
+	return system.NewSystemserviceGetEduUserTokenResult()
+}
+
+func resetEduUserPasswordHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*system.SystemserviceResetEduUserPasswordArgs)
+	realResult := result.(*system.SystemserviceResetEduUserPasswordResult)
+	success, err := handler.(system.Systemservice).ResetEduUserPassword(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newSystemserviceResetEduUserPasswordArgs() interface{} {
+	return system.NewSystemserviceResetEduUserPasswordArgs()
+}
+
+func newSystemserviceResetEduUserPasswordResult() interface{} {
+	return system.NewSystemserviceResetEduUserPasswordResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -1239,6 +1314,36 @@ func (p *kClient) GetEduRoleMenu(ctx context.Context, req *system.GetEduRoleMenu
 	_args.Req = req
 	var _result system.SystemserviceGetEduRoleMenuResult
 	if err = p.c.Call(ctx, "GetEduRoleMenu", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) SetEduUserRole(ctx context.Context, req *system.SetEduUserRoleReq) (r *system.SetEduUserRoleResp, err error) {
+	var _args system.SystemserviceSetEduUserRoleArgs
+	_args.Req = req
+	var _result system.SystemserviceSetEduUserRoleResult
+	if err = p.c.Call(ctx, "SetEduUserRole", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetEduUserToken(ctx context.Context, req *system.GetEduUserTokenReq) (r *system.GetEduUserTokenResp, err error) {
+	var _args system.SystemserviceGetEduUserTokenArgs
+	_args.Req = req
+	var _result system.SystemserviceGetEduUserTokenResult
+	if err = p.c.Call(ctx, "GetEduUserToken", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ResetEduUserPassword(ctx context.Context, req *system.ResetEduUserPasswordReq) (r *system.ResetEduUserPasswordResp, err error) {
+	var _args system.SystemserviceResetEduUserPasswordArgs
+	_args.Req = req
+	var _result system.SystemserviceResetEduUserPasswordResult
+	if err = p.c.Call(ctx, "ResetEduUserPassword", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

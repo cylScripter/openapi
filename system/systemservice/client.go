@@ -44,6 +44,9 @@ type Client interface {
 	GetOperationLogsList(ctx context.Context, req *system.GetOperationLogsListReq, callOptions ...callopt.Option) (r *system.GetOperationLogsListResp, err error)
 	GetEduRoleList(ctx context.Context, req *system.GetEduRoleListReq, callOptions ...callopt.Option) (r *system.GetEduRoleListResp, err error)
 	GetEduRoleMenu(ctx context.Context, req *system.GetEduRoleMenuReq, callOptions ...callopt.Option) (r *system.GetEduRoleMenuResp, err error)
+	SetEduUserRole(ctx context.Context, req *system.SetEduUserRoleReq, callOptions ...callopt.Option) (r *system.SetEduUserRoleResp, err error)
+	GetEduUserToken(ctx context.Context, req *system.GetEduUserTokenReq, callOptions ...callopt.Option) (r *system.GetEduUserTokenResp, err error)
+	ResetEduUserPassword(ctx context.Context, req *system.ResetEduUserPasswordReq, callOptions ...callopt.Option) (r *system.ResetEduUserPasswordResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -238,4 +241,19 @@ func (p *kSystemserviceClient) GetEduRoleList(ctx context.Context, req *system.G
 func (p *kSystemserviceClient) GetEduRoleMenu(ctx context.Context, req *system.GetEduRoleMenuReq, callOptions ...callopt.Option) (r *system.GetEduRoleMenuResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.GetEduRoleMenu(ctx, req)
+}
+
+func (p *kSystemserviceClient) SetEduUserRole(ctx context.Context, req *system.SetEduUserRoleReq, callOptions ...callopt.Option) (r *system.SetEduUserRoleResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.SetEduUserRole(ctx, req)
+}
+
+func (p *kSystemserviceClient) GetEduUserToken(ctx context.Context, req *system.GetEduUserTokenReq, callOptions ...callopt.Option) (r *system.GetEduUserTokenResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetEduUserToken(ctx, req)
+}
+
+func (p *kSystemserviceClient) ResetEduUserPassword(ctx context.Context, req *system.ResetEduUserPasswordReq, callOptions ...callopt.Option) (r *system.ResetEduUserPasswordResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ResetEduUserPassword(ctx, req)
 }
