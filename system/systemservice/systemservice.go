@@ -265,6 +265,27 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"GetFileList": kitex.NewMethodInfo(
+		getFileListHandler,
+		newSystemserviceGetFileListArgs,
+		newSystemserviceGetFileListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetObject": kitex.NewMethodInfo(
+		getObjectHandler,
+		newSystemserviceGetObjectArgs,
+		newSystemserviceGetObjectResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"DeleteObject": kitex.NewMethodInfo(
+		deleteObjectHandler,
+		newSystemserviceDeleteObjectArgs,
+		newSystemserviceDeleteObjectResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -979,6 +1000,60 @@ func newSystemserviceResetEduUserPasswordResult() interface{} {
 	return system.NewSystemserviceResetEduUserPasswordResult()
 }
 
+func getFileListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*system.SystemserviceGetFileListArgs)
+	realResult := result.(*system.SystemserviceGetFileListResult)
+	success, err := handler.(system.Systemservice).GetFileList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newSystemserviceGetFileListArgs() interface{} {
+	return system.NewSystemserviceGetFileListArgs()
+}
+
+func newSystemserviceGetFileListResult() interface{} {
+	return system.NewSystemserviceGetFileListResult()
+}
+
+func getObjectHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*system.SystemserviceGetObjectArgs)
+	realResult := result.(*system.SystemserviceGetObjectResult)
+	success, err := handler.(system.Systemservice).GetObject(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newSystemserviceGetObjectArgs() interface{} {
+	return system.NewSystemserviceGetObjectArgs()
+}
+
+func newSystemserviceGetObjectResult() interface{} {
+	return system.NewSystemserviceGetObjectResult()
+}
+
+func deleteObjectHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*system.SystemserviceDeleteObjectArgs)
+	realResult := result.(*system.SystemserviceDeleteObjectResult)
+	success, err := handler.(system.Systemservice).DeleteObject(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newSystemserviceDeleteObjectArgs() interface{} {
+	return system.NewSystemserviceDeleteObjectArgs()
+}
+
+func newSystemserviceDeleteObjectResult() interface{} {
+	return system.NewSystemserviceDeleteObjectResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -1344,6 +1419,36 @@ func (p *kClient) ResetEduUserPassword(ctx context.Context, req *system.ResetEdu
 	_args.Req = req
 	var _result system.SystemserviceResetEduUserPasswordResult
 	if err = p.c.Call(ctx, "ResetEduUserPassword", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetFileList(ctx context.Context, req *system.GetFileListReq) (r *system.GetFileListResp, err error) {
+	var _args system.SystemserviceGetFileListArgs
+	_args.Req = req
+	var _result system.SystemserviceGetFileListResult
+	if err = p.c.Call(ctx, "GetFileList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetObject(ctx context.Context, req *system.GetObjectReq) (r *system.GetObjectResp, err error) {
+	var _args system.SystemserviceGetObjectArgs
+	_args.Req = req
+	var _result system.SystemserviceGetObjectResult
+	if err = p.c.Call(ctx, "GetObject", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) DeleteObject(ctx context.Context, req *system.DeleteObjectReq) (r *system.DeleteObjectResp, err error) {
+	var _args system.SystemserviceDeleteObjectArgs
+	_args.Req = req
+	var _result system.SystemserviceDeleteObjectResult
+	if err = p.c.Call(ctx, "DeleteObject", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

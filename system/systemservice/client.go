@@ -47,6 +47,9 @@ type Client interface {
 	SetEduUserRole(ctx context.Context, req *system.SetEduUserRoleReq, callOptions ...callopt.Option) (r *system.SetEduUserRoleResp, err error)
 	GetEduUserToken(ctx context.Context, req *system.GetEduUserTokenReq, callOptions ...callopt.Option) (r *system.GetEduUserTokenResp, err error)
 	ResetEduUserPassword(ctx context.Context, req *system.ResetEduUserPasswordReq, callOptions ...callopt.Option) (r *system.ResetEduUserPasswordResp, err error)
+	GetFileList(ctx context.Context, req *system.GetFileListReq, callOptions ...callopt.Option) (r *system.GetFileListResp, err error)
+	GetObject(ctx context.Context, req *system.GetObjectReq, callOptions ...callopt.Option) (r *system.GetObjectResp, err error)
+	DeleteObject(ctx context.Context, req *system.DeleteObjectReq, callOptions ...callopt.Option) (r *system.DeleteObjectResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -256,4 +259,19 @@ func (p *kSystemserviceClient) GetEduUserToken(ctx context.Context, req *system.
 func (p *kSystemserviceClient) ResetEduUserPassword(ctx context.Context, req *system.ResetEduUserPasswordReq, callOptions ...callopt.Option) (r *system.ResetEduUserPasswordResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.ResetEduUserPassword(ctx, req)
+}
+
+func (p *kSystemserviceClient) GetFileList(ctx context.Context, req *system.GetFileListReq, callOptions ...callopt.Option) (r *system.GetFileListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetFileList(ctx, req)
+}
+
+func (p *kSystemserviceClient) GetObject(ctx context.Context, req *system.GetObjectReq, callOptions ...callopt.Option) (r *system.GetObjectResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetObject(ctx, req)
+}
+
+func (p *kSystemserviceClient) DeleteObject(ctx context.Context, req *system.DeleteObjectReq, callOptions ...callopt.Option) (r *system.DeleteObjectResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.DeleteObject(ctx, req)
 }

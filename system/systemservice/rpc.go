@@ -185,3 +185,18 @@ func ResetEduUserPassword(ctx context.Context, req *system.ResetEduUserPasswordR
 	clients := MustNewClient("system", callOptions...)
 	return clients.ResetEduUserPassword(ctx, req)
 }
+
+func GetFileList(ctx context.Context, req *system.GetFileListReq, callOptions ...client.Option) (resp *system.GetFileListResp, err error) {
+	clients := MustNewClient("system", callOptions...)
+	return clients.GetFileList(ctx, req)
+}
+
+func GetObject(ctx context.Context, req *system.GetObjectReq, callOptions ...client.Option) (resp *system.GetObjectResp, err error) {
+	clients := MustNewClient("system", callOptions...)
+	return clients.GetObject(ctx, req)
+}
+
+func DeleteObject(ctx context.Context, req *system.DeleteObjectReq, callOptions ...client.Option) (resp *system.DeleteObjectResp, err error) {
+	clients := MustNewClient("system", callOptions...)
+	return clients.DeleteObject(ctx, req)
+}
