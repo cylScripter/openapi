@@ -4685,7 +4685,7 @@ func (p *GetObjectReq) FastRead(buf []byte) (int, error) {
 		}
 		switch fieldId {
 		case 1:
-			if fieldTypeId == thrift.I32 {
+			if fieldTypeId == thrift.STRING {
 				l, err = p.FastReadField1(buf[offset:])
 				offset += l
 				if err != nil {
@@ -4719,14 +4719,14 @@ SkipFieldError:
 func (p *GetObjectReq) FastReadField1(buf []byte) (int, error) {
 	offset := 0
 
-	var _field int32
-	if v, l, err := thrift.Binary.ReadI32(buf[offset:]); err != nil {
+	var _field string
+	if v, l, err := thrift.Binary.ReadString(buf[offset:]); err != nil {
 		return offset, err
 	} else {
 		offset += l
 		_field = v
 	}
-	p.Id = _field
+	p.UploadId = _field
 	return offset, nil
 }
 
@@ -4755,15 +4755,15 @@ func (p *GetObjectReq) BLength() int {
 
 func (p *GetObjectReq) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
-	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 1)
-	offset += thrift.Binary.WriteI32(buf[offset:], p.Id)
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 1)
+	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.UploadId)
 	return offset
 }
 
 func (p *GetObjectReq) field1Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.I32Length()
+	l += thrift.Binary.StringLengthNocopy(p.UploadId)
 	return l
 }
 
@@ -4927,7 +4927,7 @@ func (p *DeleteObjectReq) FastRead(buf []byte) (int, error) {
 		}
 		switch fieldId {
 		case 1:
-			if fieldTypeId == thrift.I32 {
+			if fieldTypeId == thrift.STRING {
 				l, err = p.FastReadField1(buf[offset:])
 				offset += l
 				if err != nil {
@@ -4961,14 +4961,14 @@ SkipFieldError:
 func (p *DeleteObjectReq) FastReadField1(buf []byte) (int, error) {
 	offset := 0
 
-	var _field int32
-	if v, l, err := thrift.Binary.ReadI32(buf[offset:]); err != nil {
+	var _field string
+	if v, l, err := thrift.Binary.ReadString(buf[offset:]); err != nil {
 		return offset, err
 	} else {
 		offset += l
 		_field = v
 	}
-	p.Id = _field
+	p.UploadId = _field
 	return offset, nil
 }
 
@@ -4997,15 +4997,15 @@ func (p *DeleteObjectReq) BLength() int {
 
 func (p *DeleteObjectReq) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
-	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 1)
-	offset += thrift.Binary.WriteI32(buf[offset:], p.Id)
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 1)
+	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.UploadId)
 	return offset
 }
 
 func (p *DeleteObjectReq) field1Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.I32Length()
+	l += thrift.Binary.StringLengthNocopy(p.UploadId)
 	return l
 }
 

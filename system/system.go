@@ -7033,7 +7033,7 @@ func (p *ModelRolePermission) Field6DeepEqual(src int32) bool {
 }
 
 type GetObjectReq struct {
-	Id int32 `thrift:"id,1" frugal:"1,default,i32" json:"id"`
+	UploadId string `thrift:"upload_id,1" frugal:"1,default,string" json:"upload_id"`
 }
 
 func NewGetObjectReq() *GetObjectReq {
@@ -7043,15 +7043,15 @@ func NewGetObjectReq() *GetObjectReq {
 func (p *GetObjectReq) InitDefault() {
 }
 
-func (p *GetObjectReq) GetId() (v int32) {
-	return p.Id
+func (p *GetObjectReq) GetUploadId() (v string) {
+	return p.UploadId
 }
-func (p *GetObjectReq) SetId(val int32) {
-	p.Id = val
+func (p *GetObjectReq) SetUploadId(val string) {
+	p.UploadId = val
 }
 
 var fieldIDToName_GetObjectReq = map[int16]string{
-	1: "id",
+	1: "upload_id",
 }
 
 func (p *GetObjectReq) Read(iprot thrift.TProtocol) (err error) {
@@ -7074,7 +7074,7 @@ func (p *GetObjectReq) Read(iprot thrift.TProtocol) (err error) {
 
 		switch fieldId {
 		case 1:
-			if fieldTypeId == thrift.I32 {
+			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField1(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -7112,13 +7112,13 @@ ReadStructEndError:
 
 func (p *GetObjectReq) ReadField1(iprot thrift.TProtocol) error {
 
-	var _field int32
-	if v, err := iprot.ReadI32(); err != nil {
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
 		_field = v
 	}
-	p.Id = _field
+	p.UploadId = _field
 	return nil
 }
 
@@ -7151,10 +7151,10 @@ WriteStructEndError:
 }
 
 func (p *GetObjectReq) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("id", thrift.I32, 1); err != nil {
+	if err = oprot.WriteFieldBegin("upload_id", thrift.STRING, 1); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteI32(p.Id); err != nil {
+	if err := oprot.WriteString(p.UploadId); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -7181,15 +7181,15 @@ func (p *GetObjectReq) DeepEqual(ano *GetObjectReq) bool {
 	} else if p == nil || ano == nil {
 		return false
 	}
-	if !p.Field1DeepEqual(ano.Id) {
+	if !p.Field1DeepEqual(ano.UploadId) {
 		return false
 	}
 	return true
 }
 
-func (p *GetObjectReq) Field1DeepEqual(src int32) bool {
+func (p *GetObjectReq) Field1DeepEqual(src string) bool {
 
-	if p.Id != src {
+	if strings.Compare(p.UploadId, src) != 0 {
 		return false
 	}
 	return true
@@ -7418,7 +7418,7 @@ func (p *GetObjectResp) Field3DeepEqual(src string) bool {
 }
 
 type DeleteObjectReq struct {
-	Id int32 `thrift:"id,1" frugal:"1,default,i32" json:"id"`
+	UploadId string `thrift:"upload_id,1" frugal:"1,default,string" json:"upload_id"`
 }
 
 func NewDeleteObjectReq() *DeleteObjectReq {
@@ -7428,15 +7428,15 @@ func NewDeleteObjectReq() *DeleteObjectReq {
 func (p *DeleteObjectReq) InitDefault() {
 }
 
-func (p *DeleteObjectReq) GetId() (v int32) {
-	return p.Id
+func (p *DeleteObjectReq) GetUploadId() (v string) {
+	return p.UploadId
 }
-func (p *DeleteObjectReq) SetId(val int32) {
-	p.Id = val
+func (p *DeleteObjectReq) SetUploadId(val string) {
+	p.UploadId = val
 }
 
 var fieldIDToName_DeleteObjectReq = map[int16]string{
-	1: "id",
+	1: "upload_id",
 }
 
 func (p *DeleteObjectReq) Read(iprot thrift.TProtocol) (err error) {
@@ -7459,7 +7459,7 @@ func (p *DeleteObjectReq) Read(iprot thrift.TProtocol) (err error) {
 
 		switch fieldId {
 		case 1:
-			if fieldTypeId == thrift.I32 {
+			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField1(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -7497,13 +7497,13 @@ ReadStructEndError:
 
 func (p *DeleteObjectReq) ReadField1(iprot thrift.TProtocol) error {
 
-	var _field int32
-	if v, err := iprot.ReadI32(); err != nil {
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
 		_field = v
 	}
-	p.Id = _field
+	p.UploadId = _field
 	return nil
 }
 
@@ -7536,10 +7536,10 @@ WriteStructEndError:
 }
 
 func (p *DeleteObjectReq) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("id", thrift.I32, 1); err != nil {
+	if err = oprot.WriteFieldBegin("upload_id", thrift.STRING, 1); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteI32(p.Id); err != nil {
+	if err := oprot.WriteString(p.UploadId); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -7566,15 +7566,15 @@ func (p *DeleteObjectReq) DeepEqual(ano *DeleteObjectReq) bool {
 	} else if p == nil || ano == nil {
 		return false
 	}
-	if !p.Field1DeepEqual(ano.Id) {
+	if !p.Field1DeepEqual(ano.UploadId) {
 		return false
 	}
 	return true
 }
 
-func (p *DeleteObjectReq) Field1DeepEqual(src int32) bool {
+func (p *DeleteObjectReq) Field1DeepEqual(src string) bool {
 
-	if p.Id != src {
+	if strings.Compare(p.UploadId, src) != 0 {
 		return false
 	}
 	return true
