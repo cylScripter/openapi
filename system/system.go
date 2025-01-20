@@ -7733,6 +7733,7 @@ func (p *GetEduUserTokenResp) Field1DeepEqual(src string) bool {
 type SetEduUserRoleReq struct {
 	UserId int32 `thrift:"user_id,1" frugal:"1,default,i32" json:"user_id" binding:"required"`
 	RoleId int32 `thrift:"role_id,2" frugal:"2,default,i32" json:"role_id" binding:"required"`
+	AppId  int32 `thrift:"app_id,3" frugal:"3,default,i32" json:"app_id" binding:"required"`
 }
 
 func NewSetEduUserRoleReq() *SetEduUserRoleReq {
@@ -7749,16 +7750,24 @@ func (p *SetEduUserRoleReq) GetUserId() (v int32) {
 func (p *SetEduUserRoleReq) GetRoleId() (v int32) {
 	return p.RoleId
 }
+
+func (p *SetEduUserRoleReq) GetAppId() (v int32) {
+	return p.AppId
+}
 func (p *SetEduUserRoleReq) SetUserId(val int32) {
 	p.UserId = val
 }
 func (p *SetEduUserRoleReq) SetRoleId(val int32) {
 	p.RoleId = val
 }
+func (p *SetEduUserRoleReq) SetAppId(val int32) {
+	p.AppId = val
+}
 
 var fieldIDToName_SetEduUserRoleReq = map[int16]string{
 	1: "user_id",
 	2: "role_id",
+	3: "app_id",
 }
 
 func (p *SetEduUserRoleReq) Read(iprot thrift.TProtocol) (err error) {
@@ -7791,6 +7800,14 @@ func (p *SetEduUserRoleReq) Read(iprot thrift.TProtocol) (err error) {
 		case 2:
 			if fieldTypeId == thrift.I32 {
 				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 3:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField3(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -7847,6 +7864,17 @@ func (p *SetEduUserRoleReq) ReadField2(iprot thrift.TProtocol) error {
 	p.RoleId = _field
 	return nil
 }
+func (p *SetEduUserRoleReq) ReadField3(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.AppId = _field
+	return nil
+}
 
 func (p *SetEduUserRoleReq) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -7860,6 +7888,10 @@ func (p *SetEduUserRoleReq) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField2(oprot); err != nil {
 			fieldId = 2
+			goto WriteFieldError
+		}
+		if err = p.writeField3(oprot); err != nil {
+			fieldId = 3
 			goto WriteFieldError
 		}
 	}
@@ -7914,6 +7946,23 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
+func (p *SetEduUserRoleReq) writeField3(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("app_id", thrift.I32, 3); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.AppId); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
+}
+
 func (p *SetEduUserRoleReq) String() string {
 	if p == nil {
 		return "<nil>"
@@ -7934,6 +7983,9 @@ func (p *SetEduUserRoleReq) DeepEqual(ano *SetEduUserRoleReq) bool {
 	if !p.Field2DeepEqual(ano.RoleId) {
 		return false
 	}
+	if !p.Field3DeepEqual(ano.AppId) {
+		return false
+	}
 	return true
 }
 
@@ -7947,6 +7999,13 @@ func (p *SetEduUserRoleReq) Field1DeepEqual(src int32) bool {
 func (p *SetEduUserRoleReq) Field2DeepEqual(src int32) bool {
 
 	if p.RoleId != src {
+		return false
+	}
+	return true
+}
+func (p *SetEduUserRoleReq) Field3DeepEqual(src int32) bool {
+
+	if p.AppId != src {
 		return false
 	}
 	return true
