@@ -7731,9 +7731,9 @@ func (p *GetEduUserTokenResp) Field1DeepEqual(src string) bool {
 }
 
 type SetEduUserRoleReq struct {
-	UserId int32 `thrift:"user_id,1" frugal:"1,default,i32" json:"user_id" binding:"required"`
-	RoleId int32 `thrift:"role_id,2" frugal:"2,default,i32" json:"role_id" binding:"required"`
-	AppId  int32 `thrift:"app_id,3" frugal:"3,default,i32" json:"app_id" binding:"required"`
+	UserId  int32   `thrift:"user_id,1" frugal:"1,default,i32" json:"user_id" binding:"required"`
+	RoleIds []int32 `thrift:"role_ids,2" frugal:"2,default,list<i32>" json:"role_ids" binding:"required"`
+	AppId   int32   `thrift:"app_id,3" frugal:"3,default,i32" json:"app_id" binding:"required"`
 }
 
 func NewSetEduUserRoleReq() *SetEduUserRoleReq {
@@ -7747,8 +7747,8 @@ func (p *SetEduUserRoleReq) GetUserId() (v int32) {
 	return p.UserId
 }
 
-func (p *SetEduUserRoleReq) GetRoleId() (v int32) {
-	return p.RoleId
+func (p *SetEduUserRoleReq) GetRoleIds() (v []int32) {
+	return p.RoleIds
 }
 
 func (p *SetEduUserRoleReq) GetAppId() (v int32) {
@@ -7757,8 +7757,8 @@ func (p *SetEduUserRoleReq) GetAppId() (v int32) {
 func (p *SetEduUserRoleReq) SetUserId(val int32) {
 	p.UserId = val
 }
-func (p *SetEduUserRoleReq) SetRoleId(val int32) {
-	p.RoleId = val
+func (p *SetEduUserRoleReq) SetRoleIds(val []int32) {
+	p.RoleIds = val
 }
 func (p *SetEduUserRoleReq) SetAppId(val int32) {
 	p.AppId = val
@@ -7766,7 +7766,7 @@ func (p *SetEduUserRoleReq) SetAppId(val int32) {
 
 var fieldIDToName_SetEduUserRoleReq = map[int16]string{
 	1: "user_id",
-	2: "role_id",
+	2: "role_ids",
 	3: "app_id",
 }
 
@@ -7798,7 +7798,7 @@ func (p *SetEduUserRoleReq) Read(iprot thrift.TProtocol) (err error) {
 				goto SkipFieldError
 			}
 		case 2:
-			if fieldTypeId == thrift.I32 {
+			if fieldTypeId == thrift.LIST {
 				if err = p.ReadField2(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -7854,14 +7854,26 @@ func (p *SetEduUserRoleReq) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 func (p *SetEduUserRoleReq) ReadField2(iprot thrift.TProtocol) error {
-
-	var _field int32
-	if v, err := iprot.ReadI32(); err != nil {
+	_, size, err := iprot.ReadListBegin()
+	if err != nil {
 		return err
-	} else {
-		_field = v
 	}
-	p.RoleId = _field
+	_field := make([]int32, 0, size)
+	for i := 0; i < size; i++ {
+
+		var _elem int32
+		if v, err := iprot.ReadI32(); err != nil {
+			return err
+		} else {
+			_elem = v
+		}
+
+		_field = append(_field, _elem)
+	}
+	if err := iprot.ReadListEnd(); err != nil {
+		return err
+	}
+	p.RoleIds = _field
 	return nil
 }
 func (p *SetEduUserRoleReq) ReadField3(iprot thrift.TProtocol) error {
@@ -7930,10 +7942,18 @@ WriteFieldEndError:
 }
 
 func (p *SetEduUserRoleReq) writeField2(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("role_id", thrift.I32, 2); err != nil {
+	if err = oprot.WriteFieldBegin("role_ids", thrift.LIST, 2); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteI32(p.RoleId); err != nil {
+	if err := oprot.WriteListBegin(thrift.I32, len(p.RoleIds)); err != nil {
+		return err
+	}
+	for _, v := range p.RoleIds {
+		if err := oprot.WriteI32(v); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteListEnd(); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -7980,7 +8000,7 @@ func (p *SetEduUserRoleReq) DeepEqual(ano *SetEduUserRoleReq) bool {
 	if !p.Field1DeepEqual(ano.UserId) {
 		return false
 	}
-	if !p.Field2DeepEqual(ano.RoleId) {
+	if !p.Field2DeepEqual(ano.RoleIds) {
 		return false
 	}
 	if !p.Field3DeepEqual(ano.AppId) {
@@ -7996,10 +8016,16 @@ func (p *SetEduUserRoleReq) Field1DeepEqual(src int32) bool {
 	}
 	return true
 }
-func (p *SetEduUserRoleReq) Field2DeepEqual(src int32) bool {
+func (p *SetEduUserRoleReq) Field2DeepEqual(src []int32) bool {
 
-	if p.RoleId != src {
+	if len(p.RoleIds) != len(src) {
 		return false
+	}
+	for i, v := range p.RoleIds {
+		_src := src[i]
+		if v != _src {
+			return false
+		}
 	}
 	return true
 }
