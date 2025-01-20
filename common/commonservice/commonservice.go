@@ -20,6 +20,13 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"GetFileList": kitex.NewMethodInfo(
+		getFileListHandler,
+		newCommonserviceGetFileListArgs,
+		newCommonserviceGetFileListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 	"UploadFile": kitex.NewMethodInfo(
 		uploadFileHandler,
 		newCommonserviceUploadFileArgs,
@@ -179,6 +186,24 @@ func newCommonserviceGetFileArgs() interface{} {
 
 func newCommonserviceGetFileResult() interface{} {
 	return common.NewCommonserviceGetFileResult()
+}
+
+func getFileListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*common.CommonserviceGetFileListArgs)
+	realResult := result.(*common.CommonserviceGetFileListResult)
+	success, err := handler.(common.Commonservice).GetFileList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newCommonserviceGetFileListArgs() interface{} {
+	return common.NewCommonserviceGetFileListArgs()
+}
+
+func newCommonserviceGetFileListResult() interface{} {
+	return common.NewCommonserviceGetFileListResult()
 }
 
 func uploadFileHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
@@ -394,6 +419,16 @@ func (p *kClient) GetFile(ctx context.Context, req *common.GetFileReq) (r *commo
 	_args.Req = req
 	var _result common.CommonserviceGetFileResult
 	if err = p.c.Call(ctx, "GetFile", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetFileList(ctx context.Context, req *common.GetFileListReq) (r *common.GetFileListResp, err error) {
+	var _args common.CommonserviceGetFileListArgs
+	_args.Req = req
+	var _result common.CommonserviceGetFileListResult
+	if err = p.c.Call(ctx, "GetFileList", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

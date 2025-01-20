@@ -11,6 +11,11 @@ func GetFile(ctx context.Context, req *common.GetFileReq, callOptions ...client.
 	return clients.GetFile(ctx, req)
 }
 
+func GetFileList(ctx context.Context, req *common.GetFileListReq, callOptions ...client.Option) (resp *common.GetFileListResp, err error) {
+	clients := MustNewClient("common", callOptions...)
+	return clients.GetFileList(ctx, req)
+}
+
 func UploadFile(ctx context.Context, req *common.UploadFileReq, callOptions ...client.Option) (resp *common.UploadFileResp, err error) {
 	clients := MustNewClient("common", callOptions...)
 	return clients.UploadFile(ctx, req)
