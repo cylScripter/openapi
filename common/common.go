@@ -6597,7 +6597,7 @@ type ModelFile struct {
 	UpdatedAt  int32           `thrift:"updated_at,3" frugal:"3,default,i32" json:"updated_at"`
 	FileName   string          `thrift:"file_name,4" frugal:"4,default,string" gorm:"column:file_name" json:"file_name"`
 	FilePath   string          `thrift:"file_path,5" frugal:"5,default,string" gorm:"column:file_path" json:"file_path"`
-	FileType   int32           `thrift:"file_type,6" frugal:"6,default,i32" gorm:"column:file_type" json:"file_type;default:3"`
+	FileType   int32           `thrift:"file_type,6" frugal:"6,default,i32" gorm:"column:file_type;default:3" json:"file_type"`
 	Status     int32           `thrift:"status,7" frugal:"7,default,i32" gorm:"column:status" json:"status"`
 	UploadId   string          `thrift:"upload_id,8" frugal:"8,default,string" gorm:"column:upload_id;index" json:"upload_id"`
 	JsonMeta   string          `thrift:"json_meta,9" frugal:"9,default,string" gorm:"column:meta;type:json;default:{};" json:"meta"`
