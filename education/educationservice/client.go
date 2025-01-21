@@ -51,7 +51,7 @@ type Client interface {
 	ImportTeacherInfo(ctx context.Context, req *education.ImportTeacherInfoReq, callOptions ...callopt.Option) (r *education.ImportTeacherInfoResp, err error)
 	UpdateTeacherInfo(ctx context.Context, req *education.UpdateTeacherInfoReq, callOptions ...callopt.Option) (r *education.UpdateTeacherInfoResp, err error)
 	SetTeacherInfoStatus(ctx context.Context, req *education.SetTeacherInfoStatusReq, callOptions ...callopt.Option) (r *education.SetTeacherInfoStatusResp, err error)
-	SyncTeacherInfo(ctx context.Context, req *education.OrderTeacherInfoReq, callOptions ...callopt.Option) (r *education.OrderTeacherInfoResp, err error)
+	OderTeacherInfo(ctx context.Context, req *education.OrderTeacherInfoReq, callOptions ...callopt.Option) (r *education.OrderTeacherInfoResp, err error)
 	UpdateMenu(ctx context.Context, req *education.UpdateMenuReq, callOptions ...callopt.Option) (r *education.UpdateMenuResp, err error)
 	DeleteMenu(ctx context.Context, req *education.DeleteMenuReq, callOptions ...callopt.Option) (r *education.DeleteMenuResp, err error)
 	GetToken(ctx context.Context, req *education.GetTokenReq, callOptions ...callopt.Option) (r *education.GetTokenResp, err error)
@@ -296,9 +296,9 @@ func (p *kEducationserviceClient) SetTeacherInfoStatus(ctx context.Context, req 
 	return p.kClient.SetTeacherInfoStatus(ctx, req)
 }
 
-func (p *kEducationserviceClient) SyncTeacherInfo(ctx context.Context, req *education.OrderTeacherInfoReq, callOptions ...callopt.Option) (r *education.OrderTeacherInfoResp, err error) {
+func (p *kEducationserviceClient) OderTeacherInfo(ctx context.Context, req *education.OrderTeacherInfoReq, callOptions ...callopt.Option) (r *education.OrderTeacherInfoResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
-	return p.kClient.SyncTeacherInfo(ctx, req)
+	return p.kClient.OderTeacherInfo(ctx, req)
 }
 
 func (p *kEducationserviceClient) UpdateMenu(ctx context.Context, req *education.UpdateMenuReq, callOptions ...callopt.Option) (r *education.UpdateMenuResp, err error) {

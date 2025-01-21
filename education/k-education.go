@@ -34262,7 +34262,7 @@ func (p *EducationserviceSetTeacherInfoStatusResult) field0Length() int {
 	return l
 }
 
-func (p *EducationserviceSyncTeacherInfoArgs) FastRead(buf []byte) (int, error) {
+func (p *EducationserviceOderTeacherInfoArgs) FastRead(buf []byte) (int, error) {
 	var err error
 	var offset int
 	var l int
@@ -34305,12 +34305,12 @@ func (p *EducationserviceSyncTeacherInfoArgs) FastRead(buf []byte) (int, error) 
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_EducationserviceSyncTeacherInfoArgs[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_EducationserviceOderTeacherInfoArgs[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 }
 
-func (p *EducationserviceSyncTeacherInfoArgs) FastReadField1(buf []byte) (int, error) {
+func (p *EducationserviceOderTeacherInfoArgs) FastReadField1(buf []byte) (int, error) {
 	offset := 0
 	_field := NewOrderTeacherInfoReq()
 	if l, err := _field.FastRead(buf[offset:]); err != nil {
@@ -34323,11 +34323,11 @@ func (p *EducationserviceSyncTeacherInfoArgs) FastReadField1(buf []byte) (int, e
 }
 
 // for compatibility
-func (p *EducationserviceSyncTeacherInfoArgs) FastWrite(buf []byte) int {
+func (p *EducationserviceOderTeacherInfoArgs) FastWrite(buf []byte) int {
 	return 0
 }
 
-func (p *EducationserviceSyncTeacherInfoArgs) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
+func (p *EducationserviceOderTeacherInfoArgs) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p != nil {
 		offset += p.fastWriteField1(buf[offset:], w)
@@ -34336,7 +34336,7 @@ func (p *EducationserviceSyncTeacherInfoArgs) FastWriteNocopy(buf []byte, w thri
 	return offset
 }
 
-func (p *EducationserviceSyncTeacherInfoArgs) BLength() int {
+func (p *EducationserviceOderTeacherInfoArgs) BLength() int {
 	l := 0
 	if p != nil {
 		l += p.field1Length()
@@ -34345,21 +34345,21 @@ func (p *EducationserviceSyncTeacherInfoArgs) BLength() int {
 	return l
 }
 
-func (p *EducationserviceSyncTeacherInfoArgs) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
+func (p *EducationserviceOderTeacherInfoArgs) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRUCT, 1)
 	offset += p.Req.FastWriteNocopy(buf[offset:], w)
 	return offset
 }
 
-func (p *EducationserviceSyncTeacherInfoArgs) field1Length() int {
+func (p *EducationserviceOderTeacherInfoArgs) field1Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += p.Req.BLength()
 	return l
 }
 
-func (p *EducationserviceSyncTeacherInfoResult) FastRead(buf []byte) (int, error) {
+func (p *EducationserviceOderTeacherInfoResult) FastRead(buf []byte) (int, error) {
 	var err error
 	var offset int
 	var l int
@@ -34402,12 +34402,12 @@ func (p *EducationserviceSyncTeacherInfoResult) FastRead(buf []byte) (int, error
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_EducationserviceSyncTeacherInfoResult[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_EducationserviceOderTeacherInfoResult[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 }
 
-func (p *EducationserviceSyncTeacherInfoResult) FastReadField0(buf []byte) (int, error) {
+func (p *EducationserviceOderTeacherInfoResult) FastReadField0(buf []byte) (int, error) {
 	offset := 0
 	_field := NewOrderTeacherInfoResp()
 	if l, err := _field.FastRead(buf[offset:]); err != nil {
@@ -34420,11 +34420,11 @@ func (p *EducationserviceSyncTeacherInfoResult) FastReadField0(buf []byte) (int,
 }
 
 // for compatibility
-func (p *EducationserviceSyncTeacherInfoResult) FastWrite(buf []byte) int {
+func (p *EducationserviceOderTeacherInfoResult) FastWrite(buf []byte) int {
 	return 0
 }
 
-func (p *EducationserviceSyncTeacherInfoResult) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
+func (p *EducationserviceOderTeacherInfoResult) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p != nil {
 		offset += p.fastWriteField0(buf[offset:], w)
@@ -34433,7 +34433,7 @@ func (p *EducationserviceSyncTeacherInfoResult) FastWriteNocopy(buf []byte, w th
 	return offset
 }
 
-func (p *EducationserviceSyncTeacherInfoResult) BLength() int {
+func (p *EducationserviceOderTeacherInfoResult) BLength() int {
 	l := 0
 	if p != nil {
 		l += p.field0Length()
@@ -34442,7 +34442,7 @@ func (p *EducationserviceSyncTeacherInfoResult) BLength() int {
 	return l
 }
 
-func (p *EducationserviceSyncTeacherInfoResult) fastWriteField0(buf []byte, w thrift.NocopyWriter) int {
+func (p *EducationserviceOderTeacherInfoResult) fastWriteField0(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p.IsSetSuccess() {
 		offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRUCT, 0)
@@ -34451,7 +34451,7 @@ func (p *EducationserviceSyncTeacherInfoResult) fastWriteField0(buf []byte, w th
 	return offset
 }
 
-func (p *EducationserviceSyncTeacherInfoResult) field0Length() int {
+func (p *EducationserviceOderTeacherInfoResult) field0Length() int {
 	l := 0
 	if p.IsSetSuccess() {
 		l += thrift.Binary.FieldBeginLength()
@@ -37354,11 +37354,11 @@ func (p *EducationserviceSetTeacherInfoStatusResult) GetResult() interface{} {
 	return p.Success
 }
 
-func (p *EducationserviceSyncTeacherInfoArgs) GetFirstArgument() interface{} {
+func (p *EducationserviceOderTeacherInfoArgs) GetFirstArgument() interface{} {
 	return p.Req
 }
 
-func (p *EducationserviceSyncTeacherInfoResult) GetResult() interface{} {
+func (p *EducationserviceOderTeacherInfoResult) GetResult() interface{} {
 	return p.Success
 }
 

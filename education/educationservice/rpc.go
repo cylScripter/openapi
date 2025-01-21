@@ -206,9 +206,9 @@ func SetTeacherInfoStatus(ctx context.Context, req *education.SetTeacherInfoStat
 	return clients.SetTeacherInfoStatus(ctx, req)
 }
 
-func SyncTeacherInfo(ctx context.Context, req *education.OrderTeacherInfoReq, callOptions ...client.Option) (resp *education.OrderTeacherInfoResp, err error) {
+func OderTeacherInfo(ctx context.Context, req *education.OrderTeacherInfoReq, callOptions ...client.Option) (resp *education.OrderTeacherInfoResp, err error) {
 	clients := MustNewClient("education", callOptions...)
-	return clients.SyncTeacherInfo(ctx, req)
+	return clients.OderTeacherInfo(ctx, req)
 }
 
 func UpdateMenu(ctx context.Context, req *education.UpdateMenuReq, callOptions ...client.Option) (resp *education.UpdateMenuResp, err error) {

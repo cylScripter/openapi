@@ -40096,7 +40096,7 @@ type Educationservice interface {
 
 	SetTeacherInfoStatus(ctx context.Context, req *SetTeacherInfoStatusReq) (r *SetTeacherInfoStatusResp, err error)
 
-	SyncTeacherInfo(ctx context.Context, req *OrderTeacherInfoReq) (r *OrderTeacherInfoResp, err error)
+	OderTeacherInfo(ctx context.Context, req *OrderTeacherInfoReq) (r *OrderTeacherInfoResp, err error)
 
 	UpdateMenu(ctx context.Context, req *UpdateMenuReq) (r *UpdateMenuResp, err error)
 
@@ -53725,38 +53725,38 @@ func (p *EducationserviceSetTeacherInfoStatusResult) Field0DeepEqual(src *SetTea
 	return true
 }
 
-type EducationserviceSyncTeacherInfoArgs struct {
+type EducationserviceOderTeacherInfoArgs struct {
 	Req *OrderTeacherInfoReq `thrift:"req,1" frugal:"1,default,OrderTeacherInfoReq" json:"req"`
 }
 
-func NewEducationserviceSyncTeacherInfoArgs() *EducationserviceSyncTeacherInfoArgs {
-	return &EducationserviceSyncTeacherInfoArgs{}
+func NewEducationserviceOderTeacherInfoArgs() *EducationserviceOderTeacherInfoArgs {
+	return &EducationserviceOderTeacherInfoArgs{}
 }
 
-func (p *EducationserviceSyncTeacherInfoArgs) InitDefault() {
+func (p *EducationserviceOderTeacherInfoArgs) InitDefault() {
 }
 
-var EducationserviceSyncTeacherInfoArgs_Req_DEFAULT *OrderTeacherInfoReq
+var EducationserviceOderTeacherInfoArgs_Req_DEFAULT *OrderTeacherInfoReq
 
-func (p *EducationserviceSyncTeacherInfoArgs) GetReq() (v *OrderTeacherInfoReq) {
+func (p *EducationserviceOderTeacherInfoArgs) GetReq() (v *OrderTeacherInfoReq) {
 	if !p.IsSetReq() {
-		return EducationserviceSyncTeacherInfoArgs_Req_DEFAULT
+		return EducationserviceOderTeacherInfoArgs_Req_DEFAULT
 	}
 	return p.Req
 }
-func (p *EducationserviceSyncTeacherInfoArgs) SetReq(val *OrderTeacherInfoReq) {
+func (p *EducationserviceOderTeacherInfoArgs) SetReq(val *OrderTeacherInfoReq) {
 	p.Req = val
 }
 
-var fieldIDToName_EducationserviceSyncTeacherInfoArgs = map[int16]string{
+var fieldIDToName_EducationserviceOderTeacherInfoArgs = map[int16]string{
 	1: "req",
 }
 
-func (p *EducationserviceSyncTeacherInfoArgs) IsSetReq() bool {
+func (p *EducationserviceOderTeacherInfoArgs) IsSetReq() bool {
 	return p.Req != nil
 }
 
-func (p *EducationserviceSyncTeacherInfoArgs) Read(iprot thrift.TProtocol) (err error) {
+func (p *EducationserviceOderTeacherInfoArgs) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -53802,7 +53802,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_EducationserviceSyncTeacherInfoArgs[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_EducationserviceOderTeacherInfoArgs[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -53812,7 +53812,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *EducationserviceSyncTeacherInfoArgs) ReadField1(iprot thrift.TProtocol) error {
+func (p *EducationserviceOderTeacherInfoArgs) ReadField1(iprot thrift.TProtocol) error {
 	_field := NewOrderTeacherInfoReq()
 	if err := _field.Read(iprot); err != nil {
 		return err
@@ -53821,9 +53821,9 @@ func (p *EducationserviceSyncTeacherInfoArgs) ReadField1(iprot thrift.TProtocol)
 	return nil
 }
 
-func (p *EducationserviceSyncTeacherInfoArgs) Write(oprot thrift.TProtocol) (err error) {
+func (p *EducationserviceOderTeacherInfoArgs) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("SyncTeacherInfo_args"); err != nil {
+	if err = oprot.WriteStructBegin("OderTeacherInfo_args"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -53849,7 +53849,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *EducationserviceSyncTeacherInfoArgs) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *EducationserviceOderTeacherInfoArgs) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -53866,15 +53866,15 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *EducationserviceSyncTeacherInfoArgs) String() string {
+func (p *EducationserviceOderTeacherInfoArgs) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("EducationserviceSyncTeacherInfoArgs(%+v)", *p)
+	return fmt.Sprintf("EducationserviceOderTeacherInfoArgs(%+v)", *p)
 
 }
 
-func (p *EducationserviceSyncTeacherInfoArgs) DeepEqual(ano *EducationserviceSyncTeacherInfoArgs) bool {
+func (p *EducationserviceOderTeacherInfoArgs) DeepEqual(ano *EducationserviceOderTeacherInfoArgs) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -53886,7 +53886,7 @@ func (p *EducationserviceSyncTeacherInfoArgs) DeepEqual(ano *EducationserviceSyn
 	return true
 }
 
-func (p *EducationserviceSyncTeacherInfoArgs) Field1DeepEqual(src *OrderTeacherInfoReq) bool {
+func (p *EducationserviceOderTeacherInfoArgs) Field1DeepEqual(src *OrderTeacherInfoReq) bool {
 
 	if !p.Req.DeepEqual(src) {
 		return false
@@ -53894,38 +53894,38 @@ func (p *EducationserviceSyncTeacherInfoArgs) Field1DeepEqual(src *OrderTeacherI
 	return true
 }
 
-type EducationserviceSyncTeacherInfoResult struct {
+type EducationserviceOderTeacherInfoResult struct {
 	Success *OrderTeacherInfoResp `thrift:"success,0,optional" frugal:"0,optional,OrderTeacherInfoResp" json:"success,omitempty"`
 }
 
-func NewEducationserviceSyncTeacherInfoResult() *EducationserviceSyncTeacherInfoResult {
-	return &EducationserviceSyncTeacherInfoResult{}
+func NewEducationserviceOderTeacherInfoResult() *EducationserviceOderTeacherInfoResult {
+	return &EducationserviceOderTeacherInfoResult{}
 }
 
-func (p *EducationserviceSyncTeacherInfoResult) InitDefault() {
+func (p *EducationserviceOderTeacherInfoResult) InitDefault() {
 }
 
-var EducationserviceSyncTeacherInfoResult_Success_DEFAULT *OrderTeacherInfoResp
+var EducationserviceOderTeacherInfoResult_Success_DEFAULT *OrderTeacherInfoResp
 
-func (p *EducationserviceSyncTeacherInfoResult) GetSuccess() (v *OrderTeacherInfoResp) {
+func (p *EducationserviceOderTeacherInfoResult) GetSuccess() (v *OrderTeacherInfoResp) {
 	if !p.IsSetSuccess() {
-		return EducationserviceSyncTeacherInfoResult_Success_DEFAULT
+		return EducationserviceOderTeacherInfoResult_Success_DEFAULT
 	}
 	return p.Success
 }
-func (p *EducationserviceSyncTeacherInfoResult) SetSuccess(x interface{}) {
+func (p *EducationserviceOderTeacherInfoResult) SetSuccess(x interface{}) {
 	p.Success = x.(*OrderTeacherInfoResp)
 }
 
-var fieldIDToName_EducationserviceSyncTeacherInfoResult = map[int16]string{
+var fieldIDToName_EducationserviceOderTeacherInfoResult = map[int16]string{
 	0: "success",
 }
 
-func (p *EducationserviceSyncTeacherInfoResult) IsSetSuccess() bool {
+func (p *EducationserviceOderTeacherInfoResult) IsSetSuccess() bool {
 	return p.Success != nil
 }
 
-func (p *EducationserviceSyncTeacherInfoResult) Read(iprot thrift.TProtocol) (err error) {
+func (p *EducationserviceOderTeacherInfoResult) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -53971,7 +53971,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_EducationserviceSyncTeacherInfoResult[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_EducationserviceOderTeacherInfoResult[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -53981,7 +53981,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *EducationserviceSyncTeacherInfoResult) ReadField0(iprot thrift.TProtocol) error {
+func (p *EducationserviceOderTeacherInfoResult) ReadField0(iprot thrift.TProtocol) error {
 	_field := NewOrderTeacherInfoResp()
 	if err := _field.Read(iprot); err != nil {
 		return err
@@ -53990,9 +53990,9 @@ func (p *EducationserviceSyncTeacherInfoResult) ReadField0(iprot thrift.TProtoco
 	return nil
 }
 
-func (p *EducationserviceSyncTeacherInfoResult) Write(oprot thrift.TProtocol) (err error) {
+func (p *EducationserviceOderTeacherInfoResult) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("SyncTeacherInfo_result"); err != nil {
+	if err = oprot.WriteStructBegin("OderTeacherInfo_result"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -54018,7 +54018,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *EducationserviceSyncTeacherInfoResult) writeField0(oprot thrift.TProtocol) (err error) {
+func (p *EducationserviceOderTeacherInfoResult) writeField0(oprot thrift.TProtocol) (err error) {
 	if p.IsSetSuccess() {
 		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
 			goto WriteFieldBeginError
@@ -54037,15 +54037,15 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
 }
 
-func (p *EducationserviceSyncTeacherInfoResult) String() string {
+func (p *EducationserviceOderTeacherInfoResult) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("EducationserviceSyncTeacherInfoResult(%+v)", *p)
+	return fmt.Sprintf("EducationserviceOderTeacherInfoResult(%+v)", *p)
 
 }
 
-func (p *EducationserviceSyncTeacherInfoResult) DeepEqual(ano *EducationserviceSyncTeacherInfoResult) bool {
+func (p *EducationserviceOderTeacherInfoResult) DeepEqual(ano *EducationserviceOderTeacherInfoResult) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -54057,7 +54057,7 @@ func (p *EducationserviceSyncTeacherInfoResult) DeepEqual(ano *EducationserviceS
 	return true
 }
 
-func (p *EducationserviceSyncTeacherInfoResult) Field0DeepEqual(src *OrderTeacherInfoResp) bool {
+func (p *EducationserviceOderTeacherInfoResult) Field0DeepEqual(src *OrderTeacherInfoResp) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false

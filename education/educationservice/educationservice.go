@@ -293,10 +293,10 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
-	"SyncTeacherInfo": kitex.NewMethodInfo(
-		syncTeacherInfoHandler,
-		newEducationserviceSyncTeacherInfoArgs,
-		newEducationserviceSyncTeacherInfoResult,
+	"OderTeacherInfo": kitex.NewMethodInfo(
+		oderTeacherInfoHandler,
+		newEducationserviceOderTeacherInfoArgs,
+		newEducationserviceOderTeacherInfoResult,
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
@@ -1177,22 +1177,22 @@ func newEducationserviceSetTeacherInfoStatusResult() interface{} {
 	return education.NewEducationserviceSetTeacherInfoStatusResult()
 }
 
-func syncTeacherInfoHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
-	realArg := arg.(*education.EducationserviceSyncTeacherInfoArgs)
-	realResult := result.(*education.EducationserviceSyncTeacherInfoResult)
-	success, err := handler.(education.Educationservice).SyncTeacherInfo(ctx, realArg.Req)
+func oderTeacherInfoHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceOderTeacherInfoArgs)
+	realResult := result.(*education.EducationserviceOderTeacherInfoResult)
+	success, err := handler.(education.Educationservice).OderTeacherInfo(ctx, realArg.Req)
 	if err != nil {
 		return err
 	}
 	realResult.Success = success
 	return nil
 }
-func newEducationserviceSyncTeacherInfoArgs() interface{} {
-	return education.NewEducationserviceSyncTeacherInfoArgs()
+func newEducationserviceOderTeacherInfoArgs() interface{} {
+	return education.NewEducationserviceOderTeacherInfoArgs()
 }
 
-func newEducationserviceSyncTeacherInfoResult() interface{} {
-	return education.NewEducationserviceSyncTeacherInfoResult()
+func newEducationserviceOderTeacherInfoResult() interface{} {
+	return education.NewEducationserviceOderTeacherInfoResult()
 }
 
 func updateMenuHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
@@ -1839,11 +1839,11 @@ func (p *kClient) SetTeacherInfoStatus(ctx context.Context, req *education.SetTe
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) SyncTeacherInfo(ctx context.Context, req *education.OrderTeacherInfoReq) (r *education.OrderTeacherInfoResp, err error) {
-	var _args education.EducationserviceSyncTeacherInfoArgs
+func (p *kClient) OderTeacherInfo(ctx context.Context, req *education.OrderTeacherInfoReq) (r *education.OrderTeacherInfoResp, err error) {
+	var _args education.EducationserviceOderTeacherInfoArgs
 	_args.Req = req
-	var _result education.EducationserviceSyncTeacherInfoResult
-	if err = p.c.Call(ctx, "SyncTeacherInfo", &_args, &_result); err != nil {
+	var _result education.EducationserviceOderTeacherInfoResult
+	if err = p.c.Call(ctx, "OderTeacherInfo", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
