@@ -321,6 +321,76 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"UpdateRole": kitex.NewMethodInfo(
+		updateRoleHandler,
+		newEducationserviceUpdateRoleArgs,
+		newEducationserviceUpdateRoleResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"SetRoleStatus": kitex.NewMethodInfo(
+		setRoleStatusHandler,
+		newEducationserviceSetRoleStatusArgs,
+		newEducationserviceSetRoleStatusResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"DeleteRole": kitex.NewMethodInfo(
+		deleteRoleHandler,
+		newEducationserviceDeleteRoleArgs,
+		newEducationserviceDeleteRoleResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"DeleteOffice": kitex.NewMethodInfo(
+		deleteOfficeHandler,
+		newEducationserviceDeleteOfficeArgs,
+		newEducationserviceDeleteOfficeResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"UpdateOffice": kitex.NewMethodInfo(
+		updateOfficeHandler,
+		newEducationserviceUpdateOfficeArgs,
+		newEducationserviceUpdateOfficeResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"UpdateUser": kitex.NewMethodInfo(
+		updateUserHandler,
+		newEducationserviceUpdateUserArgs,
+		newEducationserviceUpdateUserResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"ResetPassword": kitex.NewMethodInfo(
+		resetPasswordHandler,
+		newEducationserviceResetPasswordArgs,
+		newEducationserviceResetPasswordResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"DeleteTeacherInfo": kitex.NewMethodInfo(
+		deleteTeacherInfoHandler,
+		newEducationserviceDeleteTeacherInfoArgs,
+		newEducationserviceDeleteTeacherInfoResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"CreateTeacherInfo": kitex.NewMethodInfo(
+		createTeacherInfoHandler,
+		newEducationserviceCreateTeacherInfoArgs,
+		newEducationserviceCreateTeacherInfoResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"ExportTeacherInfo": kitex.NewMethodInfo(
+		exportTeacherInfoHandler,
+		newEducationserviceExportTeacherInfoArgs,
+		newEducationserviceExportTeacherInfoResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -1179,6 +1249,186 @@ func newEducationserviceGetTokenResult() interface{} {
 	return education.NewEducationserviceGetTokenResult()
 }
 
+func updateRoleHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceUpdateRoleArgs)
+	realResult := result.(*education.EducationserviceUpdateRoleResult)
+	success, err := handler.(education.Educationservice).UpdateRole(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceUpdateRoleArgs() interface{} {
+	return education.NewEducationserviceUpdateRoleArgs()
+}
+
+func newEducationserviceUpdateRoleResult() interface{} {
+	return education.NewEducationserviceUpdateRoleResult()
+}
+
+func setRoleStatusHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceSetRoleStatusArgs)
+	realResult := result.(*education.EducationserviceSetRoleStatusResult)
+	success, err := handler.(education.Educationservice).SetRoleStatus(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceSetRoleStatusArgs() interface{} {
+	return education.NewEducationserviceSetRoleStatusArgs()
+}
+
+func newEducationserviceSetRoleStatusResult() interface{} {
+	return education.NewEducationserviceSetRoleStatusResult()
+}
+
+func deleteRoleHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceDeleteRoleArgs)
+	realResult := result.(*education.EducationserviceDeleteRoleResult)
+	success, err := handler.(education.Educationservice).DeleteRole(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceDeleteRoleArgs() interface{} {
+	return education.NewEducationserviceDeleteRoleArgs()
+}
+
+func newEducationserviceDeleteRoleResult() interface{} {
+	return education.NewEducationserviceDeleteRoleResult()
+}
+
+func deleteOfficeHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceDeleteOfficeArgs)
+	realResult := result.(*education.EducationserviceDeleteOfficeResult)
+	success, err := handler.(education.Educationservice).DeleteOffice(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceDeleteOfficeArgs() interface{} {
+	return education.NewEducationserviceDeleteOfficeArgs()
+}
+
+func newEducationserviceDeleteOfficeResult() interface{} {
+	return education.NewEducationserviceDeleteOfficeResult()
+}
+
+func updateOfficeHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceUpdateOfficeArgs)
+	realResult := result.(*education.EducationserviceUpdateOfficeResult)
+	success, err := handler.(education.Educationservice).UpdateOffice(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceUpdateOfficeArgs() interface{} {
+	return education.NewEducationserviceUpdateOfficeArgs()
+}
+
+func newEducationserviceUpdateOfficeResult() interface{} {
+	return education.NewEducationserviceUpdateOfficeResult()
+}
+
+func updateUserHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceUpdateUserArgs)
+	realResult := result.(*education.EducationserviceUpdateUserResult)
+	success, err := handler.(education.Educationservice).UpdateUser(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceUpdateUserArgs() interface{} {
+	return education.NewEducationserviceUpdateUserArgs()
+}
+
+func newEducationserviceUpdateUserResult() interface{} {
+	return education.NewEducationserviceUpdateUserResult()
+}
+
+func resetPasswordHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceResetPasswordArgs)
+	realResult := result.(*education.EducationserviceResetPasswordResult)
+	success, err := handler.(education.Educationservice).ResetPassword(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceResetPasswordArgs() interface{} {
+	return education.NewEducationserviceResetPasswordArgs()
+}
+
+func newEducationserviceResetPasswordResult() interface{} {
+	return education.NewEducationserviceResetPasswordResult()
+}
+
+func deleteTeacherInfoHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceDeleteTeacherInfoArgs)
+	realResult := result.(*education.EducationserviceDeleteTeacherInfoResult)
+	success, err := handler.(education.Educationservice).DeleteTeacherInfo(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceDeleteTeacherInfoArgs() interface{} {
+	return education.NewEducationserviceDeleteTeacherInfoArgs()
+}
+
+func newEducationserviceDeleteTeacherInfoResult() interface{} {
+	return education.NewEducationserviceDeleteTeacherInfoResult()
+}
+
+func createTeacherInfoHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceCreateTeacherInfoArgs)
+	realResult := result.(*education.EducationserviceCreateTeacherInfoResult)
+	success, err := handler.(education.Educationservice).CreateTeacherInfo(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceCreateTeacherInfoArgs() interface{} {
+	return education.NewEducationserviceCreateTeacherInfoArgs()
+}
+
+func newEducationserviceCreateTeacherInfoResult() interface{} {
+	return education.NewEducationserviceCreateTeacherInfoResult()
+}
+
+func exportTeacherInfoHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceExportTeacherInfoArgs)
+	realResult := result.(*education.EducationserviceExportTeacherInfoResult)
+	success, err := handler.(education.Educationservice).ExportTeacherInfo(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceExportTeacherInfoArgs() interface{} {
+	return education.NewEducationserviceExportTeacherInfoArgs()
+}
+
+func newEducationserviceExportTeacherInfoResult() interface{} {
+	return education.NewEducationserviceExportTeacherInfoResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -1589,7 +1839,7 @@ func (p *kClient) SetTeacherInfoStatus(ctx context.Context, req *education.SetTe
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) SyncTeacherInfo(ctx context.Context, req *education.SyncTeacherInfoReq) (r *education.SyncTeacherInfoResp, err error) {
+func (p *kClient) SyncTeacherInfo(ctx context.Context, req *education.OrderTeacherInfoReq) (r *education.OrderTeacherInfoResp, err error) {
 	var _args education.EducationserviceSyncTeacherInfoArgs
 	_args.Req = req
 	var _result education.EducationserviceSyncTeacherInfoResult
@@ -1624,6 +1874,106 @@ func (p *kClient) GetToken(ctx context.Context, req *education.GetTokenReq) (r *
 	_args.Req = req
 	var _result education.EducationserviceGetTokenResult
 	if err = p.c.Call(ctx, "GetToken", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) UpdateRole(ctx context.Context, req *education.UpdateRoleReq) (r *education.UpdateRoleResp, err error) {
+	var _args education.EducationserviceUpdateRoleArgs
+	_args.Req = req
+	var _result education.EducationserviceUpdateRoleResult
+	if err = p.c.Call(ctx, "UpdateRole", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) SetRoleStatus(ctx context.Context, req *education.SetRoleStatusReq) (r *education.SetRoleStatusResp, err error) {
+	var _args education.EducationserviceSetRoleStatusArgs
+	_args.Req = req
+	var _result education.EducationserviceSetRoleStatusResult
+	if err = p.c.Call(ctx, "SetRoleStatus", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) DeleteRole(ctx context.Context, req *education.DeleteRoleReq) (r *education.DeleteRoleResp, err error) {
+	var _args education.EducationserviceDeleteRoleArgs
+	_args.Req = req
+	var _result education.EducationserviceDeleteRoleResult
+	if err = p.c.Call(ctx, "DeleteRole", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) DeleteOffice(ctx context.Context, req *education.DeleteOfficeReq) (r *education.DeleteOfficeResp, err error) {
+	var _args education.EducationserviceDeleteOfficeArgs
+	_args.Req = req
+	var _result education.EducationserviceDeleteOfficeResult
+	if err = p.c.Call(ctx, "DeleteOffice", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) UpdateOffice(ctx context.Context, req *education.UpdateOfficeReq) (r *education.UpdateOfficeResp, err error) {
+	var _args education.EducationserviceUpdateOfficeArgs
+	_args.Req = req
+	var _result education.EducationserviceUpdateOfficeResult
+	if err = p.c.Call(ctx, "UpdateOffice", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) UpdateUser(ctx context.Context, req *education.UpdateUserReq) (r *education.UpdateUserResp, err error) {
+	var _args education.EducationserviceUpdateUserArgs
+	_args.Req = req
+	var _result education.EducationserviceUpdateUserResult
+	if err = p.c.Call(ctx, "UpdateUser", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ResetPassword(ctx context.Context, req *education.ResetPasswordReq) (r *education.ResetPasswordResp, err error) {
+	var _args education.EducationserviceResetPasswordArgs
+	_args.Req = req
+	var _result education.EducationserviceResetPasswordResult
+	if err = p.c.Call(ctx, "ResetPassword", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) DeleteTeacherInfo(ctx context.Context, req *education.DeleteTeacherInfoReq) (r *education.DeleteTeacherInfoResp, err error) {
+	var _args education.EducationserviceDeleteTeacherInfoArgs
+	_args.Req = req
+	var _result education.EducationserviceDeleteTeacherInfoResult
+	if err = p.c.Call(ctx, "DeleteTeacherInfo", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) CreateTeacherInfo(ctx context.Context, req *education.CreateTeacherInfoReq) (r *education.CreateTeacherInfoResp, err error) {
+	var _args education.EducationserviceCreateTeacherInfoArgs
+	_args.Req = req
+	var _result education.EducationserviceCreateTeacherInfoResult
+	if err = p.c.Call(ctx, "CreateTeacherInfo", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ExportTeacherInfo(ctx context.Context, req *education.ExportTeacherInfoReq) (r *education.ExportTeacherInfoResp, err error) {
+	var _args education.EducationserviceExportTeacherInfoArgs
+	_args.Req = req
+	var _result education.EducationserviceExportTeacherInfoResult
+	if err = p.c.Call(ctx, "ExportTeacherInfo", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

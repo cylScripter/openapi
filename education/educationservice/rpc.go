@@ -206,7 +206,7 @@ func SetTeacherInfoStatus(ctx context.Context, req *education.SetTeacherInfoStat
 	return clients.SetTeacherInfoStatus(ctx, req)
 }
 
-func SyncTeacherInfo(ctx context.Context, req *education.SyncTeacherInfoReq, callOptions ...client.Option) (resp *education.SyncTeacherInfoResp, err error) {
+func SyncTeacherInfo(ctx context.Context, req *education.OrderTeacherInfoReq, callOptions ...client.Option) (resp *education.OrderTeacherInfoResp, err error) {
 	clients := MustNewClient("education", callOptions...)
 	return clients.SyncTeacherInfo(ctx, req)
 }
@@ -224,4 +224,54 @@ func DeleteMenu(ctx context.Context, req *education.DeleteMenuReq, callOptions .
 func GetToken(ctx context.Context, req *education.GetTokenReq, callOptions ...client.Option) (resp *education.GetTokenResp, err error) {
 	clients := MustNewClient("education", callOptions...)
 	return clients.GetToken(ctx, req)
+}
+
+func UpdateRole(ctx context.Context, req *education.UpdateRoleReq, callOptions ...client.Option) (resp *education.UpdateRoleResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.UpdateRole(ctx, req)
+}
+
+func SetRoleStatus(ctx context.Context, req *education.SetRoleStatusReq, callOptions ...client.Option) (resp *education.SetRoleStatusResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.SetRoleStatus(ctx, req)
+}
+
+func DeleteRole(ctx context.Context, req *education.DeleteRoleReq, callOptions ...client.Option) (resp *education.DeleteRoleResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.DeleteRole(ctx, req)
+}
+
+func DeleteOffice(ctx context.Context, req *education.DeleteOfficeReq, callOptions ...client.Option) (resp *education.DeleteOfficeResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.DeleteOffice(ctx, req)
+}
+
+func UpdateOffice(ctx context.Context, req *education.UpdateOfficeReq, callOptions ...client.Option) (resp *education.UpdateOfficeResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.UpdateOffice(ctx, req)
+}
+
+func UpdateUser(ctx context.Context, req *education.UpdateUserReq, callOptions ...client.Option) (resp *education.UpdateUserResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.UpdateUser(ctx, req)
+}
+
+func ResetPassword(ctx context.Context, req *education.ResetPasswordReq, callOptions ...client.Option) (resp *education.ResetPasswordResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.ResetPassword(ctx, req)
+}
+
+func DeleteTeacherInfo(ctx context.Context, req *education.DeleteTeacherInfoReq, callOptions ...client.Option) (resp *education.DeleteTeacherInfoResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.DeleteTeacherInfo(ctx, req)
+}
+
+func CreateTeacherInfo(ctx context.Context, req *education.CreateTeacherInfoReq, callOptions ...client.Option) (resp *education.CreateTeacherInfoResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.CreateTeacherInfo(ctx, req)
+}
+
+func ExportTeacherInfo(ctx context.Context, req *education.ExportTeacherInfoReq, callOptions ...client.Option) (resp *education.ExportTeacherInfoResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.ExportTeacherInfo(ctx, req)
 }

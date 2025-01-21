@@ -51,10 +51,20 @@ type Client interface {
 	ImportTeacherInfo(ctx context.Context, req *education.ImportTeacherInfoReq, callOptions ...callopt.Option) (r *education.ImportTeacherInfoResp, err error)
 	UpdateTeacherInfo(ctx context.Context, req *education.UpdateTeacherInfoReq, callOptions ...callopt.Option) (r *education.UpdateTeacherInfoResp, err error)
 	SetTeacherInfoStatus(ctx context.Context, req *education.SetTeacherInfoStatusReq, callOptions ...callopt.Option) (r *education.SetTeacherInfoStatusResp, err error)
-	SyncTeacherInfo(ctx context.Context, req *education.SyncTeacherInfoReq, callOptions ...callopt.Option) (r *education.SyncTeacherInfoResp, err error)
+	SyncTeacherInfo(ctx context.Context, req *education.OrderTeacherInfoReq, callOptions ...callopt.Option) (r *education.OrderTeacherInfoResp, err error)
 	UpdateMenu(ctx context.Context, req *education.UpdateMenuReq, callOptions ...callopt.Option) (r *education.UpdateMenuResp, err error)
 	DeleteMenu(ctx context.Context, req *education.DeleteMenuReq, callOptions ...callopt.Option) (r *education.DeleteMenuResp, err error)
 	GetToken(ctx context.Context, req *education.GetTokenReq, callOptions ...callopt.Option) (r *education.GetTokenResp, err error)
+	UpdateRole(ctx context.Context, req *education.UpdateRoleReq, callOptions ...callopt.Option) (r *education.UpdateRoleResp, err error)
+	SetRoleStatus(ctx context.Context, req *education.SetRoleStatusReq, callOptions ...callopt.Option) (r *education.SetRoleStatusResp, err error)
+	DeleteRole(ctx context.Context, req *education.DeleteRoleReq, callOptions ...callopt.Option) (r *education.DeleteRoleResp, err error)
+	DeleteOffice(ctx context.Context, req *education.DeleteOfficeReq, callOptions ...callopt.Option) (r *education.DeleteOfficeResp, err error)
+	UpdateOffice(ctx context.Context, req *education.UpdateOfficeReq, callOptions ...callopt.Option) (r *education.UpdateOfficeResp, err error)
+	UpdateUser(ctx context.Context, req *education.UpdateUserReq, callOptions ...callopt.Option) (r *education.UpdateUserResp, err error)
+	ResetPassword(ctx context.Context, req *education.ResetPasswordReq, callOptions ...callopt.Option) (r *education.ResetPasswordResp, err error)
+	DeleteTeacherInfo(ctx context.Context, req *education.DeleteTeacherInfoReq, callOptions ...callopt.Option) (r *education.DeleteTeacherInfoResp, err error)
+	CreateTeacherInfo(ctx context.Context, req *education.CreateTeacherInfoReq, callOptions ...callopt.Option) (r *education.CreateTeacherInfoResp, err error)
+	ExportTeacherInfo(ctx context.Context, req *education.ExportTeacherInfoReq, callOptions ...callopt.Option) (r *education.ExportTeacherInfoResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -286,7 +296,7 @@ func (p *kEducationserviceClient) SetTeacherInfoStatus(ctx context.Context, req 
 	return p.kClient.SetTeacherInfoStatus(ctx, req)
 }
 
-func (p *kEducationserviceClient) SyncTeacherInfo(ctx context.Context, req *education.SyncTeacherInfoReq, callOptions ...callopt.Option) (r *education.SyncTeacherInfoResp, err error) {
+func (p *kEducationserviceClient) SyncTeacherInfo(ctx context.Context, req *education.OrderTeacherInfoReq, callOptions ...callopt.Option) (r *education.OrderTeacherInfoResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.SyncTeacherInfo(ctx, req)
 }
@@ -304,4 +314,54 @@ func (p *kEducationserviceClient) DeleteMenu(ctx context.Context, req *education
 func (p *kEducationserviceClient) GetToken(ctx context.Context, req *education.GetTokenReq, callOptions ...callopt.Option) (r *education.GetTokenResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.GetToken(ctx, req)
+}
+
+func (p *kEducationserviceClient) UpdateRole(ctx context.Context, req *education.UpdateRoleReq, callOptions ...callopt.Option) (r *education.UpdateRoleResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.UpdateRole(ctx, req)
+}
+
+func (p *kEducationserviceClient) SetRoleStatus(ctx context.Context, req *education.SetRoleStatusReq, callOptions ...callopt.Option) (r *education.SetRoleStatusResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.SetRoleStatus(ctx, req)
+}
+
+func (p *kEducationserviceClient) DeleteRole(ctx context.Context, req *education.DeleteRoleReq, callOptions ...callopt.Option) (r *education.DeleteRoleResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.DeleteRole(ctx, req)
+}
+
+func (p *kEducationserviceClient) DeleteOffice(ctx context.Context, req *education.DeleteOfficeReq, callOptions ...callopt.Option) (r *education.DeleteOfficeResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.DeleteOffice(ctx, req)
+}
+
+func (p *kEducationserviceClient) UpdateOffice(ctx context.Context, req *education.UpdateOfficeReq, callOptions ...callopt.Option) (r *education.UpdateOfficeResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.UpdateOffice(ctx, req)
+}
+
+func (p *kEducationserviceClient) UpdateUser(ctx context.Context, req *education.UpdateUserReq, callOptions ...callopt.Option) (r *education.UpdateUserResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.UpdateUser(ctx, req)
+}
+
+func (p *kEducationserviceClient) ResetPassword(ctx context.Context, req *education.ResetPasswordReq, callOptions ...callopt.Option) (r *education.ResetPasswordResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ResetPassword(ctx, req)
+}
+
+func (p *kEducationserviceClient) DeleteTeacherInfo(ctx context.Context, req *education.DeleteTeacherInfoReq, callOptions ...callopt.Option) (r *education.DeleteTeacherInfoResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.DeleteTeacherInfo(ctx, req)
+}
+
+func (p *kEducationserviceClient) CreateTeacherInfo(ctx context.Context, req *education.CreateTeacherInfoReq, callOptions ...callopt.Option) (r *education.CreateTeacherInfoResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.CreateTeacherInfo(ctx, req)
+}
+
+func (p *kEducationserviceClient) ExportTeacherInfo(ctx context.Context, req *education.ExportTeacherInfoReq, callOptions ...callopt.Option) (r *education.ExportTeacherInfoResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ExportTeacherInfo(ctx, req)
 }
