@@ -3248,7 +3248,7 @@ func (p *UpdateUserResp) DeepEqual(ano *UpdateUserResp) bool {
 type UpdateOfficeReq struct {
 	Name        string `thrift:"name,1" frugal:"1,default,string" json:"name" binding:"required"`
 	Description string `thrift:"description,2" frugal:"2,default,string" json:"description"`
-	Name2       int32  `thrift:"name2,3" frugal:"3,default,i32" json:"name2"`
+	Name2       string `thrift:"name2,3" frugal:"3,default,string" json:"name2"`
 	Order       int32  `thrift:"order,4" frugal:"4,default,i32" json:"order"`
 	Id          int32  `thrift:"id,5" frugal:"5,default,i32" json:"id" binding:"required"`
 }
@@ -3268,7 +3268,7 @@ func (p *UpdateOfficeReq) GetDescription() (v string) {
 	return p.Description
 }
 
-func (p *UpdateOfficeReq) GetName2() (v int32) {
+func (p *UpdateOfficeReq) GetName2() (v string) {
 	return p.Name2
 }
 
@@ -3285,7 +3285,7 @@ func (p *UpdateOfficeReq) SetName(val string) {
 func (p *UpdateOfficeReq) SetDescription(val string) {
 	p.Description = val
 }
-func (p *UpdateOfficeReq) SetName2(val int32) {
+func (p *UpdateOfficeReq) SetName2(val string) {
 	p.Name2 = val
 }
 func (p *UpdateOfficeReq) SetOrder(val int32) {
@@ -3339,7 +3339,7 @@ func (p *UpdateOfficeReq) Read(iprot thrift.TProtocol) (err error) {
 				goto SkipFieldError
 			}
 		case 3:
-			if fieldTypeId == thrift.I32 {
+			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField3(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -3415,8 +3415,8 @@ func (p *UpdateOfficeReq) ReadField2(iprot thrift.TProtocol) error {
 }
 func (p *UpdateOfficeReq) ReadField3(iprot thrift.TProtocol) error {
 
-	var _field int32
-	if v, err := iprot.ReadI32(); err != nil {
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
 		_field = v
@@ -3526,10 +3526,10 @@ WriteFieldEndError:
 }
 
 func (p *UpdateOfficeReq) writeField3(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("name2", thrift.I32, 3); err != nil {
+	if err = oprot.WriteFieldBegin("name2", thrift.STRING, 3); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteI32(p.Name2); err != nil {
+	if err := oprot.WriteString(p.Name2); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -3622,9 +3622,9 @@ func (p *UpdateOfficeReq) Field2DeepEqual(src string) bool {
 	}
 	return true
 }
-func (p *UpdateOfficeReq) Field3DeepEqual(src int32) bool {
+func (p *UpdateOfficeReq) Field3DeepEqual(src string) bool {
 
-	if p.Name2 != src {
+	if strings.Compare(p.Name2, src) != 0 {
 		return false
 	}
 	return true
