@@ -3250,6 +3250,7 @@ type UpdateOfficeReq struct {
 	Description string `thrift:"description,2" frugal:"2,default,string" json:"description"`
 	Name2       int32  `thrift:"name2,3" frugal:"3,default,i32" json:"name2"`
 	Order       int32  `thrift:"order,4" frugal:"4,default,i32" json:"order"`
+	Id          int32  `thrift:"id,5" frugal:"5,default,i32" json:"id" binding:"required"`
 }
 
 func NewUpdateOfficeReq() *UpdateOfficeReq {
@@ -3274,6 +3275,10 @@ func (p *UpdateOfficeReq) GetName2() (v int32) {
 func (p *UpdateOfficeReq) GetOrder() (v int32) {
 	return p.Order
 }
+
+func (p *UpdateOfficeReq) GetId() (v int32) {
+	return p.Id
+}
 func (p *UpdateOfficeReq) SetName(val string) {
 	p.Name = val
 }
@@ -3286,12 +3291,16 @@ func (p *UpdateOfficeReq) SetName2(val int32) {
 func (p *UpdateOfficeReq) SetOrder(val int32) {
 	p.Order = val
 }
+func (p *UpdateOfficeReq) SetId(val int32) {
+	p.Id = val
+}
 
 var fieldIDToName_UpdateOfficeReq = map[int16]string{
 	1: "name",
 	2: "description",
 	3: "name2",
 	4: "order",
+	5: "id",
 }
 
 func (p *UpdateOfficeReq) Read(iprot thrift.TProtocol) (err error) {
@@ -3340,6 +3349,14 @@ func (p *UpdateOfficeReq) Read(iprot thrift.TProtocol) (err error) {
 		case 4:
 			if fieldTypeId == thrift.I32 {
 				if err = p.ReadField4(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 5:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField5(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -3418,6 +3435,17 @@ func (p *UpdateOfficeReq) ReadField4(iprot thrift.TProtocol) error {
 	p.Order = _field
 	return nil
 }
+func (p *UpdateOfficeReq) ReadField5(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Id = _field
+	return nil
+}
 
 func (p *UpdateOfficeReq) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -3439,6 +3467,10 @@ func (p *UpdateOfficeReq) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField4(oprot); err != nil {
 			fieldId = 4
+			goto WriteFieldError
+		}
+		if err = p.writeField5(oprot); err != nil {
+			fieldId = 5
 			goto WriteFieldError
 		}
 	}
@@ -3527,6 +3559,23 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 4 end error: ", p), err)
 }
 
+func (p *UpdateOfficeReq) writeField5(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("id", thrift.I32, 5); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.Id); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 5 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 5 end error: ", p), err)
+}
+
 func (p *UpdateOfficeReq) String() string {
 	if p == nil {
 		return "<nil>"
@@ -3551,6 +3600,9 @@ func (p *UpdateOfficeReq) DeepEqual(ano *UpdateOfficeReq) bool {
 		return false
 	}
 	if !p.Field4DeepEqual(ano.Order) {
+		return false
+	}
+	if !p.Field5DeepEqual(ano.Id) {
 		return false
 	}
 	return true
@@ -3580,6 +3632,13 @@ func (p *UpdateOfficeReq) Field3DeepEqual(src int32) bool {
 func (p *UpdateOfficeReq) Field4DeepEqual(src int32) bool {
 
 	if p.Order != src {
+		return false
+	}
+	return true
+}
+func (p *UpdateOfficeReq) Field5DeepEqual(src int32) bool {
+
+	if p.Id != src {
 		return false
 	}
 	return true
