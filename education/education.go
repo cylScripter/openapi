@@ -4299,7 +4299,7 @@ func (p *DeleteRoleResp) DeepEqual(ano *DeleteRoleResp) bool {
 }
 
 type SetRoleStatusReq struct {
-	Items *base.StatusValue `thrift:"items,1" frugal:"1,default,base.StatusValue" json:"items" binding:"required"`
+	Items []*base.StatusValue `thrift:"items,1" frugal:"1,default,list<base.StatusValue>" json:"items" binding:"required"`
 }
 
 func NewSetRoleStatusReq() *SetRoleStatusReq {
@@ -4309,24 +4309,15 @@ func NewSetRoleStatusReq() *SetRoleStatusReq {
 func (p *SetRoleStatusReq) InitDefault() {
 }
 
-var SetRoleStatusReq_Items_DEFAULT *base.StatusValue
-
-func (p *SetRoleStatusReq) GetItems() (v *base.StatusValue) {
-	if !p.IsSetItems() {
-		return SetRoleStatusReq_Items_DEFAULT
-	}
+func (p *SetRoleStatusReq) GetItems() (v []*base.StatusValue) {
 	return p.Items
 }
-func (p *SetRoleStatusReq) SetItems(val *base.StatusValue) {
+func (p *SetRoleStatusReq) SetItems(val []*base.StatusValue) {
 	p.Items = val
 }
 
 var fieldIDToName_SetRoleStatusReq = map[int16]string{
 	1: "items",
-}
-
-func (p *SetRoleStatusReq) IsSetItems() bool {
-	return p.Items != nil
 }
 
 func (p *SetRoleStatusReq) Read(iprot thrift.TProtocol) (err error) {
@@ -4349,7 +4340,7 @@ func (p *SetRoleStatusReq) Read(iprot thrift.TProtocol) (err error) {
 
 		switch fieldId {
 		case 1:
-			if fieldTypeId == thrift.STRUCT {
+			if fieldTypeId == thrift.LIST {
 				if err = p.ReadField1(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -4386,8 +4377,23 @@ ReadStructEndError:
 }
 
 func (p *SetRoleStatusReq) ReadField1(iprot thrift.TProtocol) error {
-	_field := base.NewStatusValue()
-	if err := _field.Read(iprot); err != nil {
+	_, size, err := iprot.ReadListBegin()
+	if err != nil {
+		return err
+	}
+	_field := make([]*base.StatusValue, 0, size)
+	values := make([]base.StatusValue, size)
+	for i := 0; i < size; i++ {
+		_elem := &values[i]
+		_elem.InitDefault()
+
+		if err := _elem.Read(iprot); err != nil {
+			return err
+		}
+
+		_field = append(_field, _elem)
+	}
+	if err := iprot.ReadListEnd(); err != nil {
 		return err
 	}
 	p.Items = _field
@@ -4423,10 +4429,18 @@ WriteStructEndError:
 }
 
 func (p *SetRoleStatusReq) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("items", thrift.STRUCT, 1); err != nil {
+	if err = oprot.WriteFieldBegin("items", thrift.LIST, 1); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := p.Items.Write(oprot); err != nil {
+	if err := oprot.WriteListBegin(thrift.STRUCT, len(p.Items)); err != nil {
+		return err
+	}
+	for _, v := range p.Items {
+		if err := v.Write(oprot); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteListEnd(); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -4459,10 +4473,16 @@ func (p *SetRoleStatusReq) DeepEqual(ano *SetRoleStatusReq) bool {
 	return true
 }
 
-func (p *SetRoleStatusReq) Field1DeepEqual(src *base.StatusValue) bool {
+func (p *SetRoleStatusReq) Field1DeepEqual(src []*base.StatusValue) bool {
 
-	if !p.Items.DeepEqual(src) {
+	if len(p.Items) != len(src) {
 		return false
+	}
+	for i, v := range p.Items {
+		_src := src[i]
+		if !v.DeepEqual(_src) {
+			return false
+		}
 	}
 	return true
 }
