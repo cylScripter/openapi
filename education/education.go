@@ -5855,7 +5855,7 @@ func (p *GetTeacherInfoListResp) Field3DeepEqual(src map[int32]*ModelTeacherOffi
 }
 
 type ImportTeacherInfoReq struct {
-	FilePath string `thrift:"file_path,1" frugal:"1,default,string" json:"file_path" binding:"required"`
+	FileUploadId string `thrift:"file_upload_id,1" frugal:"1,default,string" json:"file_upload_id" binding:"required"`
 }
 
 func NewImportTeacherInfoReq() *ImportTeacherInfoReq {
@@ -5865,15 +5865,15 @@ func NewImportTeacherInfoReq() *ImportTeacherInfoReq {
 func (p *ImportTeacherInfoReq) InitDefault() {
 }
 
-func (p *ImportTeacherInfoReq) GetFilePath() (v string) {
-	return p.FilePath
+func (p *ImportTeacherInfoReq) GetFileUploadId() (v string) {
+	return p.FileUploadId
 }
-func (p *ImportTeacherInfoReq) SetFilePath(val string) {
-	p.FilePath = val
+func (p *ImportTeacherInfoReq) SetFileUploadId(val string) {
+	p.FileUploadId = val
 }
 
 var fieldIDToName_ImportTeacherInfoReq = map[int16]string{
-	1: "file_path",
+	1: "file_upload_id",
 }
 
 func (p *ImportTeacherInfoReq) Read(iprot thrift.TProtocol) (err error) {
@@ -5940,7 +5940,7 @@ func (p *ImportTeacherInfoReq) ReadField1(iprot thrift.TProtocol) error {
 	} else {
 		_field = v
 	}
-	p.FilePath = _field
+	p.FileUploadId = _field
 	return nil
 }
 
@@ -5973,10 +5973,10 @@ WriteStructEndError:
 }
 
 func (p *ImportTeacherInfoReq) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("file_path", thrift.STRING, 1); err != nil {
+	if err = oprot.WriteFieldBegin("file_upload_id", thrift.STRING, 1); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.FilePath); err != nil {
+	if err := oprot.WriteString(p.FileUploadId); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -6003,7 +6003,7 @@ func (p *ImportTeacherInfoReq) DeepEqual(ano *ImportTeacherInfoReq) bool {
 	} else if p == nil || ano == nil {
 		return false
 	}
-	if !p.Field1DeepEqual(ano.FilePath) {
+	if !p.Field1DeepEqual(ano.FileUploadId) {
 		return false
 	}
 	return true
@@ -6011,7 +6011,7 @@ func (p *ImportTeacherInfoReq) DeepEqual(ano *ImportTeacherInfoReq) bool {
 
 func (p *ImportTeacherInfoReq) Field1DeepEqual(src string) bool {
 
-	if strings.Compare(p.FilePath, src) != 0 {
+	if strings.Compare(p.FileUploadId, src) != 0 {
 		return false
 	}
 	return true

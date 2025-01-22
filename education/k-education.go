@@ -3273,7 +3273,7 @@ func (p *ImportTeacherInfoReq) FastReadField1(buf []byte) (int, error) {
 		offset += l
 		_field = v
 	}
-	p.FilePath = _field
+	p.FileUploadId = _field
 	return offset, nil
 }
 
@@ -3303,14 +3303,14 @@ func (p *ImportTeacherInfoReq) BLength() int {
 func (p *ImportTeacherInfoReq) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 1)
-	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.FilePath)
+	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.FileUploadId)
 	return offset
 }
 
 func (p *ImportTeacherInfoReq) field1Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.StringLengthNocopy(p.FilePath)
+	l += thrift.Binary.StringLengthNocopy(p.FileUploadId)
 	return l
 }
 
