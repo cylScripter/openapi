@@ -65,6 +65,10 @@ type Client interface {
 	DeleteTeacherInfo(ctx context.Context, req *education.DeleteTeacherInfoReq, callOptions ...callopt.Option) (r *education.DeleteTeacherInfoResp, err error)
 	CreateTeacherInfo(ctx context.Context, req *education.CreateTeacherInfoReq, callOptions ...callopt.Option) (r *education.CreateTeacherInfoResp, err error)
 	ExportTeacherInfo(ctx context.Context, req *education.ExportTeacherInfoReq, callOptions ...callopt.Option) (r *education.ExportTeacherInfoResp, err error)
+	GetCourseList(ctx context.Context, req *education.GetCourseListReq, callOptions ...callopt.Option) (r *education.GetCourseListResp, err error)
+	DeleteCourse(ctx context.Context, req *education.DeleteCourseReq, callOptions ...callopt.Option) (r *education.DeleteCourseResp, err error)
+	ImportCourse(ctx context.Context, req *education.ImportCourseReq, callOptions ...callopt.Option) (r *education.ImportCourseResp, err error)
+	UpdateCourse(ctx context.Context, req *education.UpdateCourseReq, callOptions ...callopt.Option) (r *education.UpdateCourseResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -364,4 +368,24 @@ func (p *kEducationserviceClient) CreateTeacherInfo(ctx context.Context, req *ed
 func (p *kEducationserviceClient) ExportTeacherInfo(ctx context.Context, req *education.ExportTeacherInfoReq, callOptions ...callopt.Option) (r *education.ExportTeacherInfoResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.ExportTeacherInfo(ctx, req)
+}
+
+func (p *kEducationserviceClient) GetCourseList(ctx context.Context, req *education.GetCourseListReq, callOptions ...callopt.Option) (r *education.GetCourseListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetCourseList(ctx, req)
+}
+
+func (p *kEducationserviceClient) DeleteCourse(ctx context.Context, req *education.DeleteCourseReq, callOptions ...callopt.Option) (r *education.DeleteCourseResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.DeleteCourse(ctx, req)
+}
+
+func (p *kEducationserviceClient) ImportCourse(ctx context.Context, req *education.ImportCourseReq, callOptions ...callopt.Option) (r *education.ImportCourseResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ImportCourse(ctx, req)
+}
+
+func (p *kEducationserviceClient) UpdateCourse(ctx context.Context, req *education.UpdateCourseReq, callOptions ...callopt.Option) (r *education.UpdateCourseResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.UpdateCourse(ctx, req)
 }

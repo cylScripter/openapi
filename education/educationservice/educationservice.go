@@ -391,6 +391,34 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"GetCourseList": kitex.NewMethodInfo(
+		getCourseListHandler,
+		newEducationserviceGetCourseListArgs,
+		newEducationserviceGetCourseListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"DeleteCourse": kitex.NewMethodInfo(
+		deleteCourseHandler,
+		newEducationserviceDeleteCourseArgs,
+		newEducationserviceDeleteCourseResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"ImportCourse": kitex.NewMethodInfo(
+		importCourseHandler,
+		newEducationserviceImportCourseArgs,
+		newEducationserviceImportCourseResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"UpdateCourse": kitex.NewMethodInfo(
+		updateCourseHandler,
+		newEducationserviceUpdateCourseArgs,
+		newEducationserviceUpdateCourseResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -1429,6 +1457,78 @@ func newEducationserviceExportTeacherInfoResult() interface{} {
 	return education.NewEducationserviceExportTeacherInfoResult()
 }
 
+func getCourseListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceGetCourseListArgs)
+	realResult := result.(*education.EducationserviceGetCourseListResult)
+	success, err := handler.(education.Educationservice).GetCourseList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceGetCourseListArgs() interface{} {
+	return education.NewEducationserviceGetCourseListArgs()
+}
+
+func newEducationserviceGetCourseListResult() interface{} {
+	return education.NewEducationserviceGetCourseListResult()
+}
+
+func deleteCourseHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceDeleteCourseArgs)
+	realResult := result.(*education.EducationserviceDeleteCourseResult)
+	success, err := handler.(education.Educationservice).DeleteCourse(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceDeleteCourseArgs() interface{} {
+	return education.NewEducationserviceDeleteCourseArgs()
+}
+
+func newEducationserviceDeleteCourseResult() interface{} {
+	return education.NewEducationserviceDeleteCourseResult()
+}
+
+func importCourseHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceImportCourseArgs)
+	realResult := result.(*education.EducationserviceImportCourseResult)
+	success, err := handler.(education.Educationservice).ImportCourse(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceImportCourseArgs() interface{} {
+	return education.NewEducationserviceImportCourseArgs()
+}
+
+func newEducationserviceImportCourseResult() interface{} {
+	return education.NewEducationserviceImportCourseResult()
+}
+
+func updateCourseHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceUpdateCourseArgs)
+	realResult := result.(*education.EducationserviceUpdateCourseResult)
+	success, err := handler.(education.Educationservice).UpdateCourse(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceUpdateCourseArgs() interface{} {
+	return education.NewEducationserviceUpdateCourseArgs()
+}
+
+func newEducationserviceUpdateCourseResult() interface{} {
+	return education.NewEducationserviceUpdateCourseResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -1974,6 +2074,46 @@ func (p *kClient) ExportTeacherInfo(ctx context.Context, req *education.ExportTe
 	_args.Req = req
 	var _result education.EducationserviceExportTeacherInfoResult
 	if err = p.c.Call(ctx, "ExportTeacherInfo", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetCourseList(ctx context.Context, req *education.GetCourseListReq) (r *education.GetCourseListResp, err error) {
+	var _args education.EducationserviceGetCourseListArgs
+	_args.Req = req
+	var _result education.EducationserviceGetCourseListResult
+	if err = p.c.Call(ctx, "GetCourseList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) DeleteCourse(ctx context.Context, req *education.DeleteCourseReq) (r *education.DeleteCourseResp, err error) {
+	var _args education.EducationserviceDeleteCourseArgs
+	_args.Req = req
+	var _result education.EducationserviceDeleteCourseResult
+	if err = p.c.Call(ctx, "DeleteCourse", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ImportCourse(ctx context.Context, req *education.ImportCourseReq) (r *education.ImportCourseResp, err error) {
+	var _args education.EducationserviceImportCourseArgs
+	_args.Req = req
+	var _result education.EducationserviceImportCourseResult
+	if err = p.c.Call(ctx, "ImportCourse", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) UpdateCourse(ctx context.Context, req *education.UpdateCourseReq) (r *education.UpdateCourseResp, err error) {
+	var _args education.EducationserviceUpdateCourseArgs
+	_args.Req = req
+	var _result education.EducationserviceUpdateCourseResult
+	if err = p.c.Call(ctx, "UpdateCourse", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

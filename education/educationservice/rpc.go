@@ -275,3 +275,23 @@ func ExportTeacherInfo(ctx context.Context, req *education.ExportTeacherInfoReq,
 	clients := MustNewClient("education", callOptions...)
 	return clients.ExportTeacherInfo(ctx, req)
 }
+
+func GetCourseList(ctx context.Context, req *education.GetCourseListReq, callOptions ...client.Option) (resp *education.GetCourseListResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.GetCourseList(ctx, req)
+}
+
+func DeleteCourse(ctx context.Context, req *education.DeleteCourseReq, callOptions ...client.Option) (resp *education.DeleteCourseResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.DeleteCourse(ctx, req)
+}
+
+func ImportCourse(ctx context.Context, req *education.ImportCourseReq, callOptions ...client.Option) (resp *education.ImportCourseResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.ImportCourse(ctx, req)
+}
+
+func UpdateCourse(ctx context.Context, req *education.UpdateCourseReq, callOptions ...client.Option) (resp *education.UpdateCourseResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.UpdateCourse(ctx, req)
+}
