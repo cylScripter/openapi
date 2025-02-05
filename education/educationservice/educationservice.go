@@ -419,6 +419,69 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"GetSelfCourseList": kitex.NewMethodInfo(
+		getSelfCourseListHandler,
+		newEducationserviceGetSelfCourseListArgs,
+		newEducationserviceGetSelfCourseListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetCourseApplicationList": kitex.NewMethodInfo(
+		getCourseApplicationListHandler,
+		newEducationserviceGetCourseApplicationListArgs,
+		newEducationserviceGetCourseApplicationListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"DeleteCourseApplication": kitex.NewMethodInfo(
+		deleteCourseApplicationHandler,
+		newEducationserviceDeleteCourseApplicationArgs,
+		newEducationserviceDeleteCourseApplicationResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetSelfCourseApplicationList": kitex.NewMethodInfo(
+		getSelfCourseApplicationListHandler,
+		newEducationserviceGetSelfCourseApplicationListArgs,
+		newEducationserviceGetSelfCourseApplicationListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"AdjustCourseApplication": kitex.NewMethodInfo(
+		adjustCourseApplicationHandler,
+		newEducationserviceAdjustCourseApplicationArgs,
+		newEducationserviceAdjustCourseApplicationResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetHolidayList": kitex.NewMethodInfo(
+		getHolidayListHandler,
+		newEducationserviceGetHolidayListArgs,
+		newEducationserviceGetHolidayListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"DeleteHoliday": kitex.NewMethodInfo(
+		deleteHolidayHandler,
+		newEducationserviceDeleteHolidayArgs,
+		newEducationserviceDeleteHolidayResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"CreateHoliday": kitex.NewMethodInfo(
+		createHolidayHandler,
+		newEducationserviceCreateHolidayArgs,
+		newEducationserviceCreateHolidayResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"UpdateHoliday": kitex.NewMethodInfo(
+		updateHolidayHandler,
+		newEducationserviceUpdateHolidayArgs,
+		newEducationserviceUpdateHolidayResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -1529,6 +1592,168 @@ func newEducationserviceUpdateCourseResult() interface{} {
 	return education.NewEducationserviceUpdateCourseResult()
 }
 
+func getSelfCourseListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceGetSelfCourseListArgs)
+	realResult := result.(*education.EducationserviceGetSelfCourseListResult)
+	success, err := handler.(education.Educationservice).GetSelfCourseList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceGetSelfCourseListArgs() interface{} {
+	return education.NewEducationserviceGetSelfCourseListArgs()
+}
+
+func newEducationserviceGetSelfCourseListResult() interface{} {
+	return education.NewEducationserviceGetSelfCourseListResult()
+}
+
+func getCourseApplicationListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceGetCourseApplicationListArgs)
+	realResult := result.(*education.EducationserviceGetCourseApplicationListResult)
+	success, err := handler.(education.Educationservice).GetCourseApplicationList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceGetCourseApplicationListArgs() interface{} {
+	return education.NewEducationserviceGetCourseApplicationListArgs()
+}
+
+func newEducationserviceGetCourseApplicationListResult() interface{} {
+	return education.NewEducationserviceGetCourseApplicationListResult()
+}
+
+func deleteCourseApplicationHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceDeleteCourseApplicationArgs)
+	realResult := result.(*education.EducationserviceDeleteCourseApplicationResult)
+	success, err := handler.(education.Educationservice).DeleteCourseApplication(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceDeleteCourseApplicationArgs() interface{} {
+	return education.NewEducationserviceDeleteCourseApplicationArgs()
+}
+
+func newEducationserviceDeleteCourseApplicationResult() interface{} {
+	return education.NewEducationserviceDeleteCourseApplicationResult()
+}
+
+func getSelfCourseApplicationListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceGetSelfCourseApplicationListArgs)
+	realResult := result.(*education.EducationserviceGetSelfCourseApplicationListResult)
+	success, err := handler.(education.Educationservice).GetSelfCourseApplicationList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceGetSelfCourseApplicationListArgs() interface{} {
+	return education.NewEducationserviceGetSelfCourseApplicationListArgs()
+}
+
+func newEducationserviceGetSelfCourseApplicationListResult() interface{} {
+	return education.NewEducationserviceGetSelfCourseApplicationListResult()
+}
+
+func adjustCourseApplicationHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceAdjustCourseApplicationArgs)
+	realResult := result.(*education.EducationserviceAdjustCourseApplicationResult)
+	success, err := handler.(education.Educationservice).AdjustCourseApplication(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceAdjustCourseApplicationArgs() interface{} {
+	return education.NewEducationserviceAdjustCourseApplicationArgs()
+}
+
+func newEducationserviceAdjustCourseApplicationResult() interface{} {
+	return education.NewEducationserviceAdjustCourseApplicationResult()
+}
+
+func getHolidayListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceGetHolidayListArgs)
+	realResult := result.(*education.EducationserviceGetHolidayListResult)
+	success, err := handler.(education.Educationservice).GetHolidayList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceGetHolidayListArgs() interface{} {
+	return education.NewEducationserviceGetHolidayListArgs()
+}
+
+func newEducationserviceGetHolidayListResult() interface{} {
+	return education.NewEducationserviceGetHolidayListResult()
+}
+
+func deleteHolidayHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceDeleteHolidayArgs)
+	realResult := result.(*education.EducationserviceDeleteHolidayResult)
+	success, err := handler.(education.Educationservice).DeleteHoliday(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceDeleteHolidayArgs() interface{} {
+	return education.NewEducationserviceDeleteHolidayArgs()
+}
+
+func newEducationserviceDeleteHolidayResult() interface{} {
+	return education.NewEducationserviceDeleteHolidayResult()
+}
+
+func createHolidayHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceCreateHolidayArgs)
+	realResult := result.(*education.EducationserviceCreateHolidayResult)
+	success, err := handler.(education.Educationservice).CreateHoliday(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceCreateHolidayArgs() interface{} {
+	return education.NewEducationserviceCreateHolidayArgs()
+}
+
+func newEducationserviceCreateHolidayResult() interface{} {
+	return education.NewEducationserviceCreateHolidayResult()
+}
+
+func updateHolidayHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceUpdateHolidayArgs)
+	realResult := result.(*education.EducationserviceUpdateHolidayResult)
+	success, err := handler.(education.Educationservice).UpdateHoliday(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceUpdateHolidayArgs() interface{} {
+	return education.NewEducationserviceUpdateHolidayArgs()
+}
+
+func newEducationserviceUpdateHolidayResult() interface{} {
+	return education.NewEducationserviceUpdateHolidayResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -2114,6 +2339,96 @@ func (p *kClient) UpdateCourse(ctx context.Context, req *education.UpdateCourseR
 	_args.Req = req
 	var _result education.EducationserviceUpdateCourseResult
 	if err = p.c.Call(ctx, "UpdateCourse", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetSelfCourseList(ctx context.Context, req *education.GetSelfCourseListReq) (r *education.GetSelfCourseListResp, err error) {
+	var _args education.EducationserviceGetSelfCourseListArgs
+	_args.Req = req
+	var _result education.EducationserviceGetSelfCourseListResult
+	if err = p.c.Call(ctx, "GetSelfCourseList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetCourseApplicationList(ctx context.Context, req *education.GetCourseApplicationListReq) (r *education.GetCourseApplicationListResp, err error) {
+	var _args education.EducationserviceGetCourseApplicationListArgs
+	_args.Req = req
+	var _result education.EducationserviceGetCourseApplicationListResult
+	if err = p.c.Call(ctx, "GetCourseApplicationList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) DeleteCourseApplication(ctx context.Context, req *education.DeleteCourseApplicationReq) (r *education.DeleteCourseApplicationResp, err error) {
+	var _args education.EducationserviceDeleteCourseApplicationArgs
+	_args.Req = req
+	var _result education.EducationserviceDeleteCourseApplicationResult
+	if err = p.c.Call(ctx, "DeleteCourseApplication", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetSelfCourseApplicationList(ctx context.Context, req *education.GetSelfCourseApplicationListReq) (r *education.GetSelfCourseApplicationListResp, err error) {
+	var _args education.EducationserviceGetSelfCourseApplicationListArgs
+	_args.Req = req
+	var _result education.EducationserviceGetSelfCourseApplicationListResult
+	if err = p.c.Call(ctx, "GetSelfCourseApplicationList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) AdjustCourseApplication(ctx context.Context, req *education.AdjustCourseApplicationReq) (r *education.AdjustCourseApplicationResp, err error) {
+	var _args education.EducationserviceAdjustCourseApplicationArgs
+	_args.Req = req
+	var _result education.EducationserviceAdjustCourseApplicationResult
+	if err = p.c.Call(ctx, "AdjustCourseApplication", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetHolidayList(ctx context.Context, req *education.GetHolidayListReq) (r *education.GetHolidayListResp, err error) {
+	var _args education.EducationserviceGetHolidayListArgs
+	_args.Req = req
+	var _result education.EducationserviceGetHolidayListResult
+	if err = p.c.Call(ctx, "GetHolidayList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) DeleteHoliday(ctx context.Context, req *education.DeleteHolidayReq) (r *education.DeleteHolidayResp, err error) {
+	var _args education.EducationserviceDeleteHolidayArgs
+	_args.Req = req
+	var _result education.EducationserviceDeleteHolidayResult
+	if err = p.c.Call(ctx, "DeleteHoliday", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) CreateHoliday(ctx context.Context, req *education.CreateHolidayReq) (r *education.CreateHolidayResp, err error) {
+	var _args education.EducationserviceCreateHolidayArgs
+	_args.Req = req
+	var _result education.EducationserviceCreateHolidayResult
+	if err = p.c.Call(ctx, "CreateHoliday", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) UpdateHoliday(ctx context.Context, req *education.UpdateHolidayReq) (r *education.UpdateHolidayResp, err error) {
+	var _args education.EducationserviceUpdateHolidayArgs
+	_args.Req = req
+	var _result education.EducationserviceUpdateHolidayResult
+	if err = p.c.Call(ctx, "UpdateHoliday", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

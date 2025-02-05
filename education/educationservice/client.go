@@ -69,6 +69,15 @@ type Client interface {
 	DeleteCourse(ctx context.Context, req *education.DeleteCourseReq, callOptions ...callopt.Option) (r *education.DeleteCourseResp, err error)
 	ImportCourse(ctx context.Context, req *education.ImportCourseReq, callOptions ...callopt.Option) (r *education.ImportCourseResp, err error)
 	UpdateCourse(ctx context.Context, req *education.UpdateCourseReq, callOptions ...callopt.Option) (r *education.UpdateCourseResp, err error)
+	GetSelfCourseList(ctx context.Context, req *education.GetSelfCourseListReq, callOptions ...callopt.Option) (r *education.GetSelfCourseListResp, err error)
+	GetCourseApplicationList(ctx context.Context, req *education.GetCourseApplicationListReq, callOptions ...callopt.Option) (r *education.GetCourseApplicationListResp, err error)
+	DeleteCourseApplication(ctx context.Context, req *education.DeleteCourseApplicationReq, callOptions ...callopt.Option) (r *education.DeleteCourseApplicationResp, err error)
+	GetSelfCourseApplicationList(ctx context.Context, req *education.GetSelfCourseApplicationListReq, callOptions ...callopt.Option) (r *education.GetSelfCourseApplicationListResp, err error)
+	AdjustCourseApplication(ctx context.Context, req *education.AdjustCourseApplicationReq, callOptions ...callopt.Option) (r *education.AdjustCourseApplicationResp, err error)
+	GetHolidayList(ctx context.Context, req *education.GetHolidayListReq, callOptions ...callopt.Option) (r *education.GetHolidayListResp, err error)
+	DeleteHoliday(ctx context.Context, req *education.DeleteHolidayReq, callOptions ...callopt.Option) (r *education.DeleteHolidayResp, err error)
+	CreateHoliday(ctx context.Context, req *education.CreateHolidayReq, callOptions ...callopt.Option) (r *education.CreateHolidayResp, err error)
+	UpdateHoliday(ctx context.Context, req *education.UpdateHolidayReq, callOptions ...callopt.Option) (r *education.UpdateHolidayResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -388,4 +397,49 @@ func (p *kEducationserviceClient) ImportCourse(ctx context.Context, req *educati
 func (p *kEducationserviceClient) UpdateCourse(ctx context.Context, req *education.UpdateCourseReq, callOptions ...callopt.Option) (r *education.UpdateCourseResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.UpdateCourse(ctx, req)
+}
+
+func (p *kEducationserviceClient) GetSelfCourseList(ctx context.Context, req *education.GetSelfCourseListReq, callOptions ...callopt.Option) (r *education.GetSelfCourseListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetSelfCourseList(ctx, req)
+}
+
+func (p *kEducationserviceClient) GetCourseApplicationList(ctx context.Context, req *education.GetCourseApplicationListReq, callOptions ...callopt.Option) (r *education.GetCourseApplicationListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetCourseApplicationList(ctx, req)
+}
+
+func (p *kEducationserviceClient) DeleteCourseApplication(ctx context.Context, req *education.DeleteCourseApplicationReq, callOptions ...callopt.Option) (r *education.DeleteCourseApplicationResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.DeleteCourseApplication(ctx, req)
+}
+
+func (p *kEducationserviceClient) GetSelfCourseApplicationList(ctx context.Context, req *education.GetSelfCourseApplicationListReq, callOptions ...callopt.Option) (r *education.GetSelfCourseApplicationListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetSelfCourseApplicationList(ctx, req)
+}
+
+func (p *kEducationserviceClient) AdjustCourseApplication(ctx context.Context, req *education.AdjustCourseApplicationReq, callOptions ...callopt.Option) (r *education.AdjustCourseApplicationResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.AdjustCourseApplication(ctx, req)
+}
+
+func (p *kEducationserviceClient) GetHolidayList(ctx context.Context, req *education.GetHolidayListReq, callOptions ...callopt.Option) (r *education.GetHolidayListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetHolidayList(ctx, req)
+}
+
+func (p *kEducationserviceClient) DeleteHoliday(ctx context.Context, req *education.DeleteHolidayReq, callOptions ...callopt.Option) (r *education.DeleteHolidayResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.DeleteHoliday(ctx, req)
+}
+
+func (p *kEducationserviceClient) CreateHoliday(ctx context.Context, req *education.CreateHolidayReq, callOptions ...callopt.Option) (r *education.CreateHolidayResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.CreateHoliday(ctx, req)
+}
+
+func (p *kEducationserviceClient) UpdateHoliday(ctx context.Context, req *education.UpdateHolidayReq, callOptions ...callopt.Option) (r *education.UpdateHolidayResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.UpdateHoliday(ctx, req)
 }

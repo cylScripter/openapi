@@ -295,3 +295,48 @@ func UpdateCourse(ctx context.Context, req *education.UpdateCourseReq, callOptio
 	clients := MustNewClient("education", callOptions...)
 	return clients.UpdateCourse(ctx, req)
 }
+
+func GetSelfCourseList(ctx context.Context, req *education.GetSelfCourseListReq, callOptions ...client.Option) (resp *education.GetSelfCourseListResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.GetSelfCourseList(ctx, req)
+}
+
+func GetCourseApplicationList(ctx context.Context, req *education.GetCourseApplicationListReq, callOptions ...client.Option) (resp *education.GetCourseApplicationListResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.GetCourseApplicationList(ctx, req)
+}
+
+func DeleteCourseApplication(ctx context.Context, req *education.DeleteCourseApplicationReq, callOptions ...client.Option) (resp *education.DeleteCourseApplicationResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.DeleteCourseApplication(ctx, req)
+}
+
+func GetSelfCourseApplicationList(ctx context.Context, req *education.GetSelfCourseApplicationListReq, callOptions ...client.Option) (resp *education.GetSelfCourseApplicationListResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.GetSelfCourseApplicationList(ctx, req)
+}
+
+func AdjustCourseApplication(ctx context.Context, req *education.AdjustCourseApplicationReq, callOptions ...client.Option) (resp *education.AdjustCourseApplicationResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.AdjustCourseApplication(ctx, req)
+}
+
+func GetHolidayList(ctx context.Context, req *education.GetHolidayListReq, callOptions ...client.Option) (resp *education.GetHolidayListResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.GetHolidayList(ctx, req)
+}
+
+func DeleteHoliday(ctx context.Context, req *education.DeleteHolidayReq, callOptions ...client.Option) (resp *education.DeleteHolidayResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.DeleteHoliday(ctx, req)
+}
+
+func CreateHoliday(ctx context.Context, req *education.CreateHolidayReq, callOptions ...client.Option) (resp *education.CreateHolidayResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.CreateHoliday(ctx, req)
+}
+
+func UpdateHoliday(ctx context.Context, req *education.UpdateHolidayReq, callOptions ...client.Option) (resp *education.UpdateHolidayResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.UpdateHoliday(ctx, req)
+}
