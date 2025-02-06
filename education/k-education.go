@@ -32806,7 +32806,7 @@ func (p *ModelHoliday) FastReadField6(buf []byte) (int, error) {
 		offset += l
 		_field = v
 	}
-	p.BiginDate = _field
+	p.BeginDate = _field
 	return offset, nil
 }
 
@@ -32961,7 +32961,7 @@ func (p *ModelHoliday) fastWriteField5(buf []byte, w thrift.NocopyWriter) int {
 func (p *ModelHoliday) fastWriteField6(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 6)
-	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.BiginDate)
+	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.BeginDate)
 	return offset
 }
 
@@ -33038,7 +33038,7 @@ func (p *ModelHoliday) field5Length() int {
 func (p *ModelHoliday) field6Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.StringLengthNocopy(p.BiginDate)
+	l += thrift.Binary.StringLengthNocopy(p.BeginDate)
 	return l
 }
 

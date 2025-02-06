@@ -104,12 +104,67 @@ func (p *GetHolidayListReqOption) Value() (driver.Value, error) {
 	return int64(*p), nil
 }
 
+type GetSelfCourseApplicationListReqOption int64
+
+const (
+	GetSelfCourseApplicationListReqOption_id            GetSelfCourseApplicationListReqOption = 1
+	GetSelfCourseApplicationListReqOption_academic_year GetSelfCourseApplicationListReqOption = 2
+	GetSelfCourseApplicationListReqOption_semester      GetSelfCourseApplicationListReqOption = 3
+	GetSelfCourseApplicationListReqOption_course_name   GetSelfCourseApplicationListReqOption = 4
+)
+
+func (p GetSelfCourseApplicationListReqOption) String() string {
+	switch p {
+	case GetSelfCourseApplicationListReqOption_id:
+		return "id"
+	case GetSelfCourseApplicationListReqOption_academic_year:
+		return "academic_year"
+	case GetSelfCourseApplicationListReqOption_semester:
+		return "semester"
+	case GetSelfCourseApplicationListReqOption_course_name:
+		return "course_name"
+	}
+	return "<UNSET>"
+}
+
+func GetSelfCourseApplicationListReqOptionFromString(s string) (GetSelfCourseApplicationListReqOption, error) {
+	switch s {
+	case "id":
+		return GetSelfCourseApplicationListReqOption_id, nil
+	case "academic_year":
+		return GetSelfCourseApplicationListReqOption_academic_year, nil
+	case "semester":
+		return GetSelfCourseApplicationListReqOption_semester, nil
+	case "course_name":
+		return GetSelfCourseApplicationListReqOption_course_name, nil
+	}
+	return GetSelfCourseApplicationListReqOption(0), fmt.Errorf("not a valid GetSelfCourseApplicationListReqOption string")
+}
+
+func GetSelfCourseApplicationListReqOptionPtr(v GetSelfCourseApplicationListReqOption) *GetSelfCourseApplicationListReqOption {
+	return &v
+}
+func (p *GetSelfCourseApplicationListReqOption) Scan(value interface{}) (err error) {
+	var result sql.NullInt64
+	err = result.Scan(value)
+	*p = GetSelfCourseApplicationListReqOption(result.Int64)
+	return
+}
+
+func (p *GetSelfCourseApplicationListReqOption) Value() (driver.Value, error) {
+	if p == nil {
+		return nil, nil
+	}
+	return int64(*p), nil
+}
+
 type GetCourseApplicationListReqOption int64
 
 const (
 	GetCourseApplicationListReqOption_id            GetCourseApplicationListReqOption = 1
 	GetCourseApplicationListReqOption_academic_year GetCourseApplicationListReqOption = 2
 	GetCourseApplicationListReqOption_semester      GetCourseApplicationListReqOption = 3
+	GetCourseApplicationListReqOption_course_name   GetCourseApplicationListReqOption = 4
 )
 
 func (p GetCourseApplicationListReqOption) String() string {
@@ -120,6 +175,8 @@ func (p GetCourseApplicationListReqOption) String() string {
 		return "academic_year"
 	case GetCourseApplicationListReqOption_semester:
 		return "semester"
+	case GetCourseApplicationListReqOption_course_name:
+		return "course_name"
 	}
 	return "<UNSET>"
 }
@@ -132,6 +189,8 @@ func GetCourseApplicationListReqOptionFromString(s string) (GetCourseApplication
 		return GetCourseApplicationListReqOption_academic_year, nil
 	case "semester":
 		return GetCourseApplicationListReqOption_semester, nil
+	case "course_name":
+		return GetCourseApplicationListReqOption_course_name, nil
 	}
 	return GetCourseApplicationListReqOption(0), fmt.Errorf("not a valid GetCourseApplicationListReqOption string")
 }
@@ -49522,7 +49581,7 @@ type ModelHoliday struct {
 	UpdatedAt    int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at" json:"updated_at"`
 	DeletedAt    int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at" json:"deleted_at"`
 	Name         string `thrift:"name,5" frugal:"5,default,string" json:"name" gorm:"column:name"`
-	BiginDate    string `thrift:"bigin_date,6" frugal:"6,default,string" json:"bigin_date" gorm:"column:bigin_date"`
+	BeginDate    string `thrift:"begin_date,6" frugal:"6,default,string" json:"begin_date" gorm:"column:begin_date"`
 	EndDate      string `thrift:"end_date,7" frugal:"7,default,string" json:"end_date" gorm:"column:end_date"`
 	AppId        int32  `thrift:"app_id,8" frugal:"8,default,i32" json:"app_id" gorm:"column:app_id"`
 	Remark       string `thrift:"remark,9" frugal:"9,default,string" json:"remark" gorm:"column:remark"`
@@ -49557,8 +49616,8 @@ func (p *ModelHoliday) GetName() (v string) {
 	return p.Name
 }
 
-func (p *ModelHoliday) GetBiginDate() (v string) {
-	return p.BiginDate
+func (p *ModelHoliday) GetBeginDate() (v string) {
+	return p.BeginDate
 }
 
 func (p *ModelHoliday) GetEndDate() (v string) {
@@ -49595,8 +49654,8 @@ func (p *ModelHoliday) SetDeletedAt(val int32) {
 func (p *ModelHoliday) SetName(val string) {
 	p.Name = val
 }
-func (p *ModelHoliday) SetBiginDate(val string) {
-	p.BiginDate = val
+func (p *ModelHoliday) SetBeginDate(val string) {
+	p.BeginDate = val
 }
 func (p *ModelHoliday) SetEndDate(val string) {
 	p.EndDate = val
@@ -49620,7 +49679,7 @@ var fieldIDToName_ModelHoliday = map[int16]string{
 	3:  "updated_at",
 	4:  "deleted_at",
 	5:  "name",
-	6:  "bigin_date",
+	6:  "begin_date",
 	7:  "end_date",
 	8:  "app_id",
 	9:  "remark",
@@ -49827,7 +49886,7 @@ func (p *ModelHoliday) ReadField6(iprot thrift.TProtocol) error {
 	} else {
 		_field = v
 	}
-	p.BiginDate = _field
+	p.BeginDate = _field
 	return nil
 }
 func (p *ModelHoliday) ReadField7(iprot thrift.TProtocol) error {
@@ -50040,10 +50099,10 @@ WriteFieldEndError:
 }
 
 func (p *ModelHoliday) writeField6(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("bigin_date", thrift.STRING, 6); err != nil {
+	if err = oprot.WriteFieldBegin("begin_date", thrift.STRING, 6); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.BiginDate); err != nil {
+	if err := oprot.WriteString(p.BeginDate); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -50170,7 +50229,7 @@ func (p *ModelHoliday) DeepEqual(ano *ModelHoliday) bool {
 	if !p.Field5DeepEqual(ano.Name) {
 		return false
 	}
-	if !p.Field6DeepEqual(ano.BiginDate) {
+	if !p.Field6DeepEqual(ano.BeginDate) {
 		return false
 	}
 	if !p.Field7DeepEqual(ano.EndDate) {
@@ -50228,7 +50287,7 @@ func (p *ModelHoliday) Field5DeepEqual(src string) bool {
 }
 func (p *ModelHoliday) Field6DeepEqual(src string) bool {
 
-	if strings.Compare(p.BiginDate, src) != 0 {
+	if strings.Compare(p.BeginDate, src) != 0 {
 		return false
 	}
 	return true
