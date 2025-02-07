@@ -340,3 +340,63 @@ func UpdateHoliday(ctx context.Context, req *education.UpdateHolidayReq, callOpt
 	clients := MustNewClient("education", callOptions...)
 	return clients.UpdateHoliday(ctx, req)
 }
+
+func GetInternshipList(ctx context.Context, req *education.GetInternshipListReq, callOptions ...client.Option) (resp *education.GetInternshipListResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.GetInternshipList(ctx, req)
+}
+
+func DeleteInternship(ctx context.Context, req *education.DeleteInternshipReq, callOptions ...client.Option) (resp *education.DeleteInternshipResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.DeleteInternship(ctx, req)
+}
+
+func UpdateInternship(ctx context.Context, req *education.UpdateInternshipReq, callOptions ...client.Option) (resp *education.UpdateInternshipResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.UpdateInternship(ctx, req)
+}
+
+func CreateInternship(ctx context.Context, req *education.CreateInternshipReq, callOptions ...client.Option) (resp *education.CreateInternshipResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.CreateInternship(ctx, req)
+}
+
+func ImportInternship(ctx context.Context, req *education.ImportInternshipReq, callOptions ...client.Option) (resp *education.ImportInternshipResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.ImportInternship(ctx, req)
+}
+
+func GetTrainingCourseList(ctx context.Context, req *education.GetTrainingCourseListReq, callOptions ...client.Option) (resp *education.GetTrainingCourseListResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.GetTrainingCourseList(ctx, req)
+}
+
+func CreateTrainingCourse(ctx context.Context, req *education.CreateTrainingCourseReq, callOptions ...client.Option) (resp *education.CreateTrainingCourseResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.CreateTrainingCourse(ctx, req)
+}
+
+func DeleteTrainingCourse(ctx context.Context, req *education.DeleteTrainingCourseReq, callOptions ...client.Option) (resp *education.DeleteTrainingCourseResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.DeleteTrainingCourse(ctx, req)
+}
+
+func UpdateTrainingCourse(ctx context.Context, req *education.UpdateTrainingCourseReq, callOptions ...client.Option) (resp *education.UpdateTrainingCourseResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.UpdateTrainingCourse(ctx, req)
+}
+
+func UpdateTrainingCourseTeacher(ctx context.Context, req *education.UpdateTrainingCourseTeacherReq, callOptions ...client.Option) (resp *education.UpdateTrainingCourseTeacherResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.UpdateTrainingCourseTeacher(ctx, req)
+}
+
+func ImportTrainingCourse(ctx context.Context, req *education.ImportTrainingCourseReq, callOptions ...client.Option) (resp *education.ImportTrainingCourseResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.ImportTrainingCourse(ctx, req)
+}
+
+func GetSelfTrainingCourseList(ctx context.Context, req *education.GetSelfTrainingCourseListReq, callOptions ...client.Option) (resp *education.GetSelfTrainingCourseListResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.GetSelfTrainingCourseList(ctx, req)
+}

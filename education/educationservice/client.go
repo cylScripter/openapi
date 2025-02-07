@@ -78,6 +78,18 @@ type Client interface {
 	DeleteHoliday(ctx context.Context, req *education.DeleteHolidayReq, callOptions ...callopt.Option) (r *education.DeleteHolidayResp, err error)
 	CreateHoliday(ctx context.Context, req *education.CreateHolidayReq, callOptions ...callopt.Option) (r *education.CreateHolidayResp, err error)
 	UpdateHoliday(ctx context.Context, req *education.UpdateHolidayReq, callOptions ...callopt.Option) (r *education.UpdateHolidayResp, err error)
+	GetInternshipList(ctx context.Context, req *education.GetInternshipListReq, callOptions ...callopt.Option) (r *education.GetInternshipListResp, err error)
+	DeleteInternship(ctx context.Context, req *education.DeleteInternshipReq, callOptions ...callopt.Option) (r *education.DeleteInternshipResp, err error)
+	UpdateInternship(ctx context.Context, req *education.UpdateInternshipReq, callOptions ...callopt.Option) (r *education.UpdateInternshipResp, err error)
+	CreateInternship(ctx context.Context, req *education.CreateInternshipReq, callOptions ...callopt.Option) (r *education.CreateInternshipResp, err error)
+	ImportInternship(ctx context.Context, req *education.ImportInternshipReq, callOptions ...callopt.Option) (r *education.ImportInternshipResp, err error)
+	GetTrainingCourseList(ctx context.Context, req *education.GetTrainingCourseListReq, callOptions ...callopt.Option) (r *education.GetTrainingCourseListResp, err error)
+	CreateTrainingCourse(ctx context.Context, req *education.CreateTrainingCourseReq, callOptions ...callopt.Option) (r *education.CreateTrainingCourseResp, err error)
+	DeleteTrainingCourse(ctx context.Context, req *education.DeleteTrainingCourseReq, callOptions ...callopt.Option) (r *education.DeleteTrainingCourseResp, err error)
+	UpdateTrainingCourse(ctx context.Context, req *education.UpdateTrainingCourseReq, callOptions ...callopt.Option) (r *education.UpdateTrainingCourseResp, err error)
+	UpdateTrainingCourseTeacher(ctx context.Context, req *education.UpdateTrainingCourseTeacherReq, callOptions ...callopt.Option) (r *education.UpdateTrainingCourseTeacherResp, err error)
+	ImportTrainingCourse(ctx context.Context, req *education.ImportTrainingCourseReq, callOptions ...callopt.Option) (r *education.ImportTrainingCourseResp, err error)
+	GetSelfTrainingCourseList(ctx context.Context, req *education.GetSelfTrainingCourseListReq, callOptions ...callopt.Option) (r *education.GetSelfTrainingCourseListResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -442,4 +454,64 @@ func (p *kEducationserviceClient) CreateHoliday(ctx context.Context, req *educat
 func (p *kEducationserviceClient) UpdateHoliday(ctx context.Context, req *education.UpdateHolidayReq, callOptions ...callopt.Option) (r *education.UpdateHolidayResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.UpdateHoliday(ctx, req)
+}
+
+func (p *kEducationserviceClient) GetInternshipList(ctx context.Context, req *education.GetInternshipListReq, callOptions ...callopt.Option) (r *education.GetInternshipListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetInternshipList(ctx, req)
+}
+
+func (p *kEducationserviceClient) DeleteInternship(ctx context.Context, req *education.DeleteInternshipReq, callOptions ...callopt.Option) (r *education.DeleteInternshipResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.DeleteInternship(ctx, req)
+}
+
+func (p *kEducationserviceClient) UpdateInternship(ctx context.Context, req *education.UpdateInternshipReq, callOptions ...callopt.Option) (r *education.UpdateInternshipResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.UpdateInternship(ctx, req)
+}
+
+func (p *kEducationserviceClient) CreateInternship(ctx context.Context, req *education.CreateInternshipReq, callOptions ...callopt.Option) (r *education.CreateInternshipResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.CreateInternship(ctx, req)
+}
+
+func (p *kEducationserviceClient) ImportInternship(ctx context.Context, req *education.ImportInternshipReq, callOptions ...callopt.Option) (r *education.ImportInternshipResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ImportInternship(ctx, req)
+}
+
+func (p *kEducationserviceClient) GetTrainingCourseList(ctx context.Context, req *education.GetTrainingCourseListReq, callOptions ...callopt.Option) (r *education.GetTrainingCourseListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetTrainingCourseList(ctx, req)
+}
+
+func (p *kEducationserviceClient) CreateTrainingCourse(ctx context.Context, req *education.CreateTrainingCourseReq, callOptions ...callopt.Option) (r *education.CreateTrainingCourseResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.CreateTrainingCourse(ctx, req)
+}
+
+func (p *kEducationserviceClient) DeleteTrainingCourse(ctx context.Context, req *education.DeleteTrainingCourseReq, callOptions ...callopt.Option) (r *education.DeleteTrainingCourseResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.DeleteTrainingCourse(ctx, req)
+}
+
+func (p *kEducationserviceClient) UpdateTrainingCourse(ctx context.Context, req *education.UpdateTrainingCourseReq, callOptions ...callopt.Option) (r *education.UpdateTrainingCourseResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.UpdateTrainingCourse(ctx, req)
+}
+
+func (p *kEducationserviceClient) UpdateTrainingCourseTeacher(ctx context.Context, req *education.UpdateTrainingCourseTeacherReq, callOptions ...callopt.Option) (r *education.UpdateTrainingCourseTeacherResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.UpdateTrainingCourseTeacher(ctx, req)
+}
+
+func (p *kEducationserviceClient) ImportTrainingCourse(ctx context.Context, req *education.ImportTrainingCourseReq, callOptions ...callopt.Option) (r *education.ImportTrainingCourseResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ImportTrainingCourse(ctx, req)
+}
+
+func (p *kEducationserviceClient) GetSelfTrainingCourseList(ctx context.Context, req *education.GetSelfTrainingCourseListReq, callOptions ...callopt.Option) (r *education.GetSelfTrainingCourseListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetSelfTrainingCourseList(ctx, req)
 }

@@ -482,6 +482,90 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"GetInternshipList": kitex.NewMethodInfo(
+		getInternshipListHandler,
+		newEducationserviceGetInternshipListArgs,
+		newEducationserviceGetInternshipListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"DeleteInternship": kitex.NewMethodInfo(
+		deleteInternshipHandler,
+		newEducationserviceDeleteInternshipArgs,
+		newEducationserviceDeleteInternshipResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"UpdateInternship": kitex.NewMethodInfo(
+		updateInternshipHandler,
+		newEducationserviceUpdateInternshipArgs,
+		newEducationserviceUpdateInternshipResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"CreateInternship": kitex.NewMethodInfo(
+		createInternshipHandler,
+		newEducationserviceCreateInternshipArgs,
+		newEducationserviceCreateInternshipResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"ImportInternship": kitex.NewMethodInfo(
+		importInternshipHandler,
+		newEducationserviceImportInternshipArgs,
+		newEducationserviceImportInternshipResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetTrainingCourseList": kitex.NewMethodInfo(
+		getTrainingCourseListHandler,
+		newEducationserviceGetTrainingCourseListArgs,
+		newEducationserviceGetTrainingCourseListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"CreateTrainingCourse": kitex.NewMethodInfo(
+		createTrainingCourseHandler,
+		newEducationserviceCreateTrainingCourseArgs,
+		newEducationserviceCreateTrainingCourseResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"DeleteTrainingCourse": kitex.NewMethodInfo(
+		deleteTrainingCourseHandler,
+		newEducationserviceDeleteTrainingCourseArgs,
+		newEducationserviceDeleteTrainingCourseResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"UpdateTrainingCourse": kitex.NewMethodInfo(
+		updateTrainingCourseHandler,
+		newEducationserviceUpdateTrainingCourseArgs,
+		newEducationserviceUpdateTrainingCourseResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"UpdateTrainingCourseTeacher": kitex.NewMethodInfo(
+		updateTrainingCourseTeacherHandler,
+		newEducationserviceUpdateTrainingCourseTeacherArgs,
+		newEducationserviceUpdateTrainingCourseTeacherResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"ImportTrainingCourse": kitex.NewMethodInfo(
+		importTrainingCourseHandler,
+		newEducationserviceImportTrainingCourseArgs,
+		newEducationserviceImportTrainingCourseResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetSelfTrainingCourseList": kitex.NewMethodInfo(
+		getSelfTrainingCourseListHandler,
+		newEducationserviceGetSelfTrainingCourseListArgs,
+		newEducationserviceGetSelfTrainingCourseListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -1754,6 +1838,222 @@ func newEducationserviceUpdateHolidayResult() interface{} {
 	return education.NewEducationserviceUpdateHolidayResult()
 }
 
+func getInternshipListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceGetInternshipListArgs)
+	realResult := result.(*education.EducationserviceGetInternshipListResult)
+	success, err := handler.(education.Educationservice).GetInternshipList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceGetInternshipListArgs() interface{} {
+	return education.NewEducationserviceGetInternshipListArgs()
+}
+
+func newEducationserviceGetInternshipListResult() interface{} {
+	return education.NewEducationserviceGetInternshipListResult()
+}
+
+func deleteInternshipHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceDeleteInternshipArgs)
+	realResult := result.(*education.EducationserviceDeleteInternshipResult)
+	success, err := handler.(education.Educationservice).DeleteInternship(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceDeleteInternshipArgs() interface{} {
+	return education.NewEducationserviceDeleteInternshipArgs()
+}
+
+func newEducationserviceDeleteInternshipResult() interface{} {
+	return education.NewEducationserviceDeleteInternshipResult()
+}
+
+func updateInternshipHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceUpdateInternshipArgs)
+	realResult := result.(*education.EducationserviceUpdateInternshipResult)
+	success, err := handler.(education.Educationservice).UpdateInternship(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceUpdateInternshipArgs() interface{} {
+	return education.NewEducationserviceUpdateInternshipArgs()
+}
+
+func newEducationserviceUpdateInternshipResult() interface{} {
+	return education.NewEducationserviceUpdateInternshipResult()
+}
+
+func createInternshipHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceCreateInternshipArgs)
+	realResult := result.(*education.EducationserviceCreateInternshipResult)
+	success, err := handler.(education.Educationservice).CreateInternship(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceCreateInternshipArgs() interface{} {
+	return education.NewEducationserviceCreateInternshipArgs()
+}
+
+func newEducationserviceCreateInternshipResult() interface{} {
+	return education.NewEducationserviceCreateInternshipResult()
+}
+
+func importInternshipHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceImportInternshipArgs)
+	realResult := result.(*education.EducationserviceImportInternshipResult)
+	success, err := handler.(education.Educationservice).ImportInternship(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceImportInternshipArgs() interface{} {
+	return education.NewEducationserviceImportInternshipArgs()
+}
+
+func newEducationserviceImportInternshipResult() interface{} {
+	return education.NewEducationserviceImportInternshipResult()
+}
+
+func getTrainingCourseListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceGetTrainingCourseListArgs)
+	realResult := result.(*education.EducationserviceGetTrainingCourseListResult)
+	success, err := handler.(education.Educationservice).GetTrainingCourseList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceGetTrainingCourseListArgs() interface{} {
+	return education.NewEducationserviceGetTrainingCourseListArgs()
+}
+
+func newEducationserviceGetTrainingCourseListResult() interface{} {
+	return education.NewEducationserviceGetTrainingCourseListResult()
+}
+
+func createTrainingCourseHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceCreateTrainingCourseArgs)
+	realResult := result.(*education.EducationserviceCreateTrainingCourseResult)
+	success, err := handler.(education.Educationservice).CreateTrainingCourse(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceCreateTrainingCourseArgs() interface{} {
+	return education.NewEducationserviceCreateTrainingCourseArgs()
+}
+
+func newEducationserviceCreateTrainingCourseResult() interface{} {
+	return education.NewEducationserviceCreateTrainingCourseResult()
+}
+
+func deleteTrainingCourseHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceDeleteTrainingCourseArgs)
+	realResult := result.(*education.EducationserviceDeleteTrainingCourseResult)
+	success, err := handler.(education.Educationservice).DeleteTrainingCourse(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceDeleteTrainingCourseArgs() interface{} {
+	return education.NewEducationserviceDeleteTrainingCourseArgs()
+}
+
+func newEducationserviceDeleteTrainingCourseResult() interface{} {
+	return education.NewEducationserviceDeleteTrainingCourseResult()
+}
+
+func updateTrainingCourseHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceUpdateTrainingCourseArgs)
+	realResult := result.(*education.EducationserviceUpdateTrainingCourseResult)
+	success, err := handler.(education.Educationservice).UpdateTrainingCourse(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceUpdateTrainingCourseArgs() interface{} {
+	return education.NewEducationserviceUpdateTrainingCourseArgs()
+}
+
+func newEducationserviceUpdateTrainingCourseResult() interface{} {
+	return education.NewEducationserviceUpdateTrainingCourseResult()
+}
+
+func updateTrainingCourseTeacherHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceUpdateTrainingCourseTeacherArgs)
+	realResult := result.(*education.EducationserviceUpdateTrainingCourseTeacherResult)
+	success, err := handler.(education.Educationservice).UpdateTrainingCourseTeacher(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceUpdateTrainingCourseTeacherArgs() interface{} {
+	return education.NewEducationserviceUpdateTrainingCourseTeacherArgs()
+}
+
+func newEducationserviceUpdateTrainingCourseTeacherResult() interface{} {
+	return education.NewEducationserviceUpdateTrainingCourseTeacherResult()
+}
+
+func importTrainingCourseHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceImportTrainingCourseArgs)
+	realResult := result.(*education.EducationserviceImportTrainingCourseResult)
+	success, err := handler.(education.Educationservice).ImportTrainingCourse(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceImportTrainingCourseArgs() interface{} {
+	return education.NewEducationserviceImportTrainingCourseArgs()
+}
+
+func newEducationserviceImportTrainingCourseResult() interface{} {
+	return education.NewEducationserviceImportTrainingCourseResult()
+}
+
+func getSelfTrainingCourseListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceGetSelfTrainingCourseListArgs)
+	realResult := result.(*education.EducationserviceGetSelfTrainingCourseListResult)
+	success, err := handler.(education.Educationservice).GetSelfTrainingCourseList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceGetSelfTrainingCourseListArgs() interface{} {
+	return education.NewEducationserviceGetSelfTrainingCourseListArgs()
+}
+
+func newEducationserviceGetSelfTrainingCourseListResult() interface{} {
+	return education.NewEducationserviceGetSelfTrainingCourseListResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -2429,6 +2729,126 @@ func (p *kClient) UpdateHoliday(ctx context.Context, req *education.UpdateHolida
 	_args.Req = req
 	var _result education.EducationserviceUpdateHolidayResult
 	if err = p.c.Call(ctx, "UpdateHoliday", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetInternshipList(ctx context.Context, req *education.GetInternshipListReq) (r *education.GetInternshipListResp, err error) {
+	var _args education.EducationserviceGetInternshipListArgs
+	_args.Req = req
+	var _result education.EducationserviceGetInternshipListResult
+	if err = p.c.Call(ctx, "GetInternshipList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) DeleteInternship(ctx context.Context, req *education.DeleteInternshipReq) (r *education.DeleteInternshipResp, err error) {
+	var _args education.EducationserviceDeleteInternshipArgs
+	_args.Req = req
+	var _result education.EducationserviceDeleteInternshipResult
+	if err = p.c.Call(ctx, "DeleteInternship", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) UpdateInternship(ctx context.Context, req *education.UpdateInternshipReq) (r *education.UpdateInternshipResp, err error) {
+	var _args education.EducationserviceUpdateInternshipArgs
+	_args.Req = req
+	var _result education.EducationserviceUpdateInternshipResult
+	if err = p.c.Call(ctx, "UpdateInternship", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) CreateInternship(ctx context.Context, req *education.CreateInternshipReq) (r *education.CreateInternshipResp, err error) {
+	var _args education.EducationserviceCreateInternshipArgs
+	_args.Req = req
+	var _result education.EducationserviceCreateInternshipResult
+	if err = p.c.Call(ctx, "CreateInternship", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ImportInternship(ctx context.Context, req *education.ImportInternshipReq) (r *education.ImportInternshipResp, err error) {
+	var _args education.EducationserviceImportInternshipArgs
+	_args.Req = req
+	var _result education.EducationserviceImportInternshipResult
+	if err = p.c.Call(ctx, "ImportInternship", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetTrainingCourseList(ctx context.Context, req *education.GetTrainingCourseListReq) (r *education.GetTrainingCourseListResp, err error) {
+	var _args education.EducationserviceGetTrainingCourseListArgs
+	_args.Req = req
+	var _result education.EducationserviceGetTrainingCourseListResult
+	if err = p.c.Call(ctx, "GetTrainingCourseList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) CreateTrainingCourse(ctx context.Context, req *education.CreateTrainingCourseReq) (r *education.CreateTrainingCourseResp, err error) {
+	var _args education.EducationserviceCreateTrainingCourseArgs
+	_args.Req = req
+	var _result education.EducationserviceCreateTrainingCourseResult
+	if err = p.c.Call(ctx, "CreateTrainingCourse", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) DeleteTrainingCourse(ctx context.Context, req *education.DeleteTrainingCourseReq) (r *education.DeleteTrainingCourseResp, err error) {
+	var _args education.EducationserviceDeleteTrainingCourseArgs
+	_args.Req = req
+	var _result education.EducationserviceDeleteTrainingCourseResult
+	if err = p.c.Call(ctx, "DeleteTrainingCourse", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) UpdateTrainingCourse(ctx context.Context, req *education.UpdateTrainingCourseReq) (r *education.UpdateTrainingCourseResp, err error) {
+	var _args education.EducationserviceUpdateTrainingCourseArgs
+	_args.Req = req
+	var _result education.EducationserviceUpdateTrainingCourseResult
+	if err = p.c.Call(ctx, "UpdateTrainingCourse", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) UpdateTrainingCourseTeacher(ctx context.Context, req *education.UpdateTrainingCourseTeacherReq) (r *education.UpdateTrainingCourseTeacherResp, err error) {
+	var _args education.EducationserviceUpdateTrainingCourseTeacherArgs
+	_args.Req = req
+	var _result education.EducationserviceUpdateTrainingCourseTeacherResult
+	if err = p.c.Call(ctx, "UpdateTrainingCourseTeacher", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ImportTrainingCourse(ctx context.Context, req *education.ImportTrainingCourseReq) (r *education.ImportTrainingCourseResp, err error) {
+	var _args education.EducationserviceImportTrainingCourseArgs
+	_args.Req = req
+	var _result education.EducationserviceImportTrainingCourseResult
+	if err = p.c.Call(ctx, "ImportTrainingCourse", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetSelfTrainingCourseList(ctx context.Context, req *education.GetSelfTrainingCourseListReq) (r *education.GetSelfTrainingCourseListResp, err error) {
+	var _args education.EducationserviceGetSelfTrainingCourseListArgs
+	_args.Req = req
+	var _result education.EducationserviceGetSelfTrainingCourseListResult
+	if err = p.c.Call(ctx, "GetSelfTrainingCourseList", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
