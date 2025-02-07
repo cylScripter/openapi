@@ -1692,9 +1692,9 @@ func (p *CreateTrainingCourseReq) FastRead(buf []byte) (int, error) {
 			break
 		}
 		switch fieldId {
-		case 0:
+		case 10:
 			if fieldTypeId == thrift.STRING {
-				l, err = p.FastReadField0(buf[offset:])
+				l, err = p.FastReadField10(buf[offset:])
 				offset += l
 				if err != nil {
 					goto ReadFieldError
@@ -1850,7 +1850,7 @@ SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 }
 
-func (p *CreateTrainingCourseReq) FastReadField0(buf []byte) (int, error) {
+func (p *CreateTrainingCourseReq) FastReadField10(buf []byte) (int, error) {
 	offset := 0
 
 	var _field string
@@ -1999,7 +1999,7 @@ func (p *CreateTrainingCourseReq) FastWriteNocopy(buf []byte, w thrift.NocopyWri
 	offset := 0
 	if p != nil {
 		offset += p.fastWriteField4(buf[offset:], w)
-		offset += p.fastWriteField0(buf[offset:], w)
+		offset += p.fastWriteField10(buf[offset:], w)
 		offset += p.fastWriteField1(buf[offset:], w)
 		offset += p.fastWriteField2(buf[offset:], w)
 		offset += p.fastWriteField3(buf[offset:], w)
@@ -2016,7 +2016,7 @@ func (p *CreateTrainingCourseReq) FastWriteNocopy(buf []byte, w thrift.NocopyWri
 func (p *CreateTrainingCourseReq) BLength() int {
 	l := 0
 	if p != nil {
-		l += p.field0Length()
+		l += p.field10Length()
 		l += p.field1Length()
 		l += p.field2Length()
 		l += p.field3Length()
@@ -2031,9 +2031,9 @@ func (p *CreateTrainingCourseReq) BLength() int {
 	return l
 }
 
-func (p *CreateTrainingCourseReq) fastWriteField0(buf []byte, w thrift.NocopyWriter) int {
+func (p *CreateTrainingCourseReq) fastWriteField10(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
-	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 0)
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 10)
 	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.AcademicYear)
 	return offset
 }
@@ -2101,7 +2101,7 @@ func (p *CreateTrainingCourseReq) fastWriteField9(buf []byte, w thrift.NocopyWri
 	return offset
 }
 
-func (p *CreateTrainingCourseReq) field0Length() int {
+func (p *CreateTrainingCourseReq) field10Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.StringLengthNocopy(p.AcademicYear)

@@ -4065,7 +4065,7 @@ func (p *DeleteTrainingCourseResp) DeepEqual(ano *DeleteTrainingCourseResp) bool
 }
 
 type CreateTrainingCourseReq struct {
-	AcademicYear          string `thrift:"academic_year,0" frugal:"0,default,string" json:"academic_year" binding:"required" `
+	AcademicYear          string `thrift:"academic_year,10" frugal:"10,default,string" json:"academic_year" binding:"required" `
 	Semester              string `thrift:"semester,1" frugal:"1,default,string" json:"semester" binding:"required" `
 	Major                 string `thrift:"major,2" frugal:"2,default,string" json:"major" binding:"required"`
 	ClassName             string `thrift:"class_name,3" frugal:"3,default,string" json:"class_name" binding:"required"`
@@ -4155,16 +4155,16 @@ func (p *CreateTrainingCourseReq) SetEnterpriseTeacherName(val string) {
 }
 
 var fieldIDToName_CreateTrainingCourseReq = map[int16]string{
-	0: "academic_year",
-	1: "semester",
-	2: "major",
-	3: "class_name",
-	4: "student_number",
-	5: "course_name",
-	6: "location",
-	7: "cooperation_enterprise",
-	8: "training_week",
-	9: "enterprise_teacher_name",
+	10: "academic_year",
+	1:  "semester",
+	2:  "major",
+	3:  "class_name",
+	4:  "student_number",
+	5:  "course_name",
+	6:  "location",
+	7:  "cooperation_enterprise",
+	8:  "training_week",
+	9:  "enterprise_teacher_name",
 }
 
 func (p *CreateTrainingCourseReq) Read(iprot thrift.TProtocol) (err error) {
@@ -4186,9 +4186,9 @@ func (p *CreateTrainingCourseReq) Read(iprot thrift.TProtocol) (err error) {
 		}
 
 		switch fieldId {
-		case 0:
+		case 10:
 			if fieldTypeId == thrift.STRING {
-				if err = p.ReadField0(iprot); err != nil {
+				if err = p.ReadField10(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -4295,7 +4295,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *CreateTrainingCourseReq) ReadField0(iprot thrift.TProtocol) error {
+func (p *CreateTrainingCourseReq) ReadField10(iprot thrift.TProtocol) error {
 
 	var _field string
 	if v, err := iprot.ReadString(); err != nil {
@@ -4412,8 +4412,8 @@ func (p *CreateTrainingCourseReq) Write(oprot thrift.TProtocol) (err error) {
 		goto WriteStructBeginError
 	}
 	if p != nil {
-		if err = p.writeField0(oprot); err != nil {
-			fieldId = 0
+		if err = p.writeField10(oprot); err != nil {
+			fieldId = 10
 			goto WriteFieldError
 		}
 		if err = p.writeField1(oprot); err != nil {
@@ -4470,8 +4470,8 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *CreateTrainingCourseReq) writeField0(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("academic_year", thrift.STRING, 0); err != nil {
+func (p *CreateTrainingCourseReq) writeField10(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("academic_year", thrift.STRING, 10); err != nil {
 		goto WriteFieldBeginError
 	}
 	if err := oprot.WriteString(p.AcademicYear); err != nil {
@@ -4482,9 +4482,9 @@ func (p *CreateTrainingCourseReq) writeField0(oprot thrift.TProtocol) (err error
 	}
 	return nil
 WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field 10 begin error: ", p), err)
 WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field 10 end error: ", p), err)
 }
 
 func (p *CreateTrainingCourseReq) writeField1(oprot thrift.TProtocol) (err error) {
@@ -4654,7 +4654,7 @@ func (p *CreateTrainingCourseReq) DeepEqual(ano *CreateTrainingCourseReq) bool {
 	} else if p == nil || ano == nil {
 		return false
 	}
-	if !p.Field0DeepEqual(ano.AcademicYear) {
+	if !p.Field10DeepEqual(ano.AcademicYear) {
 		return false
 	}
 	if !p.Field1DeepEqual(ano.Semester) {
@@ -4687,7 +4687,7 @@ func (p *CreateTrainingCourseReq) DeepEqual(ano *CreateTrainingCourseReq) bool {
 	return true
 }
 
-func (p *CreateTrainingCourseReq) Field0DeepEqual(src string) bool {
+func (p *CreateTrainingCourseReq) Field10DeepEqual(src string) bool {
 
 	if strings.Compare(p.AcademicYear, src) != 0 {
 		return false
