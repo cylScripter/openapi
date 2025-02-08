@@ -39342,6 +39342,7 @@ type ModelInternship struct {
 	AssessmentMethod string  `thrift:"assessment_method,14" frugal:"14,default,string" gorm:"column:assessment_method" json:"assessment_method"`
 	StudentNumber    int32   `thrift:"student_number,15" frugal:"15,default,i32" gorm:"column:student_number" json:"student_number"`
 	WeekHour         float64 `thrift:"week_hour,16" frugal:"16,default,double" gorm:"column:week_hour" json:"week_hour"`
+	AppId            int32   `thrift:"app_id,17" frugal:"17,default,i32" gorm:"column:app_id" json:"app_id"`
 }
 
 func NewModelInternship() *ModelInternship {
@@ -39414,6 +39415,10 @@ func (p *ModelInternship) GetStudentNumber() (v int32) {
 func (p *ModelInternship) GetWeekHour() (v float64) {
 	return p.WeekHour
 }
+
+func (p *ModelInternship) GetAppId() (v int32) {
+	return p.AppId
+}
 func (p *ModelInternship) SetId(val int32) {
 	p.Id = val
 }
@@ -39462,6 +39467,9 @@ func (p *ModelInternship) SetStudentNumber(val int32) {
 func (p *ModelInternship) SetWeekHour(val float64) {
 	p.WeekHour = val
 }
+func (p *ModelInternship) SetAppId(val int32) {
+	p.AppId = val
+}
 
 var fieldIDToName_ModelInternship = map[int16]string{
 	1:  "id",
@@ -39480,6 +39488,7 @@ var fieldIDToName_ModelInternship = map[int16]string{
 	14: "assessment_method",
 	15: "student_number",
 	16: "week_hour",
+	17: "app_id",
 }
 
 func (p *ModelInternship) Read(iprot thrift.TProtocol) (err error) {
@@ -39624,6 +39633,14 @@ func (p *ModelInternship) Read(iprot thrift.TProtocol) (err error) {
 		case 16:
 			if fieldTypeId == thrift.DOUBLE {
 				if err = p.ReadField16(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 17:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField17(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -39834,6 +39851,17 @@ func (p *ModelInternship) ReadField16(iprot thrift.TProtocol) error {
 	p.WeekHour = _field
 	return nil
 }
+func (p *ModelInternship) ReadField17(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.AppId = _field
+	return nil
+}
 
 func (p *ModelInternship) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -39903,6 +39931,10 @@ func (p *ModelInternship) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField16(oprot); err != nil {
 			fieldId = 16
+			goto WriteFieldError
+		}
+		if err = p.writeField17(oprot); err != nil {
+			fieldId = 17
 			goto WriteFieldError
 		}
 	}
@@ -40195,6 +40227,23 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 16 end error: ", p), err)
 }
 
+func (p *ModelInternship) writeField17(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("app_id", thrift.I32, 17); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.AppId); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 17 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 17 end error: ", p), err)
+}
+
 func (p *ModelInternship) String() string {
 	if p == nil {
 		return "<nil>"
@@ -40255,6 +40304,9 @@ func (p *ModelInternship) DeepEqual(ano *ModelInternship) bool {
 		return false
 	}
 	if !p.Field16DeepEqual(ano.WeekHour) {
+		return false
+	}
+	if !p.Field17DeepEqual(ano.AppId) {
 		return false
 	}
 	return true
@@ -40368,6 +40420,13 @@ func (p *ModelInternship) Field15DeepEqual(src int32) bool {
 func (p *ModelInternship) Field16DeepEqual(src float64) bool {
 
 	if p.WeekHour != src {
+		return false
+	}
+	return true
+}
+func (p *ModelInternship) Field17DeepEqual(src int32) bool {
+
+	if p.AppId != src {
 		return false
 	}
 	return true
