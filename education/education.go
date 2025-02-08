@@ -1703,9 +1703,9 @@ func (p *GetSelfTrainingCourseListReq) Field1DeepEqual(src *base.ListOption) boo
 }
 
 type GetSelfTrainingCourseListResp struct {
-	List       []*ModelTrainingCourse                `thrift:"list,1" frugal:"1,default,list<ModelTrainingCourse>" json:"list"`
-	Paginate   *base.Paginate                        `thrift:"paginate,2" frugal:"2,default,base.Paginate" json:"paginate"`
-	TeacherMap map[int32]*ModelTrainingCourseTeacher `thrift:"teacher_map,3" frugal:"3,default,map<i32:ModelTrainingCourseTeacher>" json:"teacher_map"`
+	List       []*ModelTrainingCourse                  `thrift:"list,1" frugal:"1,default,list<ModelTrainingCourse>" json:"list"`
+	Paginate   *base.Paginate                          `thrift:"paginate,2" frugal:"2,default,base.Paginate" json:"paginate"`
+	TeacherMap map[int32][]*ModelTrainingCourseTeacher `thrift:"teacher_map,3" frugal:"3,default,map<i32:list<ModelTrainingCourseTeacher>>" json:"teacher_map"`
 }
 
 func NewGetSelfTrainingCourseListResp() *GetSelfTrainingCourseListResp {
@@ -1728,7 +1728,7 @@ func (p *GetSelfTrainingCourseListResp) GetPaginate() (v *base.Paginate) {
 	return p.Paginate
 }
 
-func (p *GetSelfTrainingCourseListResp) GetTeacherMap() (v map[int32]*ModelTrainingCourseTeacher) {
+func (p *GetSelfTrainingCourseListResp) GetTeacherMap() (v map[int32][]*ModelTrainingCourseTeacher) {
 	return p.TeacherMap
 }
 func (p *GetSelfTrainingCourseListResp) SetList(val []*ModelTrainingCourse) {
@@ -1737,7 +1737,7 @@ func (p *GetSelfTrainingCourseListResp) SetList(val []*ModelTrainingCourse) {
 func (p *GetSelfTrainingCourseListResp) SetPaginate(val *base.Paginate) {
 	p.Paginate = val
 }
-func (p *GetSelfTrainingCourseListResp) SetTeacherMap(val map[int32]*ModelTrainingCourseTeacher) {
+func (p *GetSelfTrainingCourseListResp) SetTeacherMap(val map[int32][]*ModelTrainingCourseTeacher) {
 	p.TeacherMap = val
 }
 
@@ -1859,8 +1859,7 @@ func (p *GetSelfTrainingCourseListResp) ReadField3(iprot thrift.TProtocol) error
 	if err != nil {
 		return err
 	}
-	_field := make(map[int32]*ModelTrainingCourseTeacher, size)
-	values := make([]ModelTrainingCourseTeacher, size)
+	_field := make(map[int32][]*ModelTrainingCourseTeacher, size)
 	for i := 0; i < size; i++ {
 		var _key int32
 		if v, err := iprot.ReadI32(); err != nil {
@@ -1868,10 +1867,23 @@ func (p *GetSelfTrainingCourseListResp) ReadField3(iprot thrift.TProtocol) error
 		} else {
 			_key = v
 		}
+		_, size, err := iprot.ReadListBegin()
+		if err != nil {
+			return err
+		}
+		_val := make([]*ModelTrainingCourseTeacher, 0, size)
+		values := make([]ModelTrainingCourseTeacher, size)
+		for i := 0; i < size; i++ {
+			_elem := &values[i]
+			_elem.InitDefault()
 
-		_val := &values[i]
-		_val.InitDefault()
-		if err := _val.Read(iprot); err != nil {
+			if err := _elem.Read(iprot); err != nil {
+				return err
+			}
+
+			_val = append(_val, _elem)
+		}
+		if err := iprot.ReadListEnd(); err != nil {
 			return err
 		}
 
@@ -1966,14 +1978,22 @@ func (p *GetSelfTrainingCourseListResp) writeField3(oprot thrift.TProtocol) (err
 	if err = oprot.WriteFieldBegin("teacher_map", thrift.MAP, 3); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteMapBegin(thrift.I32, thrift.STRUCT, len(p.TeacherMap)); err != nil {
+	if err := oprot.WriteMapBegin(thrift.I32, thrift.LIST, len(p.TeacherMap)); err != nil {
 		return err
 	}
 	for k, v := range p.TeacherMap {
 		if err := oprot.WriteI32(k); err != nil {
 			return err
 		}
-		if err := v.Write(oprot); err != nil {
+		if err := oprot.WriteListBegin(thrift.STRUCT, len(v)); err != nil {
+			return err
+		}
+		for _, v := range v {
+			if err := v.Write(oprot); err != nil {
+				return err
+			}
+		}
+		if err := oprot.WriteListEnd(); err != nil {
 			return err
 		}
 	}
@@ -2036,15 +2056,21 @@ func (p *GetSelfTrainingCourseListResp) Field2DeepEqual(src *base.Paginate) bool
 	}
 	return true
 }
-func (p *GetSelfTrainingCourseListResp) Field3DeepEqual(src map[int32]*ModelTrainingCourseTeacher) bool {
+func (p *GetSelfTrainingCourseListResp) Field3DeepEqual(src map[int32][]*ModelTrainingCourseTeacher) bool {
 
 	if len(p.TeacherMap) != len(src) {
 		return false
 	}
 	for k, v := range p.TeacherMap {
 		_src := src[k]
-		if !v.DeepEqual(_src) {
+		if len(v) != len(_src) {
 			return false
+		}
+		for i, v := range v {
+			_src1 := _src[i]
+			if !v.DeepEqual(_src1) {
+				return false
+			}
 		}
 	}
 	return true
@@ -5020,9 +5046,9 @@ func (p *GetTrainingCourseListReq) Field1DeepEqual(src *base.ListOption) bool {
 }
 
 type GetTrainingCourseListResp struct {
-	List       []*ModelTrainingCourse                `thrift:"list,1" frugal:"1,default,list<ModelTrainingCourse>" json:"list"`
-	Paginate   *base.Paginate                        `thrift:"paginate,2" frugal:"2,default,base.Paginate" json:"paginate"`
-	TeacherMap map[int32]*ModelTrainingCourseTeacher `thrift:"teacher_map,3" frugal:"3,default,map<i32:ModelTrainingCourseTeacher>" json:"teacher_map"`
+	List       []*ModelTrainingCourse                  `thrift:"list,1" frugal:"1,default,list<ModelTrainingCourse>" json:"list"`
+	Paginate   *base.Paginate                          `thrift:"paginate,2" frugal:"2,default,base.Paginate" json:"paginate"`
+	TeacherMap map[int32][]*ModelTrainingCourseTeacher `thrift:"teacher_map,3" frugal:"3,default,map<i32:list<ModelTrainingCourseTeacher>>" json:"teacher_map"`
 }
 
 func NewGetTrainingCourseListResp() *GetTrainingCourseListResp {
@@ -5045,7 +5071,7 @@ func (p *GetTrainingCourseListResp) GetPaginate() (v *base.Paginate) {
 	return p.Paginate
 }
 
-func (p *GetTrainingCourseListResp) GetTeacherMap() (v map[int32]*ModelTrainingCourseTeacher) {
+func (p *GetTrainingCourseListResp) GetTeacherMap() (v map[int32][]*ModelTrainingCourseTeacher) {
 	return p.TeacherMap
 }
 func (p *GetTrainingCourseListResp) SetList(val []*ModelTrainingCourse) {
@@ -5054,7 +5080,7 @@ func (p *GetTrainingCourseListResp) SetList(val []*ModelTrainingCourse) {
 func (p *GetTrainingCourseListResp) SetPaginate(val *base.Paginate) {
 	p.Paginate = val
 }
-func (p *GetTrainingCourseListResp) SetTeacherMap(val map[int32]*ModelTrainingCourseTeacher) {
+func (p *GetTrainingCourseListResp) SetTeacherMap(val map[int32][]*ModelTrainingCourseTeacher) {
 	p.TeacherMap = val
 }
 
@@ -5176,8 +5202,7 @@ func (p *GetTrainingCourseListResp) ReadField3(iprot thrift.TProtocol) error {
 	if err != nil {
 		return err
 	}
-	_field := make(map[int32]*ModelTrainingCourseTeacher, size)
-	values := make([]ModelTrainingCourseTeacher, size)
+	_field := make(map[int32][]*ModelTrainingCourseTeacher, size)
 	for i := 0; i < size; i++ {
 		var _key int32
 		if v, err := iprot.ReadI32(); err != nil {
@@ -5185,10 +5210,23 @@ func (p *GetTrainingCourseListResp) ReadField3(iprot thrift.TProtocol) error {
 		} else {
 			_key = v
 		}
+		_, size, err := iprot.ReadListBegin()
+		if err != nil {
+			return err
+		}
+		_val := make([]*ModelTrainingCourseTeacher, 0, size)
+		values := make([]ModelTrainingCourseTeacher, size)
+		for i := 0; i < size; i++ {
+			_elem := &values[i]
+			_elem.InitDefault()
 
-		_val := &values[i]
-		_val.InitDefault()
-		if err := _val.Read(iprot); err != nil {
+			if err := _elem.Read(iprot); err != nil {
+				return err
+			}
+
+			_val = append(_val, _elem)
+		}
+		if err := iprot.ReadListEnd(); err != nil {
 			return err
 		}
 
@@ -5283,14 +5321,22 @@ func (p *GetTrainingCourseListResp) writeField3(oprot thrift.TProtocol) (err err
 	if err = oprot.WriteFieldBegin("teacher_map", thrift.MAP, 3); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteMapBegin(thrift.I32, thrift.STRUCT, len(p.TeacherMap)); err != nil {
+	if err := oprot.WriteMapBegin(thrift.I32, thrift.LIST, len(p.TeacherMap)); err != nil {
 		return err
 	}
 	for k, v := range p.TeacherMap {
 		if err := oprot.WriteI32(k); err != nil {
 			return err
 		}
-		if err := v.Write(oprot); err != nil {
+		if err := oprot.WriteListBegin(thrift.STRUCT, len(v)); err != nil {
+			return err
+		}
+		for _, v := range v {
+			if err := v.Write(oprot); err != nil {
+				return err
+			}
+		}
+		if err := oprot.WriteListEnd(); err != nil {
 			return err
 		}
 	}
@@ -5353,15 +5399,21 @@ func (p *GetTrainingCourseListResp) Field2DeepEqual(src *base.Paginate) bool {
 	}
 	return true
 }
-func (p *GetTrainingCourseListResp) Field3DeepEqual(src map[int32]*ModelTrainingCourseTeacher) bool {
+func (p *GetTrainingCourseListResp) Field3DeepEqual(src map[int32][]*ModelTrainingCourseTeacher) bool {
 
 	if len(p.TeacherMap) != len(src) {
 		return false
 	}
 	for k, v := range p.TeacherMap {
 		_src := src[k]
-		if !v.DeepEqual(_src) {
+		if len(v) != len(_src) {
 			return false
+		}
+		for i, v := range v {
+			_src1 := _src[i]
+			if !v.DeepEqual(_src1) {
+				return false
+			}
 		}
 	}
 	return true
