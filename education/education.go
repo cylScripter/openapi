@@ -2358,7 +2358,7 @@ func (p *ImportTrainingCourseReq) Field3DeepEqual(src string) bool {
 }
 
 type ImportTrainingCourseResp struct {
-	TaskKey int32 `thrift:"task_key,1" frugal:"1,default,i32" json:"task_key"`
+	TaskKey string `thrift:"task_key,1" frugal:"1,default,string" json:"task_key"`
 }
 
 func NewImportTrainingCourseResp() *ImportTrainingCourseResp {
@@ -2368,10 +2368,10 @@ func NewImportTrainingCourseResp() *ImportTrainingCourseResp {
 func (p *ImportTrainingCourseResp) InitDefault() {
 }
 
-func (p *ImportTrainingCourseResp) GetTaskKey() (v int32) {
+func (p *ImportTrainingCourseResp) GetTaskKey() (v string) {
 	return p.TaskKey
 }
-func (p *ImportTrainingCourseResp) SetTaskKey(val int32) {
+func (p *ImportTrainingCourseResp) SetTaskKey(val string) {
 	p.TaskKey = val
 }
 
@@ -2399,7 +2399,7 @@ func (p *ImportTrainingCourseResp) Read(iprot thrift.TProtocol) (err error) {
 
 		switch fieldId {
 		case 1:
-			if fieldTypeId == thrift.I32 {
+			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField1(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -2437,8 +2437,8 @@ ReadStructEndError:
 
 func (p *ImportTrainingCourseResp) ReadField1(iprot thrift.TProtocol) error {
 
-	var _field int32
-	if v, err := iprot.ReadI32(); err != nil {
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
 		_field = v
@@ -2476,10 +2476,10 @@ WriteStructEndError:
 }
 
 func (p *ImportTrainingCourseResp) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("task_key", thrift.I32, 1); err != nil {
+	if err = oprot.WriteFieldBegin("task_key", thrift.STRING, 1); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteI32(p.TaskKey); err != nil {
+	if err := oprot.WriteString(p.TaskKey); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -2512,16 +2512,16 @@ func (p *ImportTrainingCourseResp) DeepEqual(ano *ImportTrainingCourseResp) bool
 	return true
 }
 
-func (p *ImportTrainingCourseResp) Field1DeepEqual(src int32) bool {
+func (p *ImportTrainingCourseResp) Field1DeepEqual(src string) bool {
 
-	if p.TaskKey != src {
+	if strings.Compare(p.TaskKey, src) != 0 {
 		return false
 	}
 	return true
 }
 
 type UpdateTrainingCourseTeacherReqItem struct {
-	TeacherId int32  `thrift:"teacher_id,1" frugal:"1,default,i32" json:"teacher_id"`
+	TeacherId string `thrift:"teacher_id,1" frugal:"1,default,string" json:"teacher_id"`
 	Week      string `thrift:"week,2" frugal:"2,default,string" json:"week"`
 }
 
@@ -2532,14 +2532,14 @@ func NewUpdateTrainingCourseTeacherReqItem() *UpdateTrainingCourseTeacherReqItem
 func (p *UpdateTrainingCourseTeacherReqItem) InitDefault() {
 }
 
-func (p *UpdateTrainingCourseTeacherReqItem) GetTeacherId() (v int32) {
+func (p *UpdateTrainingCourseTeacherReqItem) GetTeacherId() (v string) {
 	return p.TeacherId
 }
 
 func (p *UpdateTrainingCourseTeacherReqItem) GetWeek() (v string) {
 	return p.Week
 }
-func (p *UpdateTrainingCourseTeacherReqItem) SetTeacherId(val int32) {
+func (p *UpdateTrainingCourseTeacherReqItem) SetTeacherId(val string) {
 	p.TeacherId = val
 }
 func (p *UpdateTrainingCourseTeacherReqItem) SetWeek(val string) {
@@ -2571,7 +2571,7 @@ func (p *UpdateTrainingCourseTeacherReqItem) Read(iprot thrift.TProtocol) (err e
 
 		switch fieldId {
 		case 1:
-			if fieldTypeId == thrift.I32 {
+			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField1(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -2617,8 +2617,8 @@ ReadStructEndError:
 
 func (p *UpdateTrainingCourseTeacherReqItem) ReadField1(iprot thrift.TProtocol) error {
 
-	var _field int32
-	if v, err := iprot.ReadI32(); err != nil {
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
 		_field = v
@@ -2671,10 +2671,10 @@ WriteStructEndError:
 }
 
 func (p *UpdateTrainingCourseTeacherReqItem) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("teacher_id", thrift.I32, 1); err != nil {
+	if err = oprot.WriteFieldBegin("teacher_id", thrift.STRING, 1); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteI32(p.TeacherId); err != nil {
+	if err := oprot.WriteString(p.TeacherId); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -2727,9 +2727,9 @@ func (p *UpdateTrainingCourseTeacherReqItem) DeepEqual(ano *UpdateTrainingCourse
 	return true
 }
 
-func (p *UpdateTrainingCourseTeacherReqItem) Field1DeepEqual(src int32) bool {
+func (p *UpdateTrainingCourseTeacherReqItem) Field1DeepEqual(src string) bool {
 
-	if p.TeacherId != src {
+	if strings.Compare(p.TeacherId, src) != 0 {
 		return false
 	}
 	return true
@@ -58419,7 +58419,7 @@ type ModelTrainingCourse struct {
 	CourseName            string `thrift:"course_name,8" frugal:"8,default,string" json:"course_name" gorm:"column:course_name"`
 	Location              string `thrift:"location,9" frugal:"9,default,string" json:"location" gorm:"column:location"`
 	CooperationEnterprise string `thrift:"cooperation_enterprise,10" frugal:"10,default,string" json:"cooperation_enterprise" gorm:"column:cooperation_enterprise"`
-	TrainingWeek          string `thrift:"training_week,11" frugal:"11,default,string" json:"training_week" gorm:"column:training_week"`
+	TrainingWeek          int32  `thrift:"training_week,11" frugal:"11,default,i32" json:"training_week" gorm:"column:training_week"`
 	AppId                 int32  `thrift:"app_id,12" frugal:"12,default,i32" json:"app_id" gorm:"column:app_id"`
 	EnterpriseTeacherName string `thrift:"enterprise_teacher_name,13" frugal:"13,default,string" json:"enterprise_teacher_name" gorm:"column:enterprise_teacher_name"`
 	AcademicYear          string `thrift:"academic_year,14" frugal:"14,default,string" json:"academic_year" gorm:"column:academic_year"`
@@ -58473,7 +58473,7 @@ func (p *ModelTrainingCourse) GetCooperationEnterprise() (v string) {
 	return p.CooperationEnterprise
 }
 
-func (p *ModelTrainingCourse) GetTrainingWeek() (v string) {
+func (p *ModelTrainingCourse) GetTrainingWeek() (v int32) {
 	return p.TrainingWeek
 }
 
@@ -58522,7 +58522,7 @@ func (p *ModelTrainingCourse) SetLocation(val string) {
 func (p *ModelTrainingCourse) SetCooperationEnterprise(val string) {
 	p.CooperationEnterprise = val
 }
-func (p *ModelTrainingCourse) SetTrainingWeek(val string) {
+func (p *ModelTrainingCourse) SetTrainingWeek(val int32) {
 	p.TrainingWeek = val
 }
 func (p *ModelTrainingCourse) SetAppId(val int32) {
@@ -58656,7 +58656,7 @@ func (p *ModelTrainingCourse) Read(iprot thrift.TProtocol) (err error) {
 				goto SkipFieldError
 			}
 		case 11:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.I32 {
 				if err = p.ReadField11(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -58836,8 +58836,8 @@ func (p *ModelTrainingCourse) ReadField10(iprot thrift.TProtocol) error {
 }
 func (p *ModelTrainingCourse) ReadField11(iprot thrift.TProtocol) error {
 
-	var _field string
-	if v, err := iprot.ReadString(); err != nil {
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
 		return err
 	} else {
 		_field = v
@@ -59145,10 +59145,10 @@ WriteFieldEndError:
 }
 
 func (p *ModelTrainingCourse) writeField11(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("training_week", thrift.STRING, 11); err != nil {
+	if err = oprot.WriteFieldBegin("training_week", thrift.I32, 11); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.TrainingWeek); err != nil {
+	if err := oprot.WriteI32(p.TrainingWeek); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -59361,9 +59361,9 @@ func (p *ModelTrainingCourse) Field10DeepEqual(src string) bool {
 	}
 	return true
 }
-func (p *ModelTrainingCourse) Field11DeepEqual(src string) bool {
+func (p *ModelTrainingCourse) Field11DeepEqual(src int32) bool {
 
-	if strings.Compare(p.TrainingWeek, src) != 0 {
+	if p.TrainingWeek != src {
 		return false
 	}
 	return true
@@ -59402,7 +59402,7 @@ type ModelTrainingCourseTeacher struct {
 	CreatedAt        int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index" json:"created_at"`
 	UpdatedAt        int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at" json:"updated_at"`
 	DeletedAt        int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at" json:"deleted_at"`
-	TrainingCourseId int32  `thrift:"training_course_id,5" frugal:"5,default,i32" json:"training_id" gorm:"column:training_id"`
+	TrainingCourseId int32  `thrift:"training_course_id,5" frugal:"5,default,i32" json:"training_course_id" gorm:"column:training_course_id"`
 	TeacherId        string `thrift:"teacher_id,6" frugal:"6,default,string" json:"teacher_id" gorm:"column:teacher_id"`
 	TeacherName      string `thrift:"teacher_name,7" frugal:"7,default,string" json:"teacher_name" gorm:"column:teacher_name"`
 	AppId            int32  `thrift:"app_id,8" frugal:"8,default,i32" json:"app_id" gorm:"column:app_id"`
