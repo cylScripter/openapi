@@ -90,6 +90,16 @@ type Client interface {
 	UpdateTrainingCourseTeacher(ctx context.Context, req *education.UpdateTrainingCourseTeacherReq, callOptions ...callopt.Option) (r *education.UpdateTrainingCourseTeacherResp, err error)
 	ImportTrainingCourse(ctx context.Context, req *education.ImportTrainingCourseReq, callOptions ...callopt.Option) (r *education.ImportTrainingCourseResp, err error)
 	GetSelfTrainingCourseList(ctx context.Context, req *education.GetSelfTrainingCourseListReq, callOptions ...callopt.Option) (r *education.GetSelfTrainingCourseListResp, err error)
+	SyncFinalExam(ctx context.Context, req *education.SyncFinalExamReq, callOptions ...callopt.Option) (r *education.SyncFinalExamResp, err error)
+	GetFinalExamList(ctx context.Context, req *education.GetFinalExamListReq, callOptions ...callopt.Option) (r *education.GetFinalExamListResp, err error)
+	GetFinalExamSubjectList(ctx context.Context, req *education.GetFinalExamSubjectListReq, callOptions ...callopt.Option) (r *education.GetFinalExamSubjectListResp, err error)
+	UpdateFinalExam(ctx context.Context, req *education.UpdateFinalExamReq, callOptions ...callopt.Option) (r *education.UpdateFinalExamResp, err error)
+	ExportFinalExam(ctx context.Context, req *education.ExportFinalExamReq, callOptions ...callopt.Option) (r *education.ExportFinalExamResp, err error)
+	CalculateFinalExamWorkload(ctx context.Context, req *education.CalculateFinalExamWorkloadReq, callOptions ...callopt.Option) (r *education.CalculateFinalExamWorkloadResp, err error)
+	DeleteFinalExam(ctx context.Context, req *education.DeleteFinalExamReq, callOptions ...callopt.Option) (r *education.DeleteFinalExamResp, err error)
+	FillFinalExamPaper(ctx context.Context, req *education.FillFinalExamPaperReq, callOptions ...callopt.Option) (r *education.FillFinalExamPaperResp, err error)
+	GetFinalExamFillRecordList(ctx context.Context, req *education.GetFinalExamRecordListReq, callOptions ...callopt.Option) (r *education.GetFinalExamRecordListResp, err error)
+	DeleteFinalExamRecord(ctx context.Context, req *education.DeleteFinalExamRecordReq, callOptions ...callopt.Option) (r *education.DeleteFinalExamRecordResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -514,4 +524,54 @@ func (p *kEducationserviceClient) ImportTrainingCourse(ctx context.Context, req 
 func (p *kEducationserviceClient) GetSelfTrainingCourseList(ctx context.Context, req *education.GetSelfTrainingCourseListReq, callOptions ...callopt.Option) (r *education.GetSelfTrainingCourseListResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.GetSelfTrainingCourseList(ctx, req)
+}
+
+func (p *kEducationserviceClient) SyncFinalExam(ctx context.Context, req *education.SyncFinalExamReq, callOptions ...callopt.Option) (r *education.SyncFinalExamResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.SyncFinalExam(ctx, req)
+}
+
+func (p *kEducationserviceClient) GetFinalExamList(ctx context.Context, req *education.GetFinalExamListReq, callOptions ...callopt.Option) (r *education.GetFinalExamListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetFinalExamList(ctx, req)
+}
+
+func (p *kEducationserviceClient) GetFinalExamSubjectList(ctx context.Context, req *education.GetFinalExamSubjectListReq, callOptions ...callopt.Option) (r *education.GetFinalExamSubjectListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetFinalExamSubjectList(ctx, req)
+}
+
+func (p *kEducationserviceClient) UpdateFinalExam(ctx context.Context, req *education.UpdateFinalExamReq, callOptions ...callopt.Option) (r *education.UpdateFinalExamResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.UpdateFinalExam(ctx, req)
+}
+
+func (p *kEducationserviceClient) ExportFinalExam(ctx context.Context, req *education.ExportFinalExamReq, callOptions ...callopt.Option) (r *education.ExportFinalExamResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ExportFinalExam(ctx, req)
+}
+
+func (p *kEducationserviceClient) CalculateFinalExamWorkload(ctx context.Context, req *education.CalculateFinalExamWorkloadReq, callOptions ...callopt.Option) (r *education.CalculateFinalExamWorkloadResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.CalculateFinalExamWorkload(ctx, req)
+}
+
+func (p *kEducationserviceClient) DeleteFinalExam(ctx context.Context, req *education.DeleteFinalExamReq, callOptions ...callopt.Option) (r *education.DeleteFinalExamResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.DeleteFinalExam(ctx, req)
+}
+
+func (p *kEducationserviceClient) FillFinalExamPaper(ctx context.Context, req *education.FillFinalExamPaperReq, callOptions ...callopt.Option) (r *education.FillFinalExamPaperResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.FillFinalExamPaper(ctx, req)
+}
+
+func (p *kEducationserviceClient) GetFinalExamFillRecordList(ctx context.Context, req *education.GetFinalExamRecordListReq, callOptions ...callopt.Option) (r *education.GetFinalExamRecordListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetFinalExamFillRecordList(ctx, req)
+}
+
+func (p *kEducationserviceClient) DeleteFinalExamRecord(ctx context.Context, req *education.DeleteFinalExamRecordReq, callOptions ...callopt.Option) (r *education.DeleteFinalExamRecordResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.DeleteFinalExamRecord(ctx, req)
 }

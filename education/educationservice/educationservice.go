@@ -566,6 +566,76 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"SyncFinalExam": kitex.NewMethodInfo(
+		syncFinalExamHandler,
+		newEducationserviceSyncFinalExamArgs,
+		newEducationserviceSyncFinalExamResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetFinalExamList": kitex.NewMethodInfo(
+		getFinalExamListHandler,
+		newEducationserviceGetFinalExamListArgs,
+		newEducationserviceGetFinalExamListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetFinalExamSubjectList": kitex.NewMethodInfo(
+		getFinalExamSubjectListHandler,
+		newEducationserviceGetFinalExamSubjectListArgs,
+		newEducationserviceGetFinalExamSubjectListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"UpdateFinalExam": kitex.NewMethodInfo(
+		updateFinalExamHandler,
+		newEducationserviceUpdateFinalExamArgs,
+		newEducationserviceUpdateFinalExamResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"ExportFinalExam": kitex.NewMethodInfo(
+		exportFinalExamHandler,
+		newEducationserviceExportFinalExamArgs,
+		newEducationserviceExportFinalExamResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"CalculateFinalExamWorkload": kitex.NewMethodInfo(
+		calculateFinalExamWorkloadHandler,
+		newEducationserviceCalculateFinalExamWorkloadArgs,
+		newEducationserviceCalculateFinalExamWorkloadResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"DeleteFinalExam": kitex.NewMethodInfo(
+		deleteFinalExamHandler,
+		newEducationserviceDeleteFinalExamArgs,
+		newEducationserviceDeleteFinalExamResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"FillFinalExamPaper": kitex.NewMethodInfo(
+		fillFinalExamPaperHandler,
+		newEducationserviceFillFinalExamPaperArgs,
+		newEducationserviceFillFinalExamPaperResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetFinalExamFillRecordList": kitex.NewMethodInfo(
+		getFinalExamFillRecordListHandler,
+		newEducationserviceGetFinalExamFillRecordListArgs,
+		newEducationserviceGetFinalExamFillRecordListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"DeleteFinalExamRecord": kitex.NewMethodInfo(
+		deleteFinalExamRecordHandler,
+		newEducationserviceDeleteFinalExamRecordArgs,
+		newEducationserviceDeleteFinalExamRecordResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -2054,6 +2124,186 @@ func newEducationserviceGetSelfTrainingCourseListResult() interface{} {
 	return education.NewEducationserviceGetSelfTrainingCourseListResult()
 }
 
+func syncFinalExamHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceSyncFinalExamArgs)
+	realResult := result.(*education.EducationserviceSyncFinalExamResult)
+	success, err := handler.(education.Educationservice).SyncFinalExam(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceSyncFinalExamArgs() interface{} {
+	return education.NewEducationserviceSyncFinalExamArgs()
+}
+
+func newEducationserviceSyncFinalExamResult() interface{} {
+	return education.NewEducationserviceSyncFinalExamResult()
+}
+
+func getFinalExamListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceGetFinalExamListArgs)
+	realResult := result.(*education.EducationserviceGetFinalExamListResult)
+	success, err := handler.(education.Educationservice).GetFinalExamList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceGetFinalExamListArgs() interface{} {
+	return education.NewEducationserviceGetFinalExamListArgs()
+}
+
+func newEducationserviceGetFinalExamListResult() interface{} {
+	return education.NewEducationserviceGetFinalExamListResult()
+}
+
+func getFinalExamSubjectListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceGetFinalExamSubjectListArgs)
+	realResult := result.(*education.EducationserviceGetFinalExamSubjectListResult)
+	success, err := handler.(education.Educationservice).GetFinalExamSubjectList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceGetFinalExamSubjectListArgs() interface{} {
+	return education.NewEducationserviceGetFinalExamSubjectListArgs()
+}
+
+func newEducationserviceGetFinalExamSubjectListResult() interface{} {
+	return education.NewEducationserviceGetFinalExamSubjectListResult()
+}
+
+func updateFinalExamHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceUpdateFinalExamArgs)
+	realResult := result.(*education.EducationserviceUpdateFinalExamResult)
+	success, err := handler.(education.Educationservice).UpdateFinalExam(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceUpdateFinalExamArgs() interface{} {
+	return education.NewEducationserviceUpdateFinalExamArgs()
+}
+
+func newEducationserviceUpdateFinalExamResult() interface{} {
+	return education.NewEducationserviceUpdateFinalExamResult()
+}
+
+func exportFinalExamHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceExportFinalExamArgs)
+	realResult := result.(*education.EducationserviceExportFinalExamResult)
+	success, err := handler.(education.Educationservice).ExportFinalExam(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceExportFinalExamArgs() interface{} {
+	return education.NewEducationserviceExportFinalExamArgs()
+}
+
+func newEducationserviceExportFinalExamResult() interface{} {
+	return education.NewEducationserviceExportFinalExamResult()
+}
+
+func calculateFinalExamWorkloadHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceCalculateFinalExamWorkloadArgs)
+	realResult := result.(*education.EducationserviceCalculateFinalExamWorkloadResult)
+	success, err := handler.(education.Educationservice).CalculateFinalExamWorkload(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceCalculateFinalExamWorkloadArgs() interface{} {
+	return education.NewEducationserviceCalculateFinalExamWorkloadArgs()
+}
+
+func newEducationserviceCalculateFinalExamWorkloadResult() interface{} {
+	return education.NewEducationserviceCalculateFinalExamWorkloadResult()
+}
+
+func deleteFinalExamHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceDeleteFinalExamArgs)
+	realResult := result.(*education.EducationserviceDeleteFinalExamResult)
+	success, err := handler.(education.Educationservice).DeleteFinalExam(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceDeleteFinalExamArgs() interface{} {
+	return education.NewEducationserviceDeleteFinalExamArgs()
+}
+
+func newEducationserviceDeleteFinalExamResult() interface{} {
+	return education.NewEducationserviceDeleteFinalExamResult()
+}
+
+func fillFinalExamPaperHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceFillFinalExamPaperArgs)
+	realResult := result.(*education.EducationserviceFillFinalExamPaperResult)
+	success, err := handler.(education.Educationservice).FillFinalExamPaper(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceFillFinalExamPaperArgs() interface{} {
+	return education.NewEducationserviceFillFinalExamPaperArgs()
+}
+
+func newEducationserviceFillFinalExamPaperResult() interface{} {
+	return education.NewEducationserviceFillFinalExamPaperResult()
+}
+
+func getFinalExamFillRecordListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceGetFinalExamFillRecordListArgs)
+	realResult := result.(*education.EducationserviceGetFinalExamFillRecordListResult)
+	success, err := handler.(education.Educationservice).GetFinalExamFillRecordList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceGetFinalExamFillRecordListArgs() interface{} {
+	return education.NewEducationserviceGetFinalExamFillRecordListArgs()
+}
+
+func newEducationserviceGetFinalExamFillRecordListResult() interface{} {
+	return education.NewEducationserviceGetFinalExamFillRecordListResult()
+}
+
+func deleteFinalExamRecordHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceDeleteFinalExamRecordArgs)
+	realResult := result.(*education.EducationserviceDeleteFinalExamRecordResult)
+	success, err := handler.(education.Educationservice).DeleteFinalExamRecord(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceDeleteFinalExamRecordArgs() interface{} {
+	return education.NewEducationserviceDeleteFinalExamRecordArgs()
+}
+
+func newEducationserviceDeleteFinalExamRecordResult() interface{} {
+	return education.NewEducationserviceDeleteFinalExamRecordResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -2849,6 +3099,106 @@ func (p *kClient) GetSelfTrainingCourseList(ctx context.Context, req *education.
 	_args.Req = req
 	var _result education.EducationserviceGetSelfTrainingCourseListResult
 	if err = p.c.Call(ctx, "GetSelfTrainingCourseList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) SyncFinalExam(ctx context.Context, req *education.SyncFinalExamReq) (r *education.SyncFinalExamResp, err error) {
+	var _args education.EducationserviceSyncFinalExamArgs
+	_args.Req = req
+	var _result education.EducationserviceSyncFinalExamResult
+	if err = p.c.Call(ctx, "SyncFinalExam", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetFinalExamList(ctx context.Context, req *education.GetFinalExamListReq) (r *education.GetFinalExamListResp, err error) {
+	var _args education.EducationserviceGetFinalExamListArgs
+	_args.Req = req
+	var _result education.EducationserviceGetFinalExamListResult
+	if err = p.c.Call(ctx, "GetFinalExamList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetFinalExamSubjectList(ctx context.Context, req *education.GetFinalExamSubjectListReq) (r *education.GetFinalExamSubjectListResp, err error) {
+	var _args education.EducationserviceGetFinalExamSubjectListArgs
+	_args.Req = req
+	var _result education.EducationserviceGetFinalExamSubjectListResult
+	if err = p.c.Call(ctx, "GetFinalExamSubjectList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) UpdateFinalExam(ctx context.Context, req *education.UpdateFinalExamReq) (r *education.UpdateFinalExamResp, err error) {
+	var _args education.EducationserviceUpdateFinalExamArgs
+	_args.Req = req
+	var _result education.EducationserviceUpdateFinalExamResult
+	if err = p.c.Call(ctx, "UpdateFinalExam", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ExportFinalExam(ctx context.Context, req *education.ExportFinalExamReq) (r *education.ExportFinalExamResp, err error) {
+	var _args education.EducationserviceExportFinalExamArgs
+	_args.Req = req
+	var _result education.EducationserviceExportFinalExamResult
+	if err = p.c.Call(ctx, "ExportFinalExam", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) CalculateFinalExamWorkload(ctx context.Context, req *education.CalculateFinalExamWorkloadReq) (r *education.CalculateFinalExamWorkloadResp, err error) {
+	var _args education.EducationserviceCalculateFinalExamWorkloadArgs
+	_args.Req = req
+	var _result education.EducationserviceCalculateFinalExamWorkloadResult
+	if err = p.c.Call(ctx, "CalculateFinalExamWorkload", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) DeleteFinalExam(ctx context.Context, req *education.DeleteFinalExamReq) (r *education.DeleteFinalExamResp, err error) {
+	var _args education.EducationserviceDeleteFinalExamArgs
+	_args.Req = req
+	var _result education.EducationserviceDeleteFinalExamResult
+	if err = p.c.Call(ctx, "DeleteFinalExam", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) FillFinalExamPaper(ctx context.Context, req *education.FillFinalExamPaperReq) (r *education.FillFinalExamPaperResp, err error) {
+	var _args education.EducationserviceFillFinalExamPaperArgs
+	_args.Req = req
+	var _result education.EducationserviceFillFinalExamPaperResult
+	if err = p.c.Call(ctx, "FillFinalExamPaper", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetFinalExamFillRecordList(ctx context.Context, req *education.GetFinalExamRecordListReq) (r *education.GetFinalExamRecordListResp, err error) {
+	var _args education.EducationserviceGetFinalExamFillRecordListArgs
+	_args.Req = req
+	var _result education.EducationserviceGetFinalExamFillRecordListResult
+	if err = p.c.Call(ctx, "GetFinalExamFillRecordList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) DeleteFinalExamRecord(ctx context.Context, req *education.DeleteFinalExamRecordReq) (r *education.DeleteFinalExamRecordResp, err error) {
+	var _args education.EducationserviceDeleteFinalExamRecordArgs
+	_args.Req = req
+	var _result education.EducationserviceDeleteFinalExamRecordResult
+	if err = p.c.Call(ctx, "DeleteFinalExamRecord", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

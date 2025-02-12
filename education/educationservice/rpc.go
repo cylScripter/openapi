@@ -400,3 +400,53 @@ func GetSelfTrainingCourseList(ctx context.Context, req *education.GetSelfTraini
 	clients := MustNewClient("education", callOptions...)
 	return clients.GetSelfTrainingCourseList(ctx, req)
 }
+
+func SyncFinalExam(ctx context.Context, req *education.SyncFinalExamReq, callOptions ...client.Option) (resp *education.SyncFinalExamResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.SyncFinalExam(ctx, req)
+}
+
+func GetFinalExamList(ctx context.Context, req *education.GetFinalExamListReq, callOptions ...client.Option) (resp *education.GetFinalExamListResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.GetFinalExamList(ctx, req)
+}
+
+func GetFinalExamSubjectList(ctx context.Context, req *education.GetFinalExamSubjectListReq, callOptions ...client.Option) (resp *education.GetFinalExamSubjectListResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.GetFinalExamSubjectList(ctx, req)
+}
+
+func UpdateFinalExam(ctx context.Context, req *education.UpdateFinalExamReq, callOptions ...client.Option) (resp *education.UpdateFinalExamResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.UpdateFinalExam(ctx, req)
+}
+
+func ExportFinalExam(ctx context.Context, req *education.ExportFinalExamReq, callOptions ...client.Option) (resp *education.ExportFinalExamResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.ExportFinalExam(ctx, req)
+}
+
+func CalculateFinalExamWorkload(ctx context.Context, req *education.CalculateFinalExamWorkloadReq, callOptions ...client.Option) (resp *education.CalculateFinalExamWorkloadResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.CalculateFinalExamWorkload(ctx, req)
+}
+
+func DeleteFinalExam(ctx context.Context, req *education.DeleteFinalExamReq, callOptions ...client.Option) (resp *education.DeleteFinalExamResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.DeleteFinalExam(ctx, req)
+}
+
+func FillFinalExamPaper(ctx context.Context, req *education.FillFinalExamPaperReq, callOptions ...client.Option) (resp *education.FillFinalExamPaperResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.FillFinalExamPaper(ctx, req)
+}
+
+func GetFinalExamFillRecordList(ctx context.Context, req *education.GetFinalExamRecordListReq, callOptions ...client.Option) (resp *education.GetFinalExamRecordListResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.GetFinalExamFillRecordList(ctx, req)
+}
+
+func DeleteFinalExamRecord(ctx context.Context, req *education.DeleteFinalExamRecordReq, callOptions ...client.Option) (resp *education.DeleteFinalExamRecordResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.DeleteFinalExamRecord(ctx, req)
+}
