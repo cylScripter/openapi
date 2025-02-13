@@ -42509,7 +42509,7 @@ func (p *ModelFinalExam) FastRead(buf []byte) (int, error) {
 				}
 			}
 		case 13:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.BOOL {
 				l, err = p.FastReadField13(buf[offset:])
 				offset += l
 				if err != nil {
@@ -42523,7 +42523,7 @@ func (p *ModelFinalExam) FastRead(buf []byte) (int, error) {
 				}
 			}
 		case 14:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.BOOL {
 				l, err = p.FastReadField14(buf[offset:])
 				offset += l
 				if err != nil {
@@ -42537,7 +42537,7 @@ func (p *ModelFinalExam) FastRead(buf []byte) (int, error) {
 				}
 			}
 		case 15:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.BOOL {
 				l, err = p.FastReadField15(buf[offset:])
 				offset += l
 				if err != nil {
@@ -42551,7 +42551,7 @@ func (p *ModelFinalExam) FastRead(buf []byte) (int, error) {
 				}
 			}
 		case 16:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.BOOL {
 				l, err = p.FastReadField16(buf[offset:])
 				offset += l
 				if err != nil {
@@ -42823,8 +42823,8 @@ func (p *ModelFinalExam) FastReadField12(buf []byte) (int, error) {
 func (p *ModelFinalExam) FastReadField13(buf []byte) (int, error) {
 	offset := 0
 
-	var _field string
-	if v, l, err := thrift.Binary.ReadString(buf[offset:]); err != nil {
+	var _field bool
+	if v, l, err := thrift.Binary.ReadBool(buf[offset:]); err != nil {
 		return offset, err
 	} else {
 		offset += l
@@ -42837,8 +42837,8 @@ func (p *ModelFinalExam) FastReadField13(buf []byte) (int, error) {
 func (p *ModelFinalExam) FastReadField14(buf []byte) (int, error) {
 	offset := 0
 
-	var _field string
-	if v, l, err := thrift.Binary.ReadString(buf[offset:]); err != nil {
+	var _field bool
+	if v, l, err := thrift.Binary.ReadBool(buf[offset:]); err != nil {
 		return offset, err
 	} else {
 		offset += l
@@ -42851,8 +42851,8 @@ func (p *ModelFinalExam) FastReadField14(buf []byte) (int, error) {
 func (p *ModelFinalExam) FastReadField15(buf []byte) (int, error) {
 	offset := 0
 
-	var _field string
-	if v, l, err := thrift.Binary.ReadString(buf[offset:]); err != nil {
+	var _field bool
+	if v, l, err := thrift.Binary.ReadBool(buf[offset:]); err != nil {
 		return offset, err
 	} else {
 		offset += l
@@ -42865,8 +42865,8 @@ func (p *ModelFinalExam) FastReadField15(buf []byte) (int, error) {
 func (p *ModelFinalExam) FastReadField16(buf []byte) (int, error) {
 	offset := 0
 
-	var _field string
-	if v, l, err := thrift.Binary.ReadString(buf[offset:]); err != nil {
+	var _field bool
+	if v, l, err := thrift.Binary.ReadBool(buf[offset:]); err != nil {
 		return offset, err
 	} else {
 		offset += l
@@ -42958,6 +42958,10 @@ func (p *ModelFinalExam) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int 
 		offset += p.fastWriteField2(buf[offset:], w)
 		offset += p.fastWriteField3(buf[offset:], w)
 		offset += p.fastWriteField4(buf[offset:], w)
+		offset += p.fastWriteField13(buf[offset:], w)
+		offset += p.fastWriteField14(buf[offset:], w)
+		offset += p.fastWriteField15(buf[offset:], w)
+		offset += p.fastWriteField16(buf[offset:], w)
 		offset += p.fastWriteField20(buf[offset:], w)
 		offset += p.fastWriteField21(buf[offset:], w)
 		offset += p.fastWriteField5(buf[offset:], w)
@@ -42968,10 +42972,6 @@ func (p *ModelFinalExam) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int 
 		offset += p.fastWriteField10(buf[offset:], w)
 		offset += p.fastWriteField11(buf[offset:], w)
 		offset += p.fastWriteField12(buf[offset:], w)
-		offset += p.fastWriteField13(buf[offset:], w)
-		offset += p.fastWriteField14(buf[offset:], w)
-		offset += p.fastWriteField15(buf[offset:], w)
-		offset += p.fastWriteField16(buf[offset:], w)
 		offset += p.fastWriteField17(buf[offset:], w)
 		offset += p.fastWriteField18(buf[offset:], w)
 		offset += p.fastWriteField19(buf[offset:], w)
@@ -43095,29 +43095,29 @@ func (p *ModelFinalExam) fastWriteField12(buf []byte, w thrift.NocopyWriter) int
 
 func (p *ModelFinalExam) fastWriteField13(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
-	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 13)
-	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.AIsShared)
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.BOOL, 13)
+	offset += thrift.Binary.WriteBool(buf[offset:], p.AIsShared)
 	return offset
 }
 
 func (p *ModelFinalExam) fastWriteField14(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
-	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 14)
-	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.BIsShared)
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.BOOL, 14)
+	offset += thrift.Binary.WriteBool(buf[offset:], p.BIsShared)
 	return offset
 }
 
 func (p *ModelFinalExam) fastWriteField15(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
-	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 15)
-	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.CIsShared)
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.BOOL, 15)
+	offset += thrift.Binary.WriteBool(buf[offset:], p.CIsShared)
 	return offset
 }
 
 func (p *ModelFinalExam) fastWriteField16(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
-	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 16)
-	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.IsScoring)
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.BOOL, 16)
+	offset += thrift.Binary.WriteBool(buf[offset:], p.IsScoring)
 	return offset
 }
 
@@ -43243,28 +43243,28 @@ func (p *ModelFinalExam) field12Length() int {
 func (p *ModelFinalExam) field13Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.StringLengthNocopy(p.AIsShared)
+	l += thrift.Binary.BoolLength()
 	return l
 }
 
 func (p *ModelFinalExam) field14Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.StringLengthNocopy(p.BIsShared)
+	l += thrift.Binary.BoolLength()
 	return l
 }
 
 func (p *ModelFinalExam) field15Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.StringLengthNocopy(p.CIsShared)
+	l += thrift.Binary.BoolLength()
 	return l
 }
 
 func (p *ModelFinalExam) field16Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.StringLengthNocopy(p.IsScoring)
+	l += thrift.Binary.BoolLength()
 	return l
 }
 

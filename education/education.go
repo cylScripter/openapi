@@ -64657,10 +64657,10 @@ type ModelFinalExam struct {
 	AProposer        string `thrift:"a_proposer,10" frugal:"10,default,string" json:"a_proposer" gorm:"column:a_proposer"`
 	BProposer        string `thrift:"b_proposer,11" frugal:"11,default,string" json:"b_proposer" gorm:"column:b_proposer"`
 	CProposer        string `thrift:"c_proposer,12" frugal:"12,default,string" json:"c_proposer" gorm:"column:c_proposer"`
-	AIsShared        string `thrift:"a_is_shared,13" frugal:"13,default,string" json:"a_is_shared" gorm:"column:a_is_shared"`
-	BIsShared        string `thrift:"b_is_shared,14" frugal:"14,default,string" json:"b_is_shared" gorm:"column:b_is_shared"`
-	CIsShared        string `thrift:"c_is_shared,15" frugal:"15,default,string" json:"c_is_shared" gorm:"column:c_is_shared"`
-	IsScoring        string `thrift:"is_scoring,16" frugal:"16,default,string" json:"is_scoring" gorm:"column:is_scoring"`
+	AIsShared        bool   `thrift:"a_is_shared,13" frugal:"13,default,bool" json:"a_is_shared" gorm:"column:a_is_shared"`
+	BIsShared        bool   `thrift:"b_is_shared,14" frugal:"14,default,bool" json:"b_is_shared" gorm:"column:b_is_shared"`
+	CIsShared        bool   `thrift:"c_is_shared,15" frugal:"15,default,bool" json:"c_is_shared" gorm:"column:c_is_shared"`
+	IsScoring        bool   `thrift:"is_scoring,16" frugal:"16,default,bool" json:"is_scoring" gorm:"column:is_scoring"`
 	ExamWorkload     string `thrift:"exam_workload,17" frugal:"17,default,string" json:"exam_workload" gorm:"column:exam_workload"`
 	ScoringWorkload  string `thrift:"scoring_workload,18" frugal:"18,default,string" json:"scoring_workload" gorm:"column:scoring_workload"`
 	ScoringTeacher   string `thrift:"scoring_teacher,19" frugal:"19,default,string" json:"scoring_teacher" gorm:"column:scoring_teacher"`
@@ -64723,19 +64723,19 @@ func (p *ModelFinalExam) GetCProposer() (v string) {
 	return p.CProposer
 }
 
-func (p *ModelFinalExam) GetAIsShared() (v string) {
+func (p *ModelFinalExam) GetAIsShared() (v bool) {
 	return p.AIsShared
 }
 
-func (p *ModelFinalExam) GetBIsShared() (v string) {
+func (p *ModelFinalExam) GetBIsShared() (v bool) {
 	return p.BIsShared
 }
 
-func (p *ModelFinalExam) GetCIsShared() (v string) {
+func (p *ModelFinalExam) GetCIsShared() (v bool) {
 	return p.CIsShared
 }
 
-func (p *ModelFinalExam) GetIsScoring() (v string) {
+func (p *ModelFinalExam) GetIsScoring() (v bool) {
 	return p.IsScoring
 }
 
@@ -64794,16 +64794,16 @@ func (p *ModelFinalExam) SetBProposer(val string) {
 func (p *ModelFinalExam) SetCProposer(val string) {
 	p.CProposer = val
 }
-func (p *ModelFinalExam) SetAIsShared(val string) {
+func (p *ModelFinalExam) SetAIsShared(val bool) {
 	p.AIsShared = val
 }
-func (p *ModelFinalExam) SetBIsShared(val string) {
+func (p *ModelFinalExam) SetBIsShared(val bool) {
 	p.BIsShared = val
 }
-func (p *ModelFinalExam) SetCIsShared(val string) {
+func (p *ModelFinalExam) SetCIsShared(val bool) {
 	p.CIsShared = val
 }
-func (p *ModelFinalExam) SetIsScoring(val string) {
+func (p *ModelFinalExam) SetIsScoring(val bool) {
 	p.IsScoring = val
 }
 func (p *ModelFinalExam) SetExamWorkload(val string) {
@@ -64962,7 +64962,7 @@ func (p *ModelFinalExam) Read(iprot thrift.TProtocol) (err error) {
 				goto SkipFieldError
 			}
 		case 13:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.BOOL {
 				if err = p.ReadField13(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -64970,7 +64970,7 @@ func (p *ModelFinalExam) Read(iprot thrift.TProtocol) (err error) {
 				goto SkipFieldError
 			}
 		case 14:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.BOOL {
 				if err = p.ReadField14(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -64978,7 +64978,7 @@ func (p *ModelFinalExam) Read(iprot thrift.TProtocol) (err error) {
 				goto SkipFieldError
 			}
 		case 15:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.BOOL {
 				if err = p.ReadField15(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -64986,7 +64986,7 @@ func (p *ModelFinalExam) Read(iprot thrift.TProtocol) (err error) {
 				goto SkipFieldError
 			}
 		case 16:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.BOOL {
 				if err = p.ReadField16(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -65196,8 +65196,8 @@ func (p *ModelFinalExam) ReadField12(iprot thrift.TProtocol) error {
 }
 func (p *ModelFinalExam) ReadField13(iprot thrift.TProtocol) error {
 
-	var _field string
-	if v, err := iprot.ReadString(); err != nil {
+	var _field bool
+	if v, err := iprot.ReadBool(); err != nil {
 		return err
 	} else {
 		_field = v
@@ -65207,8 +65207,8 @@ func (p *ModelFinalExam) ReadField13(iprot thrift.TProtocol) error {
 }
 func (p *ModelFinalExam) ReadField14(iprot thrift.TProtocol) error {
 
-	var _field string
-	if v, err := iprot.ReadString(); err != nil {
+	var _field bool
+	if v, err := iprot.ReadBool(); err != nil {
 		return err
 	} else {
 		_field = v
@@ -65218,8 +65218,8 @@ func (p *ModelFinalExam) ReadField14(iprot thrift.TProtocol) error {
 }
 func (p *ModelFinalExam) ReadField15(iprot thrift.TProtocol) error {
 
-	var _field string
-	if v, err := iprot.ReadString(); err != nil {
+	var _field bool
+	if v, err := iprot.ReadBool(); err != nil {
 		return err
 	} else {
 		_field = v
@@ -65229,8 +65229,8 @@ func (p *ModelFinalExam) ReadField15(iprot thrift.TProtocol) error {
 }
 func (p *ModelFinalExam) ReadField16(iprot thrift.TProtocol) error {
 
-	var _field string
-	if v, err := iprot.ReadString(); err != nil {
+	var _field bool
+	if v, err := iprot.ReadBool(); err != nil {
 		return err
 	} else {
 		_field = v
@@ -65607,10 +65607,10 @@ WriteFieldEndError:
 }
 
 func (p *ModelFinalExam) writeField13(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("a_is_shared", thrift.STRING, 13); err != nil {
+	if err = oprot.WriteFieldBegin("a_is_shared", thrift.BOOL, 13); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.AIsShared); err != nil {
+	if err := oprot.WriteBool(p.AIsShared); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -65624,10 +65624,10 @@ WriteFieldEndError:
 }
 
 func (p *ModelFinalExam) writeField14(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("b_is_shared", thrift.STRING, 14); err != nil {
+	if err = oprot.WriteFieldBegin("b_is_shared", thrift.BOOL, 14); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.BIsShared); err != nil {
+	if err := oprot.WriteBool(p.BIsShared); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -65641,10 +65641,10 @@ WriteFieldEndError:
 }
 
 func (p *ModelFinalExam) writeField15(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("c_is_shared", thrift.STRING, 15); err != nil {
+	if err = oprot.WriteFieldBegin("c_is_shared", thrift.BOOL, 15); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.CIsShared); err != nil {
+	if err := oprot.WriteBool(p.CIsShared); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -65658,10 +65658,10 @@ WriteFieldEndError:
 }
 
 func (p *ModelFinalExam) writeField16(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("is_scoring", thrift.STRING, 16); err != nil {
+	if err = oprot.WriteFieldBegin("is_scoring", thrift.BOOL, 16); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.IsScoring); err != nil {
+	if err := oprot.WriteBool(p.IsScoring); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -65923,30 +65923,30 @@ func (p *ModelFinalExam) Field12DeepEqual(src string) bool {
 	}
 	return true
 }
-func (p *ModelFinalExam) Field13DeepEqual(src string) bool {
+func (p *ModelFinalExam) Field13DeepEqual(src bool) bool {
 
-	if strings.Compare(p.AIsShared, src) != 0 {
+	if p.AIsShared != src {
 		return false
 	}
 	return true
 }
-func (p *ModelFinalExam) Field14DeepEqual(src string) bool {
+func (p *ModelFinalExam) Field14DeepEqual(src bool) bool {
 
-	if strings.Compare(p.BIsShared, src) != 0 {
+	if p.BIsShared != src {
 		return false
 	}
 	return true
 }
-func (p *ModelFinalExam) Field15DeepEqual(src string) bool {
+func (p *ModelFinalExam) Field15DeepEqual(src bool) bool {
 
-	if strings.Compare(p.CIsShared, src) != 0 {
+	if p.CIsShared != src {
 		return false
 	}
 	return true
 }
-func (p *ModelFinalExam) Field16DeepEqual(src string) bool {
+func (p *ModelFinalExam) Field16DeepEqual(src bool) bool {
 
-	if strings.Compare(p.IsScoring, src) != 0 {
+	if p.IsScoring != src {
 		return false
 	}
 	return true
