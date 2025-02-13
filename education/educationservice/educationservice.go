@@ -636,6 +636,20 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"UpdateFinalExamRecord": kitex.NewMethodInfo(
+		updateFinalExamRecordHandler,
+		newEducationserviceUpdateFinalExamRecordArgs,
+		newEducationserviceUpdateFinalExamRecordResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetFinalExamClassList": kitex.NewMethodInfo(
+		getFinalExamClassListHandler,
+		newEducationserviceGetFinalExamClassListArgs,
+		newEducationserviceGetFinalExamClassListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -2304,6 +2318,42 @@ func newEducationserviceDeleteFinalExamRecordResult() interface{} {
 	return education.NewEducationserviceDeleteFinalExamRecordResult()
 }
 
+func updateFinalExamRecordHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceUpdateFinalExamRecordArgs)
+	realResult := result.(*education.EducationserviceUpdateFinalExamRecordResult)
+	success, err := handler.(education.Educationservice).UpdateFinalExamRecord(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceUpdateFinalExamRecordArgs() interface{} {
+	return education.NewEducationserviceUpdateFinalExamRecordArgs()
+}
+
+func newEducationserviceUpdateFinalExamRecordResult() interface{} {
+	return education.NewEducationserviceUpdateFinalExamRecordResult()
+}
+
+func getFinalExamClassListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceGetFinalExamClassListArgs)
+	realResult := result.(*education.EducationserviceGetFinalExamClassListResult)
+	success, err := handler.(education.Educationservice).GetFinalExamClassList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceGetFinalExamClassListArgs() interface{} {
+	return education.NewEducationserviceGetFinalExamClassListArgs()
+}
+
+func newEducationserviceGetFinalExamClassListResult() interface{} {
+	return education.NewEducationserviceGetFinalExamClassListResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -3199,6 +3249,26 @@ func (p *kClient) DeleteFinalExamRecord(ctx context.Context, req *education.Dele
 	_args.Req = req
 	var _result education.EducationserviceDeleteFinalExamRecordResult
 	if err = p.c.Call(ctx, "DeleteFinalExamRecord", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) UpdateFinalExamRecord(ctx context.Context, req *education.UpdateFinalExamRecordReq) (r *education.UpdateFinalExamRecordResp, err error) {
+	var _args education.EducationserviceUpdateFinalExamRecordArgs
+	_args.Req = req
+	var _result education.EducationserviceUpdateFinalExamRecordResult
+	if err = p.c.Call(ctx, "UpdateFinalExamRecord", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetFinalExamClassList(ctx context.Context, req *education.GetFinalExamClassListReq) (r *education.GetFinalExamClassListResp, err error) {
+	var _args education.EducationserviceGetFinalExamClassListArgs
+	_args.Req = req
+	var _result education.EducationserviceGetFinalExamClassListResult
+	if err = p.c.Call(ctx, "GetFinalExamClassList", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

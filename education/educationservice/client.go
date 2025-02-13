@@ -100,6 +100,8 @@ type Client interface {
 	FillFinalExamPaper(ctx context.Context, req *education.FillFinalExamPaperReq, callOptions ...callopt.Option) (r *education.FillFinalExamPaperResp, err error)
 	GetFinalExamFillRecordList(ctx context.Context, req *education.GetFinalExamRecordListReq, callOptions ...callopt.Option) (r *education.GetFinalExamRecordListResp, err error)
 	DeleteFinalExamRecord(ctx context.Context, req *education.DeleteFinalExamRecordReq, callOptions ...callopt.Option) (r *education.DeleteFinalExamRecordResp, err error)
+	UpdateFinalExamRecord(ctx context.Context, req *education.UpdateFinalExamRecordReq, callOptions ...callopt.Option) (r *education.UpdateFinalExamRecordResp, err error)
+	GetFinalExamClassList(ctx context.Context, req *education.GetFinalExamClassListReq, callOptions ...callopt.Option) (r *education.GetFinalExamClassListResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -574,4 +576,14 @@ func (p *kEducationserviceClient) GetFinalExamFillRecordList(ctx context.Context
 func (p *kEducationserviceClient) DeleteFinalExamRecord(ctx context.Context, req *education.DeleteFinalExamRecordReq, callOptions ...callopt.Option) (r *education.DeleteFinalExamRecordResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.DeleteFinalExamRecord(ctx, req)
+}
+
+func (p *kEducationserviceClient) UpdateFinalExamRecord(ctx context.Context, req *education.UpdateFinalExamRecordReq, callOptions ...callopt.Option) (r *education.UpdateFinalExamRecordResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.UpdateFinalExamRecord(ctx, req)
+}
+
+func (p *kEducationserviceClient) GetFinalExamClassList(ctx context.Context, req *education.GetFinalExamClassListReq, callOptions ...callopt.Option) (r *education.GetFinalExamClassListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetFinalExamClassList(ctx, req)
 }

@@ -450,3 +450,13 @@ func DeleteFinalExamRecord(ctx context.Context, req *education.DeleteFinalExamRe
 	clients := MustNewClient("education", callOptions...)
 	return clients.DeleteFinalExamRecord(ctx, req)
 }
+
+func UpdateFinalExamRecord(ctx context.Context, req *education.UpdateFinalExamRecordReq, callOptions ...client.Option) (resp *education.UpdateFinalExamRecordResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.UpdateFinalExamRecord(ctx, req)
+}
+
+func GetFinalExamClassList(ctx context.Context, req *education.GetFinalExamClassListReq, callOptions ...client.Option) (resp *education.GetFinalExamClassListResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.GetFinalExamClassList(ctx, req)
+}
