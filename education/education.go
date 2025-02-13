@@ -4705,6 +4705,7 @@ func (p *CalculateFinalExamWorkloadReq) Field2DeepEqual(src string) bool {
 }
 
 type CalculateFinalExamWorkloadResp struct {
+	TaskKey string `thrift:"task_key,1" frugal:"1,default,string" json:"task_key"`
 }
 
 func NewCalculateFinalExamWorkloadResp() *CalculateFinalExamWorkloadResp {
@@ -4714,7 +4715,16 @@ func NewCalculateFinalExamWorkloadResp() *CalculateFinalExamWorkloadResp {
 func (p *CalculateFinalExamWorkloadResp) InitDefault() {
 }
 
-var fieldIDToName_CalculateFinalExamWorkloadResp = map[int16]string{}
+func (p *CalculateFinalExamWorkloadResp) GetTaskKey() (v string) {
+	return p.TaskKey
+}
+func (p *CalculateFinalExamWorkloadResp) SetTaskKey(val string) {
+	p.TaskKey = val
+}
+
+var fieldIDToName_CalculateFinalExamWorkloadResp = map[int16]string{
+	1: "task_key",
+}
 
 func (p *CalculateFinalExamWorkloadResp) Read(iprot thrift.TProtocol) (err error) {
 
@@ -4733,8 +4743,20 @@ func (p *CalculateFinalExamWorkloadResp) Read(iprot thrift.TProtocol) (err error
 		if fieldTypeId == thrift.STOP {
 			break
 		}
-		if err = iprot.Skip(fieldTypeId); err != nil {
-			goto SkipFieldTypeError
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
 		}
 		if err = iprot.ReadFieldEnd(); err != nil {
 			goto ReadFieldEndError
@@ -4749,8 +4771,10 @@ ReadStructBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
-SkipFieldTypeError:
-	return thrift.PrependError(fmt.Sprintf("%T skip field type %d error", p, fieldTypeId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CalculateFinalExamWorkloadResp[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
 ReadFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
@@ -4758,11 +4782,28 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
+func (p *CalculateFinalExamWorkloadResp) ReadField1(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.TaskKey = _field
+	return nil
+}
+
 func (p *CalculateFinalExamWorkloadResp) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
 	if err = oprot.WriteStructBegin("CalculateFinalExamWorkloadResp"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
 	}
 	if err = oprot.WriteFieldStop(); err != nil {
 		goto WriteFieldStopError
@@ -4773,10 +4814,29 @@ func (p *CalculateFinalExamWorkloadResp) Write(oprot thrift.TProtocol) (err erro
 	return nil
 WriteStructBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
 WriteFieldStopError:
 	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
 WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *CalculateFinalExamWorkloadResp) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("task_key", thrift.STRING, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.TaskKey); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
 func (p *CalculateFinalExamWorkloadResp) String() string {
@@ -4791,6 +4851,17 @@ func (p *CalculateFinalExamWorkloadResp) DeepEqual(ano *CalculateFinalExamWorklo
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.TaskKey) {
+		return false
+	}
+	return true
+}
+
+func (p *CalculateFinalExamWorkloadResp) Field1DeepEqual(src string) bool {
+
+	if strings.Compare(p.TaskKey, src) != 0 {
 		return false
 	}
 	return true
