@@ -65792,8 +65792,8 @@ type ModelFinalExam struct {
 	BIsShared        bool   `thrift:"b_is_shared,14" frugal:"14,default,bool" json:"b_is_shared" gorm:"column:b_is_shared"`
 	CIsShared        bool   `thrift:"c_is_shared,15" frugal:"15,default,bool" json:"c_is_shared" gorm:"column:c_is_shared"`
 	IsScoring        bool   `thrift:"is_scoring,16" frugal:"16,default,bool" json:"is_scoring" gorm:"column:is_scoring"`
-	ExamWorkload     string `thrift:"exam_workload,17" frugal:"17,default,string" json:"exam_workload" gorm:"column:exam_workload"`
-	ScoringWorkload  string `thrift:"scoring_workload,18" frugal:"18,default,string" json:"scoring_workload" gorm:"column:scoring_workload"`
+	ExamWorkload     int32  `thrift:"exam_workload,17" frugal:"17,default,i32" json:"exam_workload" gorm:"column:exam_workload"`
+	ScoringWorkload  int32  `thrift:"scoring_workload,18" frugal:"18,default,i32" json:"scoring_workload" gorm:"column:scoring_workload"`
 	ScoringTeacher   string `thrift:"scoring_teacher,19" frugal:"19,default,string" json:"scoring_teacher" gorm:"column:scoring_teacher"`
 	AppId            int32  `thrift:"app_id,20" frugal:"20,default,i32" json:"app_id" gorm:"column:app_id"`
 	CourseId         int32  `thrift:"course_id,21" frugal:"21,default,i32" json:"course_id" gorm:"column:course_id"`
@@ -65870,11 +65870,11 @@ func (p *ModelFinalExam) GetIsScoring() (v bool) {
 	return p.IsScoring
 }
 
-func (p *ModelFinalExam) GetExamWorkload() (v string) {
+func (p *ModelFinalExam) GetExamWorkload() (v int32) {
 	return p.ExamWorkload
 }
 
-func (p *ModelFinalExam) GetScoringWorkload() (v string) {
+func (p *ModelFinalExam) GetScoringWorkload() (v int32) {
 	return p.ScoringWorkload
 }
 
@@ -65937,10 +65937,10 @@ func (p *ModelFinalExam) SetCIsShared(val bool) {
 func (p *ModelFinalExam) SetIsScoring(val bool) {
 	p.IsScoring = val
 }
-func (p *ModelFinalExam) SetExamWorkload(val string) {
+func (p *ModelFinalExam) SetExamWorkload(val int32) {
 	p.ExamWorkload = val
 }
-func (p *ModelFinalExam) SetScoringWorkload(val string) {
+func (p *ModelFinalExam) SetScoringWorkload(val int32) {
 	p.ScoringWorkload = val
 }
 func (p *ModelFinalExam) SetScoringTeacher(val string) {
@@ -66125,7 +66125,7 @@ func (p *ModelFinalExam) Read(iprot thrift.TProtocol) (err error) {
 				goto SkipFieldError
 			}
 		case 17:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.I32 {
 				if err = p.ReadField17(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -66133,7 +66133,7 @@ func (p *ModelFinalExam) Read(iprot thrift.TProtocol) (err error) {
 				goto SkipFieldError
 			}
 		case 18:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.I32 {
 				if err = p.ReadField18(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -66371,8 +66371,8 @@ func (p *ModelFinalExam) ReadField16(iprot thrift.TProtocol) error {
 }
 func (p *ModelFinalExam) ReadField17(iprot thrift.TProtocol) error {
 
-	var _field string
-	if v, err := iprot.ReadString(); err != nil {
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
 		return err
 	} else {
 		_field = v
@@ -66382,8 +66382,8 @@ func (p *ModelFinalExam) ReadField17(iprot thrift.TProtocol) error {
 }
 func (p *ModelFinalExam) ReadField18(iprot thrift.TProtocol) error {
 
-	var _field string
-	if v, err := iprot.ReadString(); err != nil {
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
 		return err
 	} else {
 		_field = v
@@ -66806,10 +66806,10 @@ WriteFieldEndError:
 }
 
 func (p *ModelFinalExam) writeField17(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("exam_workload", thrift.STRING, 17); err != nil {
+	if err = oprot.WriteFieldBegin("exam_workload", thrift.I32, 17); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.ExamWorkload); err != nil {
+	if err := oprot.WriteI32(p.ExamWorkload); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -66823,10 +66823,10 @@ WriteFieldEndError:
 }
 
 func (p *ModelFinalExam) writeField18(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("scoring_workload", thrift.STRING, 18); err != nil {
+	if err = oprot.WriteFieldBegin("scoring_workload", thrift.I32, 18); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.ScoringWorkload); err != nil {
+	if err := oprot.WriteI32(p.ScoringWorkload); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -67082,16 +67082,16 @@ func (p *ModelFinalExam) Field16DeepEqual(src bool) bool {
 	}
 	return true
 }
-func (p *ModelFinalExam) Field17DeepEqual(src string) bool {
+func (p *ModelFinalExam) Field17DeepEqual(src int32) bool {
 
-	if strings.Compare(p.ExamWorkload, src) != 0 {
+	if p.ExamWorkload != src {
 		return false
 	}
 	return true
 }
-func (p *ModelFinalExam) Field18DeepEqual(src string) bool {
+func (p *ModelFinalExam) Field18DeepEqual(src int32) bool {
 
-	if strings.Compare(p.ScoringWorkload, src) != 0 {
+	if p.ScoringWorkload != src {
 		return false
 	}
 	return true
