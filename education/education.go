@@ -2830,7 +2830,7 @@ func (p *UpdateFinalExamRecordResp) DeepEqual(ano *UpdateFinalExamRecordResp) bo
 }
 
 type DeleteFinalExamRecordReq struct {
-	Ids []int32 `thrift:"ids,1" frugal:"1,default,list<i32>" json:"ids" binding:"required"`
+	Id int32 `thrift:"id,1" frugal:"1,default,i32" json:"id" binding:"required"`
 }
 
 func NewDeleteFinalExamRecordReq() *DeleteFinalExamRecordReq {
@@ -2840,15 +2840,15 @@ func NewDeleteFinalExamRecordReq() *DeleteFinalExamRecordReq {
 func (p *DeleteFinalExamRecordReq) InitDefault() {
 }
 
-func (p *DeleteFinalExamRecordReq) GetIds() (v []int32) {
-	return p.Ids
+func (p *DeleteFinalExamRecordReq) GetId() (v int32) {
+	return p.Id
 }
-func (p *DeleteFinalExamRecordReq) SetIds(val []int32) {
-	p.Ids = val
+func (p *DeleteFinalExamRecordReq) SetId(val int32) {
+	p.Id = val
 }
 
 var fieldIDToName_DeleteFinalExamRecordReq = map[int16]string{
-	1: "ids",
+	1: "id",
 }
 
 func (p *DeleteFinalExamRecordReq) Read(iprot thrift.TProtocol) (err error) {
@@ -2871,7 +2871,7 @@ func (p *DeleteFinalExamRecordReq) Read(iprot thrift.TProtocol) (err error) {
 
 		switch fieldId {
 		case 1:
-			if fieldTypeId == thrift.LIST {
+			if fieldTypeId == thrift.I32 {
 				if err = p.ReadField1(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -2908,26 +2908,14 @@ ReadStructEndError:
 }
 
 func (p *DeleteFinalExamRecordReq) ReadField1(iprot thrift.TProtocol) error {
-	_, size, err := iprot.ReadListBegin()
-	if err != nil {
-		return err
-	}
-	_field := make([]int32, 0, size)
-	for i := 0; i < size; i++ {
 
-		var _elem int32
-		if v, err := iprot.ReadI32(); err != nil {
-			return err
-		} else {
-			_elem = v
-		}
-
-		_field = append(_field, _elem)
-	}
-	if err := iprot.ReadListEnd(); err != nil {
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
 		return err
+	} else {
+		_field = v
 	}
-	p.Ids = _field
+	p.Id = _field
 	return nil
 }
 
@@ -2960,18 +2948,10 @@ WriteStructEndError:
 }
 
 func (p *DeleteFinalExamRecordReq) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("ids", thrift.LIST, 1); err != nil {
+	if err = oprot.WriteFieldBegin("id", thrift.I32, 1); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteListBegin(thrift.I32, len(p.Ids)); err != nil {
-		return err
-	}
-	for _, v := range p.Ids {
-		if err := oprot.WriteI32(v); err != nil {
-			return err
-		}
-	}
-	if err := oprot.WriteListEnd(); err != nil {
+	if err := oprot.WriteI32(p.Id); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -2998,22 +2978,16 @@ func (p *DeleteFinalExamRecordReq) DeepEqual(ano *DeleteFinalExamRecordReq) bool
 	} else if p == nil || ano == nil {
 		return false
 	}
-	if !p.Field1DeepEqual(ano.Ids) {
+	if !p.Field1DeepEqual(ano.Id) {
 		return false
 	}
 	return true
 }
 
-func (p *DeleteFinalExamRecordReq) Field1DeepEqual(src []int32) bool {
+func (p *DeleteFinalExamRecordReq) Field1DeepEqual(src int32) bool {
 
-	if len(p.Ids) != len(src) {
+	if p.Id != src {
 		return false
-	}
-	for i, v := range p.Ids {
-		_src := src[i]
-		if v != _src {
-			return false
-		}
 	}
 	return true
 }

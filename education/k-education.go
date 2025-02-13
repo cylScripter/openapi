@@ -727,7 +727,7 @@ func (p *DeleteFinalExamRecordReq) FastRead(buf []byte) (int, error) {
 		}
 		switch fieldId {
 		case 1:
-			if fieldTypeId == thrift.LIST {
+			if fieldTypeId == thrift.I32 {
 				l, err = p.FastReadField1(buf[offset:])
 				offset += l
 				if err != nil {
@@ -761,24 +761,14 @@ SkipFieldError:
 func (p *DeleteFinalExamRecordReq) FastReadField1(buf []byte) (int, error) {
 	offset := 0
 
-	_, size, l, err := thrift.Binary.ReadListBegin(buf[offset:])
-	offset += l
-	if err != nil {
+	var _field int32
+	if v, l, err := thrift.Binary.ReadI32(buf[offset:]); err != nil {
 		return offset, err
+	} else {
+		offset += l
+		_field = v
 	}
-	_field := make([]int32, 0, size)
-	for i := 0; i < size; i++ {
-		var _elem int32
-		if v, l, err := thrift.Binary.ReadI32(buf[offset:]); err != nil {
-			return offset, err
-		} else {
-			offset += l
-			_elem = v
-		}
-
-		_field = append(_field, _elem)
-	}
-	p.Ids = _field
+	p.Id = _field
 	return offset, nil
 }
 
@@ -807,24 +797,15 @@ func (p *DeleteFinalExamRecordReq) BLength() int {
 
 func (p *DeleteFinalExamRecordReq) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
-	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.LIST, 1)
-	listBeginOffset := offset
-	offset += thrift.Binary.ListBeginLength()
-	var length int
-	for _, v := range p.Ids {
-		length++
-		offset += thrift.Binary.WriteI32(buf[offset:], v)
-	}
-	thrift.Binary.WriteListBegin(buf[listBeginOffset:], thrift.I32, length)
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 1)
+	offset += thrift.Binary.WriteI32(buf[offset:], p.Id)
 	return offset
 }
 
 func (p *DeleteFinalExamRecordReq) field1Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.ListBeginLength()
-	l +=
-		thrift.Binary.I32Length() * len(p.Ids)
+	l += thrift.Binary.I32Length()
 	return l
 }
 
