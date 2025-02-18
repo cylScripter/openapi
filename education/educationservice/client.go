@@ -102,6 +102,11 @@ type Client interface {
 	DeleteFinalExamRecord(ctx context.Context, req *education.DeleteFinalExamRecordReq, callOptions ...callopt.Option) (r *education.DeleteFinalExamRecordResp, err error)
 	UpdateFinalExamRecord(ctx context.Context, req *education.UpdateFinalExamRecordReq, callOptions ...callopt.Option) (r *education.UpdateFinalExamRecordResp, err error)
 	GetFinalExamClassList(ctx context.Context, req *education.GetFinalExamClassListReq, callOptions ...callopt.Option) (r *education.GetFinalExamClassListResp, err error)
+	GetBeginExamList(ctx context.Context, req *education.GetBeginExamListReq, callOptions ...callopt.Option) (r *education.GetBeginExamListResp, err error)
+	UpdateBeginExam(ctx context.Context, req *education.UpdateBeginExamReq, callOptions ...callopt.Option) (r *education.UpdateBeginExamResp, err error)
+	CreateBeginExam(ctx context.Context, req *education.CreateBeginExamReq, callOptions ...callopt.Option) (r *education.CreateBeginExamResp, err error)
+	DeleteBeginExam(ctx context.Context, req *education.DeleteBeginExamReq, callOptions ...callopt.Option) (r *education.DeleteBeginExamResp, err error)
+	ImportBeginExam(ctx context.Context, req *education.ImportBeginExamReq, callOptions ...callopt.Option) (r *education.ImportBeginExamResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -586,4 +591,29 @@ func (p *kEducationserviceClient) UpdateFinalExamRecord(ctx context.Context, req
 func (p *kEducationserviceClient) GetFinalExamClassList(ctx context.Context, req *education.GetFinalExamClassListReq, callOptions ...callopt.Option) (r *education.GetFinalExamClassListResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.GetFinalExamClassList(ctx, req)
+}
+
+func (p *kEducationserviceClient) GetBeginExamList(ctx context.Context, req *education.GetBeginExamListReq, callOptions ...callopt.Option) (r *education.GetBeginExamListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetBeginExamList(ctx, req)
+}
+
+func (p *kEducationserviceClient) UpdateBeginExam(ctx context.Context, req *education.UpdateBeginExamReq, callOptions ...callopt.Option) (r *education.UpdateBeginExamResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.UpdateBeginExam(ctx, req)
+}
+
+func (p *kEducationserviceClient) CreateBeginExam(ctx context.Context, req *education.CreateBeginExamReq, callOptions ...callopt.Option) (r *education.CreateBeginExamResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.CreateBeginExam(ctx, req)
+}
+
+func (p *kEducationserviceClient) DeleteBeginExam(ctx context.Context, req *education.DeleteBeginExamReq, callOptions ...callopt.Option) (r *education.DeleteBeginExamResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.DeleteBeginExam(ctx, req)
+}
+
+func (p *kEducationserviceClient) ImportBeginExam(ctx context.Context, req *education.ImportBeginExamReq, callOptions ...callopt.Option) (r *education.ImportBeginExamResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ImportBeginExam(ctx, req)
 }

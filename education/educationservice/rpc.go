@@ -460,3 +460,28 @@ func GetFinalExamClassList(ctx context.Context, req *education.GetFinalExamClass
 	clients := MustNewClient("education", callOptions...)
 	return clients.GetFinalExamClassList(ctx, req)
 }
+
+func GetBeginExamList(ctx context.Context, req *education.GetBeginExamListReq, callOptions ...client.Option) (resp *education.GetBeginExamListResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.GetBeginExamList(ctx, req)
+}
+
+func UpdateBeginExam(ctx context.Context, req *education.UpdateBeginExamReq, callOptions ...client.Option) (resp *education.UpdateBeginExamResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.UpdateBeginExam(ctx, req)
+}
+
+func CreateBeginExam(ctx context.Context, req *education.CreateBeginExamReq, callOptions ...client.Option) (resp *education.CreateBeginExamResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.CreateBeginExam(ctx, req)
+}
+
+func DeleteBeginExam(ctx context.Context, req *education.DeleteBeginExamReq, callOptions ...client.Option) (resp *education.DeleteBeginExamResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.DeleteBeginExam(ctx, req)
+}
+
+func ImportBeginExam(ctx context.Context, req *education.ImportBeginExamReq, callOptions ...client.Option) (resp *education.ImportBeginExamResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.ImportBeginExam(ctx, req)
+}

@@ -650,6 +650,41 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"GetBeginExamList": kitex.NewMethodInfo(
+		getBeginExamListHandler,
+		newEducationserviceGetBeginExamListArgs,
+		newEducationserviceGetBeginExamListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"UpdateBeginExam": kitex.NewMethodInfo(
+		updateBeginExamHandler,
+		newEducationserviceUpdateBeginExamArgs,
+		newEducationserviceUpdateBeginExamResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"CreateBeginExam": kitex.NewMethodInfo(
+		createBeginExamHandler,
+		newEducationserviceCreateBeginExamArgs,
+		newEducationserviceCreateBeginExamResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"DeleteBeginExam": kitex.NewMethodInfo(
+		deleteBeginExamHandler,
+		newEducationserviceDeleteBeginExamArgs,
+		newEducationserviceDeleteBeginExamResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"ImportBeginExam": kitex.NewMethodInfo(
+		importBeginExamHandler,
+		newEducationserviceImportBeginExamArgs,
+		newEducationserviceImportBeginExamResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -2354,6 +2389,96 @@ func newEducationserviceGetFinalExamClassListResult() interface{} {
 	return education.NewEducationserviceGetFinalExamClassListResult()
 }
 
+func getBeginExamListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceGetBeginExamListArgs)
+	realResult := result.(*education.EducationserviceGetBeginExamListResult)
+	success, err := handler.(education.Educationservice).GetBeginExamList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceGetBeginExamListArgs() interface{} {
+	return education.NewEducationserviceGetBeginExamListArgs()
+}
+
+func newEducationserviceGetBeginExamListResult() interface{} {
+	return education.NewEducationserviceGetBeginExamListResult()
+}
+
+func updateBeginExamHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceUpdateBeginExamArgs)
+	realResult := result.(*education.EducationserviceUpdateBeginExamResult)
+	success, err := handler.(education.Educationservice).UpdateBeginExam(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceUpdateBeginExamArgs() interface{} {
+	return education.NewEducationserviceUpdateBeginExamArgs()
+}
+
+func newEducationserviceUpdateBeginExamResult() interface{} {
+	return education.NewEducationserviceUpdateBeginExamResult()
+}
+
+func createBeginExamHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceCreateBeginExamArgs)
+	realResult := result.(*education.EducationserviceCreateBeginExamResult)
+	success, err := handler.(education.Educationservice).CreateBeginExam(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceCreateBeginExamArgs() interface{} {
+	return education.NewEducationserviceCreateBeginExamArgs()
+}
+
+func newEducationserviceCreateBeginExamResult() interface{} {
+	return education.NewEducationserviceCreateBeginExamResult()
+}
+
+func deleteBeginExamHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceDeleteBeginExamArgs)
+	realResult := result.(*education.EducationserviceDeleteBeginExamResult)
+	success, err := handler.(education.Educationservice).DeleteBeginExam(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceDeleteBeginExamArgs() interface{} {
+	return education.NewEducationserviceDeleteBeginExamArgs()
+}
+
+func newEducationserviceDeleteBeginExamResult() interface{} {
+	return education.NewEducationserviceDeleteBeginExamResult()
+}
+
+func importBeginExamHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceImportBeginExamArgs)
+	realResult := result.(*education.EducationserviceImportBeginExamResult)
+	success, err := handler.(education.Educationservice).ImportBeginExam(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceImportBeginExamArgs() interface{} {
+	return education.NewEducationserviceImportBeginExamArgs()
+}
+
+func newEducationserviceImportBeginExamResult() interface{} {
+	return education.NewEducationserviceImportBeginExamResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -3269,6 +3394,56 @@ func (p *kClient) GetFinalExamClassList(ctx context.Context, req *education.GetF
 	_args.Req = req
 	var _result education.EducationserviceGetFinalExamClassListResult
 	if err = p.c.Call(ctx, "GetFinalExamClassList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetBeginExamList(ctx context.Context, req *education.GetBeginExamListReq) (r *education.GetBeginExamListResp, err error) {
+	var _args education.EducationserviceGetBeginExamListArgs
+	_args.Req = req
+	var _result education.EducationserviceGetBeginExamListResult
+	if err = p.c.Call(ctx, "GetBeginExamList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) UpdateBeginExam(ctx context.Context, req *education.UpdateBeginExamReq) (r *education.UpdateBeginExamResp, err error) {
+	var _args education.EducationserviceUpdateBeginExamArgs
+	_args.Req = req
+	var _result education.EducationserviceUpdateBeginExamResult
+	if err = p.c.Call(ctx, "UpdateBeginExam", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) CreateBeginExam(ctx context.Context, req *education.CreateBeginExamReq) (r *education.CreateBeginExamResp, err error) {
+	var _args education.EducationserviceCreateBeginExamArgs
+	_args.Req = req
+	var _result education.EducationserviceCreateBeginExamResult
+	if err = p.c.Call(ctx, "CreateBeginExam", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) DeleteBeginExam(ctx context.Context, req *education.DeleteBeginExamReq) (r *education.DeleteBeginExamResp, err error) {
+	var _args education.EducationserviceDeleteBeginExamArgs
+	_args.Req = req
+	var _result education.EducationserviceDeleteBeginExamResult
+	if err = p.c.Call(ctx, "DeleteBeginExam", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ImportBeginExam(ctx context.Context, req *education.ImportBeginExamReq) (r *education.ImportBeginExamResp, err error) {
+	var _args education.EducationserviceImportBeginExamArgs
+	_args.Req = req
+	var _result education.EducationserviceImportBeginExamResult
+	if err = p.c.Call(ctx, "ImportBeginExam", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
