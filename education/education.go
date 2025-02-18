@@ -31550,11 +31550,11 @@ func (p *GetMenuReq) DeepEqual(ano *GetMenuReq) bool {
 
 type MenuItem struct {
 	Component string      `thrift:"component,1" frugal:"1,default,string" json:"component"`
-	Meta      *Meta       `thrift:"meta,2" frugal:"2,default,Meta" json:"meta"`
+	Meta      *Meta       `thrift:"meta,2" frugal:"2,default,Meta" json:"meta" gorm:"column:meta;embedded"`
 	Name      string      `thrift:"name,3" frugal:"3,default,string" json:"name"`
 	Path      string      `thrift:"path,4" frugal:"4,default,string" json:"path"`
 	Redirect  string      `thrift:"redirect,5" frugal:"5,default,string" json:"redirect"`
-	Children  []*MenuItem `thrift:"children,6" frugal:"6,default,list<MenuItem>" json:"children"`
+	Children  []*MenuItem `thrift:"children,6" frugal:"6,default,list<MenuItem>" json:"children" gorm:"-"`
 }
 
 func NewMenuItem() *MenuItem {
