@@ -2136,7 +2136,7 @@ func (p *ImportBeginExamResp) Field1DeepEqual(src string) bool {
 }
 
 type DeleteBeginExamReq struct {
-	Ids int32 `thrift:"ids,1" frugal:"1,default,i32" json:"ids" binding:"required"`
+	Ids []int32 `thrift:"ids,1" frugal:"1,default,list<i32>" json:"ids" binding:"required"`
 }
 
 func NewDeleteBeginExamReq() *DeleteBeginExamReq {
@@ -2146,10 +2146,10 @@ func NewDeleteBeginExamReq() *DeleteBeginExamReq {
 func (p *DeleteBeginExamReq) InitDefault() {
 }
 
-func (p *DeleteBeginExamReq) GetIds() (v int32) {
+func (p *DeleteBeginExamReq) GetIds() (v []int32) {
 	return p.Ids
 }
-func (p *DeleteBeginExamReq) SetIds(val int32) {
+func (p *DeleteBeginExamReq) SetIds(val []int32) {
 	p.Ids = val
 }
 
@@ -2177,7 +2177,7 @@ func (p *DeleteBeginExamReq) Read(iprot thrift.TProtocol) (err error) {
 
 		switch fieldId {
 		case 1:
-			if fieldTypeId == thrift.I32 {
+			if fieldTypeId == thrift.LIST {
 				if err = p.ReadField1(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -2214,12 +2214,24 @@ ReadStructEndError:
 }
 
 func (p *DeleteBeginExamReq) ReadField1(iprot thrift.TProtocol) error {
-
-	var _field int32
-	if v, err := iprot.ReadI32(); err != nil {
+	_, size, err := iprot.ReadListBegin()
+	if err != nil {
 		return err
-	} else {
-		_field = v
+	}
+	_field := make([]int32, 0, size)
+	for i := 0; i < size; i++ {
+
+		var _elem int32
+		if v, err := iprot.ReadI32(); err != nil {
+			return err
+		} else {
+			_elem = v
+		}
+
+		_field = append(_field, _elem)
+	}
+	if err := iprot.ReadListEnd(); err != nil {
+		return err
 	}
 	p.Ids = _field
 	return nil
@@ -2254,10 +2266,18 @@ WriteStructEndError:
 }
 
 func (p *DeleteBeginExamReq) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("ids", thrift.I32, 1); err != nil {
+	if err = oprot.WriteFieldBegin("ids", thrift.LIST, 1); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteI32(p.Ids); err != nil {
+	if err := oprot.WriteListBegin(thrift.I32, len(p.Ids)); err != nil {
+		return err
+	}
+	for _, v := range p.Ids {
+		if err := oprot.WriteI32(v); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteListEnd(); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -2290,10 +2310,16 @@ func (p *DeleteBeginExamReq) DeepEqual(ano *DeleteBeginExamReq) bool {
 	return true
 }
 
-func (p *DeleteBeginExamReq) Field1DeepEqual(src int32) bool {
+func (p *DeleteBeginExamReq) Field1DeepEqual(src []int32) bool {
 
-	if p.Ids != src {
+	if len(p.Ids) != len(src) {
 		return false
+	}
+	for i, v := range p.Ids {
+		_src := src[i]
+		if v != _src {
+			return false
+		}
 	}
 	return true
 }
@@ -3363,6 +3389,7 @@ type UpdateBeginExamReq struct {
 	Invigilator      string `thrift:"invigilator,8" frugal:"8,default,string" json:"invigilator"`
 	ExamTime         string `thrift:"exam_time,9" frugal:"9,default,string" json:"exam_time"`
 	ExamLocation     string `thrift:"exam_location,10" frugal:"10,default,string" json:"exam_location"`
+	Id               int32  `thrift:"id,11" frugal:"11,default,i32" json:"id" binding:"required"`
 }
 
 func NewUpdateBeginExamReq() *UpdateBeginExamReq {
@@ -3407,6 +3434,10 @@ func (p *UpdateBeginExamReq) GetExamTime() (v string) {
 func (p *UpdateBeginExamReq) GetExamLocation() (v string) {
 	return p.ExamLocation
 }
+
+func (p *UpdateBeginExamReq) GetId() (v int32) {
+	return p.Id
+}
 func (p *UpdateBeginExamReq) SetCourseName(val string) {
 	p.CourseName = val
 }
@@ -3434,6 +3465,9 @@ func (p *UpdateBeginExamReq) SetExamTime(val string) {
 func (p *UpdateBeginExamReq) SetExamLocation(val string) {
 	p.ExamLocation = val
 }
+func (p *UpdateBeginExamReq) SetId(val int32) {
+	p.Id = val
+}
 
 var fieldIDToName_UpdateBeginExamReq = map[int16]string{
 	1:  "course_name",
@@ -3445,6 +3479,7 @@ var fieldIDToName_UpdateBeginExamReq = map[int16]string{
 	8:  "invigilator",
 	9:  "exam_time",
 	10: "exam_location",
+	11: "id",
 }
 
 func (p *UpdateBeginExamReq) Read(iprot thrift.TProtocol) (err error) {
@@ -3533,6 +3568,14 @@ func (p *UpdateBeginExamReq) Read(iprot thrift.TProtocol) (err error) {
 		case 10:
 			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField10(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 11:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField11(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -3666,6 +3709,17 @@ func (p *UpdateBeginExamReq) ReadField10(iprot thrift.TProtocol) error {
 	p.ExamLocation = _field
 	return nil
 }
+func (p *UpdateBeginExamReq) ReadField11(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Id = _field
+	return nil
+}
 
 func (p *UpdateBeginExamReq) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -3707,6 +3761,10 @@ func (p *UpdateBeginExamReq) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField10(oprot); err != nil {
 			fieldId = 10
+			goto WriteFieldError
+		}
+		if err = p.writeField11(oprot); err != nil {
+			fieldId = 11
 			goto WriteFieldError
 		}
 	}
@@ -3880,6 +3938,23 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 10 end error: ", p), err)
 }
 
+func (p *UpdateBeginExamReq) writeField11(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("id", thrift.I32, 11); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.Id); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 11 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 11 end error: ", p), err)
+}
+
 func (p *UpdateBeginExamReq) String() string {
 	if p == nil {
 		return "<nil>"
@@ -3919,6 +3994,9 @@ func (p *UpdateBeginExamReq) DeepEqual(ano *UpdateBeginExamReq) bool {
 		return false
 	}
 	if !p.Field10DeepEqual(ano.ExamLocation) {
+		return false
+	}
+	if !p.Field11DeepEqual(ano.Id) {
 		return false
 	}
 	return true
@@ -3983,6 +4061,13 @@ func (p *UpdateBeginExamReq) Field9DeepEqual(src string) bool {
 func (p *UpdateBeginExamReq) Field10DeepEqual(src string) bool {
 
 	if strings.Compare(p.ExamLocation, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *UpdateBeginExamReq) Field11DeepEqual(src int32) bool {
+
+	if p.Id != src {
 		return false
 	}
 	return true
@@ -74586,6 +74671,7 @@ type ModelWorkloadStatisticsRecord struct {
 	Semester     string `thrift:"semester,6" frugal:"6,default,string" json:"semester" gorm:"column:semester"`
 	UserName     string `thrift:"user_name,7" frugal:"7,default,string" json:"teacher_name" gorm:"column:teacher_name"`
 	CMonth       string `thrift:"c_month,8" frugal:"8,default,string" json:"c_month" gorm:"column:c_month"`
+	AppId        int32  `thrift:"app_id,9" frugal:"9,default,i32" json:"app_id" gorm:"column:app_id;index"`
 }
 
 func NewModelWorkloadStatisticsRecord() *ModelWorkloadStatisticsRecord {
@@ -74626,6 +74712,10 @@ func (p *ModelWorkloadStatisticsRecord) GetUserName() (v string) {
 func (p *ModelWorkloadStatisticsRecord) GetCMonth() (v string) {
 	return p.CMonth
 }
+
+func (p *ModelWorkloadStatisticsRecord) GetAppId() (v int32) {
+	return p.AppId
+}
 func (p *ModelWorkloadStatisticsRecord) SetId(val int32) {
 	p.Id = val
 }
@@ -74650,6 +74740,9 @@ func (p *ModelWorkloadStatisticsRecord) SetUserName(val string) {
 func (p *ModelWorkloadStatisticsRecord) SetCMonth(val string) {
 	p.CMonth = val
 }
+func (p *ModelWorkloadStatisticsRecord) SetAppId(val int32) {
+	p.AppId = val
+}
 
 var fieldIDToName_ModelWorkloadStatisticsRecord = map[int16]string{
 	1: "id",
@@ -74660,6 +74753,7 @@ var fieldIDToName_ModelWorkloadStatisticsRecord = map[int16]string{
 	6: "semester",
 	7: "user_name",
 	8: "c_month",
+	9: "app_id",
 }
 
 func (p *ModelWorkloadStatisticsRecord) Read(iprot thrift.TProtocol) (err error) {
@@ -74740,6 +74834,14 @@ func (p *ModelWorkloadStatisticsRecord) Read(iprot thrift.TProtocol) (err error)
 		case 8:
 			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField8(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 9:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField9(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -74862,6 +74964,17 @@ func (p *ModelWorkloadStatisticsRecord) ReadField8(iprot thrift.TProtocol) error
 	p.CMonth = _field
 	return nil
 }
+func (p *ModelWorkloadStatisticsRecord) ReadField9(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.AppId = _field
+	return nil
+}
 
 func (p *ModelWorkloadStatisticsRecord) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -74899,6 +75012,10 @@ func (p *ModelWorkloadStatisticsRecord) Write(oprot thrift.TProtocol) (err error
 		}
 		if err = p.writeField8(oprot); err != nil {
 			fieldId = 8
+			goto WriteFieldError
+		}
+		if err = p.writeField9(oprot); err != nil {
+			fieldId = 9
 			goto WriteFieldError
 		}
 	}
@@ -75055,6 +75172,23 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 8 end error: ", p), err)
 }
 
+func (p *ModelWorkloadStatisticsRecord) writeField9(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("app_id", thrift.I32, 9); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.AppId); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 9 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 9 end error: ", p), err)
+}
+
 func (p *ModelWorkloadStatisticsRecord) String() string {
 	if p == nil {
 		return "<nil>"
@@ -75091,6 +75225,9 @@ func (p *ModelWorkloadStatisticsRecord) DeepEqual(ano *ModelWorkloadStatisticsRe
 		return false
 	}
 	if !p.Field8DeepEqual(ano.CMonth) {
+		return false
+	}
+	if !p.Field9DeepEqual(ano.AppId) {
 		return false
 	}
 	return true
@@ -75148,6 +75285,13 @@ func (p *ModelWorkloadStatisticsRecord) Field7DeepEqual(src string) bool {
 func (p *ModelWorkloadStatisticsRecord) Field8DeepEqual(src string) bool {
 
 	if strings.Compare(p.CMonth, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *ModelWorkloadStatisticsRecord) Field9DeepEqual(src int32) bool {
+
+	if p.AppId != src {
 		return false
 	}
 	return true
