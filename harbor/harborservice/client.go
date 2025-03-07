@@ -12,6 +12,14 @@ import (
 // Client is designed to provide IDL-compatible methods with call-option parameter for kitex framework.
 type Client interface {
 	Test(ctx context.Context, req *harbor.TestReq, callOptions ...callopt.Option) (r *harbor.TestResp, err error)
+	GetProjectList(ctx context.Context, req *harbor.GetProjectListReq, callOptions ...callopt.Option) (r *harbor.GetProjectListResp, err error)
+	GetRepositoryList(ctx context.Context, req *harbor.GetRepositoryListReq, callOptions ...callopt.Option) (r *harbor.GetRepositoryListResp, err error)
+	GetArtifactList(ctx context.Context, req *harbor.GetArtifactListReq, callOptions ...callopt.Option) (r *harbor.GetArtifactListResp, err error)
+	DeleteArtifact(ctx context.Context, req *harbor.DeleteArtifactReq, callOptions ...callopt.Option) (r *harbor.DeleteArtifactResp, err error)
+	GetModelHarborConfigList(ctx context.Context, req *harbor.GetHarborConfigListReq, callOptions ...callopt.Option) (r *harbor.GetHarborConfigListResp, err error)
+	DeleteHarborConfig(ctx context.Context, req *harbor.DeleteHarborConfigReq, callOptions ...callopt.Option) (r *harbor.DeleteHarborConfigResp, err error)
+	CreateHarborConfig(ctx context.Context, req *harbor.CreateHarborConfigReq, callOptions ...callopt.Option) (r *harbor.CreateHarborConfigResp, err error)
+	UpdateHarborConfig(ctx context.Context, req *harbor.UpdateHarborConfigReq, callOptions ...callopt.Option) (r *harbor.UpdateHarborConfigResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -46,4 +54,44 @@ type kHarborserviceClient struct {
 func (p *kHarborserviceClient) Test(ctx context.Context, req *harbor.TestReq, callOptions ...callopt.Option) (r *harbor.TestResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.Test(ctx, req)
+}
+
+func (p *kHarborserviceClient) GetProjectList(ctx context.Context, req *harbor.GetProjectListReq, callOptions ...callopt.Option) (r *harbor.GetProjectListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetProjectList(ctx, req)
+}
+
+func (p *kHarborserviceClient) GetRepositoryList(ctx context.Context, req *harbor.GetRepositoryListReq, callOptions ...callopt.Option) (r *harbor.GetRepositoryListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetRepositoryList(ctx, req)
+}
+
+func (p *kHarborserviceClient) GetArtifactList(ctx context.Context, req *harbor.GetArtifactListReq, callOptions ...callopt.Option) (r *harbor.GetArtifactListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetArtifactList(ctx, req)
+}
+
+func (p *kHarborserviceClient) DeleteArtifact(ctx context.Context, req *harbor.DeleteArtifactReq, callOptions ...callopt.Option) (r *harbor.DeleteArtifactResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.DeleteArtifact(ctx, req)
+}
+
+func (p *kHarborserviceClient) GetModelHarborConfigList(ctx context.Context, req *harbor.GetHarborConfigListReq, callOptions ...callopt.Option) (r *harbor.GetHarborConfigListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetModelHarborConfigList(ctx, req)
+}
+
+func (p *kHarborserviceClient) DeleteHarborConfig(ctx context.Context, req *harbor.DeleteHarborConfigReq, callOptions ...callopt.Option) (r *harbor.DeleteHarborConfigResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.DeleteHarborConfig(ctx, req)
+}
+
+func (p *kHarborserviceClient) CreateHarborConfig(ctx context.Context, req *harbor.CreateHarborConfigReq, callOptions ...callopt.Option) (r *harbor.CreateHarborConfigResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.CreateHarborConfig(ctx, req)
+}
+
+func (p *kHarborserviceClient) UpdateHarborConfig(ctx context.Context, req *harbor.UpdateHarborConfigReq, callOptions ...callopt.Option) (r *harbor.UpdateHarborConfigResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.UpdateHarborConfig(ctx, req)
 }

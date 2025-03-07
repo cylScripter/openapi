@@ -20,6 +20,62 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"GetProjectList": kitex.NewMethodInfo(
+		getProjectListHandler,
+		newHarborserviceGetProjectListArgs,
+		newHarborserviceGetProjectListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetRepositoryList": kitex.NewMethodInfo(
+		getRepositoryListHandler,
+		newHarborserviceGetRepositoryListArgs,
+		newHarborserviceGetRepositoryListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetArtifactList": kitex.NewMethodInfo(
+		getArtifactListHandler,
+		newHarborserviceGetArtifactListArgs,
+		newHarborserviceGetArtifactListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"DeleteArtifact": kitex.NewMethodInfo(
+		deleteArtifactHandler,
+		newHarborserviceDeleteArtifactArgs,
+		newHarborserviceDeleteArtifactResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetModelHarborConfigList": kitex.NewMethodInfo(
+		getModelHarborConfigListHandler,
+		newHarborserviceGetModelHarborConfigListArgs,
+		newHarborserviceGetModelHarborConfigListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"DeleteHarborConfig": kitex.NewMethodInfo(
+		deleteHarborConfigHandler,
+		newHarborserviceDeleteHarborConfigArgs,
+		newHarborserviceDeleteHarborConfigResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"CreateHarborConfig": kitex.NewMethodInfo(
+		createHarborConfigHandler,
+		newHarborserviceCreateHarborConfigArgs,
+		newHarborserviceCreateHarborConfigResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"UpdateHarborConfig": kitex.NewMethodInfo(
+		updateHarborConfigHandler,
+		newHarborserviceUpdateHarborConfigArgs,
+		newHarborserviceUpdateHarborConfigResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -104,6 +160,150 @@ func newHarborserviceTestResult() interface{} {
 	return harbor.NewHarborserviceTestResult()
 }
 
+func getProjectListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*harbor.HarborserviceGetProjectListArgs)
+	realResult := result.(*harbor.HarborserviceGetProjectListResult)
+	success, err := handler.(harbor.Harborservice).GetProjectList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newHarborserviceGetProjectListArgs() interface{} {
+	return harbor.NewHarborserviceGetProjectListArgs()
+}
+
+func newHarborserviceGetProjectListResult() interface{} {
+	return harbor.NewHarborserviceGetProjectListResult()
+}
+
+func getRepositoryListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*harbor.HarborserviceGetRepositoryListArgs)
+	realResult := result.(*harbor.HarborserviceGetRepositoryListResult)
+	success, err := handler.(harbor.Harborservice).GetRepositoryList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newHarborserviceGetRepositoryListArgs() interface{} {
+	return harbor.NewHarborserviceGetRepositoryListArgs()
+}
+
+func newHarborserviceGetRepositoryListResult() interface{} {
+	return harbor.NewHarborserviceGetRepositoryListResult()
+}
+
+func getArtifactListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*harbor.HarborserviceGetArtifactListArgs)
+	realResult := result.(*harbor.HarborserviceGetArtifactListResult)
+	success, err := handler.(harbor.Harborservice).GetArtifactList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newHarborserviceGetArtifactListArgs() interface{} {
+	return harbor.NewHarborserviceGetArtifactListArgs()
+}
+
+func newHarborserviceGetArtifactListResult() interface{} {
+	return harbor.NewHarborserviceGetArtifactListResult()
+}
+
+func deleteArtifactHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*harbor.HarborserviceDeleteArtifactArgs)
+	realResult := result.(*harbor.HarborserviceDeleteArtifactResult)
+	success, err := handler.(harbor.Harborservice).DeleteArtifact(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newHarborserviceDeleteArtifactArgs() interface{} {
+	return harbor.NewHarborserviceDeleteArtifactArgs()
+}
+
+func newHarborserviceDeleteArtifactResult() interface{} {
+	return harbor.NewHarborserviceDeleteArtifactResult()
+}
+
+func getModelHarborConfigListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*harbor.HarborserviceGetModelHarborConfigListArgs)
+	realResult := result.(*harbor.HarborserviceGetModelHarborConfigListResult)
+	success, err := handler.(harbor.Harborservice).GetModelHarborConfigList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newHarborserviceGetModelHarborConfigListArgs() interface{} {
+	return harbor.NewHarborserviceGetModelHarborConfigListArgs()
+}
+
+func newHarborserviceGetModelHarborConfigListResult() interface{} {
+	return harbor.NewHarborserviceGetModelHarborConfigListResult()
+}
+
+func deleteHarborConfigHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*harbor.HarborserviceDeleteHarborConfigArgs)
+	realResult := result.(*harbor.HarborserviceDeleteHarborConfigResult)
+	success, err := handler.(harbor.Harborservice).DeleteHarborConfig(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newHarborserviceDeleteHarborConfigArgs() interface{} {
+	return harbor.NewHarborserviceDeleteHarborConfigArgs()
+}
+
+func newHarborserviceDeleteHarborConfigResult() interface{} {
+	return harbor.NewHarborserviceDeleteHarborConfigResult()
+}
+
+func createHarborConfigHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*harbor.HarborserviceCreateHarborConfigArgs)
+	realResult := result.(*harbor.HarborserviceCreateHarborConfigResult)
+	success, err := handler.(harbor.Harborservice).CreateHarborConfig(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newHarborserviceCreateHarborConfigArgs() interface{} {
+	return harbor.NewHarborserviceCreateHarborConfigArgs()
+}
+
+func newHarborserviceCreateHarborConfigResult() interface{} {
+	return harbor.NewHarborserviceCreateHarborConfigResult()
+}
+
+func updateHarborConfigHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*harbor.HarborserviceUpdateHarborConfigArgs)
+	realResult := result.(*harbor.HarborserviceUpdateHarborConfigResult)
+	success, err := handler.(harbor.Harborservice).UpdateHarborConfig(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newHarborserviceUpdateHarborConfigArgs() interface{} {
+	return harbor.NewHarborserviceUpdateHarborConfigArgs()
+}
+
+func newHarborserviceUpdateHarborConfigResult() interface{} {
+	return harbor.NewHarborserviceUpdateHarborConfigResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -119,6 +319,86 @@ func (p *kClient) Test(ctx context.Context, req *harbor.TestReq) (r *harbor.Test
 	_args.Req = req
 	var _result harbor.HarborserviceTestResult
 	if err = p.c.Call(ctx, "Test", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetProjectList(ctx context.Context, req *harbor.GetProjectListReq) (r *harbor.GetProjectListResp, err error) {
+	var _args harbor.HarborserviceGetProjectListArgs
+	_args.Req = req
+	var _result harbor.HarborserviceGetProjectListResult
+	if err = p.c.Call(ctx, "GetProjectList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetRepositoryList(ctx context.Context, req *harbor.GetRepositoryListReq) (r *harbor.GetRepositoryListResp, err error) {
+	var _args harbor.HarborserviceGetRepositoryListArgs
+	_args.Req = req
+	var _result harbor.HarborserviceGetRepositoryListResult
+	if err = p.c.Call(ctx, "GetRepositoryList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetArtifactList(ctx context.Context, req *harbor.GetArtifactListReq) (r *harbor.GetArtifactListResp, err error) {
+	var _args harbor.HarborserviceGetArtifactListArgs
+	_args.Req = req
+	var _result harbor.HarborserviceGetArtifactListResult
+	if err = p.c.Call(ctx, "GetArtifactList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) DeleteArtifact(ctx context.Context, req *harbor.DeleteArtifactReq) (r *harbor.DeleteArtifactResp, err error) {
+	var _args harbor.HarborserviceDeleteArtifactArgs
+	_args.Req = req
+	var _result harbor.HarborserviceDeleteArtifactResult
+	if err = p.c.Call(ctx, "DeleteArtifact", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetModelHarborConfigList(ctx context.Context, req *harbor.GetHarborConfigListReq) (r *harbor.GetHarborConfigListResp, err error) {
+	var _args harbor.HarborserviceGetModelHarborConfigListArgs
+	_args.Req = req
+	var _result harbor.HarborserviceGetModelHarborConfigListResult
+	if err = p.c.Call(ctx, "GetModelHarborConfigList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) DeleteHarborConfig(ctx context.Context, req *harbor.DeleteHarborConfigReq) (r *harbor.DeleteHarborConfigResp, err error) {
+	var _args harbor.HarborserviceDeleteHarborConfigArgs
+	_args.Req = req
+	var _result harbor.HarborserviceDeleteHarborConfigResult
+	if err = p.c.Call(ctx, "DeleteHarborConfig", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) CreateHarborConfig(ctx context.Context, req *harbor.CreateHarborConfigReq) (r *harbor.CreateHarborConfigResp, err error) {
+	var _args harbor.HarborserviceCreateHarborConfigArgs
+	_args.Req = req
+	var _result harbor.HarborserviceCreateHarborConfigResult
+	if err = p.c.Call(ctx, "CreateHarborConfig", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) UpdateHarborConfig(ctx context.Context, req *harbor.UpdateHarborConfigReq) (r *harbor.UpdateHarborConfigResp, err error) {
+	var _args harbor.HarborserviceUpdateHarborConfigArgs
+	_args.Req = req
+	var _result harbor.HarborserviceUpdateHarborConfigResult
+	if err = p.c.Call(ctx, "UpdateHarborConfig", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
