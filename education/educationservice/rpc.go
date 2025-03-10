@@ -485,3 +485,8 @@ func ImportBeginExam(ctx context.Context, req *education.ImportBeginExamReq, cal
 	clients := MustNewClient("education", callOptions...)
 	return clients.ImportBeginExam(ctx, req)
 }
+
+func GetRoleMenu(ctx context.Context, req *education.GetRoleMenuReq, callOptions ...client.Option) (resp *education.GetRoleMenuResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.GetRoleMenu(ctx, req)
+}

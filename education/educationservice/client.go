@@ -107,6 +107,7 @@ type Client interface {
 	CreateBeginExam(ctx context.Context, req *education.CreateBeginExamReq, callOptions ...callopt.Option) (r *education.CreateBeginExamResp, err error)
 	DeleteBeginExam(ctx context.Context, req *education.DeleteBeginExamReq, callOptions ...callopt.Option) (r *education.DeleteBeginExamResp, err error)
 	ImportBeginExam(ctx context.Context, req *education.ImportBeginExamReq, callOptions ...callopt.Option) (r *education.ImportBeginExamResp, err error)
+	GetRoleMenu(ctx context.Context, req *education.GetRoleMenuReq, callOptions ...callopt.Option) (r *education.GetRoleMenuResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -616,4 +617,9 @@ func (p *kEducationserviceClient) DeleteBeginExam(ctx context.Context, req *educ
 func (p *kEducationserviceClient) ImportBeginExam(ctx context.Context, req *education.ImportBeginExamReq, callOptions ...callopt.Option) (r *education.ImportBeginExamResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.ImportBeginExam(ctx, req)
+}
+
+func (p *kEducationserviceClient) GetRoleMenu(ctx context.Context, req *education.GetRoleMenuReq, callOptions ...callopt.Option) (r *education.GetRoleMenuResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetRoleMenu(ctx, req)
 }

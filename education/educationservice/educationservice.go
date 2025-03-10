@@ -685,6 +685,13 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"GetRoleMenu": kitex.NewMethodInfo(
+		getRoleMenuHandler,
+		newEducationserviceGetRoleMenuArgs,
+		newEducationserviceGetRoleMenuResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -2479,6 +2486,24 @@ func newEducationserviceImportBeginExamResult() interface{} {
 	return education.NewEducationserviceImportBeginExamResult()
 }
 
+func getRoleMenuHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceGetRoleMenuArgs)
+	realResult := result.(*education.EducationserviceGetRoleMenuResult)
+	success, err := handler.(education.Educationservice).GetRoleMenu(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceGetRoleMenuArgs() interface{} {
+	return education.NewEducationserviceGetRoleMenuArgs()
+}
+
+func newEducationserviceGetRoleMenuResult() interface{} {
+	return education.NewEducationserviceGetRoleMenuResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -3444,6 +3469,16 @@ func (p *kClient) ImportBeginExam(ctx context.Context, req *education.ImportBegi
 	_args.Req = req
 	var _result education.EducationserviceImportBeginExamResult
 	if err = p.c.Call(ctx, "ImportBeginExam", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetRoleMenu(ctx context.Context, req *education.GetRoleMenuReq) (r *education.GetRoleMenuResp, err error) {
+	var _args education.EducationserviceGetRoleMenuArgs
+	_args.Req = req
+	var _result education.EducationserviceGetRoleMenuResult
+	if err = p.c.Call(ctx, "GetRoleMenu", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
