@@ -65,6 +65,7 @@ const (
 	GetDepartmentCourseApplyListReqOption_academic_year GetDepartmentCourseApplyListReqOption = 3
 	GetDepartmentCourseApplyListReqOption_semester      GetDepartmentCourseApplyListReqOption = 4
 	GetDepartmentCourseApplyListReqOption_course_nature GetDepartmentCourseApplyListReqOption = 9
+	GetDepartmentCourseApplyListReqOption_is_fill       GetDepartmentCourseApplyListReqOption = 5
 )
 
 func (p GetDepartmentCourseApplyListReqOption) String() string {
@@ -79,6 +80,8 @@ func (p GetDepartmentCourseApplyListReqOption) String() string {
 		return "semester"
 	case GetDepartmentCourseApplyListReqOption_course_nature:
 		return "course_nature"
+	case GetDepartmentCourseApplyListReqOption_is_fill:
+		return "is_fill"
 	}
 	return "<UNSET>"
 }
@@ -95,6 +98,8 @@ func GetDepartmentCourseApplyListReqOptionFromString(s string) (GetDepartmentCou
 		return GetDepartmentCourseApplyListReqOption_semester, nil
 	case "course_nature":
 		return GetDepartmentCourseApplyListReqOption_course_nature, nil
+	case "is_fill":
+		return GetDepartmentCourseApplyListReqOption_is_fill, nil
 	}
 	return GetDepartmentCourseApplyListReqOption(0), fmt.Errorf("not a valid GetDepartmentCourseApplyListReqOption string")
 }
