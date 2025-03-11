@@ -2402,7 +2402,7 @@ type GetDepartmentCourseApplyListResp struct {
 	List      []*ModelCourseApply             `thrift:"list,1" frugal:"1,default,list<ModelCourseApply>" json:"list"`
 	Paginate  *base.Paginate                  `thrift:"paginate,2" frugal:"2,default,base.Paginate" json:"paginate"`
 	OfficeMap map[int32][]*ModelTeacherOffice `thrift:"office_map,3" frugal:"3,default,map<i32:list<ModelTeacherOffice>>" json:"office_map"`
-	ClassMap  map[int32][]*ModelTeacherOffice `thrift:"class_map,4" frugal:"4,default,map<i32:list<ModelTeacherOffice>>" json:"class_map"`
+	ClassMap  map[int32][]*ModelClass         `thrift:"class_map,4" frugal:"4,default,map<i32:list<ModelClass>>" json:"class_map"`
 }
 
 func NewGetDepartmentCourseApplyListResp() *GetDepartmentCourseApplyListResp {
@@ -2429,7 +2429,7 @@ func (p *GetDepartmentCourseApplyListResp) GetOfficeMap() (v map[int32][]*ModelT
 	return p.OfficeMap
 }
 
-func (p *GetDepartmentCourseApplyListResp) GetClassMap() (v map[int32][]*ModelTeacherOffice) {
+func (p *GetDepartmentCourseApplyListResp) GetClassMap() (v map[int32][]*ModelClass) {
 	return p.ClassMap
 }
 func (p *GetDepartmentCourseApplyListResp) SetList(val []*ModelCourseApply) {
@@ -2441,7 +2441,7 @@ func (p *GetDepartmentCourseApplyListResp) SetPaginate(val *base.Paginate) {
 func (p *GetDepartmentCourseApplyListResp) SetOfficeMap(val map[int32][]*ModelTeacherOffice) {
 	p.OfficeMap = val
 }
-func (p *GetDepartmentCourseApplyListResp) SetClassMap(val map[int32][]*ModelTeacherOffice) {
+func (p *GetDepartmentCourseApplyListResp) SetClassMap(val map[int32][]*ModelClass) {
 	p.ClassMap = val
 }
 
@@ -2613,7 +2613,7 @@ func (p *GetDepartmentCourseApplyListResp) ReadField4(iprot thrift.TProtocol) er
 	if err != nil {
 		return err
 	}
-	_field := make(map[int32][]*ModelTeacherOffice, size)
+	_field := make(map[int32][]*ModelClass, size)
 	for i := 0; i < size; i++ {
 		var _key int32
 		if v, err := iprot.ReadI32(); err != nil {
@@ -2625,8 +2625,8 @@ func (p *GetDepartmentCourseApplyListResp) ReadField4(iprot thrift.TProtocol) er
 		if err != nil {
 			return err
 		}
-		_val := make([]*ModelTeacherOffice, 0, size)
-		values := make([]ModelTeacherOffice, size)
+		_val := make([]*ModelClass, 0, size)
+		values := make([]ModelClass, size)
 		for i := 0; i < size; i++ {
 			_elem := &values[i]
 			_elem.InitDefault()
@@ -2872,7 +2872,7 @@ func (p *GetDepartmentCourseApplyListResp) Field3DeepEqual(src map[int32][]*Mode
 	}
 	return true
 }
-func (p *GetDepartmentCourseApplyListResp) Field4DeepEqual(src map[int32][]*ModelTeacherOffice) bool {
+func (p *GetDepartmentCourseApplyListResp) Field4DeepEqual(src map[int32][]*ModelClass) bool {
 
 	if len(p.ClassMap) != len(src) {
 		return false
@@ -40174,7 +40174,7 @@ type GetCourseApplyListResp struct {
 	List      []*ModelCourseApply             `thrift:"list,1" frugal:"1,default,list<ModelCourseApply>" json:"list"`
 	Paginate  *base.Paginate                  `thrift:"paginate,2" frugal:"2,default,base.Paginate" json:"paginate"`
 	OfficeMap map[int32][]*ModelTeacherOffice `thrift:"office_map,3" frugal:"3,default,map<i32:list<ModelTeacherOffice>>" json:"office_map"`
-	ClassMap  map[int32][]*ModelTeacherOffice `thrift:"class_map,4" frugal:"4,default,map<i32:list<ModelTeacherOffice>>" json:"class_map"`
+	ClassMap  map[int32][]*ModelClass         `thrift:"class_map,4" frugal:"4,default,map<i32:list<ModelClass>>" json:"class_map"`
 }
 
 func NewGetCourseApplyListResp() *GetCourseApplyListResp {
@@ -40201,7 +40201,7 @@ func (p *GetCourseApplyListResp) GetOfficeMap() (v map[int32][]*ModelTeacherOffi
 	return p.OfficeMap
 }
 
-func (p *GetCourseApplyListResp) GetClassMap() (v map[int32][]*ModelTeacherOffice) {
+func (p *GetCourseApplyListResp) GetClassMap() (v map[int32][]*ModelClass) {
 	return p.ClassMap
 }
 func (p *GetCourseApplyListResp) SetList(val []*ModelCourseApply) {
@@ -40213,7 +40213,7 @@ func (p *GetCourseApplyListResp) SetPaginate(val *base.Paginate) {
 func (p *GetCourseApplyListResp) SetOfficeMap(val map[int32][]*ModelTeacherOffice) {
 	p.OfficeMap = val
 }
-func (p *GetCourseApplyListResp) SetClassMap(val map[int32][]*ModelTeacherOffice) {
+func (p *GetCourseApplyListResp) SetClassMap(val map[int32][]*ModelClass) {
 	p.ClassMap = val
 }
 
@@ -40385,7 +40385,7 @@ func (p *GetCourseApplyListResp) ReadField4(iprot thrift.TProtocol) error {
 	if err != nil {
 		return err
 	}
-	_field := make(map[int32][]*ModelTeacherOffice, size)
+	_field := make(map[int32][]*ModelClass, size)
 	for i := 0; i < size; i++ {
 		var _key int32
 		if v, err := iprot.ReadI32(); err != nil {
@@ -40397,8 +40397,8 @@ func (p *GetCourseApplyListResp) ReadField4(iprot thrift.TProtocol) error {
 		if err != nil {
 			return err
 		}
-		_val := make([]*ModelTeacherOffice, 0, size)
-		values := make([]ModelTeacherOffice, size)
+		_val := make([]*ModelClass, 0, size)
+		values := make([]ModelClass, size)
 		for i := 0; i < size; i++ {
 			_elem := &values[i]
 			_elem.InitDefault()
@@ -40644,7 +40644,7 @@ func (p *GetCourseApplyListResp) Field3DeepEqual(src map[int32][]*ModelTeacherOf
 	}
 	return true
 }
-func (p *GetCourseApplyListResp) Field4DeepEqual(src map[int32][]*ModelTeacherOffice) bool {
+func (p *GetCourseApplyListResp) Field4DeepEqual(src map[int32][]*ModelClass) bool {
 
 	if len(p.ClassMap) != len(src) {
 		return false

@@ -494,7 +494,7 @@ func (p *GetDepartmentCourseApplyListResp) FastReadField4(buf []byte) (int, erro
 	if err != nil {
 		return offset, err
 	}
-	_field := make(map[int32][]*ModelTeacherOffice, size)
+	_field := make(map[int32][]*ModelClass, size)
 	for i := 0; i < size; i++ {
 		var _key int32
 		if v, l, err := thrift.Binary.ReadI32(buf[offset:]); err != nil {
@@ -509,8 +509,8 @@ func (p *GetDepartmentCourseApplyListResp) FastReadField4(buf []byte) (int, erro
 		if err != nil {
 			return offset, err
 		}
-		_val := make([]*ModelTeacherOffice, 0, size)
-		values := make([]ModelTeacherOffice, size)
+		_val := make([]*ModelClass, 0, size)
+		values := make([]ModelClass, size)
 		for i := 0; i < size; i++ {
 			_elem := &values[i]
 			_elem.InitDefault()
@@ -24900,7 +24900,7 @@ func (p *GetCourseApplyListResp) FastReadField4(buf []byte) (int, error) {
 	if err != nil {
 		return offset, err
 	}
-	_field := make(map[int32][]*ModelTeacherOffice, size)
+	_field := make(map[int32][]*ModelClass, size)
 	for i := 0; i < size; i++ {
 		var _key int32
 		if v, l, err := thrift.Binary.ReadI32(buf[offset:]); err != nil {
@@ -24915,8 +24915,8 @@ func (p *GetCourseApplyListResp) FastReadField4(buf []byte) (int, error) {
 		if err != nil {
 			return offset, err
 		}
-		_val := make([]*ModelTeacherOffice, 0, size)
-		values := make([]ModelTeacherOffice, size)
+		_val := make([]*ModelClass, 0, size)
+		values := make([]ModelClass, size)
 		for i := 0; i < size; i++ {
 			_elem := &values[i]
 			_elem.InitDefault()
