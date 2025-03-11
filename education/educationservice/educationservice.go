@@ -692,6 +692,27 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"UploadSign": kitex.NewMethodInfo(
+		uploadSignHandler,
+		newEducationserviceUploadSignArgs,
+		newEducationserviceUploadSignResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetDepartmentCourseApplyList": kitex.NewMethodInfo(
+		getDepartmentCourseApplyListHandler,
+		newEducationserviceGetDepartmentCourseApplyListArgs,
+		newEducationserviceGetDepartmentCourseApplyListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"UpdatePassword": kitex.NewMethodInfo(
+		updatePasswordHandler,
+		newEducationserviceUpdatePasswordArgs,
+		newEducationserviceUpdatePasswordResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -2504,6 +2525,60 @@ func newEducationserviceGetRoleMenuResult() interface{} {
 	return education.NewEducationserviceGetRoleMenuResult()
 }
 
+func uploadSignHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceUploadSignArgs)
+	realResult := result.(*education.EducationserviceUploadSignResult)
+	success, err := handler.(education.Educationservice).UploadSign(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceUploadSignArgs() interface{} {
+	return education.NewEducationserviceUploadSignArgs()
+}
+
+func newEducationserviceUploadSignResult() interface{} {
+	return education.NewEducationserviceUploadSignResult()
+}
+
+func getDepartmentCourseApplyListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceGetDepartmentCourseApplyListArgs)
+	realResult := result.(*education.EducationserviceGetDepartmentCourseApplyListResult)
+	success, err := handler.(education.Educationservice).GetDepartmentCourseApplyList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceGetDepartmentCourseApplyListArgs() interface{} {
+	return education.NewEducationserviceGetDepartmentCourseApplyListArgs()
+}
+
+func newEducationserviceGetDepartmentCourseApplyListResult() interface{} {
+	return education.NewEducationserviceGetDepartmentCourseApplyListResult()
+}
+
+func updatePasswordHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceUpdatePasswordArgs)
+	realResult := result.(*education.EducationserviceUpdatePasswordResult)
+	success, err := handler.(education.Educationservice).UpdatePassword(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceUpdatePasswordArgs() interface{} {
+	return education.NewEducationserviceUpdatePasswordArgs()
+}
+
+func newEducationserviceUpdatePasswordResult() interface{} {
+	return education.NewEducationserviceUpdatePasswordResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -3479,6 +3554,36 @@ func (p *kClient) GetRoleMenu(ctx context.Context, req *education.GetRoleMenuReq
 	_args.Req = req
 	var _result education.EducationserviceGetRoleMenuResult
 	if err = p.c.Call(ctx, "GetRoleMenu", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) UploadSign(ctx context.Context, req *education.UploadSignReq) (r *education.UploadSignResp, err error) {
+	var _args education.EducationserviceUploadSignArgs
+	_args.Req = req
+	var _result education.EducationserviceUploadSignResult
+	if err = p.c.Call(ctx, "UploadSign", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetDepartmentCourseApplyList(ctx context.Context, req *education.GetDepartmentCourseApplyListReq) (r *education.GetDepartmentCourseApplyListResp, err error) {
+	var _args education.EducationserviceGetDepartmentCourseApplyListArgs
+	_args.Req = req
+	var _result education.EducationserviceGetDepartmentCourseApplyListResult
+	if err = p.c.Call(ctx, "GetDepartmentCourseApplyList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) UpdatePassword(ctx context.Context, req *education.UpdatePasswordReq) (r *education.UpdatePasswordResp, err error) {
+	var _args education.EducationserviceUpdatePasswordArgs
+	_args.Req = req
+	var _result education.EducationserviceUpdatePasswordResult
+	if err = p.c.Call(ctx, "UpdatePassword", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

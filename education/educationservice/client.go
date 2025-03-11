@@ -108,6 +108,9 @@ type Client interface {
 	DeleteBeginExam(ctx context.Context, req *education.DeleteBeginExamReq, callOptions ...callopt.Option) (r *education.DeleteBeginExamResp, err error)
 	ImportBeginExam(ctx context.Context, req *education.ImportBeginExamReq, callOptions ...callopt.Option) (r *education.ImportBeginExamResp, err error)
 	GetRoleMenu(ctx context.Context, req *education.GetRoleMenuReq, callOptions ...callopt.Option) (r *education.GetRoleMenuResp, err error)
+	UploadSign(ctx context.Context, req *education.UploadSignReq, callOptions ...callopt.Option) (r *education.UploadSignResp, err error)
+	GetDepartmentCourseApplyList(ctx context.Context, req *education.GetDepartmentCourseApplyListReq, callOptions ...callopt.Option) (r *education.GetDepartmentCourseApplyListResp, err error)
+	UpdatePassword(ctx context.Context, req *education.UpdatePasswordReq, callOptions ...callopt.Option) (r *education.UpdatePasswordResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -622,4 +625,19 @@ func (p *kEducationserviceClient) ImportBeginExam(ctx context.Context, req *educ
 func (p *kEducationserviceClient) GetRoleMenu(ctx context.Context, req *education.GetRoleMenuReq, callOptions ...callopt.Option) (r *education.GetRoleMenuResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.GetRoleMenu(ctx, req)
+}
+
+func (p *kEducationserviceClient) UploadSign(ctx context.Context, req *education.UploadSignReq, callOptions ...callopt.Option) (r *education.UploadSignResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.UploadSign(ctx, req)
+}
+
+func (p *kEducationserviceClient) GetDepartmentCourseApplyList(ctx context.Context, req *education.GetDepartmentCourseApplyListReq, callOptions ...callopt.Option) (r *education.GetDepartmentCourseApplyListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetDepartmentCourseApplyList(ctx, req)
+}
+
+func (p *kEducationserviceClient) UpdatePassword(ctx context.Context, req *education.UpdatePasswordReq, callOptions ...callopt.Option) (r *education.UpdatePasswordResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.UpdatePassword(ctx, req)
 }

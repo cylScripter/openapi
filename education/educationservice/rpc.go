@@ -490,3 +490,18 @@ func GetRoleMenu(ctx context.Context, req *education.GetRoleMenuReq, callOptions
 	clients := MustNewClient("education", callOptions...)
 	return clients.GetRoleMenu(ctx, req)
 }
+
+func UploadSign(ctx context.Context, req *education.UploadSignReq, callOptions ...client.Option) (resp *education.UploadSignResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.UploadSign(ctx, req)
+}
+
+func GetDepartmentCourseApplyList(ctx context.Context, req *education.GetDepartmentCourseApplyListReq, callOptions ...client.Option) (resp *education.GetDepartmentCourseApplyListResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.GetDepartmentCourseApplyList(ctx, req)
+}
+
+func UpdatePassword(ctx context.Context, req *education.UpdatePasswordReq, callOptions ...client.Option) (resp *education.UpdatePasswordResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.UpdatePassword(ctx, req)
+}
