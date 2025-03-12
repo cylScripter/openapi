@@ -505,3 +505,8 @@ func UpdatePassword(ctx context.Context, req *education.UpdatePasswordReq, callO
 	clients := MustNewClient("education", callOptions...)
 	return clients.UpdatePassword(ctx, req)
 }
+
+func GetUserSign(ctx context.Context, req *education.GetUserSignReq, callOptions ...client.Option) (resp *education.GetUserSignResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.GetUserSign(ctx, req)
+}

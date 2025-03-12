@@ -111,6 +111,7 @@ type Client interface {
 	UploadSign(ctx context.Context, req *education.UploadSignReq, callOptions ...callopt.Option) (r *education.UploadSignResp, err error)
 	GetDepartmentCourseApplyList(ctx context.Context, req *education.GetDepartmentCourseApplyListReq, callOptions ...callopt.Option) (r *education.GetDepartmentCourseApplyListResp, err error)
 	UpdatePassword(ctx context.Context, req *education.UpdatePasswordReq, callOptions ...callopt.Option) (r *education.UpdatePasswordResp, err error)
+	GetUserSign(ctx context.Context, req *education.GetUserSignReq, callOptions ...callopt.Option) (r *education.GetUserSignResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -640,4 +641,9 @@ func (p *kEducationserviceClient) GetDepartmentCourseApplyList(ctx context.Conte
 func (p *kEducationserviceClient) UpdatePassword(ctx context.Context, req *education.UpdatePasswordReq, callOptions ...callopt.Option) (r *education.UpdatePasswordResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.UpdatePassword(ctx, req)
+}
+
+func (p *kEducationserviceClient) GetUserSign(ctx context.Context, req *education.GetUserSignReq, callOptions ...callopt.Option) (r *education.GetUserSignResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetUserSign(ctx, req)
 }

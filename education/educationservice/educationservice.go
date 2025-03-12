@@ -713,6 +713,13 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"GetUserSign": kitex.NewMethodInfo(
+		getUserSignHandler,
+		newEducationserviceGetUserSignArgs,
+		newEducationserviceGetUserSignResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -2579,6 +2586,24 @@ func newEducationserviceUpdatePasswordResult() interface{} {
 	return education.NewEducationserviceUpdatePasswordResult()
 }
 
+func getUserSignHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceGetUserSignArgs)
+	realResult := result.(*education.EducationserviceGetUserSignResult)
+	success, err := handler.(education.Educationservice).GetUserSign(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceGetUserSignArgs() interface{} {
+	return education.NewEducationserviceGetUserSignArgs()
+}
+
+func newEducationserviceGetUserSignResult() interface{} {
+	return education.NewEducationserviceGetUserSignResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -3584,6 +3609,16 @@ func (p *kClient) UpdatePassword(ctx context.Context, req *education.UpdatePassw
 	_args.Req = req
 	var _result education.EducationserviceUpdatePasswordResult
 	if err = p.c.Call(ctx, "UpdatePassword", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetUserSign(ctx context.Context, req *education.GetUserSignReq) (r *education.GetUserSignResp, err error) {
+	var _args education.EducationserviceGetUserSignArgs
+	_args.Req = req
+	var _result education.EducationserviceGetUserSignResult
+	if err = p.c.Call(ctx, "GetUserSign", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
