@@ -510,3 +510,8 @@ func GetUserSign(ctx context.Context, req *education.GetUserSignReq, callOptions
 	clients := MustNewClient("education", callOptions...)
 	return clients.GetUserSign(ctx, req)
 }
+
+func ExportAllResponsibility(ctx context.Context, req *education.ExportAllResponsibilityReq, callOptions ...client.Option) (resp *education.ExportAllResponsibilityResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.ExportAllResponsibility(ctx, req)
+}

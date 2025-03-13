@@ -112,6 +112,7 @@ type Client interface {
 	GetDepartmentCourseApplyList(ctx context.Context, req *education.GetDepartmentCourseApplyListReq, callOptions ...callopt.Option) (r *education.GetDepartmentCourseApplyListResp, err error)
 	UpdatePassword(ctx context.Context, req *education.UpdatePasswordReq, callOptions ...callopt.Option) (r *education.UpdatePasswordResp, err error)
 	GetUserSign(ctx context.Context, req *education.GetUserSignReq, callOptions ...callopt.Option) (r *education.GetUserSignResp, err error)
+	ExportAllResponsibility(ctx context.Context, req *education.ExportAllResponsibilityReq, callOptions ...callopt.Option) (r *education.ExportAllResponsibilityResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -646,4 +647,9 @@ func (p *kEducationserviceClient) UpdatePassword(ctx context.Context, req *educa
 func (p *kEducationserviceClient) GetUserSign(ctx context.Context, req *education.GetUserSignReq, callOptions ...callopt.Option) (r *education.GetUserSignResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.GetUserSign(ctx, req)
+}
+
+func (p *kEducationserviceClient) ExportAllResponsibility(ctx context.Context, req *education.ExportAllResponsibilityReq, callOptions ...callopt.Option) (r *education.ExportAllResponsibilityResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ExportAllResponsibility(ctx, req)
 }

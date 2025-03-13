@@ -720,6 +720,13 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"ExportAllResponsibility": kitex.NewMethodInfo(
+		exportAllResponsibilityHandler,
+		newEducationserviceExportAllResponsibilityArgs,
+		newEducationserviceExportAllResponsibilityResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -2604,6 +2611,24 @@ func newEducationserviceGetUserSignResult() interface{} {
 	return education.NewEducationserviceGetUserSignResult()
 }
 
+func exportAllResponsibilityHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceExportAllResponsibilityArgs)
+	realResult := result.(*education.EducationserviceExportAllResponsibilityResult)
+	success, err := handler.(education.Educationservice).ExportAllResponsibility(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceExportAllResponsibilityArgs() interface{} {
+	return education.NewEducationserviceExportAllResponsibilityArgs()
+}
+
+func newEducationserviceExportAllResponsibilityResult() interface{} {
+	return education.NewEducationserviceExportAllResponsibilityResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -3619,6 +3644,16 @@ func (p *kClient) GetUserSign(ctx context.Context, req *education.GetUserSignReq
 	_args.Req = req
 	var _result education.EducationserviceGetUserSignResult
 	if err = p.c.Call(ctx, "GetUserSign", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ExportAllResponsibility(ctx context.Context, req *education.ExportAllResponsibilityReq) (r *education.ExportAllResponsibilityResp, err error) {
+	var _args education.EducationserviceExportAllResponsibilityArgs
+	_args.Req = req
+	var _result education.EducationserviceExportAllResponsibilityResult
+	if err = p.c.Call(ctx, "ExportAllResponsibility", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
