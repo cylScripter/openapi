@@ -42797,8 +42797,8 @@ type FillCourseApplyReq struct {
 	ResourceBuildPartner    string `thrift:"resource_build_partner,9" frugal:"9,default,string" json:"resource_build_partner"`
 	Remark                  string `thrift:"remark,10" frugal:"10,default,string" json:"remark"`
 	Url                     string `thrift:"url,11" frugal:"11,default,string" json:"url"`
-	IsnotAccount            string `thrift:"isnot_account,12" frugal:"12,default,string" json:"isnot_account" binding:"required"`
-	IsnotPassword           string `thrift:"isnot_password,13" frugal:"13,default,string" json:"isnot_password" binding:"required"`
+	IsnotAccount            string `thrift:"isnot_account,12" frugal:"12,default,string" json:"isnot_account" `
+	IsnotPassword           string `thrift:"isnot_password,13" frugal:"13,default,string" json:"isnot_password"`
 	IsUseOtherResource      int32  `thrift:"is_use_other_resource,14" frugal:"14,default,i32" json:"is_use_other_resource"`
 	OtherResourceName       string `thrift:"other_resource_name,15" frugal:"15,default,string" json:"other_resource_name"`
 }
