@@ -1214,6 +1214,7 @@ const (
 	GetMenuListOption_parent_id  GetMenuListOption = 6
 	GetMenuListOption_title      GetMenuListOption = 7
 	GetMenuListOption_created_at GetMenuListOption = 8
+	GetMenuListOption_status     GetMenuListOption = 9
 )
 
 func (p GetMenuListOption) String() string {
@@ -1234,6 +1235,8 @@ func (p GetMenuListOption) String() string {
 		return "title"
 	case GetMenuListOption_created_at:
 		return "created_at"
+	case GetMenuListOption_status:
+		return "status"
 	}
 	return "<UNSET>"
 }
@@ -1256,6 +1259,8 @@ func GetMenuListOptionFromString(s string) (GetMenuListOption, error) {
 		return GetMenuListOption_title, nil
 	case "created_at":
 		return GetMenuListOption_created_at, nil
+	case "status":
+		return GetMenuListOption_status, nil
 	}
 	return GetMenuListOption(0), fmt.Errorf("not a valid GetMenuListOption string")
 }
@@ -1915,6 +1920,60 @@ func (p *ExaminationType) Scan(value interface{}) (err error) {
 }
 
 func (p *ExaminationType) Value() (driver.Value, error) {
+	if p == nil {
+		return nil, nil
+	}
+	return int64(*p), nil
+}
+
+type ModelWorkloadStatisticsCategory int64
+
+const (
+	ModelWorkloadStatisticsCategory_Unknown        ModelWorkloadStatisticsCategory = 0
+	ModelWorkloadStatisticsCategory_Theory         ModelWorkloadStatisticsCategory = 1
+	ModelWorkloadStatisticsCategory_TrainingCourse ModelWorkloadStatisticsCategory = 2
+	ModelWorkloadStatisticsCategory_Internship     ModelWorkloadStatisticsCategory = 3
+)
+
+func (p ModelWorkloadStatisticsCategory) String() string {
+	switch p {
+	case ModelWorkloadStatisticsCategory_Unknown:
+		return "Unknown"
+	case ModelWorkloadStatisticsCategory_Theory:
+		return "Theory"
+	case ModelWorkloadStatisticsCategory_TrainingCourse:
+		return "TrainingCourse"
+	case ModelWorkloadStatisticsCategory_Internship:
+		return "Internship"
+	}
+	return "<UNSET>"
+}
+
+func ModelWorkloadStatisticsCategoryFromString(s string) (ModelWorkloadStatisticsCategory, error) {
+	switch s {
+	case "Unknown":
+		return ModelWorkloadStatisticsCategory_Unknown, nil
+	case "Theory":
+		return ModelWorkloadStatisticsCategory_Theory, nil
+	case "TrainingCourse":
+		return ModelWorkloadStatisticsCategory_TrainingCourse, nil
+	case "Internship":
+		return ModelWorkloadStatisticsCategory_Internship, nil
+	}
+	return ModelWorkloadStatisticsCategory(0), fmt.Errorf("not a valid ModelWorkloadStatisticsCategory string")
+}
+
+func ModelWorkloadStatisticsCategoryPtr(v ModelWorkloadStatisticsCategory) *ModelWorkloadStatisticsCategory {
+	return &v
+}
+func (p *ModelWorkloadStatisticsCategory) Scan(value interface{}) (err error) {
+	var result sql.NullInt64
+	err = result.Scan(value)
+	*p = ModelWorkloadStatisticsCategory(result.Int64)
+	return
+}
+
+func (p *ModelWorkloadStatisticsCategory) Value() (driver.Value, error) {
 	if p == nil {
 		return nil, nil
 	}
@@ -19194,7 +19253,7 @@ func (p *GetInternshipListResp) Field2DeepEqual(src *base.Paginate) bool {
 type UpdateHolidayReq struct {
 	Id        int32  `thrift:"id,1" frugal:"1,default,i32" json:"id" binding:"required"`
 	Name      string `thrift:"name,3" frugal:"3,default,string" json:"name" binding:"required"`
-	BiginDate string `thrift:"bigin_date,4" frugal:"4,default,string" json:"bigin_date" binding:"required"`
+	BeginDate string `thrift:"begin_date,4" frugal:"4,default,string" json:"begin_date" bending:"required"`
 	EndDate   string `thrift:"end_date,5" frugal:"5,default,string" json:"end_date" binding:"required"`
 	Remark    string `thrift:"remark,6" frugal:"6,default,string" json:"remark"`
 }
@@ -19214,8 +19273,8 @@ func (p *UpdateHolidayReq) GetName() (v string) {
 	return p.Name
 }
 
-func (p *UpdateHolidayReq) GetBiginDate() (v string) {
-	return p.BiginDate
+func (p *UpdateHolidayReq) GetBeginDate() (v string) {
+	return p.BeginDate
 }
 
 func (p *UpdateHolidayReq) GetEndDate() (v string) {
@@ -19231,8 +19290,8 @@ func (p *UpdateHolidayReq) SetId(val int32) {
 func (p *UpdateHolidayReq) SetName(val string) {
 	p.Name = val
 }
-func (p *UpdateHolidayReq) SetBiginDate(val string) {
-	p.BiginDate = val
+func (p *UpdateHolidayReq) SetBeginDate(val string) {
+	p.BeginDate = val
 }
 func (p *UpdateHolidayReq) SetEndDate(val string) {
 	p.EndDate = val
@@ -19244,7 +19303,7 @@ func (p *UpdateHolidayReq) SetRemark(val string) {
 var fieldIDToName_UpdateHolidayReq = map[int16]string{
 	1: "id",
 	3: "name",
-	4: "bigin_date",
+	4: "begin_date",
 	5: "end_date",
 	6: "remark",
 }
@@ -19367,7 +19426,7 @@ func (p *UpdateHolidayReq) ReadField4(iprot thrift.TProtocol) error {
 	} else {
 		_field = v
 	}
-	p.BiginDate = _field
+	p.BeginDate = _field
 	return nil
 }
 func (p *UpdateHolidayReq) ReadField5(iprot thrift.TProtocol) error {
@@ -19472,10 +19531,10 @@ WriteFieldEndError:
 }
 
 func (p *UpdateHolidayReq) writeField4(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("bigin_date", thrift.STRING, 4); err != nil {
+	if err = oprot.WriteFieldBegin("begin_date", thrift.STRING, 4); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.BiginDate); err != nil {
+	if err := oprot.WriteString(p.BeginDate); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -19542,7 +19601,7 @@ func (p *UpdateHolidayReq) DeepEqual(ano *UpdateHolidayReq) bool {
 	if !p.Field3DeepEqual(ano.Name) {
 		return false
 	}
-	if !p.Field4DeepEqual(ano.BiginDate) {
+	if !p.Field4DeepEqual(ano.BeginDate) {
 		return false
 	}
 	if !p.Field5DeepEqual(ano.EndDate) {
@@ -19570,7 +19629,7 @@ func (p *UpdateHolidayReq) Field3DeepEqual(src string) bool {
 }
 func (p *UpdateHolidayReq) Field4DeepEqual(src string) bool {
 
-	if strings.Compare(p.BiginDate, src) != 0 {
+	if strings.Compare(p.BeginDate, src) != 0 {
 		return false
 	}
 	return true
@@ -75276,8 +75335,8 @@ type ModelWorkloadStatistics struct {
 	CreatedAt          int32   `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index" json:"created_at"`
 	UpdatedAt          int32   `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at" json:"updated_at"`
 	DeletedAt          int32   `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at" json:"deleted_at"`
-	AcademicYear       string  `thrift:"academic_year,5" frugal:"5,default,string" json:"academic_year" gorm:"column:academic_year"`
-	Semester           string  `thrift:"semester,6" frugal:"6,default,string" json:"semester" gorm:"column:semester"`
+	AcademicYear       string  `thrift:"academic_year,5" frugal:"5,default,string" json:"academic_year" gorm:"column:academic_year;index"`
+	Semester           string  `thrift:"semester,6" frugal:"6,default,string" json:"semester" gorm:"column:semester;index"`
 	AppId              int32   `thrift:"app_id,7" frugal:"7,default,i32" json:"app_id" gorm:"column:app_id;index"`
 	TeacherName        string  `thrift:"teacher_name,8" frugal:"8,default,string" json:"teacher_name" gorm:"column:teacher_name"`
 	TeacherId          string  `thrift:"teacher_id,9" frugal:"9,default,string" json:"teacher_id" gorm:"column:teacher_id"`
@@ -75305,8 +75364,8 @@ type ModelWorkloadStatistics struct {
 	TrafficSubsidy     int32   `thrift:"traffic_subsidy,31" frugal:"31,default,i32" json:"traffic_subsidy" gorm:"column:traffic_subsidy"`
 	WorkOvertime       int32   `thrift:"work_overtime,32" frugal:"32,default,i32" json:"work_overtime" gorm:"column:work_overtime"`
 	Discount           int32   `thrift:"discount,33" frugal:"33,default,i32" json:"discount" gorm:"column:discount"`
-	Category           int32   `thrift:"category,34" frugal:"34,default,i32" json:"category" gorm:"column:category"`
-	Record_Id          int32   `thrift:"record__id,35" frugal:"35,default,i32" json:"record_id" gorm:"column:record_id"`
+	Category           int32   `thrift:"category,34" frugal:"34,default,i32" json:"category" gorm:"column:category;index"`
+	RecordId           int32   `thrift:"record_id,35" frugal:"35,default,i32" json:"record_id" gorm:"column:record_id;index"`
 }
 
 func NewModelWorkloadStatistics() *ModelWorkloadStatistics {
@@ -75452,8 +75511,8 @@ func (p *ModelWorkloadStatistics) GetCategory() (v int32) {
 	return p.Category
 }
 
-func (p *ModelWorkloadStatistics) GetRecord_Id() (v int32) {
-	return p.Record_Id
+func (p *ModelWorkloadStatistics) GetRecordId() (v int32) {
+	return p.RecordId
 }
 func (p *ModelWorkloadStatistics) SetId(val int32) {
 	p.Id = val
@@ -75557,8 +75616,8 @@ func (p *ModelWorkloadStatistics) SetDiscount(val int32) {
 func (p *ModelWorkloadStatistics) SetCategory(val int32) {
 	p.Category = val
 }
-func (p *ModelWorkloadStatistics) SetRecord_Id(val int32) {
-	p.Record_Id = val
+func (p *ModelWorkloadStatistics) SetRecordId(val int32) {
+	p.RecordId = val
 }
 
 var fieldIDToName_ModelWorkloadStatistics = map[int16]string{
@@ -75596,7 +75655,7 @@ var fieldIDToName_ModelWorkloadStatistics = map[int16]string{
 	32: "work_overtime",
 	33: "discount",
 	34: "category",
-	35: "record__id",
+	35: "record_id",
 }
 
 func (p *ModelWorkloadStatistics) Read(iprot thrift.TProtocol) (err error) {
@@ -76309,7 +76368,7 @@ func (p *ModelWorkloadStatistics) ReadField35(iprot thrift.TProtocol) error {
 	} else {
 		_field = v
 	}
-	p.Record_Id = _field
+	p.RecordId = _field
 	return nil
 }
 
@@ -77056,10 +77115,10 @@ WriteFieldEndError:
 }
 
 func (p *ModelWorkloadStatistics) writeField35(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("record__id", thrift.I32, 35); err != nil {
+	if err = oprot.WriteFieldBegin("record_id", thrift.I32, 35); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteI32(p.Record_Id); err != nil {
+	if err := oprot.WriteI32(p.RecordId); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -77188,7 +77247,7 @@ func (p *ModelWorkloadStatistics) DeepEqual(ano *ModelWorkloadStatistics) bool {
 	if !p.Field34DeepEqual(ano.Category) {
 		return false
 	}
-	if !p.Field35DeepEqual(ano.Record_Id) {
+	if !p.Field35DeepEqual(ano.RecordId) {
 		return false
 	}
 	return true
@@ -77434,7 +77493,7 @@ func (p *ModelWorkloadStatistics) Field34DeepEqual(src int32) bool {
 }
 func (p *ModelWorkloadStatistics) Field35DeepEqual(src int32) bool {
 
-	if p.Record_Id != src {
+	if p.RecordId != src {
 		return false
 	}
 	return true

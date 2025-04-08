@@ -11410,7 +11410,7 @@ func (p *UpdateHolidayReq) FastReadField4(buf []byte) (int, error) {
 		offset += l
 		_field = v
 	}
-	p.BiginDate = _field
+	p.BeginDate = _field
 	return offset, nil
 }
 
@@ -11490,7 +11490,7 @@ func (p *UpdateHolidayReq) fastWriteField3(buf []byte, w thrift.NocopyWriter) in
 func (p *UpdateHolidayReq) fastWriteField4(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 4)
-	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.BiginDate)
+	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.BeginDate)
 	return offset
 }
 
@@ -11525,7 +11525,7 @@ func (p *UpdateHolidayReq) field3Length() int {
 func (p *UpdateHolidayReq) field4Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.StringLengthNocopy(p.BiginDate)
+	l += thrift.Binary.StringLengthNocopy(p.BeginDate)
 	return l
 }
 
@@ -50442,7 +50442,7 @@ func (p *ModelWorkloadStatistics) FastReadField35(buf []byte) (int, error) {
 		offset += l
 		_field = v
 	}
-	p.Record_Id = _field
+	p.RecordId = _field
 	return offset, nil
 }
 
@@ -50778,7 +50778,7 @@ func (p *ModelWorkloadStatistics) fastWriteField34(buf []byte, w thrift.NocopyWr
 func (p *ModelWorkloadStatistics) fastWriteField35(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 35)
-	offset += thrift.Binary.WriteI32(buf[offset:], p.Record_Id)
+	offset += thrift.Binary.WriteI32(buf[offset:], p.RecordId)
 	return offset
 }
 
