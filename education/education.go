@@ -30,6 +30,25 @@ var (
 		"私播课",
 	}
 
+	AssessmentMethod = []string{
+		"集中",
+		"过程",
+		"考查",
+		"考试",
+	}
+
+	OpenCourseType = []string{
+		"专业拓展课",
+		"专业拓展课",
+		"通识选修课",
+	}
+
+	CourseCategory = []string{
+		"专业课",
+		"专业课",
+		"无",
+	}
+
 	CourseApplyFieldMap = map[int32]string{
 		1:  "开课部门",
 		2:  "课程所属教研室",
@@ -48633,6 +48652,9 @@ type GetSelectDataResp struct {
 	FieldType           map[int32]string `thrift:"field_type,6" frugal:"6,default,map<i32:string>" json:"field_type"`
 	CurrentAcademicYear string           `thrift:"current_academic_year,7" frugal:"7,default,string" json:"current_academic_year"`
 	CurrentSemester     string           `thrift:"current_semester,8" frugal:"8,default,string" json:"current_semester"`
+	AssessmentMethod    []string         `thrift:"assessment_method,9" frugal:"9,default,list<string>" json:"assessment_method"`
+	OpenCourseType      []string         `thrift:"open_course_type,10" frugal:"10,default,list<string>" json:"open_type"`
+	CourseCategory      []string         `thrift:"course_category,11" frugal:"11,default,list<string>" json:"course_category"`
 }
 
 func NewGetSelectDataResp() *GetSelectDataResp {
@@ -48673,6 +48695,18 @@ func (p *GetSelectDataResp) GetCurrentAcademicYear() (v string) {
 func (p *GetSelectDataResp) GetCurrentSemester() (v string) {
 	return p.CurrentSemester
 }
+
+func (p *GetSelectDataResp) GetAssessmentMethod() (v []string) {
+	return p.AssessmentMethod
+}
+
+func (p *GetSelectDataResp) GetOpenCourseType() (v []string) {
+	return p.OpenCourseType
+}
+
+func (p *GetSelectDataResp) GetCourseCategory() (v []string) {
+	return p.CourseCategory
+}
 func (p *GetSelectDataResp) SetOnlinePlatform(val []string) {
 	p.OnlinePlatform = val
 }
@@ -48697,16 +48731,28 @@ func (p *GetSelectDataResp) SetCurrentAcademicYear(val string) {
 func (p *GetSelectDataResp) SetCurrentSemester(val string) {
 	p.CurrentSemester = val
 }
+func (p *GetSelectDataResp) SetAssessmentMethod(val []string) {
+	p.AssessmentMethod = val
+}
+func (p *GetSelectDataResp) SetOpenCourseType(val []string) {
+	p.OpenCourseType = val
+}
+func (p *GetSelectDataResp) SetCourseCategory(val []string) {
+	p.CourseCategory = val
+}
 
 var fieldIDToName_GetSelectDataResp = map[int16]string{
-	1: "online_platform",
-	2: "order_online_platform",
-	3: "course_nature",
-	4: "academic_year",
-	5: "semester",
-	6: "field_type",
-	7: "current_academic_year",
-	8: "current_semester",
+	1:  "online_platform",
+	2:  "order_online_platform",
+	3:  "course_nature",
+	4:  "academic_year",
+	5:  "semester",
+	6:  "field_type",
+	7:  "current_academic_year",
+	8:  "current_semester",
+	9:  "assessment_method",
+	10: "open_course_type",
+	11: "course_category",
 }
 
 func (p *GetSelectDataResp) Read(iprot thrift.TProtocol) (err error) {
@@ -48787,6 +48833,30 @@ func (p *GetSelectDataResp) Read(iprot thrift.TProtocol) (err error) {
 		case 8:
 			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField8(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 9:
+			if fieldTypeId == thrift.LIST {
+				if err = p.ReadField9(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 10:
+			if fieldTypeId == thrift.LIST {
+				if err = p.ReadField10(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 11:
+			if fieldTypeId == thrift.LIST {
+				if err = p.ReadField11(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -48987,6 +49057,75 @@ func (p *GetSelectDataResp) ReadField8(iprot thrift.TProtocol) error {
 	p.CurrentSemester = _field
 	return nil
 }
+func (p *GetSelectDataResp) ReadField9(iprot thrift.TProtocol) error {
+	_, size, err := iprot.ReadListBegin()
+	if err != nil {
+		return err
+	}
+	_field := make([]string, 0, size)
+	for i := 0; i < size; i++ {
+
+		var _elem string
+		if v, err := iprot.ReadString(); err != nil {
+			return err
+		} else {
+			_elem = v
+		}
+
+		_field = append(_field, _elem)
+	}
+	if err := iprot.ReadListEnd(); err != nil {
+		return err
+	}
+	p.AssessmentMethod = _field
+	return nil
+}
+func (p *GetSelectDataResp) ReadField10(iprot thrift.TProtocol) error {
+	_, size, err := iprot.ReadListBegin()
+	if err != nil {
+		return err
+	}
+	_field := make([]string, 0, size)
+	for i := 0; i < size; i++ {
+
+		var _elem string
+		if v, err := iprot.ReadString(); err != nil {
+			return err
+		} else {
+			_elem = v
+		}
+
+		_field = append(_field, _elem)
+	}
+	if err := iprot.ReadListEnd(); err != nil {
+		return err
+	}
+	p.OpenCourseType = _field
+	return nil
+}
+func (p *GetSelectDataResp) ReadField11(iprot thrift.TProtocol) error {
+	_, size, err := iprot.ReadListBegin()
+	if err != nil {
+		return err
+	}
+	_field := make([]string, 0, size)
+	for i := 0; i < size; i++ {
+
+		var _elem string
+		if v, err := iprot.ReadString(); err != nil {
+			return err
+		} else {
+			_elem = v
+		}
+
+		_field = append(_field, _elem)
+	}
+	if err := iprot.ReadListEnd(); err != nil {
+		return err
+	}
+	p.CourseCategory = _field
+	return nil
+}
 
 func (p *GetSelectDataResp) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -49024,6 +49163,18 @@ func (p *GetSelectDataResp) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField8(oprot); err != nil {
 			fieldId = 8
+			goto WriteFieldError
+		}
+		if err = p.writeField9(oprot); err != nil {
+			fieldId = 9
+			goto WriteFieldError
+		}
+		if err = p.writeField10(oprot); err != nil {
+			fieldId = 10
+			goto WriteFieldError
+		}
+		if err = p.writeField11(oprot); err != nil {
+			fieldId = 11
 			goto WriteFieldError
 		}
 	}
@@ -49231,6 +49382,81 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 8 end error: ", p), err)
 }
 
+func (p *GetSelectDataResp) writeField9(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("assessment_method", thrift.LIST, 9); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteListBegin(thrift.STRING, len(p.AssessmentMethod)); err != nil {
+		return err
+	}
+	for _, v := range p.AssessmentMethod {
+		if err := oprot.WriteString(v); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteListEnd(); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 9 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 9 end error: ", p), err)
+}
+
+func (p *GetSelectDataResp) writeField10(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("open_course_type", thrift.LIST, 10); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteListBegin(thrift.STRING, len(p.OpenCourseType)); err != nil {
+		return err
+	}
+	for _, v := range p.OpenCourseType {
+		if err := oprot.WriteString(v); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteListEnd(); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 10 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 10 end error: ", p), err)
+}
+
+func (p *GetSelectDataResp) writeField11(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("course_category", thrift.LIST, 11); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteListBegin(thrift.STRING, len(p.CourseCategory)); err != nil {
+		return err
+	}
+	for _, v := range p.CourseCategory {
+		if err := oprot.WriteString(v); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteListEnd(); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 11 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 11 end error: ", p), err)
+}
+
 func (p *GetSelectDataResp) String() string {
 	if p == nil {
 		return "<nil>"
@@ -49267,6 +49493,15 @@ func (p *GetSelectDataResp) DeepEqual(ano *GetSelectDataResp) bool {
 		return false
 	}
 	if !p.Field8DeepEqual(ano.CurrentSemester) {
+		return false
+	}
+	if !p.Field9DeepEqual(ano.AssessmentMethod) {
+		return false
+	}
+	if !p.Field10DeepEqual(ano.OpenCourseType) {
+		return false
+	}
+	if !p.Field11DeepEqual(ano.CourseCategory) {
 		return false
 	}
 	return true
@@ -49361,6 +49596,45 @@ func (p *GetSelectDataResp) Field8DeepEqual(src string) bool {
 
 	if strings.Compare(p.CurrentSemester, src) != 0 {
 		return false
+	}
+	return true
+}
+func (p *GetSelectDataResp) Field9DeepEqual(src []string) bool {
+
+	if len(p.AssessmentMethod) != len(src) {
+		return false
+	}
+	for i, v := range p.AssessmentMethod {
+		_src := src[i]
+		if strings.Compare(v, _src) != 0 {
+			return false
+		}
+	}
+	return true
+}
+func (p *GetSelectDataResp) Field10DeepEqual(src []string) bool {
+
+	if len(p.OpenCourseType) != len(src) {
+		return false
+	}
+	for i, v := range p.OpenCourseType {
+		_src := src[i]
+		if strings.Compare(v, _src) != 0 {
+			return false
+		}
+	}
+	return true
+}
+func (p *GetSelectDataResp) Field11DeepEqual(src []string) bool {
+
+	if len(p.CourseCategory) != len(src) {
+		return false
+	}
+	for i, v := range p.CourseCategory {
+		_src := src[i]
+		if strings.Compare(v, _src) != 0 {
+			return false
+		}
 	}
 	return true
 }
