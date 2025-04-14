@@ -515,3 +515,83 @@ func ExportAllResponsibility(ctx context.Context, req *education.ExportAllRespon
 	clients := MustNewClient("education", callOptions...)
 	return clients.ExportAllResponsibility(ctx, req)
 }
+
+func GetWorkloadStatisticsRecordList(ctx context.Context, req *education.GetWorkloadStatisticsRecordListReq, callOptions ...client.Option) (resp *education.GetWorkloadStatisticsRecordListResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.GetWorkloadStatisticsRecordList(ctx, req)
+}
+
+func DeleteWorkloadStatisticsRecord(ctx context.Context, req *education.DeleteWorkloadStatisticsRecordReq, callOptions ...client.Option) (resp *education.DeleteWorkloadStatisticsRecordResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.DeleteWorkloadStatisticsRecord(ctx, req)
+}
+
+func UpdateWorkloadStatisticsRecord(ctx context.Context, req *education.UpdateWorkloadStatisticsRecordReq, callOptions ...client.Option) (resp *education.UpdateWorkloadStatisticsRecordResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.UpdateWorkloadStatisticsRecord(ctx, req)
+}
+
+func CalculateTheoreticalCourseWorkload(ctx context.Context, req *education.CalculateTheoreticalCourseWorkloadReq, callOptions ...client.Option) (resp *education.CalculateTheoreticalCourseWorkloadResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.CalculateTheoreticalCourseWorkload(ctx, req)
+}
+
+func CalculateTrainingCourseWorkload(ctx context.Context, req *education.CalculateTrainingCourseWorkloadReq, callOptions ...client.Option) (resp *education.CalculateTrainingCourseWorkloadResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.CalculateTrainingCourseWorkload(ctx, req)
+}
+
+func CalculateInternshipWorkload(ctx context.Context, req *education.CalculateInternshipWorkloadReq, callOptions ...client.Option) (resp *education.CalculateInternshipWorkloadResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.CalculateInternshipWorkload(ctx, req)
+}
+
+func CalculateBeginExamWorkload(ctx context.Context, req *education.CalculateBeginExamWorkloadReq, callOptions ...client.Option) (resp *education.CalculateBeginExamWorkloadResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.CalculateBeginExamWorkload(ctx, req)
+}
+
+func GetWorkloadStatisticsList(ctx context.Context, req *education.GetWorkloadStatisticsListReq, callOptions ...client.Option) (resp *education.GetWorkloadStatisticsListResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.GetWorkloadStatisticsList(ctx, req)
+}
+
+func DeleteWorkloadStatistics(ctx context.Context, req *education.DeleteWorkloadStatisticsReq, callOptions ...client.Option) (resp *education.DeleteWorkloadStatisticsResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.DeleteWorkloadStatistics(ctx, req)
+}
+
+func ExportWorkloadStatistics(ctx context.Context, req *education.ExportWorkloadStatisticsReq, callOptions ...client.Option) (resp *education.ExportWorkloadStatisticsResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.ExportWorkloadStatistics(ctx, req)
+}
+
+func UpdateTheoreticalCourseWorkload(ctx context.Context, req *education.UpdateTheoreticalCourseWorkloadReq, callOptions ...client.Option) (resp *education.UpdateTheoreticalCourseWorkloadResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.UpdateTheoreticalCourseWorkload(ctx, req)
+}
+
+func UpdateTrainingCourseWorkload(ctx context.Context, req *education.UpdateTrainingCourseWorkloadReq, callOptions ...client.Option) (resp *education.UpdateTrainingCourseWorkloadResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.UpdateTrainingCourseWorkload(ctx, req)
+}
+
+func UpdateInternshipWorkload(ctx context.Context, req *education.UpdateInternshipWorkloadReq, callOptions ...client.Option) (resp *education.UpdateInternshipWorkloadResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.UpdateInternshipWorkload(ctx, req)
+}
+
+func UpdateBeginExamWorkload(ctx context.Context, req *education.UpdateBeginExamWorkloadReq, callOptions ...client.Option) (resp *education.UpdateBeginExamWorkloadResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.UpdateBeginExamWorkload(ctx, req)
+}
+
+func ExportBeginExamWorkload(ctx context.Context, req *education.ExportBeginExamWorkloadReq, callOptions ...client.Option) (resp *education.ExportBeginExamWorkloadResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.ExportBeginExamWorkload(ctx, req)
+}
+
+func CreateWorkloadStatistics(ctx context.Context, req *education.CreateWorkloadStatisticsReq, callOptions ...client.Option) (resp *education.CreateWorkloadStatisticsResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.CreateWorkloadStatistics(ctx, req)
+}

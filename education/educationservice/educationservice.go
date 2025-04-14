@@ -727,6 +727,118 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"GetWorkloadStatisticsRecordList": kitex.NewMethodInfo(
+		getWorkloadStatisticsRecordListHandler,
+		newEducationserviceGetWorkloadStatisticsRecordListArgs,
+		newEducationserviceGetWorkloadStatisticsRecordListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"DeleteWorkloadStatisticsRecord": kitex.NewMethodInfo(
+		deleteWorkloadStatisticsRecordHandler,
+		newEducationserviceDeleteWorkloadStatisticsRecordArgs,
+		newEducationserviceDeleteWorkloadStatisticsRecordResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"UpdateWorkloadStatisticsRecord": kitex.NewMethodInfo(
+		updateWorkloadStatisticsRecordHandler,
+		newEducationserviceUpdateWorkloadStatisticsRecordArgs,
+		newEducationserviceUpdateWorkloadStatisticsRecordResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"CalculateTheoreticalCourseWorkload": kitex.NewMethodInfo(
+		calculateTheoreticalCourseWorkloadHandler,
+		newEducationserviceCalculateTheoreticalCourseWorkloadArgs,
+		newEducationserviceCalculateTheoreticalCourseWorkloadResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"CalculateTrainingCourseWorkload": kitex.NewMethodInfo(
+		calculateTrainingCourseWorkloadHandler,
+		newEducationserviceCalculateTrainingCourseWorkloadArgs,
+		newEducationserviceCalculateTrainingCourseWorkloadResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"CalculateInternshipWorkload": kitex.NewMethodInfo(
+		calculateInternshipWorkloadHandler,
+		newEducationserviceCalculateInternshipWorkloadArgs,
+		newEducationserviceCalculateInternshipWorkloadResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"CalculateBeginExamWorkload": kitex.NewMethodInfo(
+		calculateBeginExamWorkloadHandler,
+		newEducationserviceCalculateBeginExamWorkloadArgs,
+		newEducationserviceCalculateBeginExamWorkloadResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetWorkloadStatisticsList": kitex.NewMethodInfo(
+		getWorkloadStatisticsListHandler,
+		newEducationserviceGetWorkloadStatisticsListArgs,
+		newEducationserviceGetWorkloadStatisticsListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"DeleteWorkloadStatistics": kitex.NewMethodInfo(
+		deleteWorkloadStatisticsHandler,
+		newEducationserviceDeleteWorkloadStatisticsArgs,
+		newEducationserviceDeleteWorkloadStatisticsResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"ExportWorkloadStatistics": kitex.NewMethodInfo(
+		exportWorkloadStatisticsHandler,
+		newEducationserviceExportWorkloadStatisticsArgs,
+		newEducationserviceExportWorkloadStatisticsResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"UpdateTheoreticalCourseWorkload": kitex.NewMethodInfo(
+		updateTheoreticalCourseWorkloadHandler,
+		newEducationserviceUpdateTheoreticalCourseWorkloadArgs,
+		newEducationserviceUpdateTheoreticalCourseWorkloadResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"UpdateTrainingCourseWorkload": kitex.NewMethodInfo(
+		updateTrainingCourseWorkloadHandler,
+		newEducationserviceUpdateTrainingCourseWorkloadArgs,
+		newEducationserviceUpdateTrainingCourseWorkloadResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"UpdateInternshipWorkload": kitex.NewMethodInfo(
+		updateInternshipWorkloadHandler,
+		newEducationserviceUpdateInternshipWorkloadArgs,
+		newEducationserviceUpdateInternshipWorkloadResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"UpdateBeginExamWorkload": kitex.NewMethodInfo(
+		updateBeginExamWorkloadHandler,
+		newEducationserviceUpdateBeginExamWorkloadArgs,
+		newEducationserviceUpdateBeginExamWorkloadResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"ExportBeginExamWorkload": kitex.NewMethodInfo(
+		exportBeginExamWorkloadHandler,
+		newEducationserviceExportBeginExamWorkloadArgs,
+		newEducationserviceExportBeginExamWorkloadResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"CreateWorkloadStatistics": kitex.NewMethodInfo(
+		createWorkloadStatisticsHandler,
+		newEducationserviceCreateWorkloadStatisticsArgs,
+		newEducationserviceCreateWorkloadStatisticsResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -2629,6 +2741,294 @@ func newEducationserviceExportAllResponsibilityResult() interface{} {
 	return education.NewEducationserviceExportAllResponsibilityResult()
 }
 
+func getWorkloadStatisticsRecordListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceGetWorkloadStatisticsRecordListArgs)
+	realResult := result.(*education.EducationserviceGetWorkloadStatisticsRecordListResult)
+	success, err := handler.(education.Educationservice).GetWorkloadStatisticsRecordList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceGetWorkloadStatisticsRecordListArgs() interface{} {
+	return education.NewEducationserviceGetWorkloadStatisticsRecordListArgs()
+}
+
+func newEducationserviceGetWorkloadStatisticsRecordListResult() interface{} {
+	return education.NewEducationserviceGetWorkloadStatisticsRecordListResult()
+}
+
+func deleteWorkloadStatisticsRecordHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceDeleteWorkloadStatisticsRecordArgs)
+	realResult := result.(*education.EducationserviceDeleteWorkloadStatisticsRecordResult)
+	success, err := handler.(education.Educationservice).DeleteWorkloadStatisticsRecord(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceDeleteWorkloadStatisticsRecordArgs() interface{} {
+	return education.NewEducationserviceDeleteWorkloadStatisticsRecordArgs()
+}
+
+func newEducationserviceDeleteWorkloadStatisticsRecordResult() interface{} {
+	return education.NewEducationserviceDeleteWorkloadStatisticsRecordResult()
+}
+
+func updateWorkloadStatisticsRecordHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceUpdateWorkloadStatisticsRecordArgs)
+	realResult := result.(*education.EducationserviceUpdateWorkloadStatisticsRecordResult)
+	success, err := handler.(education.Educationservice).UpdateWorkloadStatisticsRecord(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceUpdateWorkloadStatisticsRecordArgs() interface{} {
+	return education.NewEducationserviceUpdateWorkloadStatisticsRecordArgs()
+}
+
+func newEducationserviceUpdateWorkloadStatisticsRecordResult() interface{} {
+	return education.NewEducationserviceUpdateWorkloadStatisticsRecordResult()
+}
+
+func calculateTheoreticalCourseWorkloadHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceCalculateTheoreticalCourseWorkloadArgs)
+	realResult := result.(*education.EducationserviceCalculateTheoreticalCourseWorkloadResult)
+	success, err := handler.(education.Educationservice).CalculateTheoreticalCourseWorkload(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceCalculateTheoreticalCourseWorkloadArgs() interface{} {
+	return education.NewEducationserviceCalculateTheoreticalCourseWorkloadArgs()
+}
+
+func newEducationserviceCalculateTheoreticalCourseWorkloadResult() interface{} {
+	return education.NewEducationserviceCalculateTheoreticalCourseWorkloadResult()
+}
+
+func calculateTrainingCourseWorkloadHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceCalculateTrainingCourseWorkloadArgs)
+	realResult := result.(*education.EducationserviceCalculateTrainingCourseWorkloadResult)
+	success, err := handler.(education.Educationservice).CalculateTrainingCourseWorkload(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceCalculateTrainingCourseWorkloadArgs() interface{} {
+	return education.NewEducationserviceCalculateTrainingCourseWorkloadArgs()
+}
+
+func newEducationserviceCalculateTrainingCourseWorkloadResult() interface{} {
+	return education.NewEducationserviceCalculateTrainingCourseWorkloadResult()
+}
+
+func calculateInternshipWorkloadHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceCalculateInternshipWorkloadArgs)
+	realResult := result.(*education.EducationserviceCalculateInternshipWorkloadResult)
+	success, err := handler.(education.Educationservice).CalculateInternshipWorkload(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceCalculateInternshipWorkloadArgs() interface{} {
+	return education.NewEducationserviceCalculateInternshipWorkloadArgs()
+}
+
+func newEducationserviceCalculateInternshipWorkloadResult() interface{} {
+	return education.NewEducationserviceCalculateInternshipWorkloadResult()
+}
+
+func calculateBeginExamWorkloadHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceCalculateBeginExamWorkloadArgs)
+	realResult := result.(*education.EducationserviceCalculateBeginExamWorkloadResult)
+	success, err := handler.(education.Educationservice).CalculateBeginExamWorkload(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceCalculateBeginExamWorkloadArgs() interface{} {
+	return education.NewEducationserviceCalculateBeginExamWorkloadArgs()
+}
+
+func newEducationserviceCalculateBeginExamWorkloadResult() interface{} {
+	return education.NewEducationserviceCalculateBeginExamWorkloadResult()
+}
+
+func getWorkloadStatisticsListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceGetWorkloadStatisticsListArgs)
+	realResult := result.(*education.EducationserviceGetWorkloadStatisticsListResult)
+	success, err := handler.(education.Educationservice).GetWorkloadStatisticsList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceGetWorkloadStatisticsListArgs() interface{} {
+	return education.NewEducationserviceGetWorkloadStatisticsListArgs()
+}
+
+func newEducationserviceGetWorkloadStatisticsListResult() interface{} {
+	return education.NewEducationserviceGetWorkloadStatisticsListResult()
+}
+
+func deleteWorkloadStatisticsHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceDeleteWorkloadStatisticsArgs)
+	realResult := result.(*education.EducationserviceDeleteWorkloadStatisticsResult)
+	success, err := handler.(education.Educationservice).DeleteWorkloadStatistics(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceDeleteWorkloadStatisticsArgs() interface{} {
+	return education.NewEducationserviceDeleteWorkloadStatisticsArgs()
+}
+
+func newEducationserviceDeleteWorkloadStatisticsResult() interface{} {
+	return education.NewEducationserviceDeleteWorkloadStatisticsResult()
+}
+
+func exportWorkloadStatisticsHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceExportWorkloadStatisticsArgs)
+	realResult := result.(*education.EducationserviceExportWorkloadStatisticsResult)
+	success, err := handler.(education.Educationservice).ExportWorkloadStatistics(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceExportWorkloadStatisticsArgs() interface{} {
+	return education.NewEducationserviceExportWorkloadStatisticsArgs()
+}
+
+func newEducationserviceExportWorkloadStatisticsResult() interface{} {
+	return education.NewEducationserviceExportWorkloadStatisticsResult()
+}
+
+func updateTheoreticalCourseWorkloadHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceUpdateTheoreticalCourseWorkloadArgs)
+	realResult := result.(*education.EducationserviceUpdateTheoreticalCourseWorkloadResult)
+	success, err := handler.(education.Educationservice).UpdateTheoreticalCourseWorkload(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceUpdateTheoreticalCourseWorkloadArgs() interface{} {
+	return education.NewEducationserviceUpdateTheoreticalCourseWorkloadArgs()
+}
+
+func newEducationserviceUpdateTheoreticalCourseWorkloadResult() interface{} {
+	return education.NewEducationserviceUpdateTheoreticalCourseWorkloadResult()
+}
+
+func updateTrainingCourseWorkloadHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceUpdateTrainingCourseWorkloadArgs)
+	realResult := result.(*education.EducationserviceUpdateTrainingCourseWorkloadResult)
+	success, err := handler.(education.Educationservice).UpdateTrainingCourseWorkload(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceUpdateTrainingCourseWorkloadArgs() interface{} {
+	return education.NewEducationserviceUpdateTrainingCourseWorkloadArgs()
+}
+
+func newEducationserviceUpdateTrainingCourseWorkloadResult() interface{} {
+	return education.NewEducationserviceUpdateTrainingCourseWorkloadResult()
+}
+
+func updateInternshipWorkloadHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceUpdateInternshipWorkloadArgs)
+	realResult := result.(*education.EducationserviceUpdateInternshipWorkloadResult)
+	success, err := handler.(education.Educationservice).UpdateInternshipWorkload(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceUpdateInternshipWorkloadArgs() interface{} {
+	return education.NewEducationserviceUpdateInternshipWorkloadArgs()
+}
+
+func newEducationserviceUpdateInternshipWorkloadResult() interface{} {
+	return education.NewEducationserviceUpdateInternshipWorkloadResult()
+}
+
+func updateBeginExamWorkloadHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceUpdateBeginExamWorkloadArgs)
+	realResult := result.(*education.EducationserviceUpdateBeginExamWorkloadResult)
+	success, err := handler.(education.Educationservice).UpdateBeginExamWorkload(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceUpdateBeginExamWorkloadArgs() interface{} {
+	return education.NewEducationserviceUpdateBeginExamWorkloadArgs()
+}
+
+func newEducationserviceUpdateBeginExamWorkloadResult() interface{} {
+	return education.NewEducationserviceUpdateBeginExamWorkloadResult()
+}
+
+func exportBeginExamWorkloadHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceExportBeginExamWorkloadArgs)
+	realResult := result.(*education.EducationserviceExportBeginExamWorkloadResult)
+	success, err := handler.(education.Educationservice).ExportBeginExamWorkload(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceExportBeginExamWorkloadArgs() interface{} {
+	return education.NewEducationserviceExportBeginExamWorkloadArgs()
+}
+
+func newEducationserviceExportBeginExamWorkloadResult() interface{} {
+	return education.NewEducationserviceExportBeginExamWorkloadResult()
+}
+
+func createWorkloadStatisticsHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceCreateWorkloadStatisticsArgs)
+	realResult := result.(*education.EducationserviceCreateWorkloadStatisticsResult)
+	success, err := handler.(education.Educationservice).CreateWorkloadStatistics(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceCreateWorkloadStatisticsArgs() interface{} {
+	return education.NewEducationserviceCreateWorkloadStatisticsArgs()
+}
+
+func newEducationserviceCreateWorkloadStatisticsResult() interface{} {
+	return education.NewEducationserviceCreateWorkloadStatisticsResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -3654,6 +4054,166 @@ func (p *kClient) ExportAllResponsibility(ctx context.Context, req *education.Ex
 	_args.Req = req
 	var _result education.EducationserviceExportAllResponsibilityResult
 	if err = p.c.Call(ctx, "ExportAllResponsibility", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetWorkloadStatisticsRecordList(ctx context.Context, req *education.GetWorkloadStatisticsRecordListReq) (r *education.GetWorkloadStatisticsRecordListResp, err error) {
+	var _args education.EducationserviceGetWorkloadStatisticsRecordListArgs
+	_args.Req = req
+	var _result education.EducationserviceGetWorkloadStatisticsRecordListResult
+	if err = p.c.Call(ctx, "GetWorkloadStatisticsRecordList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) DeleteWorkloadStatisticsRecord(ctx context.Context, req *education.DeleteWorkloadStatisticsRecordReq) (r *education.DeleteWorkloadStatisticsRecordResp, err error) {
+	var _args education.EducationserviceDeleteWorkloadStatisticsRecordArgs
+	_args.Req = req
+	var _result education.EducationserviceDeleteWorkloadStatisticsRecordResult
+	if err = p.c.Call(ctx, "DeleteWorkloadStatisticsRecord", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) UpdateWorkloadStatisticsRecord(ctx context.Context, req *education.UpdateWorkloadStatisticsRecordReq) (r *education.UpdateWorkloadStatisticsRecordResp, err error) {
+	var _args education.EducationserviceUpdateWorkloadStatisticsRecordArgs
+	_args.Req = req
+	var _result education.EducationserviceUpdateWorkloadStatisticsRecordResult
+	if err = p.c.Call(ctx, "UpdateWorkloadStatisticsRecord", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) CalculateTheoreticalCourseWorkload(ctx context.Context, req *education.CalculateTheoreticalCourseWorkloadReq) (r *education.CalculateTheoreticalCourseWorkloadResp, err error) {
+	var _args education.EducationserviceCalculateTheoreticalCourseWorkloadArgs
+	_args.Req = req
+	var _result education.EducationserviceCalculateTheoreticalCourseWorkloadResult
+	if err = p.c.Call(ctx, "CalculateTheoreticalCourseWorkload", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) CalculateTrainingCourseWorkload(ctx context.Context, req *education.CalculateTrainingCourseWorkloadReq) (r *education.CalculateTrainingCourseWorkloadResp, err error) {
+	var _args education.EducationserviceCalculateTrainingCourseWorkloadArgs
+	_args.Req = req
+	var _result education.EducationserviceCalculateTrainingCourseWorkloadResult
+	if err = p.c.Call(ctx, "CalculateTrainingCourseWorkload", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) CalculateInternshipWorkload(ctx context.Context, req *education.CalculateInternshipWorkloadReq) (r *education.CalculateInternshipWorkloadResp, err error) {
+	var _args education.EducationserviceCalculateInternshipWorkloadArgs
+	_args.Req = req
+	var _result education.EducationserviceCalculateInternshipWorkloadResult
+	if err = p.c.Call(ctx, "CalculateInternshipWorkload", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) CalculateBeginExamWorkload(ctx context.Context, req *education.CalculateBeginExamWorkloadReq) (r *education.CalculateBeginExamWorkloadResp, err error) {
+	var _args education.EducationserviceCalculateBeginExamWorkloadArgs
+	_args.Req = req
+	var _result education.EducationserviceCalculateBeginExamWorkloadResult
+	if err = p.c.Call(ctx, "CalculateBeginExamWorkload", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetWorkloadStatisticsList(ctx context.Context, req *education.GetWorkloadStatisticsListReq) (r *education.GetWorkloadStatisticsListResp, err error) {
+	var _args education.EducationserviceGetWorkloadStatisticsListArgs
+	_args.Req = req
+	var _result education.EducationserviceGetWorkloadStatisticsListResult
+	if err = p.c.Call(ctx, "GetWorkloadStatisticsList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) DeleteWorkloadStatistics(ctx context.Context, req *education.DeleteWorkloadStatisticsReq) (r *education.DeleteWorkloadStatisticsResp, err error) {
+	var _args education.EducationserviceDeleteWorkloadStatisticsArgs
+	_args.Req = req
+	var _result education.EducationserviceDeleteWorkloadStatisticsResult
+	if err = p.c.Call(ctx, "DeleteWorkloadStatistics", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ExportWorkloadStatistics(ctx context.Context, req *education.ExportWorkloadStatisticsReq) (r *education.ExportWorkloadStatisticsResp, err error) {
+	var _args education.EducationserviceExportWorkloadStatisticsArgs
+	_args.Req = req
+	var _result education.EducationserviceExportWorkloadStatisticsResult
+	if err = p.c.Call(ctx, "ExportWorkloadStatistics", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) UpdateTheoreticalCourseWorkload(ctx context.Context, req *education.UpdateTheoreticalCourseWorkloadReq) (r *education.UpdateTheoreticalCourseWorkloadResp, err error) {
+	var _args education.EducationserviceUpdateTheoreticalCourseWorkloadArgs
+	_args.Req = req
+	var _result education.EducationserviceUpdateTheoreticalCourseWorkloadResult
+	if err = p.c.Call(ctx, "UpdateTheoreticalCourseWorkload", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) UpdateTrainingCourseWorkload(ctx context.Context, req *education.UpdateTrainingCourseWorkloadReq) (r *education.UpdateTrainingCourseWorkloadResp, err error) {
+	var _args education.EducationserviceUpdateTrainingCourseWorkloadArgs
+	_args.Req = req
+	var _result education.EducationserviceUpdateTrainingCourseWorkloadResult
+	if err = p.c.Call(ctx, "UpdateTrainingCourseWorkload", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) UpdateInternshipWorkload(ctx context.Context, req *education.UpdateInternshipWorkloadReq) (r *education.UpdateInternshipWorkloadResp, err error) {
+	var _args education.EducationserviceUpdateInternshipWorkloadArgs
+	_args.Req = req
+	var _result education.EducationserviceUpdateInternshipWorkloadResult
+	if err = p.c.Call(ctx, "UpdateInternshipWorkload", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) UpdateBeginExamWorkload(ctx context.Context, req *education.UpdateBeginExamWorkloadReq) (r *education.UpdateBeginExamWorkloadResp, err error) {
+	var _args education.EducationserviceUpdateBeginExamWorkloadArgs
+	_args.Req = req
+	var _result education.EducationserviceUpdateBeginExamWorkloadResult
+	if err = p.c.Call(ctx, "UpdateBeginExamWorkload", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ExportBeginExamWorkload(ctx context.Context, req *education.ExportBeginExamWorkloadReq) (r *education.ExportBeginExamWorkloadResp, err error) {
+	var _args education.EducationserviceExportBeginExamWorkloadArgs
+	_args.Req = req
+	var _result education.EducationserviceExportBeginExamWorkloadResult
+	if err = p.c.Call(ctx, "ExportBeginExamWorkload", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) CreateWorkloadStatistics(ctx context.Context, req *education.CreateWorkloadStatisticsReq) (r *education.CreateWorkloadStatisticsResp, err error) {
+	var _args education.EducationserviceCreateWorkloadStatisticsArgs
+	_args.Req = req
+	var _result education.EducationserviceCreateWorkloadStatisticsResult
+	if err = p.c.Call(ctx, "CreateWorkloadStatistics", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

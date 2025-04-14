@@ -113,6 +113,22 @@ type Client interface {
 	UpdatePassword(ctx context.Context, req *education.UpdatePasswordReq, callOptions ...callopt.Option) (r *education.UpdatePasswordResp, err error)
 	GetUserSign(ctx context.Context, req *education.GetUserSignReq, callOptions ...callopt.Option) (r *education.GetUserSignResp, err error)
 	ExportAllResponsibility(ctx context.Context, req *education.ExportAllResponsibilityReq, callOptions ...callopt.Option) (r *education.ExportAllResponsibilityResp, err error)
+	GetWorkloadStatisticsRecordList(ctx context.Context, req *education.GetWorkloadStatisticsRecordListReq, callOptions ...callopt.Option) (r *education.GetWorkloadStatisticsRecordListResp, err error)
+	DeleteWorkloadStatisticsRecord(ctx context.Context, req *education.DeleteWorkloadStatisticsRecordReq, callOptions ...callopt.Option) (r *education.DeleteWorkloadStatisticsRecordResp, err error)
+	UpdateWorkloadStatisticsRecord(ctx context.Context, req *education.UpdateWorkloadStatisticsRecordReq, callOptions ...callopt.Option) (r *education.UpdateWorkloadStatisticsRecordResp, err error)
+	CalculateTheoreticalCourseWorkload(ctx context.Context, req *education.CalculateTheoreticalCourseWorkloadReq, callOptions ...callopt.Option) (r *education.CalculateTheoreticalCourseWorkloadResp, err error)
+	CalculateTrainingCourseWorkload(ctx context.Context, req *education.CalculateTrainingCourseWorkloadReq, callOptions ...callopt.Option) (r *education.CalculateTrainingCourseWorkloadResp, err error)
+	CalculateInternshipWorkload(ctx context.Context, req *education.CalculateInternshipWorkloadReq, callOptions ...callopt.Option) (r *education.CalculateInternshipWorkloadResp, err error)
+	CalculateBeginExamWorkload(ctx context.Context, req *education.CalculateBeginExamWorkloadReq, callOptions ...callopt.Option) (r *education.CalculateBeginExamWorkloadResp, err error)
+	GetWorkloadStatisticsList(ctx context.Context, req *education.GetWorkloadStatisticsListReq, callOptions ...callopt.Option) (r *education.GetWorkloadStatisticsListResp, err error)
+	DeleteWorkloadStatistics(ctx context.Context, req *education.DeleteWorkloadStatisticsReq, callOptions ...callopt.Option) (r *education.DeleteWorkloadStatisticsResp, err error)
+	ExportWorkloadStatistics(ctx context.Context, req *education.ExportWorkloadStatisticsReq, callOptions ...callopt.Option) (r *education.ExportWorkloadStatisticsResp, err error)
+	UpdateTheoreticalCourseWorkload(ctx context.Context, req *education.UpdateTheoreticalCourseWorkloadReq, callOptions ...callopt.Option) (r *education.UpdateTheoreticalCourseWorkloadResp, err error)
+	UpdateTrainingCourseWorkload(ctx context.Context, req *education.UpdateTrainingCourseWorkloadReq, callOptions ...callopt.Option) (r *education.UpdateTrainingCourseWorkloadResp, err error)
+	UpdateInternshipWorkload(ctx context.Context, req *education.UpdateInternshipWorkloadReq, callOptions ...callopt.Option) (r *education.UpdateInternshipWorkloadResp, err error)
+	UpdateBeginExamWorkload(ctx context.Context, req *education.UpdateBeginExamWorkloadReq, callOptions ...callopt.Option) (r *education.UpdateBeginExamWorkloadResp, err error)
+	ExportBeginExamWorkload(ctx context.Context, req *education.ExportBeginExamWorkloadReq, callOptions ...callopt.Option) (r *education.ExportBeginExamWorkloadResp, err error)
+	CreateWorkloadStatistics(ctx context.Context, req *education.CreateWorkloadStatisticsReq, callOptions ...callopt.Option) (r *education.CreateWorkloadStatisticsResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -652,4 +668,84 @@ func (p *kEducationserviceClient) GetUserSign(ctx context.Context, req *educatio
 func (p *kEducationserviceClient) ExportAllResponsibility(ctx context.Context, req *education.ExportAllResponsibilityReq, callOptions ...callopt.Option) (r *education.ExportAllResponsibilityResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.ExportAllResponsibility(ctx, req)
+}
+
+func (p *kEducationserviceClient) GetWorkloadStatisticsRecordList(ctx context.Context, req *education.GetWorkloadStatisticsRecordListReq, callOptions ...callopt.Option) (r *education.GetWorkloadStatisticsRecordListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetWorkloadStatisticsRecordList(ctx, req)
+}
+
+func (p *kEducationserviceClient) DeleteWorkloadStatisticsRecord(ctx context.Context, req *education.DeleteWorkloadStatisticsRecordReq, callOptions ...callopt.Option) (r *education.DeleteWorkloadStatisticsRecordResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.DeleteWorkloadStatisticsRecord(ctx, req)
+}
+
+func (p *kEducationserviceClient) UpdateWorkloadStatisticsRecord(ctx context.Context, req *education.UpdateWorkloadStatisticsRecordReq, callOptions ...callopt.Option) (r *education.UpdateWorkloadStatisticsRecordResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.UpdateWorkloadStatisticsRecord(ctx, req)
+}
+
+func (p *kEducationserviceClient) CalculateTheoreticalCourseWorkload(ctx context.Context, req *education.CalculateTheoreticalCourseWorkloadReq, callOptions ...callopt.Option) (r *education.CalculateTheoreticalCourseWorkloadResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.CalculateTheoreticalCourseWorkload(ctx, req)
+}
+
+func (p *kEducationserviceClient) CalculateTrainingCourseWorkload(ctx context.Context, req *education.CalculateTrainingCourseWorkloadReq, callOptions ...callopt.Option) (r *education.CalculateTrainingCourseWorkloadResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.CalculateTrainingCourseWorkload(ctx, req)
+}
+
+func (p *kEducationserviceClient) CalculateInternshipWorkload(ctx context.Context, req *education.CalculateInternshipWorkloadReq, callOptions ...callopt.Option) (r *education.CalculateInternshipWorkloadResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.CalculateInternshipWorkload(ctx, req)
+}
+
+func (p *kEducationserviceClient) CalculateBeginExamWorkload(ctx context.Context, req *education.CalculateBeginExamWorkloadReq, callOptions ...callopt.Option) (r *education.CalculateBeginExamWorkloadResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.CalculateBeginExamWorkload(ctx, req)
+}
+
+func (p *kEducationserviceClient) GetWorkloadStatisticsList(ctx context.Context, req *education.GetWorkloadStatisticsListReq, callOptions ...callopt.Option) (r *education.GetWorkloadStatisticsListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetWorkloadStatisticsList(ctx, req)
+}
+
+func (p *kEducationserviceClient) DeleteWorkloadStatistics(ctx context.Context, req *education.DeleteWorkloadStatisticsReq, callOptions ...callopt.Option) (r *education.DeleteWorkloadStatisticsResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.DeleteWorkloadStatistics(ctx, req)
+}
+
+func (p *kEducationserviceClient) ExportWorkloadStatistics(ctx context.Context, req *education.ExportWorkloadStatisticsReq, callOptions ...callopt.Option) (r *education.ExportWorkloadStatisticsResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ExportWorkloadStatistics(ctx, req)
+}
+
+func (p *kEducationserviceClient) UpdateTheoreticalCourseWorkload(ctx context.Context, req *education.UpdateTheoreticalCourseWorkloadReq, callOptions ...callopt.Option) (r *education.UpdateTheoreticalCourseWorkloadResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.UpdateTheoreticalCourseWorkload(ctx, req)
+}
+
+func (p *kEducationserviceClient) UpdateTrainingCourseWorkload(ctx context.Context, req *education.UpdateTrainingCourseWorkloadReq, callOptions ...callopt.Option) (r *education.UpdateTrainingCourseWorkloadResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.UpdateTrainingCourseWorkload(ctx, req)
+}
+
+func (p *kEducationserviceClient) UpdateInternshipWorkload(ctx context.Context, req *education.UpdateInternshipWorkloadReq, callOptions ...callopt.Option) (r *education.UpdateInternshipWorkloadResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.UpdateInternshipWorkload(ctx, req)
+}
+
+func (p *kEducationserviceClient) UpdateBeginExamWorkload(ctx context.Context, req *education.UpdateBeginExamWorkloadReq, callOptions ...callopt.Option) (r *education.UpdateBeginExamWorkloadResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.UpdateBeginExamWorkload(ctx, req)
+}
+
+func (p *kEducationserviceClient) ExportBeginExamWorkload(ctx context.Context, req *education.ExportBeginExamWorkloadReq, callOptions ...callopt.Option) (r *education.ExportBeginExamWorkloadResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ExportBeginExamWorkload(ctx, req)
+}
+
+func (p *kEducationserviceClient) CreateWorkloadStatistics(ctx context.Context, req *education.CreateWorkloadStatisticsReq, callOptions ...callopt.Option) (r *education.CreateWorkloadStatisticsResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.CreateWorkloadStatistics(ctx, req)
 }
