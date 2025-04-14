@@ -82,7 +82,7 @@ type GetWorkloadStatisticsListReqOption int64
 const (
 	GetWorkloadStatisticsListReqOption_academic_year GetWorkloadStatisticsListReqOption = 1
 	GetWorkloadStatisticsListReqOption_semester      GetWorkloadStatisticsListReqOption = 2
-	GetWorkloadStatisticsListReqOption_c_mounth      GetWorkloadStatisticsListReqOption = 3
+	GetWorkloadStatisticsListReqOption_c_month       GetWorkloadStatisticsListReqOption = 3
 	GetWorkloadStatisticsListReqOption_teacher_id    GetWorkloadStatisticsListReqOption = 4
 	GetWorkloadStatisticsListReqOption_teacher_name  GetWorkloadStatisticsListReqOption = 5
 	GetWorkloadStatisticsListReqOption_category      GetWorkloadStatisticsListReqOption = 6
@@ -96,8 +96,8 @@ func (p GetWorkloadStatisticsListReqOption) String() string {
 		return "academic_year"
 	case GetWorkloadStatisticsListReqOption_semester:
 		return "semester"
-	case GetWorkloadStatisticsListReqOption_c_mounth:
-		return "c_mounth"
+	case GetWorkloadStatisticsListReqOption_c_month:
+		return "c_month"
 	case GetWorkloadStatisticsListReqOption_teacher_id:
 		return "teacher_id"
 	case GetWorkloadStatisticsListReqOption_teacher_name:
@@ -118,8 +118,8 @@ func GetWorkloadStatisticsListReqOptionFromString(s string) (GetWorkloadStatisti
 		return GetWorkloadStatisticsListReqOption_academic_year, nil
 	case "semester":
 		return GetWorkloadStatisticsListReqOption_semester, nil
-	case "c_mounth":
-		return GetWorkloadStatisticsListReqOption_c_mounth, nil
+	case "c_month":
+		return GetWorkloadStatisticsListReqOption_c_month, nil
 	case "teacher_id":
 		return GetWorkloadStatisticsListReqOption_teacher_id, nil
 	case "teacher_name":
@@ -158,7 +158,7 @@ const (
 	GetWorkloadStatisticsRecordListReqOption_user_name     GetWorkloadStatisticsRecordListReqOption = 2
 	GetWorkloadStatisticsRecordListReqOption_academic_year GetWorkloadStatisticsRecordListReqOption = 3
 	GetWorkloadStatisticsRecordListReqOption_semester      GetWorkloadStatisticsRecordListReqOption = 4
-	GetWorkloadStatisticsRecordListReqOption_c_mounth      GetWorkloadStatisticsRecordListReqOption = 5
+	GetWorkloadStatisticsRecordListReqOption_c_month       GetWorkloadStatisticsRecordListReqOption = 5
 )
 
 func (p GetWorkloadStatisticsRecordListReqOption) String() string {
@@ -171,8 +171,8 @@ func (p GetWorkloadStatisticsRecordListReqOption) String() string {
 		return "academic_year"
 	case GetWorkloadStatisticsRecordListReqOption_semester:
 		return "semester"
-	case GetWorkloadStatisticsRecordListReqOption_c_mounth:
-		return "c_mounth"
+	case GetWorkloadStatisticsRecordListReqOption_c_month:
+		return "c_month"
 	}
 	return "<UNSET>"
 }
@@ -187,8 +187,8 @@ func GetWorkloadStatisticsRecordListReqOptionFromString(s string) (GetWorkloadSt
 		return GetWorkloadStatisticsRecordListReqOption_academic_year, nil
 	case "semester":
 		return GetWorkloadStatisticsRecordListReqOption_semester, nil
-	case "c_mounth":
-		return GetWorkloadStatisticsRecordListReqOption_c_mounth, nil
+	case "c_month":
+		return GetWorkloadStatisticsRecordListReqOption_c_month, nil
 	}
 	return GetWorkloadStatisticsRecordListReqOption(0), fmt.Errorf("not a valid GetWorkloadStatisticsRecordListReqOption string")
 }
@@ -9819,7 +9819,7 @@ type ExportWorkloadStatisticsReq struct {
 	RecordId     string `thrift:"record_id,1" frugal:"1,default,string" json:"record_id"`
 	AcademicYear string `thrift:"academic_year,2" frugal:"2,default,string" json:"academic_year"`
 	Semester     string `thrift:"semester,3" frugal:"3,default,string" json:"semester" `
-	CMounth      string `thrift:"c_mounth,4" frugal:"4,default,string" json:"c_mounth" `
+	CMonth       string `thrift:"c_month,4" frugal:"4,default,string" json:"c_month" `
 }
 
 func NewExportWorkloadStatisticsReq() *ExportWorkloadStatisticsReq {
@@ -9841,8 +9841,8 @@ func (p *ExportWorkloadStatisticsReq) GetSemester() (v string) {
 	return p.Semester
 }
 
-func (p *ExportWorkloadStatisticsReq) GetCMounth() (v string) {
-	return p.CMounth
+func (p *ExportWorkloadStatisticsReq) GetCMonth() (v string) {
+	return p.CMonth
 }
 func (p *ExportWorkloadStatisticsReq) SetRecordId(val string) {
 	p.RecordId = val
@@ -9853,15 +9853,15 @@ func (p *ExportWorkloadStatisticsReq) SetAcademicYear(val string) {
 func (p *ExportWorkloadStatisticsReq) SetSemester(val string) {
 	p.Semester = val
 }
-func (p *ExportWorkloadStatisticsReq) SetCMounth(val string) {
-	p.CMounth = val
+func (p *ExportWorkloadStatisticsReq) SetCMonth(val string) {
+	p.CMonth = val
 }
 
 var fieldIDToName_ExportWorkloadStatisticsReq = map[int16]string{
 	1: "record_id",
 	2: "academic_year",
 	3: "semester",
-	4: "c_mounth",
+	4: "c_month",
 }
 
 func (p *ExportWorkloadStatisticsReq) Read(iprot thrift.TProtocol) (err error) {
@@ -9985,7 +9985,7 @@ func (p *ExportWorkloadStatisticsReq) ReadField4(iprot thrift.TProtocol) error {
 	} else {
 		_field = v
 	}
-	p.CMounth = _field
+	p.CMonth = _field
 	return nil
 }
 
@@ -10081,10 +10081,10 @@ WriteFieldEndError:
 }
 
 func (p *ExportWorkloadStatisticsReq) writeField4(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("c_mounth", thrift.STRING, 4); err != nil {
+	if err = oprot.WriteFieldBegin("c_month", thrift.STRING, 4); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.CMounth); err != nil {
+	if err := oprot.WriteString(p.CMonth); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -10120,7 +10120,7 @@ func (p *ExportWorkloadStatisticsReq) DeepEqual(ano *ExportWorkloadStatisticsReq
 	if !p.Field3DeepEqual(ano.Semester) {
 		return false
 	}
-	if !p.Field4DeepEqual(ano.CMounth) {
+	if !p.Field4DeepEqual(ano.CMonth) {
 		return false
 	}
 	return true
@@ -10149,7 +10149,7 @@ func (p *ExportWorkloadStatisticsReq) Field3DeepEqual(src string) bool {
 }
 func (p *ExportWorkloadStatisticsReq) Field4DeepEqual(src string) bool {
 
-	if strings.Compare(p.CMounth, src) != 0 {
+	if strings.Compare(p.CMonth, src) != 0 {
 		return false
 	}
 	return true
@@ -11119,7 +11119,7 @@ func (p *GetWorkloadStatisticsListResp) Field3DeepEqual(src map[string]*ModelTea
 type CalculateBeginExamWorkloadReq struct {
 	AcademicYear string `thrift:"academic_year,1" frugal:"1,default,string" json:"academic_year" binding:"required"`
 	Semester     string `thrift:"semester,2" frugal:"2,default,string" json:"semester" binding:"required"`
-	CMounth      string `thrift:"c_mounth,3" frugal:"3,default,string" json:"c_mounth" binding:"required"`
+	CMonth       string `thrift:"c_month,3" frugal:"3,default,string" json:"c_month" binding:"required"`
 }
 
 func NewCalculateBeginExamWorkloadReq() *CalculateBeginExamWorkloadReq {
@@ -11137,8 +11137,8 @@ func (p *CalculateBeginExamWorkloadReq) GetSemester() (v string) {
 	return p.Semester
 }
 
-func (p *CalculateBeginExamWorkloadReq) GetCMounth() (v string) {
-	return p.CMounth
+func (p *CalculateBeginExamWorkloadReq) GetCMonth() (v string) {
+	return p.CMonth
 }
 func (p *CalculateBeginExamWorkloadReq) SetAcademicYear(val string) {
 	p.AcademicYear = val
@@ -11146,14 +11146,14 @@ func (p *CalculateBeginExamWorkloadReq) SetAcademicYear(val string) {
 func (p *CalculateBeginExamWorkloadReq) SetSemester(val string) {
 	p.Semester = val
 }
-func (p *CalculateBeginExamWorkloadReq) SetCMounth(val string) {
-	p.CMounth = val
+func (p *CalculateBeginExamWorkloadReq) SetCMonth(val string) {
+	p.CMonth = val
 }
 
 var fieldIDToName_CalculateBeginExamWorkloadReq = map[int16]string{
 	1: "academic_year",
 	2: "semester",
-	3: "c_mounth",
+	3: "c_month",
 }
 
 func (p *CalculateBeginExamWorkloadReq) Read(iprot thrift.TProtocol) (err error) {
@@ -11258,7 +11258,7 @@ func (p *CalculateBeginExamWorkloadReq) ReadField3(iprot thrift.TProtocol) error
 	} else {
 		_field = v
 	}
-	p.CMounth = _field
+	p.CMonth = _field
 	return nil
 }
 
@@ -11333,10 +11333,10 @@ WriteFieldEndError:
 }
 
 func (p *CalculateBeginExamWorkloadReq) writeField3(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("c_mounth", thrift.STRING, 3); err != nil {
+	if err = oprot.WriteFieldBegin("c_month", thrift.STRING, 3); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.CMounth); err != nil {
+	if err := oprot.WriteString(p.CMonth); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -11369,7 +11369,7 @@ func (p *CalculateBeginExamWorkloadReq) DeepEqual(ano *CalculateBeginExamWorkloa
 	if !p.Field2DeepEqual(ano.Semester) {
 		return false
 	}
-	if !p.Field3DeepEqual(ano.CMounth) {
+	if !p.Field3DeepEqual(ano.CMonth) {
 		return false
 	}
 	return true
@@ -11391,7 +11391,7 @@ func (p *CalculateBeginExamWorkloadReq) Field2DeepEqual(src string) bool {
 }
 func (p *CalculateBeginExamWorkloadReq) Field3DeepEqual(src string) bool {
 
-	if strings.Compare(p.CMounth, src) != 0 {
+	if strings.Compare(p.CMonth, src) != 0 {
 		return false
 	}
 	return true
@@ -11563,7 +11563,7 @@ func (p *CalculateBeginExamWorkloadResp) Field1DeepEqual(src string) bool {
 type CalculateInternshipWorkloadReq struct {
 	AcademicYear string `thrift:"academic_year,1" frugal:"1,default,string" json:"academic_year" binding:"required"`
 	Semester     string `thrift:"semester,2" frugal:"2,default,string" json:"semester" binding:"required"`
-	CMounth      string `thrift:"c_mounth,3" frugal:"3,default,string" json:"c_mounth" binding:"required"`
+	CMonth       string `thrift:"c_month,3" frugal:"3,default,string" json:"c_month" binding:"required"`
 }
 
 func NewCalculateInternshipWorkloadReq() *CalculateInternshipWorkloadReq {
@@ -11581,8 +11581,8 @@ func (p *CalculateInternshipWorkloadReq) GetSemester() (v string) {
 	return p.Semester
 }
 
-func (p *CalculateInternshipWorkloadReq) GetCMounth() (v string) {
-	return p.CMounth
+func (p *CalculateInternshipWorkloadReq) GetCMonth() (v string) {
+	return p.CMonth
 }
 func (p *CalculateInternshipWorkloadReq) SetAcademicYear(val string) {
 	p.AcademicYear = val
@@ -11590,14 +11590,14 @@ func (p *CalculateInternshipWorkloadReq) SetAcademicYear(val string) {
 func (p *CalculateInternshipWorkloadReq) SetSemester(val string) {
 	p.Semester = val
 }
-func (p *CalculateInternshipWorkloadReq) SetCMounth(val string) {
-	p.CMounth = val
+func (p *CalculateInternshipWorkloadReq) SetCMonth(val string) {
+	p.CMonth = val
 }
 
 var fieldIDToName_CalculateInternshipWorkloadReq = map[int16]string{
 	1: "academic_year",
 	2: "semester",
-	3: "c_mounth",
+	3: "c_month",
 }
 
 func (p *CalculateInternshipWorkloadReq) Read(iprot thrift.TProtocol) (err error) {
@@ -11702,7 +11702,7 @@ func (p *CalculateInternshipWorkloadReq) ReadField3(iprot thrift.TProtocol) erro
 	} else {
 		_field = v
 	}
-	p.CMounth = _field
+	p.CMonth = _field
 	return nil
 }
 
@@ -11777,10 +11777,10 @@ WriteFieldEndError:
 }
 
 func (p *CalculateInternshipWorkloadReq) writeField3(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("c_mounth", thrift.STRING, 3); err != nil {
+	if err = oprot.WriteFieldBegin("c_month", thrift.STRING, 3); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.CMounth); err != nil {
+	if err := oprot.WriteString(p.CMonth); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -11813,7 +11813,7 @@ func (p *CalculateInternshipWorkloadReq) DeepEqual(ano *CalculateInternshipWorkl
 	if !p.Field2DeepEqual(ano.Semester) {
 		return false
 	}
-	if !p.Field3DeepEqual(ano.CMounth) {
+	if !p.Field3DeepEqual(ano.CMonth) {
 		return false
 	}
 	return true
@@ -11835,7 +11835,7 @@ func (p *CalculateInternshipWorkloadReq) Field2DeepEqual(src string) bool {
 }
 func (p *CalculateInternshipWorkloadReq) Field3DeepEqual(src string) bool {
 
-	if strings.Compare(p.CMounth, src) != 0 {
+	if strings.Compare(p.CMonth, src) != 0 {
 		return false
 	}
 	return true
@@ -12007,7 +12007,7 @@ func (p *CalculateInternshipWorkloadResp) Field1DeepEqual(src string) bool {
 type CalculateTrainingCourseWorkloadReq struct {
 	AcademicYear string `thrift:"academic_year,1" frugal:"1,default,string" json:"academic_year" binding:"required"`
 	Semester     string `thrift:"semester,2" frugal:"2,default,string" json:"semester" binding:"required"`
-	CMounth      string `thrift:"c_mounth,3" frugal:"3,default,string" json:"c_mounth" binding:"required"`
+	CMonth       string `thrift:"c_month,3" frugal:"3,default,string" json:"c_month" binding:"required"`
 }
 
 func NewCalculateTrainingCourseWorkloadReq() *CalculateTrainingCourseWorkloadReq {
@@ -12025,8 +12025,8 @@ func (p *CalculateTrainingCourseWorkloadReq) GetSemester() (v string) {
 	return p.Semester
 }
 
-func (p *CalculateTrainingCourseWorkloadReq) GetCMounth() (v string) {
-	return p.CMounth
+func (p *CalculateTrainingCourseWorkloadReq) GetCMonth() (v string) {
+	return p.CMonth
 }
 func (p *CalculateTrainingCourseWorkloadReq) SetAcademicYear(val string) {
 	p.AcademicYear = val
@@ -12034,14 +12034,14 @@ func (p *CalculateTrainingCourseWorkloadReq) SetAcademicYear(val string) {
 func (p *CalculateTrainingCourseWorkloadReq) SetSemester(val string) {
 	p.Semester = val
 }
-func (p *CalculateTrainingCourseWorkloadReq) SetCMounth(val string) {
-	p.CMounth = val
+func (p *CalculateTrainingCourseWorkloadReq) SetCMonth(val string) {
+	p.CMonth = val
 }
 
 var fieldIDToName_CalculateTrainingCourseWorkloadReq = map[int16]string{
 	1: "academic_year",
 	2: "semester",
-	3: "c_mounth",
+	3: "c_month",
 }
 
 func (p *CalculateTrainingCourseWorkloadReq) Read(iprot thrift.TProtocol) (err error) {
@@ -12146,7 +12146,7 @@ func (p *CalculateTrainingCourseWorkloadReq) ReadField3(iprot thrift.TProtocol) 
 	} else {
 		_field = v
 	}
-	p.CMounth = _field
+	p.CMonth = _field
 	return nil
 }
 
@@ -12221,10 +12221,10 @@ WriteFieldEndError:
 }
 
 func (p *CalculateTrainingCourseWorkloadReq) writeField3(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("c_mounth", thrift.STRING, 3); err != nil {
+	if err = oprot.WriteFieldBegin("c_month", thrift.STRING, 3); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.CMounth); err != nil {
+	if err := oprot.WriteString(p.CMonth); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -12257,7 +12257,7 @@ func (p *CalculateTrainingCourseWorkloadReq) DeepEqual(ano *CalculateTrainingCou
 	if !p.Field2DeepEqual(ano.Semester) {
 		return false
 	}
-	if !p.Field3DeepEqual(ano.CMounth) {
+	if !p.Field3DeepEqual(ano.CMonth) {
 		return false
 	}
 	return true
@@ -12279,7 +12279,7 @@ func (p *CalculateTrainingCourseWorkloadReq) Field2DeepEqual(src string) bool {
 }
 func (p *CalculateTrainingCourseWorkloadReq) Field3DeepEqual(src string) bool {
 
-	if strings.Compare(p.CMounth, src) != 0 {
+	if strings.Compare(p.CMonth, src) != 0 {
 		return false
 	}
 	return true
@@ -12451,7 +12451,7 @@ func (p *CalculateTrainingCourseWorkloadResp) Field1DeepEqual(src string) bool {
 type CalculateTheoreticalCourseWorkloadReq struct {
 	AcademicYear string `thrift:"academic_year,1" frugal:"1,default,string" json:"academic_year" binding:"required"`
 	Semester     string `thrift:"semester,2" frugal:"2,default,string" json:"semester" binding:"required"`
-	CMounth      string `thrift:"c_mounth,3" frugal:"3,default,string" json:"c_mounth" binding:"required"`
+	CMonth       string `thrift:"c_month,3" frugal:"3,default,string" json:"c_month" binding:"required"`
 }
 
 func NewCalculateTheoreticalCourseWorkloadReq() *CalculateTheoreticalCourseWorkloadReq {
@@ -12469,8 +12469,8 @@ func (p *CalculateTheoreticalCourseWorkloadReq) GetSemester() (v string) {
 	return p.Semester
 }
 
-func (p *CalculateTheoreticalCourseWorkloadReq) GetCMounth() (v string) {
-	return p.CMounth
+func (p *CalculateTheoreticalCourseWorkloadReq) GetCMonth() (v string) {
+	return p.CMonth
 }
 func (p *CalculateTheoreticalCourseWorkloadReq) SetAcademicYear(val string) {
 	p.AcademicYear = val
@@ -12478,14 +12478,14 @@ func (p *CalculateTheoreticalCourseWorkloadReq) SetAcademicYear(val string) {
 func (p *CalculateTheoreticalCourseWorkloadReq) SetSemester(val string) {
 	p.Semester = val
 }
-func (p *CalculateTheoreticalCourseWorkloadReq) SetCMounth(val string) {
-	p.CMounth = val
+func (p *CalculateTheoreticalCourseWorkloadReq) SetCMonth(val string) {
+	p.CMonth = val
 }
 
 var fieldIDToName_CalculateTheoreticalCourseWorkloadReq = map[int16]string{
 	1: "academic_year",
 	2: "semester",
-	3: "c_mounth",
+	3: "c_month",
 }
 
 func (p *CalculateTheoreticalCourseWorkloadReq) Read(iprot thrift.TProtocol) (err error) {
@@ -12590,7 +12590,7 @@ func (p *CalculateTheoreticalCourseWorkloadReq) ReadField3(iprot thrift.TProtoco
 	} else {
 		_field = v
 	}
-	p.CMounth = _field
+	p.CMonth = _field
 	return nil
 }
 
@@ -12665,10 +12665,10 @@ WriteFieldEndError:
 }
 
 func (p *CalculateTheoreticalCourseWorkloadReq) writeField3(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("c_mounth", thrift.STRING, 3); err != nil {
+	if err = oprot.WriteFieldBegin("c_month", thrift.STRING, 3); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.CMounth); err != nil {
+	if err := oprot.WriteString(p.CMonth); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -12701,7 +12701,7 @@ func (p *CalculateTheoreticalCourseWorkloadReq) DeepEqual(ano *CalculateTheoreti
 	if !p.Field2DeepEqual(ano.Semester) {
 		return false
 	}
-	if !p.Field3DeepEqual(ano.CMounth) {
+	if !p.Field3DeepEqual(ano.CMonth) {
 		return false
 	}
 	return true
@@ -12723,7 +12723,7 @@ func (p *CalculateTheoreticalCourseWorkloadReq) Field2DeepEqual(src string) bool
 }
 func (p *CalculateTheoreticalCourseWorkloadReq) Field3DeepEqual(src string) bool {
 
-	if strings.Compare(p.CMounth, src) != 0 {
+	if strings.Compare(p.CMonth, src) != 0 {
 		return false
 	}
 	return true

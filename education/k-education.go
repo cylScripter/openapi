@@ -5643,7 +5643,7 @@ func (p *ExportWorkloadStatisticsReq) FastReadField4(buf []byte) (int, error) {
 		offset += l
 		_field = v
 	}
-	p.CMounth = _field
+	p.CMonth = _field
 	return offset, nil
 }
 
@@ -5700,7 +5700,7 @@ func (p *ExportWorkloadStatisticsReq) fastWriteField3(buf []byte, w thrift.Nocop
 func (p *ExportWorkloadStatisticsReq) fastWriteField4(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 4)
-	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.CMounth)
+	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.CMonth)
 	return offset
 }
 
@@ -5728,7 +5728,7 @@ func (p *ExportWorkloadStatisticsReq) field3Length() int {
 func (p *ExportWorkloadStatisticsReq) field4Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.StringLengthNocopy(p.CMounth)
+	l += thrift.Binary.StringLengthNocopy(p.CMonth)
 	return l
 }
 
@@ -6450,7 +6450,7 @@ func (p *CalculateBeginExamWorkloadReq) FastReadField3(buf []byte) (int, error) 
 		offset += l
 		_field = v
 	}
-	p.CMounth = _field
+	p.CMonth = _field
 	return offset, nil
 }
 
@@ -6498,7 +6498,7 @@ func (p *CalculateBeginExamWorkloadReq) fastWriteField2(buf []byte, w thrift.Noc
 func (p *CalculateBeginExamWorkloadReq) fastWriteField3(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 3)
-	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.CMounth)
+	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.CMonth)
 	return offset
 }
 
@@ -6519,7 +6519,7 @@ func (p *CalculateBeginExamWorkloadReq) field2Length() int {
 func (p *CalculateBeginExamWorkloadReq) field3Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.StringLengthNocopy(p.CMounth)
+	l += thrift.Binary.StringLengthNocopy(p.CMonth)
 	return l
 }
 
@@ -6736,7 +6736,7 @@ func (p *CalculateInternshipWorkloadReq) FastReadField3(buf []byte) (int, error)
 		offset += l
 		_field = v
 	}
-	p.CMounth = _field
+	p.CMonth = _field
 	return offset, nil
 }
 
@@ -6784,7 +6784,7 @@ func (p *CalculateInternshipWorkloadReq) fastWriteField2(buf []byte, w thrift.No
 func (p *CalculateInternshipWorkloadReq) fastWriteField3(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 3)
-	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.CMounth)
+	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.CMonth)
 	return offset
 }
 
@@ -6805,7 +6805,7 @@ func (p *CalculateInternshipWorkloadReq) field2Length() int {
 func (p *CalculateInternshipWorkloadReq) field3Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.StringLengthNocopy(p.CMounth)
+	l += thrift.Binary.StringLengthNocopy(p.CMonth)
 	return l
 }
 
@@ -7022,7 +7022,7 @@ func (p *CalculateTrainingCourseWorkloadReq) FastReadField3(buf []byte) (int, er
 		offset += l
 		_field = v
 	}
-	p.CMounth = _field
+	p.CMonth = _field
 	return offset, nil
 }
 
@@ -7070,7 +7070,7 @@ func (p *CalculateTrainingCourseWorkloadReq) fastWriteField2(buf []byte, w thrif
 func (p *CalculateTrainingCourseWorkloadReq) fastWriteField3(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 3)
-	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.CMounth)
+	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.CMonth)
 	return offset
 }
 
@@ -7091,7 +7091,7 @@ func (p *CalculateTrainingCourseWorkloadReq) field2Length() int {
 func (p *CalculateTrainingCourseWorkloadReq) field3Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.StringLengthNocopy(p.CMounth)
+	l += thrift.Binary.StringLengthNocopy(p.CMonth)
 	return l
 }
 
@@ -7308,7 +7308,7 @@ func (p *CalculateTheoreticalCourseWorkloadReq) FastReadField3(buf []byte) (int,
 		offset += l
 		_field = v
 	}
-	p.CMounth = _field
+	p.CMonth = _field
 	return offset, nil
 }
 
@@ -7356,7 +7356,7 @@ func (p *CalculateTheoreticalCourseWorkloadReq) fastWriteField2(buf []byte, w th
 func (p *CalculateTheoreticalCourseWorkloadReq) fastWriteField3(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 3)
-	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.CMounth)
+	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.CMonth)
 	return offset
 }
 
@@ -7377,7 +7377,7 @@ func (p *CalculateTheoreticalCourseWorkloadReq) field2Length() int {
 func (p *CalculateTheoreticalCourseWorkloadReq) field3Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.StringLengthNocopy(p.CMounth)
+	l += thrift.Binary.StringLengthNocopy(p.CMonth)
 	return l
 }
 
