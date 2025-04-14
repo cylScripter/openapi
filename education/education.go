@@ -42441,7 +42441,7 @@ func (p *ImportTeacherInfoResp) Field1DeepEqual(src string) bool {
 }
 
 type UpdateTeacherInfoReq struct {
-	Uid           int32  `thrift:"uid,1" frugal:"1,default,i32" json:"id" binding:"required"`
+	Uid           int32  `thrift:"uid,1" frugal:"1,default,i32" json:"uid" binding:"required"`
 	OfficeId      int32  `thrift:"office_id,2" frugal:"2,default,i32" json:"office_id" binding:"required"`
 	Duties        string `thrift:"duties,3" frugal:"3,default,string" json:"duties"`
 	AppointTime   string `thrift:"appoint_time,4" frugal:"4,default,string" json:"appoint_time"`
