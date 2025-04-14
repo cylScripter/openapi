@@ -89962,7 +89962,7 @@ type ModelWorkloadStatisticsRecord struct {
 	DeletedAt            int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at" json:"deleted_at"`
 	AcademicYear         string `thrift:"academic_year,5" frugal:"5,default,string" json:"academic_year" gorm:"column:academic_year"`
 	Semester             string `thrift:"semester,6" frugal:"6,default,string" json:"semester" gorm:"column:semester"`
-	UserName             string `thrift:"user_name,7" frugal:"7,default,string" json:"teacher_name" gorm:"column:teacher_name"`
+	UserName             string `thrift:"user_name,7" frugal:"7,default,string" json:"user_name" gorm:"column:user_name"`
 	CMonth               string `thrift:"c_month,8" frugal:"8,default,string" json:"c_month" gorm:"column:c_month"`
 	AppId                int32  `thrift:"app_id,9" frugal:"9,default,i32" json:"app_id" gorm:"column:app_id;index"`
 	Remark               string `thrift:"remark,10" frugal:"10,default,string" json:"remark" gorm:"column:remark"`
