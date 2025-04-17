@@ -2086,6 +2086,7 @@ const (
 	ModelWorkloadStatisticsCategory_TrainingCourse ModelWorkloadStatisticsCategory = 2
 	ModelWorkloadStatisticsCategory_Internship     ModelWorkloadStatisticsCategory = 3
 	ModelWorkloadStatisticsCategory_BeginExam      ModelWorkloadStatisticsCategory = 4
+	ModelWorkloadStatisticsCategory_Other          ModelWorkloadStatisticsCategory = 5
 )
 
 func (p ModelWorkloadStatisticsCategory) String() string {
@@ -2100,6 +2101,8 @@ func (p ModelWorkloadStatisticsCategory) String() string {
 		return "Internship"
 	case ModelWorkloadStatisticsCategory_BeginExam:
 		return "BeginExam"
+	case ModelWorkloadStatisticsCategory_Other:
+		return "Other"
 	}
 	return "<UNSET>"
 }
@@ -2116,6 +2119,8 @@ func ModelWorkloadStatisticsCategoryFromString(s string) (ModelWorkloadStatistic
 		return ModelWorkloadStatisticsCategory_Internship, nil
 	case "BeginExam":
 		return ModelWorkloadStatisticsCategory_BeginExam, nil
+	case "Other":
+		return ModelWorkloadStatisticsCategory_Other, nil
 	}
 	return ModelWorkloadStatisticsCategory(0), fmt.Errorf("not a valid ModelWorkloadStatisticsCategory string")
 }
@@ -87871,7 +87876,7 @@ type ModelWorkloadStatistics struct {
 	ReviewWeek          int32   `thrift:"review_week,23" frugal:"23,default,i32" json:"review_week" gorm:"column:review_week"`
 	GivingPaper         int32   `thrift:"giving_paper,24" frugal:"24,default,i32" json:"giving_paper" gorm:"column:giving_paper"`
 	GradingPaper        float64 `thrift:"grading_paper,25" frugal:"25,default,double" json:"grading_paper" gorm:"column:grading_paper"`
-	Other               string  `thrift:"other,26" frugal:"26,default,string" json:"other" gorm:"column:other"`
+	Other               float64 `thrift:"other,26" frugal:"26,default,double" json:"other" gorm:"column:other"`
 	Material1           string  `thrift:"material1,27" frugal:"27,default,string" json:"material1" gorm:"column:material1"`
 	Material2           string  `thrift:"material2,28" frugal:"28,default,string" json:"material2" gorm:"column:material2"`
 	DutiesSubsidy       int32   `thrift:"duties_subsidy,29" frugal:"29,default,i32" json:"duties_subsidy" gorm:"column:duties_subsidy"`
@@ -87992,7 +87997,7 @@ func (p *ModelWorkloadStatistics) GetGradingPaper() (v float64) {
 	return p.GradingPaper
 }
 
-func (p *ModelWorkloadStatistics) GetOther() (v string) {
+func (p *ModelWorkloadStatistics) GetOther() (v float64) {
 	return p.Other
 }
 
@@ -88114,7 +88119,7 @@ func (p *ModelWorkloadStatistics) SetGivingPaper(val int32) {
 func (p *ModelWorkloadStatistics) SetGradingPaper(val float64) {
 	p.GradingPaper = val
 }
-func (p *ModelWorkloadStatistics) SetOther(val string) {
+func (p *ModelWorkloadStatistics) SetOther(val float64) {
 	p.Other = val
 }
 func (p *ModelWorkloadStatistics) SetMaterial1(val string) {
@@ -88411,7 +88416,7 @@ func (p *ModelWorkloadStatistics) Read(iprot thrift.TProtocol) (err error) {
 				goto SkipFieldError
 			}
 		case 26:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.DOUBLE {
 				if err = p.ReadField26(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -88812,8 +88817,8 @@ func (p *ModelWorkloadStatistics) ReadField25(iprot thrift.TProtocol) error {
 }
 func (p *ModelWorkloadStatistics) ReadField26(iprot thrift.TProtocol) error {
 
-	var _field string
-	if v, err := iprot.ReadString(); err != nil {
+	var _field float64
+	if v, err := iprot.ReadDouble(); err != nil {
 		return err
 	} else {
 		_field = v
@@ -89541,10 +89546,10 @@ WriteFieldEndError:
 }
 
 func (p *ModelWorkloadStatistics) writeField26(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("other", thrift.STRING, 26); err != nil {
+	if err = oprot.WriteFieldBegin("other", thrift.DOUBLE, 26); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.Other); err != nil {
+	if err := oprot.WriteDouble(p.Other); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -90047,9 +90052,9 @@ func (p *ModelWorkloadStatistics) Field25DeepEqual(src float64) bool {
 	}
 	return true
 }
-func (p *ModelWorkloadStatistics) Field26DeepEqual(src string) bool {
+func (p *ModelWorkloadStatistics) Field26DeepEqual(src float64) bool {
 
-	if strings.Compare(p.Other, src) != 0 {
+	if p.Other != src {
 		return false
 	}
 	return true

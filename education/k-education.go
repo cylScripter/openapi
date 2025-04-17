@@ -58322,7 +58322,7 @@ func (p *ModelWorkloadStatistics) FastRead(buf []byte) (int, error) {
 				}
 			}
 		case 26:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.DOUBLE {
 				l, err = p.FastReadField26(buf[offset:])
 				offset += l
 				if err != nil {
@@ -58860,8 +58860,8 @@ func (p *ModelWorkloadStatistics) FastReadField25(buf []byte) (int, error) {
 func (p *ModelWorkloadStatistics) FastReadField26(buf []byte) (int, error) {
 	offset := 0
 
-	var _field string
-	if v, l, err := thrift.Binary.ReadString(buf[offset:]); err != nil {
+	var _field float64
+	if v, l, err := thrift.Binary.ReadDouble(buf[offset:]); err != nil {
 		return offset, err
 	} else {
 		offset += l
@@ -59049,6 +59049,7 @@ func (p *ModelWorkloadStatistics) FastWriteNocopy(buf []byte, w thrift.NocopyWri
 		offset += p.fastWriteField23(buf[offset:], w)
 		offset += p.fastWriteField24(buf[offset:], w)
 		offset += p.fastWriteField25(buf[offset:], w)
+		offset += p.fastWriteField26(buf[offset:], w)
 		offset += p.fastWriteField29(buf[offset:], w)
 		offset += p.fastWriteField30(buf[offset:], w)
 		offset += p.fastWriteField31(buf[offset:], w)
@@ -59066,7 +59067,6 @@ func (p *ModelWorkloadStatistics) FastWriteNocopy(buf []byte, w thrift.NocopyWri
 		offset += p.fastWriteField12(buf[offset:], w)
 		offset += p.fastWriteField13(buf[offset:], w)
 		offset += p.fastWriteField14(buf[offset:], w)
-		offset += p.fastWriteField26(buf[offset:], w)
 		offset += p.fastWriteField27(buf[offset:], w)
 		offset += p.fastWriteField28(buf[offset:], w)
 		offset += p.fastWriteField36(buf[offset:], w)
@@ -59297,8 +59297,8 @@ func (p *ModelWorkloadStatistics) fastWriteField25(buf []byte, w thrift.NocopyWr
 
 func (p *ModelWorkloadStatistics) fastWriteField26(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
-	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 26)
-	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.Other)
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.DOUBLE, 26)
+	offset += thrift.Binary.WriteDouble(buf[offset:], p.Other)
 	return offset
 }
 
@@ -59557,7 +59557,7 @@ func (p *ModelWorkloadStatistics) field25Length() int {
 func (p *ModelWorkloadStatistics) field26Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.StringLengthNocopy(p.Other)
+	l += thrift.Binary.DoubleLength()
 	return l
 }
 
