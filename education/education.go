@@ -9821,7 +9821,7 @@ func (p *UpdateTheoreticalCourseWorkloadResp) DeepEqual(ano *UpdateTheoreticalCo
 }
 
 type ExportWorkloadStatisticsReq struct {
-	RecordId     string `thrift:"record_id,1" frugal:"1,default,string" json:"record_id"`
+	RecordId     int32  `thrift:"record_id,1" frugal:"1,default,i32" json:"record_id"`
 	AcademicYear string `thrift:"academic_year,2" frugal:"2,default,string" json:"academic_year"`
 	Semester     string `thrift:"semester,3" frugal:"3,default,string" json:"semester" `
 	CMonth       string `thrift:"c_month,4" frugal:"4,default,string" json:"c_month" `
@@ -9834,7 +9834,7 @@ func NewExportWorkloadStatisticsReq() *ExportWorkloadStatisticsReq {
 func (p *ExportWorkloadStatisticsReq) InitDefault() {
 }
 
-func (p *ExportWorkloadStatisticsReq) GetRecordId() (v string) {
+func (p *ExportWorkloadStatisticsReq) GetRecordId() (v int32) {
 	return p.RecordId
 }
 
@@ -9849,7 +9849,7 @@ func (p *ExportWorkloadStatisticsReq) GetSemester() (v string) {
 func (p *ExportWorkloadStatisticsReq) GetCMonth() (v string) {
 	return p.CMonth
 }
-func (p *ExportWorkloadStatisticsReq) SetRecordId(val string) {
+func (p *ExportWorkloadStatisticsReq) SetRecordId(val int32) {
 	p.RecordId = val
 }
 func (p *ExportWorkloadStatisticsReq) SetAcademicYear(val string) {
@@ -9889,7 +9889,7 @@ func (p *ExportWorkloadStatisticsReq) Read(iprot thrift.TProtocol) (err error) {
 
 		switch fieldId {
 		case 1:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.I32 {
 				if err = p.ReadField1(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -9951,8 +9951,8 @@ ReadStructEndError:
 
 func (p *ExportWorkloadStatisticsReq) ReadField1(iprot thrift.TProtocol) error {
 
-	var _field string
-	if v, err := iprot.ReadString(); err != nil {
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
 		return err
 	} else {
 		_field = v
@@ -10035,10 +10035,10 @@ WriteStructEndError:
 }
 
 func (p *ExportWorkloadStatisticsReq) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("record_id", thrift.STRING, 1); err != nil {
+	if err = oprot.WriteFieldBegin("record_id", thrift.I32, 1); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.RecordId); err != nil {
+	if err := oprot.WriteI32(p.RecordId); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -10131,9 +10131,9 @@ func (p *ExportWorkloadStatisticsReq) DeepEqual(ano *ExportWorkloadStatisticsReq
 	return true
 }
 
-func (p *ExportWorkloadStatisticsReq) Field1DeepEqual(src string) bool {
+func (p *ExportWorkloadStatisticsReq) Field1DeepEqual(src int32) bool {
 
-	if strings.Compare(p.RecordId, src) != 0 {
+	if p.RecordId != src {
 		return false
 	}
 	return true

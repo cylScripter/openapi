@@ -5518,7 +5518,7 @@ func (p *ExportWorkloadStatisticsReq) FastRead(buf []byte) (int, error) {
 		}
 		switch fieldId {
 		case 1:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.I32 {
 				l, err = p.FastReadField1(buf[offset:])
 				offset += l
 				if err != nil {
@@ -5594,8 +5594,8 @@ SkipFieldError:
 func (p *ExportWorkloadStatisticsReq) FastReadField1(buf []byte) (int, error) {
 	offset := 0
 
-	var _field string
-	if v, l, err := thrift.Binary.ReadString(buf[offset:]); err != nil {
+	var _field int32
+	if v, l, err := thrift.Binary.ReadI32(buf[offset:]); err != nil {
 		return offset, err
 	} else {
 		offset += l
@@ -5678,8 +5678,8 @@ func (p *ExportWorkloadStatisticsReq) BLength() int {
 
 func (p *ExportWorkloadStatisticsReq) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
-	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 1)
-	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.RecordId)
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 1)
+	offset += thrift.Binary.WriteI32(buf[offset:], p.RecordId)
 	return offset
 }
 
@@ -5707,7 +5707,7 @@ func (p *ExportWorkloadStatisticsReq) fastWriteField4(buf []byte, w thrift.Nocop
 func (p *ExportWorkloadStatisticsReq) field1Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.StringLengthNocopy(p.RecordId)
+	l += thrift.Binary.I32Length()
 	return l
 }
 
