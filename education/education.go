@@ -2165,7 +2165,7 @@ type CreateWorkloadStatisticsReq struct {
 	ReviewWeek          int32   `thrift:"review_week,23" frugal:"23,default,i32" json:"review_week" `
 	GivingPaper         int32   `thrift:"giving_paper,24" frugal:"24,default,i32" json:"giving_paper"`
 	GradingPaper        float64 `thrift:"grading_paper,25" frugal:"25,default,double" json:"grading_paper" `
-	Other               string  `thrift:"other,26" frugal:"26,default,string" json:"other" `
+	Other               float64 `thrift:"other,26" frugal:"26,default,double" json:"other" `
 	Material1           string  `thrift:"material1,27" frugal:"27,default,string" json:"material1" `
 	Material2           string  `thrift:"material2,28" frugal:"28,default,string" json:"material2" `
 	DutiesSubsidy       int32   `thrift:"duties_subsidy,29" frugal:"29,default,i32" json:"duties_subsidy" `
@@ -2271,7 +2271,7 @@ func (p *CreateWorkloadStatisticsReq) GetGradingPaper() (v float64) {
 	return p.GradingPaper
 }
 
-func (p *CreateWorkloadStatisticsReq) GetOther() (v string) {
+func (p *CreateWorkloadStatisticsReq) GetOther() (v float64) {
 	return p.Other
 }
 
@@ -2372,7 +2372,7 @@ func (p *CreateWorkloadStatisticsReq) SetGivingPaper(val int32) {
 func (p *CreateWorkloadStatisticsReq) SetGradingPaper(val float64) {
 	p.GradingPaper = val
 }
-func (p *CreateWorkloadStatisticsReq) SetOther(val string) {
+func (p *CreateWorkloadStatisticsReq) SetOther(val float64) {
 	p.Other = val
 }
 func (p *CreateWorkloadStatisticsReq) SetMaterial1(val string) {
@@ -2630,7 +2630,7 @@ func (p *CreateWorkloadStatisticsReq) Read(iprot thrift.TProtocol) (err error) {
 				goto SkipFieldError
 			}
 		case 26:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.DOUBLE {
 				if err = p.ReadField26(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -2974,8 +2974,8 @@ func (p *CreateWorkloadStatisticsReq) ReadField25(iprot thrift.TProtocol) error 
 }
 func (p *CreateWorkloadStatisticsReq) ReadField26(iprot thrift.TProtocol) error {
 
-	var _field string
-	if v, err := iprot.ReadString(); err != nil {
+	var _field float64
+	if v, err := iprot.ReadDouble(); err != nil {
 		return err
 	} else {
 		_field = v
@@ -3595,10 +3595,10 @@ WriteFieldEndError:
 }
 
 func (p *CreateWorkloadStatisticsReq) writeField26(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("other", thrift.STRING, 26); err != nil {
+	if err = oprot.WriteFieldBegin("other", thrift.DOUBLE, 26); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.Other); err != nil {
+	if err := oprot.WriteDouble(p.Other); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -4011,9 +4011,9 @@ func (p *CreateWorkloadStatisticsReq) Field25DeepEqual(src float64) bool {
 	}
 	return true
 }
-func (p *CreateWorkloadStatisticsReq) Field26DeepEqual(src string) bool {
+func (p *CreateWorkloadStatisticsReq) Field26DeepEqual(src float64) bool {
 
-	if strings.Compare(p.Other, src) != 0 {
+	if p.Other != src {
 		return false
 	}
 	return true
