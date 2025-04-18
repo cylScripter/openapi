@@ -16,7 +16,7 @@ type Client interface {
 	GetRepositoryList(ctx context.Context, req *harbor.GetRepositoryListReq, callOptions ...callopt.Option) (r *harbor.GetRepositoryListResp, err error)
 	GetArtifactList(ctx context.Context, req *harbor.GetArtifactListReq, callOptions ...callopt.Option) (r *harbor.GetArtifactListResp, err error)
 	DeleteArtifact(ctx context.Context, req *harbor.DeleteArtifactReq, callOptions ...callopt.Option) (r *harbor.DeleteArtifactResp, err error)
-	GetModelHarborConfigList(ctx context.Context, req *harbor.GetHarborConfigListReq, callOptions ...callopt.Option) (r *harbor.GetHarborConfigListResp, err error)
+	GetHarborConfigList(ctx context.Context, req *harbor.GetHarborConfigListReq, callOptions ...callopt.Option) (r *harbor.GetHarborConfigListResp, err error)
 	DeleteHarborConfig(ctx context.Context, req *harbor.DeleteHarborConfigReq, callOptions ...callopt.Option) (r *harbor.DeleteHarborConfigResp, err error)
 	CreateHarborConfig(ctx context.Context, req *harbor.CreateHarborConfigReq, callOptions ...callopt.Option) (r *harbor.CreateHarborConfigResp, err error)
 	UpdateHarborConfig(ctx context.Context, req *harbor.UpdateHarborConfigReq, callOptions ...callopt.Option) (r *harbor.UpdateHarborConfigResp, err error)
@@ -76,9 +76,9 @@ func (p *kHarborserviceClient) DeleteArtifact(ctx context.Context, req *harbor.D
 	return p.kClient.DeleteArtifact(ctx, req)
 }
 
-func (p *kHarborserviceClient) GetModelHarborConfigList(ctx context.Context, req *harbor.GetHarborConfigListReq, callOptions ...callopt.Option) (r *harbor.GetHarborConfigListResp, err error) {
+func (p *kHarborserviceClient) GetHarborConfigList(ctx context.Context, req *harbor.GetHarborConfigListReq, callOptions ...callopt.Option) (r *harbor.GetHarborConfigListResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
-	return p.kClient.GetModelHarborConfigList(ctx, req)
+	return p.kClient.GetHarborConfigList(ctx, req)
 }
 
 func (p *kHarborserviceClient) DeleteHarborConfig(ctx context.Context, req *harbor.DeleteHarborConfigReq, callOptions ...callopt.Option) (r *harbor.DeleteHarborConfigResp, err error) {

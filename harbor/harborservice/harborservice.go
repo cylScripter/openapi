@@ -48,10 +48,10 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
-	"GetModelHarborConfigList": kitex.NewMethodInfo(
-		getModelHarborConfigListHandler,
-		newHarborserviceGetModelHarborConfigListArgs,
-		newHarborserviceGetModelHarborConfigListResult,
+	"GetHarborConfigList": kitex.NewMethodInfo(
+		getHarborConfigListHandler,
+		newHarborserviceGetHarborConfigListArgs,
+		newHarborserviceGetHarborConfigListResult,
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
@@ -232,22 +232,22 @@ func newHarborserviceDeleteArtifactResult() interface{} {
 	return harbor.NewHarborserviceDeleteArtifactResult()
 }
 
-func getModelHarborConfigListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
-	realArg := arg.(*harbor.HarborserviceGetModelHarborConfigListArgs)
-	realResult := result.(*harbor.HarborserviceGetModelHarborConfigListResult)
-	success, err := handler.(harbor.Harborservice).GetModelHarborConfigList(ctx, realArg.Req)
+func getHarborConfigListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*harbor.HarborserviceGetHarborConfigListArgs)
+	realResult := result.(*harbor.HarborserviceGetHarborConfigListResult)
+	success, err := handler.(harbor.Harborservice).GetHarborConfigList(ctx, realArg.Req)
 	if err != nil {
 		return err
 	}
 	realResult.Success = success
 	return nil
 }
-func newHarborserviceGetModelHarborConfigListArgs() interface{} {
-	return harbor.NewHarborserviceGetModelHarborConfigListArgs()
+func newHarborserviceGetHarborConfigListArgs() interface{} {
+	return harbor.NewHarborserviceGetHarborConfigListArgs()
 }
 
-func newHarborserviceGetModelHarborConfigListResult() interface{} {
-	return harbor.NewHarborserviceGetModelHarborConfigListResult()
+func newHarborserviceGetHarborConfigListResult() interface{} {
+	return harbor.NewHarborserviceGetHarborConfigListResult()
 }
 
 func deleteHarborConfigHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
@@ -364,11 +364,11 @@ func (p *kClient) DeleteArtifact(ctx context.Context, req *harbor.DeleteArtifact
 	return _result.GetSuccess(), nil
 }
 
-func (p *kClient) GetModelHarborConfigList(ctx context.Context, req *harbor.GetHarborConfigListReq) (r *harbor.GetHarborConfigListResp, err error) {
-	var _args harbor.HarborserviceGetModelHarborConfigListArgs
+func (p *kClient) GetHarborConfigList(ctx context.Context, req *harbor.GetHarborConfigListReq) (r *harbor.GetHarborConfigListResp, err error) {
+	var _args harbor.HarborserviceGetHarborConfigListArgs
 	_args.Req = req
-	var _result harbor.HarborserviceGetModelHarborConfigListResult
-	if err = p.c.Call(ctx, "GetModelHarborConfigList", &_args, &_result); err != nil {
+	var _result harbor.HarborserviceGetHarborConfigListResult
+	if err = p.c.Call(ctx, "GetHarborConfigList", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

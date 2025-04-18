@@ -31,9 +31,9 @@ func DeleteArtifact(ctx context.Context, req *harbor.DeleteArtifactReq, callOpti
 	return clients.DeleteArtifact(ctx, req)
 }
 
-func GetModelHarborConfigList(ctx context.Context, req *harbor.GetHarborConfigListReq, callOptions ...client.Option) (resp *harbor.GetHarborConfigListResp, err error) {
+func GetHarborConfigList(ctx context.Context, req *harbor.GetHarborConfigListReq, callOptions ...client.Option) (resp *harbor.GetHarborConfigListResp, err error) {
 	clients := MustNewClient("harbor", callOptions...)
-	return clients.GetModelHarborConfigList(ctx, req)
+	return clients.GetHarborConfigList(ctx, req)
 }
 
 func DeleteHarborConfig(ctx context.Context, req *harbor.DeleteHarborConfigReq, callOptions ...client.Option) (resp *harbor.DeleteHarborConfigResp, err error) {

@@ -969,6 +969,20 @@ func (p *GetHarborConfigListResp) FastRead(buf []byte) (int, error) {
 					goto SkipFieldError
 				}
 			}
+		case 2:
+			if fieldTypeId == thrift.STRUCT {
+				l, err = p.FastReadField2(buf[offset:])
+				offset += l
+				if err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
+				offset += l
+				if err != nil {
+					goto SkipFieldError
+				}
+			}
 		default:
 			l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
 			offset += l
@@ -1012,6 +1026,18 @@ func (p *GetHarborConfigListResp) FastReadField1(buf []byte) (int, error) {
 	return offset, nil
 }
 
+func (p *GetHarborConfigListResp) FastReadField2(buf []byte) (int, error) {
+	offset := 0
+	_field := base.NewPaginate()
+	if l, err := _field.FastRead(buf[offset:]); err != nil {
+		return offset, err
+	} else {
+		offset += l
+	}
+	p.Paginate = _field
+	return offset, nil
+}
+
 // for compatibility
 func (p *GetHarborConfigListResp) FastWrite(buf []byte) int {
 	return 0
@@ -1021,6 +1047,7 @@ func (p *GetHarborConfigListResp) FastWriteNocopy(buf []byte, w thrift.NocopyWri
 	offset := 0
 	if p != nil {
 		offset += p.fastWriteField1(buf[offset:], w)
+		offset += p.fastWriteField2(buf[offset:], w)
 	}
 	offset += thrift.Binary.WriteFieldStop(buf[offset:])
 	return offset
@@ -1030,6 +1057,7 @@ func (p *GetHarborConfigListResp) BLength() int {
 	l := 0
 	if p != nil {
 		l += p.field1Length()
+		l += p.field2Length()
 	}
 	l += thrift.Binary.FieldStopLength()
 	return l
@@ -1049,6 +1077,13 @@ func (p *GetHarborConfigListResp) fastWriteField1(buf []byte, w thrift.NocopyWri
 	return offset
 }
 
+func (p *GetHarborConfigListResp) fastWriteField2(buf []byte, w thrift.NocopyWriter) int {
+	offset := 0
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRUCT, 2)
+	offset += p.Paginate.FastWriteNocopy(buf[offset:], w)
+	return offset
+}
+
 func (p *GetHarborConfigListResp) field1Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
@@ -1057,6 +1092,13 @@ func (p *GetHarborConfigListResp) field1Length() int {
 		_ = v
 		l += v.BLength()
 	}
+	return l
+}
+
+func (p *GetHarborConfigListResp) field2Length() int {
+	l := 0
+	l += thrift.Binary.FieldBeginLength()
+	l += p.Paginate.BLength()
 	return l
 }
 
@@ -1734,20 +1776,6 @@ func (p *GetArtifactListResp) FastRead(buf []byte) (int, error) {
 					goto SkipFieldError
 				}
 			}
-		case 2:
-			if fieldTypeId == thrift.STRUCT {
-				l, err = p.FastReadField2(buf[offset:])
-				offset += l
-				if err != nil {
-					goto ReadFieldError
-				}
-			} else {
-				l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
-				offset += l
-				if err != nil {
-					goto SkipFieldError
-				}
-			}
 		default:
 			l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
 			offset += l
@@ -1791,18 +1819,6 @@ func (p *GetArtifactListResp) FastReadField1(buf []byte) (int, error) {
 	return offset, nil
 }
 
-func (p *GetArtifactListResp) FastReadField2(buf []byte) (int, error) {
-	offset := 0
-	_field := base.NewPaginate()
-	if l, err := _field.FastRead(buf[offset:]); err != nil {
-		return offset, err
-	} else {
-		offset += l
-	}
-	p.Paginate = _field
-	return offset, nil
-}
-
 // for compatibility
 func (p *GetArtifactListResp) FastWrite(buf []byte) int {
 	return 0
@@ -1812,7 +1828,6 @@ func (p *GetArtifactListResp) FastWriteNocopy(buf []byte, w thrift.NocopyWriter)
 	offset := 0
 	if p != nil {
 		offset += p.fastWriteField1(buf[offset:], w)
-		offset += p.fastWriteField2(buf[offset:], w)
 	}
 	offset += thrift.Binary.WriteFieldStop(buf[offset:])
 	return offset
@@ -1822,7 +1837,6 @@ func (p *GetArtifactListResp) BLength() int {
 	l := 0
 	if p != nil {
 		l += p.field1Length()
-		l += p.field2Length()
 	}
 	l += thrift.Binary.FieldStopLength()
 	return l
@@ -1842,13 +1856,6 @@ func (p *GetArtifactListResp) fastWriteField1(buf []byte, w thrift.NocopyWriter)
 	return offset
 }
 
-func (p *GetArtifactListResp) fastWriteField2(buf []byte, w thrift.NocopyWriter) int {
-	offset := 0
-	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRUCT, 2)
-	offset += p.Paginate.FastWriteNocopy(buf[offset:], w)
-	return offset
-}
-
 func (p *GetArtifactListResp) field1Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
@@ -1857,13 +1864,6 @@ func (p *GetArtifactListResp) field1Length() int {
 		_ = v
 		l += v.BLength()
 	}
-	return l
-}
-
-func (p *GetArtifactListResp) field2Length() int {
-	l := 0
-	l += thrift.Binary.FieldBeginLength()
-	l += p.Paginate.BLength()
 	return l
 }
 
@@ -5607,7 +5607,7 @@ func (p *HarborserviceDeleteArtifactResult) field0Length() int {
 	return l
 }
 
-func (p *HarborserviceGetModelHarborConfigListArgs) FastRead(buf []byte) (int, error) {
+func (p *HarborserviceGetHarborConfigListArgs) FastRead(buf []byte) (int, error) {
 	var err error
 	var offset int
 	var l int
@@ -5650,12 +5650,12 @@ func (p *HarborserviceGetModelHarborConfigListArgs) FastRead(buf []byte) (int, e
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_HarborserviceGetModelHarborConfigListArgs[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_HarborserviceGetHarborConfigListArgs[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 }
 
-func (p *HarborserviceGetModelHarborConfigListArgs) FastReadField1(buf []byte) (int, error) {
+func (p *HarborserviceGetHarborConfigListArgs) FastReadField1(buf []byte) (int, error) {
 	offset := 0
 	_field := NewGetHarborConfigListReq()
 	if l, err := _field.FastRead(buf[offset:]); err != nil {
@@ -5668,11 +5668,11 @@ func (p *HarborserviceGetModelHarborConfigListArgs) FastReadField1(buf []byte) (
 }
 
 // for compatibility
-func (p *HarborserviceGetModelHarborConfigListArgs) FastWrite(buf []byte) int {
+func (p *HarborserviceGetHarborConfigListArgs) FastWrite(buf []byte) int {
 	return 0
 }
 
-func (p *HarborserviceGetModelHarborConfigListArgs) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
+func (p *HarborserviceGetHarborConfigListArgs) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p != nil {
 		offset += p.fastWriteField1(buf[offset:], w)
@@ -5681,7 +5681,7 @@ func (p *HarborserviceGetModelHarborConfigListArgs) FastWriteNocopy(buf []byte, 
 	return offset
 }
 
-func (p *HarborserviceGetModelHarborConfigListArgs) BLength() int {
+func (p *HarborserviceGetHarborConfigListArgs) BLength() int {
 	l := 0
 	if p != nil {
 		l += p.field1Length()
@@ -5690,21 +5690,21 @@ func (p *HarborserviceGetModelHarborConfigListArgs) BLength() int {
 	return l
 }
 
-func (p *HarborserviceGetModelHarborConfigListArgs) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
+func (p *HarborserviceGetHarborConfigListArgs) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRUCT, 1)
 	offset += p.Req.FastWriteNocopy(buf[offset:], w)
 	return offset
 }
 
-func (p *HarborserviceGetModelHarborConfigListArgs) field1Length() int {
+func (p *HarborserviceGetHarborConfigListArgs) field1Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += p.Req.BLength()
 	return l
 }
 
-func (p *HarborserviceGetModelHarborConfigListResult) FastRead(buf []byte) (int, error) {
+func (p *HarborserviceGetHarborConfigListResult) FastRead(buf []byte) (int, error) {
 	var err error
 	var offset int
 	var l int
@@ -5747,12 +5747,12 @@ func (p *HarborserviceGetModelHarborConfigListResult) FastRead(buf []byte) (int,
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_HarborserviceGetModelHarborConfigListResult[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_HarborserviceGetHarborConfigListResult[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 }
 
-func (p *HarborserviceGetModelHarborConfigListResult) FastReadField0(buf []byte) (int, error) {
+func (p *HarborserviceGetHarborConfigListResult) FastReadField0(buf []byte) (int, error) {
 	offset := 0
 	_field := NewGetHarborConfigListResp()
 	if l, err := _field.FastRead(buf[offset:]); err != nil {
@@ -5765,11 +5765,11 @@ func (p *HarborserviceGetModelHarborConfigListResult) FastReadField0(buf []byte)
 }
 
 // for compatibility
-func (p *HarborserviceGetModelHarborConfigListResult) FastWrite(buf []byte) int {
+func (p *HarborserviceGetHarborConfigListResult) FastWrite(buf []byte) int {
 	return 0
 }
 
-func (p *HarborserviceGetModelHarborConfigListResult) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
+func (p *HarborserviceGetHarborConfigListResult) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p != nil {
 		offset += p.fastWriteField0(buf[offset:], w)
@@ -5778,7 +5778,7 @@ func (p *HarborserviceGetModelHarborConfigListResult) FastWriteNocopy(buf []byte
 	return offset
 }
 
-func (p *HarborserviceGetModelHarborConfigListResult) BLength() int {
+func (p *HarborserviceGetHarborConfigListResult) BLength() int {
 	l := 0
 	if p != nil {
 		l += p.field0Length()
@@ -5787,7 +5787,7 @@ func (p *HarborserviceGetModelHarborConfigListResult) BLength() int {
 	return l
 }
 
-func (p *HarborserviceGetModelHarborConfigListResult) fastWriteField0(buf []byte, w thrift.NocopyWriter) int {
+func (p *HarborserviceGetHarborConfigListResult) fastWriteField0(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p.IsSetSuccess() {
 		offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRUCT, 0)
@@ -5796,7 +5796,7 @@ func (p *HarborserviceGetModelHarborConfigListResult) fastWriteField0(buf []byte
 	return offset
 }
 
-func (p *HarborserviceGetModelHarborConfigListResult) field0Length() int {
+func (p *HarborserviceGetHarborConfigListResult) field0Length() int {
 	l := 0
 	if p.IsSetSuccess() {
 		l += thrift.Binary.FieldBeginLength()
@@ -6439,11 +6439,11 @@ func (p *HarborserviceDeleteArtifactResult) GetResult() interface{} {
 	return p.Success
 }
 
-func (p *HarborserviceGetModelHarborConfigListArgs) GetFirstArgument() interface{} {
+func (p *HarborserviceGetHarborConfigListArgs) GetFirstArgument() interface{} {
 	return p.Req
 }
 
-func (p *HarborserviceGetModelHarborConfigListResult) GetResult() interface{} {
+func (p *HarborserviceGetHarborConfigListResult) GetResult() interface{} {
 	return p.Success
 }
 

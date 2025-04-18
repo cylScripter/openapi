@@ -1515,7 +1515,8 @@ func (p *GetHarborConfigListReq) Field2DeepEqual(src *base.Paginate) bool {
 }
 
 type GetHarborConfigListResp struct {
-	List []*ModelHarborConfig `thrift:"list,1" frugal:"1,default,list<ModelHarborConfig>" json:"list"`
+	List     []*ModelHarborConfig `thrift:"list,1" frugal:"1,default,list<ModelHarborConfig>" json:"list"`
+	Paginate *base.Paginate       `thrift:"paginate,2" frugal:"2,default,base.Paginate" json:"paginate"`
 }
 
 func NewGetHarborConfigListResp() *GetHarborConfigListResp {
@@ -1528,12 +1529,29 @@ func (p *GetHarborConfigListResp) InitDefault() {
 func (p *GetHarborConfigListResp) GetList() (v []*ModelHarborConfig) {
 	return p.List
 }
+
+var GetHarborConfigListResp_Paginate_DEFAULT *base.Paginate
+
+func (p *GetHarborConfigListResp) GetPaginate() (v *base.Paginate) {
+	if !p.IsSetPaginate() {
+		return GetHarborConfigListResp_Paginate_DEFAULT
+	}
+	return p.Paginate
+}
 func (p *GetHarborConfigListResp) SetList(val []*ModelHarborConfig) {
 	p.List = val
+}
+func (p *GetHarborConfigListResp) SetPaginate(val *base.Paginate) {
+	p.Paginate = val
 }
 
 var fieldIDToName_GetHarborConfigListResp = map[int16]string{
 	1: "list",
+	2: "paginate",
+}
+
+func (p *GetHarborConfigListResp) IsSetPaginate() bool {
+	return p.Paginate != nil
 }
 
 func (p *GetHarborConfigListResp) Read(iprot thrift.TProtocol) (err error) {
@@ -1558,6 +1576,14 @@ func (p *GetHarborConfigListResp) Read(iprot thrift.TProtocol) (err error) {
 		case 1:
 			if fieldTypeId == thrift.LIST {
 				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 2:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField2(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -1615,6 +1641,14 @@ func (p *GetHarborConfigListResp) ReadField1(iprot thrift.TProtocol) error {
 	p.List = _field
 	return nil
 }
+func (p *GetHarborConfigListResp) ReadField2(iprot thrift.TProtocol) error {
+	_field := base.NewPaginate()
+	if err := _field.Read(iprot); err != nil {
+		return err
+	}
+	p.Paginate = _field
+	return nil
+}
 
 func (p *GetHarborConfigListResp) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -1624,6 +1658,10 @@ func (p *GetHarborConfigListResp) Write(oprot thrift.TProtocol) (err error) {
 	if p != nil {
 		if err = p.writeField1(oprot); err != nil {
 			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
 			goto WriteFieldError
 		}
 	}
@@ -1669,6 +1707,23 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
+func (p *GetHarborConfigListResp) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("paginate", thrift.STRUCT, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Paginate.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
 func (p *GetHarborConfigListResp) String() string {
 	if p == nil {
 		return "<nil>"
@@ -1686,6 +1741,9 @@ func (p *GetHarborConfigListResp) DeepEqual(ano *GetHarborConfigListResp) bool {
 	if !p.Field1DeepEqual(ano.List) {
 		return false
 	}
+	if !p.Field2DeepEqual(ano.Paginate) {
+		return false
+	}
 	return true
 }
 
@@ -1699,6 +1757,13 @@ func (p *GetHarborConfigListResp) Field1DeepEqual(src []*ModelHarborConfig) bool
 		if !v.DeepEqual(_src) {
 			return false
 		}
+	}
+	return true
+}
+func (p *GetHarborConfigListResp) Field2DeepEqual(src *base.Paginate) bool {
+
+	if !p.Paginate.DeepEqual(src) {
+		return false
 	}
 	return true
 }
@@ -2653,8 +2718,7 @@ func (p *GetArtifactListReq) Field7DeepEqual(src string) bool {
 }
 
 type GetArtifactListResp struct {
-	Artifacts []*Artifact    `thrift:"artifacts,1" frugal:"1,default,list<Artifact>" json:"artifacts"`
-	Paginate  *base.Paginate `thrift:"paginate,2" frugal:"2,default,base.Paginate" json:"paginate"`
+	Artifacts []*Artifact `thrift:"artifacts,1" frugal:"1,default,list<Artifact>" json:"artifacts"`
 }
 
 func NewGetArtifactListResp() *GetArtifactListResp {
@@ -2667,29 +2731,12 @@ func (p *GetArtifactListResp) InitDefault() {
 func (p *GetArtifactListResp) GetArtifacts() (v []*Artifact) {
 	return p.Artifacts
 }
-
-var GetArtifactListResp_Paginate_DEFAULT *base.Paginate
-
-func (p *GetArtifactListResp) GetPaginate() (v *base.Paginate) {
-	if !p.IsSetPaginate() {
-		return GetArtifactListResp_Paginate_DEFAULT
-	}
-	return p.Paginate
-}
 func (p *GetArtifactListResp) SetArtifacts(val []*Artifact) {
 	p.Artifacts = val
-}
-func (p *GetArtifactListResp) SetPaginate(val *base.Paginate) {
-	p.Paginate = val
 }
 
 var fieldIDToName_GetArtifactListResp = map[int16]string{
 	1: "artifacts",
-	2: "paginate",
-}
-
-func (p *GetArtifactListResp) IsSetPaginate() bool {
-	return p.Paginate != nil
 }
 
 func (p *GetArtifactListResp) Read(iprot thrift.TProtocol) (err error) {
@@ -2714,14 +2761,6 @@ func (p *GetArtifactListResp) Read(iprot thrift.TProtocol) (err error) {
 		case 1:
 			if fieldTypeId == thrift.LIST {
 				if err = p.ReadField1(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		case 2:
-			if fieldTypeId == thrift.STRUCT {
-				if err = p.ReadField2(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -2779,14 +2818,6 @@ func (p *GetArtifactListResp) ReadField1(iprot thrift.TProtocol) error {
 	p.Artifacts = _field
 	return nil
 }
-func (p *GetArtifactListResp) ReadField2(iprot thrift.TProtocol) error {
-	_field := base.NewPaginate()
-	if err := _field.Read(iprot); err != nil {
-		return err
-	}
-	p.Paginate = _field
-	return nil
-}
 
 func (p *GetArtifactListResp) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -2796,10 +2827,6 @@ func (p *GetArtifactListResp) Write(oprot thrift.TProtocol) (err error) {
 	if p != nil {
 		if err = p.writeField1(oprot); err != nil {
 			fieldId = 1
-			goto WriteFieldError
-		}
-		if err = p.writeField2(oprot); err != nil {
-			fieldId = 2
 			goto WriteFieldError
 		}
 	}
@@ -2845,23 +2872,6 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *GetArtifactListResp) writeField2(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("paginate", thrift.STRUCT, 2); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := p.Paginate.Write(oprot); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
-}
-
 func (p *GetArtifactListResp) String() string {
 	if p == nil {
 		return "<nil>"
@@ -2879,9 +2889,6 @@ func (p *GetArtifactListResp) DeepEqual(ano *GetArtifactListResp) bool {
 	if !p.Field1DeepEqual(ano.Artifacts) {
 		return false
 	}
-	if !p.Field2DeepEqual(ano.Paginate) {
-		return false
-	}
 	return true
 }
 
@@ -2895,13 +2902,6 @@ func (p *GetArtifactListResp) Field1DeepEqual(src []*Artifact) bool {
 		if !v.DeepEqual(_src) {
 			return false
 		}
-	}
-	return true
-}
-func (p *GetArtifactListResp) Field2DeepEqual(src *base.Paginate) bool {
-
-	if !p.Paginate.DeepEqual(src) {
-		return false
 	}
 	return true
 }
@@ -6900,7 +6900,7 @@ type Harborservice interface {
 
 	DeleteArtifact(ctx context.Context, req *DeleteArtifactReq) (r *DeleteArtifactResp, err error)
 
-	GetModelHarborConfigList(ctx context.Context, req *GetHarborConfigListReq) (r *GetHarborConfigListResp, err error)
+	GetHarborConfigList(ctx context.Context, req *GetHarborConfigListReq) (r *GetHarborConfigListResp, err error)
 
 	DeleteHarborConfig(ctx context.Context, req *DeleteHarborConfigReq) (r *DeleteHarborConfigResp, err error)
 
@@ -8609,38 +8609,38 @@ func (p *HarborserviceDeleteArtifactResult) Field0DeepEqual(src *DeleteArtifactR
 	return true
 }
 
-type HarborserviceGetModelHarborConfigListArgs struct {
+type HarborserviceGetHarborConfigListArgs struct {
 	Req *GetHarborConfigListReq `thrift:"req,1" frugal:"1,default,GetHarborConfigListReq" json:"req"`
 }
 
-func NewHarborserviceGetModelHarborConfigListArgs() *HarborserviceGetModelHarborConfigListArgs {
-	return &HarborserviceGetModelHarborConfigListArgs{}
+func NewHarborserviceGetHarborConfigListArgs() *HarborserviceGetHarborConfigListArgs {
+	return &HarborserviceGetHarborConfigListArgs{}
 }
 
-func (p *HarborserviceGetModelHarborConfigListArgs) InitDefault() {
+func (p *HarborserviceGetHarborConfigListArgs) InitDefault() {
 }
 
-var HarborserviceGetModelHarborConfigListArgs_Req_DEFAULT *GetHarborConfigListReq
+var HarborserviceGetHarborConfigListArgs_Req_DEFAULT *GetHarborConfigListReq
 
-func (p *HarborserviceGetModelHarborConfigListArgs) GetReq() (v *GetHarborConfigListReq) {
+func (p *HarborserviceGetHarborConfigListArgs) GetReq() (v *GetHarborConfigListReq) {
 	if !p.IsSetReq() {
-		return HarborserviceGetModelHarborConfigListArgs_Req_DEFAULT
+		return HarborserviceGetHarborConfigListArgs_Req_DEFAULT
 	}
 	return p.Req
 }
-func (p *HarborserviceGetModelHarborConfigListArgs) SetReq(val *GetHarborConfigListReq) {
+func (p *HarborserviceGetHarborConfigListArgs) SetReq(val *GetHarborConfigListReq) {
 	p.Req = val
 }
 
-var fieldIDToName_HarborserviceGetModelHarborConfigListArgs = map[int16]string{
+var fieldIDToName_HarborserviceGetHarborConfigListArgs = map[int16]string{
 	1: "req",
 }
 
-func (p *HarborserviceGetModelHarborConfigListArgs) IsSetReq() bool {
+func (p *HarborserviceGetHarborConfigListArgs) IsSetReq() bool {
 	return p.Req != nil
 }
 
-func (p *HarborserviceGetModelHarborConfigListArgs) Read(iprot thrift.TProtocol) (err error) {
+func (p *HarborserviceGetHarborConfigListArgs) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -8686,7 +8686,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_HarborserviceGetModelHarborConfigListArgs[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_HarborserviceGetHarborConfigListArgs[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -8696,7 +8696,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *HarborserviceGetModelHarborConfigListArgs) ReadField1(iprot thrift.TProtocol) error {
+func (p *HarborserviceGetHarborConfigListArgs) ReadField1(iprot thrift.TProtocol) error {
 	_field := NewGetHarborConfigListReq()
 	if err := _field.Read(iprot); err != nil {
 		return err
@@ -8705,9 +8705,9 @@ func (p *HarborserviceGetModelHarborConfigListArgs) ReadField1(iprot thrift.TPro
 	return nil
 }
 
-func (p *HarborserviceGetModelHarborConfigListArgs) Write(oprot thrift.TProtocol) (err error) {
+func (p *HarborserviceGetHarborConfigListArgs) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("GetModelHarborConfigList_args"); err != nil {
+	if err = oprot.WriteStructBegin("GetHarborConfigList_args"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -8733,7 +8733,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *HarborserviceGetModelHarborConfigListArgs) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *HarborserviceGetHarborConfigListArgs) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -8750,15 +8750,15 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *HarborserviceGetModelHarborConfigListArgs) String() string {
+func (p *HarborserviceGetHarborConfigListArgs) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("HarborserviceGetModelHarborConfigListArgs(%+v)", *p)
+	return fmt.Sprintf("HarborserviceGetHarborConfigListArgs(%+v)", *p)
 
 }
 
-func (p *HarborserviceGetModelHarborConfigListArgs) DeepEqual(ano *HarborserviceGetModelHarborConfigListArgs) bool {
+func (p *HarborserviceGetHarborConfigListArgs) DeepEqual(ano *HarborserviceGetHarborConfigListArgs) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -8770,7 +8770,7 @@ func (p *HarborserviceGetModelHarborConfigListArgs) DeepEqual(ano *Harborservice
 	return true
 }
 
-func (p *HarborserviceGetModelHarborConfigListArgs) Field1DeepEqual(src *GetHarborConfigListReq) bool {
+func (p *HarborserviceGetHarborConfigListArgs) Field1DeepEqual(src *GetHarborConfigListReq) bool {
 
 	if !p.Req.DeepEqual(src) {
 		return false
@@ -8778,38 +8778,38 @@ func (p *HarborserviceGetModelHarborConfigListArgs) Field1DeepEqual(src *GetHarb
 	return true
 }
 
-type HarborserviceGetModelHarborConfigListResult struct {
+type HarborserviceGetHarborConfigListResult struct {
 	Success *GetHarborConfigListResp `thrift:"success,0,optional" frugal:"0,optional,GetHarborConfigListResp" json:"success,omitempty"`
 }
 
-func NewHarborserviceGetModelHarborConfigListResult() *HarborserviceGetModelHarborConfigListResult {
-	return &HarborserviceGetModelHarborConfigListResult{}
+func NewHarborserviceGetHarborConfigListResult() *HarborserviceGetHarborConfigListResult {
+	return &HarborserviceGetHarborConfigListResult{}
 }
 
-func (p *HarborserviceGetModelHarborConfigListResult) InitDefault() {
+func (p *HarborserviceGetHarborConfigListResult) InitDefault() {
 }
 
-var HarborserviceGetModelHarborConfigListResult_Success_DEFAULT *GetHarborConfigListResp
+var HarborserviceGetHarborConfigListResult_Success_DEFAULT *GetHarborConfigListResp
 
-func (p *HarborserviceGetModelHarborConfigListResult) GetSuccess() (v *GetHarborConfigListResp) {
+func (p *HarborserviceGetHarborConfigListResult) GetSuccess() (v *GetHarborConfigListResp) {
 	if !p.IsSetSuccess() {
-		return HarborserviceGetModelHarborConfigListResult_Success_DEFAULT
+		return HarborserviceGetHarborConfigListResult_Success_DEFAULT
 	}
 	return p.Success
 }
-func (p *HarborserviceGetModelHarborConfigListResult) SetSuccess(x interface{}) {
+func (p *HarborserviceGetHarborConfigListResult) SetSuccess(x interface{}) {
 	p.Success = x.(*GetHarborConfigListResp)
 }
 
-var fieldIDToName_HarborserviceGetModelHarborConfigListResult = map[int16]string{
+var fieldIDToName_HarborserviceGetHarborConfigListResult = map[int16]string{
 	0: "success",
 }
 
-func (p *HarborserviceGetModelHarborConfigListResult) IsSetSuccess() bool {
+func (p *HarborserviceGetHarborConfigListResult) IsSetSuccess() bool {
 	return p.Success != nil
 }
 
-func (p *HarborserviceGetModelHarborConfigListResult) Read(iprot thrift.TProtocol) (err error) {
+func (p *HarborserviceGetHarborConfigListResult) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -8855,7 +8855,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_HarborserviceGetModelHarborConfigListResult[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_HarborserviceGetHarborConfigListResult[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -8865,7 +8865,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *HarborserviceGetModelHarborConfigListResult) ReadField0(iprot thrift.TProtocol) error {
+func (p *HarborserviceGetHarborConfigListResult) ReadField0(iprot thrift.TProtocol) error {
 	_field := NewGetHarborConfigListResp()
 	if err := _field.Read(iprot); err != nil {
 		return err
@@ -8874,9 +8874,9 @@ func (p *HarborserviceGetModelHarborConfigListResult) ReadField0(iprot thrift.TP
 	return nil
 }
 
-func (p *HarborserviceGetModelHarborConfigListResult) Write(oprot thrift.TProtocol) (err error) {
+func (p *HarborserviceGetHarborConfigListResult) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("GetModelHarborConfigList_result"); err != nil {
+	if err = oprot.WriteStructBegin("GetHarborConfigList_result"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -8902,7 +8902,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *HarborserviceGetModelHarborConfigListResult) writeField0(oprot thrift.TProtocol) (err error) {
+func (p *HarborserviceGetHarborConfigListResult) writeField0(oprot thrift.TProtocol) (err error) {
 	if p.IsSetSuccess() {
 		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
 			goto WriteFieldBeginError
@@ -8921,15 +8921,15 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
 }
 
-func (p *HarborserviceGetModelHarborConfigListResult) String() string {
+func (p *HarborserviceGetHarborConfigListResult) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("HarborserviceGetModelHarborConfigListResult(%+v)", *p)
+	return fmt.Sprintf("HarborserviceGetHarborConfigListResult(%+v)", *p)
 
 }
 
-func (p *HarborserviceGetModelHarborConfigListResult) DeepEqual(ano *HarborserviceGetModelHarborConfigListResult) bool {
+func (p *HarborserviceGetHarborConfigListResult) DeepEqual(ano *HarborserviceGetHarborConfigListResult) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -8941,7 +8941,7 @@ func (p *HarborserviceGetModelHarborConfigListResult) DeepEqual(ano *Harborservi
 	return true
 }
 
-func (p *HarborserviceGetModelHarborConfigListResult) Field0DeepEqual(src *GetHarborConfigListResp) bool {
+func (p *HarborserviceGetHarborConfigListResult) Field0DeepEqual(src *GetHarborConfigListResp) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false
