@@ -7162,7 +7162,9 @@ func (p *ModelRolePermission) Field6DeepEqual(src int32) bool {
 }
 
 type DeleteImageReq struct {
-	Digest string `thrift:"digest,1" frugal:"1,default,string" json:"digest" binding:"required"`
+	Digest         string `thrift:"digest,1" frugal:"1,default,string" json:"digest" binding:"required"`
+	ProjectName    string `thrift:"project_name,2" frugal:"2,default,string" json:"project_name"  binding:"required"`
+	RepositoryName string `thrift:"repository_name,3" frugal:"3,default,string" json:"repository_name"  binding:"required"`
 }
 
 func NewDeleteImageReq() *DeleteImageReq {
@@ -7175,12 +7177,28 @@ func (p *DeleteImageReq) InitDefault() {
 func (p *DeleteImageReq) GetDigest() (v string) {
 	return p.Digest
 }
+
+func (p *DeleteImageReq) GetProjectName() (v string) {
+	return p.ProjectName
+}
+
+func (p *DeleteImageReq) GetRepositoryName() (v string) {
+	return p.RepositoryName
+}
 func (p *DeleteImageReq) SetDigest(val string) {
 	p.Digest = val
+}
+func (p *DeleteImageReq) SetProjectName(val string) {
+	p.ProjectName = val
+}
+func (p *DeleteImageReq) SetRepositoryName(val string) {
+	p.RepositoryName = val
 }
 
 var fieldIDToName_DeleteImageReq = map[int16]string{
 	1: "digest",
+	2: "project_name",
+	3: "repository_name",
 }
 
 func (p *DeleteImageReq) Read(iprot thrift.TProtocol) (err error) {
@@ -7205,6 +7223,22 @@ func (p *DeleteImageReq) Read(iprot thrift.TProtocol) (err error) {
 		case 1:
 			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 2:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 3:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField3(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -7250,6 +7284,28 @@ func (p *DeleteImageReq) ReadField1(iprot thrift.TProtocol) error {
 	p.Digest = _field
 	return nil
 }
+func (p *DeleteImageReq) ReadField2(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.ProjectName = _field
+	return nil
+}
+func (p *DeleteImageReq) ReadField3(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.RepositoryName = _field
+	return nil
+}
 
 func (p *DeleteImageReq) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -7259,6 +7315,14 @@ func (p *DeleteImageReq) Write(oprot thrift.TProtocol) (err error) {
 	if p != nil {
 		if err = p.writeField1(oprot); err != nil {
 			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
+			goto WriteFieldError
+		}
+		if err = p.writeField3(oprot); err != nil {
+			fieldId = 3
 			goto WriteFieldError
 		}
 	}
@@ -7296,6 +7360,40 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
+func (p *DeleteImageReq) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("project_name", thrift.STRING, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.ProjectName); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
+func (p *DeleteImageReq) writeField3(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("repository_name", thrift.STRING, 3); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.RepositoryName); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
+}
+
 func (p *DeleteImageReq) String() string {
 	if p == nil {
 		return "<nil>"
@@ -7313,12 +7411,32 @@ func (p *DeleteImageReq) DeepEqual(ano *DeleteImageReq) bool {
 	if !p.Field1DeepEqual(ano.Digest) {
 		return false
 	}
+	if !p.Field2DeepEqual(ano.ProjectName) {
+		return false
+	}
+	if !p.Field3DeepEqual(ano.RepositoryName) {
+		return false
+	}
 	return true
 }
 
 func (p *DeleteImageReq) Field1DeepEqual(src string) bool {
 
 	if strings.Compare(p.Digest, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *DeleteImageReq) Field2DeepEqual(src string) bool {
+
+	if strings.Compare(p.ProjectName, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *DeleteImageReq) Field3DeepEqual(src string) bool {
+
+	if strings.Compare(p.RepositoryName, src) != 0 {
 		return false
 	}
 	return true
