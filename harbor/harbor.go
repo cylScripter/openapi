@@ -3601,11 +3601,12 @@ func (p *Artifact) Field10DeepEqual(src string) bool {
 }
 
 type GetRepositoryListReq struct {
-	RequestId string `thrift:"request_id,1" frugal:"1,default,string" json:"request_id"`
-	Q         string `thrift:"q,2" frugal:"2,default,string" json:"q"`
-	Page      int32  `thrift:"page,3" frugal:"3,default,i32" json:"page"`
-	PageSize  int32  `thrift:"page_size,4" frugal:"4,default,i32" json:"page_size"`
-	Sort      string `thrift:"sort,5" frugal:"5,default,string" json:"sort"`
+	RequestId   string `thrift:"request_id,1" frugal:"1,default,string" json:"request_id"`
+	Q           string `thrift:"q,2" frugal:"2,default,string" json:"q"`
+	Page        int32  `thrift:"page,3" frugal:"3,default,i32" json:"page"`
+	PageSize    int32  `thrift:"page_size,4" frugal:"4,default,i32" json:"page_size"`
+	Sort        string `thrift:"sort,5" frugal:"5,default,string" json:"sort"`
+	ProjectName string `thrift:"project_name,6" frugal:"6,default,string" json:"project_name"`
 }
 
 func NewGetRepositoryListReq() *GetRepositoryListReq {
@@ -3634,6 +3635,10 @@ func (p *GetRepositoryListReq) GetPageSize() (v int32) {
 func (p *GetRepositoryListReq) GetSort() (v string) {
 	return p.Sort
 }
+
+func (p *GetRepositoryListReq) GetProjectName() (v string) {
+	return p.ProjectName
+}
 func (p *GetRepositoryListReq) SetRequestId(val string) {
 	p.RequestId = val
 }
@@ -3649,6 +3654,9 @@ func (p *GetRepositoryListReq) SetPageSize(val int32) {
 func (p *GetRepositoryListReq) SetSort(val string) {
 	p.Sort = val
 }
+func (p *GetRepositoryListReq) SetProjectName(val string) {
+	p.ProjectName = val
+}
 
 var fieldIDToName_GetRepositoryListReq = map[int16]string{
 	1: "request_id",
@@ -3656,6 +3664,7 @@ var fieldIDToName_GetRepositoryListReq = map[int16]string{
 	3: "page",
 	4: "page_size",
 	5: "sort",
+	6: "project_name",
 }
 
 func (p *GetRepositoryListReq) Read(iprot thrift.TProtocol) (err error) {
@@ -3712,6 +3721,14 @@ func (p *GetRepositoryListReq) Read(iprot thrift.TProtocol) (err error) {
 		case 5:
 			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField5(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 6:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField6(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -3801,6 +3818,17 @@ func (p *GetRepositoryListReq) ReadField5(iprot thrift.TProtocol) error {
 	p.Sort = _field
 	return nil
 }
+func (p *GetRepositoryListReq) ReadField6(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.ProjectName = _field
+	return nil
+}
 
 func (p *GetRepositoryListReq) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -3826,6 +3854,10 @@ func (p *GetRepositoryListReq) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField5(oprot); err != nil {
 			fieldId = 5
+			goto WriteFieldError
+		}
+		if err = p.writeField6(oprot); err != nil {
+			fieldId = 6
 			goto WriteFieldError
 		}
 	}
@@ -3931,6 +3963,23 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 5 end error: ", p), err)
 }
 
+func (p *GetRepositoryListReq) writeField6(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("project_name", thrift.STRING, 6); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.ProjectName); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 6 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 6 end error: ", p), err)
+}
+
 func (p *GetRepositoryListReq) String() string {
 	if p == nil {
 		return "<nil>"
@@ -3958,6 +4007,9 @@ func (p *GetRepositoryListReq) DeepEqual(ano *GetRepositoryListReq) bool {
 		return false
 	}
 	if !p.Field5DeepEqual(ano.Sort) {
+		return false
+	}
+	if !p.Field6DeepEqual(ano.ProjectName) {
 		return false
 	}
 	return true
@@ -3994,6 +4046,13 @@ func (p *GetRepositoryListReq) Field4DeepEqual(src int32) bool {
 func (p *GetRepositoryListReq) Field5DeepEqual(src string) bool {
 
 	if strings.Compare(p.Sort, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *GetRepositoryListReq) Field6DeepEqual(src string) bool {
+
+	if strings.Compare(p.ProjectName, src) != 0 {
 		return false
 	}
 	return true
