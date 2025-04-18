@@ -215,3 +215,8 @@ func GetRepositoryList(ctx context.Context, req *system.GetRepositoryListReq, ca
 	clients := MustNewClient("system", callOptions...)
 	return clients.GetRepositoryList(ctx, req)
 }
+
+func DeleteImage(ctx context.Context, req *system.DeleteImageReq, callOptions ...client.Option) (resp *system.DeleteImageResp, err error) {
+	clients := MustNewClient("system", callOptions...)
+	return clients.DeleteImage(ctx, req)
+}

@@ -307,6 +307,13 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"DeleteImage": kitex.NewMethodInfo(
+		deleteImageHandler,
+		newSystemserviceDeleteImageArgs,
+		newSystemserviceDeleteImageResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -1129,6 +1136,24 @@ func newSystemserviceGetRepositoryListResult() interface{} {
 	return system.NewSystemserviceGetRepositoryListResult()
 }
 
+func deleteImageHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*system.SystemserviceDeleteImageArgs)
+	realResult := result.(*system.SystemserviceDeleteImageResult)
+	success, err := handler.(system.Systemservice).DeleteImage(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newSystemserviceDeleteImageArgs() interface{} {
+	return system.NewSystemserviceDeleteImageArgs()
+}
+
+func newSystemserviceDeleteImageResult() interface{} {
+	return system.NewSystemserviceDeleteImageResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -1554,6 +1579,16 @@ func (p *kClient) GetRepositoryList(ctx context.Context, req *system.GetReposito
 	_args.Req = req
 	var _result system.SystemserviceGetRepositoryListResult
 	if err = p.c.Call(ctx, "GetRepositoryList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) DeleteImage(ctx context.Context, req *system.DeleteImageReq) (r *system.DeleteImageResp, err error) {
+	var _args system.SystemserviceDeleteImageArgs
+	_args.Req = req
+	var _result system.SystemserviceDeleteImageResult
+	if err = p.c.Call(ctx, "DeleteImage", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

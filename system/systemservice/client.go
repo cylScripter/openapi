@@ -53,6 +53,7 @@ type Client interface {
 	GetImageList(ctx context.Context, req *system.GetImageListReq, callOptions ...callopt.Option) (r *system.GetImageListResp, err error)
 	GetProjectList(ctx context.Context, req *system.GetProjectListReq, callOptions ...callopt.Option) (r *system.GetProjectListResp, err error)
 	GetRepositoryList(ctx context.Context, req *system.GetRepositoryListReq, callOptions ...callopt.Option) (r *system.GetRepositoryListResp, err error)
+	DeleteImage(ctx context.Context, req *system.DeleteImageReq, callOptions ...callopt.Option) (r *system.DeleteImageResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -292,4 +293,9 @@ func (p *kSystemserviceClient) GetProjectList(ctx context.Context, req *system.G
 func (p *kSystemserviceClient) GetRepositoryList(ctx context.Context, req *system.GetRepositoryListReq, callOptions ...callopt.Option) (r *system.GetRepositoryListResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.GetRepositoryList(ctx, req)
+}
+
+func (p *kSystemserviceClient) DeleteImage(ctx context.Context, req *system.DeleteImageReq, callOptions ...callopt.Option) (r *system.DeleteImageResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.DeleteImage(ctx, req)
 }
