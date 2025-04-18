@@ -50,6 +50,9 @@ type Client interface {
 	GetFileList(ctx context.Context, req *system.GetFileListReq, callOptions ...callopt.Option) (r *system.GetFileListResp, err error)
 	GetObject(ctx context.Context, req *system.GetObjectReq, callOptions ...callopt.Option) (r *system.GetObjectResp, err error)
 	DeleteObject(ctx context.Context, req *system.DeleteObjectReq, callOptions ...callopt.Option) (r *system.DeleteObjectResp, err error)
+	GetImageList(ctx context.Context, req *system.GetImageListReq, callOptions ...callopt.Option) (r *system.GetImageListResp, err error)
+	GetProjectList(ctx context.Context, req *system.GetProjectListReq, callOptions ...callopt.Option) (r *system.GetProjectListResp, err error)
+	GetRepositoryList(ctx context.Context, req *system.GetRepositoryListReq, callOptions ...callopt.Option) (r *system.GetRepositoryListResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -274,4 +277,19 @@ func (p *kSystemserviceClient) GetObject(ctx context.Context, req *system.GetObj
 func (p *kSystemserviceClient) DeleteObject(ctx context.Context, req *system.DeleteObjectReq, callOptions ...callopt.Option) (r *system.DeleteObjectResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.DeleteObject(ctx, req)
+}
+
+func (p *kSystemserviceClient) GetImageList(ctx context.Context, req *system.GetImageListReq, callOptions ...callopt.Option) (r *system.GetImageListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetImageList(ctx, req)
+}
+
+func (p *kSystemserviceClient) GetProjectList(ctx context.Context, req *system.GetProjectListReq, callOptions ...callopt.Option) (r *system.GetProjectListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetProjectList(ctx, req)
+}
+
+func (p *kSystemserviceClient) GetRepositoryList(ctx context.Context, req *system.GetRepositoryListReq, callOptions ...callopt.Option) (r *system.GetRepositoryListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetRepositoryList(ctx, req)
 }

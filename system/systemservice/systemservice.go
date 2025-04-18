@@ -286,6 +286,27 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"GetImageList": kitex.NewMethodInfo(
+		getImageListHandler,
+		newSystemserviceGetImageListArgs,
+		newSystemserviceGetImageListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetProjectList": kitex.NewMethodInfo(
+		getProjectListHandler,
+		newSystemserviceGetProjectListArgs,
+		newSystemserviceGetProjectListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetRepositoryList": kitex.NewMethodInfo(
+		getRepositoryListHandler,
+		newSystemserviceGetRepositoryListArgs,
+		newSystemserviceGetRepositoryListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -1054,6 +1075,60 @@ func newSystemserviceDeleteObjectResult() interface{} {
 	return system.NewSystemserviceDeleteObjectResult()
 }
 
+func getImageListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*system.SystemserviceGetImageListArgs)
+	realResult := result.(*system.SystemserviceGetImageListResult)
+	success, err := handler.(system.Systemservice).GetImageList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newSystemserviceGetImageListArgs() interface{} {
+	return system.NewSystemserviceGetImageListArgs()
+}
+
+func newSystemserviceGetImageListResult() interface{} {
+	return system.NewSystemserviceGetImageListResult()
+}
+
+func getProjectListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*system.SystemserviceGetProjectListArgs)
+	realResult := result.(*system.SystemserviceGetProjectListResult)
+	success, err := handler.(system.Systemservice).GetProjectList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newSystemserviceGetProjectListArgs() interface{} {
+	return system.NewSystemserviceGetProjectListArgs()
+}
+
+func newSystemserviceGetProjectListResult() interface{} {
+	return system.NewSystemserviceGetProjectListResult()
+}
+
+func getRepositoryListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*system.SystemserviceGetRepositoryListArgs)
+	realResult := result.(*system.SystemserviceGetRepositoryListResult)
+	success, err := handler.(system.Systemservice).GetRepositoryList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newSystemserviceGetRepositoryListArgs() interface{} {
+	return system.NewSystemserviceGetRepositoryListArgs()
+}
+
+func newSystemserviceGetRepositoryListResult() interface{} {
+	return system.NewSystemserviceGetRepositoryListResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -1449,6 +1524,36 @@ func (p *kClient) DeleteObject(ctx context.Context, req *system.DeleteObjectReq)
 	_args.Req = req
 	var _result system.SystemserviceDeleteObjectResult
 	if err = p.c.Call(ctx, "DeleteObject", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetImageList(ctx context.Context, req *system.GetImageListReq) (r *system.GetImageListResp, err error) {
+	var _args system.SystemserviceGetImageListArgs
+	_args.Req = req
+	var _result system.SystemserviceGetImageListResult
+	if err = p.c.Call(ctx, "GetImageList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetProjectList(ctx context.Context, req *system.GetProjectListReq) (r *system.GetProjectListResp, err error) {
+	var _args system.SystemserviceGetProjectListArgs
+	_args.Req = req
+	var _result system.SystemserviceGetProjectListResult
+	if err = p.c.Call(ctx, "GetProjectList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetRepositoryList(ctx context.Context, req *system.GetRepositoryListReq) (r *system.GetRepositoryListResp, err error) {
+	var _args system.SystemserviceGetRepositoryListArgs
+	_args.Req = req
+	var _result system.SystemserviceGetRepositoryListResult
+	if err = p.c.Call(ctx, "GetRepositoryList", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

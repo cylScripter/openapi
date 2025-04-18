@@ -200,3 +200,18 @@ func DeleteObject(ctx context.Context, req *system.DeleteObjectReq, callOptions 
 	clients := MustNewClient("system", callOptions...)
 	return clients.DeleteObject(ctx, req)
 }
+
+func GetImageList(ctx context.Context, req *system.GetImageListReq, callOptions ...client.Option) (resp *system.GetImageListResp, err error) {
+	clients := MustNewClient("system", callOptions...)
+	return clients.GetImageList(ctx, req)
+}
+
+func GetProjectList(ctx context.Context, req *system.GetProjectListReq, callOptions ...client.Option) (resp *system.GetProjectListResp, err error) {
+	clients := MustNewClient("system", callOptions...)
+	return clients.GetProjectList(ctx, req)
+}
+
+func GetRepositoryList(ctx context.Context, req *system.GetRepositoryListReq, callOptions ...client.Option) (resp *system.GetRepositoryListResp, err error) {
+	clients := MustNewClient("system", callOptions...)
+	return clients.GetRepositoryList(ctx, req)
+}
