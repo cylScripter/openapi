@@ -2206,8 +2206,8 @@ type GetArtifactListReq struct {
 	Page           int32  `thrift:"page,3" frugal:"3,default,i32" json:"page"`
 	PageSize       int32  `thrift:"page_size,4" frugal:"4,default,i32" json:"page_size"`
 	Sort           string `thrift:"sort,5" frugal:"5,default,string" json:"sort"`
-	ProjectName    string `thrift:"project_name,6" frugal:"6,default,string" json:"project_name"  binding:"required"`
-	RepositoryName string `thrift:"repository_name,7" frugal:"7,default,string" json:"repository_name"  binding:"required"`
+	ProjectName    string `thrift:"project_name,6" frugal:"6,default,string" json:"project_name"`
+	RepositoryName string `thrift:"repository_name,7" frugal:"7,default,string" json:"repository_name"`
 }
 
 func NewGetArtifactListReq() *GetArtifactListReq {
