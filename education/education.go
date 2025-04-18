@@ -4168,8 +4168,10 @@ func (p *CreateWorkloadStatisticsResp) DeepEqual(ano *CreateWorkloadStatisticsRe
 }
 
 type ExportBeginExamWorkloadReq struct {
-	AcademicYear string `thrift:"academic_year,1" frugal:"1,default,string" json:"academic_year" binding:"required"`
-	Semester     string `thrift:"semester,2" frugal:"2,default,string" json:"semester" binding:"required"`
+	AcademicYear string `thrift:"academic_year,1" frugal:"1,default,string" json:"academic_year" `
+	Semester     string `thrift:"semester,2" frugal:"2,default,string" json:"semester" `
+	CMonth       string `thrift:"c_month,3" frugal:"3,default,string" json:"c_month"`
+	RecordId     int32  `thrift:"record_id,4" frugal:"4,default,i32" json:"record_id"`
 }
 
 func NewExportBeginExamWorkloadReq() *ExportBeginExamWorkloadReq {
@@ -4186,16 +4188,32 @@ func (p *ExportBeginExamWorkloadReq) GetAcademicYear() (v string) {
 func (p *ExportBeginExamWorkloadReq) GetSemester() (v string) {
 	return p.Semester
 }
+
+func (p *ExportBeginExamWorkloadReq) GetCMonth() (v string) {
+	return p.CMonth
+}
+
+func (p *ExportBeginExamWorkloadReq) GetRecordId() (v int32) {
+	return p.RecordId
+}
 func (p *ExportBeginExamWorkloadReq) SetAcademicYear(val string) {
 	p.AcademicYear = val
 }
 func (p *ExportBeginExamWorkloadReq) SetSemester(val string) {
 	p.Semester = val
 }
+func (p *ExportBeginExamWorkloadReq) SetCMonth(val string) {
+	p.CMonth = val
+}
+func (p *ExportBeginExamWorkloadReq) SetRecordId(val int32) {
+	p.RecordId = val
+}
 
 var fieldIDToName_ExportBeginExamWorkloadReq = map[int16]string{
 	1: "academic_year",
 	2: "semester",
+	3: "c_month",
+	4: "record_id",
 }
 
 func (p *ExportBeginExamWorkloadReq) Read(iprot thrift.TProtocol) (err error) {
@@ -4228,6 +4246,22 @@ func (p *ExportBeginExamWorkloadReq) Read(iprot thrift.TProtocol) (err error) {
 		case 2:
 			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 3:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField3(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 4:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField4(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -4284,6 +4318,28 @@ func (p *ExportBeginExamWorkloadReq) ReadField2(iprot thrift.TProtocol) error {
 	p.Semester = _field
 	return nil
 }
+func (p *ExportBeginExamWorkloadReq) ReadField3(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.CMonth = _field
+	return nil
+}
+func (p *ExportBeginExamWorkloadReq) ReadField4(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.RecordId = _field
+	return nil
+}
 
 func (p *ExportBeginExamWorkloadReq) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -4297,6 +4353,14 @@ func (p *ExportBeginExamWorkloadReq) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField2(oprot); err != nil {
 			fieldId = 2
+			goto WriteFieldError
+		}
+		if err = p.writeField3(oprot); err != nil {
+			fieldId = 3
+			goto WriteFieldError
+		}
+		if err = p.writeField4(oprot); err != nil {
+			fieldId = 4
 			goto WriteFieldError
 		}
 	}
@@ -4351,6 +4415,40 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
+func (p *ExportBeginExamWorkloadReq) writeField3(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("c_month", thrift.STRING, 3); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.CMonth); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
+}
+
+func (p *ExportBeginExamWorkloadReq) writeField4(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("record_id", thrift.I32, 4); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.RecordId); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 end error: ", p), err)
+}
+
 func (p *ExportBeginExamWorkloadReq) String() string {
 	if p == nil {
 		return "<nil>"
@@ -4371,6 +4469,12 @@ func (p *ExportBeginExamWorkloadReq) DeepEqual(ano *ExportBeginExamWorkloadReq) 
 	if !p.Field2DeepEqual(ano.Semester) {
 		return false
 	}
+	if !p.Field3DeepEqual(ano.CMonth) {
+		return false
+	}
+	if !p.Field4DeepEqual(ano.RecordId) {
+		return false
+	}
 	return true
 }
 
@@ -4384,6 +4488,20 @@ func (p *ExportBeginExamWorkloadReq) Field1DeepEqual(src string) bool {
 func (p *ExportBeginExamWorkloadReq) Field2DeepEqual(src string) bool {
 
 	if strings.Compare(p.Semester, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *ExportBeginExamWorkloadReq) Field3DeepEqual(src string) bool {
+
+	if strings.Compare(p.CMonth, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *ExportBeginExamWorkloadReq) Field4DeepEqual(src int32) bool {
+
+	if p.RecordId != src {
 		return false
 	}
 	return true
