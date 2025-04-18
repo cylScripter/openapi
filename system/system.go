@@ -112,13 +112,16 @@ func (p *GetProjectListReqOption) Value() (driver.Value, error) {
 type GetRepositoryListReqOption int64
 
 const (
-	GetRepositoryListReqOption_q GetRepositoryListReqOption = 1
+	GetRepositoryListReqOption_q       GetRepositoryListReqOption = 1
+	GetRepositoryListReqOption_project GetRepositoryListReqOption = 2
 )
 
 func (p GetRepositoryListReqOption) String() string {
 	switch p {
 	case GetRepositoryListReqOption_q:
 		return "q"
+	case GetRepositoryListReqOption_project:
+		return "project"
 	}
 	return "<UNSET>"
 }
@@ -127,6 +130,8 @@ func GetRepositoryListReqOptionFromString(s string) (GetRepositoryListReqOption,
 	switch s {
 	case "q":
 		return GetRepositoryListReqOption_q, nil
+	case "project":
+		return GetRepositoryListReqOption_project, nil
 	}
 	return GetRepositoryListReqOption(0), fmt.Errorf("not a valid GetRepositoryListReqOption string")
 }
