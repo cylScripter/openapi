@@ -1734,6 +1734,20 @@ func (p *GetArtifactListResp) FastRead(buf []byte) (int, error) {
 					goto SkipFieldError
 				}
 			}
+		case 2:
+			if fieldTypeId == thrift.STRUCT {
+				l, err = p.FastReadField2(buf[offset:])
+				offset += l
+				if err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
+				offset += l
+				if err != nil {
+					goto SkipFieldError
+				}
+			}
 		default:
 			l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
 			offset += l
@@ -1777,6 +1791,18 @@ func (p *GetArtifactListResp) FastReadField1(buf []byte) (int, error) {
 	return offset, nil
 }
 
+func (p *GetArtifactListResp) FastReadField2(buf []byte) (int, error) {
+	offset := 0
+	_field := base.NewPaginate()
+	if l, err := _field.FastRead(buf[offset:]); err != nil {
+		return offset, err
+	} else {
+		offset += l
+	}
+	p.Paginate = _field
+	return offset, nil
+}
+
 // for compatibility
 func (p *GetArtifactListResp) FastWrite(buf []byte) int {
 	return 0
@@ -1786,6 +1812,7 @@ func (p *GetArtifactListResp) FastWriteNocopy(buf []byte, w thrift.NocopyWriter)
 	offset := 0
 	if p != nil {
 		offset += p.fastWriteField1(buf[offset:], w)
+		offset += p.fastWriteField2(buf[offset:], w)
 	}
 	offset += thrift.Binary.WriteFieldStop(buf[offset:])
 	return offset
@@ -1795,6 +1822,7 @@ func (p *GetArtifactListResp) BLength() int {
 	l := 0
 	if p != nil {
 		l += p.field1Length()
+		l += p.field2Length()
 	}
 	l += thrift.Binary.FieldStopLength()
 	return l
@@ -1814,6 +1842,13 @@ func (p *GetArtifactListResp) fastWriteField1(buf []byte, w thrift.NocopyWriter)
 	return offset
 }
 
+func (p *GetArtifactListResp) fastWriteField2(buf []byte, w thrift.NocopyWriter) int {
+	offset := 0
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRUCT, 2)
+	offset += p.Paginate.FastWriteNocopy(buf[offset:], w)
+	return offset
+}
+
 func (p *GetArtifactListResp) field1Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
@@ -1822,6 +1857,13 @@ func (p *GetArtifactListResp) field1Length() int {
 		_ = v
 		l += v.BLength()
 	}
+	return l
+}
+
+func (p *GetArtifactListResp) field2Length() int {
+	l := 0
+	l += thrift.Binary.FieldBeginLength()
+	l += p.Paginate.BLength()
 	return l
 }
 

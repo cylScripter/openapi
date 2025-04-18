@@ -2653,7 +2653,8 @@ func (p *GetArtifactListReq) Field7DeepEqual(src string) bool {
 }
 
 type GetArtifactListResp struct {
-	Artifacts []*Artifact `thrift:"artifacts,1" frugal:"1,default,list<Artifact>" json:"artifacts"`
+	Artifacts []*Artifact    `thrift:"artifacts,1" frugal:"1,default,list<Artifact>" json:"artifacts"`
+	Paginate  *base.Paginate `thrift:"paginate,2" frugal:"2,default,base.Paginate" json:"paginate"`
 }
 
 func NewGetArtifactListResp() *GetArtifactListResp {
@@ -2666,12 +2667,29 @@ func (p *GetArtifactListResp) InitDefault() {
 func (p *GetArtifactListResp) GetArtifacts() (v []*Artifact) {
 	return p.Artifacts
 }
+
+var GetArtifactListResp_Paginate_DEFAULT *base.Paginate
+
+func (p *GetArtifactListResp) GetPaginate() (v *base.Paginate) {
+	if !p.IsSetPaginate() {
+		return GetArtifactListResp_Paginate_DEFAULT
+	}
+	return p.Paginate
+}
 func (p *GetArtifactListResp) SetArtifacts(val []*Artifact) {
 	p.Artifacts = val
+}
+func (p *GetArtifactListResp) SetPaginate(val *base.Paginate) {
+	p.Paginate = val
 }
 
 var fieldIDToName_GetArtifactListResp = map[int16]string{
 	1: "artifacts",
+	2: "paginate",
+}
+
+func (p *GetArtifactListResp) IsSetPaginate() bool {
+	return p.Paginate != nil
 }
 
 func (p *GetArtifactListResp) Read(iprot thrift.TProtocol) (err error) {
@@ -2696,6 +2714,14 @@ func (p *GetArtifactListResp) Read(iprot thrift.TProtocol) (err error) {
 		case 1:
 			if fieldTypeId == thrift.LIST {
 				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 2:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField2(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -2753,6 +2779,14 @@ func (p *GetArtifactListResp) ReadField1(iprot thrift.TProtocol) error {
 	p.Artifacts = _field
 	return nil
 }
+func (p *GetArtifactListResp) ReadField2(iprot thrift.TProtocol) error {
+	_field := base.NewPaginate()
+	if err := _field.Read(iprot); err != nil {
+		return err
+	}
+	p.Paginate = _field
+	return nil
+}
 
 func (p *GetArtifactListResp) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -2762,6 +2796,10 @@ func (p *GetArtifactListResp) Write(oprot thrift.TProtocol) (err error) {
 	if p != nil {
 		if err = p.writeField1(oprot); err != nil {
 			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
 			goto WriteFieldError
 		}
 	}
@@ -2807,6 +2845,23 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
+func (p *GetArtifactListResp) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("paginate", thrift.STRUCT, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Paginate.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
 func (p *GetArtifactListResp) String() string {
 	if p == nil {
 		return "<nil>"
@@ -2824,6 +2879,9 @@ func (p *GetArtifactListResp) DeepEqual(ano *GetArtifactListResp) bool {
 	if !p.Field1DeepEqual(ano.Artifacts) {
 		return false
 	}
+	if !p.Field2DeepEqual(ano.Paginate) {
+		return false
+	}
 	return true
 }
 
@@ -2837,6 +2895,13 @@ func (p *GetArtifactListResp) Field1DeepEqual(src []*Artifact) bool {
 		if !v.DeepEqual(_src) {
 			return false
 		}
+	}
+	return true
+}
+func (p *GetArtifactListResp) Field2DeepEqual(src *base.Paginate) bool {
+
+	if !p.Paginate.DeepEqual(src) {
+		return false
 	}
 	return true
 }
