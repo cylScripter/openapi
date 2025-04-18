@@ -9126,8 +9126,9 @@ func (p *GetImageListReq) Field1DeepEqual(src *base.ListOption) bool {
 }
 
 type GetImageListResp struct {
-	List     []*harbor.Artifact `thrift:"list,1" frugal:"1,default,list<harbor.Artifact>" json:"list"`
-	Paginate *base.Paginate     `thrift:"paginate,2" frugal:"2,default,base.Paginate" json:"paginate"`
+	List       []*harbor.Artifact       `thrift:"list,1" frugal:"1,default,list<harbor.Artifact>" json:"list"`
+	Paginate   *base.Paginate           `thrift:"paginate,2" frugal:"2,default,base.Paginate" json:"paginate"`
+	ReleaseMap map[string]*ModelRelease `thrift:"release_map,3" frugal:"3,default,map<string:ModelRelease>" json:"release_map"`
 }
 
 func NewGetImageListResp() *GetImageListResp {
@@ -9149,16 +9150,24 @@ func (p *GetImageListResp) GetPaginate() (v *base.Paginate) {
 	}
 	return p.Paginate
 }
+
+func (p *GetImageListResp) GetReleaseMap() (v map[string]*ModelRelease) {
+	return p.ReleaseMap
+}
 func (p *GetImageListResp) SetList(val []*harbor.Artifact) {
 	p.List = val
 }
 func (p *GetImageListResp) SetPaginate(val *base.Paginate) {
 	p.Paginate = val
 }
+func (p *GetImageListResp) SetReleaseMap(val map[string]*ModelRelease) {
+	p.ReleaseMap = val
+}
 
 var fieldIDToName_GetImageListResp = map[int16]string{
 	1: "list",
 	2: "paginate",
+	3: "release_map",
 }
 
 func (p *GetImageListResp) IsSetPaginate() bool {
@@ -9195,6 +9204,14 @@ func (p *GetImageListResp) Read(iprot thrift.TProtocol) (err error) {
 		case 2:
 			if fieldTypeId == thrift.STRUCT {
 				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 3:
+			if fieldTypeId == thrift.MAP {
+				if err = p.ReadField3(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -9260,6 +9277,35 @@ func (p *GetImageListResp) ReadField2(iprot thrift.TProtocol) error {
 	p.Paginate = _field
 	return nil
 }
+func (p *GetImageListResp) ReadField3(iprot thrift.TProtocol) error {
+	_, _, size, err := iprot.ReadMapBegin()
+	if err != nil {
+		return err
+	}
+	_field := make(map[string]*ModelRelease, size)
+	values := make([]ModelRelease, size)
+	for i := 0; i < size; i++ {
+		var _key string
+		if v, err := iprot.ReadString(); err != nil {
+			return err
+		} else {
+			_key = v
+		}
+
+		_val := &values[i]
+		_val.InitDefault()
+		if err := _val.Read(iprot); err != nil {
+			return err
+		}
+
+		_field[_key] = _val
+	}
+	if err := iprot.ReadMapEnd(); err != nil {
+		return err
+	}
+	p.ReleaseMap = _field
+	return nil
+}
 
 func (p *GetImageListResp) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -9273,6 +9319,10 @@ func (p *GetImageListResp) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField2(oprot); err != nil {
 			fieldId = 2
+			goto WriteFieldError
+		}
+		if err = p.writeField3(oprot); err != nil {
+			fieldId = 3
 			goto WriteFieldError
 		}
 	}
@@ -9335,6 +9385,34 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
+func (p *GetImageListResp) writeField3(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("release_map", thrift.MAP, 3); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteMapBegin(thrift.STRING, thrift.STRUCT, len(p.ReleaseMap)); err != nil {
+		return err
+	}
+	for k, v := range p.ReleaseMap {
+		if err := oprot.WriteString(k); err != nil {
+			return err
+		}
+		if err := v.Write(oprot); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteMapEnd(); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
+}
+
 func (p *GetImageListResp) String() string {
 	if p == nil {
 		return "<nil>"
@@ -9353,6 +9431,9 @@ func (p *GetImageListResp) DeepEqual(ano *GetImageListResp) bool {
 		return false
 	}
 	if !p.Field2DeepEqual(ano.Paginate) {
+		return false
+	}
+	if !p.Field3DeepEqual(ano.ReleaseMap) {
 		return false
 	}
 	return true
@@ -9375,6 +9456,19 @@ func (p *GetImageListResp) Field2DeepEqual(src *base.Paginate) bool {
 
 	if !p.Paginate.DeepEqual(src) {
 		return false
+	}
+	return true
+}
+func (p *GetImageListResp) Field3DeepEqual(src map[string]*ModelRelease) bool {
+
+	if len(p.ReleaseMap) != len(src) {
+		return false
+	}
+	for k, v := range p.ReleaseMap {
+		_src := src[k]
+		if !v.DeepEqual(_src) {
+			return false
+		}
 	}
 	return true
 }
