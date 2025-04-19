@@ -55,6 +55,7 @@ type Client interface {
 	GetRepositoryList(ctx context.Context, req *system.GetRepositoryListReq, callOptions ...callopt.Option) (r *system.GetRepositoryListResp, err error)
 	DeleteImage(ctx context.Context, req *system.DeleteImageReq, callOptions ...callopt.Option) (r *system.DeleteImageResp, err error)
 	PatchStatefulSetImage(ctx context.Context, req *system.PatchStatefulSetImageReq, callOptions ...callopt.Option) (r *system.PatchStatefulSetImageResp, err error)
+	GetServiceStatus(ctx context.Context, req *system.GetServiceStatusReq, callOptions ...callopt.Option) (r *system.GetServiceStatusResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -304,4 +305,9 @@ func (p *kSystemserviceClient) DeleteImage(ctx context.Context, req *system.Dele
 func (p *kSystemserviceClient) PatchStatefulSetImage(ctx context.Context, req *system.PatchStatefulSetImageReq, callOptions ...callopt.Option) (r *system.PatchStatefulSetImageResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.PatchStatefulSetImage(ctx, req)
+}
+
+func (p *kSystemserviceClient) GetServiceStatus(ctx context.Context, req *system.GetServiceStatusReq, callOptions ...callopt.Option) (r *system.GetServiceStatusResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetServiceStatus(ctx, req)
 }

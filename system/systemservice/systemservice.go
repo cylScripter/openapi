@@ -321,6 +321,13 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"GetServiceStatus": kitex.NewMethodInfo(
+		getServiceStatusHandler,
+		newSystemserviceGetServiceStatusArgs,
+		newSystemserviceGetServiceStatusResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -1179,6 +1186,24 @@ func newSystemservicePatchStatefulSetImageResult() interface{} {
 	return system.NewSystemservicePatchStatefulSetImageResult()
 }
 
+func getServiceStatusHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*system.SystemserviceGetServiceStatusArgs)
+	realResult := result.(*system.SystemserviceGetServiceStatusResult)
+	success, err := handler.(system.Systemservice).GetServiceStatus(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newSystemserviceGetServiceStatusArgs() interface{} {
+	return system.NewSystemserviceGetServiceStatusArgs()
+}
+
+func newSystemserviceGetServiceStatusResult() interface{} {
+	return system.NewSystemserviceGetServiceStatusResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -1624,6 +1649,16 @@ func (p *kClient) PatchStatefulSetImage(ctx context.Context, req *system.PatchSt
 	_args.Req = req
 	var _result system.SystemservicePatchStatefulSetImageResult
 	if err = p.c.Call(ctx, "PatchStatefulSetImage", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetServiceStatus(ctx context.Context, req *system.GetServiceStatusReq) (r *system.GetServiceStatusResp, err error) {
+	var _args system.SystemserviceGetServiceStatusArgs
+	_args.Req = req
+	var _result system.SystemserviceGetServiceStatusResult
+	if err = p.c.Call(ctx, "GetServiceStatus", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

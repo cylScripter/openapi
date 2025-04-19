@@ -225,3 +225,8 @@ func PatchStatefulSetImage(ctx context.Context, req *system.PatchStatefulSetImag
 	clients := MustNewClient("system", callOptions...)
 	return clients.PatchStatefulSetImage(ctx, req)
 }
+
+func GetServiceStatus(ctx context.Context, req *system.GetServiceStatusReq, callOptions ...client.Option) (resp *system.GetServiceStatusResp, err error) {
+	clients := MustNewClient("system", callOptions...)
+	return clients.GetServiceStatus(ctx, req)
+}

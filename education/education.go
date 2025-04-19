@@ -77378,7 +77378,7 @@ type ModelCourseApply struct {
 	Department              string  `thrift:"department,5" frugal:"5,default,string" json:"department" gorm:"column:department"`
 	AcademicYear            string  `thrift:"academic_year,6" frugal:"6,default,string" json:"academic_year" gorm:"column:academic_year;index"`
 	Semester                string  `thrift:"semester,7" frugal:"7,default,string" json:"semester" gorm:"column:semester;index"`
-	AppId                   int32   `thrift:"app_id,8" frugal:"8,default,i32" json:"app_id" gorm:"column:app_id";index`
+	AppId                   int32   `thrift:"app_id,8" frugal:"8,default,i32" json:"app_id" gorm:"column:app_id;index"`
 	OfficeId                int32   `thrift:"office_id,9" frugal:"9,default,i32" json:"office_id" gorm:"column:office_id;;index"`
 	CourseName              string  `thrift:"course_name,10" frugal:"10,default,string" json:"course_name" gorm:"column:course_name"`
 	ClassId                 int32   `thrift:"class_id,11" frugal:"11,default,i32" json:"class_id" gorm:"column:class_id"`
