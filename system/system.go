@@ -634,9 +634,9 @@ type ModelRelease struct {
 	CreatedAt      int32  `thrift:"created_at,2" frugal:"2,default,i32" json:"created_at"`
 	UpdatedAt      int32  `thrift:"updated_at,3" frugal:"3,default,i32" json:"updated_at"`
 	DeletedAt      int32  `thrift:"deleted_at,4" frugal:"4,default,i32" json:"deleted_at"`
-	RepositoryName string `thrift:"repository_name,5" frugal:"5,default,string" json:"name"`
+	RepositoryName string `thrift:"repository_name,5" frugal:"5,default,string" json:"repository_name"`
 	Description    string `thrift:"description,6" frugal:"6,default,string" json:"description"`
-	Tag            string `thrift:"tag,7" frugal:"7,default,string" json:"version"`
+	Tag            string `thrift:"tag,7" frugal:"7,default,string" json:"tag"`
 	Environment    string `thrift:"environment,8" frugal:"8,default,string" json:"environment"`
 }
 
