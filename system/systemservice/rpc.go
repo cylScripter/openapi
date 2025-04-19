@@ -220,3 +220,8 @@ func DeleteImage(ctx context.Context, req *system.DeleteImageReq, callOptions ..
 	clients := MustNewClient("system", callOptions...)
 	return clients.DeleteImage(ctx, req)
 }
+
+func PatchStatefulSetImage(ctx context.Context, req *system.PatchStatefulSetImageReq, callOptions ...client.Option) (resp *system.PatchStatefulSetImageResp, err error) {
+	clients := MustNewClient("system", callOptions...)
+	return clients.PatchStatefulSetImage(ctx, req)
+}

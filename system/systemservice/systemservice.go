@@ -314,6 +314,13 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"PatchStatefulSetImage": kitex.NewMethodInfo(
+		patchStatefulSetImageHandler,
+		newSystemservicePatchStatefulSetImageArgs,
+		newSystemservicePatchStatefulSetImageResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -1154,6 +1161,24 @@ func newSystemserviceDeleteImageResult() interface{} {
 	return system.NewSystemserviceDeleteImageResult()
 }
 
+func patchStatefulSetImageHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*system.SystemservicePatchStatefulSetImageArgs)
+	realResult := result.(*system.SystemservicePatchStatefulSetImageResult)
+	success, err := handler.(system.Systemservice).PatchStatefulSetImage(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newSystemservicePatchStatefulSetImageArgs() interface{} {
+	return system.NewSystemservicePatchStatefulSetImageArgs()
+}
+
+func newSystemservicePatchStatefulSetImageResult() interface{} {
+	return system.NewSystemservicePatchStatefulSetImageResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -1589,6 +1614,16 @@ func (p *kClient) DeleteImage(ctx context.Context, req *system.DeleteImageReq) (
 	_args.Req = req
 	var _result system.SystemserviceDeleteImageResult
 	if err = p.c.Call(ctx, "DeleteImage", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) PatchStatefulSetImage(ctx context.Context, req *system.PatchStatefulSetImageReq) (r *system.PatchStatefulSetImageResp, err error) {
+	var _args system.SystemservicePatchStatefulSetImageArgs
+	_args.Req = req
+	var _result system.SystemservicePatchStatefulSetImageResult
+	if err = p.c.Call(ctx, "PatchStatefulSetImage", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
