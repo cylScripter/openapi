@@ -55,3 +55,8 @@ func PatchStatefulSetImage(ctx context.Context, req *harbor.PatchStatefulSetImag
 	clients := MustNewClient("harbor", callOptions...)
 	return clients.PatchStatefulSetImage(ctx, req)
 }
+
+func GetStatefulSetContainer(ctx context.Context, req *harbor.GetStatefulSetContainerReq, callOptions ...client.Option) (resp *harbor.GetStatefulSetContainerResp, err error) {
+	clients := MustNewClient("harbor", callOptions...)
+	return clients.GetStatefulSetContainer(ctx, req)
+}

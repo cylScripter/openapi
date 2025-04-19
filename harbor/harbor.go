@@ -76,6 +76,875 @@ func (p *GetHarborConfigListReqOption) Value() (driver.Value, error) {
 	return int64(*p), nil
 }
 
+type GetStatefulSetContainerReq struct {
+	Namespacs     string `thrift:"namespacs,1" frugal:"1,default,string" json:"namespacs" binding:"required"`
+	LabelSelector string `thrift:"label_selector,2" frugal:"2,default,string" json:"label_selector" binding:"required"`
+}
+
+func NewGetStatefulSetContainerReq() *GetStatefulSetContainerReq {
+	return &GetStatefulSetContainerReq{}
+}
+
+func (p *GetStatefulSetContainerReq) InitDefault() {
+}
+
+func (p *GetStatefulSetContainerReq) GetNamespacs() (v string) {
+	return p.Namespacs
+}
+
+func (p *GetStatefulSetContainerReq) GetLabelSelector() (v string) {
+	return p.LabelSelector
+}
+func (p *GetStatefulSetContainerReq) SetNamespacs(val string) {
+	p.Namespacs = val
+}
+func (p *GetStatefulSetContainerReq) SetLabelSelector(val string) {
+	p.LabelSelector = val
+}
+
+var fieldIDToName_GetStatefulSetContainerReq = map[int16]string{
+	1: "namespacs",
+	2: "label_selector",
+}
+
+func (p *GetStatefulSetContainerReq) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 2:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_GetStatefulSetContainerReq[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *GetStatefulSetContainerReq) ReadField1(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Namespacs = _field
+	return nil
+}
+func (p *GetStatefulSetContainerReq) ReadField2(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.LabelSelector = _field
+	return nil
+}
+
+func (p *GetStatefulSetContainerReq) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("GetStatefulSetContainerReq"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *GetStatefulSetContainerReq) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("namespacs", thrift.STRING, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Namespacs); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *GetStatefulSetContainerReq) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("label_selector", thrift.STRING, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.LabelSelector); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
+func (p *GetStatefulSetContainerReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("GetStatefulSetContainerReq(%+v)", *p)
+
+}
+
+func (p *GetStatefulSetContainerReq) DeepEqual(ano *GetStatefulSetContainerReq) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Namespacs) {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.LabelSelector) {
+		return false
+	}
+	return true
+}
+
+func (p *GetStatefulSetContainerReq) Field1DeepEqual(src string) bool {
+
+	if strings.Compare(p.Namespacs, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *GetStatefulSetContainerReq) Field2DeepEqual(src string) bool {
+
+	if strings.Compare(p.LabelSelector, src) != 0 {
+		return false
+	}
+	return true
+}
+
+type GetStatefulSetContainerResp struct {
+	Containers []*Container `thrift:"containers,1" frugal:"1,default,list<Container>" json:"containers"`
+}
+
+func NewGetStatefulSetContainerResp() *GetStatefulSetContainerResp {
+	return &GetStatefulSetContainerResp{}
+}
+
+func (p *GetStatefulSetContainerResp) InitDefault() {
+}
+
+func (p *GetStatefulSetContainerResp) GetContainers() (v []*Container) {
+	return p.Containers
+}
+func (p *GetStatefulSetContainerResp) SetContainers(val []*Container) {
+	p.Containers = val
+}
+
+var fieldIDToName_GetStatefulSetContainerResp = map[int16]string{
+	1: "containers",
+}
+
+func (p *GetStatefulSetContainerResp) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.LIST {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_GetStatefulSetContainerResp[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *GetStatefulSetContainerResp) ReadField1(iprot thrift.TProtocol) error {
+	_, size, err := iprot.ReadListBegin()
+	if err != nil {
+		return err
+	}
+	_field := make([]*Container, 0, size)
+	values := make([]Container, size)
+	for i := 0; i < size; i++ {
+		_elem := &values[i]
+		_elem.InitDefault()
+
+		if err := _elem.Read(iprot); err != nil {
+			return err
+		}
+
+		_field = append(_field, _elem)
+	}
+	if err := iprot.ReadListEnd(); err != nil {
+		return err
+	}
+	p.Containers = _field
+	return nil
+}
+
+func (p *GetStatefulSetContainerResp) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("GetStatefulSetContainerResp"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *GetStatefulSetContainerResp) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("containers", thrift.LIST, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteListBegin(thrift.STRUCT, len(p.Containers)); err != nil {
+		return err
+	}
+	for _, v := range p.Containers {
+		if err := v.Write(oprot); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteListEnd(); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *GetStatefulSetContainerResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("GetStatefulSetContainerResp(%+v)", *p)
+
+}
+
+func (p *GetStatefulSetContainerResp) DeepEqual(ano *GetStatefulSetContainerResp) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Containers) {
+		return false
+	}
+	return true
+}
+
+func (p *GetStatefulSetContainerResp) Field1DeepEqual(src []*Container) bool {
+
+	if len(p.Containers) != len(src) {
+		return false
+	}
+	for i, v := range p.Containers {
+		_src := src[i]
+		if !v.DeepEqual(_src) {
+			return false
+		}
+	}
+	return true
+}
+
+type Container struct {
+	Name      string `thrift:"name,1" frugal:"1,default,string" json:"name"`
+	PodName   string `thrift:"pod_name,2" frugal:"2,default,string" json:"pod_name"`
+	ImageName string `thrift:"image_name,3" frugal:"3,default,string" json:"image_name"`
+	Ready     bool   `thrift:"ready,4" frugal:"4,default,bool" json:"ready"`
+	Status    string `thrift:"status,5" frugal:"5,default,string" json:"status"`
+	State     string `thrift:"State,6" frugal:"6,default,string" json:"state"`
+}
+
+func NewContainer() *Container {
+	return &Container{}
+}
+
+func (p *Container) InitDefault() {
+}
+
+func (p *Container) GetName() (v string) {
+	return p.Name
+}
+
+func (p *Container) GetPodName() (v string) {
+	return p.PodName
+}
+
+func (p *Container) GetImageName() (v string) {
+	return p.ImageName
+}
+
+func (p *Container) GetReady() (v bool) {
+	return p.Ready
+}
+
+func (p *Container) GetStatus() (v string) {
+	return p.Status
+}
+
+func (p *Container) GetState() (v string) {
+	return p.State
+}
+func (p *Container) SetName(val string) {
+	p.Name = val
+}
+func (p *Container) SetPodName(val string) {
+	p.PodName = val
+}
+func (p *Container) SetImageName(val string) {
+	p.ImageName = val
+}
+func (p *Container) SetReady(val bool) {
+	p.Ready = val
+}
+func (p *Container) SetStatus(val string) {
+	p.Status = val
+}
+func (p *Container) SetState(val string) {
+	p.State = val
+}
+
+var fieldIDToName_Container = map[int16]string{
+	1: "name",
+	2: "pod_name",
+	3: "image_name",
+	4: "ready",
+	5: "status",
+	6: "State",
+}
+
+func (p *Container) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 2:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 3:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField3(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 4:
+			if fieldTypeId == thrift.BOOL {
+				if err = p.ReadField4(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 5:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField5(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 6:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField6(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_Container[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *Container) ReadField1(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Name = _field
+	return nil
+}
+func (p *Container) ReadField2(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.PodName = _field
+	return nil
+}
+func (p *Container) ReadField3(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.ImageName = _field
+	return nil
+}
+func (p *Container) ReadField4(iprot thrift.TProtocol) error {
+
+	var _field bool
+	if v, err := iprot.ReadBool(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Ready = _field
+	return nil
+}
+func (p *Container) ReadField5(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Status = _field
+	return nil
+}
+func (p *Container) ReadField6(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.State = _field
+	return nil
+}
+
+func (p *Container) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("Container"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
+			goto WriteFieldError
+		}
+		if err = p.writeField3(oprot); err != nil {
+			fieldId = 3
+			goto WriteFieldError
+		}
+		if err = p.writeField4(oprot); err != nil {
+			fieldId = 4
+			goto WriteFieldError
+		}
+		if err = p.writeField5(oprot); err != nil {
+			fieldId = 5
+			goto WriteFieldError
+		}
+		if err = p.writeField6(oprot); err != nil {
+			fieldId = 6
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *Container) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("name", thrift.STRING, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Name); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *Container) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("pod_name", thrift.STRING, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.PodName); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
+func (p *Container) writeField3(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("image_name", thrift.STRING, 3); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.ImageName); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
+}
+
+func (p *Container) writeField4(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("ready", thrift.BOOL, 4); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteBool(p.Ready); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 end error: ", p), err)
+}
+
+func (p *Container) writeField5(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("status", thrift.STRING, 5); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Status); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 5 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 5 end error: ", p), err)
+}
+
+func (p *Container) writeField6(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("State", thrift.STRING, 6); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.State); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 6 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 6 end error: ", p), err)
+}
+
+func (p *Container) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("Container(%+v)", *p)
+
+}
+
+func (p *Container) DeepEqual(ano *Container) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Name) {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.PodName) {
+		return false
+	}
+	if !p.Field3DeepEqual(ano.ImageName) {
+		return false
+	}
+	if !p.Field4DeepEqual(ano.Ready) {
+		return false
+	}
+	if !p.Field5DeepEqual(ano.Status) {
+		return false
+	}
+	if !p.Field6DeepEqual(ano.State) {
+		return false
+	}
+	return true
+}
+
+func (p *Container) Field1DeepEqual(src string) bool {
+
+	if strings.Compare(p.Name, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *Container) Field2DeepEqual(src string) bool {
+
+	if strings.Compare(p.PodName, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *Container) Field3DeepEqual(src string) bool {
+
+	if strings.Compare(p.ImageName, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *Container) Field4DeepEqual(src bool) bool {
+
+	if p.Ready != src {
+		return false
+	}
+	return true
+}
+func (p *Container) Field5DeepEqual(src string) bool {
+
+	if strings.Compare(p.Status, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *Container) Field6DeepEqual(src string) bool {
+
+	if strings.Compare(p.State, src) != 0 {
+		return false
+	}
+	return true
+}
+
 type PatchStatefulSetImageReq struct {
 	Repository      string `thrift:"repository,1" frugal:"1,default,string" json:"repository"`
 	Tag             string `thrift:"tag,2" frugal:"2,default,string" json:"tag" binding:"required" `
@@ -7400,6 +8269,8 @@ type Harborservice interface {
 	UpdateHarborConfig(ctx context.Context, req *UpdateHarborConfigReq) (r *UpdateHarborConfigResp, err error)
 
 	PatchStatefulSetImage(ctx context.Context, req *PatchStatefulSetImageReq) (r *PatchStatefulSetImageResp, err error)
+
+	GetStatefulSetContainer(ctx context.Context, req *GetStatefulSetContainerReq) (r *GetStatefulSetContainerResp, err error)
 }
 
 type HarborserviceTestArgs struct {
@@ -10795,6 +11666,346 @@ func (p *HarborservicePatchStatefulSetImageResult) DeepEqual(ano *HarborserviceP
 }
 
 func (p *HarborservicePatchStatefulSetImageResult) Field0DeepEqual(src *PatchStatefulSetImageResp) bool {
+
+	if !p.Success.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type HarborserviceGetStatefulSetContainerArgs struct {
+	Req *GetStatefulSetContainerReq `thrift:"req,1" frugal:"1,default,GetStatefulSetContainerReq" json:"req"`
+}
+
+func NewHarborserviceGetStatefulSetContainerArgs() *HarborserviceGetStatefulSetContainerArgs {
+	return &HarborserviceGetStatefulSetContainerArgs{}
+}
+
+func (p *HarborserviceGetStatefulSetContainerArgs) InitDefault() {
+}
+
+var HarborserviceGetStatefulSetContainerArgs_Req_DEFAULT *GetStatefulSetContainerReq
+
+func (p *HarborserviceGetStatefulSetContainerArgs) GetReq() (v *GetStatefulSetContainerReq) {
+	if !p.IsSetReq() {
+		return HarborserviceGetStatefulSetContainerArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *HarborserviceGetStatefulSetContainerArgs) SetReq(val *GetStatefulSetContainerReq) {
+	p.Req = val
+}
+
+var fieldIDToName_HarborserviceGetStatefulSetContainerArgs = map[int16]string{
+	1: "req",
+}
+
+func (p *HarborserviceGetStatefulSetContainerArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *HarborserviceGetStatefulSetContainerArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_HarborserviceGetStatefulSetContainerArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *HarborserviceGetStatefulSetContainerArgs) ReadField1(iprot thrift.TProtocol) error {
+	_field := NewGetStatefulSetContainerReq()
+	if err := _field.Read(iprot); err != nil {
+		return err
+	}
+	p.Req = _field
+	return nil
+}
+
+func (p *HarborserviceGetStatefulSetContainerArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("GetStatefulSetContainer_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *HarborserviceGetStatefulSetContainerArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *HarborserviceGetStatefulSetContainerArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("HarborserviceGetStatefulSetContainerArgs(%+v)", *p)
+
+}
+
+func (p *HarborserviceGetStatefulSetContainerArgs) DeepEqual(ano *HarborserviceGetStatefulSetContainerArgs) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Req) {
+		return false
+	}
+	return true
+}
+
+func (p *HarborserviceGetStatefulSetContainerArgs) Field1DeepEqual(src *GetStatefulSetContainerReq) bool {
+
+	if !p.Req.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type HarborserviceGetStatefulSetContainerResult struct {
+	Success *GetStatefulSetContainerResp `thrift:"success,0,optional" frugal:"0,optional,GetStatefulSetContainerResp" json:"success,omitempty"`
+}
+
+func NewHarborserviceGetStatefulSetContainerResult() *HarborserviceGetStatefulSetContainerResult {
+	return &HarborserviceGetStatefulSetContainerResult{}
+}
+
+func (p *HarborserviceGetStatefulSetContainerResult) InitDefault() {
+}
+
+var HarborserviceGetStatefulSetContainerResult_Success_DEFAULT *GetStatefulSetContainerResp
+
+func (p *HarborserviceGetStatefulSetContainerResult) GetSuccess() (v *GetStatefulSetContainerResp) {
+	if !p.IsSetSuccess() {
+		return HarborserviceGetStatefulSetContainerResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *HarborserviceGetStatefulSetContainerResult) SetSuccess(x interface{}) {
+	p.Success = x.(*GetStatefulSetContainerResp)
+}
+
+var fieldIDToName_HarborserviceGetStatefulSetContainerResult = map[int16]string{
+	0: "success",
+}
+
+func (p *HarborserviceGetStatefulSetContainerResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *HarborserviceGetStatefulSetContainerResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_HarborserviceGetStatefulSetContainerResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *HarborserviceGetStatefulSetContainerResult) ReadField0(iprot thrift.TProtocol) error {
+	_field := NewGetStatefulSetContainerResp()
+	if err := _field.Read(iprot); err != nil {
+		return err
+	}
+	p.Success = _field
+	return nil
+}
+
+func (p *HarborserviceGetStatefulSetContainerResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("GetStatefulSetContainer_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *HarborserviceGetStatefulSetContainerResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *HarborserviceGetStatefulSetContainerResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("HarborserviceGetStatefulSetContainerResult(%+v)", *p)
+
+}
+
+func (p *HarborserviceGetStatefulSetContainerResult) DeepEqual(ano *HarborserviceGetStatefulSetContainerResult) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field0DeepEqual(ano.Success) {
+		return false
+	}
+	return true
+}
+
+func (p *HarborserviceGetStatefulSetContainerResult) Field0DeepEqual(src *GetStatefulSetContainerResp) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false
