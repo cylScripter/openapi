@@ -76,6 +76,13 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"PatchStatefulSetImage": kitex.NewMethodInfo(
+		patchStatefulSetImageHandler,
+		newHarborservicePatchStatefulSetImageArgs,
+		newHarborservicePatchStatefulSetImageResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -304,6 +311,24 @@ func newHarborserviceUpdateHarborConfigResult() interface{} {
 	return harbor.NewHarborserviceUpdateHarborConfigResult()
 }
 
+func patchStatefulSetImageHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*harbor.HarborservicePatchStatefulSetImageArgs)
+	realResult := result.(*harbor.HarborservicePatchStatefulSetImageResult)
+	success, err := handler.(harbor.Harborservice).PatchStatefulSetImage(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newHarborservicePatchStatefulSetImageArgs() interface{} {
+	return harbor.NewHarborservicePatchStatefulSetImageArgs()
+}
+
+func newHarborservicePatchStatefulSetImageResult() interface{} {
+	return harbor.NewHarborservicePatchStatefulSetImageResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -399,6 +424,16 @@ func (p *kClient) UpdateHarborConfig(ctx context.Context, req *harbor.UpdateHarb
 	_args.Req = req
 	var _result harbor.HarborserviceUpdateHarborConfigResult
 	if err = p.c.Call(ctx, "UpdateHarborConfig", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) PatchStatefulSetImage(ctx context.Context, req *harbor.PatchStatefulSetImageReq) (r *harbor.PatchStatefulSetImageResp, err error) {
+	var _args harbor.HarborservicePatchStatefulSetImageArgs
+	_args.Req = req
+	var _result harbor.HarborservicePatchStatefulSetImageResult
+	if err = p.c.Call(ctx, "PatchStatefulSetImage", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

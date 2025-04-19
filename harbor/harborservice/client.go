@@ -20,6 +20,7 @@ type Client interface {
 	DeleteHarborConfig(ctx context.Context, req *harbor.DeleteHarborConfigReq, callOptions ...callopt.Option) (r *harbor.DeleteHarborConfigResp, err error)
 	CreateHarborConfig(ctx context.Context, req *harbor.CreateHarborConfigReq, callOptions ...callopt.Option) (r *harbor.CreateHarborConfigResp, err error)
 	UpdateHarborConfig(ctx context.Context, req *harbor.UpdateHarborConfigReq, callOptions ...callopt.Option) (r *harbor.UpdateHarborConfigResp, err error)
+	PatchStatefulSetImage(ctx context.Context, req *harbor.PatchStatefulSetImageReq, callOptions ...callopt.Option) (r *harbor.PatchStatefulSetImageResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -94,4 +95,9 @@ func (p *kHarborserviceClient) CreateHarborConfig(ctx context.Context, req *harb
 func (p *kHarborserviceClient) UpdateHarborConfig(ctx context.Context, req *harbor.UpdateHarborConfigReq, callOptions ...callopt.Option) (r *harbor.UpdateHarborConfigResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.UpdateHarborConfig(ctx, req)
+}
+
+func (p *kHarborserviceClient) PatchStatefulSetImage(ctx context.Context, req *harbor.PatchStatefulSetImageReq, callOptions ...callopt.Option) (r *harbor.PatchStatefulSetImageResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.PatchStatefulSetImage(ctx, req)
 }

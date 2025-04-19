@@ -50,3 +50,8 @@ func UpdateHarborConfig(ctx context.Context, req *harbor.UpdateHarborConfigReq, 
 	clients := MustNewClient("harbor", callOptions...)
 	return clients.UpdateHarborConfig(ctx, req)
 }
+
+func PatchStatefulSetImage(ctx context.Context, req *harbor.PatchStatefulSetImageReq, callOptions ...client.Option) (resp *harbor.PatchStatefulSetImageResp, err error) {
+	clients := MustNewClient("harbor", callOptions...)
+	return clients.PatchStatefulSetImage(ctx, req)
+}
