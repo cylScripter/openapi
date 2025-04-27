@@ -839,6 +839,13 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"UpdateWorkloadStatistics": kitex.NewMethodInfo(
+		updateWorkloadStatisticsHandler,
+		newEducationserviceUpdateWorkloadStatisticsArgs,
+		newEducationserviceUpdateWorkloadStatisticsResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -3029,6 +3036,24 @@ func newEducationserviceCreateWorkloadStatisticsResult() interface{} {
 	return education.NewEducationserviceCreateWorkloadStatisticsResult()
 }
 
+func updateWorkloadStatisticsHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceUpdateWorkloadStatisticsArgs)
+	realResult := result.(*education.EducationserviceUpdateWorkloadStatisticsResult)
+	success, err := handler.(education.Educationservice).UpdateWorkloadStatistics(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceUpdateWorkloadStatisticsArgs() interface{} {
+	return education.NewEducationserviceUpdateWorkloadStatisticsArgs()
+}
+
+func newEducationserviceUpdateWorkloadStatisticsResult() interface{} {
+	return education.NewEducationserviceUpdateWorkloadStatisticsResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -4214,6 +4239,16 @@ func (p *kClient) CreateWorkloadStatistics(ctx context.Context, req *education.C
 	_args.Req = req
 	var _result education.EducationserviceCreateWorkloadStatisticsResult
 	if err = p.c.Call(ctx, "CreateWorkloadStatistics", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) UpdateWorkloadStatistics(ctx context.Context, req *education.UpdateWorkloadStatisticsReq) (r *education.UpdateWorkloadStatisticsResp, err error) {
+	var _args education.EducationserviceUpdateWorkloadStatisticsArgs
+	_args.Req = req
+	var _result education.EducationserviceUpdateWorkloadStatisticsResult
+	if err = p.c.Call(ctx, "UpdateWorkloadStatistics", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

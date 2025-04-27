@@ -595,3 +595,8 @@ func CreateWorkloadStatistics(ctx context.Context, req *education.CreateWorkload
 	clients := MustNewClient("education", callOptions...)
 	return clients.CreateWorkloadStatistics(ctx, req)
 }
+
+func UpdateWorkloadStatistics(ctx context.Context, req *education.UpdateWorkloadStatisticsReq, callOptions ...client.Option) (resp *education.UpdateWorkloadStatisticsResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.UpdateWorkloadStatistics(ctx, req)
+}
