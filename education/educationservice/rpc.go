@@ -600,3 +600,8 @@ func UpdateWorkloadStatistics(ctx context.Context, req *education.UpdateWorkload
 	clients := MustNewClient("education", callOptions...)
 	return clients.UpdateWorkloadStatistics(ctx, req)
 }
+
+func GetCollegeList(ctx context.Context, req *education.GetCollegeListReq, callOptions ...client.Option) (resp *education.GetCollegeListResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.GetCollegeList(ctx, req)
+}

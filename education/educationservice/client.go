@@ -130,6 +130,7 @@ type Client interface {
 	ExportBeginExamWorkload(ctx context.Context, req *education.ExportBeginExamWorkloadReq, callOptions ...callopt.Option) (r *education.ExportBeginExamWorkloadResp, err error)
 	CreateWorkloadStatistics(ctx context.Context, req *education.CreateWorkloadStatisticsReq, callOptions ...callopt.Option) (r *education.CreateWorkloadStatisticsResp, err error)
 	UpdateWorkloadStatistics(ctx context.Context, req *education.UpdateWorkloadStatisticsReq, callOptions ...callopt.Option) (r *education.UpdateWorkloadStatisticsResp, err error)
+	GetCollegeList(ctx context.Context, req *education.GetCollegeListReq, callOptions ...callopt.Option) (r *education.GetCollegeListResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -754,4 +755,9 @@ func (p *kEducationserviceClient) CreateWorkloadStatistics(ctx context.Context, 
 func (p *kEducationserviceClient) UpdateWorkloadStatistics(ctx context.Context, req *education.UpdateWorkloadStatisticsReq, callOptions ...callopt.Option) (r *education.UpdateWorkloadStatisticsResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.UpdateWorkloadStatistics(ctx, req)
+}
+
+func (p *kEducationserviceClient) GetCollegeList(ctx context.Context, req *education.GetCollegeListReq, callOptions ...callopt.Option) (r *education.GetCollegeListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetCollegeList(ctx, req)
 }

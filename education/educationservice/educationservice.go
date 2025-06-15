@@ -846,6 +846,13 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"GetCollegeList": kitex.NewMethodInfo(
+		getCollegeListHandler,
+		newEducationserviceGetCollegeListArgs,
+		newEducationserviceGetCollegeListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -3054,6 +3061,24 @@ func newEducationserviceUpdateWorkloadStatisticsResult() interface{} {
 	return education.NewEducationserviceUpdateWorkloadStatisticsResult()
 }
 
+func getCollegeListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceGetCollegeListArgs)
+	realResult := result.(*education.EducationserviceGetCollegeListResult)
+	success, err := handler.(education.Educationservice).GetCollegeList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceGetCollegeListArgs() interface{} {
+	return education.NewEducationserviceGetCollegeListArgs()
+}
+
+func newEducationserviceGetCollegeListResult() interface{} {
+	return education.NewEducationserviceGetCollegeListResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -4249,6 +4274,16 @@ func (p *kClient) UpdateWorkloadStatistics(ctx context.Context, req *education.U
 	_args.Req = req
 	var _result education.EducationserviceUpdateWorkloadStatisticsResult
 	if err = p.c.Call(ctx, "UpdateWorkloadStatistics", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetCollegeList(ctx context.Context, req *education.GetCollegeListReq) (r *education.GetCollegeListResp, err error) {
+	var _args education.EducationserviceGetCollegeListArgs
+	_args.Req = req
+	var _result education.EducationserviceGetCollegeListResult
+	if err = p.c.Call(ctx, "GetCollegeList", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
