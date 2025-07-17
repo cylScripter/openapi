@@ -10,7 +10,7 @@ fi
 
 ## 随机生成版本号 版本号格式为 v25-01-01-000000
 function generate_random_version() {
-  echo "v$(date +%y%m%d%H%M%S)"
+  echo "v$(date +%y-%m-%d-%H%M%S)"
    return
 }
 
