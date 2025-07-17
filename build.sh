@@ -24,5 +24,5 @@ kitex -module github.com/cylScripter/openapi -template-dir /Users/cyl/project/ki
 git add .
 git commit -m "feat: $1 $version"
 
-git tag $2
-git push origin $2
+git tag $version
+git push origin $version
