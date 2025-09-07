@@ -29549,6 +29549,20 @@ func (p *LoginReq) FastRead(buf []byte) (int, error) {
 					goto SkipFieldError
 				}
 			}
+		case 3:
+			if fieldTypeId == thrift.I32 {
+				l, err = p.FastReadField3(buf[offset:])
+				offset += l
+				if err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
+				offset += l
+				if err != nil {
+					goto SkipFieldError
+				}
+			}
 		default:
 			l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
 			offset += l
@@ -29595,6 +29609,20 @@ func (p *LoginReq) FastReadField2(buf []byte) (int, error) {
 	return offset, nil
 }
 
+func (p *LoginReq) FastReadField3(buf []byte) (int, error) {
+	offset := 0
+
+	var _field int32
+	if v, l, err := thrift.Binary.ReadI32(buf[offset:]); err != nil {
+		return offset, err
+	} else {
+		offset += l
+		_field = v
+	}
+	p.AppId = _field
+	return offset, nil
+}
+
 // for compatibility
 func (p *LoginReq) FastWrite(buf []byte) int {
 	return 0
@@ -29603,6 +29631,7 @@ func (p *LoginReq) FastWrite(buf []byte) int {
 func (p *LoginReq) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p != nil {
+		offset += p.fastWriteField3(buf[offset:], w)
 		offset += p.fastWriteField1(buf[offset:], w)
 		offset += p.fastWriteField2(buf[offset:], w)
 	}
@@ -29615,6 +29644,7 @@ func (p *LoginReq) BLength() int {
 	if p != nil {
 		l += p.field1Length()
 		l += p.field2Length()
+		l += p.field3Length()
 	}
 	l += thrift.Binary.FieldStopLength()
 	return l
@@ -29634,6 +29664,13 @@ func (p *LoginReq) fastWriteField2(buf []byte, w thrift.NocopyWriter) int {
 	return offset
 }
 
+func (p *LoginReq) fastWriteField3(buf []byte, w thrift.NocopyWriter) int {
+	offset := 0
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 3)
+	offset += thrift.Binary.WriteI32(buf[offset:], p.AppId)
+	return offset
+}
+
 func (p *LoginReq) field1Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
@@ -29645,6 +29682,13 @@ func (p *LoginReq) field2Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.StringLengthNocopy(p.Password)
+	return l
+}
+
+func (p *LoginReq) field3Length() int {
+	l := 0
+	l += thrift.Binary.FieldBeginLength()
+	l += thrift.Binary.I32Length()
 	return l
 }
 
@@ -36355,6 +36399,34 @@ func (p *FillCourseApplyReq) FastRead(buf []byte) (int, error) {
 					goto SkipFieldError
 				}
 			}
+		case 16:
+			if fieldTypeId == thrift.I32 {
+				l, err = p.FastReadField16(buf[offset:])
+				offset += l
+				if err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
+				offset += l
+				if err != nil {
+					goto SkipFieldError
+				}
+			}
+		case 17:
+			if fieldTypeId == thrift.I32 {
+				l, err = p.FastReadField17(buf[offset:])
+				offset += l
+				if err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
+				offset += l
+				if err != nil {
+					goto SkipFieldError
+				}
+			}
 		default:
 			l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
 			offset += l
@@ -36583,6 +36655,34 @@ func (p *FillCourseApplyReq) FastReadField15(buf []byte) (int, error) {
 	return offset, nil
 }
 
+func (p *FillCourseApplyReq) FastReadField16(buf []byte) (int, error) {
+	offset := 0
+
+	var _field int32
+	if v, l, err := thrift.Binary.ReadI32(buf[offset:]); err != nil {
+		return offset, err
+	} else {
+		offset += l
+		_field = v
+	}
+	p.TeachingHours = _field
+	return offset, nil
+}
+
+func (p *FillCourseApplyReq) FastReadField17(buf []byte) (int, error) {
+	offset := 0
+
+	var _field int32
+	if v, l, err := thrift.Binary.ReadI32(buf[offset:]); err != nil {
+		return offset, err
+	} else {
+		offset += l
+		_field = v
+	}
+	p.OnlineHours = _field
+	return offset, nil
+}
+
 // for compatibility
 func (p *FillCourseApplyReq) FastWrite(buf []byte) int {
 	return 0
@@ -36596,6 +36696,8 @@ func (p *FillCourseApplyReq) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) 
 		offset += p.fastWriteField6(buf[offset:], w)
 		offset += p.fastWriteField7(buf[offset:], w)
 		offset += p.fastWriteField14(buf[offset:], w)
+		offset += p.fastWriteField16(buf[offset:], w)
+		offset += p.fastWriteField17(buf[offset:], w)
 		offset += p.fastWriteField2(buf[offset:], w)
 		offset += p.fastWriteField3(buf[offset:], w)
 		offset += p.fastWriteField4(buf[offset:], w)
@@ -36629,6 +36731,8 @@ func (p *FillCourseApplyReq) BLength() int {
 		l += p.field13Length()
 		l += p.field14Length()
 		l += p.field15Length()
+		l += p.field16Length()
+		l += p.field17Length()
 	}
 	l += thrift.Binary.FieldStopLength()
 	return l
@@ -36739,6 +36843,20 @@ func (p *FillCourseApplyReq) fastWriteField15(buf []byte, w thrift.NocopyWriter)
 	return offset
 }
 
+func (p *FillCourseApplyReq) fastWriteField16(buf []byte, w thrift.NocopyWriter) int {
+	offset := 0
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 16)
+	offset += thrift.Binary.WriteI32(buf[offset:], p.TeachingHours)
+	return offset
+}
+
+func (p *FillCourseApplyReq) fastWriteField17(buf []byte, w thrift.NocopyWriter) int {
+	offset := 0
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 17)
+	offset += thrift.Binary.WriteI32(buf[offset:], p.OnlineHours)
+	return offset
+}
+
 func (p *FillCourseApplyReq) field1Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
@@ -36841,6 +36959,20 @@ func (p *FillCourseApplyReq) field15Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.StringLengthNocopy(p.OtherResourceName)
+	return l
+}
+
+func (p *FillCourseApplyReq) field16Length() int {
+	l := 0
+	l += thrift.Binary.FieldBeginLength()
+	l += thrift.Binary.I32Length()
+	return l
+}
+
+func (p *FillCourseApplyReq) field17Length() int {
+	l := 0
+	l += thrift.Binary.FieldBeginLength()
+	l += thrift.Binary.I32Length()
 	return l
 }
 
@@ -52286,6 +52418,34 @@ func (p *ModelCourseApply) FastRead(buf []byte) (int, error) {
 					goto SkipFieldError
 				}
 			}
+		case 37:
+			if fieldTypeId == thrift.I32 {
+				l, err = p.FastReadField37(buf[offset:])
+				offset += l
+				if err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
+				offset += l
+				if err != nil {
+					goto SkipFieldError
+				}
+			}
+		case 38:
+			if fieldTypeId == thrift.I32 {
+				l, err = p.FastReadField38(buf[offset:])
+				offset += l
+				if err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
+				offset += l
+				if err != nil {
+					goto SkipFieldError
+				}
+			}
 		default:
 			l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
 			offset += l
@@ -52808,6 +52968,34 @@ func (p *ModelCourseApply) FastReadField36(buf []byte) (int, error) {
 	return offset, nil
 }
 
+func (p *ModelCourseApply) FastReadField37(buf []byte) (int, error) {
+	offset := 0
+
+	var _field int32
+	if v, l, err := thrift.Binary.ReadI32(buf[offset:]); err != nil {
+		return offset, err
+	} else {
+		offset += l
+		_field = v
+	}
+	p.TeachingHours = _field
+	return offset, nil
+}
+
+func (p *ModelCourseApply) FastReadField38(buf []byte) (int, error) {
+	offset := 0
+
+	var _field int32
+	if v, l, err := thrift.Binary.ReadI32(buf[offset:]); err != nil {
+		return offset, err
+	} else {
+		offset += l
+		_field = v
+	}
+	p.OnlineHours = _field
+	return offset, nil
+}
+
 // for compatibility
 func (p *ModelCourseApply) FastWrite(buf []byte) int {
 	return 0
@@ -52832,6 +53020,8 @@ func (p *ModelCourseApply) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) in
 		offset += p.fastWriteField34(buf[offset:], w)
 		offset += p.fastWriteField35(buf[offset:], w)
 		offset += p.fastWriteField36(buf[offset:], w)
+		offset += p.fastWriteField37(buf[offset:], w)
+		offset += p.fastWriteField38(buf[offset:], w)
 		offset += p.fastWriteField5(buf[offset:], w)
 		offset += p.fastWriteField6(buf[offset:], w)
 		offset += p.fastWriteField7(buf[offset:], w)
@@ -52896,6 +53086,8 @@ func (p *ModelCourseApply) BLength() int {
 		l += p.field34Length()
 		l += p.field35Length()
 		l += p.field36Length()
+		l += p.field37Length()
+		l += p.field38Length()
 	}
 	l += thrift.Binary.FieldStopLength()
 	return l
@@ -53153,6 +53345,20 @@ func (p *ModelCourseApply) fastWriteField36(buf []byte, w thrift.NocopyWriter) i
 	return offset
 }
 
+func (p *ModelCourseApply) fastWriteField37(buf []byte, w thrift.NocopyWriter) int {
+	offset := 0
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 37)
+	offset += thrift.Binary.WriteI32(buf[offset:], p.TeachingHours)
+	return offset
+}
+
+func (p *ModelCourseApply) fastWriteField38(buf []byte, w thrift.NocopyWriter) int {
+	offset := 0
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 38)
+	offset += thrift.Binary.WriteI32(buf[offset:], p.OnlineHours)
+	return offset
+}
+
 func (p *ModelCourseApply) field1Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
@@ -53402,6 +53608,20 @@ func (p *ModelCourseApply) field36Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.BoolLength()
+	return l
+}
+
+func (p *ModelCourseApply) field37Length() int {
+	l := 0
+	l += thrift.Binary.FieldBeginLength()
+	l += thrift.Binary.I32Length()
+	return l
+}
+
+func (p *ModelCourseApply) field38Length() int {
+	l := 0
+	l += thrift.Binary.FieldBeginLength()
+	l += thrift.Binary.I32Length()
 	return l
 }
 
