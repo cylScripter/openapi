@@ -59611,6 +59611,8 @@ type UpdateCourseApplyReq struct {
 	Url                     string  `thrift:"url,24" frugal:"24,default,string" json:"url" `
 	IsnotAccount            string  `thrift:"isnot_account,25" frugal:"25,default,string" json:"isnot_account" `
 	IsnotPassword           string  `thrift:"isnot_password,26" frugal:"26,default,string" json:"isnot_password"`
+	TeachingHours           int32   `thrift:"teaching_hours,27" frugal:"27,default,i32" json:"teaching_hours"`
+	OnlineHours             int32   `thrift:"online_hours,28" frugal:"28,default,i32" json:"online_hours"`
 }
 
 func NewUpdateCourseApplyReq() *UpdateCourseApplyReq {
@@ -59723,6 +59725,14 @@ func (p *UpdateCourseApplyReq) GetIsnotAccount() (v string) {
 func (p *UpdateCourseApplyReq) GetIsnotPassword() (v string) {
 	return p.IsnotPassword
 }
+
+func (p *UpdateCourseApplyReq) GetTeachingHours() (v int32) {
+	return p.TeachingHours
+}
+
+func (p *UpdateCourseApplyReq) GetOnlineHours() (v int32) {
+	return p.OnlineHours
+}
 func (p *UpdateCourseApplyReq) SetId(val int32) {
 	p.Id = val
 }
@@ -59801,6 +59811,12 @@ func (p *UpdateCourseApplyReq) SetIsnotAccount(val string) {
 func (p *UpdateCourseApplyReq) SetIsnotPassword(val string) {
 	p.IsnotPassword = val
 }
+func (p *UpdateCourseApplyReq) SetTeachingHours(val int32) {
+	p.TeachingHours = val
+}
+func (p *UpdateCourseApplyReq) SetOnlineHours(val int32) {
+	p.OnlineHours = val
+}
 
 var fieldIDToName_UpdateCourseApplyReq = map[int16]string{
 	1:  "id",
@@ -59829,6 +59845,8 @@ var fieldIDToName_UpdateCourseApplyReq = map[int16]string{
 	24: "url",
 	25: "isnot_account",
 	26: "isnot_password",
+	27: "teaching_hours",
+	28: "online_hours",
 }
 
 func (p *UpdateCourseApplyReq) Read(iprot thrift.TProtocol) (err error) {
@@ -60053,6 +60071,22 @@ func (p *UpdateCourseApplyReq) Read(iprot thrift.TProtocol) (err error) {
 		case 26:
 			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField26(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 27:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField27(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 28:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField28(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -60373,6 +60407,28 @@ func (p *UpdateCourseApplyReq) ReadField26(iprot thrift.TProtocol) error {
 	p.IsnotPassword = _field
 	return nil
 }
+func (p *UpdateCourseApplyReq) ReadField27(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.TeachingHours = _field
+	return nil
+}
+func (p *UpdateCourseApplyReq) ReadField28(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.OnlineHours = _field
+	return nil
+}
 
 func (p *UpdateCourseApplyReq) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -60482,6 +60538,14 @@ func (p *UpdateCourseApplyReq) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField26(oprot); err != nil {
 			fieldId = 26
+			goto WriteFieldError
+		}
+		if err = p.writeField27(oprot); err != nil {
+			fieldId = 27
+			goto WriteFieldError
+		}
+		if err = p.writeField28(oprot); err != nil {
+			fieldId = 28
 			goto WriteFieldError
 		}
 	}
@@ -60944,6 +61008,40 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 26 end error: ", p), err)
 }
 
+func (p *UpdateCourseApplyReq) writeField27(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("teaching_hours", thrift.I32, 27); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.TeachingHours); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 27 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 27 end error: ", p), err)
+}
+
+func (p *UpdateCourseApplyReq) writeField28(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("online_hours", thrift.I32, 28); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.OnlineHours); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 28 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 28 end error: ", p), err)
+}
+
 func (p *UpdateCourseApplyReq) String() string {
 	if p == nil {
 		return "<nil>"
@@ -61034,6 +61132,12 @@ func (p *UpdateCourseApplyReq) DeepEqual(ano *UpdateCourseApplyReq) bool {
 		return false
 	}
 	if !p.Field26DeepEqual(ano.IsnotPassword) {
+		return false
+	}
+	if !p.Field27DeepEqual(ano.TeachingHours) {
+		return false
+	}
+	if !p.Field28DeepEqual(ano.OnlineHours) {
 		return false
 	}
 	return true
@@ -61217,6 +61321,20 @@ func (p *UpdateCourseApplyReq) Field25DeepEqual(src string) bool {
 func (p *UpdateCourseApplyReq) Field26DeepEqual(src string) bool {
 
 	if strings.Compare(p.IsnotPassword, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *UpdateCourseApplyReq) Field27DeepEqual(src int32) bool {
+
+	if p.TeachingHours != src {
+		return false
+	}
+	return true
+}
+func (p *UpdateCourseApplyReq) Field28DeepEqual(src int32) bool {
+
+	if p.OnlineHours != src {
 		return false
 	}
 	return true
