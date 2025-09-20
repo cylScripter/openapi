@@ -50414,6 +50414,20 @@ func (p *ModelCourse) FastRead(buf []byte) (int, error) {
 					goto SkipFieldError
 				}
 			}
+		case 40:
+			if fieldTypeId == thrift.I32 {
+				l, err = p.FastReadField40(buf[offset:])
+				offset += l
+				if err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
+				offset += l
+				if err != nil {
+					goto SkipFieldError
+				}
+			}
 		default:
 			l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
 			offset += l
@@ -50978,6 +50992,20 @@ func (p *ModelCourse) FastReadField39(buf []byte) (int, error) {
 	return offset, nil
 }
 
+func (p *ModelCourse) FastReadField40(buf []byte) (int, error) {
+	offset := 0
+
+	var _field int32
+	if v, l, err := thrift.Binary.ReadI32(buf[offset:]); err != nil {
+		return offset, err
+	} else {
+		offset += l
+		_field = v
+	}
+	p.Type = _field
+	return offset, nil
+}
+
 // for compatibility
 func (p *ModelCourse) FastWrite(buf []byte) int {
 	return 0
@@ -51002,6 +51030,7 @@ func (p *ModelCourse) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
 		offset += p.fastWriteField36(buf[offset:], w)
 		offset += p.fastWriteField37(buf[offset:], w)
 		offset += p.fastWriteField38(buf[offset:], w)
+		offset += p.fastWriteField40(buf[offset:], w)
 		offset += p.fastWriteField5(buf[offset:], w)
 		offset += p.fastWriteField6(buf[offset:], w)
 		offset += p.fastWriteField8(buf[offset:], w)
@@ -51072,6 +51101,7 @@ func (p *ModelCourse) BLength() int {
 		l += p.field37Length()
 		l += p.field38Length()
 		l += p.field39Length()
+		l += p.field40Length()
 	}
 	l += thrift.Binary.FieldStopLength()
 	return l
@@ -51350,6 +51380,13 @@ func (p *ModelCourse) fastWriteField39(buf []byte, w thrift.NocopyWriter) int {
 	return offset
 }
 
+func (p *ModelCourse) fastWriteField40(buf []byte, w thrift.NocopyWriter) int {
+	offset := 0
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 40)
+	offset += thrift.Binary.WriteI32(buf[offset:], p.Type)
+	return offset
+}
+
 func (p *ModelCourse) field1Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
@@ -51620,6 +51657,13 @@ func (p *ModelCourse) field39Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.StringLengthNocopy(p.StrCourseId)
+	return l
+}
+
+func (p *ModelCourse) field40Length() int {
+	l := 0
+	l += thrift.Binary.FieldBeginLength()
+	l += thrift.Binary.I32Length()
 	return l
 }
 

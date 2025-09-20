@@ -1011,6 +1011,7 @@ const (
 	GetCourseListReqOption_teach_class             GetCourseListReqOption = 10
 	GetCourseListReqOption_class_name              GetCourseListReqOption = 11
 	GetCourseListReqOption_is_collaborative_course GetCourseListReqOption = 12
+	GetCourseListReqOption_type                    GetCourseListReqOption = 13
 )
 
 func (p GetCourseListReqOption) String() string {
@@ -1039,6 +1040,8 @@ func (p GetCourseListReqOption) String() string {
 		return "class_name"
 	case GetCourseListReqOption_is_collaborative_course:
 		return "is_collaborative_course"
+	case GetCourseListReqOption_type:
+		return "type"
 	}
 	return "<UNSET>"
 }
@@ -1069,6 +1072,8 @@ func GetCourseListReqOptionFromString(s string) (GetCourseListReqOption, error) 
 		return GetCourseListReqOption_class_name, nil
 	case "is_collaborative_course":
 		return GetCourseListReqOption_is_collaborative_course, nil
+	case "type":
+		return GetCourseListReqOption_type, nil
 	}
 	return GetCourseListReqOption(0), fmt.Errorf("not a valid GetCourseListReqOption string")
 }
@@ -2025,6 +2030,58 @@ func (p *IsExternalType) Scan(value interface{}) (err error) {
 }
 
 func (p *IsExternalType) Value() (driver.Value, error) {
+	if p == nil {
+		return nil, nil
+	}
+	return int64(*p), nil
+}
+
+type ModelCourse_Type int64
+
+const (
+	ModelCourse_Type_Unknown ModelCourse_Type = 0
+	ModelCourse_Type_Theory  ModelCourse_Type = 1
+	ModelCourse_Type_Adjust  ModelCourse_Type = 2
+	ModelCourse_Type_Other   ModelCourse_Type = 3
+)
+
+func (p ModelCourse_Type) String() string {
+	switch p {
+	case ModelCourse_Type_Unknown:
+		return "Unknown"
+	case ModelCourse_Type_Theory:
+		return "Theory"
+	case ModelCourse_Type_Adjust:
+		return "Adjust"
+	case ModelCourse_Type_Other:
+		return "Other"
+	}
+	return "<UNSET>"
+}
+
+func ModelCourse_TypeFromString(s string) (ModelCourse_Type, error) {
+	switch s {
+	case "Unknown":
+		return ModelCourse_Type_Unknown, nil
+	case "Theory":
+		return ModelCourse_Type_Theory, nil
+	case "Adjust":
+		return ModelCourse_Type_Adjust, nil
+	case "Other":
+		return ModelCourse_Type_Other, nil
+	}
+	return ModelCourse_Type(0), fmt.Errorf("not a valid ModelCourse_Type string")
+}
+
+func ModelCourse_TypePtr(v ModelCourse_Type) *ModelCourse_Type { return &v }
+func (p *ModelCourse_Type) Scan(value interface{}) (err error) {
+	var result sql.NullInt64
+	err = result.Scan(value)
+	*p = ModelCourse_Type(result.Int64)
+	return
+}
+
+func (p *ModelCourse_Type) Value() (driver.Value, error) {
 	if p == nil {
 		return nil, nil
 	}
@@ -76786,6 +76843,7 @@ type ModelCourse struct {
 	IsAdjust              bool    `thrift:"is_adjust,37" frugal:"37,default,bool" json:"is_adjust" gorm:"column:is_adjust"`
 	IsCollaborativeCourse bool    `thrift:"is_collaborative_course,38" frugal:"38,default,bool" json:"is_collaborative_course" gorm:"column:is_collaborative_course"`
 	StrCourseId           string  `thrift:"str_course_id,39" frugal:"39,default,string" json:"str_course_id" gorm:"column:str_course_id"`
+	Type                  int32   `thrift:"type,40" frugal:"40,default,i32" json:"type" gorm:"column:type"`
 }
 
 func NewModelCourse() *ModelCourse {
@@ -76950,6 +77008,10 @@ func (p *ModelCourse) GetIsCollaborativeCourse() (v bool) {
 func (p *ModelCourse) GetStrCourseId() (v string) {
 	return p.StrCourseId
 }
+
+func (p *ModelCourse) GetType() (v int32) {
+	return p.Type
+}
 func (p *ModelCourse) SetId(val int32) {
 	p.Id = val
 }
@@ -77067,6 +77129,9 @@ func (p *ModelCourse) SetIsCollaborativeCourse(val bool) {
 func (p *ModelCourse) SetStrCourseId(val string) {
 	p.StrCourseId = val
 }
+func (p *ModelCourse) SetType(val int32) {
+	p.Type = val
+}
 
 var fieldIDToName_ModelCourse = map[int16]string{
 	1:  "id",
@@ -77108,6 +77173,7 @@ var fieldIDToName_ModelCourse = map[int16]string{
 	37: "is_adjust",
 	38: "is_collaborative_course",
 	39: "str_course_id",
+	40: "type",
 }
 
 func (p *ModelCourse) Read(iprot thrift.TProtocol) (err error) {
@@ -77436,6 +77502,14 @@ func (p *ModelCourse) Read(iprot thrift.TProtocol) (err error) {
 		case 39:
 			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField39(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 40:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField40(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -77899,6 +77973,17 @@ func (p *ModelCourse) ReadField39(iprot thrift.TProtocol) error {
 	p.StrCourseId = _field
 	return nil
 }
+func (p *ModelCourse) ReadField40(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Type = _field
+	return nil
+}
 
 func (p *ModelCourse) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -78060,6 +78145,10 @@ func (p *ModelCourse) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField39(oprot); err != nil {
 			fieldId = 39
+			goto WriteFieldError
+		}
+		if err = p.writeField40(oprot); err != nil {
+			fieldId = 40
 			goto WriteFieldError
 		}
 	}
@@ -78743,6 +78832,23 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 39 end error: ", p), err)
 }
 
+func (p *ModelCourse) writeField40(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("type", thrift.I32, 40); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.Type); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 40 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 40 end error: ", p), err)
+}
+
 func (p *ModelCourse) String() string {
 	if p == nil {
 		return "<nil>"
@@ -78872,6 +78978,9 @@ func (p *ModelCourse) DeepEqual(ano *ModelCourse) bool {
 		return false
 	}
 	if !p.Field39DeepEqual(ano.StrCourseId) {
+		return false
+	}
+	if !p.Field40DeepEqual(ano.Type) {
 		return false
 	}
 	return true
@@ -79146,6 +79255,13 @@ func (p *ModelCourse) Field38DeepEqual(src bool) bool {
 func (p *ModelCourse) Field39DeepEqual(src string) bool {
 
 	if strings.Compare(p.StrCourseId, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *ModelCourse) Field40DeepEqual(src int32) bool {
+
+	if p.Type != src {
 		return false
 	}
 	return true
