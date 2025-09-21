@@ -83359,7 +83359,7 @@ type ModelTeacherInfo struct {
 	IdCategory    string `thrift:"id_category,15" frugal:"15,default,string" json:"id_category" gorm:"column:id_category"`
 	IsActive      int32  `thrift:"is_active,16" frugal:"16,default,i32" json:"is_active" gorm:"column:is_active;default:1"`
 	IsExternal    int32  `thrift:"is_external,17" frugal:"17,default,i32" json:"is_external" gorm:"column:is_external;default:2"`
-	Order         int32  `thrift:"order,18" frugal:"18,default,i32" json:"order" gorm:"column:order;default:1"`
+	Orders        int32  `thrift:"orders,18" frugal:"18,default,i32" json:"orders" gorm:"column:orders;default:1"`
 	UserName      string `thrift:"user_name,19" frugal:"19,default,string" json:"user_name" gorm:"column:user_name"`
 }
 
@@ -83438,8 +83438,8 @@ func (p *ModelTeacherInfo) GetIsExternal() (v int32) {
 	return p.IsExternal
 }
 
-func (p *ModelTeacherInfo) GetOrder() (v int32) {
-	return p.Order
+func (p *ModelTeacherInfo) GetOrders() (v int32) {
+	return p.Orders
 }
 
 func (p *ModelTeacherInfo) GetUserName() (v string) {
@@ -83496,8 +83496,8 @@ func (p *ModelTeacherInfo) SetIsActive(val int32) {
 func (p *ModelTeacherInfo) SetIsExternal(val int32) {
 	p.IsExternal = val
 }
-func (p *ModelTeacherInfo) SetOrder(val int32) {
-	p.Order = val
+func (p *ModelTeacherInfo) SetOrders(val int32) {
+	p.Orders = val
 }
 func (p *ModelTeacherInfo) SetUserName(val string) {
 	p.UserName = val
@@ -83521,7 +83521,7 @@ var fieldIDToName_ModelTeacherInfo = map[int16]string{
 	15: "id_category",
 	16: "is_active",
 	17: "is_external",
-	18: "order",
+	18: "orders",
 	19: "user_name",
 }
 
@@ -83920,7 +83920,7 @@ func (p *ModelTeacherInfo) ReadField18(iprot thrift.TProtocol) error {
 	} else {
 		_field = v
 	}
-	p.Order = _field
+	p.Orders = _field
 	return nil
 }
 func (p *ModelTeacherInfo) ReadField19(iprot thrift.TProtocol) error {
@@ -84325,10 +84325,10 @@ WriteFieldEndError:
 }
 
 func (p *ModelTeacherInfo) writeField18(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("order", thrift.I32, 18); err != nil {
+	if err = oprot.WriteFieldBegin("orders", thrift.I32, 18); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteI32(p.Order); err != nil {
+	if err := oprot.WriteI32(p.Orders); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -84423,7 +84423,7 @@ func (p *ModelTeacherInfo) DeepEqual(ano *ModelTeacherInfo) bool {
 	if !p.Field17DeepEqual(ano.IsExternal) {
 		return false
 	}
-	if !p.Field18DeepEqual(ano.Order) {
+	if !p.Field18DeepEqual(ano.Orders) {
 		return false
 	}
 	if !p.Field19DeepEqual(ano.UserName) {
@@ -84553,7 +84553,7 @@ func (p *ModelTeacherInfo) Field17DeepEqual(src int32) bool {
 }
 func (p *ModelTeacherInfo) Field18DeepEqual(src int32) bool {
 
-	if p.Order != src {
+	if p.Orders != src {
 		return false
 	}
 	return true

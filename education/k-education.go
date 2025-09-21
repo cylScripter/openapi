@@ -55163,7 +55163,7 @@ func (p *ModelTeacherInfo) FastReadField18(buf []byte) (int, error) {
 		offset += l
 		_field = v
 	}
-	p.Order = _field
+	p.Orders = _field
 	return offset, nil
 }
 
@@ -55362,7 +55362,7 @@ func (p *ModelTeacherInfo) fastWriteField17(buf []byte, w thrift.NocopyWriter) i
 func (p *ModelTeacherInfo) fastWriteField18(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 18)
-	offset += thrift.Binary.WriteI32(buf[offset:], p.Order)
+	offset += thrift.Binary.WriteI32(buf[offset:], p.Orders)
 	return offset
 }
 
