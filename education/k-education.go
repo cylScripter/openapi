@@ -63099,6 +63099,20 @@ func (p *ModelBeginExamWorkload) FastRead(buf []byte) (int, error) {
 					goto SkipFieldError
 				}
 			}
+		case 15:
+			if fieldTypeId == thrift.I32 {
+				l, err = p.FastReadField15(buf[offset:])
+				offset += l
+				if err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
+				offset += l
+				if err != nil {
+					goto SkipFieldError
+				}
+			}
 		default:
 			l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
 			offset += l
@@ -63313,6 +63327,20 @@ func (p *ModelBeginExamWorkload) FastReadField14(buf []byte) (int, error) {
 	return offset, nil
 }
 
+func (p *ModelBeginExamWorkload) FastReadField15(buf []byte) (int, error) {
+	offset := 0
+
+	var _field int32
+	if v, l, err := thrift.Binary.ReadI32(buf[offset:]); err != nil {
+		return offset, err
+	} else {
+		offset += l
+		_field = v
+	}
+	p.AppId = _field
+	return offset, nil
+}
+
 // for compatibility
 func (p *ModelBeginExamWorkload) FastWrite(buf []byte) int {
 	return 0
@@ -63331,6 +63359,7 @@ func (p *ModelBeginExamWorkload) FastWriteNocopy(buf []byte, w thrift.NocopyWrit
 		offset += p.fastWriteField12(buf[offset:], w)
 		offset += p.fastWriteField13(buf[offset:], w)
 		offset += p.fastWriteField14(buf[offset:], w)
+		offset += p.fastWriteField15(buf[offset:], w)
 		offset += p.fastWriteField5(buf[offset:], w)
 		offset += p.fastWriteField6(buf[offset:], w)
 		offset += p.fastWriteField7(buf[offset:], w)
@@ -63357,6 +63386,7 @@ func (p *ModelBeginExamWorkload) BLength() int {
 		l += p.field12Length()
 		l += p.field13Length()
 		l += p.field14Length()
+		l += p.field15Length()
 	}
 	l += thrift.Binary.FieldStopLength()
 	return l
@@ -63460,6 +63490,13 @@ func (p *ModelBeginExamWorkload) fastWriteField14(buf []byte, w thrift.NocopyWri
 	return offset
 }
 
+func (p *ModelBeginExamWorkload) fastWriteField15(buf []byte, w thrift.NocopyWriter) int {
+	offset := 0
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 15)
+	offset += thrift.Binary.WriteI32(buf[offset:], p.AppId)
+	return offset
+}
+
 func (p *ModelBeginExamWorkload) field1Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
@@ -63555,6 +63592,13 @@ func (p *ModelBeginExamWorkload) field14Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.DoubleLength()
+	return l
+}
+
+func (p *ModelBeginExamWorkload) field15Length() int {
+	l := 0
+	l += thrift.Binary.FieldBeginLength()
+	l += thrift.Binary.I32Length()
 	return l
 }
 

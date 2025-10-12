@@ -94811,6 +94811,7 @@ type ModelBeginExamWorkload struct {
 	TotalCount       int32   `thrift:"total_count,12" frugal:"12,default,i32" json:"total_count" gorm:"column:total_count"`
 	FeeStandard      float64 `thrift:"fee_standard,13" frugal:"13,default,double" json:"fee_standard" gorm:"column:fee_standard"`
 	TotalFee         float64 `thrift:"total_fee,14" frugal:"14,default,double" json:"total_fee" gorm:"column:total_fee"`
+	AppId            int32   `thrift:"app_id,15" frugal:"15,default,i32" json:"app_id" gorm:"column:app_id;index"`
 }
 
 func NewModelBeginExamWorkload() *ModelBeginExamWorkload {
@@ -94875,6 +94876,10 @@ func (p *ModelBeginExamWorkload) GetFeeStandard() (v float64) {
 func (p *ModelBeginExamWorkload) GetTotalFee() (v float64) {
 	return p.TotalFee
 }
+
+func (p *ModelBeginExamWorkload) GetAppId() (v int32) {
+	return p.AppId
+}
 func (p *ModelBeginExamWorkload) SetId(val int32) {
 	p.Id = val
 }
@@ -94917,6 +94922,9 @@ func (p *ModelBeginExamWorkload) SetFeeStandard(val float64) {
 func (p *ModelBeginExamWorkload) SetTotalFee(val float64) {
 	p.TotalFee = val
 }
+func (p *ModelBeginExamWorkload) SetAppId(val int32) {
+	p.AppId = val
+}
 
 var fieldIDToName_ModelBeginExamWorkload = map[int16]string{
 	1:  "id",
@@ -94933,6 +94941,7 @@ var fieldIDToName_ModelBeginExamWorkload = map[int16]string{
 	12: "total_count",
 	13: "fee_standard",
 	14: "total_fee",
+	15: "app_id",
 }
 
 func (p *ModelBeginExamWorkload) Read(iprot thrift.TProtocol) (err error) {
@@ -95061,6 +95070,14 @@ func (p *ModelBeginExamWorkload) Read(iprot thrift.TProtocol) (err error) {
 		case 14:
 			if fieldTypeId == thrift.DOUBLE {
 				if err = p.ReadField14(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 15:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField15(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -95249,6 +95266,17 @@ func (p *ModelBeginExamWorkload) ReadField14(iprot thrift.TProtocol) error {
 	p.TotalFee = _field
 	return nil
 }
+func (p *ModelBeginExamWorkload) ReadField15(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.AppId = _field
+	return nil
+}
 
 func (p *ModelBeginExamWorkload) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -95310,6 +95338,10 @@ func (p *ModelBeginExamWorkload) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField14(oprot); err != nil {
 			fieldId = 14
+			goto WriteFieldError
+		}
+		if err = p.writeField15(oprot); err != nil {
+			fieldId = 15
 			goto WriteFieldError
 		}
 	}
@@ -95568,6 +95600,23 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 14 end error: ", p), err)
 }
 
+func (p *ModelBeginExamWorkload) writeField15(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("app_id", thrift.I32, 15); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.AppId); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 15 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 15 end error: ", p), err)
+}
+
 func (p *ModelBeginExamWorkload) String() string {
 	if p == nil {
 		return "<nil>"
@@ -95622,6 +95671,9 @@ func (p *ModelBeginExamWorkload) DeepEqual(ano *ModelBeginExamWorkload) bool {
 		return false
 	}
 	if !p.Field14DeepEqual(ano.TotalFee) {
+		return false
+	}
+	if !p.Field15DeepEqual(ano.AppId) {
 		return false
 	}
 	return true
@@ -95721,6 +95773,13 @@ func (p *ModelBeginExamWorkload) Field13DeepEqual(src float64) bool {
 func (p *ModelBeginExamWorkload) Field14DeepEqual(src float64) bool {
 
 	if p.TotalFee != src {
+		return false
+	}
+	return true
+}
+func (p *ModelBeginExamWorkload) Field15DeepEqual(src int32) bool {
+
+	if p.AppId != src {
 		return false
 	}
 	return true
