@@ -605,3 +605,8 @@ func GetCollegeList(ctx context.Context, req *education.GetCollegeListReq, callO
 	clients := MustNewClient("education", callOptions...)
 	return clients.GetCollegeList(ctx, req)
 }
+
+func ImportBeginExamWorkload(ctx context.Context, req *education.ImportBeginExamWorkloadReq, callOptions ...client.Option) (resp *education.ImportBeginExamWorkloadResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.ImportBeginExamWorkload(ctx, req)
+}

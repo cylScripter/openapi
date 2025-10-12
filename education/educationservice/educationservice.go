@@ -853,6 +853,13 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"ImportBeginExamWorkload": kitex.NewMethodInfo(
+		importBeginExamWorkloadHandler,
+		newEducationserviceImportBeginExamWorkloadArgs,
+		newEducationserviceImportBeginExamWorkloadResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -3079,6 +3086,24 @@ func newEducationserviceGetCollegeListResult() interface{} {
 	return education.NewEducationserviceGetCollegeListResult()
 }
 
+func importBeginExamWorkloadHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceImportBeginExamWorkloadArgs)
+	realResult := result.(*education.EducationserviceImportBeginExamWorkloadResult)
+	success, err := handler.(education.Educationservice).ImportBeginExamWorkload(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceImportBeginExamWorkloadArgs() interface{} {
+	return education.NewEducationserviceImportBeginExamWorkloadArgs()
+}
+
+func newEducationserviceImportBeginExamWorkloadResult() interface{} {
+	return education.NewEducationserviceImportBeginExamWorkloadResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -4284,6 +4309,16 @@ func (p *kClient) GetCollegeList(ctx context.Context, req *education.GetCollegeL
 	_args.Req = req
 	var _result education.EducationserviceGetCollegeListResult
 	if err = p.c.Call(ctx, "GetCollegeList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ImportBeginExamWorkload(ctx context.Context, req *education.ImportBeginExamWorkloadReq) (r *education.ImportBeginExamWorkloadResp, err error) {
+	var _args education.EducationserviceImportBeginExamWorkloadArgs
+	_args.Req = req
+	var _result education.EducationserviceImportBeginExamWorkloadResult
+	if err = p.c.Call(ctx, "ImportBeginExamWorkload", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
