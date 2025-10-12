@@ -2295,6 +2295,7 @@ type ImportBeginExamWorkloadReq struct {
 	AcademicYear string `thrift:"academic_year,1" frugal:"1,default,string" json:"academic_year" binding:"required" `
 	Semester     string `thrift:"semester,2" frugal:"2,default,string" json:"semester"binding:"required" `
 	UploadId     string `thrift:"upload_id,3" frugal:"3,default,string" json:"upload_id" binding:"required"`
+	RecordId     int64  `thrift:"record_id,4" frugal:"4,default,i64" json:"record_id" binding:"required"`
 }
 
 func NewImportBeginExamWorkloadReq() *ImportBeginExamWorkloadReq {
@@ -2315,6 +2316,10 @@ func (p *ImportBeginExamWorkloadReq) GetSemester() (v string) {
 func (p *ImportBeginExamWorkloadReq) GetUploadId() (v string) {
 	return p.UploadId
 }
+
+func (p *ImportBeginExamWorkloadReq) GetRecordId() (v int64) {
+	return p.RecordId
+}
 func (p *ImportBeginExamWorkloadReq) SetAcademicYear(val string) {
 	p.AcademicYear = val
 }
@@ -2324,11 +2329,15 @@ func (p *ImportBeginExamWorkloadReq) SetSemester(val string) {
 func (p *ImportBeginExamWorkloadReq) SetUploadId(val string) {
 	p.UploadId = val
 }
+func (p *ImportBeginExamWorkloadReq) SetRecordId(val int64) {
+	p.RecordId = val
+}
 
 var fieldIDToName_ImportBeginExamWorkloadReq = map[int16]string{
 	1: "academic_year",
 	2: "semester",
 	3: "upload_id",
+	4: "record_id",
 }
 
 func (p *ImportBeginExamWorkloadReq) Read(iprot thrift.TProtocol) (err error) {
@@ -2369,6 +2378,14 @@ func (p *ImportBeginExamWorkloadReq) Read(iprot thrift.TProtocol) (err error) {
 		case 3:
 			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField3(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 4:
+			if fieldTypeId == thrift.I64 {
+				if err = p.ReadField4(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -2436,6 +2453,17 @@ func (p *ImportBeginExamWorkloadReq) ReadField3(iprot thrift.TProtocol) error {
 	p.UploadId = _field
 	return nil
 }
+func (p *ImportBeginExamWorkloadReq) ReadField4(iprot thrift.TProtocol) error {
+
+	var _field int64
+	if v, err := iprot.ReadI64(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.RecordId = _field
+	return nil
+}
 
 func (p *ImportBeginExamWorkloadReq) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -2453,6 +2481,10 @@ func (p *ImportBeginExamWorkloadReq) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField3(oprot); err != nil {
 			fieldId = 3
+			goto WriteFieldError
+		}
+		if err = p.writeField4(oprot); err != nil {
+			fieldId = 4
 			goto WriteFieldError
 		}
 	}
@@ -2524,6 +2556,23 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
 }
 
+func (p *ImportBeginExamWorkloadReq) writeField4(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("record_id", thrift.I64, 4); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI64(p.RecordId); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 end error: ", p), err)
+}
+
 func (p *ImportBeginExamWorkloadReq) String() string {
 	if p == nil {
 		return "<nil>"
@@ -2547,6 +2596,9 @@ func (p *ImportBeginExamWorkloadReq) DeepEqual(ano *ImportBeginExamWorkloadReq) 
 	if !p.Field3DeepEqual(ano.UploadId) {
 		return false
 	}
+	if !p.Field4DeepEqual(ano.RecordId) {
+		return false
+	}
 	return true
 }
 
@@ -2567,6 +2619,13 @@ func (p *ImportBeginExamWorkloadReq) Field2DeepEqual(src string) bool {
 func (p *ImportBeginExamWorkloadReq) Field3DeepEqual(src string) bool {
 
 	if strings.Compare(p.UploadId, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *ImportBeginExamWorkloadReq) Field4DeepEqual(src int64) bool {
+
+	if p.RecordId != src {
 		return false
 	}
 	return true
