@@ -91706,6 +91706,7 @@ type ModelWorkloadStatistics struct {
 	CourseWage          float64 `thrift:"course_wage,37" frugal:"37,default,double" json:"course_wage" gorm:"column:course_wage"`
 	IsAdjustCourse      bool    `thrift:"is_adjust_course,38" frugal:"38,default,bool" json:"is_adjust_course" gorm:"column:is_adjust_course;default:false"`
 	EducationLevel      int32   `thrift:"education_level,39" frugal:"39,default,i32" json:"education_level" gorm:"column:semester;default:1;not null"`
+	TheoryHours         float64 `thrift:"theory_hours,40" frugal:"40,default,double" json:"theory_course_hours" gorm:"column:theory_course_hours;default:0.0;not null"`
 }
 
 func NewModelWorkloadStatistics() *ModelWorkloadStatistics {
@@ -91870,6 +91871,10 @@ func (p *ModelWorkloadStatistics) GetIsAdjustCourse() (v bool) {
 func (p *ModelWorkloadStatistics) GetEducationLevel() (v int32) {
 	return p.EducationLevel
 }
+
+func (p *ModelWorkloadStatistics) GetTheoryHours() (v float64) {
+	return p.TheoryHours
+}
 func (p *ModelWorkloadStatistics) SetId(val int32) {
 	p.Id = val
 }
@@ -91987,6 +91992,9 @@ func (p *ModelWorkloadStatistics) SetIsAdjustCourse(val bool) {
 func (p *ModelWorkloadStatistics) SetEducationLevel(val int32) {
 	p.EducationLevel = val
 }
+func (p *ModelWorkloadStatistics) SetTheoryHours(val float64) {
+	p.TheoryHours = val
+}
 
 var fieldIDToName_ModelWorkloadStatistics = map[int16]string{
 	1:  "id",
@@ -92028,6 +92036,7 @@ var fieldIDToName_ModelWorkloadStatistics = map[int16]string{
 	37: "course_wage",
 	38: "is_adjust_course",
 	39: "education_level",
+	40: "theory_hours",
 }
 
 func (p *ModelWorkloadStatistics) Read(iprot thrift.TProtocol) (err error) {
@@ -92356,6 +92365,14 @@ func (p *ModelWorkloadStatistics) Read(iprot thrift.TProtocol) (err error) {
 		case 39:
 			if fieldTypeId == thrift.I32 {
 				if err = p.ReadField39(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 40:
+			if fieldTypeId == thrift.DOUBLE {
+				if err = p.ReadField40(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -92819,6 +92836,17 @@ func (p *ModelWorkloadStatistics) ReadField39(iprot thrift.TProtocol) error {
 	p.EducationLevel = _field
 	return nil
 }
+func (p *ModelWorkloadStatistics) ReadField40(iprot thrift.TProtocol) error {
+
+	var _field float64
+	if v, err := iprot.ReadDouble(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.TheoryHours = _field
+	return nil
+}
 
 func (p *ModelWorkloadStatistics) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -92980,6 +93008,10 @@ func (p *ModelWorkloadStatistics) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField39(oprot); err != nil {
 			fieldId = 39
+			goto WriteFieldError
+		}
+		if err = p.writeField40(oprot); err != nil {
+			fieldId = 40
 			goto WriteFieldError
 		}
 	}
@@ -93663,6 +93695,23 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 39 end error: ", p), err)
 }
 
+func (p *ModelWorkloadStatistics) writeField40(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("theory_hours", thrift.DOUBLE, 40); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteDouble(p.TheoryHours); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 40 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 40 end error: ", p), err)
+}
+
 func (p *ModelWorkloadStatistics) String() string {
 	if p == nil {
 		return "<nil>"
@@ -93792,6 +93841,9 @@ func (p *ModelWorkloadStatistics) DeepEqual(ano *ModelWorkloadStatistics) bool {
 		return false
 	}
 	if !p.Field39DeepEqual(ano.EducationLevel) {
+		return false
+	}
+	if !p.Field40DeepEqual(ano.TheoryHours) {
 		return false
 	}
 	return true
@@ -94066,6 +94118,13 @@ func (p *ModelWorkloadStatistics) Field38DeepEqual(src bool) bool {
 func (p *ModelWorkloadStatistics) Field39DeepEqual(src int32) bool {
 
 	if p.EducationLevel != src {
+		return false
+	}
+	return true
+}
+func (p *ModelWorkloadStatistics) Field40DeepEqual(src float64) bool {
+
+	if p.TheoryHours != src {
 		return false
 	}
 	return true
