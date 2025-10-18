@@ -66866,9 +66866,9 @@ func (p *UpdateMenuResp) DeepEqual(ano *UpdateMenuResp) bool {
 
 type ModelInternship struct {
 	Id               int32   `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
-	CreatedAt        int32   `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index" json:"created_at"`
-	UpdatedAt        int32   `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at" json:"updated_at"`
-	DeletedAt        int32   `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at" json:"deleted_at"`
+	CreatedAt        int32   `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index;not null" json:"created_at"`
+	UpdatedAt        int32   `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at;not null" json:"updated_at"`
+	DeletedAt        int32   `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at;not null" json:"deleted_at"`
 	AcademicYear     string  `thrift:"academic_year,5" frugal:"5,default,string" gorm:"column:academic_year" json:"academic_year"`
 	Semester         string  `thrift:"semester,6" frugal:"6,default,string" gorm:"column:semester" json:"semester"`
 	TeacherId        string  `thrift:"teacher_id,7" frugal:"7,default,string" gorm:"column:teacher_id" json:"teacher_id"`
@@ -67973,9 +67973,9 @@ func (p *ModelInternship) Field17DeepEqual(src int32) bool {
 
 type ModelCourseApplication struct {
 	Id               int32  `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
-	CreatedAt        int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index" json:"created_at"`
-	UpdatedAt        int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at" json:"updated_at"`
-	DeletedAt        int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at" json:"deleted_at"`
+	CreatedAt        int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index;not null" json:"created_at"`
+	UpdatedAt        int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at;not null" json:"updated_at"`
+	DeletedAt        int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at;not null" json:"deleted_at"`
 	AcademicYear     string `thrift:"academic_year,5" frugal:"5,default,string" gorm:"column:academic_year" json:"academic_year"`
 	Semester         string `thrift:"semester,6" frugal:"6,default,string" gorm:"column:semester" json:"semester"`
 	TeacherId        string `thrift:"teacher_id,7" frugal:"7,default,string" gorm:"column:teacher_id" json:"teacher_id"`
@@ -69375,9 +69375,9 @@ func (p *ModelCourseApplication) Field22DeepEqual(src string) bool {
 
 type ModelApp struct {
 	Id          int32  `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
-	CreatedAt   int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index" json:"created_at"`
-	UpdatedAt   int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at" json:"updated_at"`
-	DeletedAt   int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at" json:"deleted_at"`
+	CreatedAt   int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index;not null" json:"created_at"`
+	UpdatedAt   int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at;not null" json:"updated_at"`
+	DeletedAt   int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at;not null" json:"deleted_at"`
 	SchoolName  string `thrift:"school_name,5" frugal:"5,default,string" gorm:"column:school_name" json:"school_name"`
 	CollegeName string `thrift:"college_name,6" frugal:"6,default,string" gorm:"column:college_name" json:"college_name"`
 	AppKey      string `thrift:"app_key,8" frugal:"8,default,string" gorm:"column:app_key" json:"app_key"`
@@ -70069,9 +70069,9 @@ func (p *ModelApp) Field11DeepEqual(src bool) bool {
 
 type ModelUser struct {
 	Id        int32  `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
-	CreatedAt int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index" json:"created_at"`
-	UpdatedAt int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at" json:"updated_at"`
-	DeletedAt int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at" json:"deleted_at"`
+	CreatedAt int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index;not null" json:"created_at"`
+	UpdatedAt int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at;not null" json:"updated_at"`
+	DeletedAt int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at;not null" json:"deleted_at"`
 	UserName  string `thrift:"user_name,5" frugal:"5,default,string" gorm:"column:user_name" json:"user_name"`
 	Password  string `thrift:"password,6" frugal:"6,default,string" gorm:"column:password" json:"-"`
 	NickName  string `thrift:"nick_name,7" frugal:"7,default,string" gorm:"column:nick_name" json:"nick_name"`
@@ -70822,9 +70822,9 @@ func (p *ModelUser) Field11DeepEqual(src int32) bool {
 
 type ModelRole struct {
 	Id          int32  `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
-	CreatedAt   int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index" json:"created_at"`
-	UpdatedAt   int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at" json:"updated_at"`
-	DeletedAt   int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at" json:"deleted_at"`
+	CreatedAt   int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index;not null" json:"created_at"`
+	UpdatedAt   int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at;not null" json:"updated_at"`
+	DeletedAt   int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at;not null" json:"deleted_at"`
 	Name        string `thrift:"name,5" frugal:"5,default,string" gorm:"column:name" json:"name"`
 	Description string `thrift:"description,6" frugal:"6,default,string" gorm:"column:description" json:"description"`
 	Status      bool   `thrift:"status,7" frugal:"7,default,bool" gorm:"column:status;default:true" json:"status"`
@@ -71457,9 +71457,9 @@ func (p *ModelRole) Field9DeepEqual(src int32) bool {
 
 type ModelMenu struct {
 	Id        int32        `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
-	CreatedAt int32        `thrift:"created_at,2" frugal:"2,default,i32" json:"created_at"`
-	UpdatedAt int32        `thrift:"updated_at,3" frugal:"3,default,i32" json:"updated_at"`
-	DeletedAt int32        `thrift:"deleted_at,4" frugal:"4,default,i32" json:"deleted_at"`
+	CreatedAt int32        `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index;not null" json:"created_at"`
+	UpdatedAt int32        `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at;not null" json:"updated_at"`
+	DeletedAt int32        `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at;not null" json:"deleted_at"`
 	Component string       `thrift:"component,5" frugal:"5,default,string" json:"component" gorm:"column:component;default:BasicLayout"`
 	Meta      *Meta        `thrift:"meta,6" frugal:"6,default,Meta" json:"meta" gorm:"column:meta;embedded"`
 	Name      string       `thrift:"name,7" frugal:"7,default,string" json:"name" gorm:"column:name"`
@@ -73644,9 +73644,9 @@ func (p *Meta) Field21DeepEqual(src int32) bool {
 
 type ModelPermission struct {
 	Id              int32  `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
-	CreatedAt       int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index" json:"created_at"`
-	UpdatedAt       int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at" json:"updated_at"`
-	DeletedAt       int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at" json:"deleted_at"`
+	CreatedAt       int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index;not null" json:"created_at"`
+	UpdatedAt       int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at;not null" json:"updated_at"`
+	DeletedAt       int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at;not null" json:"deleted_at"`
 	Name            string `thrift:"name,5" frugal:"5,default,string" json:"name" gorm:"column:name"`
 	Description     string `thrift:"description,6" frugal:"6,default,string" json:"description" gorm:"column:description"`
 	StrPermissionId string `thrift:"str_permission_id,7" frugal:"7,default,string" json:"str_permission_id" gorm:"column:str_permission_id"`
@@ -75771,9 +75771,9 @@ func (p *ModelRoleMenu) Field7DeepEqual(src int32) bool {
 
 type ModelTeacherOffice struct {
 	Id          int32  `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
-	CreatedAt   int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index" json:"created_at"`
-	UpdatedAt   int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at" json:"updated_at"`
-	DeletedAt   int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at" json:"deleted_at"`
+	CreatedAt   int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index;not null" json:"created_at"`
+	UpdatedAt   int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at;not null" json:"updated_at"`
+	DeletedAt   int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at;not null" json:"deleted_at"`
 	Name        string `thrift:"name,5" frugal:"5,default,string" json:"name" gorm:"column:name"`
 	Description string `thrift:"description,6" frugal:"6,default,string" json:"description" gorm:"column:description"`
 	AppId       int32  `thrift:"app_id,7" frugal:"7,default,i32" json:"app_id" gorm:"column:app_id"`
@@ -76465,9 +76465,9 @@ func (p *ModelTeacherOffice) Field10DeepEqual(src int32) bool {
 
 type ModelDuties struct {
 	Id          int32  `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
-	CreatedAt   int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index" json:"created_at"`
-	UpdatedAt   int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at" json:"updated_at"`
-	DeletedAt   int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at" json:"deleted_at"`
+	CreatedAt   int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index;not null" json:"created_at"`
+	UpdatedAt   int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at;not null" json:"updated_at"`
+	DeletedAt   int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at;not null" json:"deleted_at"`
 	Name        string `thrift:"name,5" frugal:"5,default,string" json:"name" gorm:"column:name"`
 	Description string `thrift:"description,6" frugal:"6,default,string" json:"description" gorm:"column:description"`
 	AppId       int32  `thrift:"app_id,7" frugal:"7,default,i32" json:"app_id" gorm:"column:app_id"`
@@ -77041,9 +77041,9 @@ func (p *ModelDuties) Field8DeepEqual(src string) bool {
 
 type ModelCategory struct {
 	Id          int32  `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
-	CreatedAt   int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index" json:"created_at"`
-	UpdatedAt   int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at" json:"updated_at"`
-	DeletedAt   int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at" json:"deleted_at"`
+	CreatedAt   int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index;not null" json:"created_at"`
+	UpdatedAt   int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at;not null" json:"updated_at"`
+	DeletedAt   int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at;not null" json:"deleted_at"`
 	Name        string `thrift:"name,5" frugal:"5,default,string" json:"name" gorm:"column:name"`
 	Description string `thrift:"description,6" frugal:"6,default,string" json:"description" gorm:"column:description"`
 	AppId       int32  `thrift:"app_id,7" frugal:"7,default,i32" json:"app_id" gorm:"column:app_id"`
@@ -77558,9 +77558,9 @@ func (p *ModelCategory) Field7DeepEqual(src int32) bool {
 
 type ModelCourse struct {
 	Id                    int32   `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
-	CreatedAt             int32   `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index" json:"created_at"`
-	UpdatedAt             int32   `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at" json:"updated_at"`
-	DeletedAt             int32   `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at" json:"deleted_at"`
+	CreatedAt             int32   `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index;not null" json:"created_at"`
+	UpdatedAt             int32   `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at;not null" json:"updated_at"`
+	DeletedAt             int32   `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at;not null" json:"deleted_at"`
 	AcademicYear          string  `thrift:"academic_year,5" frugal:"5,default,string" json:"academic_year" gorm:"column:academic_year"`
 	Semester              string  `thrift:"semester,6" frugal:"6,default,string" json:"semester" gorm:"column:semester"`
 	AppId                 int32   `thrift:"app_id,7" frugal:"7,default,i32" json:"app_id" gorm:"column:app_id"`
@@ -77597,7 +77597,7 @@ type ModelCourse struct {
 	IsCollaborativeCourse bool    `thrift:"is_collaborative_course,38" frugal:"38,default,bool" json:"is_collaborative_course" gorm:"column:is_collaborative_course"`
 	StrCourseId           string  `thrift:"str_course_id,39" frugal:"39,default,string" json:"str_course_id" gorm:"column:str_course_id"`
 	Type                  int32   `thrift:"type,40" frugal:"40,default,i32" json:"type" gorm:"column:type"`
-	EducationLevel        int32   `thrift:"education_level,41" frugal:"41,default,i32" json:"education_level" gorm:"column:semester;default:1;not null"`
+	EducationLevel        int32   `thrift:"education_level,41" frugal:"41,default,i32" json:"education_level" gorm:"column:education_level;default:1;not null"`
 }
 
 func NewModelCourse() *ModelCourse {
@@ -80598,9 +80598,9 @@ func (p *ModelClass) Field7DeepEqual(src int32) bool {
 
 type ModelCourseApply struct {
 	Id                      int32   `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
-	CreatedAt               int32   `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index" json:"created_at"`
-	UpdatedAt               int32   `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at;index" json:"updated_at"`
-	DeletedAt               int32   `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at" json:"deleted_at"`
+	CreatedAt               int32   `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index;not null" json:"created_at"`
+	UpdatedAt               int32   `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at;not null" json:"updated_at"`
+	DeletedAt               int32   `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at;not null" json:"deleted_at"`
 	Department              string  `thrift:"department,5" frugal:"5,default,string" json:"department" gorm:"column:department"`
 	AcademicYear            string  `thrift:"academic_year,6" frugal:"6,default,string" json:"academic_year" gorm:"column:academic_year;index"`
 	Semester                string  `thrift:"semester,7" frugal:"7,default,string" json:"semester" gorm:"column:semester;index"`
@@ -82944,9 +82944,9 @@ func (p *ModelCourseApply) Field38DeepEqual(src int32) bool {
 
 type ModelCourseNature struct {
 	Id        int32  `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
-	CreatedAt int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index" json:"created_at"`
-	UpdatedAt int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at" json:"updated_at"`
-	DeletedAt int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at" json:"deleted_at"`
+	CreatedAt int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index;not null" json:"created_at"`
+	UpdatedAt int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at;not null" json:"updated_at"`
+	DeletedAt int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at;not null" json:"deleted_at"`
 	Name      string `thrift:"name,5" frugal:"5,default,string" json:"name" gorm:"column:name"`
 }
 
@@ -83343,9 +83343,9 @@ func (p *ModelCourseNature) Field5DeepEqual(src string) bool {
 
 type ModelOperationLogs struct {
 	Id         int32  `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
-	CreatedAt  int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index" json:"created_at"`
-	UpdatedAt  int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at" json:"updated_at"`
-	DeletedAt  int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at" json:"deleted_at"`
+	CreatedAt  int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index;not null" json:"created_at"`
+	UpdatedAt  int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at;not null" json:"updated_at"`
+	DeletedAt  int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at;not null" json:"deleted_at"`
 	UserName   string `thrift:"user_name,5" frugal:"5,default,string" json:"user_name" gorm:"column:user_name"`
 	Operation  string `thrift:"operation,6" frugal:"6,default,string" json:"operation" gorm:"column:operation"`
 	ObjectType string `thrift:"object_type,7" frugal:"7,default,string" json:"object_type" gorm:"column:object_type"`
@@ -84155,9 +84155,9 @@ func (p *ModelOperationLogs) Field12DeepEqual(src int32) bool {
 
 type ModelTeacherInfo struct {
 	Id             int32  `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
-	CreatedAt      int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index" json:"created_at"`
-	UpdatedAt      int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at" json:"updated_at"`
-	DeletedAt      int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at" json:"deleted_at"`
+	CreatedAt      int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index;not null" json:"created_at"`
+	UpdatedAt      int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at;not null" json:"updated_at"`
+	DeletedAt      int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at;not null" json:"deleted_at"`
 	Department     string `thrift:"department,5" frugal:"5,default,string" json:"department" gorm:"column:department"`
 	AppId          int32  `thrift:"app_id,6" frugal:"6,default,i32" json:"app_id" gorm:"column:app_id"`
 	Uid            int32  `thrift:"uid,7" frugal:"7,default,i32" json:"uid" gorm:"column:uid"`
@@ -84173,7 +84173,7 @@ type ModelTeacherInfo struct {
 	IsExternal     int32  `thrift:"is_external,17" frugal:"17,default,i32" json:"is_external" gorm:"column:is_external;default:2"`
 	Orders         int32  `thrift:"orders,18" frugal:"18,default,i32" json:"orders" gorm:"column:orders;default:1"`
 	UserName       string `thrift:"user_name,19" frugal:"19,default,string" json:"user_name" gorm:"column:user_name"`
-	EducationLevel int32  `thrift:"education_level,22" frugal:"22,default,i32" json:"education_level" gorm:"column:semester;default:1;not null"`
+	EducationLevel int32  `thrift:"education_level,22" frugal:"22,default,i32" json:"education_level" gorm:"column:education_level;default:1;not null"`
 }
 
 func NewModelTeacherInfo() *ModelTeacherInfo {
@@ -85439,9 +85439,9 @@ func (p *ModelTeacherInfo) Field22DeepEqual(src int32) bool {
 
 type ModelHoliday struct {
 	Id           int32  `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
-	CreatedAt    int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index" json:"created_at"`
-	UpdatedAt    int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at" json:"updated_at"`
-	DeletedAt    int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at" json:"deleted_at"`
+	CreatedAt    int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index;not null" json:"created_at"`
+	UpdatedAt    int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at;not null" json:"updated_at"`
+	DeletedAt    int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at;not null" json:"deleted_at"`
 	Name         string `thrift:"name,5" frugal:"5,default,string" json:"name" gorm:"column:name"`
 	BeginDate    string `thrift:"begin_date,6" frugal:"6,default,string" json:"begin_date" gorm:"column:begin_date"`
 	EndDate      string `thrift:"end_date,7" frugal:"7,default,string" json:"end_date" gorm:"column:end_date"`
@@ -86194,7 +86194,7 @@ type ModelTrainingCourse struct {
 	Id                    int32  `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
 	CreatedAt             int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index;not null" json:"created_at"`
 	UpdatedAt             int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at;not null" json:"updated_at"`
-	DeletedAt             int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at" json:"deleted_at"`
+	DeletedAt             int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at;not null" json:"deleted_at"`
 	Major                 string `thrift:"major,5" frugal:"5,default,string" json:"major" gorm:"column:major"`
 	ClassName             string `thrift:"class_name,6" frugal:"6,default,string" json:"class_name" gorm:"column:class_name"`
 	StudentNumber         int32  `thrift:"student_number,7" frugal:"7,default,i32" json:"student_number" gorm:"column:student_number"`
@@ -86206,7 +86206,7 @@ type ModelTrainingCourse struct {
 	EnterpriseTeacherName string `thrift:"enterprise_teacher_name,13" frugal:"13,default,string" json:"enterprise_teacher_name" gorm:"column:enterprise_teacher_name"`
 	AcademicYear          string `thrift:"academic_year,14" frugal:"14,default,string" json:"academic_year" gorm:"column:academic_year"`
 	Semester              string `thrift:"semester,15" frugal:"15,default,string" json:"semester" gorm:"column:semester"`
-	EducationLevel        int32  `thrift:"education_level,16" frugal:"16,default,i32" json:"education_level" gorm:"column:semester;default:1;not null"`
+	EducationLevel        int32  `thrift:"education_level,16" frugal:"16,default,i32" json:"education_level" gorm:"column:education_level;default:1"`
 }
 
 func NewModelTrainingCourse() *ModelTrainingCourse {
@@ -87250,7 +87250,7 @@ type ModelTrainingCourseTeacher struct {
 	Week             string `thrift:"week,9" frugal:"9,default,string" json:"week" gorm:"column:week"`
 	AcademicYear     string `thrift:"academic_year,10" frugal:"10,default,string" json:"academic_year" gorm:"column:academic_year"`
 	Semester         string `thrift:"semester,11" frugal:"11,default,string" json:"semester" gorm:"column:semester"`
-	EducationLevel   int32  `thrift:"education_level,12" frugal:"12,default,i32" json:"education_level" gorm:"column:semester;default:1;not null"`
+	EducationLevel   int32  `thrift:"education_level,12" frugal:"12,default,i32" json:"education_level" gorm:"column:education_level;default:1;not null"`
 }
 
 func NewModelTrainingCourseTeacher() *ModelTrainingCourseTeacher {
@@ -88072,7 +88072,7 @@ type ModelFinalExam struct {
 	ScoringTeacher   string `thrift:"scoring_teacher,19" frugal:"19,default,string" json:"scoring_teacher" gorm:"column:scoring_teacher"`
 	AppId            int32  `thrift:"app_id,20" frugal:"20,default,i32" json:"app_id" gorm:"column:app_id"`
 	CourseId         int32  `thrift:"course_id,21" frugal:"21,default,i32" json:"course_id" gorm:"column:course_id"`
-	EducationLevel   int32  `thrift:"education_level,22" frugal:"22,default,i32" json:"education_level" gorm:"column:semester;default:1;not null"`
+	EducationLevel   int32  `thrift:"education_level,22" frugal:"22,default,i32" json:"education_level" gorm:"column:education_level;default:1;not null"`
 }
 
 func NewModelFinalExam() *ModelFinalExam {
@@ -89467,7 +89467,7 @@ type ModelFinalExamRecord struct {
 	CProposer        string `thrift:"c_proposer,12" frugal:"12,default,string" json:"c_proposer" gorm:"column:c_proposer"`
 	UserName         string `thrift:"user_name,13" frugal:"13,default,string" json:"user_name" gorm:"column:user_name"`
 	AssessmentMethod string `thrift:"assessment_method,14" frugal:"14,default,string" json:"assessment_method" gorm:"column:assessment_method"`
-	EducationLevel   int32  `thrift:"education_level,22" frugal:"22,default,i32" json:"education_level" gorm:"column:semester;default:1;not null"`
+	EducationLevel   int32  `thrift:"education_level,22" frugal:"22,default,i32" json:"education_level" gorm:"column:education_level;default:1;not null"`
 }
 
 func NewModelFinalExamRecord() *ModelFinalExamRecord {
@@ -90460,7 +90460,7 @@ type ModelBeginExam struct {
 	TeacherName      string `thrift:"teacher_name,16" frugal:"16,default,string" json:"teacher_name" gorm:"column:teacher_name"`
 	TeacherId        string `thrift:"teacher_id,17" frugal:"17,default,string" json:"teacher_id" gorm:"column:teacher_id"`
 	AppId            int32  `thrift:"app_id,18" frugal:"18,default,i32" json:"app_id" gorm:"column:app_id"`
-	EducationLevel   int32  `thrift:"education_level,22" frugal:"22,default,i32" json:"education_level" gorm:"column:semester;default:1;not null"`
+	EducationLevel   int32  `thrift:"education_level,22" frugal:"22,default,i32" json:"education_level" gorm:"column:education_level;default:1;not null"`
 }
 
 func NewModelBeginExam() *ModelBeginExam {
@@ -91705,8 +91705,8 @@ type ModelWorkloadStatistics struct {
 	CMonth              string  `thrift:"c_month,36" frugal:"36,default,string" json:"c_month" gorm:"column:c_month"`
 	CourseWage          float64 `thrift:"course_wage,37" frugal:"37,default,double" json:"course_wage" gorm:"column:course_wage"`
 	IsAdjustCourse      bool    `thrift:"is_adjust_course,38" frugal:"38,default,bool" json:"is_adjust_course" gorm:"column:is_adjust_course;default:false"`
-	EducationLevel      int32   `thrift:"education_level,39" frugal:"39,default,i32" json:"education_level" gorm:"column:semester;default:1;not null"`
-	TheoryHours         float64 `thrift:"theory_hours,40" frugal:"40,default,double" json:"theory_course_hours" gorm:"column:theory_course_hours;default:0.0;not null"`
+	EducationLevel      int32   `thrift:"education_level,39" frugal:"39,default,i32" json:"education_level" gorm:"column:education_level;default:1;not null"`
+	TheoryHours         float64 `thrift:"theory_hours,40" frugal:"40,default,double" json:"theory_course_hours" gorm:"column:theory_course_hours;default:0;not null"`
 }
 
 func NewModelWorkloadStatistics() *ModelWorkloadStatistics {
@@ -95593,7 +95593,7 @@ type ModelBeginExamWorkload struct {
 	FeeStandard      float64 `thrift:"fee_standard,13" frugal:"13,default,double" json:"fee_standard" gorm:"column:fee_standard"`
 	TotalFee         float64 `thrift:"total_fee,14" frugal:"14,default,double" json:"total_fee" gorm:"column:total_fee"`
 	AppId            int32   `thrift:"app_id,15" frugal:"15,default,i32" json:"app_id" gorm:"column:app_id;index"`
-	EducationLevel   int32   `thrift:"education_level,22" frugal:"22,default,i32" json:"education_level" gorm:"column:semester;default:1;not null"`
+	EducationLevel   int32   `thrift:"education_level,22" frugal:"22,default,i32" json:"education_level" gorm:"column:education_level;default:1"`
 }
 
 func NewModelBeginExamWorkload() *ModelBeginExamWorkload {
