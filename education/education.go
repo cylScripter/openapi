@@ -36074,23 +36074,24 @@ func (p *GetHolidayListResp) Field2DeepEqual(src *base.Paginate) bool {
 }
 
 type AdjustCourseApplicationReq struct {
-	AcademicYear     string `thrift:"academic_year,1" frugal:"1,default,string" json:"academic_year" binding:"required" `
-	Semester         string `thrift:"semester,2" frugal:"2,default,string" json:"semester" binding:"required"`
-	TeacherId        string `thrift:"teacher_id,3" frugal:"3,default,string" json:"teacher_id" binding:"required" `
-	TeacherName      string `thrift:"teacher_name,4" frugal:"4,default,string" json:"teacher_name" binding:"required" `
-	NewTeacherId_    string `thrift:"new_teacher_id,5" frugal:"5,default,string"  json:"new_teacher_id"`
-	NewTeacherName_  string `thrift:"new_teacher_name,6" frugal:"6,default,string"  json:"new_teacher_name"`
-	ApplicationType  int32  `thrift:"application_type,7" frugal:"7,default,i32" json:"application_type"`
-	CourseName       string `thrift:"course_name,8" frugal:"8,default,string" json:"course_name"`
-	TeachClass       string `thrift:"teach_class,9" frugal:"9,default,string" json:"teach_class"`
-	CourseId         int32  `thrift:"course_id,10" frugal:"10,default,i32" json:"course_id"`
-	ScheduleTime     string `thrift:"schedule_time,11" frugal:"11,default,string"  json:"schedule_time"`
-	NewScheduleTime_ string `thrift:"new_schedule_time,12" frugal:"12,default,string" json:"new_schedule_time"`
-	Location         string `thrift:"location,13" frugal:"13,default,string"  json:"location"`
-	NewLocation_     string `thrift:"new_location,14" frugal:"14,default,string" json:"new_location"`
-	Reason           string `thrift:"reason,15" frugal:"15,default,string" json:"reason"`
-	AdjustCourseId   int32  `thrift:"adjust_course_id,16" frugal:"16,default,i32" json:"adjust_course_id"`
-	Name             string `thrift:"name,17" frugal:"17,default,string" json:"name"`
+	AcademicYear         string `thrift:"academic_year,1" frugal:"1,default,string" json:"academic_year" binding:"required" `
+	Semester             string `thrift:"semester,2" frugal:"2,default,string" json:"semester" binding:"required"`
+	TeacherId            string `thrift:"teacher_id,3" frugal:"3,default,string" json:"teacher_id" binding:"required" `
+	TeacherName          string `thrift:"teacher_name,4" frugal:"4,default,string" json:"teacher_name" binding:"required" `
+	NewTeacherId_        string `thrift:"new_teacher_id,5" frugal:"5,default,string"  json:"new_teacher_id"`
+	NewTeacherName_      string `thrift:"new_teacher_name,6" frugal:"6,default,string"  json:"new_teacher_name"`
+	ApplicationType      int32  `thrift:"application_type,7" frugal:"7,default,i32" json:"application_type"`
+	CourseName           string `thrift:"course_name,8" frugal:"8,default,string" json:"course_name"`
+	TeachClass           string `thrift:"teach_class,9" frugal:"9,default,string" json:"teach_class"`
+	CourseId             int32  `thrift:"course_id,10" frugal:"10,default,i32" json:"course_id"`
+	ScheduleTime         string `thrift:"schedule_time,11" frugal:"11,default,string"  json:"schedule_time"`
+	NewScheduleTime_     string `thrift:"new_schedule_time,12" frugal:"12,default,string" json:"new_schedule_time"`
+	Location             string `thrift:"location,13" frugal:"13,default,string"  json:"location"`
+	NewLocation_         string `thrift:"new_location,14" frugal:"14,default,string" json:"new_location"`
+	Reason               string `thrift:"reason,15" frugal:"15,default,string" json:"reason"`
+	AdjustCourseId       int32  `thrift:"adjust_course_id,16" frugal:"16,default,i32" json:"adjust_course_id"`
+	Name                 string `thrift:"name,17" frugal:"17,default,string" json:"name"`
+	OriginalScheduleTime string `thrift:"original_schedule_time,18" frugal:"18,default,string" json:"original_schedule_time"`
 }
 
 func NewAdjustCourseApplicationReq() *AdjustCourseApplicationReq {
@@ -36167,6 +36168,10 @@ func (p *AdjustCourseApplicationReq) GetAdjustCourseId() (v int32) {
 func (p *AdjustCourseApplicationReq) GetName() (v string) {
 	return p.Name
 }
+
+func (p *AdjustCourseApplicationReq) GetOriginalScheduleTime() (v string) {
+	return p.OriginalScheduleTime
+}
 func (p *AdjustCourseApplicationReq) SetAcademicYear(val string) {
 	p.AcademicYear = val
 }
@@ -36218,6 +36223,9 @@ func (p *AdjustCourseApplicationReq) SetAdjustCourseId(val int32) {
 func (p *AdjustCourseApplicationReq) SetName(val string) {
 	p.Name = val
 }
+func (p *AdjustCourseApplicationReq) SetOriginalScheduleTime(val string) {
+	p.OriginalScheduleTime = val
+}
 
 var fieldIDToName_AdjustCourseApplicationReq = map[int16]string{
 	1:  "academic_year",
@@ -36237,6 +36245,7 @@ var fieldIDToName_AdjustCourseApplicationReq = map[int16]string{
 	15: "reason",
 	16: "adjust_course_id",
 	17: "name",
+	18: "original_schedule_time",
 }
 
 func (p *AdjustCourseApplicationReq) Read(iprot thrift.TProtocol) (err error) {
@@ -36389,6 +36398,14 @@ func (p *AdjustCourseApplicationReq) Read(iprot thrift.TProtocol) (err error) {
 		case 17:
 			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField17(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 18:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField18(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -36610,6 +36627,17 @@ func (p *AdjustCourseApplicationReq) ReadField17(iprot thrift.TProtocol) error {
 	p.Name = _field
 	return nil
 }
+func (p *AdjustCourseApplicationReq) ReadField18(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.OriginalScheduleTime = _field
+	return nil
+}
 
 func (p *AdjustCourseApplicationReq) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -36683,6 +36711,10 @@ func (p *AdjustCourseApplicationReq) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField17(oprot); err != nil {
 			fieldId = 17
+			goto WriteFieldError
+		}
+		if err = p.writeField18(oprot); err != nil {
+			fieldId = 18
 			goto WriteFieldError
 		}
 	}
@@ -36992,6 +37024,23 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 17 end error: ", p), err)
 }
 
+func (p *AdjustCourseApplicationReq) writeField18(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("original_schedule_time", thrift.STRING, 18); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.OriginalScheduleTime); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 18 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 18 end error: ", p), err)
+}
+
 func (p *AdjustCourseApplicationReq) String() string {
 	if p == nil {
 		return "<nil>"
@@ -37055,6 +37104,9 @@ func (p *AdjustCourseApplicationReq) DeepEqual(ano *AdjustCourseApplicationReq) 
 		return false
 	}
 	if !p.Field17DeepEqual(ano.Name) {
+		return false
+	}
+	if !p.Field18DeepEqual(ano.OriginalScheduleTime) {
 		return false
 	}
 	return true
@@ -37179,6 +37231,13 @@ func (p *AdjustCourseApplicationReq) Field17DeepEqual(src string) bool {
 	}
 	return true
 }
+func (p *AdjustCourseApplicationReq) Field18DeepEqual(src string) bool {
+
+	if strings.Compare(p.OriginalScheduleTime, src) != 0 {
+		return false
+	}
+	return true
+}
 
 type AdjustCourseApplicationResp struct {
 }
@@ -37273,24 +37332,25 @@ func (p *AdjustCourseApplicationResp) DeepEqual(ano *AdjustCourseApplicationResp
 }
 
 type UpdateAdjustApplicationReq struct {
-	AcademicYear     string `thrift:"academic_year,1" frugal:"1,default,string" json:"academic_year" binding:"required" `
-	Semester         string `thrift:"semester,2" frugal:"2,default,string" json:"semester" binding:"required"`
-	TeacherId        string `thrift:"teacher_id,3" frugal:"3,default,string" json:"teacher_id" binding:"required" `
-	TeacherName      string `thrift:"teacher_name,4" frugal:"4,default,string" json:"teacher_name" binding:"required" `
-	NewTeacherId_    string `thrift:"new_teacher_id,5" frugal:"5,default,string"  json:"new_teacher_id"`
-	NewTeacherName_  string `thrift:"new_teacher_name,6" frugal:"6,default,string"  json:"new_teacher_name"`
-	ApplicationType  int32  `thrift:"application_type,7" frugal:"7,default,i32" json:"application_type"`
-	CourseName       string `thrift:"course_name,8" frugal:"8,default,string" json:"course_name"`
-	TeachClass       string `thrift:"teach_class,9" frugal:"9,default,string" json:"teach_class"`
-	CourseId         int32  `thrift:"course_id,10" frugal:"10,default,i32" json:"course_id"`
-	ScheduleTime     string `thrift:"schedule_time,11" frugal:"11,default,string"  json:"schedule_time"`
-	NewScheduleTime_ string `thrift:"new_schedule_time,12" frugal:"12,default,string" json:"new_schedule_time"`
-	Location         string `thrift:"location,13" frugal:"13,default,string"  json:"location"`
-	NewLocation_     string `thrift:"new_location,14" frugal:"14,default,string" json:"new_location"`
-	Reason           string `thrift:"reason,15" frugal:"15,default,string" json:"reason"`
-	AdjustCourseId   int32  `thrift:"adjust_course_id,16" frugal:"16,default,i32" json:"adjust_course_id"`
-	Name             string `thrift:"name,17" frugal:"17,default,string" json:"name"`
-	Id               int32  `thrift:"id,18" frugal:"18,default,i32" json:"id"`
+	AcademicYear         string `thrift:"academic_year,1" frugal:"1,default,string" json:"academic_year" binding:"required" `
+	Semester             string `thrift:"semester,2" frugal:"2,default,string" json:"semester" binding:"required"`
+	TeacherId            string `thrift:"teacher_id,3" frugal:"3,default,string" json:"teacher_id" binding:"required" `
+	TeacherName          string `thrift:"teacher_name,4" frugal:"4,default,string" json:"teacher_name" binding:"required" `
+	NewTeacherId_        string `thrift:"new_teacher_id,5" frugal:"5,default,string"  json:"new_teacher_id"`
+	NewTeacherName_      string `thrift:"new_teacher_name,6" frugal:"6,default,string"  json:"new_teacher_name"`
+	ApplicationType      int32  `thrift:"application_type,7" frugal:"7,default,i32" json:"application_type"`
+	CourseName           string `thrift:"course_name,8" frugal:"8,default,string" json:"course_name"`
+	TeachClass           string `thrift:"teach_class,9" frugal:"9,default,string" json:"teach_class"`
+	CourseId             int32  `thrift:"course_id,10" frugal:"10,default,i32" json:"course_id"`
+	ScheduleTime         string `thrift:"schedule_time,11" frugal:"11,default,string"  json:"schedule_time"`
+	NewScheduleTime_     string `thrift:"new_schedule_time,12" frugal:"12,default,string" json:"new_schedule_time"`
+	Location             string `thrift:"location,13" frugal:"13,default,string"  json:"location"`
+	NewLocation_         string `thrift:"new_location,14" frugal:"14,default,string" json:"new_location"`
+	Reason               string `thrift:"reason,15" frugal:"15,default,string" json:"reason"`
+	AdjustCourseId       int32  `thrift:"adjust_course_id,16" frugal:"16,default,i32" json:"adjust_course_id"`
+	Name                 string `thrift:"name,17" frugal:"17,default,string" json:"name"`
+	Id                   int32  `thrift:"id,18" frugal:"18,default,i32" json:"id"`
+	OriginalScheduleTime string `thrift:"original_schedule_time,19" frugal:"19,default,string" json:"original_schedule_time"`
 }
 
 func NewUpdateAdjustApplicationReq() *UpdateAdjustApplicationReq {
@@ -37371,6 +37431,10 @@ func (p *UpdateAdjustApplicationReq) GetName() (v string) {
 func (p *UpdateAdjustApplicationReq) GetId() (v int32) {
 	return p.Id
 }
+
+func (p *UpdateAdjustApplicationReq) GetOriginalScheduleTime() (v string) {
+	return p.OriginalScheduleTime
+}
 func (p *UpdateAdjustApplicationReq) SetAcademicYear(val string) {
 	p.AcademicYear = val
 }
@@ -37425,6 +37489,9 @@ func (p *UpdateAdjustApplicationReq) SetName(val string) {
 func (p *UpdateAdjustApplicationReq) SetId(val int32) {
 	p.Id = val
 }
+func (p *UpdateAdjustApplicationReq) SetOriginalScheduleTime(val string) {
+	p.OriginalScheduleTime = val
+}
 
 var fieldIDToName_UpdateAdjustApplicationReq = map[int16]string{
 	1:  "academic_year",
@@ -37445,6 +37512,7 @@ var fieldIDToName_UpdateAdjustApplicationReq = map[int16]string{
 	16: "adjust_course_id",
 	17: "name",
 	18: "id",
+	19: "original_schedule_time",
 }
 
 func (p *UpdateAdjustApplicationReq) Read(iprot thrift.TProtocol) (err error) {
@@ -37605,6 +37673,14 @@ func (p *UpdateAdjustApplicationReq) Read(iprot thrift.TProtocol) (err error) {
 		case 18:
 			if fieldTypeId == thrift.I32 {
 				if err = p.ReadField18(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 19:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField19(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -37837,6 +37913,17 @@ func (p *UpdateAdjustApplicationReq) ReadField18(iprot thrift.TProtocol) error {
 	p.Id = _field
 	return nil
 }
+func (p *UpdateAdjustApplicationReq) ReadField19(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.OriginalScheduleTime = _field
+	return nil
+}
 
 func (p *UpdateAdjustApplicationReq) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -37914,6 +38001,10 @@ func (p *UpdateAdjustApplicationReq) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField18(oprot); err != nil {
 			fieldId = 18
+			goto WriteFieldError
+		}
+		if err = p.writeField19(oprot); err != nil {
+			fieldId = 19
 			goto WriteFieldError
 		}
 	}
@@ -38240,6 +38331,23 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 18 end error: ", p), err)
 }
 
+func (p *UpdateAdjustApplicationReq) writeField19(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("original_schedule_time", thrift.STRING, 19); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.OriginalScheduleTime); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 19 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 19 end error: ", p), err)
+}
+
 func (p *UpdateAdjustApplicationReq) String() string {
 	if p == nil {
 		return "<nil>"
@@ -38306,6 +38414,9 @@ func (p *UpdateAdjustApplicationReq) DeepEqual(ano *UpdateAdjustApplicationReq) 
 		return false
 	}
 	if !p.Field18DeepEqual(ano.Id) {
+		return false
+	}
+	if !p.Field19DeepEqual(ano.OriginalScheduleTime) {
 		return false
 	}
 	return true
@@ -38433,6 +38544,13 @@ func (p *UpdateAdjustApplicationReq) Field17DeepEqual(src string) bool {
 func (p *UpdateAdjustApplicationReq) Field18DeepEqual(src int32) bool {
 
 	if p.Id != src {
+		return false
+	}
+	return true
+}
+func (p *UpdateAdjustApplicationReq) Field19DeepEqual(src string) bool {
+
+	if strings.Compare(p.OriginalScheduleTime, src) != 0 {
 		return false
 	}
 	return true
@@ -69289,29 +69407,30 @@ func (p *ModelInternship) Field17DeepEqual(src int32) bool {
 }
 
 type ModelCourseApplication struct {
-	Id               int32  `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
-	CreatedAt        int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index;not null" json:"created_at"`
-	UpdatedAt        int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at;not null" json:"updated_at"`
-	DeletedAt        int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at;not null" json:"deleted_at"`
-	AcademicYear     string `thrift:"academic_year,5" frugal:"5,default,string" gorm:"column:academic_year" json:"academic_year"`
-	Semester         string `thrift:"semester,6" frugal:"6,default,string" gorm:"column:semester" json:"semester"`
-	TeacherId        string `thrift:"teacher_id,7" frugal:"7,default,string" gorm:"column:teacher_id" json:"teacher_id"`
-	TeacherName      string `thrift:"teacher_name,8" frugal:"8,default,string" gorm:"column:teacher_name" json:"teacher_name"`
-	NewTeacherId_    string `thrift:"new_teacher_id,9" frugal:"9,default,string" gorm:"column:new_teacher_id" json:"new_teacher_id"`
-	NewTeacherName_  string `thrift:"new_teacher_name,10" frugal:"10,default,string" gorm:"column:new_teacher_name" json:"new_teacher_name"`
-	AppId            int32  `thrift:"app_id,11" frugal:"11,default,i32" gorm:"column:app_id;index" json:"app_id"`
-	ApplicationType  int32  `thrift:"application_type,12" frugal:"12,default,i32" gorm:"column:application_type" json:"application_type"`
-	CourseName       string `thrift:"course_name,13" frugal:"13,default,string" gorm:"column:course_name" json:"course_name"`
-	TeachClass       string `thrift:"teach_class,14" frugal:"14,default,string" gorm:"column:teach_class" json:"teach_class"`
-	CourseId         int32  `thrift:"course_id,15" frugal:"15,default,i32" gorm:"column:course_id" json:"course_id"`
-	ScheduleTime     string `thrift:"schedule_time,16" frugal:"16,default,string" gorm:"column:schedule_time" json:"schedule_time"`
-	NewScheduleTime_ string `thrift:"new_schedule_time,17" frugal:"17,default,string" gorm:"column:new_schedule_time" json:"new_schedule_time"`
-	Location         string `thrift:"location,18" frugal:"18,default,string" gorm:"column:location" json:"location"`
-	NewLocation_     string `thrift:"new_location,19" frugal:"19,default,string" gorm:"column:new_location" json:"new_location"`
-	Reason           string `thrift:"reason,20" frugal:"20,default,string" gorm:"column:reason" json:"reason"`
-	AdjustCourseId   int32  `thrift:"adjust_course_id,21" frugal:"21,default,i32" gorm:"column:adjust_course_id" json:"adjust_course_id"`
-	UserId           string `thrift:"user_id,22" frugal:"22,default,string" gorm:"column:user_id" json:"-"`
-	Name             string `thrift:"name,23" frugal:"23,default,string" gorm:"column:name;default: ;not null" json:"name"`
+	Id                   int32  `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
+	CreatedAt            int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index;not null" json:"created_at"`
+	UpdatedAt            int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at;not null" json:"updated_at"`
+	DeletedAt            int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at;not null" json:"deleted_at"`
+	AcademicYear         string `thrift:"academic_year,5" frugal:"5,default,string" gorm:"column:academic_year" json:"academic_year"`
+	Semester             string `thrift:"semester,6" frugal:"6,default,string" gorm:"column:semester" json:"semester"`
+	TeacherId            string `thrift:"teacher_id,7" frugal:"7,default,string" gorm:"column:teacher_id" json:"teacher_id"`
+	TeacherName          string `thrift:"teacher_name,8" frugal:"8,default,string" gorm:"column:teacher_name" json:"teacher_name"`
+	NewTeacherId_        string `thrift:"new_teacher_id,9" frugal:"9,default,string" gorm:"column:new_teacher_id" json:"new_teacher_id"`
+	NewTeacherName_      string `thrift:"new_teacher_name,10" frugal:"10,default,string" gorm:"column:new_teacher_name" json:"new_teacher_name"`
+	AppId                int32  `thrift:"app_id,11" frugal:"11,default,i32" gorm:"column:app_id;index" json:"app_id"`
+	ApplicationType      int32  `thrift:"application_type,12" frugal:"12,default,i32" gorm:"column:application_type" json:"application_type"`
+	CourseName           string `thrift:"course_name,13" frugal:"13,default,string" gorm:"column:course_name" json:"course_name"`
+	TeachClass           string `thrift:"teach_class,14" frugal:"14,default,string" gorm:"column:teach_class" json:"teach_class"`
+	CourseId             int32  `thrift:"course_id,15" frugal:"15,default,i32" gorm:"column:course_id" json:"course_id"`
+	ScheduleTime         string `thrift:"schedule_time,16" frugal:"16,default,string" gorm:"column:schedule_time" json:"schedule_time"`
+	NewScheduleTime_     string `thrift:"new_schedule_time,17" frugal:"17,default,string" gorm:"column:new_schedule_time" json:"new_schedule_time"`
+	Location             string `thrift:"location,18" frugal:"18,default,string" gorm:"column:location" json:"location"`
+	NewLocation_         string `thrift:"new_location,19" frugal:"19,default,string" gorm:"column:new_location" json:"new_location"`
+	Reason               string `thrift:"reason,20" frugal:"20,default,string" gorm:"column:reason" json:"reason"`
+	AdjustCourseId       int32  `thrift:"adjust_course_id,21" frugal:"21,default,i32" gorm:"column:adjust_course_id" json:"adjust_course_id"`
+	UserId               string `thrift:"user_id,22" frugal:"22,default,string" gorm:"column:user_id" json:"-"`
+	Name                 string `thrift:"name,23" frugal:"23,default,string" gorm:"column:name;default: ;not null" json:"name"`
+	OriginalScheduleTime string `thrift:"original_schedule_time,25" frugal:"25,default,string" gorm:"column:original_schedule_time;default: ;not null" json:"original_schedule_time"`
 }
 
 func NewModelCourseApplication() *ModelCourseApplication {
@@ -69412,6 +69531,10 @@ func (p *ModelCourseApplication) GetUserId() (v string) {
 func (p *ModelCourseApplication) GetName() (v string) {
 	return p.Name
 }
+
+func (p *ModelCourseApplication) GetOriginalScheduleTime() (v string) {
+	return p.OriginalScheduleTime
+}
 func (p *ModelCourseApplication) SetId(val int32) {
 	p.Id = val
 }
@@ -69481,6 +69604,9 @@ func (p *ModelCourseApplication) SetUserId(val string) {
 func (p *ModelCourseApplication) SetName(val string) {
 	p.Name = val
 }
+func (p *ModelCourseApplication) SetOriginalScheduleTime(val string) {
+	p.OriginalScheduleTime = val
+}
 
 var fieldIDToName_ModelCourseApplication = map[int16]string{
 	1:  "id",
@@ -69506,6 +69632,7 @@ var fieldIDToName_ModelCourseApplication = map[int16]string{
 	21: "adjust_course_id",
 	22: "user_id",
 	23: "name",
+	25: "original_schedule_time",
 }
 
 func (p *ModelCourseApplication) Read(iprot thrift.TProtocol) (err error) {
@@ -69706,6 +69833,14 @@ func (p *ModelCourseApplication) Read(iprot thrift.TProtocol) (err error) {
 		case 23:
 			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField23(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 25:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField25(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -69993,6 +70128,17 @@ func (p *ModelCourseApplication) ReadField23(iprot thrift.TProtocol) error {
 	p.Name = _field
 	return nil
 }
+func (p *ModelCourseApplication) ReadField25(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.OriginalScheduleTime = _field
+	return nil
+}
 
 func (p *ModelCourseApplication) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -70090,6 +70236,10 @@ func (p *ModelCourseApplication) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField23(oprot); err != nil {
 			fieldId = 23
+			goto WriteFieldError
+		}
+		if err = p.writeField25(oprot); err != nil {
+			fieldId = 25
 			goto WriteFieldError
 		}
 	}
@@ -70501,6 +70651,23 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 23 end error: ", p), err)
 }
 
+func (p *ModelCourseApplication) writeField25(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("original_schedule_time", thrift.STRING, 25); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.OriginalScheduleTime); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 25 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 25 end error: ", p), err)
+}
+
 func (p *ModelCourseApplication) String() string {
 	if p == nil {
 		return "<nil>"
@@ -70582,6 +70749,9 @@ func (p *ModelCourseApplication) DeepEqual(ano *ModelCourseApplication) bool {
 		return false
 	}
 	if !p.Field23DeepEqual(ano.Name) {
+		return false
+	}
+	if !p.Field25DeepEqual(ano.OriginalScheduleTime) {
 		return false
 	}
 	return true
@@ -70744,6 +70914,13 @@ func (p *ModelCourseApplication) Field22DeepEqual(src string) bool {
 func (p *ModelCourseApplication) Field23DeepEqual(src string) bool {
 
 	if strings.Compare(p.Name, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *ModelCourseApplication) Field25DeepEqual(src string) bool {
+
+	if strings.Compare(p.OriginalScheduleTime, src) != 0 {
 		return false
 	}
 	return true
