@@ -69429,7 +69429,7 @@ type ModelCourseApplication struct {
 	Reason               string `thrift:"reason,20" frugal:"20,default,string" gorm:"column:reason" json:"reason"`
 	AdjustCourseId       int32  `thrift:"adjust_course_id,21" frugal:"21,default,i32" gorm:"column:adjust_course_id" json:"adjust_course_id"`
 	UserId               string `thrift:"user_id,22" frugal:"22,default,string" gorm:"column:user_id" json:"-"`
-	Name                 string `thrift:"name,23" frugal:"23,default,string" gorm:"column:name;default: ;not null" json:"name"`
+	Name                 string `thrift:"name,23" frugal:"23,default,string" gorm:"column:name;default:"";not null" json:"name"`
 	OriginalScheduleTime string `thrift:"original_schedule_time,25" frugal:"25,default,string" gorm:"column:original_schedule_time;default: ;not null" json:"original_schedule_time"`
 }
 
