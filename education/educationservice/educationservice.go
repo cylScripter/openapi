@@ -454,6 +454,13 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"UpdateAdjustApplication": kitex.NewMethodInfo(
+		updateAdjustApplicationHandler,
+		newEducationserviceUpdateAdjustApplicationArgs,
+		newEducationserviceUpdateAdjustApplicationResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 	"GetHolidayList": kitex.NewMethodInfo(
 		getHolidayListHandler,
 		newEducationserviceGetHolidayListArgs,
@@ -2058,6 +2065,24 @@ func newEducationserviceAdjustCourseApplicationArgs() interface{} {
 
 func newEducationserviceAdjustCourseApplicationResult() interface{} {
 	return education.NewEducationserviceAdjustCourseApplicationResult()
+}
+
+func updateAdjustApplicationHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceUpdateAdjustApplicationArgs)
+	realResult := result.(*education.EducationserviceUpdateAdjustApplicationResult)
+	success, err := handler.(education.Educationservice).UpdateAdjustApplication(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceUpdateAdjustApplicationArgs() interface{} {
+	return education.NewEducationserviceUpdateAdjustApplicationArgs()
+}
+
+func newEducationserviceUpdateAdjustApplicationResult() interface{} {
+	return education.NewEducationserviceUpdateAdjustApplicationResult()
 }
 
 func getHolidayListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
@@ -3739,6 +3764,16 @@ func (p *kClient) AdjustCourseApplication(ctx context.Context, req *education.Ad
 	_args.Req = req
 	var _result education.EducationserviceAdjustCourseApplicationResult
 	if err = p.c.Call(ctx, "AdjustCourseApplication", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) UpdateAdjustApplication(ctx context.Context, req *education.UpdateAdjustApplicationReq) (r *education.UpdateAdjustApplicationResp, err error) {
+	var _args education.EducationserviceUpdateAdjustApplicationArgs
+	_args.Req = req
+	var _result education.EducationserviceUpdateAdjustApplicationResult
+	if err = p.c.Call(ctx, "UpdateAdjustApplication", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

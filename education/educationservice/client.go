@@ -74,6 +74,7 @@ type Client interface {
 	DeleteCourseApplication(ctx context.Context, req *education.DeleteCourseApplicationReq, callOptions ...callopt.Option) (r *education.DeleteCourseApplicationResp, err error)
 	GetSelfCourseApplicationList(ctx context.Context, req *education.GetSelfCourseApplicationListReq, callOptions ...callopt.Option) (r *education.GetSelfCourseApplicationListResp, err error)
 	AdjustCourseApplication(ctx context.Context, req *education.AdjustCourseApplicationReq, callOptions ...callopt.Option) (r *education.AdjustCourseApplicationResp, err error)
+	UpdateAdjustApplication(ctx context.Context, req *education.UpdateAdjustApplicationReq, callOptions ...callopt.Option) (r *education.UpdateAdjustApplicationResp, err error)
 	GetHolidayList(ctx context.Context, req *education.GetHolidayListReq, callOptions ...callopt.Option) (r *education.GetHolidayListResp, err error)
 	DeleteHoliday(ctx context.Context, req *education.DeleteHolidayReq, callOptions ...callopt.Option) (r *education.DeleteHolidayResp, err error)
 	CreateHoliday(ctx context.Context, req *education.CreateHolidayReq, callOptions ...callopt.Option) (r *education.CreateHolidayResp, err error)
@@ -476,6 +477,11 @@ func (p *kEducationserviceClient) GetSelfCourseApplicationList(ctx context.Conte
 func (p *kEducationserviceClient) AdjustCourseApplication(ctx context.Context, req *education.AdjustCourseApplicationReq, callOptions ...callopt.Option) (r *education.AdjustCourseApplicationResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.AdjustCourseApplication(ctx, req)
+}
+
+func (p *kEducationserviceClient) UpdateAdjustApplication(ctx context.Context, req *education.UpdateAdjustApplicationReq, callOptions ...callopt.Option) (r *education.UpdateAdjustApplicationResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.UpdateAdjustApplication(ctx, req)
 }
 
 func (p *kEducationserviceClient) GetHolidayList(ctx context.Context, req *education.GetHolidayListReq, callOptions ...callopt.Option) (r *education.GetHolidayListResp, err error) {

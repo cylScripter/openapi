@@ -321,6 +321,11 @@ func AdjustCourseApplication(ctx context.Context, req *education.AdjustCourseApp
 	return clients.AdjustCourseApplication(ctx, req)
 }
 
+func UpdateAdjustApplication(ctx context.Context, req *education.UpdateAdjustApplicationReq, callOptions ...client.Option) (resp *education.UpdateAdjustApplicationResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.UpdateAdjustApplication(ctx, req)
+}
+
 func GetHolidayList(ctx context.Context, req *education.GetHolidayListReq, callOptions ...client.Option) (resp *education.GetHolidayListResp, err error) {
 	clients := MustNewClient("education", callOptions...)
 	return clients.GetHolidayList(ctx, req)
