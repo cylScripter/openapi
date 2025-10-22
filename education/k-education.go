@@ -62278,6 +62278,20 @@ func (p *ModelWorkloadStatistics) FastRead(buf []byte) (int, error) {
 					goto SkipFieldError
 				}
 			}
+		case 41:
+			if fieldTypeId == thrift.I32 {
+				l, err = p.FastReadField41(buf[offset:])
+				offset += l
+				if err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
+				offset += l
+				if err != nil {
+					goto SkipFieldError
+				}
+			}
 		default:
 			l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
 			offset += l
@@ -62856,6 +62870,20 @@ func (p *ModelWorkloadStatistics) FastReadField40(buf []byte) (int, error) {
 	return offset, nil
 }
 
+func (p *ModelWorkloadStatistics) FastReadField41(buf []byte) (int, error) {
+	offset := 0
+
+	var _field int32
+	if v, l, err := thrift.Binary.ReadI32(buf[offset:]); err != nil {
+		return offset, err
+	} else {
+		offset += l
+		_field = v
+	}
+	p.TheoryWeekNumber = _field
+	return offset, nil
+}
+
 // for compatibility
 func (p *ModelWorkloadStatistics) FastWrite(buf []byte) int {
 	return 0
@@ -62892,6 +62920,7 @@ func (p *ModelWorkloadStatistics) FastWriteNocopy(buf []byte, w thrift.NocopyWri
 		offset += p.fastWriteField38(buf[offset:], w)
 		offset += p.fastWriteField39(buf[offset:], w)
 		offset += p.fastWriteField40(buf[offset:], w)
+		offset += p.fastWriteField41(buf[offset:], w)
 		offset += p.fastWriteField5(buf[offset:], w)
 		offset += p.fastWriteField6(buf[offset:], w)
 		offset += p.fastWriteField8(buf[offset:], w)
@@ -62952,6 +62981,7 @@ func (p *ModelWorkloadStatistics) BLength() int {
 		l += p.field38Length()
 		l += p.field39Length()
 		l += p.field40Length()
+		l += p.field41Length()
 	}
 	l += thrift.Binary.FieldStopLength()
 	return l
@@ -63237,6 +63267,13 @@ func (p *ModelWorkloadStatistics) fastWriteField40(buf []byte, w thrift.NocopyWr
 	return offset
 }
 
+func (p *ModelWorkloadStatistics) fastWriteField41(buf []byte, w thrift.NocopyWriter) int {
+	offset := 0
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 41)
+	offset += thrift.Binary.WriteI32(buf[offset:], p.TheoryWeekNumber)
+	return offset
+}
+
 func (p *ModelWorkloadStatistics) field1Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
@@ -63514,6 +63551,13 @@ func (p *ModelWorkloadStatistics) field40Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.DoubleLength()
+	return l
+}
+
+func (p *ModelWorkloadStatistics) field41Length() int {
+	l := 0
+	l += thrift.Binary.FieldBeginLength()
+	l += thrift.Binary.I32Length()
 	return l
 }
 
