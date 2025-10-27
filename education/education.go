@@ -93262,6 +93262,7 @@ type ModelWorkloadStatistics struct {
 	TheoryHours         float64 `thrift:"theory_hours,40" frugal:"40,default,double" json:"theory_hours" gorm:"column:theory_hours;default:0"`
 	TheoryWeekNumber    int32   `thrift:"theory_week_number,41" frugal:"41,default,i32" json:"theory_week_number" gorm:"column:theory_week_number;default:0"`
 	CollegeFactor       float64 `thrift:"college_factor,42" frugal:"42,default,double" json:"college_factor" gorm:"column:college_factor;default:1"`
+	IsEdited            bool    `thrift:"is_edited,43" frugal:"43,default,bool" json:"is_edited" gorm:"column:is_edited;default:false"`
 }
 
 func NewModelWorkloadStatistics() *ModelWorkloadStatistics {
@@ -93438,6 +93439,10 @@ func (p *ModelWorkloadStatistics) GetTheoryWeekNumber() (v int32) {
 func (p *ModelWorkloadStatistics) GetCollegeFactor() (v float64) {
 	return p.CollegeFactor
 }
+
+func (p *ModelWorkloadStatistics) GetIsEdited() (v bool) {
+	return p.IsEdited
+}
 func (p *ModelWorkloadStatistics) SetId(val int32) {
 	p.Id = val
 }
@@ -93564,6 +93569,9 @@ func (p *ModelWorkloadStatistics) SetTheoryWeekNumber(val int32) {
 func (p *ModelWorkloadStatistics) SetCollegeFactor(val float64) {
 	p.CollegeFactor = val
 }
+func (p *ModelWorkloadStatistics) SetIsEdited(val bool) {
+	p.IsEdited = val
+}
 
 var fieldIDToName_ModelWorkloadStatistics = map[int16]string{
 	1:  "id",
@@ -93608,6 +93616,7 @@ var fieldIDToName_ModelWorkloadStatistics = map[int16]string{
 	40: "theory_hours",
 	41: "theory_week_number",
 	42: "college_factor",
+	43: "is_edited",
 }
 
 func (p *ModelWorkloadStatistics) Read(iprot thrift.TProtocol) (err error) {
@@ -93960,6 +93969,14 @@ func (p *ModelWorkloadStatistics) Read(iprot thrift.TProtocol) (err error) {
 		case 42:
 			if fieldTypeId == thrift.DOUBLE {
 				if err = p.ReadField42(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 43:
+			if fieldTypeId == thrift.BOOL {
+				if err = p.ReadField43(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -94456,6 +94473,17 @@ func (p *ModelWorkloadStatistics) ReadField42(iprot thrift.TProtocol) error {
 	p.CollegeFactor = _field
 	return nil
 }
+func (p *ModelWorkloadStatistics) ReadField43(iprot thrift.TProtocol) error {
+
+	var _field bool
+	if v, err := iprot.ReadBool(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.IsEdited = _field
+	return nil
+}
 
 func (p *ModelWorkloadStatistics) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -94629,6 +94657,10 @@ func (p *ModelWorkloadStatistics) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField42(oprot); err != nil {
 			fieldId = 42
+			goto WriteFieldError
+		}
+		if err = p.writeField43(oprot); err != nil {
+			fieldId = 43
 			goto WriteFieldError
 		}
 	}
@@ -95363,6 +95395,23 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 42 end error: ", p), err)
 }
 
+func (p *ModelWorkloadStatistics) writeField43(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("is_edited", thrift.BOOL, 43); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteBool(p.IsEdited); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 43 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 43 end error: ", p), err)
+}
+
 func (p *ModelWorkloadStatistics) String() string {
 	if p == nil {
 		return "<nil>"
@@ -95501,6 +95550,9 @@ func (p *ModelWorkloadStatistics) DeepEqual(ano *ModelWorkloadStatistics) bool {
 		return false
 	}
 	if !p.Field42DeepEqual(ano.CollegeFactor) {
+		return false
+	}
+	if !p.Field43DeepEqual(ano.IsEdited) {
 		return false
 	}
 	return true
@@ -95796,6 +95848,13 @@ func (p *ModelWorkloadStatistics) Field41DeepEqual(src int32) bool {
 func (p *ModelWorkloadStatistics) Field42DeepEqual(src float64) bool {
 
 	if p.CollegeFactor != src {
+		return false
+	}
+	return true
+}
+func (p *ModelWorkloadStatistics) Field43DeepEqual(src bool) bool {
+
+	if p.IsEdited != src {
 		return false
 	}
 	return true
