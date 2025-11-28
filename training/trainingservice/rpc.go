@@ -6,7 +6,7 @@ import (
 	"github.com/cylScripter/openapi/training"
 )
 
-func ImportInternship(ctx context.Context, req *training.ImportInternshipReq, callOptions ...client.Option) (resp *training.ImportInternshipResp, err error) {
+func ImportTrainingCourse(ctx context.Context, req *training.ImportTrainingCourseReq, callOptions ...client.Option) (resp *training.ImportTrainingCourseResp, err error) {
 	clients := MustNewClient("training", callOptions...)
-	return clients.ImportInternship(ctx, req)
+	return clients.ImportTrainingCourse(ctx, req)
 }

@@ -13,10 +13,10 @@ import (
 var errInvalidMessageType = errors.New("invalid message type for service method handler")
 
 var serviceMethods = map[string]kitex.MethodInfo{
-	"ImportInternship": kitex.NewMethodInfo(
-		importInternshipHandler,
-		newTrainingserviceImportInternshipArgs,
-		newTrainingserviceImportInternshipResult,
+	"ImportTrainingCourse": kitex.NewMethodInfo(
+		importTrainingCourseHandler,
+		newTrainingserviceImportTrainingCourseArgs,
+		newTrainingserviceImportTrainingCourseResult,
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
@@ -86,22 +86,22 @@ func newServiceInfo(hasStreaming bool, keepStreamingMethods bool, keepNonStreami
 	return svcInfo
 }
 
-func importInternshipHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
-	realArg := arg.(*training.TrainingserviceImportInternshipArgs)
-	realResult := result.(*training.TrainingserviceImportInternshipResult)
-	success, err := handler.(training.Trainingservice).ImportInternship(ctx, realArg.Req)
+func importTrainingCourseHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceImportTrainingCourseArgs)
+	realResult := result.(*training.TrainingserviceImportTrainingCourseResult)
+	success, err := handler.(training.Trainingservice).ImportTrainingCourse(ctx, realArg.Req)
 	if err != nil {
 		return err
 	}
 	realResult.Success = success
 	return nil
 }
-func newTrainingserviceImportInternshipArgs() interface{} {
-	return training.NewTrainingserviceImportInternshipArgs()
+func newTrainingserviceImportTrainingCourseArgs() interface{} {
+	return training.NewTrainingserviceImportTrainingCourseArgs()
 }
 
-func newTrainingserviceImportInternshipResult() interface{} {
-	return training.NewTrainingserviceImportInternshipResult()
+func newTrainingserviceImportTrainingCourseResult() interface{} {
+	return training.NewTrainingserviceImportTrainingCourseResult()
 }
 
 type kClient struct {
@@ -114,11 +114,11 @@ func newServiceClient(c client.Client) *kClient {
 	}
 }
 
-func (p *kClient) ImportInternship(ctx context.Context, req *training.ImportInternshipReq) (r *training.ImportInternshipResp, err error) {
-	var _args training.TrainingserviceImportInternshipArgs
+func (p *kClient) ImportTrainingCourse(ctx context.Context, req *training.ImportTrainingCourseReq) (r *training.ImportTrainingCourseResp, err error) {
+	var _args training.TrainingserviceImportTrainingCourseArgs
 	_args.Req = req
-	var _result training.TrainingserviceImportInternshipResult
-	if err = p.c.Call(ctx, "ImportInternship", &_args, &_result); err != nil {
+	var _result training.TrainingserviceImportTrainingCourseResult
+	if err = p.c.Call(ctx, "ImportTrainingCourse", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

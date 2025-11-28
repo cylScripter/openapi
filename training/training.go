@@ -9,47 +9,47 @@ import (
 	"strings"
 )
 
-type ImportInternshipReq struct {
-	AcademicYear string `thrift:"academic_year,1" frugal:"1,default,string" json:"academic_year" binding:"required"`
-	Semester     string `thrift:"semester,2" frugal:"2,default,string" json:"semester" binding:"required"`
+type ImportTrainingCourseReq struct {
+	AcademicYear string `thrift:"academic_year,1" frugal:"1,default,string" json:"academic_year" binding:"required" `
+	Semester     string `thrift:"semester,2" frugal:"2,default,string" json:"semester"binding:"required" `
 	UploadId     string `thrift:"upload_id,3" frugal:"3,default,string" json:"upload_id" binding:"required"`
 }
 
-func NewImportInternshipReq() *ImportInternshipReq {
-	return &ImportInternshipReq{}
+func NewImportTrainingCourseReq() *ImportTrainingCourseReq {
+	return &ImportTrainingCourseReq{}
 }
 
-func (p *ImportInternshipReq) InitDefault() {
+func (p *ImportTrainingCourseReq) InitDefault() {
 }
 
-func (p *ImportInternshipReq) GetAcademicYear() (v string) {
+func (p *ImportTrainingCourseReq) GetAcademicYear() (v string) {
 	return p.AcademicYear
 }
 
-func (p *ImportInternshipReq) GetSemester() (v string) {
+func (p *ImportTrainingCourseReq) GetSemester() (v string) {
 	return p.Semester
 }
 
-func (p *ImportInternshipReq) GetUploadId() (v string) {
+func (p *ImportTrainingCourseReq) GetUploadId() (v string) {
 	return p.UploadId
 }
-func (p *ImportInternshipReq) SetAcademicYear(val string) {
+func (p *ImportTrainingCourseReq) SetAcademicYear(val string) {
 	p.AcademicYear = val
 }
-func (p *ImportInternshipReq) SetSemester(val string) {
+func (p *ImportTrainingCourseReq) SetSemester(val string) {
 	p.Semester = val
 }
-func (p *ImportInternshipReq) SetUploadId(val string) {
+func (p *ImportTrainingCourseReq) SetUploadId(val string) {
 	p.UploadId = val
 }
 
-var fieldIDToName_ImportInternshipReq = map[int16]string{
+var fieldIDToName_ImportTrainingCourseReq = map[int16]string{
 	1: "academic_year",
 	2: "semester",
 	3: "upload_id",
 }
 
-func (p *ImportInternshipReq) Read(iprot thrift.TProtocol) (err error) {
+func (p *ImportTrainingCourseReq) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -111,7 +111,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ImportInternshipReq[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ImportTrainingCourseReq[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -121,7 +121,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *ImportInternshipReq) ReadField1(iprot thrift.TProtocol) error {
+func (p *ImportTrainingCourseReq) ReadField1(iprot thrift.TProtocol) error {
 
 	var _field string
 	if v, err := iprot.ReadString(); err != nil {
@@ -132,7 +132,7 @@ func (p *ImportInternshipReq) ReadField1(iprot thrift.TProtocol) error {
 	p.AcademicYear = _field
 	return nil
 }
-func (p *ImportInternshipReq) ReadField2(iprot thrift.TProtocol) error {
+func (p *ImportTrainingCourseReq) ReadField2(iprot thrift.TProtocol) error {
 
 	var _field string
 	if v, err := iprot.ReadString(); err != nil {
@@ -143,7 +143,7 @@ func (p *ImportInternshipReq) ReadField2(iprot thrift.TProtocol) error {
 	p.Semester = _field
 	return nil
 }
-func (p *ImportInternshipReq) ReadField3(iprot thrift.TProtocol) error {
+func (p *ImportTrainingCourseReq) ReadField3(iprot thrift.TProtocol) error {
 
 	var _field string
 	if v, err := iprot.ReadString(); err != nil {
@@ -155,9 +155,9 @@ func (p *ImportInternshipReq) ReadField3(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *ImportInternshipReq) Write(oprot thrift.TProtocol) (err error) {
+func (p *ImportTrainingCourseReq) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("ImportInternshipReq"); err != nil {
+	if err = oprot.WriteStructBegin("ImportTrainingCourseReq"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -191,7 +191,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *ImportInternshipReq) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *ImportTrainingCourseReq) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("academic_year", thrift.STRING, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -208,7 +208,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *ImportInternshipReq) writeField2(oprot thrift.TProtocol) (err error) {
+func (p *ImportTrainingCourseReq) writeField2(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("semester", thrift.STRING, 2); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -225,7 +225,7 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *ImportInternshipReq) writeField3(oprot thrift.TProtocol) (err error) {
+func (p *ImportTrainingCourseReq) writeField3(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("upload_id", thrift.STRING, 3); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -242,15 +242,15 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
 }
 
-func (p *ImportInternshipReq) String() string {
+func (p *ImportTrainingCourseReq) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("ImportInternshipReq(%+v)", *p)
+	return fmt.Sprintf("ImportTrainingCourseReq(%+v)", *p)
 
 }
 
-func (p *ImportInternshipReq) DeepEqual(ano *ImportInternshipReq) bool {
+func (p *ImportTrainingCourseReq) DeepEqual(ano *ImportTrainingCourseReq) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -268,21 +268,21 @@ func (p *ImportInternshipReq) DeepEqual(ano *ImportInternshipReq) bool {
 	return true
 }
 
-func (p *ImportInternshipReq) Field1DeepEqual(src string) bool {
+func (p *ImportTrainingCourseReq) Field1DeepEqual(src string) bool {
 
 	if strings.Compare(p.AcademicYear, src) != 0 {
 		return false
 	}
 	return true
 }
-func (p *ImportInternshipReq) Field2DeepEqual(src string) bool {
+func (p *ImportTrainingCourseReq) Field2DeepEqual(src string) bool {
 
 	if strings.Compare(p.Semester, src) != 0 {
 		return false
 	}
 	return true
 }
-func (p *ImportInternshipReq) Field3DeepEqual(src string) bool {
+func (p *ImportTrainingCourseReq) Field3DeepEqual(src string) bool {
 
 	if strings.Compare(p.UploadId, src) != 0 {
 		return false
@@ -290,29 +290,29 @@ func (p *ImportInternshipReq) Field3DeepEqual(src string) bool {
 	return true
 }
 
-type ImportInternshipResp struct {
+type ImportTrainingCourseResp struct {
 	TaskKey string `thrift:"task_key,1" frugal:"1,default,string" json:"task_key"`
 }
 
-func NewImportInternshipResp() *ImportInternshipResp {
-	return &ImportInternshipResp{}
+func NewImportTrainingCourseResp() *ImportTrainingCourseResp {
+	return &ImportTrainingCourseResp{}
 }
 
-func (p *ImportInternshipResp) InitDefault() {
+func (p *ImportTrainingCourseResp) InitDefault() {
 }
 
-func (p *ImportInternshipResp) GetTaskKey() (v string) {
+func (p *ImportTrainingCourseResp) GetTaskKey() (v string) {
 	return p.TaskKey
 }
-func (p *ImportInternshipResp) SetTaskKey(val string) {
+func (p *ImportTrainingCourseResp) SetTaskKey(val string) {
 	p.TaskKey = val
 }
 
-var fieldIDToName_ImportInternshipResp = map[int16]string{
+var fieldIDToName_ImportTrainingCourseResp = map[int16]string{
 	1: "task_key",
 }
 
-func (p *ImportInternshipResp) Read(iprot thrift.TProtocol) (err error) {
+func (p *ImportTrainingCourseResp) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -358,7 +358,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ImportInternshipResp[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ImportTrainingCourseResp[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -368,7 +368,7 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *ImportInternshipResp) ReadField1(iprot thrift.TProtocol) error {
+func (p *ImportTrainingCourseResp) ReadField1(iprot thrift.TProtocol) error {
 
 	var _field string
 	if v, err := iprot.ReadString(); err != nil {
@@ -380,9 +380,9 @@ func (p *ImportInternshipResp) ReadField1(iprot thrift.TProtocol) error {
 	return nil
 }
 
-func (p *ImportInternshipResp) Write(oprot thrift.TProtocol) (err error) {
+func (p *ImportTrainingCourseResp) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("ImportInternshipResp"); err != nil {
+	if err = oprot.WriteStructBegin("ImportTrainingCourseResp"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -408,7 +408,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *ImportInternshipResp) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *ImportTrainingCourseResp) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("task_key", thrift.STRING, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -425,15 +425,15 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *ImportInternshipResp) String() string {
+func (p *ImportTrainingCourseResp) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("ImportInternshipResp(%+v)", *p)
+	return fmt.Sprintf("ImportTrainingCourseResp(%+v)", *p)
 
 }
 
-func (p *ImportInternshipResp) DeepEqual(ano *ImportInternshipResp) bool {
+func (p *ImportTrainingCourseResp) DeepEqual(ano *ImportTrainingCourseResp) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -445,7 +445,7 @@ func (p *ImportInternshipResp) DeepEqual(ano *ImportInternshipResp) bool {
 	return true
 }
 
-func (p *ImportInternshipResp) Field1DeepEqual(src string) bool {
+func (p *ImportTrainingCourseResp) Field1DeepEqual(src string) bool {
 
 	if strings.Compare(p.TaskKey, src) != 0 {
 		return false
@@ -453,42 +453,2641 @@ func (p *ImportInternshipResp) Field1DeepEqual(src string) bool {
 	return true
 }
 
+type ModelTrainingCourse struct {
+	Id                    int32  `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
+	CreatedAt             int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index;not null" json:"created_at"`
+	UpdatedAt             int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at;not null" json:"updated_at"`
+	DeletedAt             int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at;not null" json:"deleted_at"`
+	Major                 string `thrift:"major,5" frugal:"5,default,string" json:"major" gorm:"column:major"`
+	ClassName             string `thrift:"class_name,6" frugal:"6,default,string" json:"class_name" gorm:"column:class_name"`
+	StudentNumber         int32  `thrift:"student_number,7" frugal:"7,default,i32" json:"student_number" gorm:"column:student_number"`
+	CourseName            string `thrift:"course_name,8" frugal:"8,default,string" json:"course_name" gorm:"column:course_name"`
+	Location              string `thrift:"location,9" frugal:"9,default,string" json:"location" gorm:"column:location;type:text"`
+	CooperationEnterprise string `thrift:"cooperation_enterprise,10" frugal:"10,default,string" json:"cooperation_enterprise" gorm:"column:cooperation_enterprise"`
+	TrainingWeek          int32  `thrift:"training_week,11" frugal:"11,default,i32" json:"training_week" gorm:"column:training_week"`
+	AppId                 int32  `thrift:"app_id,12" frugal:"12,default,i32" json:"app_id" gorm:"column:app_id;not null"`
+	Teachers              string `thrift:"teachers,13" frugal:"13,default,string" json:"teachers" gorm:"column:teachers;type:text"`
+	AcademicYear          string `thrift:"academic_year,14" frugal:"14,default,string" json:"academic_year" gorm:"column:academic_year"`
+	Semester              string `thrift:"semester,15" frugal:"15,default,string" json:"semester" gorm:"column:semester"`
+	EducationLevel        int32  `thrift:"education_level,16" frugal:"16,default,i32" json:"education_level" gorm:"column:education_level;default:1"`
+	Grade                 string `thrift:"grade,17" frugal:"17,default,string" json:"grade" gorm:"column:grade"`
+	MainTeacher           string `thrift:"main_teacher,18" frugal:"18,default,string" json:"main_teacher" gorm:"column:main_teacher"`
+}
+
+func NewModelTrainingCourse() *ModelTrainingCourse {
+	return &ModelTrainingCourse{}
+}
+
+func (p *ModelTrainingCourse) InitDefault() {
+}
+
+func (p *ModelTrainingCourse) GetId() (v int32) {
+	return p.Id
+}
+
+func (p *ModelTrainingCourse) GetCreatedAt() (v int32) {
+	return p.CreatedAt
+}
+
+func (p *ModelTrainingCourse) GetUpdatedAt() (v int32) {
+	return p.UpdatedAt
+}
+
+func (p *ModelTrainingCourse) GetDeletedAt() (v int32) {
+	return p.DeletedAt
+}
+
+func (p *ModelTrainingCourse) GetMajor() (v string) {
+	return p.Major
+}
+
+func (p *ModelTrainingCourse) GetClassName() (v string) {
+	return p.ClassName
+}
+
+func (p *ModelTrainingCourse) GetStudentNumber() (v int32) {
+	return p.StudentNumber
+}
+
+func (p *ModelTrainingCourse) GetCourseName() (v string) {
+	return p.CourseName
+}
+
+func (p *ModelTrainingCourse) GetLocation() (v string) {
+	return p.Location
+}
+
+func (p *ModelTrainingCourse) GetCooperationEnterprise() (v string) {
+	return p.CooperationEnterprise
+}
+
+func (p *ModelTrainingCourse) GetTrainingWeek() (v int32) {
+	return p.TrainingWeek
+}
+
+func (p *ModelTrainingCourse) GetAppId() (v int32) {
+	return p.AppId
+}
+
+func (p *ModelTrainingCourse) GetTeachers() (v string) {
+	return p.Teachers
+}
+
+func (p *ModelTrainingCourse) GetAcademicYear() (v string) {
+	return p.AcademicYear
+}
+
+func (p *ModelTrainingCourse) GetSemester() (v string) {
+	return p.Semester
+}
+
+func (p *ModelTrainingCourse) GetEducationLevel() (v int32) {
+	return p.EducationLevel
+}
+
+func (p *ModelTrainingCourse) GetGrade() (v string) {
+	return p.Grade
+}
+
+func (p *ModelTrainingCourse) GetMainTeacher() (v string) {
+	return p.MainTeacher
+}
+func (p *ModelTrainingCourse) SetId(val int32) {
+	p.Id = val
+}
+func (p *ModelTrainingCourse) SetCreatedAt(val int32) {
+	p.CreatedAt = val
+}
+func (p *ModelTrainingCourse) SetUpdatedAt(val int32) {
+	p.UpdatedAt = val
+}
+func (p *ModelTrainingCourse) SetDeletedAt(val int32) {
+	p.DeletedAt = val
+}
+func (p *ModelTrainingCourse) SetMajor(val string) {
+	p.Major = val
+}
+func (p *ModelTrainingCourse) SetClassName(val string) {
+	p.ClassName = val
+}
+func (p *ModelTrainingCourse) SetStudentNumber(val int32) {
+	p.StudentNumber = val
+}
+func (p *ModelTrainingCourse) SetCourseName(val string) {
+	p.CourseName = val
+}
+func (p *ModelTrainingCourse) SetLocation(val string) {
+	p.Location = val
+}
+func (p *ModelTrainingCourse) SetCooperationEnterprise(val string) {
+	p.CooperationEnterprise = val
+}
+func (p *ModelTrainingCourse) SetTrainingWeek(val int32) {
+	p.TrainingWeek = val
+}
+func (p *ModelTrainingCourse) SetAppId(val int32) {
+	p.AppId = val
+}
+func (p *ModelTrainingCourse) SetTeachers(val string) {
+	p.Teachers = val
+}
+func (p *ModelTrainingCourse) SetAcademicYear(val string) {
+	p.AcademicYear = val
+}
+func (p *ModelTrainingCourse) SetSemester(val string) {
+	p.Semester = val
+}
+func (p *ModelTrainingCourse) SetEducationLevel(val int32) {
+	p.EducationLevel = val
+}
+func (p *ModelTrainingCourse) SetGrade(val string) {
+	p.Grade = val
+}
+func (p *ModelTrainingCourse) SetMainTeacher(val string) {
+	p.MainTeacher = val
+}
+
+var fieldIDToName_ModelTrainingCourse = map[int16]string{
+	1:  "id",
+	2:  "created_at",
+	3:  "updated_at",
+	4:  "deleted_at",
+	5:  "major",
+	6:  "class_name",
+	7:  "student_number",
+	8:  "course_name",
+	9:  "location",
+	10: "cooperation_enterprise",
+	11: "training_week",
+	12: "app_id",
+	13: "teachers",
+	14: "academic_year",
+	15: "semester",
+	16: "education_level",
+	17: "grade",
+	18: "main_teacher",
+}
+
+func (p *ModelTrainingCourse) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 2:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 3:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField3(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 4:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField4(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 5:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField5(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 6:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField6(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 7:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField7(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 8:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField8(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 9:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField9(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 10:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField10(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 11:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField11(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 12:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField12(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 13:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField13(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 14:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField14(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 15:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField15(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 16:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField16(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 17:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField17(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 18:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField18(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ModelTrainingCourse[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ModelTrainingCourse) ReadField1(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Id = _field
+	return nil
+}
+func (p *ModelTrainingCourse) ReadField2(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.CreatedAt = _field
+	return nil
+}
+func (p *ModelTrainingCourse) ReadField3(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.UpdatedAt = _field
+	return nil
+}
+func (p *ModelTrainingCourse) ReadField4(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.DeletedAt = _field
+	return nil
+}
+func (p *ModelTrainingCourse) ReadField5(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Major = _field
+	return nil
+}
+func (p *ModelTrainingCourse) ReadField6(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.ClassName = _field
+	return nil
+}
+func (p *ModelTrainingCourse) ReadField7(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.StudentNumber = _field
+	return nil
+}
+func (p *ModelTrainingCourse) ReadField8(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.CourseName = _field
+	return nil
+}
+func (p *ModelTrainingCourse) ReadField9(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Location = _field
+	return nil
+}
+func (p *ModelTrainingCourse) ReadField10(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.CooperationEnterprise = _field
+	return nil
+}
+func (p *ModelTrainingCourse) ReadField11(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.TrainingWeek = _field
+	return nil
+}
+func (p *ModelTrainingCourse) ReadField12(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.AppId = _field
+	return nil
+}
+func (p *ModelTrainingCourse) ReadField13(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Teachers = _field
+	return nil
+}
+func (p *ModelTrainingCourse) ReadField14(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.AcademicYear = _field
+	return nil
+}
+func (p *ModelTrainingCourse) ReadField15(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Semester = _field
+	return nil
+}
+func (p *ModelTrainingCourse) ReadField16(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.EducationLevel = _field
+	return nil
+}
+func (p *ModelTrainingCourse) ReadField17(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Grade = _field
+	return nil
+}
+func (p *ModelTrainingCourse) ReadField18(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.MainTeacher = _field
+	return nil
+}
+
+func (p *ModelTrainingCourse) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ModelTrainingCourse"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
+			goto WriteFieldError
+		}
+		if err = p.writeField3(oprot); err != nil {
+			fieldId = 3
+			goto WriteFieldError
+		}
+		if err = p.writeField4(oprot); err != nil {
+			fieldId = 4
+			goto WriteFieldError
+		}
+		if err = p.writeField5(oprot); err != nil {
+			fieldId = 5
+			goto WriteFieldError
+		}
+		if err = p.writeField6(oprot); err != nil {
+			fieldId = 6
+			goto WriteFieldError
+		}
+		if err = p.writeField7(oprot); err != nil {
+			fieldId = 7
+			goto WriteFieldError
+		}
+		if err = p.writeField8(oprot); err != nil {
+			fieldId = 8
+			goto WriteFieldError
+		}
+		if err = p.writeField9(oprot); err != nil {
+			fieldId = 9
+			goto WriteFieldError
+		}
+		if err = p.writeField10(oprot); err != nil {
+			fieldId = 10
+			goto WriteFieldError
+		}
+		if err = p.writeField11(oprot); err != nil {
+			fieldId = 11
+			goto WriteFieldError
+		}
+		if err = p.writeField12(oprot); err != nil {
+			fieldId = 12
+			goto WriteFieldError
+		}
+		if err = p.writeField13(oprot); err != nil {
+			fieldId = 13
+			goto WriteFieldError
+		}
+		if err = p.writeField14(oprot); err != nil {
+			fieldId = 14
+			goto WriteFieldError
+		}
+		if err = p.writeField15(oprot); err != nil {
+			fieldId = 15
+			goto WriteFieldError
+		}
+		if err = p.writeField16(oprot); err != nil {
+			fieldId = 16
+			goto WriteFieldError
+		}
+		if err = p.writeField17(oprot); err != nil {
+			fieldId = 17
+			goto WriteFieldError
+		}
+		if err = p.writeField18(oprot); err != nil {
+			fieldId = 18
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ModelTrainingCourse) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("id", thrift.I32, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.Id); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *ModelTrainingCourse) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("created_at", thrift.I32, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.CreatedAt); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
+func (p *ModelTrainingCourse) writeField3(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("updated_at", thrift.I32, 3); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.UpdatedAt); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
+}
+
+func (p *ModelTrainingCourse) writeField4(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("deleted_at", thrift.I32, 4); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.DeletedAt); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 end error: ", p), err)
+}
+
+func (p *ModelTrainingCourse) writeField5(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("major", thrift.STRING, 5); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Major); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 5 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 5 end error: ", p), err)
+}
+
+func (p *ModelTrainingCourse) writeField6(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("class_name", thrift.STRING, 6); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.ClassName); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 6 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 6 end error: ", p), err)
+}
+
+func (p *ModelTrainingCourse) writeField7(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("student_number", thrift.I32, 7); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.StudentNumber); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 7 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 7 end error: ", p), err)
+}
+
+func (p *ModelTrainingCourse) writeField8(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("course_name", thrift.STRING, 8); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.CourseName); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 8 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 8 end error: ", p), err)
+}
+
+func (p *ModelTrainingCourse) writeField9(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("location", thrift.STRING, 9); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Location); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 9 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 9 end error: ", p), err)
+}
+
+func (p *ModelTrainingCourse) writeField10(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("cooperation_enterprise", thrift.STRING, 10); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.CooperationEnterprise); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 10 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 10 end error: ", p), err)
+}
+
+func (p *ModelTrainingCourse) writeField11(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("training_week", thrift.I32, 11); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.TrainingWeek); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 11 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 11 end error: ", p), err)
+}
+
+func (p *ModelTrainingCourse) writeField12(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("app_id", thrift.I32, 12); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.AppId); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 12 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 12 end error: ", p), err)
+}
+
+func (p *ModelTrainingCourse) writeField13(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("teachers", thrift.STRING, 13); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Teachers); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 13 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 13 end error: ", p), err)
+}
+
+func (p *ModelTrainingCourse) writeField14(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("academic_year", thrift.STRING, 14); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.AcademicYear); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 14 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 14 end error: ", p), err)
+}
+
+func (p *ModelTrainingCourse) writeField15(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("semester", thrift.STRING, 15); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Semester); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 15 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 15 end error: ", p), err)
+}
+
+func (p *ModelTrainingCourse) writeField16(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("education_level", thrift.I32, 16); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.EducationLevel); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 16 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 16 end error: ", p), err)
+}
+
+func (p *ModelTrainingCourse) writeField17(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("grade", thrift.STRING, 17); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Grade); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 17 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 17 end error: ", p), err)
+}
+
+func (p *ModelTrainingCourse) writeField18(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("main_teacher", thrift.STRING, 18); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.MainTeacher); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 18 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 18 end error: ", p), err)
+}
+
+func (p *ModelTrainingCourse) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ModelTrainingCourse(%+v)", *p)
+
+}
+
+func (p *ModelTrainingCourse) DeepEqual(ano *ModelTrainingCourse) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Id) {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.CreatedAt) {
+		return false
+	}
+	if !p.Field3DeepEqual(ano.UpdatedAt) {
+		return false
+	}
+	if !p.Field4DeepEqual(ano.DeletedAt) {
+		return false
+	}
+	if !p.Field5DeepEqual(ano.Major) {
+		return false
+	}
+	if !p.Field6DeepEqual(ano.ClassName) {
+		return false
+	}
+	if !p.Field7DeepEqual(ano.StudentNumber) {
+		return false
+	}
+	if !p.Field8DeepEqual(ano.CourseName) {
+		return false
+	}
+	if !p.Field9DeepEqual(ano.Location) {
+		return false
+	}
+	if !p.Field10DeepEqual(ano.CooperationEnterprise) {
+		return false
+	}
+	if !p.Field11DeepEqual(ano.TrainingWeek) {
+		return false
+	}
+	if !p.Field12DeepEqual(ano.AppId) {
+		return false
+	}
+	if !p.Field13DeepEqual(ano.Teachers) {
+		return false
+	}
+	if !p.Field14DeepEqual(ano.AcademicYear) {
+		return false
+	}
+	if !p.Field15DeepEqual(ano.Semester) {
+		return false
+	}
+	if !p.Field16DeepEqual(ano.EducationLevel) {
+		return false
+	}
+	if !p.Field17DeepEqual(ano.Grade) {
+		return false
+	}
+	if !p.Field18DeepEqual(ano.MainTeacher) {
+		return false
+	}
+	return true
+}
+
+func (p *ModelTrainingCourse) Field1DeepEqual(src int32) bool {
+
+	if p.Id != src {
+		return false
+	}
+	return true
+}
+func (p *ModelTrainingCourse) Field2DeepEqual(src int32) bool {
+
+	if p.CreatedAt != src {
+		return false
+	}
+	return true
+}
+func (p *ModelTrainingCourse) Field3DeepEqual(src int32) bool {
+
+	if p.UpdatedAt != src {
+		return false
+	}
+	return true
+}
+func (p *ModelTrainingCourse) Field4DeepEqual(src int32) bool {
+
+	if p.DeletedAt != src {
+		return false
+	}
+	return true
+}
+func (p *ModelTrainingCourse) Field5DeepEqual(src string) bool {
+
+	if strings.Compare(p.Major, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *ModelTrainingCourse) Field6DeepEqual(src string) bool {
+
+	if strings.Compare(p.ClassName, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *ModelTrainingCourse) Field7DeepEqual(src int32) bool {
+
+	if p.StudentNumber != src {
+		return false
+	}
+	return true
+}
+func (p *ModelTrainingCourse) Field8DeepEqual(src string) bool {
+
+	if strings.Compare(p.CourseName, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *ModelTrainingCourse) Field9DeepEqual(src string) bool {
+
+	if strings.Compare(p.Location, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *ModelTrainingCourse) Field10DeepEqual(src string) bool {
+
+	if strings.Compare(p.CooperationEnterprise, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *ModelTrainingCourse) Field11DeepEqual(src int32) bool {
+
+	if p.TrainingWeek != src {
+		return false
+	}
+	return true
+}
+func (p *ModelTrainingCourse) Field12DeepEqual(src int32) bool {
+
+	if p.AppId != src {
+		return false
+	}
+	return true
+}
+func (p *ModelTrainingCourse) Field13DeepEqual(src string) bool {
+
+	if strings.Compare(p.Teachers, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *ModelTrainingCourse) Field14DeepEqual(src string) bool {
+
+	if strings.Compare(p.AcademicYear, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *ModelTrainingCourse) Field15DeepEqual(src string) bool {
+
+	if strings.Compare(p.Semester, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *ModelTrainingCourse) Field16DeepEqual(src int32) bool {
+
+	if p.EducationLevel != src {
+		return false
+	}
+	return true
+}
+func (p *ModelTrainingCourse) Field17DeepEqual(src string) bool {
+
+	if strings.Compare(p.Grade, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *ModelTrainingCourse) Field18DeepEqual(src string) bool {
+
+	if strings.Compare(p.MainTeacher, src) != 0 {
+		return false
+	}
+	return true
+}
+
+type Location struct {
+	Name      string `thrift:"name,1" frugal:"1,default,string" json:"name"`
+	Code      string `thrift:"code,2" frugal:"2,default,string" json:"code"`
+	IsOutside int32  `thrift:"is_outside,3" frugal:"3,default,i32" json:"is_outside"`
+}
+
+func NewLocation() *Location {
+	return &Location{}
+}
+
+func (p *Location) InitDefault() {
+}
+
+func (p *Location) GetName() (v string) {
+	return p.Name
+}
+
+func (p *Location) GetCode() (v string) {
+	return p.Code
+}
+
+func (p *Location) GetIsOutside() (v int32) {
+	return p.IsOutside
+}
+func (p *Location) SetName(val string) {
+	p.Name = val
+}
+func (p *Location) SetCode(val string) {
+	p.Code = val
+}
+func (p *Location) SetIsOutside(val int32) {
+	p.IsOutside = val
+}
+
+var fieldIDToName_Location = map[int16]string{
+	1: "name",
+	2: "code",
+	3: "is_outside",
+}
+
+func (p *Location) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 2:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 3:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField3(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_Location[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *Location) ReadField1(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Name = _field
+	return nil
+}
+func (p *Location) ReadField2(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Code = _field
+	return nil
+}
+func (p *Location) ReadField3(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.IsOutside = _field
+	return nil
+}
+
+func (p *Location) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("Location"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
+			goto WriteFieldError
+		}
+		if err = p.writeField3(oprot); err != nil {
+			fieldId = 3
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *Location) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("name", thrift.STRING, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Name); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *Location) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("code", thrift.STRING, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Code); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
+func (p *Location) writeField3(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("is_outside", thrift.I32, 3); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.IsOutside); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
+}
+
+func (p *Location) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("Location(%+v)", *p)
+
+}
+
+func (p *Location) DeepEqual(ano *Location) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Name) {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.Code) {
+		return false
+	}
+	if !p.Field3DeepEqual(ano.IsOutside) {
+		return false
+	}
+	return true
+}
+
+func (p *Location) Field1DeepEqual(src string) bool {
+
+	if strings.Compare(p.Name, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *Location) Field2DeepEqual(src string) bool {
+
+	if strings.Compare(p.Code, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *Location) Field3DeepEqual(src int32) bool {
+
+	if p.IsOutside != src {
+		return false
+	}
+	return true
+}
+
+type Teacher struct {
+	Name      string `thrift:"name,1" frugal:"1,default,string" json:"name"`
+	Id        string `thrift:"id,2" frugal:"2,default,string" json:"id"`
+	IsOutside int32  `thrift:"is_outside,3" frugal:"3,default,i32" json:"is_outside"`
+}
+
+func NewTeacher() *Teacher {
+	return &Teacher{}
+}
+
+func (p *Teacher) InitDefault() {
+}
+
+func (p *Teacher) GetName() (v string) {
+	return p.Name
+}
+
+func (p *Teacher) GetId() (v string) {
+	return p.Id
+}
+
+func (p *Teacher) GetIsOutside() (v int32) {
+	return p.IsOutside
+}
+func (p *Teacher) SetName(val string) {
+	p.Name = val
+}
+func (p *Teacher) SetId(val string) {
+	p.Id = val
+}
+func (p *Teacher) SetIsOutside(val int32) {
+	p.IsOutside = val
+}
+
+var fieldIDToName_Teacher = map[int16]string{
+	1: "name",
+	2: "id",
+	3: "is_outside",
+}
+
+func (p *Teacher) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 2:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 3:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField3(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_Teacher[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *Teacher) ReadField1(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Name = _field
+	return nil
+}
+func (p *Teacher) ReadField2(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Id = _field
+	return nil
+}
+func (p *Teacher) ReadField3(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.IsOutside = _field
+	return nil
+}
+
+func (p *Teacher) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("Teacher"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
+			goto WriteFieldError
+		}
+		if err = p.writeField3(oprot); err != nil {
+			fieldId = 3
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *Teacher) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("name", thrift.STRING, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Name); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *Teacher) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("id", thrift.STRING, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Id); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
+func (p *Teacher) writeField3(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("is_outside", thrift.I32, 3); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.IsOutside); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
+}
+
+func (p *Teacher) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("Teacher(%+v)", *p)
+
+}
+
+func (p *Teacher) DeepEqual(ano *Teacher) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Name) {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.Id) {
+		return false
+	}
+	if !p.Field3DeepEqual(ano.IsOutside) {
+		return false
+	}
+	return true
+}
+
+func (p *Teacher) Field1DeepEqual(src string) bool {
+
+	if strings.Compare(p.Name, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *Teacher) Field2DeepEqual(src string) bool {
+
+	if strings.Compare(p.Id, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *Teacher) Field3DeepEqual(src int32) bool {
+
+	if p.IsOutside != src {
+		return false
+	}
+	return true
+}
+
+type ModelTrainingCourseTeacher struct {
+	Id               int32  `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
+	CreatedAt        int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index" json:"created_at"`
+	UpdatedAt        int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at" json:"updated_at"`
+	DeletedAt        int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at" json:"deleted_at"`
+	TrainingCourseId string `thrift:"training_course_id,5" frugal:"5,default,string" json:"training_course_id" gorm:"column:training_course_id"`
+	TeacherId        string `thrift:"teacher_id,6" frugal:"6,default,string" json:"teacher_id" gorm:"column:teacher_id"`
+	TeacherName      string `thrift:"teacher_name,7" frugal:"7,default,string" json:"teacher_name" gorm:"column:teacher_name"`
+	AppId            int32  `thrift:"app_id,8" frugal:"8,default,i32" json:"app_id" gorm:"column:app_id"`
+	Week             string `thrift:"week,9" frugal:"9,default,string" json:"week" gorm:"column:week"`
+	AcademicYear     string `thrift:"academic_year,10" frugal:"10,default,string" json:"academic_year" gorm:"column:academic_year"`
+	Semester         string `thrift:"semester,11" frugal:"11,default,string" json:"semester" gorm:"column:semester"`
+	Content          string `thrift:"content,12" frugal:"12,default,string" json:"content" gorm:"column:content;type:text"`
+	Location         string `thrift:"location,13" frugal:"13,default,string" json:"location" gorm:"column:location"`
+}
+
+func NewModelTrainingCourseTeacher() *ModelTrainingCourseTeacher {
+	return &ModelTrainingCourseTeacher{}
+}
+
+func (p *ModelTrainingCourseTeacher) InitDefault() {
+}
+
+func (p *ModelTrainingCourseTeacher) GetId() (v int32) {
+	return p.Id
+}
+
+func (p *ModelTrainingCourseTeacher) GetCreatedAt() (v int32) {
+	return p.CreatedAt
+}
+
+func (p *ModelTrainingCourseTeacher) GetUpdatedAt() (v int32) {
+	return p.UpdatedAt
+}
+
+func (p *ModelTrainingCourseTeacher) GetDeletedAt() (v int32) {
+	return p.DeletedAt
+}
+
+func (p *ModelTrainingCourseTeacher) GetTrainingCourseId() (v string) {
+	return p.TrainingCourseId
+}
+
+func (p *ModelTrainingCourseTeacher) GetTeacherId() (v string) {
+	return p.TeacherId
+}
+
+func (p *ModelTrainingCourseTeacher) GetTeacherName() (v string) {
+	return p.TeacherName
+}
+
+func (p *ModelTrainingCourseTeacher) GetAppId() (v int32) {
+	return p.AppId
+}
+
+func (p *ModelTrainingCourseTeacher) GetWeek() (v string) {
+	return p.Week
+}
+
+func (p *ModelTrainingCourseTeacher) GetAcademicYear() (v string) {
+	return p.AcademicYear
+}
+
+func (p *ModelTrainingCourseTeacher) GetSemester() (v string) {
+	return p.Semester
+}
+
+func (p *ModelTrainingCourseTeacher) GetContent() (v string) {
+	return p.Content
+}
+
+func (p *ModelTrainingCourseTeacher) GetLocation() (v string) {
+	return p.Location
+}
+func (p *ModelTrainingCourseTeacher) SetId(val int32) {
+	p.Id = val
+}
+func (p *ModelTrainingCourseTeacher) SetCreatedAt(val int32) {
+	p.CreatedAt = val
+}
+func (p *ModelTrainingCourseTeacher) SetUpdatedAt(val int32) {
+	p.UpdatedAt = val
+}
+func (p *ModelTrainingCourseTeacher) SetDeletedAt(val int32) {
+	p.DeletedAt = val
+}
+func (p *ModelTrainingCourseTeacher) SetTrainingCourseId(val string) {
+	p.TrainingCourseId = val
+}
+func (p *ModelTrainingCourseTeacher) SetTeacherId(val string) {
+	p.TeacherId = val
+}
+func (p *ModelTrainingCourseTeacher) SetTeacherName(val string) {
+	p.TeacherName = val
+}
+func (p *ModelTrainingCourseTeacher) SetAppId(val int32) {
+	p.AppId = val
+}
+func (p *ModelTrainingCourseTeacher) SetWeek(val string) {
+	p.Week = val
+}
+func (p *ModelTrainingCourseTeacher) SetAcademicYear(val string) {
+	p.AcademicYear = val
+}
+func (p *ModelTrainingCourseTeacher) SetSemester(val string) {
+	p.Semester = val
+}
+func (p *ModelTrainingCourseTeacher) SetContent(val string) {
+	p.Content = val
+}
+func (p *ModelTrainingCourseTeacher) SetLocation(val string) {
+	p.Location = val
+}
+
+var fieldIDToName_ModelTrainingCourseTeacher = map[int16]string{
+	1:  "id",
+	2:  "created_at",
+	3:  "updated_at",
+	4:  "deleted_at",
+	5:  "training_course_id",
+	6:  "teacher_id",
+	7:  "teacher_name",
+	8:  "app_id",
+	9:  "week",
+	10: "academic_year",
+	11: "semester",
+	12: "content",
+	13: "location",
+}
+
+func (p *ModelTrainingCourseTeacher) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 2:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 3:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField3(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 4:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField4(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 5:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField5(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 6:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField6(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 7:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField7(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 8:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField8(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 9:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField9(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 10:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField10(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 11:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField11(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 12:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField12(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 13:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField13(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_ModelTrainingCourseTeacher[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *ModelTrainingCourseTeacher) ReadField1(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Id = _field
+	return nil
+}
+func (p *ModelTrainingCourseTeacher) ReadField2(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.CreatedAt = _field
+	return nil
+}
+func (p *ModelTrainingCourseTeacher) ReadField3(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.UpdatedAt = _field
+	return nil
+}
+func (p *ModelTrainingCourseTeacher) ReadField4(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.DeletedAt = _field
+	return nil
+}
+func (p *ModelTrainingCourseTeacher) ReadField5(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.TrainingCourseId = _field
+	return nil
+}
+func (p *ModelTrainingCourseTeacher) ReadField6(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.TeacherId = _field
+	return nil
+}
+func (p *ModelTrainingCourseTeacher) ReadField7(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.TeacherName = _field
+	return nil
+}
+func (p *ModelTrainingCourseTeacher) ReadField8(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.AppId = _field
+	return nil
+}
+func (p *ModelTrainingCourseTeacher) ReadField9(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Week = _field
+	return nil
+}
+func (p *ModelTrainingCourseTeacher) ReadField10(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.AcademicYear = _field
+	return nil
+}
+func (p *ModelTrainingCourseTeacher) ReadField11(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Semester = _field
+	return nil
+}
+func (p *ModelTrainingCourseTeacher) ReadField12(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Content = _field
+	return nil
+}
+func (p *ModelTrainingCourseTeacher) ReadField13(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Location = _field
+	return nil
+}
+
+func (p *ModelTrainingCourseTeacher) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("ModelTrainingCourseTeacher"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
+			goto WriteFieldError
+		}
+		if err = p.writeField3(oprot); err != nil {
+			fieldId = 3
+			goto WriteFieldError
+		}
+		if err = p.writeField4(oprot); err != nil {
+			fieldId = 4
+			goto WriteFieldError
+		}
+		if err = p.writeField5(oprot); err != nil {
+			fieldId = 5
+			goto WriteFieldError
+		}
+		if err = p.writeField6(oprot); err != nil {
+			fieldId = 6
+			goto WriteFieldError
+		}
+		if err = p.writeField7(oprot); err != nil {
+			fieldId = 7
+			goto WriteFieldError
+		}
+		if err = p.writeField8(oprot); err != nil {
+			fieldId = 8
+			goto WriteFieldError
+		}
+		if err = p.writeField9(oprot); err != nil {
+			fieldId = 9
+			goto WriteFieldError
+		}
+		if err = p.writeField10(oprot); err != nil {
+			fieldId = 10
+			goto WriteFieldError
+		}
+		if err = p.writeField11(oprot); err != nil {
+			fieldId = 11
+			goto WriteFieldError
+		}
+		if err = p.writeField12(oprot); err != nil {
+			fieldId = 12
+			goto WriteFieldError
+		}
+		if err = p.writeField13(oprot); err != nil {
+			fieldId = 13
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *ModelTrainingCourseTeacher) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("id", thrift.I32, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.Id); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *ModelTrainingCourseTeacher) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("created_at", thrift.I32, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.CreatedAt); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
+func (p *ModelTrainingCourseTeacher) writeField3(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("updated_at", thrift.I32, 3); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.UpdatedAt); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
+}
+
+func (p *ModelTrainingCourseTeacher) writeField4(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("deleted_at", thrift.I32, 4); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.DeletedAt); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 end error: ", p), err)
+}
+
+func (p *ModelTrainingCourseTeacher) writeField5(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("training_course_id", thrift.STRING, 5); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.TrainingCourseId); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 5 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 5 end error: ", p), err)
+}
+
+func (p *ModelTrainingCourseTeacher) writeField6(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("teacher_id", thrift.STRING, 6); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.TeacherId); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 6 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 6 end error: ", p), err)
+}
+
+func (p *ModelTrainingCourseTeacher) writeField7(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("teacher_name", thrift.STRING, 7); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.TeacherName); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 7 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 7 end error: ", p), err)
+}
+
+func (p *ModelTrainingCourseTeacher) writeField8(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("app_id", thrift.I32, 8); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.AppId); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 8 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 8 end error: ", p), err)
+}
+
+func (p *ModelTrainingCourseTeacher) writeField9(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("week", thrift.STRING, 9); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Week); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 9 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 9 end error: ", p), err)
+}
+
+func (p *ModelTrainingCourseTeacher) writeField10(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("academic_year", thrift.STRING, 10); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.AcademicYear); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 10 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 10 end error: ", p), err)
+}
+
+func (p *ModelTrainingCourseTeacher) writeField11(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("semester", thrift.STRING, 11); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Semester); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 11 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 11 end error: ", p), err)
+}
+
+func (p *ModelTrainingCourseTeacher) writeField12(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("content", thrift.STRING, 12); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Content); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 12 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 12 end error: ", p), err)
+}
+
+func (p *ModelTrainingCourseTeacher) writeField13(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("location", thrift.STRING, 13); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Location); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 13 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 13 end error: ", p), err)
+}
+
+func (p *ModelTrainingCourseTeacher) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ModelTrainingCourseTeacher(%+v)", *p)
+
+}
+
+func (p *ModelTrainingCourseTeacher) DeepEqual(ano *ModelTrainingCourseTeacher) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Id) {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.CreatedAt) {
+		return false
+	}
+	if !p.Field3DeepEqual(ano.UpdatedAt) {
+		return false
+	}
+	if !p.Field4DeepEqual(ano.DeletedAt) {
+		return false
+	}
+	if !p.Field5DeepEqual(ano.TrainingCourseId) {
+		return false
+	}
+	if !p.Field6DeepEqual(ano.TeacherId) {
+		return false
+	}
+	if !p.Field7DeepEqual(ano.TeacherName) {
+		return false
+	}
+	if !p.Field8DeepEqual(ano.AppId) {
+		return false
+	}
+	if !p.Field9DeepEqual(ano.Week) {
+		return false
+	}
+	if !p.Field10DeepEqual(ano.AcademicYear) {
+		return false
+	}
+	if !p.Field11DeepEqual(ano.Semester) {
+		return false
+	}
+	if !p.Field12DeepEqual(ano.Content) {
+		return false
+	}
+	if !p.Field13DeepEqual(ano.Location) {
+		return false
+	}
+	return true
+}
+
+func (p *ModelTrainingCourseTeacher) Field1DeepEqual(src int32) bool {
+
+	if p.Id != src {
+		return false
+	}
+	return true
+}
+func (p *ModelTrainingCourseTeacher) Field2DeepEqual(src int32) bool {
+
+	if p.CreatedAt != src {
+		return false
+	}
+	return true
+}
+func (p *ModelTrainingCourseTeacher) Field3DeepEqual(src int32) bool {
+
+	if p.UpdatedAt != src {
+		return false
+	}
+	return true
+}
+func (p *ModelTrainingCourseTeacher) Field4DeepEqual(src int32) bool {
+
+	if p.DeletedAt != src {
+		return false
+	}
+	return true
+}
+func (p *ModelTrainingCourseTeacher) Field5DeepEqual(src string) bool {
+
+	if strings.Compare(p.TrainingCourseId, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *ModelTrainingCourseTeacher) Field6DeepEqual(src string) bool {
+
+	if strings.Compare(p.TeacherId, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *ModelTrainingCourseTeacher) Field7DeepEqual(src string) bool {
+
+	if strings.Compare(p.TeacherName, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *ModelTrainingCourseTeacher) Field8DeepEqual(src int32) bool {
+
+	if p.AppId != src {
+		return false
+	}
+	return true
+}
+func (p *ModelTrainingCourseTeacher) Field9DeepEqual(src string) bool {
+
+	if strings.Compare(p.Week, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *ModelTrainingCourseTeacher) Field10DeepEqual(src string) bool {
+
+	if strings.Compare(p.AcademicYear, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *ModelTrainingCourseTeacher) Field11DeepEqual(src string) bool {
+
+	if strings.Compare(p.Semester, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *ModelTrainingCourseTeacher) Field12DeepEqual(src string) bool {
+
+	if strings.Compare(p.Content, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *ModelTrainingCourseTeacher) Field13DeepEqual(src string) bool {
+
+	if strings.Compare(p.Location, src) != 0 {
+		return false
+	}
+	return true
+}
+
 type Trainingservice interface {
-	ImportInternship(ctx context.Context, req *ImportInternshipReq) (r *ImportInternshipResp, err error)
+	ImportTrainingCourse(ctx context.Context, req *ImportTrainingCourseReq) (r *ImportTrainingCourseResp, err error)
 }
 
-type TrainingserviceImportInternshipArgs struct {
-	Req *ImportInternshipReq `thrift:"req,1" frugal:"1,default,ImportInternshipReq" json:"req"`
+type TrainingserviceImportTrainingCourseArgs struct {
+	Req *ImportTrainingCourseReq `thrift:"req,1" frugal:"1,default,ImportTrainingCourseReq" json:"req"`
 }
 
-func NewTrainingserviceImportInternshipArgs() *TrainingserviceImportInternshipArgs {
-	return &TrainingserviceImportInternshipArgs{}
+func NewTrainingserviceImportTrainingCourseArgs() *TrainingserviceImportTrainingCourseArgs {
+	return &TrainingserviceImportTrainingCourseArgs{}
 }
 
-func (p *TrainingserviceImportInternshipArgs) InitDefault() {
+func (p *TrainingserviceImportTrainingCourseArgs) InitDefault() {
 }
 
-var TrainingserviceImportInternshipArgs_Req_DEFAULT *ImportInternshipReq
+var TrainingserviceImportTrainingCourseArgs_Req_DEFAULT *ImportTrainingCourseReq
 
-func (p *TrainingserviceImportInternshipArgs) GetReq() (v *ImportInternshipReq) {
+func (p *TrainingserviceImportTrainingCourseArgs) GetReq() (v *ImportTrainingCourseReq) {
 	if !p.IsSetReq() {
-		return TrainingserviceImportInternshipArgs_Req_DEFAULT
+		return TrainingserviceImportTrainingCourseArgs_Req_DEFAULT
 	}
 	return p.Req
 }
-func (p *TrainingserviceImportInternshipArgs) SetReq(val *ImportInternshipReq) {
+func (p *TrainingserviceImportTrainingCourseArgs) SetReq(val *ImportTrainingCourseReq) {
 	p.Req = val
 }
 
-var fieldIDToName_TrainingserviceImportInternshipArgs = map[int16]string{
+var fieldIDToName_TrainingserviceImportTrainingCourseArgs = map[int16]string{
 	1: "req",
 }
 
-func (p *TrainingserviceImportInternshipArgs) IsSetReq() bool {
+func (p *TrainingserviceImportTrainingCourseArgs) IsSetReq() bool {
 	return p.Req != nil
 }
 
-func (p *TrainingserviceImportInternshipArgs) Read(iprot thrift.TProtocol) (err error) {
+func (p *TrainingserviceImportTrainingCourseArgs) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -534,7 +3133,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_TrainingserviceImportInternshipArgs[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_TrainingserviceImportTrainingCourseArgs[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -544,8 +3143,8 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *TrainingserviceImportInternshipArgs) ReadField1(iprot thrift.TProtocol) error {
-	_field := NewImportInternshipReq()
+func (p *TrainingserviceImportTrainingCourseArgs) ReadField1(iprot thrift.TProtocol) error {
+	_field := NewImportTrainingCourseReq()
 	if err := _field.Read(iprot); err != nil {
 		return err
 	}
@@ -553,9 +3152,9 @@ func (p *TrainingserviceImportInternshipArgs) ReadField1(iprot thrift.TProtocol)
 	return nil
 }
 
-func (p *TrainingserviceImportInternshipArgs) Write(oprot thrift.TProtocol) (err error) {
+func (p *TrainingserviceImportTrainingCourseArgs) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("ImportInternship_args"); err != nil {
+	if err = oprot.WriteStructBegin("ImportTrainingCourse_args"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -581,7 +3180,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *TrainingserviceImportInternshipArgs) writeField1(oprot thrift.TProtocol) (err error) {
+func (p *TrainingserviceImportTrainingCourseArgs) writeField1(oprot thrift.TProtocol) (err error) {
 	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
 		goto WriteFieldBeginError
 	}
@@ -598,15 +3197,15 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *TrainingserviceImportInternshipArgs) String() string {
+func (p *TrainingserviceImportTrainingCourseArgs) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("TrainingserviceImportInternshipArgs(%+v)", *p)
+	return fmt.Sprintf("TrainingserviceImportTrainingCourseArgs(%+v)", *p)
 
 }
 
-func (p *TrainingserviceImportInternshipArgs) DeepEqual(ano *TrainingserviceImportInternshipArgs) bool {
+func (p *TrainingserviceImportTrainingCourseArgs) DeepEqual(ano *TrainingserviceImportTrainingCourseArgs) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -618,7 +3217,7 @@ func (p *TrainingserviceImportInternshipArgs) DeepEqual(ano *TrainingserviceImpo
 	return true
 }
 
-func (p *TrainingserviceImportInternshipArgs) Field1DeepEqual(src *ImportInternshipReq) bool {
+func (p *TrainingserviceImportTrainingCourseArgs) Field1DeepEqual(src *ImportTrainingCourseReq) bool {
 
 	if !p.Req.DeepEqual(src) {
 		return false
@@ -626,38 +3225,38 @@ func (p *TrainingserviceImportInternshipArgs) Field1DeepEqual(src *ImportInterns
 	return true
 }
 
-type TrainingserviceImportInternshipResult struct {
-	Success *ImportInternshipResp `thrift:"success,0,optional" frugal:"0,optional,ImportInternshipResp" json:"success,omitempty"`
+type TrainingserviceImportTrainingCourseResult struct {
+	Success *ImportTrainingCourseResp `thrift:"success,0,optional" frugal:"0,optional,ImportTrainingCourseResp" json:"success,omitempty"`
 }
 
-func NewTrainingserviceImportInternshipResult() *TrainingserviceImportInternshipResult {
-	return &TrainingserviceImportInternshipResult{}
+func NewTrainingserviceImportTrainingCourseResult() *TrainingserviceImportTrainingCourseResult {
+	return &TrainingserviceImportTrainingCourseResult{}
 }
 
-func (p *TrainingserviceImportInternshipResult) InitDefault() {
+func (p *TrainingserviceImportTrainingCourseResult) InitDefault() {
 }
 
-var TrainingserviceImportInternshipResult_Success_DEFAULT *ImportInternshipResp
+var TrainingserviceImportTrainingCourseResult_Success_DEFAULT *ImportTrainingCourseResp
 
-func (p *TrainingserviceImportInternshipResult) GetSuccess() (v *ImportInternshipResp) {
+func (p *TrainingserviceImportTrainingCourseResult) GetSuccess() (v *ImportTrainingCourseResp) {
 	if !p.IsSetSuccess() {
-		return TrainingserviceImportInternshipResult_Success_DEFAULT
+		return TrainingserviceImportTrainingCourseResult_Success_DEFAULT
 	}
 	return p.Success
 }
-func (p *TrainingserviceImportInternshipResult) SetSuccess(x interface{}) {
-	p.Success = x.(*ImportInternshipResp)
+func (p *TrainingserviceImportTrainingCourseResult) SetSuccess(x interface{}) {
+	p.Success = x.(*ImportTrainingCourseResp)
 }
 
-var fieldIDToName_TrainingserviceImportInternshipResult = map[int16]string{
+var fieldIDToName_TrainingserviceImportTrainingCourseResult = map[int16]string{
 	0: "success",
 }
 
-func (p *TrainingserviceImportInternshipResult) IsSetSuccess() bool {
+func (p *TrainingserviceImportTrainingCourseResult) IsSetSuccess() bool {
 	return p.Success != nil
 }
 
-func (p *TrainingserviceImportInternshipResult) Read(iprot thrift.TProtocol) (err error) {
+func (p *TrainingserviceImportTrainingCourseResult) Read(iprot thrift.TProtocol) (err error) {
 
 	var fieldTypeId thrift.TType
 	var fieldId int16
@@ -703,7 +3302,7 @@ ReadStructBeginError:
 ReadFieldBeginError:
 	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_TrainingserviceImportInternshipResult[fieldId]), err)
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_TrainingserviceImportTrainingCourseResult[fieldId]), err)
 SkipFieldError:
 	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 
@@ -713,8 +3312,8 @@ ReadStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
 }
 
-func (p *TrainingserviceImportInternshipResult) ReadField0(iprot thrift.TProtocol) error {
-	_field := NewImportInternshipResp()
+func (p *TrainingserviceImportTrainingCourseResult) ReadField0(iprot thrift.TProtocol) error {
+	_field := NewImportTrainingCourseResp()
 	if err := _field.Read(iprot); err != nil {
 		return err
 	}
@@ -722,9 +3321,9 @@ func (p *TrainingserviceImportInternshipResult) ReadField0(iprot thrift.TProtoco
 	return nil
 }
 
-func (p *TrainingserviceImportInternshipResult) Write(oprot thrift.TProtocol) (err error) {
+func (p *TrainingserviceImportTrainingCourseResult) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
-	if err = oprot.WriteStructBegin("ImportInternship_result"); err != nil {
+	if err = oprot.WriteStructBegin("ImportTrainingCourse_result"); err != nil {
 		goto WriteStructBeginError
 	}
 	if p != nil {
@@ -750,7 +3349,7 @@ WriteStructEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
 }
 
-func (p *TrainingserviceImportInternshipResult) writeField0(oprot thrift.TProtocol) (err error) {
+func (p *TrainingserviceImportTrainingCourseResult) writeField0(oprot thrift.TProtocol) (err error) {
 	if p.IsSetSuccess() {
 		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
 			goto WriteFieldBeginError
@@ -769,15 +3368,15 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
 }
 
-func (p *TrainingserviceImportInternshipResult) String() string {
+func (p *TrainingserviceImportTrainingCourseResult) String() string {
 	if p == nil {
 		return "<nil>"
 	}
-	return fmt.Sprintf("TrainingserviceImportInternshipResult(%+v)", *p)
+	return fmt.Sprintf("TrainingserviceImportTrainingCourseResult(%+v)", *p)
 
 }
 
-func (p *TrainingserviceImportInternshipResult) DeepEqual(ano *TrainingserviceImportInternshipResult) bool {
+func (p *TrainingserviceImportTrainingCourseResult) DeepEqual(ano *TrainingserviceImportTrainingCourseResult) bool {
 	if p == ano {
 		return true
 	} else if p == nil || ano == nil {
@@ -789,7 +3388,7 @@ func (p *TrainingserviceImportInternshipResult) DeepEqual(ano *TrainingserviceIm
 	return true
 }
 
-func (p *TrainingserviceImportInternshipResult) Field0DeepEqual(src *ImportInternshipResp) bool {
+func (p *TrainingserviceImportTrainingCourseResult) Field0DeepEqual(src *ImportTrainingCourseResp) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false
