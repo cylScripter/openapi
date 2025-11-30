@@ -12,6 +12,15 @@ import (
 // Client is designed to provide IDL-compatible methods with call-option parameter for kitex framework.
 type Client interface {
 	ImportTrainingCourse(ctx context.Context, req *training.ImportTrainingCourseReq, callOptions ...callopt.Option) (r *training.ImportTrainingCourseResp, err error)
+	GetTrainingCourseList(ctx context.Context, req *training.GetTrainingCourseListReq, callOptions ...callopt.Option) (r *training.GetTrainingCourseListResp, err error)
+	GetSelfTrainingCourseList(ctx context.Context, req *training.GetSelfTrainingCourseListReq, callOptions ...callopt.Option) (r *training.GetSelfTrainingCourseListResp, err error)
+	GetTrainingCourse(ctx context.Context, req *training.GetTrainingCourseReq, callOptions ...callopt.Option) (r *training.GetTrainingCourseResp, err error)
+	FillTrainingCourse(ctx context.Context, req *training.FillTrainingCourseReq, callOptions ...callopt.Option) (r *training.FillTrainingCourseResp, err error)
+	DeleteTrainingCourse(ctx context.Context, req *training.DeleteTrainingCourseReq, callOptions ...callopt.Option) (r *training.DeleteTrainingCourseResp, err error)
+	ExportTrainingCourse(ctx context.Context, req *training.ExportTrainingCourseReq, callOptions ...callopt.Option) (r *training.ExportTrainingCourseResp, err error)
+	UpdateTrainingCourse(ctx context.Context, req *training.UpdateTrainingCourseReq, callOptions ...callopt.Option) (r *training.UpdateTrainingCourseResp, err error)
+	UpdateTrainingCourseTeacher(ctx context.Context, req *training.UpdateTrainingCourseTeacherReq, callOptions ...callopt.Option) (r *training.UpdateTrainingCourseTeacherResp, err error)
+	ApproveTrainingCourseData(ctx context.Context, req *training.ApproveTrainingCourseDataReq, callOptions ...callopt.Option) (r *training.ApproveTrainingCourseDataResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -46,4 +55,49 @@ type kTrainingserviceClient struct {
 func (p *kTrainingserviceClient) ImportTrainingCourse(ctx context.Context, req *training.ImportTrainingCourseReq, callOptions ...callopt.Option) (r *training.ImportTrainingCourseResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.ImportTrainingCourse(ctx, req)
+}
+
+func (p *kTrainingserviceClient) GetTrainingCourseList(ctx context.Context, req *training.GetTrainingCourseListReq, callOptions ...callopt.Option) (r *training.GetTrainingCourseListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetTrainingCourseList(ctx, req)
+}
+
+func (p *kTrainingserviceClient) GetSelfTrainingCourseList(ctx context.Context, req *training.GetSelfTrainingCourseListReq, callOptions ...callopt.Option) (r *training.GetSelfTrainingCourseListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetSelfTrainingCourseList(ctx, req)
+}
+
+func (p *kTrainingserviceClient) GetTrainingCourse(ctx context.Context, req *training.GetTrainingCourseReq, callOptions ...callopt.Option) (r *training.GetTrainingCourseResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetTrainingCourse(ctx, req)
+}
+
+func (p *kTrainingserviceClient) FillTrainingCourse(ctx context.Context, req *training.FillTrainingCourseReq, callOptions ...callopt.Option) (r *training.FillTrainingCourseResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.FillTrainingCourse(ctx, req)
+}
+
+func (p *kTrainingserviceClient) DeleteTrainingCourse(ctx context.Context, req *training.DeleteTrainingCourseReq, callOptions ...callopt.Option) (r *training.DeleteTrainingCourseResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.DeleteTrainingCourse(ctx, req)
+}
+
+func (p *kTrainingserviceClient) ExportTrainingCourse(ctx context.Context, req *training.ExportTrainingCourseReq, callOptions ...callopt.Option) (r *training.ExportTrainingCourseResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ExportTrainingCourse(ctx, req)
+}
+
+func (p *kTrainingserviceClient) UpdateTrainingCourse(ctx context.Context, req *training.UpdateTrainingCourseReq, callOptions ...callopt.Option) (r *training.UpdateTrainingCourseResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.UpdateTrainingCourse(ctx, req)
+}
+
+func (p *kTrainingserviceClient) UpdateTrainingCourseTeacher(ctx context.Context, req *training.UpdateTrainingCourseTeacherReq, callOptions ...callopt.Option) (r *training.UpdateTrainingCourseTeacherResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.UpdateTrainingCourseTeacher(ctx, req)
+}
+
+func (p *kTrainingserviceClient) ApproveTrainingCourseData(ctx context.Context, req *training.ApproveTrainingCourseDataReq, callOptions ...callopt.Option) (r *training.ApproveTrainingCourseDataResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ApproveTrainingCourseData(ctx, req)
 }

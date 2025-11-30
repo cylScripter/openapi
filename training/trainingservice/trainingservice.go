@@ -20,6 +20,69 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"GetTrainingCourseList": kitex.NewMethodInfo(
+		getTrainingCourseListHandler,
+		newTrainingserviceGetTrainingCourseListArgs,
+		newTrainingserviceGetTrainingCourseListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetSelfTrainingCourseList": kitex.NewMethodInfo(
+		getSelfTrainingCourseListHandler,
+		newTrainingserviceGetSelfTrainingCourseListArgs,
+		newTrainingserviceGetSelfTrainingCourseListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetTrainingCourse": kitex.NewMethodInfo(
+		getTrainingCourseHandler,
+		newTrainingserviceGetTrainingCourseArgs,
+		newTrainingserviceGetTrainingCourseResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"FillTrainingCourse": kitex.NewMethodInfo(
+		fillTrainingCourseHandler,
+		newTrainingserviceFillTrainingCourseArgs,
+		newTrainingserviceFillTrainingCourseResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"DeleteTrainingCourse": kitex.NewMethodInfo(
+		deleteTrainingCourseHandler,
+		newTrainingserviceDeleteTrainingCourseArgs,
+		newTrainingserviceDeleteTrainingCourseResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"ExportTrainingCourse": kitex.NewMethodInfo(
+		exportTrainingCourseHandler,
+		newTrainingserviceExportTrainingCourseArgs,
+		newTrainingserviceExportTrainingCourseResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"UpdateTrainingCourse": kitex.NewMethodInfo(
+		updateTrainingCourseHandler,
+		newTrainingserviceUpdateTrainingCourseArgs,
+		newTrainingserviceUpdateTrainingCourseResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"UpdateTrainingCourseTeacher": kitex.NewMethodInfo(
+		updateTrainingCourseTeacherHandler,
+		newTrainingserviceUpdateTrainingCourseTeacherArgs,
+		newTrainingserviceUpdateTrainingCourseTeacherResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"ApproveTrainingCourseData": kitex.NewMethodInfo(
+		approveTrainingCourseDataHandler,
+		newTrainingserviceApproveTrainingCourseDataArgs,
+		newTrainingserviceApproveTrainingCourseDataResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -104,6 +167,168 @@ func newTrainingserviceImportTrainingCourseResult() interface{} {
 	return training.NewTrainingserviceImportTrainingCourseResult()
 }
 
+func getTrainingCourseListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceGetTrainingCourseListArgs)
+	realResult := result.(*training.TrainingserviceGetTrainingCourseListResult)
+	success, err := handler.(training.Trainingservice).GetTrainingCourseList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceGetTrainingCourseListArgs() interface{} {
+	return training.NewTrainingserviceGetTrainingCourseListArgs()
+}
+
+func newTrainingserviceGetTrainingCourseListResult() interface{} {
+	return training.NewTrainingserviceGetTrainingCourseListResult()
+}
+
+func getSelfTrainingCourseListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceGetSelfTrainingCourseListArgs)
+	realResult := result.(*training.TrainingserviceGetSelfTrainingCourseListResult)
+	success, err := handler.(training.Trainingservice).GetSelfTrainingCourseList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceGetSelfTrainingCourseListArgs() interface{} {
+	return training.NewTrainingserviceGetSelfTrainingCourseListArgs()
+}
+
+func newTrainingserviceGetSelfTrainingCourseListResult() interface{} {
+	return training.NewTrainingserviceGetSelfTrainingCourseListResult()
+}
+
+func getTrainingCourseHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceGetTrainingCourseArgs)
+	realResult := result.(*training.TrainingserviceGetTrainingCourseResult)
+	success, err := handler.(training.Trainingservice).GetTrainingCourse(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceGetTrainingCourseArgs() interface{} {
+	return training.NewTrainingserviceGetTrainingCourseArgs()
+}
+
+func newTrainingserviceGetTrainingCourseResult() interface{} {
+	return training.NewTrainingserviceGetTrainingCourseResult()
+}
+
+func fillTrainingCourseHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceFillTrainingCourseArgs)
+	realResult := result.(*training.TrainingserviceFillTrainingCourseResult)
+	success, err := handler.(training.Trainingservice).FillTrainingCourse(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceFillTrainingCourseArgs() interface{} {
+	return training.NewTrainingserviceFillTrainingCourseArgs()
+}
+
+func newTrainingserviceFillTrainingCourseResult() interface{} {
+	return training.NewTrainingserviceFillTrainingCourseResult()
+}
+
+func deleteTrainingCourseHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceDeleteTrainingCourseArgs)
+	realResult := result.(*training.TrainingserviceDeleteTrainingCourseResult)
+	success, err := handler.(training.Trainingservice).DeleteTrainingCourse(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceDeleteTrainingCourseArgs() interface{} {
+	return training.NewTrainingserviceDeleteTrainingCourseArgs()
+}
+
+func newTrainingserviceDeleteTrainingCourseResult() interface{} {
+	return training.NewTrainingserviceDeleteTrainingCourseResult()
+}
+
+func exportTrainingCourseHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceExportTrainingCourseArgs)
+	realResult := result.(*training.TrainingserviceExportTrainingCourseResult)
+	success, err := handler.(training.Trainingservice).ExportTrainingCourse(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceExportTrainingCourseArgs() interface{} {
+	return training.NewTrainingserviceExportTrainingCourseArgs()
+}
+
+func newTrainingserviceExportTrainingCourseResult() interface{} {
+	return training.NewTrainingserviceExportTrainingCourseResult()
+}
+
+func updateTrainingCourseHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceUpdateTrainingCourseArgs)
+	realResult := result.(*training.TrainingserviceUpdateTrainingCourseResult)
+	success, err := handler.(training.Trainingservice).UpdateTrainingCourse(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceUpdateTrainingCourseArgs() interface{} {
+	return training.NewTrainingserviceUpdateTrainingCourseArgs()
+}
+
+func newTrainingserviceUpdateTrainingCourseResult() interface{} {
+	return training.NewTrainingserviceUpdateTrainingCourseResult()
+}
+
+func updateTrainingCourseTeacherHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceUpdateTrainingCourseTeacherArgs)
+	realResult := result.(*training.TrainingserviceUpdateTrainingCourseTeacherResult)
+	success, err := handler.(training.Trainingservice).UpdateTrainingCourseTeacher(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceUpdateTrainingCourseTeacherArgs() interface{} {
+	return training.NewTrainingserviceUpdateTrainingCourseTeacherArgs()
+}
+
+func newTrainingserviceUpdateTrainingCourseTeacherResult() interface{} {
+	return training.NewTrainingserviceUpdateTrainingCourseTeacherResult()
+}
+
+func approveTrainingCourseDataHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceApproveTrainingCourseDataArgs)
+	realResult := result.(*training.TrainingserviceApproveTrainingCourseDataResult)
+	success, err := handler.(training.Trainingservice).ApproveTrainingCourseData(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceApproveTrainingCourseDataArgs() interface{} {
+	return training.NewTrainingserviceApproveTrainingCourseDataArgs()
+}
+
+func newTrainingserviceApproveTrainingCourseDataResult() interface{} {
+	return training.NewTrainingserviceApproveTrainingCourseDataResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -119,6 +344,96 @@ func (p *kClient) ImportTrainingCourse(ctx context.Context, req *training.Import
 	_args.Req = req
 	var _result training.TrainingserviceImportTrainingCourseResult
 	if err = p.c.Call(ctx, "ImportTrainingCourse", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetTrainingCourseList(ctx context.Context, req *training.GetTrainingCourseListReq) (r *training.GetTrainingCourseListResp, err error) {
+	var _args training.TrainingserviceGetTrainingCourseListArgs
+	_args.Req = req
+	var _result training.TrainingserviceGetTrainingCourseListResult
+	if err = p.c.Call(ctx, "GetTrainingCourseList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetSelfTrainingCourseList(ctx context.Context, req *training.GetSelfTrainingCourseListReq) (r *training.GetSelfTrainingCourseListResp, err error) {
+	var _args training.TrainingserviceGetSelfTrainingCourseListArgs
+	_args.Req = req
+	var _result training.TrainingserviceGetSelfTrainingCourseListResult
+	if err = p.c.Call(ctx, "GetSelfTrainingCourseList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetTrainingCourse(ctx context.Context, req *training.GetTrainingCourseReq) (r *training.GetTrainingCourseResp, err error) {
+	var _args training.TrainingserviceGetTrainingCourseArgs
+	_args.Req = req
+	var _result training.TrainingserviceGetTrainingCourseResult
+	if err = p.c.Call(ctx, "GetTrainingCourse", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) FillTrainingCourse(ctx context.Context, req *training.FillTrainingCourseReq) (r *training.FillTrainingCourseResp, err error) {
+	var _args training.TrainingserviceFillTrainingCourseArgs
+	_args.Req = req
+	var _result training.TrainingserviceFillTrainingCourseResult
+	if err = p.c.Call(ctx, "FillTrainingCourse", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) DeleteTrainingCourse(ctx context.Context, req *training.DeleteTrainingCourseReq) (r *training.DeleteTrainingCourseResp, err error) {
+	var _args training.TrainingserviceDeleteTrainingCourseArgs
+	_args.Req = req
+	var _result training.TrainingserviceDeleteTrainingCourseResult
+	if err = p.c.Call(ctx, "DeleteTrainingCourse", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ExportTrainingCourse(ctx context.Context, req *training.ExportTrainingCourseReq) (r *training.ExportTrainingCourseResp, err error) {
+	var _args training.TrainingserviceExportTrainingCourseArgs
+	_args.Req = req
+	var _result training.TrainingserviceExportTrainingCourseResult
+	if err = p.c.Call(ctx, "ExportTrainingCourse", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) UpdateTrainingCourse(ctx context.Context, req *training.UpdateTrainingCourseReq) (r *training.UpdateTrainingCourseResp, err error) {
+	var _args training.TrainingserviceUpdateTrainingCourseArgs
+	_args.Req = req
+	var _result training.TrainingserviceUpdateTrainingCourseResult
+	if err = p.c.Call(ctx, "UpdateTrainingCourse", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) UpdateTrainingCourseTeacher(ctx context.Context, req *training.UpdateTrainingCourseTeacherReq) (r *training.UpdateTrainingCourseTeacherResp, err error) {
+	var _args training.TrainingserviceUpdateTrainingCourseTeacherArgs
+	_args.Req = req
+	var _result training.TrainingserviceUpdateTrainingCourseTeacherResult
+	if err = p.c.Call(ctx, "UpdateTrainingCourseTeacher", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ApproveTrainingCourseData(ctx context.Context, req *training.ApproveTrainingCourseDataReq) (r *training.ApproveTrainingCourseDataResp, err error) {
+	var _args training.TrainingserviceApproveTrainingCourseDataArgs
+	_args.Req = req
+	var _result training.TrainingserviceApproveTrainingCourseDataResult
+	if err = p.c.Call(ctx, "ApproveTrainingCourseData", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
