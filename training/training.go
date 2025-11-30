@@ -472,6 +472,8 @@ type ModelTrainingCourse struct {
 	EducationLevel        int32  `thrift:"education_level,16" frugal:"16,default,i32" json:"education_level" gorm:"column:education_level;default:1"`
 	Grade                 string `thrift:"grade,17" frugal:"17,default,string" json:"grade" gorm:"column:grade"`
 	MainTeacher           string `thrift:"main_teacher,18" frugal:"18,default,string" json:"main_teacher" gorm:"column:main_teacher"`
+	IsApproved            int32  `thrift:"is_approved,19" frugal:"19,default,i32" json:"is_approved" gorm:"column:is_approved;default:0"`
+	ApprovedTime          int32  `thrift:"approved_time,20" frugal:"20,default,i32" json:"approved_time" gorm:"column:approved_time"`
 }
 
 func NewModelTrainingCourse() *ModelTrainingCourse {
@@ -552,6 +554,14 @@ func (p *ModelTrainingCourse) GetGrade() (v string) {
 func (p *ModelTrainingCourse) GetMainTeacher() (v string) {
 	return p.MainTeacher
 }
+
+func (p *ModelTrainingCourse) GetIsApproved() (v int32) {
+	return p.IsApproved
+}
+
+func (p *ModelTrainingCourse) GetApprovedTime() (v int32) {
+	return p.ApprovedTime
+}
 func (p *ModelTrainingCourse) SetId(val int32) {
 	p.Id = val
 }
@@ -606,6 +616,12 @@ func (p *ModelTrainingCourse) SetGrade(val string) {
 func (p *ModelTrainingCourse) SetMainTeacher(val string) {
 	p.MainTeacher = val
 }
+func (p *ModelTrainingCourse) SetIsApproved(val int32) {
+	p.IsApproved = val
+}
+func (p *ModelTrainingCourse) SetApprovedTime(val int32) {
+	p.ApprovedTime = val
+}
 
 var fieldIDToName_ModelTrainingCourse = map[int16]string{
 	1:  "id",
@@ -626,6 +642,8 @@ var fieldIDToName_ModelTrainingCourse = map[int16]string{
 	16: "education_level",
 	17: "grade",
 	18: "main_teacher",
+	19: "is_approved",
+	20: "approved_time",
 }
 
 func (p *ModelTrainingCourse) Read(iprot thrift.TProtocol) (err error) {
@@ -786,6 +804,22 @@ func (p *ModelTrainingCourse) Read(iprot thrift.TProtocol) (err error) {
 		case 18:
 			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField18(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 19:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField19(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 20:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField20(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -1018,6 +1052,28 @@ func (p *ModelTrainingCourse) ReadField18(iprot thrift.TProtocol) error {
 	p.MainTeacher = _field
 	return nil
 }
+func (p *ModelTrainingCourse) ReadField19(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.IsApproved = _field
+	return nil
+}
+func (p *ModelTrainingCourse) ReadField20(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.ApprovedTime = _field
+	return nil
+}
 
 func (p *ModelTrainingCourse) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -1095,6 +1151,14 @@ func (p *ModelTrainingCourse) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField18(oprot); err != nil {
 			fieldId = 18
+			goto WriteFieldError
+		}
+		if err = p.writeField19(oprot); err != nil {
+			fieldId = 19
+			goto WriteFieldError
+		}
+		if err = p.writeField20(oprot); err != nil {
+			fieldId = 20
 			goto WriteFieldError
 		}
 	}
@@ -1421,6 +1485,40 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 18 end error: ", p), err)
 }
 
+func (p *ModelTrainingCourse) writeField19(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("is_approved", thrift.I32, 19); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.IsApproved); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 19 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 19 end error: ", p), err)
+}
+
+func (p *ModelTrainingCourse) writeField20(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("approved_time", thrift.I32, 20); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.ApprovedTime); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 20 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 20 end error: ", p), err)
+}
+
 func (p *ModelTrainingCourse) String() string {
 	if p == nil {
 		return "<nil>"
@@ -1487,6 +1585,12 @@ func (p *ModelTrainingCourse) DeepEqual(ano *ModelTrainingCourse) bool {
 		return false
 	}
 	if !p.Field18DeepEqual(ano.MainTeacher) {
+		return false
+	}
+	if !p.Field19DeepEqual(ano.IsApproved) {
+		return false
+	}
+	if !p.Field20DeepEqual(ano.ApprovedTime) {
 		return false
 	}
 	return true
@@ -1614,6 +1718,20 @@ func (p *ModelTrainingCourse) Field17DeepEqual(src string) bool {
 func (p *ModelTrainingCourse) Field18DeepEqual(src string) bool {
 
 	if strings.Compare(p.MainTeacher, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *ModelTrainingCourse) Field19DeepEqual(src int32) bool {
+
+	if p.IsApproved != src {
+		return false
+	}
+	return true
+}
+func (p *ModelTrainingCourse) Field20DeepEqual(src int32) bool {
+
+	if p.ApprovedTime != src {
 		return false
 	}
 	return true
@@ -2186,7 +2304,7 @@ type ModelTrainingCourseTeacher struct {
 	CreatedAt        int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index" json:"created_at"`
 	UpdatedAt        int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at" json:"updated_at"`
 	DeletedAt        int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at" json:"deleted_at"`
-	TrainingCourseId string `thrift:"training_course_id,5" frugal:"5,default,string" json:"training_course_id" gorm:"column:training_course_id"`
+	TrainingCourseId int32  `thrift:"training_course_id,5" frugal:"5,default,i32" json:"training_course_id" gorm:"column:training_course_id"`
 	TeacherId        string `thrift:"teacher_id,6" frugal:"6,default,string" json:"teacher_id" gorm:"column:teacher_id"`
 	TeacherName      string `thrift:"teacher_name,7" frugal:"7,default,string" json:"teacher_name" gorm:"column:teacher_name"`
 	AppId            int32  `thrift:"app_id,8" frugal:"8,default,i32" json:"app_id" gorm:"column:app_id"`
@@ -2195,6 +2313,8 @@ type ModelTrainingCourseTeacher struct {
 	Semester         string `thrift:"semester,11" frugal:"11,default,string" json:"semester" gorm:"column:semester"`
 	Content          string `thrift:"content,12" frugal:"12,default,string" json:"content" gorm:"column:content;type:text"`
 	Location         string `thrift:"location,13" frugal:"13,default,string" json:"location" gorm:"column:location"`
+	FillTeacher      int32  `thrift:"fill_teacher,14" frugal:"14,default,i32" json:"fill_teacher" gorm:"column:fill_teacher"`
+	Date             string `thrift:"date,15" frugal:"15,default,string" json:"date" gorm:"column:date"`
 }
 
 func NewModelTrainingCourseTeacher() *ModelTrainingCourseTeacher {
@@ -2220,7 +2340,7 @@ func (p *ModelTrainingCourseTeacher) GetDeletedAt() (v int32) {
 	return p.DeletedAt
 }
 
-func (p *ModelTrainingCourseTeacher) GetTrainingCourseId() (v string) {
+func (p *ModelTrainingCourseTeacher) GetTrainingCourseId() (v int32) {
 	return p.TrainingCourseId
 }
 
@@ -2255,6 +2375,14 @@ func (p *ModelTrainingCourseTeacher) GetContent() (v string) {
 func (p *ModelTrainingCourseTeacher) GetLocation() (v string) {
 	return p.Location
 }
+
+func (p *ModelTrainingCourseTeacher) GetFillTeacher() (v int32) {
+	return p.FillTeacher
+}
+
+func (p *ModelTrainingCourseTeacher) GetDate() (v string) {
+	return p.Date
+}
 func (p *ModelTrainingCourseTeacher) SetId(val int32) {
 	p.Id = val
 }
@@ -2267,7 +2395,7 @@ func (p *ModelTrainingCourseTeacher) SetUpdatedAt(val int32) {
 func (p *ModelTrainingCourseTeacher) SetDeletedAt(val int32) {
 	p.DeletedAt = val
 }
-func (p *ModelTrainingCourseTeacher) SetTrainingCourseId(val string) {
+func (p *ModelTrainingCourseTeacher) SetTrainingCourseId(val int32) {
 	p.TrainingCourseId = val
 }
 func (p *ModelTrainingCourseTeacher) SetTeacherId(val string) {
@@ -2294,6 +2422,12 @@ func (p *ModelTrainingCourseTeacher) SetContent(val string) {
 func (p *ModelTrainingCourseTeacher) SetLocation(val string) {
 	p.Location = val
 }
+func (p *ModelTrainingCourseTeacher) SetFillTeacher(val int32) {
+	p.FillTeacher = val
+}
+func (p *ModelTrainingCourseTeacher) SetDate(val string) {
+	p.Date = val
+}
 
 var fieldIDToName_ModelTrainingCourseTeacher = map[int16]string{
 	1:  "id",
@@ -2309,6 +2443,8 @@ var fieldIDToName_ModelTrainingCourseTeacher = map[int16]string{
 	11: "semester",
 	12: "content",
 	13: "location",
+	14: "fill_teacher",
+	15: "date",
 }
 
 func (p *ModelTrainingCourseTeacher) Read(iprot thrift.TProtocol) (err error) {
@@ -2363,7 +2499,7 @@ func (p *ModelTrainingCourseTeacher) Read(iprot thrift.TProtocol) (err error) {
 				goto SkipFieldError
 			}
 		case 5:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.I32 {
 				if err = p.ReadField5(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -2429,6 +2565,22 @@ func (p *ModelTrainingCourseTeacher) Read(iprot thrift.TProtocol) (err error) {
 		case 13:
 			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField13(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 14:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField14(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 15:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField15(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -2509,8 +2661,8 @@ func (p *ModelTrainingCourseTeacher) ReadField4(iprot thrift.TProtocol) error {
 }
 func (p *ModelTrainingCourseTeacher) ReadField5(iprot thrift.TProtocol) error {
 
-	var _field string
-	if v, err := iprot.ReadString(); err != nil {
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
 		return err
 	} else {
 		_field = v
@@ -2606,6 +2758,28 @@ func (p *ModelTrainingCourseTeacher) ReadField13(iprot thrift.TProtocol) error {
 	p.Location = _field
 	return nil
 }
+func (p *ModelTrainingCourseTeacher) ReadField14(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.FillTeacher = _field
+	return nil
+}
+func (p *ModelTrainingCourseTeacher) ReadField15(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Date = _field
+	return nil
+}
 
 func (p *ModelTrainingCourseTeacher) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -2663,6 +2837,14 @@ func (p *ModelTrainingCourseTeacher) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField13(oprot); err != nil {
 			fieldId = 13
+			goto WriteFieldError
+		}
+		if err = p.writeField14(oprot); err != nil {
+			fieldId = 14
+			goto WriteFieldError
+		}
+		if err = p.writeField15(oprot); err != nil {
+			fieldId = 15
 			goto WriteFieldError
 		}
 	}
@@ -2752,10 +2934,10 @@ WriteFieldEndError:
 }
 
 func (p *ModelTrainingCourseTeacher) writeField5(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("training_course_id", thrift.STRING, 5); err != nil {
+	if err = oprot.WriteFieldBegin("training_course_id", thrift.I32, 5); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.TrainingCourseId); err != nil {
+	if err := oprot.WriteI32(p.TrainingCourseId); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -2904,6 +3086,40 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 13 end error: ", p), err)
 }
 
+func (p *ModelTrainingCourseTeacher) writeField14(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("fill_teacher", thrift.I32, 14); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.FillTeacher); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 14 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 14 end error: ", p), err)
+}
+
+func (p *ModelTrainingCourseTeacher) writeField15(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("date", thrift.STRING, 15); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Date); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 15 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 15 end error: ", p), err)
+}
+
 func (p *ModelTrainingCourseTeacher) String() string {
 	if p == nil {
 		return "<nil>"
@@ -2957,6 +3173,12 @@ func (p *ModelTrainingCourseTeacher) DeepEqual(ano *ModelTrainingCourseTeacher) 
 	if !p.Field13DeepEqual(ano.Location) {
 		return false
 	}
+	if !p.Field14DeepEqual(ano.FillTeacher) {
+		return false
+	}
+	if !p.Field15DeepEqual(ano.Date) {
+		return false
+	}
 	return true
 }
 
@@ -2988,9 +3210,9 @@ func (p *ModelTrainingCourseTeacher) Field4DeepEqual(src int32) bool {
 	}
 	return true
 }
-func (p *ModelTrainingCourseTeacher) Field5DeepEqual(src string) bool {
+func (p *ModelTrainingCourseTeacher) Field5DeepEqual(src int32) bool {
 
-	if strings.Compare(p.TrainingCourseId, src) != 0 {
+	if p.TrainingCourseId != src {
 		return false
 	}
 	return true
@@ -3047,6 +3269,20 @@ func (p *ModelTrainingCourseTeacher) Field12DeepEqual(src string) bool {
 func (p *ModelTrainingCourseTeacher) Field13DeepEqual(src string) bool {
 
 	if strings.Compare(p.Location, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *ModelTrainingCourseTeacher) Field14DeepEqual(src int32) bool {
+
+	if p.FillTeacher != src {
+		return false
+	}
+	return true
+}
+func (p *ModelTrainingCourseTeacher) Field15DeepEqual(src string) bool {
+
+	if strings.Compare(p.Date, src) != 0 {
 		return false
 	}
 	return true
