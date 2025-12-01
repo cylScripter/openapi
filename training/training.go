@@ -7464,7 +7464,7 @@ type ModelTrainingCourseTeacher struct {
 	Semester         string `thrift:"semester,11" frugal:"11,default,string" json:"semester" gorm:"column:semester"`
 	Content          string `thrift:"content,12" frugal:"12,default,string" json:"content" gorm:"column:content;type:text"`
 	Location         string `thrift:"location,13" frugal:"13,default,string" json:"location" gorm:"column:location"`
-	FillTeacher      int32  `thrift:"fill_teacher,14" frugal:"14,default,i32" json:"fill_teacher" gorm:"column:fill_teacher"`
+	FillTeacher      string `thrift:"fill_teacher,14" frugal:"14,default,string" json:"fill_teacher" gorm:"column:fill_teacher"`
 	Date             string `thrift:"date,15" frugal:"15,default,string" json:"date" gorm:"column:date"`
 	FillTime         int32  `thrift:"fill_time,16" frugal:"16,default,i32" json:"fill_time" gorm:"column:fill_time"`
 }
@@ -7524,7 +7524,7 @@ func (p *ModelTrainingCourseTeacher) GetLocation() (v string) {
 	return p.Location
 }
 
-func (p *ModelTrainingCourseTeacher) GetFillTeacher() (v int32) {
+func (p *ModelTrainingCourseTeacher) GetFillTeacher() (v string) {
 	return p.FillTeacher
 }
 
@@ -7571,7 +7571,7 @@ func (p *ModelTrainingCourseTeacher) SetContent(val string) {
 func (p *ModelTrainingCourseTeacher) SetLocation(val string) {
 	p.Location = val
 }
-func (p *ModelTrainingCourseTeacher) SetFillTeacher(val int32) {
+func (p *ModelTrainingCourseTeacher) SetFillTeacher(val string) {
 	p.FillTeacher = val
 }
 func (p *ModelTrainingCourseTeacher) SetDate(val string) {
@@ -7715,7 +7715,7 @@ func (p *ModelTrainingCourseTeacher) Read(iprot thrift.TProtocol) (err error) {
 				goto SkipFieldError
 			}
 		case 14:
-			if fieldTypeId == thrift.I32 {
+			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField14(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -7901,8 +7901,8 @@ func (p *ModelTrainingCourseTeacher) ReadField13(iprot thrift.TProtocol) error {
 }
 func (p *ModelTrainingCourseTeacher) ReadField14(iprot thrift.TProtocol) error {
 
-	var _field int32
-	if v, err := iprot.ReadI32(); err != nil {
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
 		_field = v
@@ -8222,10 +8222,10 @@ WriteFieldEndError:
 }
 
 func (p *ModelTrainingCourseTeacher) writeField14(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("fill_teacher", thrift.I32, 14); err != nil {
+	if err = oprot.WriteFieldBegin("fill_teacher", thrift.STRING, 14); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteI32(p.FillTeacher); err != nil {
+	if err := oprot.WriteString(p.FillTeacher); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -8418,9 +8418,9 @@ func (p *ModelTrainingCourseTeacher) Field13DeepEqual(src string) bool {
 	}
 	return true
 }
-func (p *ModelTrainingCourseTeacher) Field14DeepEqual(src int32) bool {
+func (p *ModelTrainingCourseTeacher) Field14DeepEqual(src string) bool {
 
-	if p.FillTeacher != src {
+	if strings.Compare(p.FillTeacher, src) != 0 {
 		return false
 	}
 	return true
