@@ -77,9 +77,9 @@ func (p *TrainingCourseListReqOption) Value() (driver.Value, error) {
 }
 
 type ApproveTrainingCourseDataReq struct {
-	TrainingCourseId string `thrift:"training_course_id,1" frugal:"1,default,string" json:"training_course_id" binding:"required"`
-	Type             int32  `thrift:"type,2" frugal:"2,default,i32" json:"type" binding:"required"`
-	Agree            int32  `thrift:"agree,3" frugal:"3,default,i32" json:"agree" binding:"required"`
+	TrainingCourseId int32 `thrift:"training_course_id,1" frugal:"1,default,i32" json:"training_course_id" binding:"required"`
+	Type             int32 `thrift:"type,2" frugal:"2,default,i32" json:"type" binding:"required"`
+	Agree            int32 `thrift:"agree,3" frugal:"3,default,i32" json:"agree" binding:"required"`
 }
 
 func NewApproveTrainingCourseDataReq() *ApproveTrainingCourseDataReq {
@@ -89,7 +89,7 @@ func NewApproveTrainingCourseDataReq() *ApproveTrainingCourseDataReq {
 func (p *ApproveTrainingCourseDataReq) InitDefault() {
 }
 
-func (p *ApproveTrainingCourseDataReq) GetTrainingCourseId() (v string) {
+func (p *ApproveTrainingCourseDataReq) GetTrainingCourseId() (v int32) {
 	return p.TrainingCourseId
 }
 
@@ -100,7 +100,7 @@ func (p *ApproveTrainingCourseDataReq) GetType() (v int32) {
 func (p *ApproveTrainingCourseDataReq) GetAgree() (v int32) {
 	return p.Agree
 }
-func (p *ApproveTrainingCourseDataReq) SetTrainingCourseId(val string) {
+func (p *ApproveTrainingCourseDataReq) SetTrainingCourseId(val int32) {
 	p.TrainingCourseId = val
 }
 func (p *ApproveTrainingCourseDataReq) SetType(val int32) {
@@ -136,7 +136,7 @@ func (p *ApproveTrainingCourseDataReq) Read(iprot thrift.TProtocol) (err error) 
 
 		switch fieldId {
 		case 1:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.I32 {
 				if err = p.ReadField1(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -190,8 +190,8 @@ ReadStructEndError:
 
 func (p *ApproveTrainingCourseDataReq) ReadField1(iprot thrift.TProtocol) error {
 
-	var _field string
-	if v, err := iprot.ReadString(); err != nil {
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
 		return err
 	} else {
 		_field = v
@@ -259,10 +259,10 @@ WriteStructEndError:
 }
 
 func (p *ApproveTrainingCourseDataReq) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("training_course_id", thrift.STRING, 1); err != nil {
+	if err = oprot.WriteFieldBegin("training_course_id", thrift.I32, 1); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.TrainingCourseId); err != nil {
+	if err := oprot.WriteI32(p.TrainingCourseId); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -335,9 +335,9 @@ func (p *ApproveTrainingCourseDataReq) DeepEqual(ano *ApproveTrainingCourseDataR
 	return true
 }
 
-func (p *ApproveTrainingCourseDataReq) Field1DeepEqual(src string) bool {
+func (p *ApproveTrainingCourseDataReq) Field1DeepEqual(src int32) bool {
 
-	if strings.Compare(p.TrainingCourseId, src) != 0 {
+	if p.TrainingCourseId != src {
 		return false
 	}
 	return true
@@ -2079,7 +2079,7 @@ func (p *ExportTrainingCourseResp) Field1DeepEqual(src string) bool {
 }
 
 type DeleteTrainingCourseReq struct {
-	TrainingCourseId string `thrift:"training_course_id,1" frugal:"1,default,string" json:"training_course_id" binding:"required"`
+	TrainingCourseId int32 `thrift:"training_course_id,1" frugal:"1,default,i32" json:"training_course_id" binding:"required"`
 }
 
 func NewDeleteTrainingCourseReq() *DeleteTrainingCourseReq {
@@ -2089,10 +2089,10 @@ func NewDeleteTrainingCourseReq() *DeleteTrainingCourseReq {
 func (p *DeleteTrainingCourseReq) InitDefault() {
 }
 
-func (p *DeleteTrainingCourseReq) GetTrainingCourseId() (v string) {
+func (p *DeleteTrainingCourseReq) GetTrainingCourseId() (v int32) {
 	return p.TrainingCourseId
 }
-func (p *DeleteTrainingCourseReq) SetTrainingCourseId(val string) {
+func (p *DeleteTrainingCourseReq) SetTrainingCourseId(val int32) {
 	p.TrainingCourseId = val
 }
 
@@ -2120,7 +2120,7 @@ func (p *DeleteTrainingCourseReq) Read(iprot thrift.TProtocol) (err error) {
 
 		switch fieldId {
 		case 1:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.I32 {
 				if err = p.ReadField1(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -2158,8 +2158,8 @@ ReadStructEndError:
 
 func (p *DeleteTrainingCourseReq) ReadField1(iprot thrift.TProtocol) error {
 
-	var _field string
-	if v, err := iprot.ReadString(); err != nil {
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
 		return err
 	} else {
 		_field = v
@@ -2197,10 +2197,10 @@ WriteStructEndError:
 }
 
 func (p *DeleteTrainingCourseReq) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("training_course_id", thrift.STRING, 1); err != nil {
+	if err = oprot.WriteFieldBegin("training_course_id", thrift.I32, 1); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.TrainingCourseId); err != nil {
+	if err := oprot.WriteI32(p.TrainingCourseId); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -2233,9 +2233,9 @@ func (p *DeleteTrainingCourseReq) DeepEqual(ano *DeleteTrainingCourseReq) bool {
 	return true
 }
 
-func (p *DeleteTrainingCourseReq) Field1DeepEqual(src string) bool {
+func (p *DeleteTrainingCourseReq) Field1DeepEqual(src int32) bool {
 
-	if strings.Compare(p.TrainingCourseId, src) != 0 {
+	if p.TrainingCourseId != src {
 		return false
 	}
 	return true
@@ -2707,7 +2707,7 @@ func (p *FillTrainingCourseResp) DeepEqual(ano *FillTrainingCourseResp) bool {
 }
 
 type GetTrainingCourseReq struct {
-	TrainingCourseId string `thrift:"training_course_id,1" frugal:"1,default,string" json:"training_course_id" binding:"required"`
+	TrainingCourseId int32 `thrift:"training_course_id,1" frugal:"1,default,i32" json:"training_course_id" binding:"required"`
 }
 
 func NewGetTrainingCourseReq() *GetTrainingCourseReq {
@@ -2717,10 +2717,10 @@ func NewGetTrainingCourseReq() *GetTrainingCourseReq {
 func (p *GetTrainingCourseReq) InitDefault() {
 }
 
-func (p *GetTrainingCourseReq) GetTrainingCourseId() (v string) {
+func (p *GetTrainingCourseReq) GetTrainingCourseId() (v int32) {
 	return p.TrainingCourseId
 }
-func (p *GetTrainingCourseReq) SetTrainingCourseId(val string) {
+func (p *GetTrainingCourseReq) SetTrainingCourseId(val int32) {
 	p.TrainingCourseId = val
 }
 
@@ -2748,7 +2748,7 @@ func (p *GetTrainingCourseReq) Read(iprot thrift.TProtocol) (err error) {
 
 		switch fieldId {
 		case 1:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.I32 {
 				if err = p.ReadField1(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -2786,8 +2786,8 @@ ReadStructEndError:
 
 func (p *GetTrainingCourseReq) ReadField1(iprot thrift.TProtocol) error {
 
-	var _field string
-	if v, err := iprot.ReadString(); err != nil {
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
 		return err
 	} else {
 		_field = v
@@ -2825,10 +2825,10 @@ WriteStructEndError:
 }
 
 func (p *GetTrainingCourseReq) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("training_course_id", thrift.STRING, 1); err != nil {
+	if err = oprot.WriteFieldBegin("training_course_id", thrift.I32, 1); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.TrainingCourseId); err != nil {
+	if err := oprot.WriteI32(p.TrainingCourseId); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -2861,9 +2861,9 @@ func (p *GetTrainingCourseReq) DeepEqual(ano *GetTrainingCourseReq) bool {
 	return true
 }
 
-func (p *GetTrainingCourseReq) Field1DeepEqual(src string) bool {
+func (p *GetTrainingCourseReq) Field1DeepEqual(src int32) bool {
 
-	if strings.Compare(p.TrainingCourseId, src) != 0 {
+	if p.TrainingCourseId != src {
 		return false
 	}
 	return true
