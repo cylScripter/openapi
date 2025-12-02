@@ -21,6 +21,8 @@ const (
 	TrainingCourseListReqOption_major         TrainingCourseListReqOption = 4
 	TrainingCourseListReqOption_class_name    TrainingCourseListReqOption = 5
 	TrainingCourseListReqOption_course_name   TrainingCourseListReqOption = 6
+	TrainingCourseListReqOption_grade         TrainingCourseListReqOption = 7
+	TrainingCourseListReqOption_type          TrainingCourseListReqOption = 8
 )
 
 func (p TrainingCourseListReqOption) String() string {
@@ -37,6 +39,10 @@ func (p TrainingCourseListReqOption) String() string {
 		return "class_name"
 	case TrainingCourseListReqOption_course_name:
 		return "course_name"
+	case TrainingCourseListReqOption_grade:
+		return "grade"
+	case TrainingCourseListReqOption_type:
+		return "type"
 	}
 	return "<UNSET>"
 }
@@ -55,6 +61,10 @@ func TrainingCourseListReqOptionFromString(s string) (TrainingCourseListReqOptio
 		return TrainingCourseListReqOption_class_name, nil
 	case "course_name":
 		return TrainingCourseListReqOption_course_name, nil
+	case "grade":
+		return TrainingCourseListReqOption_grade, nil
+	case "type":
+		return TrainingCourseListReqOption_type, nil
 	}
 	return TrainingCourseListReqOption(0), fmt.Errorf("not a valid TrainingCourseListReqOption string")
 }
@@ -6825,6 +6835,228 @@ func (p *ModelTrainingCourse) Field21DeepEqual(src string) bool {
 func (p *ModelTrainingCourse) Field22DeepEqual(src string) bool {
 
 	if strings.Compare(p.TrainingCaseFile, src) != 0 {
+		return false
+	}
+	return true
+}
+
+type CourseFile struct {
+	UploadId string `thrift:"upload_id,1" frugal:"1,default,string" json:"upload_id"`
+	Url      string `thrift:"url,2" frugal:"2,default,string" json:"url"`
+}
+
+func NewCourseFile() *CourseFile {
+	return &CourseFile{}
+}
+
+func (p *CourseFile) InitDefault() {
+}
+
+func (p *CourseFile) GetUploadId() (v string) {
+	return p.UploadId
+}
+
+func (p *CourseFile) GetUrl() (v string) {
+	return p.Url
+}
+func (p *CourseFile) SetUploadId(val string) {
+	p.UploadId = val
+}
+func (p *CourseFile) SetUrl(val string) {
+	p.Url = val
+}
+
+var fieldIDToName_CourseFile = map[int16]string{
+	1: "upload_id",
+	2: "url",
+}
+
+func (p *CourseFile) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 2:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_CourseFile[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *CourseFile) ReadField1(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.UploadId = _field
+	return nil
+}
+func (p *CourseFile) ReadField2(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Url = _field
+	return nil
+}
+
+func (p *CourseFile) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("CourseFile"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *CourseFile) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("upload_id", thrift.STRING, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.UploadId); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *CourseFile) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("url", thrift.STRING, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Url); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
+func (p *CourseFile) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("CourseFile(%+v)", *p)
+
+}
+
+func (p *CourseFile) DeepEqual(ano *CourseFile) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.UploadId) {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.Url) {
+		return false
+	}
+	return true
+}
+
+func (p *CourseFile) Field1DeepEqual(src string) bool {
+
+	if strings.Compare(p.UploadId, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *CourseFile) Field2DeepEqual(src string) bool {
+
+	if strings.Compare(p.Url, src) != 0 {
 		return false
 	}
 	return true
