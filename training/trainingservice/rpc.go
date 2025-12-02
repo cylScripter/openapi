@@ -11,6 +11,11 @@ func ImportTrainingCourse(ctx context.Context, req *training.ImportTrainingCours
 	return clients.ImportTrainingCourse(ctx, req)
 }
 
+func CreateTrainingCourse(ctx context.Context, req *training.CreateTrainingCourseReq, callOptions ...client.Option) (resp *training.CreateTrainingCourseResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.CreateTrainingCourse(ctx, req)
+}
+
 func GetTrainingCourseList(ctx context.Context, req *training.GetTrainingCourseListReq, callOptions ...client.Option) (resp *training.GetTrainingCourseListResp, err error) {
 	clients := MustNewClient("training", callOptions...)
 	return clients.GetTrainingCourseList(ctx, req)

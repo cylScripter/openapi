@@ -20,6 +20,13 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"CreateTrainingCourse": kitex.NewMethodInfo(
+		createTrainingCourseHandler,
+		newTrainingserviceCreateTrainingCourseArgs,
+		newTrainingserviceCreateTrainingCourseResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 	"GetTrainingCourseList": kitex.NewMethodInfo(
 		getTrainingCourseListHandler,
 		newTrainingserviceGetTrainingCourseListArgs,
@@ -165,6 +172,24 @@ func newTrainingserviceImportTrainingCourseArgs() interface{} {
 
 func newTrainingserviceImportTrainingCourseResult() interface{} {
 	return training.NewTrainingserviceImportTrainingCourseResult()
+}
+
+func createTrainingCourseHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceCreateTrainingCourseArgs)
+	realResult := result.(*training.TrainingserviceCreateTrainingCourseResult)
+	success, err := handler.(training.Trainingservice).CreateTrainingCourse(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceCreateTrainingCourseArgs() interface{} {
+	return training.NewTrainingserviceCreateTrainingCourseArgs()
+}
+
+func newTrainingserviceCreateTrainingCourseResult() interface{} {
+	return training.NewTrainingserviceCreateTrainingCourseResult()
 }
 
 func getTrainingCourseListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
@@ -344,6 +369,16 @@ func (p *kClient) ImportTrainingCourse(ctx context.Context, req *training.Import
 	_args.Req = req
 	var _result training.TrainingserviceImportTrainingCourseResult
 	if err = p.c.Call(ctx, "ImportTrainingCourse", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) CreateTrainingCourse(ctx context.Context, req *training.CreateTrainingCourseReq) (r *training.CreateTrainingCourseResp, err error) {
+	var _args training.TrainingserviceCreateTrainingCourseArgs
+	_args.Req = req
+	var _result training.TrainingserviceCreateTrainingCourseResult
+	if err = p.c.Call(ctx, "CreateTrainingCourse", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

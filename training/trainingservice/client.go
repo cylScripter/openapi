@@ -12,6 +12,7 @@ import (
 // Client is designed to provide IDL-compatible methods with call-option parameter for kitex framework.
 type Client interface {
 	ImportTrainingCourse(ctx context.Context, req *training.ImportTrainingCourseReq, callOptions ...callopt.Option) (r *training.ImportTrainingCourseResp, err error)
+	CreateTrainingCourse(ctx context.Context, req *training.CreateTrainingCourseReq, callOptions ...callopt.Option) (r *training.CreateTrainingCourseResp, err error)
 	GetTrainingCourseList(ctx context.Context, req *training.GetTrainingCourseListReq, callOptions ...callopt.Option) (r *training.GetTrainingCourseListResp, err error)
 	GetSelfTrainingCourseList(ctx context.Context, req *training.GetSelfTrainingCourseListReq, callOptions ...callopt.Option) (r *training.GetSelfTrainingCourseListResp, err error)
 	GetTrainingCourse(ctx context.Context, req *training.GetTrainingCourseReq, callOptions ...callopt.Option) (r *training.GetTrainingCourseResp, err error)
@@ -55,6 +56,11 @@ type kTrainingserviceClient struct {
 func (p *kTrainingserviceClient) ImportTrainingCourse(ctx context.Context, req *training.ImportTrainingCourseReq, callOptions ...callopt.Option) (r *training.ImportTrainingCourseResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.ImportTrainingCourse(ctx, req)
+}
+
+func (p *kTrainingserviceClient) CreateTrainingCourse(ctx context.Context, req *training.CreateTrainingCourseReq, callOptions ...callopt.Option) (r *training.CreateTrainingCourseResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.CreateTrainingCourse(ctx, req)
 }
 
 func (p *kTrainingserviceClient) GetTrainingCourseList(ctx context.Context, req *training.GetTrainingCourseListReq, callOptions ...callopt.Option) (r *training.GetTrainingCourseListResp, err error) {
