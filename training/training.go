@@ -5452,8 +5452,6 @@ type CreateTrainingCourseReq struct {
 	EducationLevel        int32  `thrift:"education_level,11" frugal:"11,default,i32" json:"education_level"`
 	Grade                 string `thrift:"grade,12" frugal:"12,default,string" json:"grade"`
 	MainTeacher           string `thrift:"main_teacher,13" frugal:"13,default,string" json:"main_teacher"`
-	TrainingFile          string `thrift:"training_file,14" frugal:"14,default,string" json:"training_file"`
-	TrainingCaseFile      string `thrift:"training_case_file,15" frugal:"15,default,string" json:"training_case_file"`
 }
 
 func NewCreateTrainingCourseReq() *CreateTrainingCourseReq {
@@ -5514,14 +5512,6 @@ func (p *CreateTrainingCourseReq) GetGrade() (v string) {
 func (p *CreateTrainingCourseReq) GetMainTeacher() (v string) {
 	return p.MainTeacher
 }
-
-func (p *CreateTrainingCourseReq) GetTrainingFile() (v string) {
-	return p.TrainingFile
-}
-
-func (p *CreateTrainingCourseReq) GetTrainingCaseFile() (v string) {
-	return p.TrainingCaseFile
-}
 func (p *CreateTrainingCourseReq) SetMajor(val string) {
 	p.Major = val
 }
@@ -5561,12 +5551,6 @@ func (p *CreateTrainingCourseReq) SetGrade(val string) {
 func (p *CreateTrainingCourseReq) SetMainTeacher(val string) {
 	p.MainTeacher = val
 }
-func (p *CreateTrainingCourseReq) SetTrainingFile(val string) {
-	p.TrainingFile = val
-}
-func (p *CreateTrainingCourseReq) SetTrainingCaseFile(val string) {
-	p.TrainingCaseFile = val
-}
 
 var fieldIDToName_CreateTrainingCourseReq = map[int16]string{
 	1:  "major",
@@ -5582,8 +5566,6 @@ var fieldIDToName_CreateTrainingCourseReq = map[int16]string{
 	11: "education_level",
 	12: "grade",
 	13: "main_teacher",
-	14: "training_file",
-	15: "training_case_file",
 }
 
 func (p *CreateTrainingCourseReq) Read(iprot thrift.TProtocol) (err error) {
@@ -5704,22 +5686,6 @@ func (p *CreateTrainingCourseReq) Read(iprot thrift.TProtocol) (err error) {
 		case 13:
 			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField13(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		case 14:
-			if fieldTypeId == thrift.STRING {
-				if err = p.ReadField14(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		case 15:
-			if fieldTypeId == thrift.STRING {
-				if err = p.ReadField15(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -5897,28 +5863,6 @@ func (p *CreateTrainingCourseReq) ReadField13(iprot thrift.TProtocol) error {
 	p.MainTeacher = _field
 	return nil
 }
-func (p *CreateTrainingCourseReq) ReadField14(iprot thrift.TProtocol) error {
-
-	var _field string
-	if v, err := iprot.ReadString(); err != nil {
-		return err
-	} else {
-		_field = v
-	}
-	p.TrainingFile = _field
-	return nil
-}
-func (p *CreateTrainingCourseReq) ReadField15(iprot thrift.TProtocol) error {
-
-	var _field string
-	if v, err := iprot.ReadString(); err != nil {
-		return err
-	} else {
-		_field = v
-	}
-	p.TrainingCaseFile = _field
-	return nil
-}
 
 func (p *CreateTrainingCourseReq) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -5976,14 +5920,6 @@ func (p *CreateTrainingCourseReq) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField13(oprot); err != nil {
 			fieldId = 13
-			goto WriteFieldError
-		}
-		if err = p.writeField14(oprot); err != nil {
-			fieldId = 14
-			goto WriteFieldError
-		}
-		if err = p.writeField15(oprot); err != nil {
-			fieldId = 15
 			goto WriteFieldError
 		}
 	}
@@ -6225,40 +6161,6 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 13 end error: ", p), err)
 }
 
-func (p *CreateTrainingCourseReq) writeField14(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("training_file", thrift.STRING, 14); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := oprot.WriteString(p.TrainingFile); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 14 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 14 end error: ", p), err)
-}
-
-func (p *CreateTrainingCourseReq) writeField15(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("training_case_file", thrift.STRING, 15); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := oprot.WriteString(p.TrainingCaseFile); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 15 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 15 end error: ", p), err)
-}
-
 func (p *CreateTrainingCourseReq) String() string {
 	if p == nil {
 		return "<nil>"
@@ -6310,12 +6212,6 @@ func (p *CreateTrainingCourseReq) DeepEqual(ano *CreateTrainingCourseReq) bool {
 		return false
 	}
 	if !p.Field13DeepEqual(ano.MainTeacher) {
-		return false
-	}
-	if !p.Field14DeepEqual(ano.TrainingFile) {
-		return false
-	}
-	if !p.Field15DeepEqual(ano.TrainingCaseFile) {
 		return false
 	}
 	return true
@@ -6408,20 +6304,6 @@ func (p *CreateTrainingCourseReq) Field12DeepEqual(src string) bool {
 func (p *CreateTrainingCourseReq) Field13DeepEqual(src string) bool {
 
 	if strings.Compare(p.MainTeacher, src) != 0 {
-		return false
-	}
-	return true
-}
-func (p *CreateTrainingCourseReq) Field14DeepEqual(src string) bool {
-
-	if strings.Compare(p.TrainingFile, src) != 0 {
-		return false
-	}
-	return true
-}
-func (p *CreateTrainingCourseReq) Field15DeepEqual(src string) bool {
-
-	if strings.Compare(p.TrainingCaseFile, src) != 0 {
 		return false
 	}
 	return true
