@@ -3143,7 +3143,7 @@ type TrainingCourseTeacherOne struct {
 	Semester         string     `thrift:"semester,7" frugal:"7,default,string" json:"semester"`
 	Content          string     `thrift:"content,8" frugal:"8,default,string" json:"content"`
 	Location         string     `thrift:"location,9" frugal:"9,default,string" json:"location"`
-	FillTeacher      int32      `thrift:"fill_teacher,10" frugal:"10,default,i32" json:"fill_teacher"`
+	FillTeacher      string     `thrift:"fill_teacher,10" frugal:"10,default,string" json:"fill_teacher"`
 	Date             string     `thrift:"date,11" frugal:"11,default,string" json:"date"`
 	FillTime         int32      `thrift:"fill_time,12" frugal:"12,default,i32" json:"fill_time"`
 	MainTeacher      string     `thrift:"main_teacher,13" frugal:"13,default,string" json:"main_teacher"`
@@ -3194,7 +3194,7 @@ func (p *TrainingCourseTeacherOne) GetLocation() (v string) {
 	return p.Location
 }
 
-func (p *TrainingCourseTeacherOne) GetFillTeacher() (v int32) {
+func (p *TrainingCourseTeacherOne) GetFillTeacher() (v string) {
 	return p.FillTeacher
 }
 
@@ -3244,7 +3244,7 @@ func (p *TrainingCourseTeacherOne) SetContent(val string) {
 func (p *TrainingCourseTeacherOne) SetLocation(val string) {
 	p.Location = val
 }
-func (p *TrainingCourseTeacherOne) SetFillTeacher(val int32) {
+func (p *TrainingCourseTeacherOne) SetFillTeacher(val string) {
 	p.FillTeacher = val
 }
 func (p *TrainingCourseTeacherOne) SetDate(val string) {
@@ -3373,7 +3373,7 @@ func (p *TrainingCourseTeacherOne) Read(iprot thrift.TProtocol) (err error) {
 				goto SkipFieldError
 			}
 		case 10:
-			if fieldTypeId == thrift.I32 {
+			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField10(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -3562,8 +3562,8 @@ func (p *TrainingCourseTeacherOne) ReadField9(iprot thrift.TProtocol) error {
 }
 func (p *TrainingCourseTeacherOne) ReadField10(iprot thrift.TProtocol) error {
 
-	var _field int32
-	if v, err := iprot.ReadI32(); err != nil {
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
 		return err
 	} else {
 		_field = v
@@ -3873,10 +3873,10 @@ WriteFieldEndError:
 }
 
 func (p *TrainingCourseTeacherOne) writeField10(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("fill_teacher", thrift.I32, 10); err != nil {
+	if err = oprot.WriteFieldBegin("fill_teacher", thrift.STRING, 10); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteI32(p.FillTeacher); err != nil {
+	if err := oprot.WriteString(p.FillTeacher); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -4105,9 +4105,9 @@ func (p *TrainingCourseTeacherOne) Field9DeepEqual(src string) bool {
 	}
 	return true
 }
-func (p *TrainingCourseTeacherOne) Field10DeepEqual(src int32) bool {
+func (p *TrainingCourseTeacherOne) Field10DeepEqual(src string) bool {
 
-	if p.FillTeacher != src {
+	if strings.Compare(p.FillTeacher, src) != 0 {
 		return false
 	}
 	return true
