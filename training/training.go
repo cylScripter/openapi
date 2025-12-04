@@ -8048,29 +8048,31 @@ func (p *CreateTrainingCourseResp) Field1DeepEqual(src int32) bool {
 }
 
 type ModelTrainingCourse struct {
-	Id                    int32  `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
-	CreatedAt             int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index;not null" json:"created_at"`
-	UpdatedAt             int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at;not null" json:"updated_at"`
-	DeletedAt             int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at;not null" json:"deleted_at"`
-	Major                 string `thrift:"major,5" frugal:"5,default,string" json:"major" gorm:"column:major"`
-	ClassName             string `thrift:"class_name,6" frugal:"6,default,string" json:"class_name" gorm:"column:class_name"`
-	StudentNumber         int32  `thrift:"student_number,7" frugal:"7,default,i32" json:"student_number" gorm:"column:student_number"`
-	CourseName            string `thrift:"course_name,8" frugal:"8,default,string" json:"course_name" gorm:"column:course_name"`
-	Location              string `thrift:"location,9" frugal:"9,default,string" json:"location" gorm:"column:location;type:text"`
-	CooperationEnterprise string `thrift:"cooperation_enterprise,10" frugal:"10,default,string" json:"cooperation_enterprise" gorm:"column:cooperation_enterprise"`
-	TrainingWeek          int32  `thrift:"training_week,11" frugal:"11,default,i32" json:"training_week" gorm:"column:training_week"`
-	AppId                 int32  `thrift:"app_id,12" frugal:"12,default,i32" json:"app_id" gorm:"column:app_id;not null"`
-	Teachers              string `thrift:"teachers,13" frugal:"13,default,string" json:"teachers" gorm:"column:teachers;type:text"`
-	AcademicYear          string `thrift:"academic_year,14" frugal:"14,default,string" json:"academic_year" gorm:"column:academic_year"`
-	Semester              string `thrift:"semester,15" frugal:"15,default,string" json:"semester" gorm:"column:semester"`
-	EducationLevel        int32  `thrift:"education_level,16" frugal:"16,default,i32" json:"education_level" gorm:"column:education_level;default:1"`
-	Grade                 string `thrift:"grade,17" frugal:"17,default,string" json:"grade" gorm:"column:grade"`
-	MainTeacher           string `thrift:"main_teacher,18" frugal:"18,default,string" json:"main_teacher" gorm:"column:main_teacher"`
-	IsApproved            int32  `thrift:"is_approved,19" frugal:"19,default,i32" json:"is_approved" gorm:"column:is_approved;default:0"`
-	ApprovedTime          int32  `thrift:"approved_time,20" frugal:"20,default,i32" json:"approved_time" gorm:"column:approved_time"`
-	TrainingFile          string `thrift:"training_file,21" frugal:"21,default,string" json:"training_file" gorm:"column:training_file;type:text"`
-	TrainingCaseFile      string `thrift:"training_case_file,22" frugal:"22,default,string" json:"training_case" gorm:"column:training_case;type:text"`
-	IsQualified           int32  `thrift:"is_qualified,23" frugal:"23,default,i32" json:"is_qualified" gorm:"column:is_qualified;default:0"`
+	Id                     int32  `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
+	CreatedAt              int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index;not null" json:"created_at"`
+	UpdatedAt              int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at;not null" json:"updated_at"`
+	DeletedAt              int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at;not null" json:"deleted_at"`
+	Major                  string `thrift:"major,5" frugal:"5,default,string" json:"major" gorm:"column:major"`
+	ClassName              string `thrift:"class_name,6" frugal:"6,default,string" json:"class_name" gorm:"column:class_name"`
+	StudentNumber          int32  `thrift:"student_number,7" frugal:"7,default,i32" json:"student_number" gorm:"column:student_number"`
+	CourseName             string `thrift:"course_name,8" frugal:"8,default,string" json:"course_name" gorm:"column:course_name"`
+	Location               string `thrift:"location,9" frugal:"9,default,string" json:"location" gorm:"column:location;type:text"`
+	CooperationEnterprise  string `thrift:"cooperation_enterprise,10" frugal:"10,default,string" json:"cooperation_enterprise" gorm:"column:cooperation_enterprise"`
+	TrainingWeek           int32  `thrift:"training_week,11" frugal:"11,default,i32" json:"training_week" gorm:"column:training_week"`
+	AppId                  int32  `thrift:"app_id,12" frugal:"12,default,i32" json:"app_id" gorm:"column:app_id;not null"`
+	Teachers               string `thrift:"teachers,13" frugal:"13,default,string" json:"teachers" gorm:"column:teachers;type:text"`
+	AcademicYear           string `thrift:"academic_year,14" frugal:"14,default,string" json:"academic_year" gorm:"column:academic_year"`
+	Semester               string `thrift:"semester,15" frugal:"15,default,string" json:"semester" gorm:"column:semester"`
+	EducationLevel         int32  `thrift:"education_level,16" frugal:"16,default,i32" json:"education_level" gorm:"column:education_level;default:1"`
+	Grade                  string `thrift:"grade,17" frugal:"17,default,string" json:"grade" gorm:"column:grade"`
+	MainTeacher            string `thrift:"main_teacher,18" frugal:"18,default,string" json:"main_teacher" gorm:"column:main_teacher"`
+	IsApproved             int32  `thrift:"is_approved,19" frugal:"19,default,i32" json:"is_approved" gorm:"column:is_approved;default:0"`
+	ApprovedTime           int32  `thrift:"approved_time,20" frugal:"20,default,i32" json:"approved_time" gorm:"column:approved_time"`
+	TrainingFile           string `thrift:"training_file,21" frugal:"21,default,string" json:"training_file" gorm:"column:training_file;type:text"`
+	TrainingCaseFile       string `thrift:"training_case_file,22" frugal:"22,default,string" json:"training_case" gorm:"column:training_case;type:text"`
+	IsQualified            int32  `thrift:"is_qualified,23" frugal:"23,default,i32" json:"is_qualified" gorm:"column:is_qualified;default:0"`
+	TrainingFilePerson     string `thrift:"training_file_person,24" frugal:"24,default,string" json:"training_file_person" gorm:"column:training_file_person;type:text"`
+	TrainingCaseFilePerson string `thrift:"training_case_file_person,25" frugal:"25,default,string" json:"training_case_file_person" gorm:"column:training_case_file_person;type:text"`
 }
 
 func NewModelTrainingCourse() *ModelTrainingCourse {
@@ -8171,6 +8173,14 @@ func (p *ModelTrainingCourse) GetTrainingCaseFile() (v string) {
 func (p *ModelTrainingCourse) GetIsQualified() (v int32) {
 	return p.IsQualified
 }
+
+func (p *ModelTrainingCourse) GetTrainingFilePerson() (v string) {
+	return p.TrainingFilePerson
+}
+
+func (p *ModelTrainingCourse) GetTrainingCaseFilePerson() (v string) {
+	return p.TrainingCaseFilePerson
+}
 func (p *ModelTrainingCourse) SetId(val int32) {
 	p.Id = val
 }
@@ -8240,6 +8250,12 @@ func (p *ModelTrainingCourse) SetTrainingCaseFile(val string) {
 func (p *ModelTrainingCourse) SetIsQualified(val int32) {
 	p.IsQualified = val
 }
+func (p *ModelTrainingCourse) SetTrainingFilePerson(val string) {
+	p.TrainingFilePerson = val
+}
+func (p *ModelTrainingCourse) SetTrainingCaseFilePerson(val string) {
+	p.TrainingCaseFilePerson = val
+}
 
 var fieldIDToName_ModelTrainingCourse = map[int16]string{
 	1:  "id",
@@ -8265,6 +8281,8 @@ var fieldIDToName_ModelTrainingCourse = map[int16]string{
 	21: "training_file",
 	22: "training_case_file",
 	23: "is_qualified",
+	24: "training_file_person",
+	25: "training_case_file_person",
 }
 
 func (p *ModelTrainingCourse) Read(iprot thrift.TProtocol) (err error) {
@@ -8465,6 +8483,22 @@ func (p *ModelTrainingCourse) Read(iprot thrift.TProtocol) (err error) {
 		case 23:
 			if fieldTypeId == thrift.I32 {
 				if err = p.ReadField23(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 24:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField24(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 25:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField25(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -8752,6 +8786,28 @@ func (p *ModelTrainingCourse) ReadField23(iprot thrift.TProtocol) error {
 	p.IsQualified = _field
 	return nil
 }
+func (p *ModelTrainingCourse) ReadField24(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.TrainingFilePerson = _field
+	return nil
+}
+func (p *ModelTrainingCourse) ReadField25(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.TrainingCaseFilePerson = _field
+	return nil
+}
 
 func (p *ModelTrainingCourse) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -8849,6 +8905,14 @@ func (p *ModelTrainingCourse) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField23(oprot); err != nil {
 			fieldId = 23
+			goto WriteFieldError
+		}
+		if err = p.writeField24(oprot); err != nil {
+			fieldId = 24
+			goto WriteFieldError
+		}
+		if err = p.writeField25(oprot); err != nil {
+			fieldId = 25
 			goto WriteFieldError
 		}
 	}
@@ -9260,6 +9324,40 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 23 end error: ", p), err)
 }
 
+func (p *ModelTrainingCourse) writeField24(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("training_file_person", thrift.STRING, 24); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.TrainingFilePerson); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 24 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 24 end error: ", p), err)
+}
+
+func (p *ModelTrainingCourse) writeField25(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("training_case_file_person", thrift.STRING, 25); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.TrainingCaseFilePerson); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 25 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 25 end error: ", p), err)
+}
+
 func (p *ModelTrainingCourse) String() string {
 	if p == nil {
 		return "<nil>"
@@ -9341,6 +9439,12 @@ func (p *ModelTrainingCourse) DeepEqual(ano *ModelTrainingCourse) bool {
 		return false
 	}
 	if !p.Field23DeepEqual(ano.IsQualified) {
+		return false
+	}
+	if !p.Field24DeepEqual(ano.TrainingFilePerson) {
+		return false
+	}
+	if !p.Field25DeepEqual(ano.TrainingCaseFilePerson) {
 		return false
 	}
 	return true
@@ -9503,6 +9607,20 @@ func (p *ModelTrainingCourse) Field22DeepEqual(src string) bool {
 func (p *ModelTrainingCourse) Field23DeepEqual(src int32) bool {
 
 	if p.IsQualified != src {
+		return false
+	}
+	return true
+}
+func (p *ModelTrainingCourse) Field24DeepEqual(src string) bool {
+
+	if strings.Compare(p.TrainingFilePerson, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *ModelTrainingCourse) Field25DeepEqual(src string) bool {
+
+	if strings.Compare(p.TrainingCaseFilePerson, src) != 0 {
 		return false
 	}
 	return true
