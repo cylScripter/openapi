@@ -8070,6 +8070,7 @@ type ModelTrainingCourse struct {
 	ApprovedTime          int32  `thrift:"approved_time,20" frugal:"20,default,i32" json:"approved_time" gorm:"column:approved_time"`
 	TrainingFile          string `thrift:"training_file,21" frugal:"21,default,string" json:"training_file" gorm:"column:training_file;type:text"`
 	TrainingCaseFile      string `thrift:"training_case_file,22" frugal:"22,default,string" json:"training_case" gorm:"column:training_case;type:text"`
+	IsQualified           int32  `thrift:"is_qualified,23" frugal:"23,default,i32" json:"is_qualified" gorm:"column:is_qualified;default:0"`
 }
 
 func NewModelTrainingCourse() *ModelTrainingCourse {
@@ -8166,6 +8167,10 @@ func (p *ModelTrainingCourse) GetTrainingFile() (v string) {
 func (p *ModelTrainingCourse) GetTrainingCaseFile() (v string) {
 	return p.TrainingCaseFile
 }
+
+func (p *ModelTrainingCourse) GetIsQualified() (v int32) {
+	return p.IsQualified
+}
 func (p *ModelTrainingCourse) SetId(val int32) {
 	p.Id = val
 }
@@ -8232,6 +8237,9 @@ func (p *ModelTrainingCourse) SetTrainingFile(val string) {
 func (p *ModelTrainingCourse) SetTrainingCaseFile(val string) {
 	p.TrainingCaseFile = val
 }
+func (p *ModelTrainingCourse) SetIsQualified(val int32) {
+	p.IsQualified = val
+}
 
 var fieldIDToName_ModelTrainingCourse = map[int16]string{
 	1:  "id",
@@ -8256,6 +8264,7 @@ var fieldIDToName_ModelTrainingCourse = map[int16]string{
 	20: "approved_time",
 	21: "training_file",
 	22: "training_case_file",
+	23: "is_qualified",
 }
 
 func (p *ModelTrainingCourse) Read(iprot thrift.TProtocol) (err error) {
@@ -8448,6 +8457,14 @@ func (p *ModelTrainingCourse) Read(iprot thrift.TProtocol) (err error) {
 		case 22:
 			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField22(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 23:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField23(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -8724,6 +8741,17 @@ func (p *ModelTrainingCourse) ReadField22(iprot thrift.TProtocol) error {
 	p.TrainingCaseFile = _field
 	return nil
 }
+func (p *ModelTrainingCourse) ReadField23(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.IsQualified = _field
+	return nil
+}
 
 func (p *ModelTrainingCourse) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -8817,6 +8845,10 @@ func (p *ModelTrainingCourse) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField22(oprot); err != nil {
 			fieldId = 22
+			goto WriteFieldError
+		}
+		if err = p.writeField23(oprot); err != nil {
+			fieldId = 23
 			goto WriteFieldError
 		}
 	}
@@ -9211,6 +9243,23 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 22 end error: ", p), err)
 }
 
+func (p *ModelTrainingCourse) writeField23(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("is_qualified", thrift.I32, 23); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.IsQualified); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 23 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 23 end error: ", p), err)
+}
+
 func (p *ModelTrainingCourse) String() string {
 	if p == nil {
 		return "<nil>"
@@ -9289,6 +9338,9 @@ func (p *ModelTrainingCourse) DeepEqual(ano *ModelTrainingCourse) bool {
 		return false
 	}
 	if !p.Field22DeepEqual(ano.TrainingCaseFile) {
+		return false
+	}
+	if !p.Field23DeepEqual(ano.IsQualified) {
 		return false
 	}
 	return true
@@ -9444,6 +9496,13 @@ func (p *ModelTrainingCourse) Field21DeepEqual(src string) bool {
 func (p *ModelTrainingCourse) Field22DeepEqual(src string) bool {
 
 	if strings.Compare(p.TrainingCaseFile, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *ModelTrainingCourse) Field23DeepEqual(src int32) bool {
+
+	if p.IsQualified != src {
 		return false
 	}
 	return true
