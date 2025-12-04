@@ -90,6 +90,34 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"UploadTrainingCourseFile": kitex.NewMethodInfo(
+		uploadTrainingCourseFileHandler,
+		newTrainingserviceUploadTrainingCourseFileArgs,
+		newTrainingserviceUploadTrainingCourseFileResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"UploadTrainingCourseCase": kitex.NewMethodInfo(
+		uploadTrainingCourseCaseHandler,
+		newTrainingserviceUploadTrainingCourseCaseArgs,
+		newTrainingserviceUploadTrainingCourseCaseResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"ExportTrainingCourseFile": kitex.NewMethodInfo(
+		exportTrainingCourseFileHandler,
+		newTrainingserviceExportTrainingCourseFileArgs,
+		newTrainingserviceExportTrainingCourseFileResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"ExportTrainingCourseCase": kitex.NewMethodInfo(
+		exportTrainingCourseCaseHandler,
+		newTrainingserviceExportTrainingCourseCaseArgs,
+		newTrainingserviceExportTrainingCourseCaseResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -354,6 +382,78 @@ func newTrainingserviceApproveTrainingCourseDataResult() interface{} {
 	return training.NewTrainingserviceApproveTrainingCourseDataResult()
 }
 
+func uploadTrainingCourseFileHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceUploadTrainingCourseFileArgs)
+	realResult := result.(*training.TrainingserviceUploadTrainingCourseFileResult)
+	success, err := handler.(training.Trainingservice).UploadTrainingCourseFile(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceUploadTrainingCourseFileArgs() interface{} {
+	return training.NewTrainingserviceUploadTrainingCourseFileArgs()
+}
+
+func newTrainingserviceUploadTrainingCourseFileResult() interface{} {
+	return training.NewTrainingserviceUploadTrainingCourseFileResult()
+}
+
+func uploadTrainingCourseCaseHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceUploadTrainingCourseCaseArgs)
+	realResult := result.(*training.TrainingserviceUploadTrainingCourseCaseResult)
+	success, err := handler.(training.Trainingservice).UploadTrainingCourseCase(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceUploadTrainingCourseCaseArgs() interface{} {
+	return training.NewTrainingserviceUploadTrainingCourseCaseArgs()
+}
+
+func newTrainingserviceUploadTrainingCourseCaseResult() interface{} {
+	return training.NewTrainingserviceUploadTrainingCourseCaseResult()
+}
+
+func exportTrainingCourseFileHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceExportTrainingCourseFileArgs)
+	realResult := result.(*training.TrainingserviceExportTrainingCourseFileResult)
+	success, err := handler.(training.Trainingservice).ExportTrainingCourseFile(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceExportTrainingCourseFileArgs() interface{} {
+	return training.NewTrainingserviceExportTrainingCourseFileArgs()
+}
+
+func newTrainingserviceExportTrainingCourseFileResult() interface{} {
+	return training.NewTrainingserviceExportTrainingCourseFileResult()
+}
+
+func exportTrainingCourseCaseHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceExportTrainingCourseCaseArgs)
+	realResult := result.(*training.TrainingserviceExportTrainingCourseCaseResult)
+	success, err := handler.(training.Trainingservice).ExportTrainingCourseCase(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceExportTrainingCourseCaseArgs() interface{} {
+	return training.NewTrainingserviceExportTrainingCourseCaseArgs()
+}
+
+func newTrainingserviceExportTrainingCourseCaseResult() interface{} {
+	return training.NewTrainingserviceExportTrainingCourseCaseResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -469,6 +569,46 @@ func (p *kClient) ApproveTrainingCourseData(ctx context.Context, req *training.A
 	_args.Req = req
 	var _result training.TrainingserviceApproveTrainingCourseDataResult
 	if err = p.c.Call(ctx, "ApproveTrainingCourseData", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) UploadTrainingCourseFile(ctx context.Context, req *training.UploadTrainingCourseFileReq) (r *training.UploadTrainingCourseFileResp, err error) {
+	var _args training.TrainingserviceUploadTrainingCourseFileArgs
+	_args.Req = req
+	var _result training.TrainingserviceUploadTrainingCourseFileResult
+	if err = p.c.Call(ctx, "UploadTrainingCourseFile", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) UploadTrainingCourseCase(ctx context.Context, req *training.UploadTrainingCourseCaseReq) (r *training.UploadTrainingCourseCaseResp, err error) {
+	var _args training.TrainingserviceUploadTrainingCourseCaseArgs
+	_args.Req = req
+	var _result training.TrainingserviceUploadTrainingCourseCaseResult
+	if err = p.c.Call(ctx, "UploadTrainingCourseCase", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ExportTrainingCourseFile(ctx context.Context, req *training.ExportTrainingCourseFileReq) (r *training.ExportTrainingCourseFileResp, err error) {
+	var _args training.TrainingserviceExportTrainingCourseFileArgs
+	_args.Req = req
+	var _result training.TrainingserviceExportTrainingCourseFileResult
+	if err = p.c.Call(ctx, "ExportTrainingCourseFile", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ExportTrainingCourseCase(ctx context.Context, req *training.ExportTrainingCourseCaseReq) (r *training.ExportTrainingCourseCaseResp, err error) {
+	var _args training.TrainingserviceExportTrainingCourseCaseArgs
+	_args.Req = req
+	var _result training.TrainingserviceExportTrainingCourseCaseResult
+	if err = p.c.Call(ctx, "ExportTrainingCourseCase", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

@@ -60,3 +60,23 @@ func ApproveTrainingCourseData(ctx context.Context, req *training.ApproveTrainin
 	clients := MustNewClient("training", callOptions...)
 	return clients.ApproveTrainingCourseData(ctx, req)
 }
+
+func UploadTrainingCourseFile(ctx context.Context, req *training.UploadTrainingCourseFileReq, callOptions ...client.Option) (resp *training.UploadTrainingCourseFileResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.UploadTrainingCourseFile(ctx, req)
+}
+
+func UploadTrainingCourseCase(ctx context.Context, req *training.UploadTrainingCourseCaseReq, callOptions ...client.Option) (resp *training.UploadTrainingCourseCaseResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.UploadTrainingCourseCase(ctx, req)
+}
+
+func ExportTrainingCourseFile(ctx context.Context, req *training.ExportTrainingCourseFileReq, callOptions ...client.Option) (resp *training.ExportTrainingCourseFileResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.ExportTrainingCourseFile(ctx, req)
+}
+
+func ExportTrainingCourseCase(ctx context.Context, req *training.ExportTrainingCourseCaseReq, callOptions ...client.Option) (resp *training.ExportTrainingCourseCaseResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.ExportTrainingCourseCase(ctx, req)
+}

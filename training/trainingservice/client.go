@@ -22,6 +22,10 @@ type Client interface {
 	UpdateTrainingCourse(ctx context.Context, req *training.UpdateTrainingCourseReq, callOptions ...callopt.Option) (r *training.UpdateTrainingCourseResp, err error)
 	UpdateTrainingCourseTeacher(ctx context.Context, req *training.UpdateTrainingCourseTeacherReq, callOptions ...callopt.Option) (r *training.UpdateTrainingCourseTeacherResp, err error)
 	ApproveTrainingCourseData(ctx context.Context, req *training.ApproveTrainingCourseDataReq, callOptions ...callopt.Option) (r *training.ApproveTrainingCourseDataResp, err error)
+	UploadTrainingCourseFile(ctx context.Context, req *training.UploadTrainingCourseFileReq, callOptions ...callopt.Option) (r *training.UploadTrainingCourseFileResp, err error)
+	UploadTrainingCourseCase(ctx context.Context, req *training.UploadTrainingCourseCaseReq, callOptions ...callopt.Option) (r *training.UploadTrainingCourseCaseResp, err error)
+	ExportTrainingCourseFile(ctx context.Context, req *training.ExportTrainingCourseFileReq, callOptions ...callopt.Option) (r *training.ExportTrainingCourseFileResp, err error)
+	ExportTrainingCourseCase(ctx context.Context, req *training.ExportTrainingCourseCaseReq, callOptions ...callopt.Option) (r *training.ExportTrainingCourseCaseResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -106,4 +110,24 @@ func (p *kTrainingserviceClient) UpdateTrainingCourseTeacher(ctx context.Context
 func (p *kTrainingserviceClient) ApproveTrainingCourseData(ctx context.Context, req *training.ApproveTrainingCourseDataReq, callOptions ...callopt.Option) (r *training.ApproveTrainingCourseDataResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.ApproveTrainingCourseData(ctx, req)
+}
+
+func (p *kTrainingserviceClient) UploadTrainingCourseFile(ctx context.Context, req *training.UploadTrainingCourseFileReq, callOptions ...callopt.Option) (r *training.UploadTrainingCourseFileResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.UploadTrainingCourseFile(ctx, req)
+}
+
+func (p *kTrainingserviceClient) UploadTrainingCourseCase(ctx context.Context, req *training.UploadTrainingCourseCaseReq, callOptions ...callopt.Option) (r *training.UploadTrainingCourseCaseResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.UploadTrainingCourseCase(ctx, req)
+}
+
+func (p *kTrainingserviceClient) ExportTrainingCourseFile(ctx context.Context, req *training.ExportTrainingCourseFileReq, callOptions ...callopt.Option) (r *training.ExportTrainingCourseFileResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ExportTrainingCourseFile(ctx, req)
+}
+
+func (p *kTrainingserviceClient) ExportTrainingCourseCase(ctx context.Context, req *training.ExportTrainingCourseCaseReq, callOptions ...callopt.Option) (r *training.ExportTrainingCourseCaseResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ExportTrainingCourseCase(ctx, req)
 }
