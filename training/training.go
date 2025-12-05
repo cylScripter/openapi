@@ -3921,7 +3921,7 @@ func (p *DeleteTrainingCourseResp) DeepEqual(ano *DeleteTrainingCourseResp) bool
 type FillTrainingCourseReq struct {
 	TrainingCourseId        int32  `thrift:"training_course_id,1" frugal:"1,default,i32" json:"training_course_id" binding:"required"`
 	TrainingCourseTeacherId int32  `thrift:"training_course_teacher_id,2" frugal:"2,default,i32" json:"training_course_teacher_id" binding:"required"`
-	Content                 string `thrift:"content,3" frugal:"3,default,string" json:"content" binding:"required"`
+	Content                 string `thrift:"content,3" frugal:"3,default,string" json:"content"`
 }
 
 func NewFillTrainingCourseReq() *FillTrainingCourseReq {
