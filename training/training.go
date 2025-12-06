@@ -2003,7 +2003,6 @@ func (p *ExportTrainingCourseFileResp) Field1DeepEqual(src string) bool {
 type UploadTrainingCourseCaseReq struct {
 	UploadId         string `thrift:"upload_id,1" frugal:"1,default,string" json:"upload_id" binding:"required"`
 	TrainingCourseId int32  `thrift:"training_course_id,2" frugal:"2,default,i32" json:"training_course_id" binding:"required"`
-	IsAlone          int32  `thrift:"is_alone,3" frugal:"3,default,i32" json:"is_alone" binding:"required"`
 }
 
 func NewUploadTrainingCourseCaseReq() *UploadTrainingCourseCaseReq {
@@ -2020,24 +2019,16 @@ func (p *UploadTrainingCourseCaseReq) GetUploadId() (v string) {
 func (p *UploadTrainingCourseCaseReq) GetTrainingCourseId() (v int32) {
 	return p.TrainingCourseId
 }
-
-func (p *UploadTrainingCourseCaseReq) GetIsAlone() (v int32) {
-	return p.IsAlone
-}
 func (p *UploadTrainingCourseCaseReq) SetUploadId(val string) {
 	p.UploadId = val
 }
 func (p *UploadTrainingCourseCaseReq) SetTrainingCourseId(val int32) {
 	p.TrainingCourseId = val
 }
-func (p *UploadTrainingCourseCaseReq) SetIsAlone(val int32) {
-	p.IsAlone = val
-}
 
 var fieldIDToName_UploadTrainingCourseCaseReq = map[int16]string{
 	1: "upload_id",
 	2: "training_course_id",
-	3: "is_alone",
 }
 
 func (p *UploadTrainingCourseCaseReq) Read(iprot thrift.TProtocol) (err error) {
@@ -2070,14 +2061,6 @@ func (p *UploadTrainingCourseCaseReq) Read(iprot thrift.TProtocol) (err error) {
 		case 2:
 			if fieldTypeId == thrift.I32 {
 				if err = p.ReadField2(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		case 3:
-			if fieldTypeId == thrift.I32 {
-				if err = p.ReadField3(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -2134,17 +2117,6 @@ func (p *UploadTrainingCourseCaseReq) ReadField2(iprot thrift.TProtocol) error {
 	p.TrainingCourseId = _field
 	return nil
 }
-func (p *UploadTrainingCourseCaseReq) ReadField3(iprot thrift.TProtocol) error {
-
-	var _field int32
-	if v, err := iprot.ReadI32(); err != nil {
-		return err
-	} else {
-		_field = v
-	}
-	p.IsAlone = _field
-	return nil
-}
 
 func (p *UploadTrainingCourseCaseReq) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -2158,10 +2130,6 @@ func (p *UploadTrainingCourseCaseReq) Write(oprot thrift.TProtocol) (err error) 
 		}
 		if err = p.writeField2(oprot); err != nil {
 			fieldId = 2
-			goto WriteFieldError
-		}
-		if err = p.writeField3(oprot); err != nil {
-			fieldId = 3
 			goto WriteFieldError
 		}
 	}
@@ -2216,23 +2184,6 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *UploadTrainingCourseCaseReq) writeField3(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("is_alone", thrift.I32, 3); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := oprot.WriteI32(p.IsAlone); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 3 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
-}
-
 func (p *UploadTrainingCourseCaseReq) String() string {
 	if p == nil {
 		return "<nil>"
@@ -2253,9 +2204,6 @@ func (p *UploadTrainingCourseCaseReq) DeepEqual(ano *UploadTrainingCourseCaseReq
 	if !p.Field2DeepEqual(ano.TrainingCourseId) {
 		return false
 	}
-	if !p.Field3DeepEqual(ano.IsAlone) {
-		return false
-	}
 	return true
 }
 
@@ -2269,13 +2217,6 @@ func (p *UploadTrainingCourseCaseReq) Field1DeepEqual(src string) bool {
 func (p *UploadTrainingCourseCaseReq) Field2DeepEqual(src int32) bool {
 
 	if p.TrainingCourseId != src {
-		return false
-	}
-	return true
-}
-func (p *UploadTrainingCourseCaseReq) Field3DeepEqual(src int32) bool {
-
-	if p.IsAlone != src {
 		return false
 	}
 	return true
@@ -2376,7 +2317,6 @@ func (p *UploadTrainingCourseCaseResp) DeepEqual(ano *UploadTrainingCourseCaseRe
 type UploadTrainingCourseFileReq struct {
 	UploadId         string `thrift:"upload_id,1" frugal:"1,default,string" json:"upload_id" binding:"required"`
 	TrainingCourseId int32  `thrift:"training_course_id,2" frugal:"2,default,i32" json:"training_course_id" binding:"required"`
-	IsAlone          int32  `thrift:"is_alone,3" frugal:"3,default,i32" json:"is_alone" binding:"required"`
 }
 
 func NewUploadTrainingCourseFileReq() *UploadTrainingCourseFileReq {
@@ -2393,24 +2333,16 @@ func (p *UploadTrainingCourseFileReq) GetUploadId() (v string) {
 func (p *UploadTrainingCourseFileReq) GetTrainingCourseId() (v int32) {
 	return p.TrainingCourseId
 }
-
-func (p *UploadTrainingCourseFileReq) GetIsAlone() (v int32) {
-	return p.IsAlone
-}
 func (p *UploadTrainingCourseFileReq) SetUploadId(val string) {
 	p.UploadId = val
 }
 func (p *UploadTrainingCourseFileReq) SetTrainingCourseId(val int32) {
 	p.TrainingCourseId = val
 }
-func (p *UploadTrainingCourseFileReq) SetIsAlone(val int32) {
-	p.IsAlone = val
-}
 
 var fieldIDToName_UploadTrainingCourseFileReq = map[int16]string{
 	1: "upload_id",
 	2: "training_course_id",
-	3: "is_alone",
 }
 
 func (p *UploadTrainingCourseFileReq) Read(iprot thrift.TProtocol) (err error) {
@@ -2443,14 +2375,6 @@ func (p *UploadTrainingCourseFileReq) Read(iprot thrift.TProtocol) (err error) {
 		case 2:
 			if fieldTypeId == thrift.I32 {
 				if err = p.ReadField2(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		case 3:
-			if fieldTypeId == thrift.I32 {
-				if err = p.ReadField3(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -2507,17 +2431,6 @@ func (p *UploadTrainingCourseFileReq) ReadField2(iprot thrift.TProtocol) error {
 	p.TrainingCourseId = _field
 	return nil
 }
-func (p *UploadTrainingCourseFileReq) ReadField3(iprot thrift.TProtocol) error {
-
-	var _field int32
-	if v, err := iprot.ReadI32(); err != nil {
-		return err
-	} else {
-		_field = v
-	}
-	p.IsAlone = _field
-	return nil
-}
 
 func (p *UploadTrainingCourseFileReq) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -2531,10 +2444,6 @@ func (p *UploadTrainingCourseFileReq) Write(oprot thrift.TProtocol) (err error) 
 		}
 		if err = p.writeField2(oprot); err != nil {
 			fieldId = 2
-			goto WriteFieldError
-		}
-		if err = p.writeField3(oprot); err != nil {
-			fieldId = 3
 			goto WriteFieldError
 		}
 	}
@@ -2589,23 +2498,6 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *UploadTrainingCourseFileReq) writeField3(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("is_alone", thrift.I32, 3); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := oprot.WriteI32(p.IsAlone); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 3 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
-}
-
 func (p *UploadTrainingCourseFileReq) String() string {
 	if p == nil {
 		return "<nil>"
@@ -2626,9 +2518,6 @@ func (p *UploadTrainingCourseFileReq) DeepEqual(ano *UploadTrainingCourseFileReq
 	if !p.Field2DeepEqual(ano.TrainingCourseId) {
 		return false
 	}
-	if !p.Field3DeepEqual(ano.IsAlone) {
-		return false
-	}
 	return true
 }
 
@@ -2642,13 +2531,6 @@ func (p *UploadTrainingCourseFileReq) Field1DeepEqual(src string) bool {
 func (p *UploadTrainingCourseFileReq) Field2DeepEqual(src int32) bool {
 
 	if p.TrainingCourseId != src {
-		return false
-	}
-	return true
-}
-func (p *UploadTrainingCourseFileReq) Field3DeepEqual(src int32) bool {
-
-	if p.IsAlone != src {
 		return false
 	}
 	return true
