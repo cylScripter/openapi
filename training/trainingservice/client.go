@@ -26,6 +26,9 @@ type Client interface {
 	UploadTrainingCourseCase(ctx context.Context, req *training.UploadTrainingCourseCaseReq, callOptions ...callopt.Option) (r *training.UploadTrainingCourseCaseResp, err error)
 	ExportTrainingCourseFile(ctx context.Context, req *training.ExportTrainingCourseFileReq, callOptions ...callopt.Option) (r *training.ExportTrainingCourseFileResp, err error)
 	ExportTrainingCourseCase(ctx context.Context, req *training.ExportTrainingCourseCaseReq, callOptions ...callopt.Option) (r *training.ExportTrainingCourseCaseResp, err error)
+	UploadTrainingCourseSource(ctx context.Context, req *training.UploadTrainingCourseSourceReq, callOptions ...callopt.Option) (r *training.UploadTrainingCourseSourceResp, err error)
+	ExportTrainingCourseSource(ctx context.Context, req *training.ExportTrainingCourseSourceReq, callOptions ...callopt.Option) (r *training.ExportTrainingCourseSourceResp, err error)
+	GetExportResult_(ctx context.Context, req *training.GetExportResultReq, callOptions ...callopt.Option) (r *training.GetExportResultResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -130,4 +133,19 @@ func (p *kTrainingserviceClient) ExportTrainingCourseFile(ctx context.Context, r
 func (p *kTrainingserviceClient) ExportTrainingCourseCase(ctx context.Context, req *training.ExportTrainingCourseCaseReq, callOptions ...callopt.Option) (r *training.ExportTrainingCourseCaseResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.ExportTrainingCourseCase(ctx, req)
+}
+
+func (p *kTrainingserviceClient) UploadTrainingCourseSource(ctx context.Context, req *training.UploadTrainingCourseSourceReq, callOptions ...callopt.Option) (r *training.UploadTrainingCourseSourceResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.UploadTrainingCourseSource(ctx, req)
+}
+
+func (p *kTrainingserviceClient) ExportTrainingCourseSource(ctx context.Context, req *training.ExportTrainingCourseSourceReq, callOptions ...callopt.Option) (r *training.ExportTrainingCourseSourceResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ExportTrainingCourseSource(ctx, req)
+}
+
+func (p *kTrainingserviceClient) GetExportResult_(ctx context.Context, req *training.GetExportResultReq, callOptions ...callopt.Option) (r *training.GetExportResultResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetExportResult_(ctx, req)
 }
