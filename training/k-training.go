@@ -6662,6 +6662,20 @@ func (p *ModelTrainingCourse) FastRead(buf []byte) (int, error) {
 					goto SkipFieldError
 				}
 			}
+		case 29:
+			if fieldTypeId == thrift.STRING {
+				l, err = p.FastReadField29(buf[offset:])
+				offset += l
+				if err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
+				offset += l
+				if err != nil {
+					goto SkipFieldError
+				}
+			}
 		default:
 			l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
 			offset += l
@@ -7072,6 +7086,20 @@ func (p *ModelTrainingCourse) FastReadField28(buf []byte) (int, error) {
 	return offset, nil
 }
 
+func (p *ModelTrainingCourse) FastReadField29(buf []byte) (int, error) {
+	offset := 0
+
+	var _field string
+	if v, l, err := thrift.Binary.ReadString(buf[offset:]); err != nil {
+		return offset, err
+	} else {
+		offset += l
+		_field = v
+	}
+	p.ProjectSourceProofPerson = _field
+	return offset, nil
+}
+
 // for compatibility
 func (p *ModelTrainingCourse) FastWrite(buf []byte) int {
 	return 0
@@ -7108,6 +7136,7 @@ func (p *ModelTrainingCourse) FastWriteNocopy(buf []byte, w thrift.NocopyWriter)
 		offset += p.fastWriteField25(buf[offset:], w)
 		offset += p.fastWriteField26(buf[offset:], w)
 		offset += p.fastWriteField28(buf[offset:], w)
+		offset += p.fastWriteField29(buf[offset:], w)
 	}
 	offset += thrift.Binary.WriteFieldStop(buf[offset:])
 	return offset
@@ -7144,6 +7173,7 @@ func (p *ModelTrainingCourse) BLength() int {
 		l += p.field26Length()
 		l += p.field27Length()
 		l += p.field28Length()
+		l += p.field29Length()
 	}
 	l += thrift.Binary.FieldStopLength()
 	return l
@@ -7345,6 +7375,13 @@ func (p *ModelTrainingCourse) fastWriteField28(buf []byte, w thrift.NocopyWriter
 	return offset
 }
 
+func (p *ModelTrainingCourse) fastWriteField29(buf []byte, w thrift.NocopyWriter) int {
+	offset := 0
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 29)
+	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.ProjectSourceProofPerson)
+	return offset
+}
+
 func (p *ModelTrainingCourse) field1Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
@@ -7538,6 +7575,13 @@ func (p *ModelTrainingCourse) field28Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.StringLengthNocopy(p.Filler)
+	return l
+}
+
+func (p *ModelTrainingCourse) field29Length() int {
+	l := 0
+	l += thrift.Binary.FieldBeginLength()
+	l += thrift.Binary.StringLengthNocopy(p.ProjectSourceProofPerson)
 	return l
 }
 
