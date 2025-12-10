@@ -69,6 +69,27 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"CheckMultipartStatus": kitex.NewMethodInfo(
+		checkMultipartStatusHandler,
+		newCommonserviceCheckMultipartStatusArgs,
+		newCommonserviceCheckMultipartStatusResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"ResendPartUrl": kitex.NewMethodInfo(
+		resendPartUrlHandler,
+		newCommonserviceResendPartUrlArgs,
+		newCommonserviceResendPartUrlResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetUploadProgress": kitex.NewMethodInfo(
+		getUploadProgressHandler,
+		newCommonserviceGetUploadProgressArgs,
+		newCommonserviceGetUploadProgressResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 	"GetObject": kitex.NewMethodInfo(
 		getObjectHandler,
 		newCommonserviceGetObjectArgs,
@@ -314,6 +335,60 @@ func newCommonserviceAbortMultipartResult() interface{} {
 	return common.NewCommonserviceAbortMultipartResult()
 }
 
+func checkMultipartStatusHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*common.CommonserviceCheckMultipartStatusArgs)
+	realResult := result.(*common.CommonserviceCheckMultipartStatusResult)
+	success, err := handler.(common.Commonservice).CheckMultipartStatus(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newCommonserviceCheckMultipartStatusArgs() interface{} {
+	return common.NewCommonserviceCheckMultipartStatusArgs()
+}
+
+func newCommonserviceCheckMultipartStatusResult() interface{} {
+	return common.NewCommonserviceCheckMultipartStatusResult()
+}
+
+func resendPartUrlHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*common.CommonserviceResendPartUrlArgs)
+	realResult := result.(*common.CommonserviceResendPartUrlResult)
+	success, err := handler.(common.Commonservice).ResendPartUrl(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newCommonserviceResendPartUrlArgs() interface{} {
+	return common.NewCommonserviceResendPartUrlArgs()
+}
+
+func newCommonserviceResendPartUrlResult() interface{} {
+	return common.NewCommonserviceResendPartUrlResult()
+}
+
+func getUploadProgressHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*common.CommonserviceGetUploadProgressArgs)
+	realResult := result.(*common.CommonserviceGetUploadProgressResult)
+	success, err := handler.(common.Commonservice).GetUploadProgress(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newCommonserviceGetUploadProgressArgs() interface{} {
+	return common.NewCommonserviceGetUploadProgressArgs()
+}
+
+func newCommonserviceGetUploadProgressResult() interface{} {
+	return common.NewCommonserviceGetUploadProgressResult()
+}
+
 func getObjectHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
 	realArg := arg.(*common.CommonserviceGetObjectArgs)
 	realResult := result.(*common.CommonserviceGetObjectResult)
@@ -489,6 +564,36 @@ func (p *kClient) AbortMultipart(ctx context.Context, req *common.AbortMultipart
 	_args.Req = req
 	var _result common.CommonserviceAbortMultipartResult
 	if err = p.c.Call(ctx, "AbortMultipart", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) CheckMultipartStatus(ctx context.Context, req *common.CheckMultipartStatusReq) (r *common.CheckMultipartStatusResp, err error) {
+	var _args common.CommonserviceCheckMultipartStatusArgs
+	_args.Req = req
+	var _result common.CommonserviceCheckMultipartStatusResult
+	if err = p.c.Call(ctx, "CheckMultipartStatus", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ResendPartUrl(ctx context.Context, req *common.ResendPartUrlReq) (r *common.ResendPartUrlResp, err error) {
+	var _args common.CommonserviceResendPartUrlArgs
+	_args.Req = req
+	var _result common.CommonserviceResendPartUrlResult
+	if err = p.c.Call(ctx, "ResendPartUrl", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetUploadProgress(ctx context.Context, req *common.GetUploadProgressReq) (r *common.GetUploadProgressResp, err error) {
+	var _args common.CommonserviceGetUploadProgressArgs
+	_args.Req = req
+	var _result common.CommonserviceGetUploadProgressResult
+	if err = p.c.Call(ctx, "GetUploadProgress", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

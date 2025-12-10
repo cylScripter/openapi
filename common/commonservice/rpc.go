@@ -46,6 +46,21 @@ func AbortMultipart(ctx context.Context, req *common.AbortMultipartReq, callOpti
 	return clients.AbortMultipart(ctx, req)
 }
 
+func CheckMultipartStatus(ctx context.Context, req *common.CheckMultipartStatusReq, callOptions ...client.Option) (resp *common.CheckMultipartStatusResp, err error) {
+	clients := MustNewClient("common", callOptions...)
+	return clients.CheckMultipartStatus(ctx, req)
+}
+
+func ResendPartUrl(ctx context.Context, req *common.ResendPartUrlReq, callOptions ...client.Option) (resp *common.ResendPartUrlResp, err error) {
+	clients := MustNewClient("common", callOptions...)
+	return clients.ResendPartUrl(ctx, req)
+}
+
+func GetUploadProgress(ctx context.Context, req *common.GetUploadProgressReq, callOptions ...client.Option) (resp *common.GetUploadProgressResp, err error) {
+	clients := MustNewClient("common", callOptions...)
+	return clients.GetUploadProgress(ctx, req)
+}
+
 func GetObject(ctx context.Context, req *common.GetObjectReq, callOptions ...client.Option) (resp *common.GetObjectResp, err error) {
 	clients := MustNewClient("common", callOptions...)
 	return clients.GetObject(ctx, req)

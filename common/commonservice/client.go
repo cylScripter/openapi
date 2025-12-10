@@ -19,6 +19,9 @@ type Client interface {
 	GetPresignedUrlList(ctx context.Context, req *common.GetPresignedUrlListReq, callOptions ...callopt.Option) (r *common.GetPresignedUrlListResp, err error)
 	CompleteMultipart(ctx context.Context, req *common.CompleteMultipartReq, callOptions ...callopt.Option) (r *common.CompleteMultipartResp, err error)
 	AbortMultipart(ctx context.Context, req *common.AbortMultipartReq, callOptions ...callopt.Option) (r *common.AbortMultipartResp, err error)
+	CheckMultipartStatus(ctx context.Context, req *common.CheckMultipartStatusReq, callOptions ...callopt.Option) (r *common.CheckMultipartStatusResp, err error)
+	ResendPartUrl(ctx context.Context, req *common.ResendPartUrlReq, callOptions ...callopt.Option) (r *common.ResendPartUrlResp, err error)
+	GetUploadProgress(ctx context.Context, req *common.GetUploadProgressReq, callOptions ...callopt.Option) (r *common.GetUploadProgressResp, err error)
 	GetObject(ctx context.Context, req *common.GetObjectReq, callOptions ...callopt.Option) (r *common.GetObjectResp, err error)
 	DeleteObject(ctx context.Context, req *common.DeleteObjectReq, callOptions ...callopt.Option) (r *common.DeleteObjectResp, err error)
 	CreateAsyncTask(ctx context.Context, req *common.CreateAsyncTaskReq, callOptions ...callopt.Option) (r *common.CreateAsyncTaskResp, err error)
@@ -93,6 +96,21 @@ func (p *kCommonserviceClient) CompleteMultipart(ctx context.Context, req *commo
 func (p *kCommonserviceClient) AbortMultipart(ctx context.Context, req *common.AbortMultipartReq, callOptions ...callopt.Option) (r *common.AbortMultipartResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.AbortMultipart(ctx, req)
+}
+
+func (p *kCommonserviceClient) CheckMultipartStatus(ctx context.Context, req *common.CheckMultipartStatusReq, callOptions ...callopt.Option) (r *common.CheckMultipartStatusResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.CheckMultipartStatus(ctx, req)
+}
+
+func (p *kCommonserviceClient) ResendPartUrl(ctx context.Context, req *common.ResendPartUrlReq, callOptions ...callopt.Option) (r *common.ResendPartUrlResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ResendPartUrl(ctx, req)
+}
+
+func (p *kCommonserviceClient) GetUploadProgress(ctx context.Context, req *common.GetUploadProgressReq, callOptions ...callopt.Option) (r *common.GetUploadProgressResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetUploadProgress(ctx, req)
 }
 
 func (p *kCommonserviceClient) GetObject(ctx context.Context, req *common.GetObjectReq, callOptions ...callopt.Option) (r *common.GetObjectResp, err error) {
