@@ -12,6 +12,53 @@ import (
 	"strings"
 )
 
+type GetPastMajorListOption int64
+
+const (
+	GetPastMajorListOption_id                   GetPastMajorListOption = 1
+	GetPastMajorListOption_name                 GetPastMajorListOption = 2
+	GetPastMajorListOption_research_director_id GetPastMajorListOption = 3
+)
+
+func (p GetPastMajorListOption) String() string {
+	switch p {
+	case GetPastMajorListOption_id:
+		return "id"
+	case GetPastMajorListOption_name:
+		return "name"
+	case GetPastMajorListOption_research_director_id:
+		return "research_director_id"
+	}
+	return "<UNSET>"
+}
+
+func GetPastMajorListOptionFromString(s string) (GetPastMajorListOption, error) {
+	switch s {
+	case "id":
+		return GetPastMajorListOption_id, nil
+	case "name":
+		return GetPastMajorListOption_name, nil
+	case "research_director_id":
+		return GetPastMajorListOption_research_director_id, nil
+	}
+	return GetPastMajorListOption(0), fmt.Errorf("not a valid GetPastMajorListOption string")
+}
+
+func GetPastMajorListOptionPtr(v GetPastMajorListOption) *GetPastMajorListOption { return &v }
+func (p *GetPastMajorListOption) Scan(value interface{}) (err error) {
+	var result sql.NullInt64
+	err = result.Scan(value)
+	*p = GetPastMajorListOption(result.Int64)
+	return
+}
+
+func (p *GetPastMajorListOption) Value() (driver.Value, error) {
+	if p == nil {
+		return nil, nil
+	}
+	return int64(*p), nil
+}
+
 type TrainingCourseListReqOption int64
 
 const (
