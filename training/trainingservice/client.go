@@ -29,6 +29,10 @@ type Client interface {
 	UploadTrainingCourseSource(ctx context.Context, req *training.UploadTrainingCourseSourceReq, callOptions ...callopt.Option) (r *training.UploadTrainingCourseSourceResp, err error)
 	ExportTrainingCourseSource(ctx context.Context, req *training.ExportTrainingCourseSourceReq, callOptions ...callopt.Option) (r *training.ExportTrainingCourseSourceResp, err error)
 	GetExportResult_(ctx context.Context, req *training.GetExportResultReq, callOptions ...callopt.Option) (r *training.GetExportResultResp, err error)
+	GetPastMajorList(ctx context.Context, req *training.GetPastMajorListReq, callOptions ...callopt.Option) (r *training.GetPastMajorListResp, err error)
+	DeletePastMajor(ctx context.Context, req *training.DeletePastMajorReq, callOptions ...callopt.Option) (r *training.DeletePastMajorResp, err error)
+	AddPastMajor(ctx context.Context, req *training.AddPastMajorReq, callOptions ...callopt.Option) (r *training.AddPastMajorResp, err error)
+	UpdatePastMajor(ctx context.Context, req *training.UpdatePastMajorReq, callOptions ...callopt.Option) (r *training.UpdatePastMajorResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -148,4 +152,24 @@ func (p *kTrainingserviceClient) ExportTrainingCourseSource(ctx context.Context,
 func (p *kTrainingserviceClient) GetExportResult_(ctx context.Context, req *training.GetExportResultReq, callOptions ...callopt.Option) (r *training.GetExportResultResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.GetExportResult_(ctx, req)
+}
+
+func (p *kTrainingserviceClient) GetPastMajorList(ctx context.Context, req *training.GetPastMajorListReq, callOptions ...callopt.Option) (r *training.GetPastMajorListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetPastMajorList(ctx, req)
+}
+
+func (p *kTrainingserviceClient) DeletePastMajor(ctx context.Context, req *training.DeletePastMajorReq, callOptions ...callopt.Option) (r *training.DeletePastMajorResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.DeletePastMajor(ctx, req)
+}
+
+func (p *kTrainingserviceClient) AddPastMajor(ctx context.Context, req *training.AddPastMajorReq, callOptions ...callopt.Option) (r *training.AddPastMajorResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.AddPastMajor(ctx, req)
+}
+
+func (p *kTrainingserviceClient) UpdatePastMajor(ctx context.Context, req *training.UpdatePastMajorReq, callOptions ...callopt.Option) (r *training.UpdatePastMajorResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.UpdatePastMajor(ctx, req)
 }

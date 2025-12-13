@@ -95,3 +95,23 @@ func GetExportResult_(ctx context.Context, req *training.GetExportResultReq, cal
 	clients := MustNewClient("training", callOptions...)
 	return clients.GetExportResult_(ctx, req)
 }
+
+func GetPastMajorList(ctx context.Context, req *training.GetPastMajorListReq, callOptions ...client.Option) (resp *training.GetPastMajorListResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.GetPastMajorList(ctx, req)
+}
+
+func DeletePastMajor(ctx context.Context, req *training.DeletePastMajorReq, callOptions ...client.Option) (resp *training.DeletePastMajorResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.DeletePastMajor(ctx, req)
+}
+
+func AddPastMajor(ctx context.Context, req *training.AddPastMajorReq, callOptions ...client.Option) (resp *training.AddPastMajorResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.AddPastMajor(ctx, req)
+}
+
+func UpdatePastMajor(ctx context.Context, req *training.UpdatePastMajorReq, callOptions ...client.Option) (resp *training.UpdatePastMajorResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.UpdatePastMajor(ctx, req)
+}

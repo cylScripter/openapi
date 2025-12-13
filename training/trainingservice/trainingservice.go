@@ -139,6 +139,34 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"GetPastMajorList": kitex.NewMethodInfo(
+		getPastMajorListHandler,
+		newTrainingserviceGetPastMajorListArgs,
+		newTrainingserviceGetPastMajorListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"DeletePastMajor": kitex.NewMethodInfo(
+		deletePastMajorHandler,
+		newTrainingserviceDeletePastMajorArgs,
+		newTrainingserviceDeletePastMajorResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"AddPastMajor": kitex.NewMethodInfo(
+		addPastMajorHandler,
+		newTrainingserviceAddPastMajorArgs,
+		newTrainingserviceAddPastMajorResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"UpdatePastMajor": kitex.NewMethodInfo(
+		updatePastMajorHandler,
+		newTrainingserviceUpdatePastMajorArgs,
+		newTrainingserviceUpdatePastMajorResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -529,6 +557,78 @@ func newTrainingserviceGetExportResultResult() interface{} {
 	return training.NewTrainingserviceGetExportResultResult()
 }
 
+func getPastMajorListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceGetPastMajorListArgs)
+	realResult := result.(*training.TrainingserviceGetPastMajorListResult)
+	success, err := handler.(training.Trainingservice).GetPastMajorList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceGetPastMajorListArgs() interface{} {
+	return training.NewTrainingserviceGetPastMajorListArgs()
+}
+
+func newTrainingserviceGetPastMajorListResult() interface{} {
+	return training.NewTrainingserviceGetPastMajorListResult()
+}
+
+func deletePastMajorHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceDeletePastMajorArgs)
+	realResult := result.(*training.TrainingserviceDeletePastMajorResult)
+	success, err := handler.(training.Trainingservice).DeletePastMajor(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceDeletePastMajorArgs() interface{} {
+	return training.NewTrainingserviceDeletePastMajorArgs()
+}
+
+func newTrainingserviceDeletePastMajorResult() interface{} {
+	return training.NewTrainingserviceDeletePastMajorResult()
+}
+
+func addPastMajorHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceAddPastMajorArgs)
+	realResult := result.(*training.TrainingserviceAddPastMajorResult)
+	success, err := handler.(training.Trainingservice).AddPastMajor(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceAddPastMajorArgs() interface{} {
+	return training.NewTrainingserviceAddPastMajorArgs()
+}
+
+func newTrainingserviceAddPastMajorResult() interface{} {
+	return training.NewTrainingserviceAddPastMajorResult()
+}
+
+func updatePastMajorHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceUpdatePastMajorArgs)
+	realResult := result.(*training.TrainingserviceUpdatePastMajorResult)
+	success, err := handler.(training.Trainingservice).UpdatePastMajor(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceUpdatePastMajorArgs() interface{} {
+	return training.NewTrainingserviceUpdatePastMajorArgs()
+}
+
+func newTrainingserviceUpdatePastMajorResult() interface{} {
+	return training.NewTrainingserviceUpdatePastMajorResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -714,6 +814,46 @@ func (p *kClient) GetExportResult_(ctx context.Context, req *training.GetExportR
 	_args.Req = req
 	var _result training.TrainingserviceGetExportResultResult
 	if err = p.c.Call(ctx, "GetExportResult", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetPastMajorList(ctx context.Context, req *training.GetPastMajorListReq) (r *training.GetPastMajorListResp, err error) {
+	var _args training.TrainingserviceGetPastMajorListArgs
+	_args.Req = req
+	var _result training.TrainingserviceGetPastMajorListResult
+	if err = p.c.Call(ctx, "GetPastMajorList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) DeletePastMajor(ctx context.Context, req *training.DeletePastMajorReq) (r *training.DeletePastMajorResp, err error) {
+	var _args training.TrainingserviceDeletePastMajorArgs
+	_args.Req = req
+	var _result training.TrainingserviceDeletePastMajorResult
+	if err = p.c.Call(ctx, "DeletePastMajor", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) AddPastMajor(ctx context.Context, req *training.AddPastMajorReq) (r *training.AddPastMajorResp, err error) {
+	var _args training.TrainingserviceAddPastMajorArgs
+	_args.Req = req
+	var _result training.TrainingserviceAddPastMajorResult
+	if err = p.c.Call(ctx, "AddPastMajor", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) UpdatePastMajor(ctx context.Context, req *training.UpdatePastMajorReq) (r *training.UpdatePastMajorResp, err error) {
+	var _args training.TrainingserviceUpdatePastMajorArgs
+	_args.Req = req
+	var _result training.TrainingserviceUpdatePastMajorResult
+	if err = p.c.Call(ctx, "UpdatePastMajor", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
