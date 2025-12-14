@@ -62,14 +62,18 @@ func (p *GetPastMajorListOption) Value() (driver.Value, error) {
 type TrainingCourseListReqOption int64
 
 const (
-	TrainingCourseListReqOption_id            TrainingCourseListReqOption = 1
-	TrainingCourseListReqOption_academic_year TrainingCourseListReqOption = 2
-	TrainingCourseListReqOption_semester      TrainingCourseListReqOption = 3
-	TrainingCourseListReqOption_major         TrainingCourseListReqOption = 4
-	TrainingCourseListReqOption_class_name    TrainingCourseListReqOption = 5
-	TrainingCourseListReqOption_course_name   TrainingCourseListReqOption = 6
-	TrainingCourseListReqOption_grade         TrainingCourseListReqOption = 7
-	TrainingCourseListReqOption_type          TrainingCourseListReqOption = 8
+	TrainingCourseListReqOption_id                            TrainingCourseListReqOption = 1
+	TrainingCourseListReqOption_academic_year                 TrainingCourseListReqOption = 2
+	TrainingCourseListReqOption_semester                      TrainingCourseListReqOption = 3
+	TrainingCourseListReqOption_major                         TrainingCourseListReqOption = 4
+	TrainingCourseListReqOption_class_name                    TrainingCourseListReqOption = 5
+	TrainingCourseListReqOption_course_name                   TrainingCourseListReqOption = 6
+	TrainingCourseListReqOption_grade                         TrainingCourseListReqOption = 7
+	TrainingCourseListReqOption_type                          TrainingCourseListReqOption = 8
+	TrainingCourseListReqOption_is_fill                       TrainingCourseListReqOption = 9
+	TrainingCourseListReqOption_is_file_upload                TrainingCourseListReqOption = 10
+	TrainingCourseListReqOption_is_case_file_upload           TrainingCourseListReqOption = 11
+	TrainingCourseListReqOption_is_project_source_file_upload TrainingCourseListReqOption = 12
 )
 
 func (p TrainingCourseListReqOption) String() string {
@@ -90,6 +94,14 @@ func (p TrainingCourseListReqOption) String() string {
 		return "grade"
 	case TrainingCourseListReqOption_type:
 		return "type"
+	case TrainingCourseListReqOption_is_fill:
+		return "is_fill"
+	case TrainingCourseListReqOption_is_file_upload:
+		return "is_file_upload"
+	case TrainingCourseListReqOption_is_case_file_upload:
+		return "is_case_file_upload"
+	case TrainingCourseListReqOption_is_project_source_file_upload:
+		return "is_project_source_file_upload"
 	}
 	return "<UNSET>"
 }
@@ -112,6 +124,14 @@ func TrainingCourseListReqOptionFromString(s string) (TrainingCourseListReqOptio
 		return TrainingCourseListReqOption_grade, nil
 	case "type":
 		return TrainingCourseListReqOption_type, nil
+	case "is_fill":
+		return TrainingCourseListReqOption_is_fill, nil
+	case "is_file_upload":
+		return TrainingCourseListReqOption_is_file_upload, nil
+	case "is_case_file_upload":
+		return TrainingCourseListReqOption_is_case_file_upload, nil
+	case "is_project_source_file_upload":
+		return TrainingCourseListReqOption_is_project_source_file_upload, nil
 	}
 	return TrainingCourseListReqOption(0), fmt.Errorf("not a valid TrainingCourseListReqOption string")
 }
