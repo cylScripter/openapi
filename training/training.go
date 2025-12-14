@@ -7250,7 +7250,7 @@ type GetTrainingCourseResp struct {
 	TrainingCourse      *ModelTrainingCourse        `thrift:"training_course,1" frugal:"1,default,ModelTrainingCourse" json:"training_course"`
 	TeacherList         []*TrainingCourseTeacherOne `thrift:"teacher_list,2" frugal:"2,default,list<TrainingCourseTeacherOne>" json:"teacher_list"`
 	CourseFile          *CourseFile                 `thrift:"course_file,3" frugal:"3,default,CourseFile" json:"course_file"`
-	CourseCaseFile      *CourseFile                 `thrift:"course_case_file,4" frugal:"4,default,CourseFile" json:"course_case"`
+	CourseCaseFile      *CourseFile                 `thrift:"course_case_file,4" frugal:"4,default,CourseFile" json:"course_case_file"`
 	ProjectSourceFile   *CourseFile                 `thrift:"project_source_file,5" frugal:"5,default,CourseFile" json:"project_source_file"`
 	CourseFileStatus    int32                       `thrift:"course_file_status,6" frugal:"6,default,i32" json:"course_file_status"`
 	CourseCaseStatus    int32                       `thrift:"course_case_status,7" frugal:"7,default,i32" json:"course_case_status"`
