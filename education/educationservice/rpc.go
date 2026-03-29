@@ -615,3 +615,18 @@ func ImportBeginExamWorkload(ctx context.Context, req *education.ImportBeginExam
 	clients := MustNewClient("education", callOptions...)
 	return clients.ImportBeginExamWorkload(ctx, req)
 }
+
+func EditAdjustmentForm(ctx context.Context, req *education.EditAdjustmentFormReq, callOptions ...client.Option) (resp *education.EditAdjustmentFormResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.EditAdjustmentForm(ctx, req)
+}
+
+func GetAdjustmentFormList(ctx context.Context, req *education.GetAdjustmentFormListReq, callOptions ...client.Option) (resp *education.GetAdjustmentFormListResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.GetAdjustmentFormList(ctx, req)
+}
+
+func LinkAdjustmentApply(ctx context.Context, req *education.LinkAdjustmentApplyReq, callOptions ...client.Option) (resp *education.LinkAdjustmentApplyResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.LinkAdjustmentApply(ctx, req)
+}

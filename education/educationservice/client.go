@@ -133,6 +133,9 @@ type Client interface {
 	UpdateWorkloadStatistics(ctx context.Context, req *education.UpdateWorkloadStatisticsReq, callOptions ...callopt.Option) (r *education.UpdateWorkloadStatisticsResp, err error)
 	GetCollegeList(ctx context.Context, req *education.GetCollegeListReq, callOptions ...callopt.Option) (r *education.GetCollegeListResp, err error)
 	ImportBeginExamWorkload(ctx context.Context, req *education.ImportBeginExamWorkloadReq, callOptions ...callopt.Option) (r *education.ImportBeginExamWorkloadResp, err error)
+	EditAdjustmentForm(ctx context.Context, req *education.EditAdjustmentFormReq, callOptions ...callopt.Option) (r *education.EditAdjustmentFormResp, err error)
+	GetAdjustmentFormList(ctx context.Context, req *education.GetAdjustmentFormListReq, callOptions ...callopt.Option) (r *education.GetAdjustmentFormListResp, err error)
+	LinkAdjustmentApply(ctx context.Context, req *education.LinkAdjustmentApplyReq, callOptions ...callopt.Option) (r *education.LinkAdjustmentApplyResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -772,4 +775,19 @@ func (p *kEducationserviceClient) GetCollegeList(ctx context.Context, req *educa
 func (p *kEducationserviceClient) ImportBeginExamWorkload(ctx context.Context, req *education.ImportBeginExamWorkloadReq, callOptions ...callopt.Option) (r *education.ImportBeginExamWorkloadResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.ImportBeginExamWorkload(ctx, req)
+}
+
+func (p *kEducationserviceClient) EditAdjustmentForm(ctx context.Context, req *education.EditAdjustmentFormReq, callOptions ...callopt.Option) (r *education.EditAdjustmentFormResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.EditAdjustmentForm(ctx, req)
+}
+
+func (p *kEducationserviceClient) GetAdjustmentFormList(ctx context.Context, req *education.GetAdjustmentFormListReq, callOptions ...callopt.Option) (r *education.GetAdjustmentFormListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetAdjustmentFormList(ctx, req)
+}
+
+func (p *kEducationserviceClient) LinkAdjustmentApply(ctx context.Context, req *education.LinkAdjustmentApplyReq, callOptions ...callopt.Option) (r *education.LinkAdjustmentApplyResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.LinkAdjustmentApply(ctx, req)
 }

@@ -867,6 +867,27 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"EditAdjustmentForm": kitex.NewMethodInfo(
+		editAdjustmentFormHandler,
+		newEducationserviceEditAdjustmentFormArgs,
+		newEducationserviceEditAdjustmentFormResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetAdjustmentFormList": kitex.NewMethodInfo(
+		getAdjustmentFormListHandler,
+		newEducationserviceGetAdjustmentFormListArgs,
+		newEducationserviceGetAdjustmentFormListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"LinkAdjustmentApply": kitex.NewMethodInfo(
+		linkAdjustmentApplyHandler,
+		newEducationserviceLinkAdjustmentApplyArgs,
+		newEducationserviceLinkAdjustmentApplyResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -3129,6 +3150,60 @@ func newEducationserviceImportBeginExamWorkloadResult() interface{} {
 	return education.NewEducationserviceImportBeginExamWorkloadResult()
 }
 
+func editAdjustmentFormHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceEditAdjustmentFormArgs)
+	realResult := result.(*education.EducationserviceEditAdjustmentFormResult)
+	success, err := handler.(education.Educationservice).EditAdjustmentForm(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceEditAdjustmentFormArgs() interface{} {
+	return education.NewEducationserviceEditAdjustmentFormArgs()
+}
+
+func newEducationserviceEditAdjustmentFormResult() interface{} {
+	return education.NewEducationserviceEditAdjustmentFormResult()
+}
+
+func getAdjustmentFormListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceGetAdjustmentFormListArgs)
+	realResult := result.(*education.EducationserviceGetAdjustmentFormListResult)
+	success, err := handler.(education.Educationservice).GetAdjustmentFormList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceGetAdjustmentFormListArgs() interface{} {
+	return education.NewEducationserviceGetAdjustmentFormListArgs()
+}
+
+func newEducationserviceGetAdjustmentFormListResult() interface{} {
+	return education.NewEducationserviceGetAdjustmentFormListResult()
+}
+
+func linkAdjustmentApplyHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceLinkAdjustmentApplyArgs)
+	realResult := result.(*education.EducationserviceLinkAdjustmentApplyResult)
+	success, err := handler.(education.Educationservice).LinkAdjustmentApply(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceLinkAdjustmentApplyArgs() interface{} {
+	return education.NewEducationserviceLinkAdjustmentApplyArgs()
+}
+
+func newEducationserviceLinkAdjustmentApplyResult() interface{} {
+	return education.NewEducationserviceLinkAdjustmentApplyResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -4354,6 +4429,36 @@ func (p *kClient) ImportBeginExamWorkload(ctx context.Context, req *education.Im
 	_args.Req = req
 	var _result education.EducationserviceImportBeginExamWorkloadResult
 	if err = p.c.Call(ctx, "ImportBeginExamWorkload", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) EditAdjustmentForm(ctx context.Context, req *education.EditAdjustmentFormReq) (r *education.EditAdjustmentFormResp, err error) {
+	var _args education.EducationserviceEditAdjustmentFormArgs
+	_args.Req = req
+	var _result education.EducationserviceEditAdjustmentFormResult
+	if err = p.c.Call(ctx, "EditAdjustmentForm", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetAdjustmentFormList(ctx context.Context, req *education.GetAdjustmentFormListReq) (r *education.GetAdjustmentFormListResp, err error) {
+	var _args education.EducationserviceGetAdjustmentFormListArgs
+	_args.Req = req
+	var _result education.EducationserviceGetAdjustmentFormListResult
+	if err = p.c.Call(ctx, "GetAdjustmentFormList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) LinkAdjustmentApply(ctx context.Context, req *education.LinkAdjustmentApplyReq) (r *education.LinkAdjustmentApplyResp, err error) {
+	var _args education.EducationserviceLinkAdjustmentApplyArgs
+	_args.Req = req
+	var _result education.EducationserviceLinkAdjustmentApplyResult
+	if err = p.c.Call(ctx, "LinkAdjustmentApply", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
