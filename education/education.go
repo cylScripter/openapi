@@ -2408,7 +2408,7 @@ func (p *LinkAdjustmentApplyResp) DeepEqual(ano *LinkAdjustmentApplyResp) bool {
 }
 
 type LinkAdjustmentApplyReq struct {
-	AdjustmentApplyId int32   `thrift:"adjustment_apply_id,1" frugal:"1,default,i32" json:"adjustment_apply_id" binding:"required"`
+	AdjustmentApplyId int32   `thrift:"adjustment_apply_id,1" frugal:"1,default,i32" json:"adjustment_apply_id"`
 	AdjustmentFormId  []int32 `thrift:"adjustment_form_id,2" frugal:"2,default,list<i32>" json:"adjustment_form_id" binding:"required"`
 }
 
