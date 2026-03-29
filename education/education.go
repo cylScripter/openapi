@@ -3171,7 +3171,7 @@ func (p *EditAdjustmentFormResp) DeepEqual(ano *EditAdjustmentFormResp) bool {
 }
 
 type EditAdjustmentFormReq struct {
-	Id                int32  `thrift:"id,1" frugal:"1,default,i32" json:"id" binding:"required"`
+	Id                int32  `thrift:"id,1" frugal:"1,default,i32" json:"id"`
 	AcademicYear      string `thrift:"academic_year,2" frugal:"2,default,string" json:"academic_year" binding:"required"`
 	Semester          string `thrift:"semester,3" frugal:"3,default,string" json:"semester" binding:"required"`
 	CMonth            string `thrift:"c_month,4" frugal:"4,default,string" json:"c_month" binding:"required"`
