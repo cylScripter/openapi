@@ -2315,6 +2315,379 @@ func (p *ModelWorkloadStatisticsCategory) Value() (driver.Value, error) {
 	return int64(*p), nil
 }
 
+type AutoGenerateAdjustmentFormResp struct {
+}
+
+func NewAutoGenerateAdjustmentFormResp() *AutoGenerateAdjustmentFormResp {
+	return &AutoGenerateAdjustmentFormResp{}
+}
+
+func (p *AutoGenerateAdjustmentFormResp) InitDefault() {
+}
+
+var fieldIDToName_AutoGenerateAdjustmentFormResp = map[int16]string{}
+
+func (p *AutoGenerateAdjustmentFormResp) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+		if err = iprot.Skip(fieldTypeId); err != nil {
+			goto SkipFieldTypeError
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+SkipFieldTypeError:
+	return thrift.PrependError(fmt.Sprintf("%T skip field type %d error", p, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *AutoGenerateAdjustmentFormResp) Write(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteStructBegin("AutoGenerateAdjustmentFormResp"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *AutoGenerateAdjustmentFormResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("AutoGenerateAdjustmentFormResp(%+v)", *p)
+
+}
+
+func (p *AutoGenerateAdjustmentFormResp) DeepEqual(ano *AutoGenerateAdjustmentFormResp) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	return true
+}
+
+type AutoGenerateAdjustmentFormReq struct {
+	AcademicYear string `thrift:"academic_year,1" frugal:"1,default,string" json:"academic_year" binding:"required"`
+	Semester     string `thrift:"semester,2" frugal:"2,default,string" json:"semester" binding:"required"`
+	CMonth       string `thrift:"c_month,3" frugal:"3,default,string" json:"c_month" binding:"required"`
+}
+
+func NewAutoGenerateAdjustmentFormReq() *AutoGenerateAdjustmentFormReq {
+	return &AutoGenerateAdjustmentFormReq{}
+}
+
+func (p *AutoGenerateAdjustmentFormReq) InitDefault() {
+}
+
+func (p *AutoGenerateAdjustmentFormReq) GetAcademicYear() (v string) {
+	return p.AcademicYear
+}
+
+func (p *AutoGenerateAdjustmentFormReq) GetSemester() (v string) {
+	return p.Semester
+}
+
+func (p *AutoGenerateAdjustmentFormReq) GetCMonth() (v string) {
+	return p.CMonth
+}
+func (p *AutoGenerateAdjustmentFormReq) SetAcademicYear(val string) {
+	p.AcademicYear = val
+}
+func (p *AutoGenerateAdjustmentFormReq) SetSemester(val string) {
+	p.Semester = val
+}
+func (p *AutoGenerateAdjustmentFormReq) SetCMonth(val string) {
+	p.CMonth = val
+}
+
+var fieldIDToName_AutoGenerateAdjustmentFormReq = map[int16]string{
+	1: "academic_year",
+	2: "semester",
+	3: "c_month",
+}
+
+func (p *AutoGenerateAdjustmentFormReq) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 2:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 3:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField3(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_AutoGenerateAdjustmentFormReq[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *AutoGenerateAdjustmentFormReq) ReadField1(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.AcademicYear = _field
+	return nil
+}
+func (p *AutoGenerateAdjustmentFormReq) ReadField2(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Semester = _field
+	return nil
+}
+func (p *AutoGenerateAdjustmentFormReq) ReadField3(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.CMonth = _field
+	return nil
+}
+
+func (p *AutoGenerateAdjustmentFormReq) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("AutoGenerateAdjustmentFormReq"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
+			goto WriteFieldError
+		}
+		if err = p.writeField3(oprot); err != nil {
+			fieldId = 3
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *AutoGenerateAdjustmentFormReq) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("academic_year", thrift.STRING, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.AcademicYear); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *AutoGenerateAdjustmentFormReq) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("semester", thrift.STRING, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.Semester); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
+func (p *AutoGenerateAdjustmentFormReq) writeField3(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("c_month", thrift.STRING, 3); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.CMonth); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
+}
+
+func (p *AutoGenerateAdjustmentFormReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("AutoGenerateAdjustmentFormReq(%+v)", *p)
+
+}
+
+func (p *AutoGenerateAdjustmentFormReq) DeepEqual(ano *AutoGenerateAdjustmentFormReq) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.AcademicYear) {
+		return false
+	}
+	if !p.Field2DeepEqual(ano.Semester) {
+		return false
+	}
+	if !p.Field3DeepEqual(ano.CMonth) {
+		return false
+	}
+	return true
+}
+
+func (p *AutoGenerateAdjustmentFormReq) Field1DeepEqual(src string) bool {
+
+	if strings.Compare(p.AcademicYear, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *AutoGenerateAdjustmentFormReq) Field2DeepEqual(src string) bool {
+
+	if strings.Compare(p.Semester, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *AutoGenerateAdjustmentFormReq) Field3DeepEqual(src string) bool {
+
+	if strings.Compare(p.CMonth, src) != 0 {
+		return false
+	}
+	return true
+}
+
 type LinkAdjustmentApplyResp struct {
 }
 
@@ -100858,6 +101231,8 @@ type Educationservice interface {
 	GetAdjustmentFormList(ctx context.Context, req *GetAdjustmentFormListReq) (r *GetAdjustmentFormListResp, err error)
 
 	LinkAdjustmentApply(ctx context.Context, req *LinkAdjustmentApplyReq) (r *LinkAdjustmentApplyResp, err error)
+
+	AutoGenerateAdjustmentForm(ctx context.Context, req *AutoGenerateAdjustmentFormReq) (r *AutoGenerateAdjustmentFormResp, err error)
 }
 
 type EducationserviceCreateAppArgs struct {
@@ -143353,6 +143728,346 @@ func (p *EducationserviceLinkAdjustmentApplyResult) DeepEqual(ano *Educationserv
 }
 
 func (p *EducationserviceLinkAdjustmentApplyResult) Field0DeepEqual(src *LinkAdjustmentApplyResp) bool {
+
+	if !p.Success.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type EducationserviceAutoGenerateAdjustmentFormArgs struct {
+	Req *AutoGenerateAdjustmentFormReq `thrift:"req,1" frugal:"1,default,AutoGenerateAdjustmentFormReq" json:"req"`
+}
+
+func NewEducationserviceAutoGenerateAdjustmentFormArgs() *EducationserviceAutoGenerateAdjustmentFormArgs {
+	return &EducationserviceAutoGenerateAdjustmentFormArgs{}
+}
+
+func (p *EducationserviceAutoGenerateAdjustmentFormArgs) InitDefault() {
+}
+
+var EducationserviceAutoGenerateAdjustmentFormArgs_Req_DEFAULT *AutoGenerateAdjustmentFormReq
+
+func (p *EducationserviceAutoGenerateAdjustmentFormArgs) GetReq() (v *AutoGenerateAdjustmentFormReq) {
+	if !p.IsSetReq() {
+		return EducationserviceAutoGenerateAdjustmentFormArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *EducationserviceAutoGenerateAdjustmentFormArgs) SetReq(val *AutoGenerateAdjustmentFormReq) {
+	p.Req = val
+}
+
+var fieldIDToName_EducationserviceAutoGenerateAdjustmentFormArgs = map[int16]string{
+	1: "req",
+}
+
+func (p *EducationserviceAutoGenerateAdjustmentFormArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *EducationserviceAutoGenerateAdjustmentFormArgs) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 1:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_EducationserviceAutoGenerateAdjustmentFormArgs[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *EducationserviceAutoGenerateAdjustmentFormArgs) ReadField1(iprot thrift.TProtocol) error {
+	_field := NewAutoGenerateAdjustmentFormReq()
+	if err := _field.Read(iprot); err != nil {
+		return err
+	}
+	p.Req = _field
+	return nil
+}
+
+func (p *EducationserviceAutoGenerateAdjustmentFormArgs) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("AutoGenerateAdjustmentForm_args"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField1(oprot); err != nil {
+			fieldId = 1
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *EducationserviceAutoGenerateAdjustmentFormArgs) writeField1(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("req", thrift.STRUCT, 1); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := p.Req.Write(oprot); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
+}
+
+func (p *EducationserviceAutoGenerateAdjustmentFormArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("EducationserviceAutoGenerateAdjustmentFormArgs(%+v)", *p)
+
+}
+
+func (p *EducationserviceAutoGenerateAdjustmentFormArgs) DeepEqual(ano *EducationserviceAutoGenerateAdjustmentFormArgs) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field1DeepEqual(ano.Req) {
+		return false
+	}
+	return true
+}
+
+func (p *EducationserviceAutoGenerateAdjustmentFormArgs) Field1DeepEqual(src *AutoGenerateAdjustmentFormReq) bool {
+
+	if !p.Req.DeepEqual(src) {
+		return false
+	}
+	return true
+}
+
+type EducationserviceAutoGenerateAdjustmentFormResult struct {
+	Success *AutoGenerateAdjustmentFormResp `thrift:"success,0,optional" frugal:"0,optional,AutoGenerateAdjustmentFormResp" json:"success,omitempty"`
+}
+
+func NewEducationserviceAutoGenerateAdjustmentFormResult() *EducationserviceAutoGenerateAdjustmentFormResult {
+	return &EducationserviceAutoGenerateAdjustmentFormResult{}
+}
+
+func (p *EducationserviceAutoGenerateAdjustmentFormResult) InitDefault() {
+}
+
+var EducationserviceAutoGenerateAdjustmentFormResult_Success_DEFAULT *AutoGenerateAdjustmentFormResp
+
+func (p *EducationserviceAutoGenerateAdjustmentFormResult) GetSuccess() (v *AutoGenerateAdjustmentFormResp) {
+	if !p.IsSetSuccess() {
+		return EducationserviceAutoGenerateAdjustmentFormResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *EducationserviceAutoGenerateAdjustmentFormResult) SetSuccess(x interface{}) {
+	p.Success = x.(*AutoGenerateAdjustmentFormResp)
+}
+
+var fieldIDToName_EducationserviceAutoGenerateAdjustmentFormResult = map[int16]string{
+	0: "success",
+}
+
+func (p *EducationserviceAutoGenerateAdjustmentFormResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *EducationserviceAutoGenerateAdjustmentFormResult) Read(iprot thrift.TProtocol) (err error) {
+
+	var fieldTypeId thrift.TType
+	var fieldId int16
+
+	if _, err = iprot.ReadStructBegin(); err != nil {
+		goto ReadStructBeginError
+	}
+
+	for {
+		_, fieldTypeId, fieldId, err = iprot.ReadFieldBegin()
+		if err != nil {
+			goto ReadFieldBeginError
+		}
+		if fieldTypeId == thrift.STOP {
+			break
+		}
+
+		switch fieldId {
+		case 0:
+			if fieldTypeId == thrift.STRUCT {
+				if err = p.ReadField0(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		default:
+			if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		}
+		if err = iprot.ReadFieldEnd(); err != nil {
+			goto ReadFieldEndError
+		}
+	}
+	if err = iprot.ReadStructEnd(); err != nil {
+		goto ReadStructEndError
+	}
+
+	return nil
+ReadStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct begin error: ", p), err)
+ReadFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
+ReadFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_EducationserviceAutoGenerateAdjustmentFormResult[fieldId]), err)
+SkipFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
+
+ReadFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read field end error", p), err)
+ReadStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T read struct end error: ", p), err)
+}
+
+func (p *EducationserviceAutoGenerateAdjustmentFormResult) ReadField0(iprot thrift.TProtocol) error {
+	_field := NewAutoGenerateAdjustmentFormResp()
+	if err := _field.Read(iprot); err != nil {
+		return err
+	}
+	p.Success = _field
+	return nil
+}
+
+func (p *EducationserviceAutoGenerateAdjustmentFormResult) Write(oprot thrift.TProtocol) (err error) {
+	var fieldId int16
+	if err = oprot.WriteStructBegin("AutoGenerateAdjustmentForm_result"); err != nil {
+		goto WriteStructBeginError
+	}
+	if p != nil {
+		if err = p.writeField0(oprot); err != nil {
+			fieldId = 0
+			goto WriteFieldError
+		}
+	}
+	if err = oprot.WriteFieldStop(); err != nil {
+		goto WriteFieldStopError
+	}
+	if err = oprot.WriteStructEnd(); err != nil {
+		goto WriteStructEndError
+	}
+	return nil
+WriteStructBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct begin error: ", p), err)
+WriteFieldError:
+	return thrift.PrependError(fmt.Sprintf("%T write field %d error: ", p, fieldId), err)
+WriteFieldStopError:
+	return thrift.PrependError(fmt.Sprintf("%T write field stop error: ", p), err)
+WriteStructEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write struct end error: ", p), err)
+}
+
+func (p *EducationserviceAutoGenerateAdjustmentFormResult) writeField0(oprot thrift.TProtocol) (err error) {
+	if p.IsSetSuccess() {
+		if err = oprot.WriteFieldBegin("success", thrift.STRUCT, 0); err != nil {
+			goto WriteFieldBeginError
+		}
+		if err := p.Success.Write(oprot); err != nil {
+			return err
+		}
+		if err = oprot.WriteFieldEnd(); err != nil {
+			goto WriteFieldEndError
+		}
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 0 end error: ", p), err)
+}
+
+func (p *EducationserviceAutoGenerateAdjustmentFormResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("EducationserviceAutoGenerateAdjustmentFormResult(%+v)", *p)
+
+}
+
+func (p *EducationserviceAutoGenerateAdjustmentFormResult) DeepEqual(ano *EducationserviceAutoGenerateAdjustmentFormResult) bool {
+	if p == ano {
+		return true
+	} else if p == nil || ano == nil {
+		return false
+	}
+	if !p.Field0DeepEqual(ano.Success) {
+		return false
+	}
+	return true
+}
+
+func (p *EducationserviceAutoGenerateAdjustmentFormResult) Field0DeepEqual(src *AutoGenerateAdjustmentFormResp) bool {
 
 	if !p.Success.DeepEqual(src) {
 		return false

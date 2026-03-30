@@ -888,6 +888,13 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"AutoGenerateAdjustmentForm": kitex.NewMethodInfo(
+		autoGenerateAdjustmentFormHandler,
+		newEducationserviceAutoGenerateAdjustmentFormArgs,
+		newEducationserviceAutoGenerateAdjustmentFormResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -3204,6 +3211,24 @@ func newEducationserviceLinkAdjustmentApplyResult() interface{} {
 	return education.NewEducationserviceLinkAdjustmentApplyResult()
 }
 
+func autoGenerateAdjustmentFormHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceAutoGenerateAdjustmentFormArgs)
+	realResult := result.(*education.EducationserviceAutoGenerateAdjustmentFormResult)
+	success, err := handler.(education.Educationservice).AutoGenerateAdjustmentForm(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceAutoGenerateAdjustmentFormArgs() interface{} {
+	return education.NewEducationserviceAutoGenerateAdjustmentFormArgs()
+}
+
+func newEducationserviceAutoGenerateAdjustmentFormResult() interface{} {
+	return education.NewEducationserviceAutoGenerateAdjustmentFormResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -4459,6 +4484,16 @@ func (p *kClient) LinkAdjustmentApply(ctx context.Context, req *education.LinkAd
 	_args.Req = req
 	var _result education.EducationserviceLinkAdjustmentApplyResult
 	if err = p.c.Call(ctx, "LinkAdjustmentApply", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) AutoGenerateAdjustmentForm(ctx context.Context, req *education.AutoGenerateAdjustmentFormReq) (r *education.AutoGenerateAdjustmentFormResp, err error) {
+	var _args education.EducationserviceAutoGenerateAdjustmentFormArgs
+	_args.Req = req
+	var _result education.EducationserviceAutoGenerateAdjustmentFormResult
+	if err = p.c.Call(ctx, "AutoGenerateAdjustmentForm", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

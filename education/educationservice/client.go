@@ -136,6 +136,7 @@ type Client interface {
 	EditAdjustmentForm(ctx context.Context, req *education.EditAdjustmentFormReq, callOptions ...callopt.Option) (r *education.EditAdjustmentFormResp, err error)
 	GetAdjustmentFormList(ctx context.Context, req *education.GetAdjustmentFormListReq, callOptions ...callopt.Option) (r *education.GetAdjustmentFormListResp, err error)
 	LinkAdjustmentApply(ctx context.Context, req *education.LinkAdjustmentApplyReq, callOptions ...callopt.Option) (r *education.LinkAdjustmentApplyResp, err error)
+	AutoGenerateAdjustmentForm(ctx context.Context, req *education.AutoGenerateAdjustmentFormReq, callOptions ...callopt.Option) (r *education.AutoGenerateAdjustmentFormResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -790,4 +791,9 @@ func (p *kEducationserviceClient) GetAdjustmentFormList(ctx context.Context, req
 func (p *kEducationserviceClient) LinkAdjustmentApply(ctx context.Context, req *education.LinkAdjustmentApplyReq, callOptions ...callopt.Option) (r *education.LinkAdjustmentApplyResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.LinkAdjustmentApply(ctx, req)
+}
+
+func (p *kEducationserviceClient) AutoGenerateAdjustmentForm(ctx context.Context, req *education.AutoGenerateAdjustmentFormReq, callOptions ...callopt.Option) (r *education.AutoGenerateAdjustmentFormResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.AutoGenerateAdjustmentForm(ctx, req)
 }

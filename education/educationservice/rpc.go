@@ -630,3 +630,8 @@ func LinkAdjustmentApply(ctx context.Context, req *education.LinkAdjustmentApply
 	clients := MustNewClient("education", callOptions...)
 	return clients.LinkAdjustmentApply(ctx, req)
 }
+
+func AutoGenerateAdjustmentForm(ctx context.Context, req *education.AutoGenerateAdjustmentFormReq, callOptions ...client.Option) (resp *education.AutoGenerateAdjustmentFormResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.AutoGenerateAdjustmentForm(ctx, req)
+}
