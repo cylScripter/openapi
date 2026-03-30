@@ -3029,8 +3029,9 @@ func (p *LinkAdjustmentApplyReq) Field2DeepEqual(src []int32) bool {
 }
 
 type GetAdjustmentFormListResp struct {
-	List     []*ModelAdjustmentForm `thrift:"list,1" frugal:"1,default,list<ModelAdjustmentForm>" json:"list"`
-	Paginate *base.Paginate         `thrift:"paginate,2" frugal:"2,default,base.Paginate" json:"paginate"`
+	List      []*ModelAdjustmentForm            `thrift:"list,1" frugal:"1,default,list<ModelAdjustmentForm>" json:"list"`
+	Paginate  *base.Paginate                    `thrift:"paginate,2" frugal:"2,default,base.Paginate" json:"paginate"`
+	AdjustMap map[int32]*ModelCourseApplication `thrift:"AdjustMap,3" frugal:"3,default,map<i32:ModelCourseApplication>" json:"adjust_map"`
 }
 
 func NewGetAdjustmentFormListResp() *GetAdjustmentFormListResp {
@@ -3052,16 +3053,24 @@ func (p *GetAdjustmentFormListResp) GetPaginate() (v *base.Paginate) {
 	}
 	return p.Paginate
 }
+
+func (p *GetAdjustmentFormListResp) GetAdjustMap() (v map[int32]*ModelCourseApplication) {
+	return p.AdjustMap
+}
 func (p *GetAdjustmentFormListResp) SetList(val []*ModelAdjustmentForm) {
 	p.List = val
 }
 func (p *GetAdjustmentFormListResp) SetPaginate(val *base.Paginate) {
 	p.Paginate = val
 }
+func (p *GetAdjustmentFormListResp) SetAdjustMap(val map[int32]*ModelCourseApplication) {
+	p.AdjustMap = val
+}
 
 var fieldIDToName_GetAdjustmentFormListResp = map[int16]string{
 	1: "list",
 	2: "paginate",
+	3: "AdjustMap",
 }
 
 func (p *GetAdjustmentFormListResp) IsSetPaginate() bool {
@@ -3098,6 +3107,14 @@ func (p *GetAdjustmentFormListResp) Read(iprot thrift.TProtocol) (err error) {
 		case 2:
 			if fieldTypeId == thrift.STRUCT {
 				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 3:
+			if fieldTypeId == thrift.MAP {
+				if err = p.ReadField3(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -3163,6 +3180,35 @@ func (p *GetAdjustmentFormListResp) ReadField2(iprot thrift.TProtocol) error {
 	p.Paginate = _field
 	return nil
 }
+func (p *GetAdjustmentFormListResp) ReadField3(iprot thrift.TProtocol) error {
+	_, _, size, err := iprot.ReadMapBegin()
+	if err != nil {
+		return err
+	}
+	_field := make(map[int32]*ModelCourseApplication, size)
+	values := make([]ModelCourseApplication, size)
+	for i := 0; i < size; i++ {
+		var _key int32
+		if v, err := iprot.ReadI32(); err != nil {
+			return err
+		} else {
+			_key = v
+		}
+
+		_val := &values[i]
+		_val.InitDefault()
+		if err := _val.Read(iprot); err != nil {
+			return err
+		}
+
+		_field[_key] = _val
+	}
+	if err := iprot.ReadMapEnd(); err != nil {
+		return err
+	}
+	p.AdjustMap = _field
+	return nil
+}
 
 func (p *GetAdjustmentFormListResp) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -3176,6 +3222,10 @@ func (p *GetAdjustmentFormListResp) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField2(oprot); err != nil {
 			fieldId = 2
+			goto WriteFieldError
+		}
+		if err = p.writeField3(oprot); err != nil {
+			fieldId = 3
 			goto WriteFieldError
 		}
 	}
@@ -3238,6 +3288,34 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
+func (p *GetAdjustmentFormListResp) writeField3(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("AdjustMap", thrift.MAP, 3); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteMapBegin(thrift.I32, thrift.STRUCT, len(p.AdjustMap)); err != nil {
+		return err
+	}
+	for k, v := range p.AdjustMap {
+		if err := oprot.WriteI32(k); err != nil {
+			return err
+		}
+		if err := v.Write(oprot); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteMapEnd(); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
+}
+
 func (p *GetAdjustmentFormListResp) String() string {
 	if p == nil {
 		return "<nil>"
@@ -3256,6 +3334,9 @@ func (p *GetAdjustmentFormListResp) DeepEqual(ano *GetAdjustmentFormListResp) bo
 		return false
 	}
 	if !p.Field2DeepEqual(ano.Paginate) {
+		return false
+	}
+	if !p.Field3DeepEqual(ano.AdjustMap) {
 		return false
 	}
 	return true
@@ -3278,6 +3359,19 @@ func (p *GetAdjustmentFormListResp) Field2DeepEqual(src *base.Paginate) bool {
 
 	if !p.Paginate.DeepEqual(src) {
 		return false
+	}
+	return true
+}
+func (p *GetAdjustmentFormListResp) Field3DeepEqual(src map[int32]*ModelCourseApplication) bool {
+
+	if len(p.AdjustMap) != len(src) {
+		return false
+	}
+	for k, v := range p.AdjustMap {
+		_src := src[k]
+		if !v.DeepEqual(_src) {
+			return false
+		}
 	}
 	return true
 }
