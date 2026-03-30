@@ -3031,7 +3031,7 @@ func (p *LinkAdjustmentApplyReq) Field2DeepEqual(src []int32) bool {
 type GetAdjustmentFormListResp struct {
 	List      []*ModelAdjustmentForm            `thrift:"list,1" frugal:"1,default,list<ModelAdjustmentForm>" json:"list"`
 	Paginate  *base.Paginate                    `thrift:"paginate,2" frugal:"2,default,base.Paginate" json:"paginate"`
-	AdjustMap map[int32]*ModelCourseApplication `thrift:"AdjustMap,3" frugal:"3,default,map<i32:ModelCourseApplication>" json:"adjust_map"`
+	AdjustMap map[int32]*ModelCourseApplication `thrift:"adjust_map,3" frugal:"3,default,map<i32:ModelCourseApplication>" json:"adjust_map"`
 }
 
 func NewGetAdjustmentFormListResp() *GetAdjustmentFormListResp {
@@ -3070,7 +3070,7 @@ func (p *GetAdjustmentFormListResp) SetAdjustMap(val map[int32]*ModelCourseAppli
 var fieldIDToName_GetAdjustmentFormListResp = map[int16]string{
 	1: "list",
 	2: "paginate",
-	3: "AdjustMap",
+	3: "adjust_map",
 }
 
 func (p *GetAdjustmentFormListResp) IsSetPaginate() bool {
@@ -3289,7 +3289,7 @@ WriteFieldEndError:
 }
 
 func (p *GetAdjustmentFormListResp) writeField3(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("AdjustMap", thrift.MAP, 3); err != nil {
+	if err = oprot.WriteFieldBegin("adjust_map", thrift.MAP, 3); err != nil {
 		goto WriteFieldBeginError
 	}
 	if err := oprot.WriteMapBegin(thrift.I32, thrift.STRUCT, len(p.AdjustMap)); err != nil {
