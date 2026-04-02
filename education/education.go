@@ -95208,7 +95208,7 @@ type ModelWorkloadStatistics struct {
 	TrainingWn          int32   `thrift:"training_wn,19" frugal:"19,default,i32" json:"training_wn" gorm:"column:training_wn"`
 	TheoryCourseHours   float64 `thrift:"theory_course_hours,20" frugal:"20,default,double" json:"theory_course_hours" gorm:"column:theory_course_hours"`
 	TrainingCourseHours int32   `thrift:"training_course_hours,21" frugal:"21,default,i32" json:"training_course_hours" gorm:"column:training_course_hours"`
-	InternshipHours     int32   `thrift:"internship_hours,22" frugal:"22,default,i32" json:"internship_hours" gorm:"column:internship_hours"`
+	InternshipHours     float64 `thrift:"internship_hours,22" frugal:"22,default,double" json:"internship_hours" gorm:"column:internship_hours"`
 	ReviewWeek          int32   `thrift:"review_week,23" frugal:"23,default,i32" json:"review_week" gorm:"column:review_week"`
 	GivingPaper         int32   `thrift:"giving_paper,24" frugal:"24,default,i32" json:"giving_paper" gorm:"column:giving_paper"`
 	GradingPaper        float64 `thrift:"grading_paper,25" frugal:"25,default,double" json:"grading_paper" gorm:"column:grading_paper"`
@@ -95325,7 +95325,7 @@ func (p *ModelWorkloadStatistics) GetTrainingCourseHours() (v int32) {
 	return p.TrainingCourseHours
 }
 
-func (p *ModelWorkloadStatistics) GetInternshipHours() (v int32) {
+func (p *ModelWorkloadStatistics) GetInternshipHours() (v float64) {
 	return p.InternshipHours
 }
 
@@ -95483,7 +95483,7 @@ func (p *ModelWorkloadStatistics) SetTheoryCourseHours(val float64) {
 func (p *ModelWorkloadStatistics) SetTrainingCourseHours(val int32) {
 	p.TrainingCourseHours = val
 }
-func (p *ModelWorkloadStatistics) SetInternshipHours(val int32) {
+func (p *ModelWorkloadStatistics) SetInternshipHours(val float64) {
 	p.InternshipHours = val
 }
 func (p *ModelWorkloadStatistics) SetReviewWeek(val int32) {
@@ -95792,7 +95792,7 @@ func (p *ModelWorkloadStatistics) Read(iprot thrift.TProtocol) (err error) {
 				goto SkipFieldError
 			}
 		case 22:
-			if fieldTypeId == thrift.I32 {
+			if fieldTypeId == thrift.DOUBLE {
 				if err = p.ReadField22(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -96245,8 +96245,8 @@ func (p *ModelWorkloadStatistics) ReadField21(iprot thrift.TProtocol) error {
 }
 func (p *ModelWorkloadStatistics) ReadField22(iprot thrift.TProtocol) error {
 
-	var _field int32
-	if v, err := iprot.ReadI32(); err != nil {
+	var _field float64
+	if v, err := iprot.ReadDouble(); err != nil {
 		return err
 	} else {
 		_field = v
@@ -97070,10 +97070,10 @@ WriteFieldEndError:
 }
 
 func (p *ModelWorkloadStatistics) writeField22(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("internship_hours", thrift.I32, 22); err != nil {
+	if err = oprot.WriteFieldBegin("internship_hours", thrift.DOUBLE, 22); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteI32(p.InternshipHours); err != nil {
+	if err := oprot.WriteDouble(p.InternshipHours); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -97776,7 +97776,7 @@ func (p *ModelWorkloadStatistics) Field21DeepEqual(src int32) bool {
 	}
 	return true
 }
-func (p *ModelWorkloadStatistics) Field22DeepEqual(src int32) bool {
+func (p *ModelWorkloadStatistics) Field22DeepEqual(src float64) bool {
 
 	if p.InternshipHours != src {
 		return false
