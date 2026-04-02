@@ -95230,6 +95230,8 @@ type ModelWorkloadStatistics struct {
 	TheoryWeekNumber    int32   `thrift:"theory_week_number,41" frugal:"41,default,i32" json:"theory_week_number" gorm:"column:theory_week_number;default:0"`
 	CollegeFactor       float64 `thrift:"college_factor,42" frugal:"42,default,double" json:"college_factor" gorm:"column:college_factor;default:1"`
 	IsEdited            bool    `thrift:"is_edited,43" frugal:"43,default,bool" json:"is_edited" gorm:"column:is_edited;default:false"`
+	CourseWeek          string  `thrift:"course_week,44" frugal:"44,default,string" json:"course_week" gorm:"column:course_week"`
+	CourseTime          string  `thrift:"course_time,45" frugal:"45,default,string" json:"course_time" gorm:"column:course_time"`
 }
 
 func NewModelWorkloadStatistics() *ModelWorkloadStatistics {
@@ -95410,6 +95412,14 @@ func (p *ModelWorkloadStatistics) GetCollegeFactor() (v float64) {
 func (p *ModelWorkloadStatistics) GetIsEdited() (v bool) {
 	return p.IsEdited
 }
+
+func (p *ModelWorkloadStatistics) GetCourseWeek() (v string) {
+	return p.CourseWeek
+}
+
+func (p *ModelWorkloadStatistics) GetCourseTime() (v string) {
+	return p.CourseTime
+}
 func (p *ModelWorkloadStatistics) SetId(val int32) {
 	p.Id = val
 }
@@ -95539,6 +95549,12 @@ func (p *ModelWorkloadStatistics) SetCollegeFactor(val float64) {
 func (p *ModelWorkloadStatistics) SetIsEdited(val bool) {
 	p.IsEdited = val
 }
+func (p *ModelWorkloadStatistics) SetCourseWeek(val string) {
+	p.CourseWeek = val
+}
+func (p *ModelWorkloadStatistics) SetCourseTime(val string) {
+	p.CourseTime = val
+}
 
 var fieldIDToName_ModelWorkloadStatistics = map[int16]string{
 	1:  "id",
@@ -95584,6 +95600,8 @@ var fieldIDToName_ModelWorkloadStatistics = map[int16]string{
 	41: "theory_week_number",
 	42: "college_factor",
 	43: "is_edited",
+	44: "course_week",
+	45: "course_time",
 }
 
 func (p *ModelWorkloadStatistics) Read(iprot thrift.TProtocol) (err error) {
@@ -95944,6 +95962,22 @@ func (p *ModelWorkloadStatistics) Read(iprot thrift.TProtocol) (err error) {
 		case 43:
 			if fieldTypeId == thrift.BOOL {
 				if err = p.ReadField43(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 44:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField44(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 45:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField45(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -96451,6 +96485,28 @@ func (p *ModelWorkloadStatistics) ReadField43(iprot thrift.TProtocol) error {
 	p.IsEdited = _field
 	return nil
 }
+func (p *ModelWorkloadStatistics) ReadField44(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.CourseWeek = _field
+	return nil
+}
+func (p *ModelWorkloadStatistics) ReadField45(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.CourseTime = _field
+	return nil
+}
 
 func (p *ModelWorkloadStatistics) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -96628,6 +96684,14 @@ func (p *ModelWorkloadStatistics) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField43(oprot); err != nil {
 			fieldId = 43
+			goto WriteFieldError
+		}
+		if err = p.writeField44(oprot); err != nil {
+			fieldId = 44
+			goto WriteFieldError
+		}
+		if err = p.writeField45(oprot); err != nil {
+			fieldId = 45
 			goto WriteFieldError
 		}
 	}
@@ -97379,6 +97443,40 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 43 end error: ", p), err)
 }
 
+func (p *ModelWorkloadStatistics) writeField44(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("course_week", thrift.STRING, 44); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.CourseWeek); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 44 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 44 end error: ", p), err)
+}
+
+func (p *ModelWorkloadStatistics) writeField45(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("course_time", thrift.STRING, 45); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.CourseTime); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 45 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 45 end error: ", p), err)
+}
+
 func (p *ModelWorkloadStatistics) String() string {
 	if p == nil {
 		return "<nil>"
@@ -97520,6 +97618,12 @@ func (p *ModelWorkloadStatistics) DeepEqual(ano *ModelWorkloadStatistics) bool {
 		return false
 	}
 	if !p.Field43DeepEqual(ano.IsEdited) {
+		return false
+	}
+	if !p.Field44DeepEqual(ano.CourseWeek) {
+		return false
+	}
+	if !p.Field45DeepEqual(ano.CourseTime) {
 		return false
 	}
 	return true
@@ -97822,6 +97926,20 @@ func (p *ModelWorkloadStatistics) Field42DeepEqual(src float64) bool {
 func (p *ModelWorkloadStatistics) Field43DeepEqual(src bool) bool {
 
 	if p.IsEdited != src {
+		return false
+	}
+	return true
+}
+func (p *ModelWorkloadStatistics) Field44DeepEqual(src string) bool {
+
+	if strings.Compare(p.CourseWeek, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *ModelWorkloadStatistics) Field45DeepEqual(src string) bool {
+
+	if strings.Compare(p.CourseTime, src) != 0 {
 		return false
 	}
 	return true
