@@ -95216,7 +95216,7 @@ type ModelWorkloadStatistics struct {
 	Material1           string  `thrift:"material1,27" frugal:"27,default,string" json:"material1" gorm:"column:material1"`
 	Material2           string  `thrift:"material2,28" frugal:"28,default,string" json:"material2" gorm:"column:material2"`
 	DutiesSubsidy       int32   `thrift:"duties_subsidy,29" frugal:"29,default,i32" json:"duties_subsidy" gorm:"column:duties_subsidy"`
-	InvigilationTour    int32   `thrift:"invigilation_tour,30" frugal:"30,default,i32" json:"invigilation_tour" gorm:"column:invigilation_tour"`
+	InvigilationTour    float64 `thrift:"invigilation_tour,30" frugal:"30,default,double" json:"invigilation_tour" gorm:"column:invigilation_tour"`
 	TrafficSubsidy      int32   `thrift:"traffic_subsidy,31" frugal:"31,default,i32" json:"traffic_subsidy" gorm:"column:traffic_subsidy"`
 	WorkOvertime        int32   `thrift:"work_overtime,32" frugal:"32,default,i32" json:"work_overtime" gorm:"column:work_overtime"`
 	Discount            int32   `thrift:"discount,33" frugal:"33,default,i32" json:"discount" gorm:"column:discount"`
@@ -95357,7 +95357,7 @@ func (p *ModelWorkloadStatistics) GetDutiesSubsidy() (v int32) {
 	return p.DutiesSubsidy
 }
 
-func (p *ModelWorkloadStatistics) GetInvigilationTour() (v int32) {
+func (p *ModelWorkloadStatistics) GetInvigilationTour() (v float64) {
 	return p.InvigilationTour
 }
 
@@ -95507,7 +95507,7 @@ func (p *ModelWorkloadStatistics) SetMaterial2(val string) {
 func (p *ModelWorkloadStatistics) SetDutiesSubsidy(val int32) {
 	p.DutiesSubsidy = val
 }
-func (p *ModelWorkloadStatistics) SetInvigilationTour(val int32) {
+func (p *ModelWorkloadStatistics) SetInvigilationTour(val float64) {
 	p.InvigilationTour = val
 }
 func (p *ModelWorkloadStatistics) SetTrafficSubsidy(val int32) {
@@ -95856,7 +95856,7 @@ func (p *ModelWorkloadStatistics) Read(iprot thrift.TProtocol) (err error) {
 				goto SkipFieldError
 			}
 		case 30:
-			if fieldTypeId == thrift.I32 {
+			if fieldTypeId == thrift.DOUBLE {
 				if err = p.ReadField30(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -96333,8 +96333,8 @@ func (p *ModelWorkloadStatistics) ReadField29(iprot thrift.TProtocol) error {
 }
 func (p *ModelWorkloadStatistics) ReadField30(iprot thrift.TProtocol) error {
 
-	var _field int32
-	if v, err := iprot.ReadI32(); err != nil {
+	var _field float64
+	if v, err := iprot.ReadDouble(); err != nil {
 		return err
 	} else {
 		_field = v
@@ -97206,10 +97206,10 @@ WriteFieldEndError:
 }
 
 func (p *ModelWorkloadStatistics) writeField30(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("invigilation_tour", thrift.I32, 30); err != nil {
+	if err = oprot.WriteFieldBegin("invigilation_tour", thrift.DOUBLE, 30); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteI32(p.InvigilationTour); err != nil {
+	if err := oprot.WriteDouble(p.InvigilationTour); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -97832,7 +97832,7 @@ func (p *ModelWorkloadStatistics) Field29DeepEqual(src int32) bool {
 	}
 	return true
 }
-func (p *ModelWorkloadStatistics) Field30DeepEqual(src int32) bool {
+func (p *ModelWorkloadStatistics) Field30DeepEqual(src float64) bool {
 
 	if p.InvigilationTour != src {
 		return false
