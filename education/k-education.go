@@ -26831,6 +26831,20 @@ func (p *ImportCourseReq) FastRead(buf []byte) (int, error) {
 					goto SkipFieldError
 				}
 			}
+		case 2:
+			if fieldTypeId == thrift.I32 {
+				l, err = p.FastReadField2(buf[offset:])
+				offset += l
+				if err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
+				offset += l
+				if err != nil {
+					goto SkipFieldError
+				}
+			}
 		default:
 			l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
 			offset += l
@@ -26863,6 +26877,20 @@ func (p *ImportCourseReq) FastReadField1(buf []byte) (int, error) {
 	return offset, nil
 }
 
+func (p *ImportCourseReq) FastReadField2(buf []byte) (int, error) {
+	offset := 0
+
+	var _field int32
+	if v, l, err := thrift.Binary.ReadI32(buf[offset:]); err != nil {
+		return offset, err
+	} else {
+		offset += l
+		_field = v
+	}
+	p.Level = _field
+	return offset, nil
+}
+
 // for compatibility
 func (p *ImportCourseReq) FastWrite(buf []byte) int {
 	return 0
@@ -26871,6 +26899,7 @@ func (p *ImportCourseReq) FastWrite(buf []byte) int {
 func (p *ImportCourseReq) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p != nil {
+		offset += p.fastWriteField2(buf[offset:], w)
 		offset += p.fastWriteField1(buf[offset:], w)
 	}
 	offset += thrift.Binary.WriteFieldStop(buf[offset:])
@@ -26881,6 +26910,7 @@ func (p *ImportCourseReq) BLength() int {
 	l := 0
 	if p != nil {
 		l += p.field1Length()
+		l += p.field2Length()
 	}
 	l += thrift.Binary.FieldStopLength()
 	return l
@@ -26893,10 +26923,24 @@ func (p *ImportCourseReq) fastWriteField1(buf []byte, w thrift.NocopyWriter) int
 	return offset
 }
 
+func (p *ImportCourseReq) fastWriteField2(buf []byte, w thrift.NocopyWriter) int {
+	offset := 0
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 2)
+	offset += thrift.Binary.WriteI32(buf[offset:], p.Level)
+	return offset
+}
+
 func (p *ImportCourseReq) field1Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.StringLengthNocopy(p.UploadId)
+	return l
+}
+
+func (p *ImportCourseReq) field2Length() int {
+	l := 0
+	l += thrift.Binary.FieldBeginLength()
+	l += thrift.Binary.I32Length()
 	return l
 }
 

@@ -42461,6 +42461,7 @@ func (p *UpdateCourseResp) DeepEqual(ano *UpdateCourseResp) bool {
 
 type ImportCourseReq struct {
 	UploadId string `thrift:"upload_id,1" frugal:"1,default,string" json:"upload_id"`
+	Level    int32  `thrift:"level,2" frugal:"2,default,i32" json:"level"`
 }
 
 func NewImportCourseReq() *ImportCourseReq {
@@ -42473,12 +42474,20 @@ func (p *ImportCourseReq) InitDefault() {
 func (p *ImportCourseReq) GetUploadId() (v string) {
 	return p.UploadId
 }
+
+func (p *ImportCourseReq) GetLevel() (v int32) {
+	return p.Level
+}
 func (p *ImportCourseReq) SetUploadId(val string) {
 	p.UploadId = val
+}
+func (p *ImportCourseReq) SetLevel(val int32) {
+	p.Level = val
 }
 
 var fieldIDToName_ImportCourseReq = map[int16]string{
 	1: "upload_id",
+	2: "level",
 }
 
 func (p *ImportCourseReq) Read(iprot thrift.TProtocol) (err error) {
@@ -42503,6 +42512,14 @@ func (p *ImportCourseReq) Read(iprot thrift.TProtocol) (err error) {
 		case 1:
 			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 2:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField2(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -42548,6 +42565,17 @@ func (p *ImportCourseReq) ReadField1(iprot thrift.TProtocol) error {
 	p.UploadId = _field
 	return nil
 }
+func (p *ImportCourseReq) ReadField2(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Level = _field
+	return nil
+}
 
 func (p *ImportCourseReq) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -42557,6 +42585,10 @@ func (p *ImportCourseReq) Write(oprot thrift.TProtocol) (err error) {
 	if p != nil {
 		if err = p.writeField1(oprot); err != nil {
 			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
 			goto WriteFieldError
 		}
 	}
@@ -42594,6 +42626,23 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
+func (p *ImportCourseReq) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("level", thrift.I32, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.Level); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
 func (p *ImportCourseReq) String() string {
 	if p == nil {
 		return "<nil>"
@@ -42611,12 +42660,22 @@ func (p *ImportCourseReq) DeepEqual(ano *ImportCourseReq) bool {
 	if !p.Field1DeepEqual(ano.UploadId) {
 		return false
 	}
+	if !p.Field2DeepEqual(ano.Level) {
+		return false
+	}
 	return true
 }
 
 func (p *ImportCourseReq) Field1DeepEqual(src string) bool {
 
 	if strings.Compare(p.UploadId, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *ImportCourseReq) Field2DeepEqual(src int32) bool {
+
+	if p.Level != src {
 		return false
 	}
 	return true
