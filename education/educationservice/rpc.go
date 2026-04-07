@@ -645,3 +645,8 @@ func ImportExamWorkload(ctx context.Context, req *education.ImportExamWorkloadRe
 	clients := MustNewClient("education", callOptions...)
 	return clients.ImportExamWorkload(ctx, req)
 }
+
+func EditExamWorkload(ctx context.Context, req *education.EditExamWorkloadReq, callOptions ...client.Option) (resp *education.EditExamWorkloadResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.EditExamWorkload(ctx, req)
+}

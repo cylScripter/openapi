@@ -909,6 +909,13 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"EditExamWorkload": kitex.NewMethodInfo(
+		editExamWorkloadHandler,
+		newEducationserviceEditExamWorkloadArgs,
+		newEducationserviceEditExamWorkloadResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -3279,6 +3286,24 @@ func newEducationserviceImportExamWorkloadResult() interface{} {
 	return education.NewEducationserviceImportExamWorkloadResult()
 }
 
+func editExamWorkloadHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceEditExamWorkloadArgs)
+	realResult := result.(*education.EducationserviceEditExamWorkloadResult)
+	success, err := handler.(education.Educationservice).EditExamWorkload(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceEditExamWorkloadArgs() interface{} {
+	return education.NewEducationserviceEditExamWorkloadArgs()
+}
+
+func newEducationserviceEditExamWorkloadResult() interface{} {
+	return education.NewEducationserviceEditExamWorkloadResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -4564,6 +4589,16 @@ func (p *kClient) ImportExamWorkload(ctx context.Context, req *education.ImportE
 	_args.Req = req
 	var _result education.EducationserviceImportExamWorkloadResult
 	if err = p.c.Call(ctx, "ImportExamWorkload", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) EditExamWorkload(ctx context.Context, req *education.EditExamWorkloadReq) (r *education.EditExamWorkloadResp, err error) {
+	var _args education.EducationserviceEditExamWorkloadArgs
+	_args.Req = req
+	var _result education.EducationserviceEditExamWorkloadResult
+	if err = p.c.Call(ctx, "EditExamWorkload", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
