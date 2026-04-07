@@ -635,3 +635,13 @@ func AutoGenerateAdjustmentForm(ctx context.Context, req *education.AutoGenerate
 	clients := MustNewClient("education", callOptions...)
 	return clients.AutoGenerateAdjustmentForm(ctx, req)
 }
+
+func GetExamWorkloadList(ctx context.Context, req *education.GetExamWorkloadListReq, callOptions ...client.Option) (resp *education.GetExamWorkloadListResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.GetExamWorkloadList(ctx, req)
+}
+
+func ImportExamWorkload(ctx context.Context, req *education.ImportExamWorkloadReq, callOptions ...client.Option) (resp *education.ImportExamWorkloadResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.ImportExamWorkload(ctx, req)
+}

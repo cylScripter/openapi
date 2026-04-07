@@ -895,6 +895,20 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"GetExamWorkloadList": kitex.NewMethodInfo(
+		getExamWorkloadListHandler,
+		newEducationserviceGetExamWorkloadListArgs,
+		newEducationserviceGetExamWorkloadListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"ImportExamWorkload": kitex.NewMethodInfo(
+		importExamWorkloadHandler,
+		newEducationserviceImportExamWorkloadArgs,
+		newEducationserviceImportExamWorkloadResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -3229,6 +3243,42 @@ func newEducationserviceAutoGenerateAdjustmentFormResult() interface{} {
 	return education.NewEducationserviceAutoGenerateAdjustmentFormResult()
 }
 
+func getExamWorkloadListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceGetExamWorkloadListArgs)
+	realResult := result.(*education.EducationserviceGetExamWorkloadListResult)
+	success, err := handler.(education.Educationservice).GetExamWorkloadList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceGetExamWorkloadListArgs() interface{} {
+	return education.NewEducationserviceGetExamWorkloadListArgs()
+}
+
+func newEducationserviceGetExamWorkloadListResult() interface{} {
+	return education.NewEducationserviceGetExamWorkloadListResult()
+}
+
+func importExamWorkloadHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceImportExamWorkloadArgs)
+	realResult := result.(*education.EducationserviceImportExamWorkloadResult)
+	success, err := handler.(education.Educationservice).ImportExamWorkload(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceImportExamWorkloadArgs() interface{} {
+	return education.NewEducationserviceImportExamWorkloadArgs()
+}
+
+func newEducationserviceImportExamWorkloadResult() interface{} {
+	return education.NewEducationserviceImportExamWorkloadResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -4494,6 +4544,26 @@ func (p *kClient) AutoGenerateAdjustmentForm(ctx context.Context, req *education
 	_args.Req = req
 	var _result education.EducationserviceAutoGenerateAdjustmentFormResult
 	if err = p.c.Call(ctx, "AutoGenerateAdjustmentForm", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetExamWorkloadList(ctx context.Context, req *education.GetExamWorkloadListReq) (r *education.GetExamWorkloadListResp, err error) {
+	var _args education.EducationserviceGetExamWorkloadListArgs
+	_args.Req = req
+	var _result education.EducationserviceGetExamWorkloadListResult
+	if err = p.c.Call(ctx, "GetExamWorkloadList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ImportExamWorkload(ctx context.Context, req *education.ImportExamWorkloadReq) (r *education.ImportExamWorkloadResp, err error) {
+	var _args education.EducationserviceImportExamWorkloadArgs
+	_args.Req = req
+	var _result education.EducationserviceImportExamWorkloadResult
+	if err = p.c.Call(ctx, "ImportExamWorkload", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

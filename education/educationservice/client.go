@@ -137,6 +137,8 @@ type Client interface {
 	GetAdjustmentFormList(ctx context.Context, req *education.GetAdjustmentFormListReq, callOptions ...callopt.Option) (r *education.GetAdjustmentFormListResp, err error)
 	LinkAdjustmentApply(ctx context.Context, req *education.LinkAdjustmentApplyReq, callOptions ...callopt.Option) (r *education.LinkAdjustmentApplyResp, err error)
 	AutoGenerateAdjustmentForm(ctx context.Context, req *education.AutoGenerateAdjustmentFormReq, callOptions ...callopt.Option) (r *education.AutoGenerateAdjustmentFormResp, err error)
+	GetExamWorkloadList(ctx context.Context, req *education.GetExamWorkloadListReq, callOptions ...callopt.Option) (r *education.GetExamWorkloadListResp, err error)
+	ImportExamWorkload(ctx context.Context, req *education.ImportExamWorkloadReq, callOptions ...callopt.Option) (r *education.ImportExamWorkloadResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -796,4 +798,14 @@ func (p *kEducationserviceClient) LinkAdjustmentApply(ctx context.Context, req *
 func (p *kEducationserviceClient) AutoGenerateAdjustmentForm(ctx context.Context, req *education.AutoGenerateAdjustmentFormReq, callOptions ...callopt.Option) (r *education.AutoGenerateAdjustmentFormResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.AutoGenerateAdjustmentForm(ctx, req)
+}
+
+func (p *kEducationserviceClient) GetExamWorkloadList(ctx context.Context, req *education.GetExamWorkloadListReq, callOptions ...callopt.Option) (r *education.GetExamWorkloadListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetExamWorkloadList(ctx, req)
+}
+
+func (p *kEducationserviceClient) ImportExamWorkload(ctx context.Context, req *education.ImportExamWorkloadReq, callOptions ...callopt.Option) (r *education.ImportExamWorkloadResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ImportExamWorkload(ctx, req)
 }
