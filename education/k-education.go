@@ -134,6 +134,20 @@ func (p *ImportExamWorkloadReq) FastRead(buf []byte) (int, error) {
 					goto SkipFieldError
 				}
 			}
+		case 4:
+			if fieldTypeId == thrift.I32 {
+				l, err = p.FastReadField4(buf[offset:])
+				offset += l
+				if err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
+				offset += l
+				if err != nil {
+					goto SkipFieldError
+				}
+			}
 		default:
 			l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
 			offset += l
@@ -194,6 +208,20 @@ func (p *ImportExamWorkloadReq) FastReadField3(buf []byte) (int, error) {
 	return offset, nil
 }
 
+func (p *ImportExamWorkloadReq) FastReadField4(buf []byte) (int, error) {
+	offset := 0
+
+	var _field int32
+	if v, l, err := thrift.Binary.ReadI32(buf[offset:]); err != nil {
+		return offset, err
+	} else {
+		offset += l
+		_field = v
+	}
+	p.Level = _field
+	return offset, nil
+}
+
 // for compatibility
 func (p *ImportExamWorkloadReq) FastWrite(buf []byte) int {
 	return 0
@@ -202,6 +230,7 @@ func (p *ImportExamWorkloadReq) FastWrite(buf []byte) int {
 func (p *ImportExamWorkloadReq) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p != nil {
+		offset += p.fastWriteField4(buf[offset:], w)
 		offset += p.fastWriteField1(buf[offset:], w)
 		offset += p.fastWriteField2(buf[offset:], w)
 		offset += p.fastWriteField3(buf[offset:], w)
@@ -216,6 +245,7 @@ func (p *ImportExamWorkloadReq) BLength() int {
 		l += p.field1Length()
 		l += p.field2Length()
 		l += p.field3Length()
+		l += p.field4Length()
 	}
 	l += thrift.Binary.FieldStopLength()
 	return l
@@ -242,6 +272,13 @@ func (p *ImportExamWorkloadReq) fastWriteField3(buf []byte, w thrift.NocopyWrite
 	return offset
 }
 
+func (p *ImportExamWorkloadReq) fastWriteField4(buf []byte, w thrift.NocopyWriter) int {
+	offset := 0
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 4)
+	offset += thrift.Binary.WriteI32(buf[offset:], p.Level)
+	return offset
+}
+
 func (p *ImportExamWorkloadReq) field1Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
@@ -260,6 +297,13 @@ func (p *ImportExamWorkloadReq) field3Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.StringLengthNocopy(p.UploadId)
+	return l
+}
+
+func (p *ImportExamWorkloadReq) field4Length() int {
+	l := 0
+	l += thrift.Binary.FieldBeginLength()
+	l += thrift.Binary.I32Length()
 	return l
 }
 

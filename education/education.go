@@ -2468,6 +2468,7 @@ type ImportExamWorkloadReq struct {
 	AcademicYear string `thrift:"academic_year,1" frugal:"1,default,string" json:"academic_year" binding:"required"`
 	Semester     string `thrift:"semester,2" frugal:"2,default,string" json:"semester" binding:"required"`
 	UploadId     string `thrift:"upload_id,3" frugal:"3,default,string" json:"upload_id" binding:"required"`
+	Level        int32  `thrift:"level,4" frugal:"4,default,i32" json:"level" binding:"required"`
 }
 
 func NewImportExamWorkloadReq() *ImportExamWorkloadReq {
@@ -2488,6 +2489,10 @@ func (p *ImportExamWorkloadReq) GetSemester() (v string) {
 func (p *ImportExamWorkloadReq) GetUploadId() (v string) {
 	return p.UploadId
 }
+
+func (p *ImportExamWorkloadReq) GetLevel() (v int32) {
+	return p.Level
+}
 func (p *ImportExamWorkloadReq) SetAcademicYear(val string) {
 	p.AcademicYear = val
 }
@@ -2497,11 +2502,15 @@ func (p *ImportExamWorkloadReq) SetSemester(val string) {
 func (p *ImportExamWorkloadReq) SetUploadId(val string) {
 	p.UploadId = val
 }
+func (p *ImportExamWorkloadReq) SetLevel(val int32) {
+	p.Level = val
+}
 
 var fieldIDToName_ImportExamWorkloadReq = map[int16]string{
 	1: "academic_year",
 	2: "semester",
 	3: "upload_id",
+	4: "level",
 }
 
 func (p *ImportExamWorkloadReq) Read(iprot thrift.TProtocol) (err error) {
@@ -2542,6 +2551,14 @@ func (p *ImportExamWorkloadReq) Read(iprot thrift.TProtocol) (err error) {
 		case 3:
 			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField3(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 4:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField4(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -2609,6 +2626,17 @@ func (p *ImportExamWorkloadReq) ReadField3(iprot thrift.TProtocol) error {
 	p.UploadId = _field
 	return nil
 }
+func (p *ImportExamWorkloadReq) ReadField4(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.Level = _field
+	return nil
+}
 
 func (p *ImportExamWorkloadReq) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -2626,6 +2654,10 @@ func (p *ImportExamWorkloadReq) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField3(oprot); err != nil {
 			fieldId = 3
+			goto WriteFieldError
+		}
+		if err = p.writeField4(oprot); err != nil {
+			fieldId = 4
 			goto WriteFieldError
 		}
 	}
@@ -2697,6 +2729,23 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
 }
 
+func (p *ImportExamWorkloadReq) writeField4(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("level", thrift.I32, 4); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.Level); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 end error: ", p), err)
+}
+
 func (p *ImportExamWorkloadReq) String() string {
 	if p == nil {
 		return "<nil>"
@@ -2720,6 +2769,9 @@ func (p *ImportExamWorkloadReq) DeepEqual(ano *ImportExamWorkloadReq) bool {
 	if !p.Field3DeepEqual(ano.UploadId) {
 		return false
 	}
+	if !p.Field4DeepEqual(ano.Level) {
+		return false
+	}
 	return true
 }
 
@@ -2740,6 +2792,13 @@ func (p *ImportExamWorkloadReq) Field2DeepEqual(src string) bool {
 func (p *ImportExamWorkloadReq) Field3DeepEqual(src string) bool {
 
 	if strings.Compare(p.UploadId, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *ImportExamWorkloadReq) Field4DeepEqual(src int32) bool {
+
+	if p.Level != src {
 		return false
 	}
 	return true
