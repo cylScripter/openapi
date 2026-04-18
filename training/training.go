@@ -12,6 +12,48 @@ import (
 	"strings"
 )
 
+type OptionItem int64
+
+const (
+	OptionItem_name OptionItem = 1
+	OptionItem_id   OptionItem = 2
+)
+
+func (p OptionItem) String() string {
+	switch p {
+	case OptionItem_name:
+		return "name"
+	case OptionItem_id:
+		return "id"
+	}
+	return "<UNSET>"
+}
+
+func OptionItemFromString(s string) (OptionItem, error) {
+	switch s {
+	case "name":
+		return OptionItem_name, nil
+	case "id":
+		return OptionItem_id, nil
+	}
+	return OptionItem(0), fmt.Errorf("not a valid OptionItem string")
+}
+
+func OptionItemPtr(v OptionItem) *OptionItem { return &v }
+func (p *OptionItem) Scan(value interface{}) (err error) {
+	var result sql.NullInt64
+	err = result.Scan(value)
+	*p = OptionItem(result.Int64)
+	return
+}
+
+func (p *OptionItem) Value() (driver.Value, error) {
+	if p == nil {
+		return nil, nil
+	}
+	return int64(*p), nil
+}
+
 type GetPastMajorListOption int64
 
 const (
