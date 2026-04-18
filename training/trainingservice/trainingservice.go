@@ -167,6 +167,76 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"GetClassroomList": kitex.NewMethodInfo(
+		getClassroomListHandler,
+		newTrainingserviceGetClassroomListArgs,
+		newTrainingserviceGetClassroomListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"ImportClassroom": kitex.NewMethodInfo(
+		importClassroomHandler,
+		newTrainingserviceImportClassroomArgs,
+		newTrainingserviceImportClassroomResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"EditClassroom": kitex.NewMethodInfo(
+		editClassroomHandler,
+		newTrainingserviceEditClassroomArgs,
+		newTrainingserviceEditClassroomResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"ExportMajorPracticeTeaching": kitex.NewMethodInfo(
+		exportMajorPracticeTeachingHandler,
+		newTrainingserviceExportMajorPracticeTeachingArgs,
+		newTrainingserviceExportMajorPracticeTeachingResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"ImportMajorPracticeTeaching": kitex.NewMethodInfo(
+		importMajorPracticeTeachingHandler,
+		newTrainingserviceImportMajorPracticeTeachingArgs,
+		newTrainingserviceImportMajorPracticeTeachingResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetMajorPracticeTeachingPlanList": kitex.NewMethodInfo(
+		getMajorPracticeTeachingPlanListHandler,
+		newTrainingserviceGetMajorPracticeTeachingPlanListArgs,
+		newTrainingserviceGetMajorPracticeTeachingPlanListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"FillMajorPracticeTeachingBudget": kitex.NewMethodInfo(
+		fillMajorPracticeTeachingBudgetHandler,
+		newTrainingserviceFillMajorPracticeTeachingBudgetArgs,
+		newTrainingserviceFillMajorPracticeTeachingBudgetResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"EditMajorPracticeTeachingPlan": kitex.NewMethodInfo(
+		editMajorPracticeTeachingPlanHandler,
+		newTrainingserviceEditMajorPracticeTeachingPlanArgs,
+		newTrainingserviceEditMajorPracticeTeachingPlanResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"ScheduleTeaching": kitex.NewMethodInfo(
+		scheduleTeachingHandler,
+		newTrainingserviceScheduleTeachingArgs,
+		newTrainingserviceScheduleTeachingResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"ScheduleClassroom": kitex.NewMethodInfo(
+		scheduleClassroomHandler,
+		newTrainingserviceScheduleClassroomArgs,
+		newTrainingserviceScheduleClassroomResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -629,6 +699,186 @@ func newTrainingserviceUpdatePastMajorResult() interface{} {
 	return training.NewTrainingserviceUpdatePastMajorResult()
 }
 
+func getClassroomListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceGetClassroomListArgs)
+	realResult := result.(*training.TrainingserviceGetClassroomListResult)
+	success, err := handler.(training.Trainingservice).GetClassroomList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceGetClassroomListArgs() interface{} {
+	return training.NewTrainingserviceGetClassroomListArgs()
+}
+
+func newTrainingserviceGetClassroomListResult() interface{} {
+	return training.NewTrainingserviceGetClassroomListResult()
+}
+
+func importClassroomHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceImportClassroomArgs)
+	realResult := result.(*training.TrainingserviceImportClassroomResult)
+	success, err := handler.(training.Trainingservice).ImportClassroom(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceImportClassroomArgs() interface{} {
+	return training.NewTrainingserviceImportClassroomArgs()
+}
+
+func newTrainingserviceImportClassroomResult() interface{} {
+	return training.NewTrainingserviceImportClassroomResult()
+}
+
+func editClassroomHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceEditClassroomArgs)
+	realResult := result.(*training.TrainingserviceEditClassroomResult)
+	success, err := handler.(training.Trainingservice).EditClassroom(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceEditClassroomArgs() interface{} {
+	return training.NewTrainingserviceEditClassroomArgs()
+}
+
+func newTrainingserviceEditClassroomResult() interface{} {
+	return training.NewTrainingserviceEditClassroomResult()
+}
+
+func exportMajorPracticeTeachingHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceExportMajorPracticeTeachingArgs)
+	realResult := result.(*training.TrainingserviceExportMajorPracticeTeachingResult)
+	success, err := handler.(training.Trainingservice).ExportMajorPracticeTeaching(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceExportMajorPracticeTeachingArgs() interface{} {
+	return training.NewTrainingserviceExportMajorPracticeTeachingArgs()
+}
+
+func newTrainingserviceExportMajorPracticeTeachingResult() interface{} {
+	return training.NewTrainingserviceExportMajorPracticeTeachingResult()
+}
+
+func importMajorPracticeTeachingHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceImportMajorPracticeTeachingArgs)
+	realResult := result.(*training.TrainingserviceImportMajorPracticeTeachingResult)
+	success, err := handler.(training.Trainingservice).ImportMajorPracticeTeaching(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceImportMajorPracticeTeachingArgs() interface{} {
+	return training.NewTrainingserviceImportMajorPracticeTeachingArgs()
+}
+
+func newTrainingserviceImportMajorPracticeTeachingResult() interface{} {
+	return training.NewTrainingserviceImportMajorPracticeTeachingResult()
+}
+
+func getMajorPracticeTeachingPlanListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceGetMajorPracticeTeachingPlanListArgs)
+	realResult := result.(*training.TrainingserviceGetMajorPracticeTeachingPlanListResult)
+	success, err := handler.(training.Trainingservice).GetMajorPracticeTeachingPlanList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceGetMajorPracticeTeachingPlanListArgs() interface{} {
+	return training.NewTrainingserviceGetMajorPracticeTeachingPlanListArgs()
+}
+
+func newTrainingserviceGetMajorPracticeTeachingPlanListResult() interface{} {
+	return training.NewTrainingserviceGetMajorPracticeTeachingPlanListResult()
+}
+
+func fillMajorPracticeTeachingBudgetHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceFillMajorPracticeTeachingBudgetArgs)
+	realResult := result.(*training.TrainingserviceFillMajorPracticeTeachingBudgetResult)
+	success, err := handler.(training.Trainingservice).FillMajorPracticeTeachingBudget(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceFillMajorPracticeTeachingBudgetArgs() interface{} {
+	return training.NewTrainingserviceFillMajorPracticeTeachingBudgetArgs()
+}
+
+func newTrainingserviceFillMajorPracticeTeachingBudgetResult() interface{} {
+	return training.NewTrainingserviceFillMajorPracticeTeachingBudgetResult()
+}
+
+func editMajorPracticeTeachingPlanHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceEditMajorPracticeTeachingPlanArgs)
+	realResult := result.(*training.TrainingserviceEditMajorPracticeTeachingPlanResult)
+	success, err := handler.(training.Trainingservice).EditMajorPracticeTeachingPlan(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceEditMajorPracticeTeachingPlanArgs() interface{} {
+	return training.NewTrainingserviceEditMajorPracticeTeachingPlanArgs()
+}
+
+func newTrainingserviceEditMajorPracticeTeachingPlanResult() interface{} {
+	return training.NewTrainingserviceEditMajorPracticeTeachingPlanResult()
+}
+
+func scheduleTeachingHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceScheduleTeachingArgs)
+	realResult := result.(*training.TrainingserviceScheduleTeachingResult)
+	success, err := handler.(training.Trainingservice).ScheduleTeaching(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceScheduleTeachingArgs() interface{} {
+	return training.NewTrainingserviceScheduleTeachingArgs()
+}
+
+func newTrainingserviceScheduleTeachingResult() interface{} {
+	return training.NewTrainingserviceScheduleTeachingResult()
+}
+
+func scheduleClassroomHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceScheduleClassroomArgs)
+	realResult := result.(*training.TrainingserviceScheduleClassroomResult)
+	success, err := handler.(training.Trainingservice).ScheduleClassroom(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceScheduleClassroomArgs() interface{} {
+	return training.NewTrainingserviceScheduleClassroomArgs()
+}
+
+func newTrainingserviceScheduleClassroomResult() interface{} {
+	return training.NewTrainingserviceScheduleClassroomResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -854,6 +1104,106 @@ func (p *kClient) UpdatePastMajor(ctx context.Context, req *training.UpdatePastM
 	_args.Req = req
 	var _result training.TrainingserviceUpdatePastMajorResult
 	if err = p.c.Call(ctx, "UpdatePastMajor", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetClassroomList(ctx context.Context, req *training.GetClassroomListReq) (r *training.GetClassroomListResp, err error) {
+	var _args training.TrainingserviceGetClassroomListArgs
+	_args.Req = req
+	var _result training.TrainingserviceGetClassroomListResult
+	if err = p.c.Call(ctx, "GetClassroomList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ImportClassroom(ctx context.Context, req *training.ImportClassroomReq) (r *training.ImportClassroomResp, err error) {
+	var _args training.TrainingserviceImportClassroomArgs
+	_args.Req = req
+	var _result training.TrainingserviceImportClassroomResult
+	if err = p.c.Call(ctx, "ImportClassroom", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) EditClassroom(ctx context.Context, req *training.EditClassroomReq) (r *training.EditClassroomResp, err error) {
+	var _args training.TrainingserviceEditClassroomArgs
+	_args.Req = req
+	var _result training.TrainingserviceEditClassroomResult
+	if err = p.c.Call(ctx, "EditClassroom", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ExportMajorPracticeTeaching(ctx context.Context, req *training.ExportMajorPracticeTeachingReq) (r *training.ExportMajorPracticeTeachingResp, err error) {
+	var _args training.TrainingserviceExportMajorPracticeTeachingArgs
+	_args.Req = req
+	var _result training.TrainingserviceExportMajorPracticeTeachingResult
+	if err = p.c.Call(ctx, "ExportMajorPracticeTeaching", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ImportMajorPracticeTeaching(ctx context.Context, req *training.ImportMajorPracticeTeachingReq) (r *training.ImportMajorPracticeTeachingResp, err error) {
+	var _args training.TrainingserviceImportMajorPracticeTeachingArgs
+	_args.Req = req
+	var _result training.TrainingserviceImportMajorPracticeTeachingResult
+	if err = p.c.Call(ctx, "ImportMajorPracticeTeaching", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetMajorPracticeTeachingPlanList(ctx context.Context, req *training.GetMajorPracticeTeachingPlanListReq) (r *training.GetMajorPracticeTeachingPlanListResp, err error) {
+	var _args training.TrainingserviceGetMajorPracticeTeachingPlanListArgs
+	_args.Req = req
+	var _result training.TrainingserviceGetMajorPracticeTeachingPlanListResult
+	if err = p.c.Call(ctx, "GetMajorPracticeTeachingPlanList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) FillMajorPracticeTeachingBudget(ctx context.Context, req *training.FillMajorPracticeTeachingBudgetReq) (r *training.FillMajorPracticeTeachingBudgetResp, err error) {
+	var _args training.TrainingserviceFillMajorPracticeTeachingBudgetArgs
+	_args.Req = req
+	var _result training.TrainingserviceFillMajorPracticeTeachingBudgetResult
+	if err = p.c.Call(ctx, "FillMajorPracticeTeachingBudget", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) EditMajorPracticeTeachingPlan(ctx context.Context, req *training.EditMajorPracticeTeachingPlanReq) (r *training.EditMajorPracticeTeachingPlanResp, err error) {
+	var _args training.TrainingserviceEditMajorPracticeTeachingPlanArgs
+	_args.Req = req
+	var _result training.TrainingserviceEditMajorPracticeTeachingPlanResult
+	if err = p.c.Call(ctx, "EditMajorPracticeTeachingPlan", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ScheduleTeaching(ctx context.Context, req *training.ScheduleTeachingReq) (r *training.ScheduleTeachingResp, err error) {
+	var _args training.TrainingserviceScheduleTeachingArgs
+	_args.Req = req
+	var _result training.TrainingserviceScheduleTeachingResult
+	if err = p.c.Call(ctx, "ScheduleTeaching", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ScheduleClassroom(ctx context.Context, req *training.ScheduleClassroomReq) (r *training.ScheduleClassroomResp, err error) {
+	var _args training.TrainingserviceScheduleClassroomArgs
+	_args.Req = req
+	var _result training.TrainingserviceScheduleClassroomResult
+	if err = p.c.Call(ctx, "ScheduleClassroom", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

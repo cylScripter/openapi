@@ -115,3 +115,53 @@ func UpdatePastMajor(ctx context.Context, req *training.UpdatePastMajorReq, call
 	clients := MustNewClient("training", callOptions...)
 	return clients.UpdatePastMajor(ctx, req)
 }
+
+func GetClassroomList(ctx context.Context, req *training.GetClassroomListReq, callOptions ...client.Option) (resp *training.GetClassroomListResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.GetClassroomList(ctx, req)
+}
+
+func ImportClassroom(ctx context.Context, req *training.ImportClassroomReq, callOptions ...client.Option) (resp *training.ImportClassroomResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.ImportClassroom(ctx, req)
+}
+
+func EditClassroom(ctx context.Context, req *training.EditClassroomReq, callOptions ...client.Option) (resp *training.EditClassroomResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.EditClassroom(ctx, req)
+}
+
+func ExportMajorPracticeTeaching(ctx context.Context, req *training.ExportMajorPracticeTeachingReq, callOptions ...client.Option) (resp *training.ExportMajorPracticeTeachingResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.ExportMajorPracticeTeaching(ctx, req)
+}
+
+func ImportMajorPracticeTeaching(ctx context.Context, req *training.ImportMajorPracticeTeachingReq, callOptions ...client.Option) (resp *training.ImportMajorPracticeTeachingResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.ImportMajorPracticeTeaching(ctx, req)
+}
+
+func GetMajorPracticeTeachingPlanList(ctx context.Context, req *training.GetMajorPracticeTeachingPlanListReq, callOptions ...client.Option) (resp *training.GetMajorPracticeTeachingPlanListResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.GetMajorPracticeTeachingPlanList(ctx, req)
+}
+
+func FillMajorPracticeTeachingBudget(ctx context.Context, req *training.FillMajorPracticeTeachingBudgetReq, callOptions ...client.Option) (resp *training.FillMajorPracticeTeachingBudgetResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.FillMajorPracticeTeachingBudget(ctx, req)
+}
+
+func EditMajorPracticeTeachingPlan(ctx context.Context, req *training.EditMajorPracticeTeachingPlanReq, callOptions ...client.Option) (resp *training.EditMajorPracticeTeachingPlanResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.EditMajorPracticeTeachingPlan(ctx, req)
+}
+
+func ScheduleTeaching(ctx context.Context, req *training.ScheduleTeachingReq, callOptions ...client.Option) (resp *training.ScheduleTeachingResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.ScheduleTeaching(ctx, req)
+}
+
+func ScheduleClassroom(ctx context.Context, req *training.ScheduleClassroomReq, callOptions ...client.Option) (resp *training.ScheduleClassroomResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.ScheduleClassroom(ctx, req)
+}

@@ -33,6 +33,16 @@ type Client interface {
 	DeletePastMajor(ctx context.Context, req *training.DeletePastMajorReq, callOptions ...callopt.Option) (r *training.DeletePastMajorResp, err error)
 	AddPastMajor(ctx context.Context, req *training.AddPastMajorReq, callOptions ...callopt.Option) (r *training.AddPastMajorResp, err error)
 	UpdatePastMajor(ctx context.Context, req *training.UpdatePastMajorReq, callOptions ...callopt.Option) (r *training.UpdatePastMajorResp, err error)
+	GetClassroomList(ctx context.Context, req *training.GetClassroomListReq, callOptions ...callopt.Option) (r *training.GetClassroomListResp, err error)
+	ImportClassroom(ctx context.Context, req *training.ImportClassroomReq, callOptions ...callopt.Option) (r *training.ImportClassroomResp, err error)
+	EditClassroom(ctx context.Context, req *training.EditClassroomReq, callOptions ...callopt.Option) (r *training.EditClassroomResp, err error)
+	ExportMajorPracticeTeaching(ctx context.Context, req *training.ExportMajorPracticeTeachingReq, callOptions ...callopt.Option) (r *training.ExportMajorPracticeTeachingResp, err error)
+	ImportMajorPracticeTeaching(ctx context.Context, req *training.ImportMajorPracticeTeachingReq, callOptions ...callopt.Option) (r *training.ImportMajorPracticeTeachingResp, err error)
+	GetMajorPracticeTeachingPlanList(ctx context.Context, req *training.GetMajorPracticeTeachingPlanListReq, callOptions ...callopt.Option) (r *training.GetMajorPracticeTeachingPlanListResp, err error)
+	FillMajorPracticeTeachingBudget(ctx context.Context, req *training.FillMajorPracticeTeachingBudgetReq, callOptions ...callopt.Option) (r *training.FillMajorPracticeTeachingBudgetResp, err error)
+	EditMajorPracticeTeachingPlan(ctx context.Context, req *training.EditMajorPracticeTeachingPlanReq, callOptions ...callopt.Option) (r *training.EditMajorPracticeTeachingPlanResp, err error)
+	ScheduleTeaching(ctx context.Context, req *training.ScheduleTeachingReq, callOptions ...callopt.Option) (r *training.ScheduleTeachingResp, err error)
+	ScheduleClassroom(ctx context.Context, req *training.ScheduleClassroomReq, callOptions ...callopt.Option) (r *training.ScheduleClassroomResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -172,4 +182,54 @@ func (p *kTrainingserviceClient) AddPastMajor(ctx context.Context, req *training
 func (p *kTrainingserviceClient) UpdatePastMajor(ctx context.Context, req *training.UpdatePastMajorReq, callOptions ...callopt.Option) (r *training.UpdatePastMajorResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.UpdatePastMajor(ctx, req)
+}
+
+func (p *kTrainingserviceClient) GetClassroomList(ctx context.Context, req *training.GetClassroomListReq, callOptions ...callopt.Option) (r *training.GetClassroomListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetClassroomList(ctx, req)
+}
+
+func (p *kTrainingserviceClient) ImportClassroom(ctx context.Context, req *training.ImportClassroomReq, callOptions ...callopt.Option) (r *training.ImportClassroomResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ImportClassroom(ctx, req)
+}
+
+func (p *kTrainingserviceClient) EditClassroom(ctx context.Context, req *training.EditClassroomReq, callOptions ...callopt.Option) (r *training.EditClassroomResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.EditClassroom(ctx, req)
+}
+
+func (p *kTrainingserviceClient) ExportMajorPracticeTeaching(ctx context.Context, req *training.ExportMajorPracticeTeachingReq, callOptions ...callopt.Option) (r *training.ExportMajorPracticeTeachingResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ExportMajorPracticeTeaching(ctx, req)
+}
+
+func (p *kTrainingserviceClient) ImportMajorPracticeTeaching(ctx context.Context, req *training.ImportMajorPracticeTeachingReq, callOptions ...callopt.Option) (r *training.ImportMajorPracticeTeachingResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ImportMajorPracticeTeaching(ctx, req)
+}
+
+func (p *kTrainingserviceClient) GetMajorPracticeTeachingPlanList(ctx context.Context, req *training.GetMajorPracticeTeachingPlanListReq, callOptions ...callopt.Option) (r *training.GetMajorPracticeTeachingPlanListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetMajorPracticeTeachingPlanList(ctx, req)
+}
+
+func (p *kTrainingserviceClient) FillMajorPracticeTeachingBudget(ctx context.Context, req *training.FillMajorPracticeTeachingBudgetReq, callOptions ...callopt.Option) (r *training.FillMajorPracticeTeachingBudgetResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.FillMajorPracticeTeachingBudget(ctx, req)
+}
+
+func (p *kTrainingserviceClient) EditMajorPracticeTeachingPlan(ctx context.Context, req *training.EditMajorPracticeTeachingPlanReq, callOptions ...callopt.Option) (r *training.EditMajorPracticeTeachingPlanResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.EditMajorPracticeTeachingPlan(ctx, req)
+}
+
+func (p *kTrainingserviceClient) ScheduleTeaching(ctx context.Context, req *training.ScheduleTeachingReq, callOptions ...callopt.Option) (r *training.ScheduleTeachingResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ScheduleTeaching(ctx, req)
+}
+
+func (p *kTrainingserviceClient) ScheduleClassroom(ctx context.Context, req *training.ScheduleClassroomReq, callOptions ...callopt.Option) (r *training.ScheduleClassroomResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ScheduleClassroom(ctx, req)
 }
