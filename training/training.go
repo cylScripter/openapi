@@ -22402,6 +22402,8 @@ type ModelTeachSchedule struct {
 	Category     int32  `thrift:"category,19" frugal:"19,default,i32" json:"category" gorm:"column:category"`
 	ClassroomId  int32  `thrift:"classroom_id,20" frugal:"20,default,i32" json:"classroom_id" gorm:"column:classroom_id"`
 	TimeSlot     string `thrift:"time_slot,21" frugal:"21,default,string" json:"time_slot" gorm:"column:time_slot"`
+	TeacherName  string `thrift:"teacher_name,22" frugal:"22,default,string" json:"teacher_name" gorm:"column:teacher_name"`
+	IsOutside    int32  `thrift:"is_outside,23" frugal:"23,default,i32" json:"is_outside" gorm:"column:is_outside"`
 }
 
 func NewModelTeachSchedule() *ModelTeachSchedule {
@@ -22470,6 +22472,14 @@ func (p *ModelTeachSchedule) GetClassroomId() (v int32) {
 func (p *ModelTeachSchedule) GetTimeSlot() (v string) {
 	return p.TimeSlot
 }
+
+func (p *ModelTeachSchedule) GetTeacherName() (v string) {
+	return p.TeacherName
+}
+
+func (p *ModelTeachSchedule) GetIsOutside() (v int32) {
+	return p.IsOutside
+}
 func (p *ModelTeachSchedule) SetId(val int32) {
 	p.Id = val
 }
@@ -22515,6 +22525,12 @@ func (p *ModelTeachSchedule) SetClassroomId(val int32) {
 func (p *ModelTeachSchedule) SetTimeSlot(val string) {
 	p.TimeSlot = val
 }
+func (p *ModelTeachSchedule) SetTeacherName(val string) {
+	p.TeacherName = val
+}
+func (p *ModelTeachSchedule) SetIsOutside(val int32) {
+	p.IsOutside = val
+}
 
 var fieldIDToName_ModelTeachSchedule = map[int16]string{
 	1:  "id",
@@ -22532,6 +22548,8 @@ var fieldIDToName_ModelTeachSchedule = map[int16]string{
 	19: "category",
 	20: "classroom_id",
 	21: "time_slot",
+	22: "teacher_name",
+	23: "is_outside",
 }
 
 func (p *ModelTeachSchedule) Read(iprot thrift.TProtocol) (err error) {
@@ -22668,6 +22686,22 @@ func (p *ModelTeachSchedule) Read(iprot thrift.TProtocol) (err error) {
 		case 21:
 			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField21(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 22:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField22(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 23:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField23(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -22867,6 +22901,28 @@ func (p *ModelTeachSchedule) ReadField21(iprot thrift.TProtocol) error {
 	p.TimeSlot = _field
 	return nil
 }
+func (p *ModelTeachSchedule) ReadField22(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.TeacherName = _field
+	return nil
+}
+func (p *ModelTeachSchedule) ReadField23(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.IsOutside = _field
+	return nil
+}
 
 func (p *ModelTeachSchedule) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -22932,6 +22988,14 @@ func (p *ModelTeachSchedule) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField21(oprot); err != nil {
 			fieldId = 21
+			goto WriteFieldError
+		}
+		if err = p.writeField22(oprot); err != nil {
+			fieldId = 22
+			goto WriteFieldError
+		}
+		if err = p.writeField23(oprot); err != nil {
+			fieldId = 23
 			goto WriteFieldError
 		}
 	}
@@ -23207,6 +23271,40 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 21 end error: ", p), err)
 }
 
+func (p *ModelTeachSchedule) writeField22(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("teacher_name", thrift.STRING, 22); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.TeacherName); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 22 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 22 end error: ", p), err)
+}
+
+func (p *ModelTeachSchedule) writeField23(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("is_outside", thrift.I32, 23); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.IsOutside); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 23 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 23 end error: ", p), err)
+}
+
 func (p *ModelTeachSchedule) String() string {
 	if p == nil {
 		return "<nil>"
@@ -23264,6 +23362,12 @@ func (p *ModelTeachSchedule) DeepEqual(ano *ModelTeachSchedule) bool {
 		return false
 	}
 	if !p.Field21DeepEqual(ano.TimeSlot) {
+		return false
+	}
+	if !p.Field22DeepEqual(ano.TeacherName) {
+		return false
+	}
+	if !p.Field23DeepEqual(ano.IsOutside) {
 		return false
 	}
 	return true
@@ -23370,6 +23474,20 @@ func (p *ModelTeachSchedule) Field20DeepEqual(src int32) bool {
 func (p *ModelTeachSchedule) Field21DeepEqual(src string) bool {
 
 	if strings.Compare(p.TimeSlot, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *ModelTeachSchedule) Field22DeepEqual(src string) bool {
+
+	if strings.Compare(p.TeacherName, src) != 0 {
+		return false
+	}
+	return true
+}
+func (p *ModelTeachSchedule) Field23DeepEqual(src int32) bool {
+
+	if p.IsOutside != src {
 		return false
 	}
 	return true
