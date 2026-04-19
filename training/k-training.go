@@ -3102,6 +3102,20 @@ func (p *EditClassroomReq) FastRead(buf []byte) (int, error) {
 					goto SkipFieldError
 				}
 			}
+		case 4:
+			if fieldTypeId == thrift.I32 {
+				l, err = p.FastReadField4(buf[offset:])
+				offset += l
+				if err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
+				offset += l
+				if err != nil {
+					goto SkipFieldError
+				}
+			}
 		default:
 			l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
 			offset += l
@@ -3162,6 +3176,20 @@ func (p *EditClassroomReq) FastReadField3(buf []byte) (int, error) {
 	return offset, nil
 }
 
+func (p *EditClassroomReq) FastReadField4(buf []byte) (int, error) {
+	offset := 0
+
+	var _field int32
+	if v, l, err := thrift.Binary.ReadI32(buf[offset:]); err != nil {
+		return offset, err
+	} else {
+		offset += l
+		_field = v
+	}
+	p.IsDelete = _field
+	return offset, nil
+}
+
 // for compatibility
 func (p *EditClassroomReq) FastWrite(buf []byte) int {
 	return 0
@@ -3171,6 +3199,7 @@ func (p *EditClassroomReq) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) in
 	offset := 0
 	if p != nil {
 		offset += p.fastWriteField1(buf[offset:], w)
+		offset += p.fastWriteField4(buf[offset:], w)
 		offset += p.fastWriteField2(buf[offset:], w)
 		offset += p.fastWriteField3(buf[offset:], w)
 	}
@@ -3184,6 +3213,7 @@ func (p *EditClassroomReq) BLength() int {
 		l += p.field1Length()
 		l += p.field2Length()
 		l += p.field3Length()
+		l += p.field4Length()
 	}
 	l += thrift.Binary.FieldStopLength()
 	return l
@@ -3210,6 +3240,13 @@ func (p *EditClassroomReq) fastWriteField3(buf []byte, w thrift.NocopyWriter) in
 	return offset
 }
 
+func (p *EditClassroomReq) fastWriteField4(buf []byte, w thrift.NocopyWriter) int {
+	offset := 0
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 4)
+	offset += thrift.Binary.WriteI32(buf[offset:], p.IsDelete)
+	return offset
+}
+
 func (p *EditClassroomReq) field1Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
@@ -3228,6 +3265,13 @@ func (p *EditClassroomReq) field3Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.StringLengthNocopy(p.Location)
+	return l
+}
+
+func (p *EditClassroomReq) field4Length() int {
+	l := 0
+	l += thrift.Binary.FieldBeginLength()
+	l += thrift.Binary.I32Length()
 	return l
 }
 
