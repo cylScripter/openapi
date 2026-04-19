@@ -800,9 +800,10 @@ func (p *ScheduleTeachingReq) Field2DeepEqual(src []*ScheduleTeachingReqItem) bo
 }
 
 type ScheduleTeachingReqItem struct {
-	TeacherId string          `thrift:"teacher_id,1" frugal:"1,default,string" json:"teacher_id"`
-	Time      []*ScheduleTime `thrift:"time,2" frugal:"2,default,list<ScheduleTime>" json:"times"`
-	IsOutside int32           `thrift:"is_outside,3" frugal:"3,default,i32" json:"is_outside"`
+	TeacherId   string          `thrift:"teacher_id,1" frugal:"1,default,string" json:"teacher_id"`
+	Time        []*ScheduleTime `thrift:"time,2" frugal:"2,default,list<ScheduleTime>" json:"times"`
+	IsOutside   int32           `thrift:"is_outside,3" frugal:"3,default,i32" json:"is_outside"`
+	TeacherName string          `thrift:"teacher_name,4" frugal:"4,default,string" json:"teacher_name"`
 }
 
 func NewScheduleTeachingReqItem() *ScheduleTeachingReqItem {
@@ -823,6 +824,10 @@ func (p *ScheduleTeachingReqItem) GetTime() (v []*ScheduleTime) {
 func (p *ScheduleTeachingReqItem) GetIsOutside() (v int32) {
 	return p.IsOutside
 }
+
+func (p *ScheduleTeachingReqItem) GetTeacherName() (v string) {
+	return p.TeacherName
+}
 func (p *ScheduleTeachingReqItem) SetTeacherId(val string) {
 	p.TeacherId = val
 }
@@ -832,11 +837,15 @@ func (p *ScheduleTeachingReqItem) SetTime(val []*ScheduleTime) {
 func (p *ScheduleTeachingReqItem) SetIsOutside(val int32) {
 	p.IsOutside = val
 }
+func (p *ScheduleTeachingReqItem) SetTeacherName(val string) {
+	p.TeacherName = val
+}
 
 var fieldIDToName_ScheduleTeachingReqItem = map[int16]string{
 	1: "teacher_id",
 	2: "time",
 	3: "is_outside",
+	4: "teacher_name",
 }
 
 func (p *ScheduleTeachingReqItem) Read(iprot thrift.TProtocol) (err error) {
@@ -877,6 +886,14 @@ func (p *ScheduleTeachingReqItem) Read(iprot thrift.TProtocol) (err error) {
 		case 3:
 			if fieldTypeId == thrift.I32 {
 				if err = p.ReadField3(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 4:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField4(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -956,6 +973,17 @@ func (p *ScheduleTeachingReqItem) ReadField3(iprot thrift.TProtocol) error {
 	p.IsOutside = _field
 	return nil
 }
+func (p *ScheduleTeachingReqItem) ReadField4(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.TeacherName = _field
+	return nil
+}
 
 func (p *ScheduleTeachingReqItem) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -973,6 +1001,10 @@ func (p *ScheduleTeachingReqItem) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField3(oprot); err != nil {
 			fieldId = 3
+			goto WriteFieldError
+		}
+		if err = p.writeField4(oprot); err != nil {
+			fieldId = 4
 			goto WriteFieldError
 		}
 	}
@@ -1052,6 +1084,23 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
 }
 
+func (p *ScheduleTeachingReqItem) writeField4(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("teacher_name", thrift.STRING, 4); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.TeacherName); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 end error: ", p), err)
+}
+
 func (p *ScheduleTeachingReqItem) String() string {
 	if p == nil {
 		return "<nil>"
@@ -1073,6 +1122,9 @@ func (p *ScheduleTeachingReqItem) DeepEqual(ano *ScheduleTeachingReqItem) bool {
 		return false
 	}
 	if !p.Field3DeepEqual(ano.IsOutside) {
+		return false
+	}
+	if !p.Field4DeepEqual(ano.TeacherName) {
 		return false
 	}
 	return true
@@ -1101,6 +1153,13 @@ func (p *ScheduleTeachingReqItem) Field2DeepEqual(src []*ScheduleTime) bool {
 func (p *ScheduleTeachingReqItem) Field3DeepEqual(src int32) bool {
 
 	if p.IsOutside != src {
+		return false
+	}
+	return true
+}
+func (p *ScheduleTeachingReqItem) Field4DeepEqual(src string) bool {
+
+	if strings.Compare(p.TeacherName, src) != 0 {
 		return false
 	}
 	return true
@@ -1539,9 +1598,10 @@ func (p *ScheduleClassroomResp) DeepEqual(ano *ScheduleClassroomResp) bool {
 }
 
 type ScheduleClassroomReqItem struct {
-	ClassroomId int32           `thrift:"classroom_id,1" frugal:"1,default,i32" json:"classroom_id"`
-	Time        []*ScheduleTime `thrift:"time,2" frugal:"2,default,list<ScheduleTime>" json:"times"`
-	IsOutside   int32           `thrift:"is_outside,6" frugal:"6,default,i32" json:"is_outside"`
+	ClassroomId   int32           `thrift:"classroom_id,1" frugal:"1,default,i32" json:"classroom_id"`
+	Time          []*ScheduleTime `thrift:"time,2" frugal:"2,default,list<ScheduleTime>" json:"times"`
+	IsOutside     int32           `thrift:"is_outside,3" frugal:"3,default,i32" json:"is_outside"`
+	ClassroomName string          `thrift:"classroom_name,4" frugal:"4,default,string" json:"classroom_name"`
 }
 
 func NewScheduleClassroomReqItem() *ScheduleClassroomReqItem {
@@ -1562,6 +1622,10 @@ func (p *ScheduleClassroomReqItem) GetTime() (v []*ScheduleTime) {
 func (p *ScheduleClassroomReqItem) GetIsOutside() (v int32) {
 	return p.IsOutside
 }
+
+func (p *ScheduleClassroomReqItem) GetClassroomName() (v string) {
+	return p.ClassroomName
+}
 func (p *ScheduleClassroomReqItem) SetClassroomId(val int32) {
 	p.ClassroomId = val
 }
@@ -1571,11 +1635,15 @@ func (p *ScheduleClassroomReqItem) SetTime(val []*ScheduleTime) {
 func (p *ScheduleClassroomReqItem) SetIsOutside(val int32) {
 	p.IsOutside = val
 }
+func (p *ScheduleClassroomReqItem) SetClassroomName(val string) {
+	p.ClassroomName = val
+}
 
 var fieldIDToName_ScheduleClassroomReqItem = map[int16]string{
 	1: "classroom_id",
 	2: "time",
-	6: "is_outside",
+	3: "is_outside",
+	4: "classroom_name",
 }
 
 func (p *ScheduleClassroomReqItem) Read(iprot thrift.TProtocol) (err error) {
@@ -1613,9 +1681,17 @@ func (p *ScheduleClassroomReqItem) Read(iprot thrift.TProtocol) (err error) {
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
 				goto SkipFieldError
 			}
-		case 6:
+		case 3:
 			if fieldTypeId == thrift.I32 {
-				if err = p.ReadField6(iprot); err != nil {
+				if err = p.ReadField3(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 4:
+			if fieldTypeId == thrift.STRING {
+				if err = p.ReadField4(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -1684,7 +1760,7 @@ func (p *ScheduleClassroomReqItem) ReadField2(iprot thrift.TProtocol) error {
 	p.Time = _field
 	return nil
 }
-func (p *ScheduleClassroomReqItem) ReadField6(iprot thrift.TProtocol) error {
+func (p *ScheduleClassroomReqItem) ReadField3(iprot thrift.TProtocol) error {
 
 	var _field int32
 	if v, err := iprot.ReadI32(); err != nil {
@@ -1693,6 +1769,17 @@ func (p *ScheduleClassroomReqItem) ReadField6(iprot thrift.TProtocol) error {
 		_field = v
 	}
 	p.IsOutside = _field
+	return nil
+}
+func (p *ScheduleClassroomReqItem) ReadField4(iprot thrift.TProtocol) error {
+
+	var _field string
+	if v, err := iprot.ReadString(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.ClassroomName = _field
 	return nil
 }
 
@@ -1710,8 +1797,12 @@ func (p *ScheduleClassroomReqItem) Write(oprot thrift.TProtocol) (err error) {
 			fieldId = 2
 			goto WriteFieldError
 		}
-		if err = p.writeField6(oprot); err != nil {
-			fieldId = 6
+		if err = p.writeField3(oprot); err != nil {
+			fieldId = 3
+			goto WriteFieldError
+		}
+		if err = p.writeField4(oprot); err != nil {
+			fieldId = 4
 			goto WriteFieldError
 		}
 	}
@@ -1774,8 +1865,8 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
 }
 
-func (p *ScheduleClassroomReqItem) writeField6(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("is_outside", thrift.I32, 6); err != nil {
+func (p *ScheduleClassroomReqItem) writeField3(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("is_outside", thrift.I32, 3); err != nil {
 		goto WriteFieldBeginError
 	}
 	if err := oprot.WriteI32(p.IsOutside); err != nil {
@@ -1786,9 +1877,26 @@ func (p *ScheduleClassroomReqItem) writeField6(oprot thrift.TProtocol) (err erro
 	}
 	return nil
 WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 6 begin error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 begin error: ", p), err)
 WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 6 end error: ", p), err)
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
+}
+
+func (p *ScheduleClassroomReqItem) writeField4(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("classroom_name", thrift.STRING, 4); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteString(p.ClassroomName); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 4 end error: ", p), err)
 }
 
 func (p *ScheduleClassroomReqItem) String() string {
@@ -1811,7 +1919,10 @@ func (p *ScheduleClassroomReqItem) DeepEqual(ano *ScheduleClassroomReqItem) bool
 	if !p.Field2DeepEqual(ano.Time) {
 		return false
 	}
-	if !p.Field6DeepEqual(ano.IsOutside) {
+	if !p.Field3DeepEqual(ano.IsOutside) {
+		return false
+	}
+	if !p.Field4DeepEqual(ano.ClassroomName) {
 		return false
 	}
 	return true
@@ -1837,9 +1948,16 @@ func (p *ScheduleClassroomReqItem) Field2DeepEqual(src []*ScheduleTime) bool {
 	}
 	return true
 }
-func (p *ScheduleClassroomReqItem) Field6DeepEqual(src int32) bool {
+func (p *ScheduleClassroomReqItem) Field3DeepEqual(src int32) bool {
 
 	if p.IsOutside != src {
+		return false
+	}
+	return true
+}
+func (p *ScheduleClassroomReqItem) Field4DeepEqual(src string) bool {
+
+	if strings.Compare(p.ClassroomName, src) != 0 {
 		return false
 	}
 	return true
