@@ -15045,7 +15045,7 @@ func (p *ModelTeachSchedule) FastRead(buf []byte) (int, error) {
 				}
 			}
 		case 6:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.I32 {
 				l, err = p.FastReadField6(buf[offset:])
 				offset += l
 				if err != nil {
@@ -15303,8 +15303,8 @@ func (p *ModelTeachSchedule) FastReadField5(buf []byte) (int, error) {
 func (p *ModelTeachSchedule) FastReadField6(buf []byte) (int, error) {
 	offset := 0
 
-	var _field string
-	if v, l, err := thrift.Binary.ReadString(buf[offset:]); err != nil {
+	var _field int32
+	if v, l, err := thrift.Binary.ReadI32(buf[offset:]); err != nil {
 		return offset, err
 	} else {
 		offset += l
@@ -15480,6 +15480,7 @@ func (p *ModelTeachSchedule) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) 
 		offset += p.fastWriteField2(buf[offset:], w)
 		offset += p.fastWriteField3(buf[offset:], w)
 		offset += p.fastWriteField4(buf[offset:], w)
+		offset += p.fastWriteField6(buf[offset:], w)
 		offset += p.fastWriteField7(buf[offset:], w)
 		offset += p.fastWriteField8(buf[offset:], w)
 		offset += p.fastWriteField16(buf[offset:], w)
@@ -15487,7 +15488,6 @@ func (p *ModelTeachSchedule) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) 
 		offset += p.fastWriteField20(buf[offset:], w)
 		offset += p.fastWriteField23(buf[offset:], w)
 		offset += p.fastWriteField5(buf[offset:], w)
-		offset += p.fastWriteField6(buf[offset:], w)
 		offset += p.fastWriteField9(buf[offset:], w)
 		offset += p.fastWriteField17(buf[offset:], w)
 		offset += p.fastWriteField18(buf[offset:], w)
@@ -15560,8 +15560,8 @@ func (p *ModelTeachSchedule) fastWriteField5(buf []byte, w thrift.NocopyWriter) 
 
 func (p *ModelTeachSchedule) fastWriteField6(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
-	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 6)
-	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.CourseId)
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 6)
+	offset += thrift.Binary.WriteI32(buf[offset:], p.CourseId)
 	return offset
 }
 
@@ -15680,7 +15680,7 @@ func (p *ModelTeachSchedule) field5Length() int {
 func (p *ModelTeachSchedule) field6Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.StringLengthNocopy(p.CourseId)
+	l += thrift.Binary.I32Length()
 	return l
 }
 
