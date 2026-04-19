@@ -12,6 +12,65 @@ import (
 	"strings"
 )
 
+type GetMajorPracticeTeachingPlanListReqOption int64
+
+const (
+	GetMajorPracticeTeachingPlanListReqOption_id            GetMajorPracticeTeachingPlanListReqOption = 1
+	GetMajorPracticeTeachingPlanListReqOption_course_name   GetMajorPracticeTeachingPlanListReqOption = 2
+	GetMajorPracticeTeachingPlanListReqOption_class_name    GetMajorPracticeTeachingPlanListReqOption = 3
+	GetMajorPracticeTeachingPlanListReqOption_academic_year GetMajorPracticeTeachingPlanListReqOption = 4
+	GetMajorPracticeTeachingPlanListReqOption_semester      GetMajorPracticeTeachingPlanListReqOption = 5
+)
+
+func (p GetMajorPracticeTeachingPlanListReqOption) String() string {
+	switch p {
+	case GetMajorPracticeTeachingPlanListReqOption_id:
+		return "id"
+	case GetMajorPracticeTeachingPlanListReqOption_course_name:
+		return "course_name"
+	case GetMajorPracticeTeachingPlanListReqOption_class_name:
+		return "class_name"
+	case GetMajorPracticeTeachingPlanListReqOption_academic_year:
+		return "academic_year"
+	case GetMajorPracticeTeachingPlanListReqOption_semester:
+		return "semester"
+	}
+	return "<UNSET>"
+}
+
+func GetMajorPracticeTeachingPlanListReqOptionFromString(s string) (GetMajorPracticeTeachingPlanListReqOption, error) {
+	switch s {
+	case "id":
+		return GetMajorPracticeTeachingPlanListReqOption_id, nil
+	case "course_name":
+		return GetMajorPracticeTeachingPlanListReqOption_course_name, nil
+	case "class_name":
+		return GetMajorPracticeTeachingPlanListReqOption_class_name, nil
+	case "academic_year":
+		return GetMajorPracticeTeachingPlanListReqOption_academic_year, nil
+	case "semester":
+		return GetMajorPracticeTeachingPlanListReqOption_semester, nil
+	}
+	return GetMajorPracticeTeachingPlanListReqOption(0), fmt.Errorf("not a valid GetMajorPracticeTeachingPlanListReqOption string")
+}
+
+func GetMajorPracticeTeachingPlanListReqOptionPtr(v GetMajorPracticeTeachingPlanListReqOption) *GetMajorPracticeTeachingPlanListReqOption {
+	return &v
+}
+func (p *GetMajorPracticeTeachingPlanListReqOption) Scan(value interface{}) (err error) {
+	var result sql.NullInt64
+	err = result.Scan(value)
+	*p = GetMajorPracticeTeachingPlanListReqOption(result.Int64)
+	return
+}
+
+func (p *GetMajorPracticeTeachingPlanListReqOption) Value() (driver.Value, error) {
+	if p == nil {
+		return nil, nil
+	}
+	return int64(*p), nil
+}
+
 type OptionItem int64
 
 const (
