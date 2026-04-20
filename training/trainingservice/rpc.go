@@ -165,3 +165,8 @@ func ScheduleClassroom(ctx context.Context, req *training.ScheduleClassroomReq, 
 	clients := MustNewClient("training", callOptions...)
 	return clients.ScheduleClassroom(ctx, req)
 }
+
+func GetTeachSchedule(ctx context.Context, req *training.GetTeachScheduleReq, callOptions ...client.Option) (resp *training.GetTeachScheduleResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.GetTeachSchedule(ctx, req)
+}
