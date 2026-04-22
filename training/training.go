@@ -989,6 +989,7 @@ type GetTeachScheduleReq struct {
 	Semester     string `thrift:"semester,4" frugal:"4,default,string" json:"semester" binding:"required"`
 	WeekNum      int32  `thrift:"week_num,5" frugal:"5,default,i32" json:"week_num" binding:"required"`
 	Category     int32  `thrift:"category,6" frugal:"6,default,i32" json:"category" binding:"required"`
+	CourseId     int32  `thrift:"course_id,7" frugal:"7,default,i32" json:"course_id"`
 }
 
 func NewGetTeachScheduleReq() *GetTeachScheduleReq {
@@ -1021,6 +1022,10 @@ func (p *GetTeachScheduleReq) GetWeekNum() (v int32) {
 func (p *GetTeachScheduleReq) GetCategory() (v int32) {
 	return p.Category
 }
+
+func (p *GetTeachScheduleReq) GetCourseId() (v int32) {
+	return p.CourseId
+}
 func (p *GetTeachScheduleReq) SetId(val string) {
 	p.Id = val
 }
@@ -1039,6 +1044,9 @@ func (p *GetTeachScheduleReq) SetWeekNum(val int32) {
 func (p *GetTeachScheduleReq) SetCategory(val int32) {
 	p.Category = val
 }
+func (p *GetTeachScheduleReq) SetCourseId(val int32) {
+	p.CourseId = val
+}
 
 var fieldIDToName_GetTeachScheduleReq = map[int16]string{
 	1: "id",
@@ -1047,6 +1055,7 @@ var fieldIDToName_GetTeachScheduleReq = map[int16]string{
 	4: "semester",
 	5: "week_num",
 	6: "category",
+	7: "course_id",
 }
 
 func (p *GetTeachScheduleReq) Read(iprot thrift.TProtocol) (err error) {
@@ -1111,6 +1120,14 @@ func (p *GetTeachScheduleReq) Read(iprot thrift.TProtocol) (err error) {
 		case 6:
 			if fieldTypeId == thrift.I32 {
 				if err = p.ReadField6(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 7:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField7(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -1211,6 +1228,17 @@ func (p *GetTeachScheduleReq) ReadField6(iprot thrift.TProtocol) error {
 	p.Category = _field
 	return nil
 }
+func (p *GetTeachScheduleReq) ReadField7(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.CourseId = _field
+	return nil
+}
 
 func (p *GetTeachScheduleReq) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -1240,6 +1268,10 @@ func (p *GetTeachScheduleReq) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField6(oprot); err != nil {
 			fieldId = 6
+			goto WriteFieldError
+		}
+		if err = p.writeField7(oprot); err != nil {
+			fieldId = 7
 			goto WriteFieldError
 		}
 	}
@@ -1362,6 +1394,23 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 6 end error: ", p), err)
 }
 
+func (p *GetTeachScheduleReq) writeField7(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("course_id", thrift.I32, 7); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.CourseId); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 7 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 7 end error: ", p), err)
+}
+
 func (p *GetTeachScheduleReq) String() string {
 	if p == nil {
 		return "<nil>"
@@ -1392,6 +1441,9 @@ func (p *GetTeachScheduleReq) DeepEqual(ano *GetTeachScheduleReq) bool {
 		return false
 	}
 	if !p.Field6DeepEqual(ano.Category) {
+		return false
+	}
+	if !p.Field7DeepEqual(ano.CourseId) {
 		return false
 	}
 	return true
@@ -1435,6 +1487,13 @@ func (p *GetTeachScheduleReq) Field5DeepEqual(src int32) bool {
 func (p *GetTeachScheduleReq) Field6DeepEqual(src int32) bool {
 
 	if p.Category != src {
+		return false
+	}
+	return true
+}
+func (p *GetTeachScheduleReq) Field7DeepEqual(src int32) bool {
+
+	if p.CourseId != src {
 		return false
 	}
 	return true
