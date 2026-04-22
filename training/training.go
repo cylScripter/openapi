@@ -297,7 +297,9 @@ func (p *CourseType) Value() (driver.Value, error) {
 }
 
 type GetPlanDetailResp struct {
-	Info *ModelMajorPracticeTeachingPlan `thrift:"info,1" frugal:"1,default,ModelMajorPracticeTeachingPlan" json:"info"`
+	Info              *ModelMajorPracticeTeachingPlan `thrift:"info,1" frugal:"1,default,ModelMajorPracticeTeachingPlan" json:"info"`
+	TeachingSchedule  []*ScheduleTeachingReqItem      `thrift:"teaching_schedule,2" frugal:"2,default,list<ScheduleTeachingReqItem>" json:"teaching_schedule"`
+	ClassroomSchedule []*ScheduleClassroomReqItem     `thrift:"classroom_schedule,3" frugal:"3,default,list<ScheduleClassroomReqItem>" json:"classroom_schedule"`
 }
 
 func NewGetPlanDetailResp() *GetPlanDetailResp {
@@ -315,12 +317,28 @@ func (p *GetPlanDetailResp) GetInfo() (v *ModelMajorPracticeTeachingPlan) {
 	}
 	return p.Info
 }
+
+func (p *GetPlanDetailResp) GetTeachingSchedule() (v []*ScheduleTeachingReqItem) {
+	return p.TeachingSchedule
+}
+
+func (p *GetPlanDetailResp) GetClassroomSchedule() (v []*ScheduleClassroomReqItem) {
+	return p.ClassroomSchedule
+}
 func (p *GetPlanDetailResp) SetInfo(val *ModelMajorPracticeTeachingPlan) {
 	p.Info = val
+}
+func (p *GetPlanDetailResp) SetTeachingSchedule(val []*ScheduleTeachingReqItem) {
+	p.TeachingSchedule = val
+}
+func (p *GetPlanDetailResp) SetClassroomSchedule(val []*ScheduleClassroomReqItem) {
+	p.ClassroomSchedule = val
 }
 
 var fieldIDToName_GetPlanDetailResp = map[int16]string{
 	1: "info",
+	2: "teaching_schedule",
+	3: "classroom_schedule",
 }
 
 func (p *GetPlanDetailResp) IsSetInfo() bool {
@@ -349,6 +367,22 @@ func (p *GetPlanDetailResp) Read(iprot thrift.TProtocol) (err error) {
 		case 1:
 			if fieldTypeId == thrift.STRUCT {
 				if err = p.ReadField1(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 2:
+			if fieldTypeId == thrift.LIST {
+				if err = p.ReadField2(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 3:
+			if fieldTypeId == thrift.LIST {
+				if err = p.ReadField3(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -391,6 +425,52 @@ func (p *GetPlanDetailResp) ReadField1(iprot thrift.TProtocol) error {
 	p.Info = _field
 	return nil
 }
+func (p *GetPlanDetailResp) ReadField2(iprot thrift.TProtocol) error {
+	_, size, err := iprot.ReadListBegin()
+	if err != nil {
+		return err
+	}
+	_field := make([]*ScheduleTeachingReqItem, 0, size)
+	values := make([]ScheduleTeachingReqItem, size)
+	for i := 0; i < size; i++ {
+		_elem := &values[i]
+		_elem.InitDefault()
+
+		if err := _elem.Read(iprot); err != nil {
+			return err
+		}
+
+		_field = append(_field, _elem)
+	}
+	if err := iprot.ReadListEnd(); err != nil {
+		return err
+	}
+	p.TeachingSchedule = _field
+	return nil
+}
+func (p *GetPlanDetailResp) ReadField3(iprot thrift.TProtocol) error {
+	_, size, err := iprot.ReadListBegin()
+	if err != nil {
+		return err
+	}
+	_field := make([]*ScheduleClassroomReqItem, 0, size)
+	values := make([]ScheduleClassroomReqItem, size)
+	for i := 0; i < size; i++ {
+		_elem := &values[i]
+		_elem.InitDefault()
+
+		if err := _elem.Read(iprot); err != nil {
+			return err
+		}
+
+		_field = append(_field, _elem)
+	}
+	if err := iprot.ReadListEnd(); err != nil {
+		return err
+	}
+	p.ClassroomSchedule = _field
+	return nil
+}
 
 func (p *GetPlanDetailResp) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -400,6 +480,14 @@ func (p *GetPlanDetailResp) Write(oprot thrift.TProtocol) (err error) {
 	if p != nil {
 		if err = p.writeField1(oprot); err != nil {
 			fieldId = 1
+			goto WriteFieldError
+		}
+		if err = p.writeField2(oprot); err != nil {
+			fieldId = 2
+			goto WriteFieldError
+		}
+		if err = p.writeField3(oprot); err != nil {
+			fieldId = 3
 			goto WriteFieldError
 		}
 	}
@@ -437,6 +525,56 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
+func (p *GetPlanDetailResp) writeField2(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("teaching_schedule", thrift.LIST, 2); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteListBegin(thrift.STRUCT, len(p.TeachingSchedule)); err != nil {
+		return err
+	}
+	for _, v := range p.TeachingSchedule {
+		if err := v.Write(oprot); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteListEnd(); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
+}
+
+func (p *GetPlanDetailResp) writeField3(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("classroom_schedule", thrift.LIST, 3); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteListBegin(thrift.STRUCT, len(p.ClassroomSchedule)); err != nil {
+		return err
+	}
+	for _, v := range p.ClassroomSchedule {
+		if err := v.Write(oprot); err != nil {
+			return err
+		}
+	}
+	if err := oprot.WriteListEnd(); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
+}
+
 func (p *GetPlanDetailResp) String() string {
 	if p == nil {
 		return "<nil>"
@@ -454,6 +592,12 @@ func (p *GetPlanDetailResp) DeepEqual(ano *GetPlanDetailResp) bool {
 	if !p.Field1DeepEqual(ano.Info) {
 		return false
 	}
+	if !p.Field2DeepEqual(ano.TeachingSchedule) {
+		return false
+	}
+	if !p.Field3DeepEqual(ano.ClassroomSchedule) {
+		return false
+	}
 	return true
 }
 
@@ -464,11 +608,35 @@ func (p *GetPlanDetailResp) Field1DeepEqual(src *ModelMajorPracticeTeachingPlan)
 	}
 	return true
 }
+func (p *GetPlanDetailResp) Field2DeepEqual(src []*ScheduleTeachingReqItem) bool {
+
+	if len(p.TeachingSchedule) != len(src) {
+		return false
+	}
+	for i, v := range p.TeachingSchedule {
+		_src := src[i]
+		if !v.DeepEqual(_src) {
+			return false
+		}
+	}
+	return true
+}
+func (p *GetPlanDetailResp) Field3DeepEqual(src []*ScheduleClassroomReqItem) bool {
+
+	if len(p.ClassroomSchedule) != len(src) {
+		return false
+	}
+	for i, v := range p.ClassroomSchedule {
+		_src := src[i]
+		if !v.DeepEqual(_src) {
+			return false
+		}
+	}
+	return true
+}
 
 type GetPlanDetailReq struct {
-	Id                string                      `thrift:"id,1" frugal:"1,default,string" json:"id" binding:"required"`
-	TeachingSchedule  []*ScheduleTeachingReqItem  `thrift:"teaching_schedule,2" frugal:"2,default,list<ScheduleTeachingReqItem>" json:"teaching_schedule"`
-	ClassroomSchedule []*ScheduleClassroomReqItem `thrift:"classroom_schedule,3" frugal:"3,default,list<ScheduleClassroomReqItem>" json:"classroom_schedule"`
+	Id string `thrift:"id,1" frugal:"1,default,string" json:"id" binding:"required"`
 }
 
 func NewGetPlanDetailReq() *GetPlanDetailReq {
@@ -481,28 +649,12 @@ func (p *GetPlanDetailReq) InitDefault() {
 func (p *GetPlanDetailReq) GetId() (v string) {
 	return p.Id
 }
-
-func (p *GetPlanDetailReq) GetTeachingSchedule() (v []*ScheduleTeachingReqItem) {
-	return p.TeachingSchedule
-}
-
-func (p *GetPlanDetailReq) GetClassroomSchedule() (v []*ScheduleClassroomReqItem) {
-	return p.ClassroomSchedule
-}
 func (p *GetPlanDetailReq) SetId(val string) {
 	p.Id = val
-}
-func (p *GetPlanDetailReq) SetTeachingSchedule(val []*ScheduleTeachingReqItem) {
-	p.TeachingSchedule = val
-}
-func (p *GetPlanDetailReq) SetClassroomSchedule(val []*ScheduleClassroomReqItem) {
-	p.ClassroomSchedule = val
 }
 
 var fieldIDToName_GetPlanDetailReq = map[int16]string{
 	1: "id",
-	2: "teaching_schedule",
-	3: "classroom_schedule",
 }
 
 func (p *GetPlanDetailReq) Read(iprot thrift.TProtocol) (err error) {
@@ -527,22 +679,6 @@ func (p *GetPlanDetailReq) Read(iprot thrift.TProtocol) (err error) {
 		case 1:
 			if fieldTypeId == thrift.STRING {
 				if err = p.ReadField1(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		case 2:
-			if fieldTypeId == thrift.LIST {
-				if err = p.ReadField2(iprot); err != nil {
-					goto ReadFieldError
-				}
-			} else if err = iprot.Skip(fieldTypeId); err != nil {
-				goto SkipFieldError
-			}
-		case 3:
-			if fieldTypeId == thrift.LIST {
-				if err = p.ReadField3(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -588,52 +724,6 @@ func (p *GetPlanDetailReq) ReadField1(iprot thrift.TProtocol) error {
 	p.Id = _field
 	return nil
 }
-func (p *GetPlanDetailReq) ReadField2(iprot thrift.TProtocol) error {
-	_, size, err := iprot.ReadListBegin()
-	if err != nil {
-		return err
-	}
-	_field := make([]*ScheduleTeachingReqItem, 0, size)
-	values := make([]ScheduleTeachingReqItem, size)
-	for i := 0; i < size; i++ {
-		_elem := &values[i]
-		_elem.InitDefault()
-
-		if err := _elem.Read(iprot); err != nil {
-			return err
-		}
-
-		_field = append(_field, _elem)
-	}
-	if err := iprot.ReadListEnd(); err != nil {
-		return err
-	}
-	p.TeachingSchedule = _field
-	return nil
-}
-func (p *GetPlanDetailReq) ReadField3(iprot thrift.TProtocol) error {
-	_, size, err := iprot.ReadListBegin()
-	if err != nil {
-		return err
-	}
-	_field := make([]*ScheduleClassroomReqItem, 0, size)
-	values := make([]ScheduleClassroomReqItem, size)
-	for i := 0; i < size; i++ {
-		_elem := &values[i]
-		_elem.InitDefault()
-
-		if err := _elem.Read(iprot); err != nil {
-			return err
-		}
-
-		_field = append(_field, _elem)
-	}
-	if err := iprot.ReadListEnd(); err != nil {
-		return err
-	}
-	p.ClassroomSchedule = _field
-	return nil
-}
 
 func (p *GetPlanDetailReq) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -643,14 +733,6 @@ func (p *GetPlanDetailReq) Write(oprot thrift.TProtocol) (err error) {
 	if p != nil {
 		if err = p.writeField1(oprot); err != nil {
 			fieldId = 1
-			goto WriteFieldError
-		}
-		if err = p.writeField2(oprot); err != nil {
-			fieldId = 2
-			goto WriteFieldError
-		}
-		if err = p.writeField3(oprot); err != nil {
-			fieldId = 3
 			goto WriteFieldError
 		}
 	}
@@ -688,56 +770,6 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 1 end error: ", p), err)
 }
 
-func (p *GetPlanDetailReq) writeField2(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("teaching_schedule", thrift.LIST, 2); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := oprot.WriteListBegin(thrift.STRUCT, len(p.TeachingSchedule)); err != nil {
-		return err
-	}
-	for _, v := range p.TeachingSchedule {
-		if err := v.Write(oprot); err != nil {
-			return err
-		}
-	}
-	if err := oprot.WriteListEnd(); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 2 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 2 end error: ", p), err)
-}
-
-func (p *GetPlanDetailReq) writeField3(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("classroom_schedule", thrift.LIST, 3); err != nil {
-		goto WriteFieldBeginError
-	}
-	if err := oprot.WriteListBegin(thrift.STRUCT, len(p.ClassroomSchedule)); err != nil {
-		return err
-	}
-	for _, v := range p.ClassroomSchedule {
-		if err := v.Write(oprot); err != nil {
-			return err
-		}
-	}
-	if err := oprot.WriteListEnd(); err != nil {
-		return err
-	}
-	if err = oprot.WriteFieldEnd(); err != nil {
-		goto WriteFieldEndError
-	}
-	return nil
-WriteFieldBeginError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 3 begin error: ", p), err)
-WriteFieldEndError:
-	return thrift.PrependError(fmt.Sprintf("%T write field 3 end error: ", p), err)
-}
-
 func (p *GetPlanDetailReq) String() string {
 	if p == nil {
 		return "<nil>"
@@ -755,12 +787,6 @@ func (p *GetPlanDetailReq) DeepEqual(ano *GetPlanDetailReq) bool {
 	if !p.Field1DeepEqual(ano.Id) {
 		return false
 	}
-	if !p.Field2DeepEqual(ano.TeachingSchedule) {
-		return false
-	}
-	if !p.Field3DeepEqual(ano.ClassroomSchedule) {
-		return false
-	}
 	return true
 }
 
@@ -768,32 +794,6 @@ func (p *GetPlanDetailReq) Field1DeepEqual(src string) bool {
 
 	if strings.Compare(p.Id, src) != 0 {
 		return false
-	}
-	return true
-}
-func (p *GetPlanDetailReq) Field2DeepEqual(src []*ScheduleTeachingReqItem) bool {
-
-	if len(p.TeachingSchedule) != len(src) {
-		return false
-	}
-	for i, v := range p.TeachingSchedule {
-		_src := src[i]
-		if !v.DeepEqual(_src) {
-			return false
-		}
-	}
-	return true
-}
-func (p *GetPlanDetailReq) Field3DeepEqual(src []*ScheduleClassroomReqItem) bool {
-
-	if len(p.ClassroomSchedule) != len(src) {
-		return false
-	}
-	for i, v := range p.ClassroomSchedule {
-		_src := src[i]
-		if !v.DeepEqual(_src) {
-			return false
-		}
 	}
 	return true
 }
