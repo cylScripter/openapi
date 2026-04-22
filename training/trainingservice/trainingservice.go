@@ -244,6 +244,20 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"GetClassroomUsage": kitex.NewMethodInfo(
+		getClassroomUsageHandler,
+		newTrainingserviceGetClassroomUsageArgs,
+		newTrainingserviceGetClassroomUsageResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetPlanDetail": kitex.NewMethodInfo(
+		getPlanDetailHandler,
+		newTrainingserviceGetPlanDetailArgs,
+		newTrainingserviceGetPlanDetailResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -904,6 +918,42 @@ func newTrainingserviceGetTeachScheduleResult() interface{} {
 	return training.NewTrainingserviceGetTeachScheduleResult()
 }
 
+func getClassroomUsageHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceGetClassroomUsageArgs)
+	realResult := result.(*training.TrainingserviceGetClassroomUsageResult)
+	success, err := handler.(training.Trainingservice).GetClassroomUsage(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceGetClassroomUsageArgs() interface{} {
+	return training.NewTrainingserviceGetClassroomUsageArgs()
+}
+
+func newTrainingserviceGetClassroomUsageResult() interface{} {
+	return training.NewTrainingserviceGetClassroomUsageResult()
+}
+
+func getPlanDetailHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceGetPlanDetailArgs)
+	realResult := result.(*training.TrainingserviceGetPlanDetailResult)
+	success, err := handler.(training.Trainingservice).GetPlanDetail(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceGetPlanDetailArgs() interface{} {
+	return training.NewTrainingserviceGetPlanDetailArgs()
+}
+
+func newTrainingserviceGetPlanDetailResult() interface{} {
+	return training.NewTrainingserviceGetPlanDetailResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -1239,6 +1289,26 @@ func (p *kClient) GetTeachSchedule(ctx context.Context, req *training.GetTeachSc
 	_args.Req = req
 	var _result training.TrainingserviceGetTeachScheduleResult
 	if err = p.c.Call(ctx, "GetTeachSchedule", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetClassroomUsage(ctx context.Context, req *training.GetClassroomUsageReq) (r *training.GetClassroomUsageResp, err error) {
+	var _args training.TrainingserviceGetClassroomUsageArgs
+	_args.Req = req
+	var _result training.TrainingserviceGetClassroomUsageResult
+	if err = p.c.Call(ctx, "GetClassroomUsage", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetPlanDetail(ctx context.Context, req *training.GetPlanDetailReq) (r *training.GetPlanDetailResp, err error) {
+	var _args training.TrainingserviceGetPlanDetailArgs
+	_args.Req = req
+	var _result training.TrainingserviceGetPlanDetailResult
+	if err = p.c.Call(ctx, "GetPlanDetail", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

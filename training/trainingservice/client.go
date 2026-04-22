@@ -44,6 +44,8 @@ type Client interface {
 	ScheduleTeaching(ctx context.Context, req *training.ScheduleTeachingReq, callOptions ...callopt.Option) (r *training.ScheduleTeachingResp, err error)
 	ScheduleClassroom(ctx context.Context, req *training.ScheduleClassroomReq, callOptions ...callopt.Option) (r *training.ScheduleClassroomResp, err error)
 	GetTeachSchedule(ctx context.Context, req *training.GetTeachScheduleReq, callOptions ...callopt.Option) (r *training.GetTeachScheduleResp, err error)
+	GetClassroomUsage(ctx context.Context, req *training.GetClassroomUsageReq, callOptions ...callopt.Option) (r *training.GetClassroomUsageResp, err error)
+	GetPlanDetail(ctx context.Context, req *training.GetPlanDetailReq, callOptions ...callopt.Option) (r *training.GetPlanDetailResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -238,4 +240,14 @@ func (p *kTrainingserviceClient) ScheduleClassroom(ctx context.Context, req *tra
 func (p *kTrainingserviceClient) GetTeachSchedule(ctx context.Context, req *training.GetTeachScheduleReq, callOptions ...callopt.Option) (r *training.GetTeachScheduleResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.GetTeachSchedule(ctx, req)
+}
+
+func (p *kTrainingserviceClient) GetClassroomUsage(ctx context.Context, req *training.GetClassroomUsageReq, callOptions ...callopt.Option) (r *training.GetClassroomUsageResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetClassroomUsage(ctx, req)
+}
+
+func (p *kTrainingserviceClient) GetPlanDetail(ctx context.Context, req *training.GetPlanDetailReq, callOptions ...callopt.Option) (r *training.GetPlanDetailResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetPlanDetail(ctx, req)
 }
