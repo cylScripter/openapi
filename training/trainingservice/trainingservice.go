@@ -258,6 +258,13 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"ResetTeachSchedule": kitex.NewMethodInfo(
+		resetTeachScheduleHandler,
+		newTrainingserviceResetTeachScheduleArgs,
+		newTrainingserviceResetTeachScheduleResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -954,6 +961,24 @@ func newTrainingserviceGetPlanDetailResult() interface{} {
 	return training.NewTrainingserviceGetPlanDetailResult()
 }
 
+func resetTeachScheduleHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceResetTeachScheduleArgs)
+	realResult := result.(*training.TrainingserviceResetTeachScheduleResult)
+	success, err := handler.(training.Trainingservice).ResetTeachSchedule(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceResetTeachScheduleArgs() interface{} {
+	return training.NewTrainingserviceResetTeachScheduleArgs()
+}
+
+func newTrainingserviceResetTeachScheduleResult() interface{} {
+	return training.NewTrainingserviceResetTeachScheduleResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -1309,6 +1334,16 @@ func (p *kClient) GetPlanDetail(ctx context.Context, req *training.GetPlanDetail
 	_args.Req = req
 	var _result training.TrainingserviceGetPlanDetailResult
 	if err = p.c.Call(ctx, "GetPlanDetail", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ResetTeachSchedule(ctx context.Context, req *training.ResetTeachScheduleReq) (r *training.ResetTeachScheduleResp, err error) {
+	var _args training.TrainingserviceResetTeachScheduleArgs
+	_args.Req = req
+	var _result training.TrainingserviceResetTeachScheduleResult
+	if err = p.c.Call(ctx, "ResetTeachSchedule", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

@@ -180,3 +180,8 @@ func GetPlanDetail(ctx context.Context, req *training.GetPlanDetailReq, callOpti
 	clients := MustNewClient("training", callOptions...)
 	return clients.GetPlanDetail(ctx, req)
 }
+
+func ResetTeachSchedule(ctx context.Context, req *training.ResetTeachScheduleReq, callOptions ...client.Option) (resp *training.ResetTeachScheduleResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.ResetTeachSchedule(ctx, req)
+}
