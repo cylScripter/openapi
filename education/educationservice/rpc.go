@@ -650,3 +650,8 @@ func EditExamWorkload(ctx context.Context, req *education.EditExamWorkloadReq, c
 	clients := MustNewClient("education", callOptions...)
 	return clients.EditExamWorkload(ctx, req)
 }
+
+func GetButtonPermission(ctx context.Context, req *education.GetButtonPermissionReq, callOptions ...client.Option) (resp *education.GetButtonPermissionResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.GetButtonPermission(ctx, req)
+}
