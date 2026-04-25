@@ -297,7 +297,7 @@ func (p *CourseType) Value() (driver.Value, error) {
 }
 
 type ResetTeachScheduleReq struct {
-	Id string `thrift:"id,1" frugal:"1,default,string" json:"id" binding:"required"`
+	Id int32 `thrift:"id,1" frugal:"1,default,i32" json:"id" binding:"required"`
 }
 
 func NewResetTeachScheduleReq() *ResetTeachScheduleReq {
@@ -307,10 +307,10 @@ func NewResetTeachScheduleReq() *ResetTeachScheduleReq {
 func (p *ResetTeachScheduleReq) InitDefault() {
 }
 
-func (p *ResetTeachScheduleReq) GetId() (v string) {
+func (p *ResetTeachScheduleReq) GetId() (v int32) {
 	return p.Id
 }
-func (p *ResetTeachScheduleReq) SetId(val string) {
+func (p *ResetTeachScheduleReq) SetId(val int32) {
 	p.Id = val
 }
 
@@ -338,7 +338,7 @@ func (p *ResetTeachScheduleReq) Read(iprot thrift.TProtocol) (err error) {
 
 		switch fieldId {
 		case 1:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.I32 {
 				if err = p.ReadField1(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -376,8 +376,8 @@ ReadStructEndError:
 
 func (p *ResetTeachScheduleReq) ReadField1(iprot thrift.TProtocol) error {
 
-	var _field string
-	if v, err := iprot.ReadString(); err != nil {
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
 		return err
 	} else {
 		_field = v
@@ -415,10 +415,10 @@ WriteStructEndError:
 }
 
 func (p *ResetTeachScheduleReq) writeField1(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("id", thrift.STRING, 1); err != nil {
+	if err = oprot.WriteFieldBegin("id", thrift.I32, 1); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteString(p.Id); err != nil {
+	if err := oprot.WriteI32(p.Id); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -451,9 +451,9 @@ func (p *ResetTeachScheduleReq) DeepEqual(ano *ResetTeachScheduleReq) bool {
 	return true
 }
 
-func (p *ResetTeachScheduleReq) Field1DeepEqual(src string) bool {
+func (p *ResetTeachScheduleReq) Field1DeepEqual(src int32) bool {
 
-	if strings.Compare(p.Id, src) != 0 {
+	if p.Id != src {
 		return false
 	}
 	return true
