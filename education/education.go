@@ -77673,6 +77673,7 @@ type ModelMenu struct {
 	ParentId  int32        `thrift:"parent_id,10" frugal:"10,default,i32" json:"parent_id" gorm:"column:parent_id"`
 	Children  []*ModelMenu `thrift:"children,11" frugal:"11,default,list<ModelMenu>" json:"children" gorm:"-"`
 	Status    bool         `thrift:"status,12" frugal:"12,default,bool" json:"status" gorm:"column:status;default:true"`
+	MenuType  int32        `thrift:"menu_type,13" frugal:"13,default,i32" json:"menu_type" gorm:"column:menu_type;default:1"`
 }
 
 func NewModelMenu() *ModelMenu {
@@ -77734,6 +77735,10 @@ func (p *ModelMenu) GetChildren() (v []*ModelMenu) {
 func (p *ModelMenu) GetStatus() (v bool) {
 	return p.Status
 }
+
+func (p *ModelMenu) GetMenuType() (v int32) {
+	return p.MenuType
+}
 func (p *ModelMenu) SetId(val int32) {
 	p.Id = val
 }
@@ -77770,6 +77775,9 @@ func (p *ModelMenu) SetChildren(val []*ModelMenu) {
 func (p *ModelMenu) SetStatus(val bool) {
 	p.Status = val
 }
+func (p *ModelMenu) SetMenuType(val int32) {
+	p.MenuType = val
+}
 
 var fieldIDToName_ModelMenu = map[int16]string{
 	1:  "id",
@@ -77784,6 +77792,7 @@ var fieldIDToName_ModelMenu = map[int16]string{
 	10: "parent_id",
 	11: "children",
 	12: "status",
+	13: "menu_type",
 }
 
 func (p *ModelMenu) IsSetMeta() bool {
@@ -77900,6 +77909,14 @@ func (p *ModelMenu) Read(iprot thrift.TProtocol) (err error) {
 		case 12:
 			if fieldTypeId == thrift.BOOL {
 				if err = p.ReadField12(iprot); err != nil {
+					goto ReadFieldError
+				}
+			} else if err = iprot.Skip(fieldTypeId); err != nil {
+				goto SkipFieldError
+			}
+		case 13:
+			if fieldTypeId == thrift.I32 {
+				if err = p.ReadField13(iprot); err != nil {
 					goto ReadFieldError
 				}
 			} else if err = iprot.Skip(fieldTypeId); err != nil {
@@ -78075,6 +78092,17 @@ func (p *ModelMenu) ReadField12(iprot thrift.TProtocol) error {
 	p.Status = _field
 	return nil
 }
+func (p *ModelMenu) ReadField13(iprot thrift.TProtocol) error {
+
+	var _field int32
+	if v, err := iprot.ReadI32(); err != nil {
+		return err
+	} else {
+		_field = v
+	}
+	p.MenuType = _field
+	return nil
+}
 
 func (p *ModelMenu) Write(oprot thrift.TProtocol) (err error) {
 	var fieldId int16
@@ -78128,6 +78156,10 @@ func (p *ModelMenu) Write(oprot thrift.TProtocol) (err error) {
 		}
 		if err = p.writeField12(oprot); err != nil {
 			fieldId = 12
+			goto WriteFieldError
+		}
+		if err = p.writeField13(oprot); err != nil {
+			fieldId = 13
 			goto WriteFieldError
 		}
 	}
@@ -78360,6 +78392,23 @@ WriteFieldEndError:
 	return thrift.PrependError(fmt.Sprintf("%T write field 12 end error: ", p), err)
 }
 
+func (p *ModelMenu) writeField13(oprot thrift.TProtocol) (err error) {
+	if err = oprot.WriteFieldBegin("menu_type", thrift.I32, 13); err != nil {
+		goto WriteFieldBeginError
+	}
+	if err := oprot.WriteI32(p.MenuType); err != nil {
+		return err
+	}
+	if err = oprot.WriteFieldEnd(); err != nil {
+		goto WriteFieldEndError
+	}
+	return nil
+WriteFieldBeginError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 13 begin error: ", p), err)
+WriteFieldEndError:
+	return thrift.PrependError(fmt.Sprintf("%T write field 13 end error: ", p), err)
+}
+
 func (p *ModelMenu) String() string {
 	if p == nil {
 		return "<nil>"
@@ -78408,6 +78457,9 @@ func (p *ModelMenu) DeepEqual(ano *ModelMenu) bool {
 		return false
 	}
 	if !p.Field12DeepEqual(ano.Status) {
+		return false
+	}
+	if !p.Field13DeepEqual(ano.MenuType) {
 		return false
 	}
 	return true
@@ -78499,6 +78551,13 @@ func (p *ModelMenu) Field11DeepEqual(src []*ModelMenu) bool {
 func (p *ModelMenu) Field12DeepEqual(src bool) bool {
 
 	if p.Status != src {
+		return false
+	}
+	return true
+}
+func (p *ModelMenu) Field13DeepEqual(src int32) bool {
+
+	if p.MenuType != src {
 		return false
 	}
 	return true
