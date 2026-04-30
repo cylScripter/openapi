@@ -83838,7 +83838,7 @@ type ModelCourse struct {
 	Credit                float64 `thrift:"credit,15" frugal:"15,default,double" json:"credit" gorm:"column:credit"`
 	TeachClass            string  `thrift:"teach_class,16" frugal:"16,default,string" json:"teach_class" gorm:"column:teach_class"`
 	ClassName             string  `thrift:"class_name,17" frugal:"17,default,string" json:"class_name" gorm:"column:class_name"`
-	WeekHour              int32   `thrift:"week_hour,18" frugal:"18,default,i32" json:"week_hour" gorm:"column:week_hour"`
+	WeekHour              float64 `thrift:"week_hour,18" frugal:"18,default,double" json:"week_hour" gorm:"column:week_hour"`
 	StartWeek             int32   `thrift:"start_week,19" frugal:"19,default,i32" json:"start_week" gorm:"column:start_week"`
 	EndWeek               int32   `thrift:"end_week,20" frugal:"20,default,i32" json:"end_week" gorm:"column:end_week"`
 	SaeWeek               string  `thrift:"sae_week,21" frugal:"21,default,string" json:"sae_week" gorm:"column:sae_week"`
@@ -83939,7 +83939,7 @@ func (p *ModelCourse) GetClassName() (v string) {
 	return p.ClassName
 }
 
-func (p *ModelCourse) GetWeekHour() (v int32) {
+func (p *ModelCourse) GetWeekHour() (v float64) {
 	return p.WeekHour
 }
 
@@ -84085,7 +84085,7 @@ func (p *ModelCourse) SetTeachClass(val string) {
 func (p *ModelCourse) SetClassName(val string) {
 	p.ClassName = val
 }
-func (p *ModelCourse) SetWeekHour(val int32) {
+func (p *ModelCourse) SetWeekHour(val float64) {
 	p.WeekHour = val
 }
 func (p *ModelCourse) SetStartWeek(val int32) {
@@ -84358,7 +84358,7 @@ func (p *ModelCourse) Read(iprot thrift.TProtocol) (err error) {
 				goto SkipFieldError
 			}
 		case 18:
-			if fieldTypeId == thrift.I32 {
+			if fieldTypeId == thrift.DOUBLE {
 				if err = p.ReadField18(iprot); err != nil {
 					goto ReadFieldError
 				}
@@ -84767,8 +84767,8 @@ func (p *ModelCourse) ReadField17(iprot thrift.TProtocol) error {
 }
 func (p *ModelCourse) ReadField18(iprot thrift.TProtocol) error {
 
-	var _field int32
-	if v, err := iprot.ReadI32(); err != nil {
+	var _field float64
+	if v, err := iprot.ReadDouble(); err != nil {
 		return err
 	} else {
 		_field = v
@@ -85508,10 +85508,10 @@ WriteFieldEndError:
 }
 
 func (p *ModelCourse) writeField18(oprot thrift.TProtocol) (err error) {
-	if err = oprot.WriteFieldBegin("week_hour", thrift.I32, 18); err != nil {
+	if err = oprot.WriteFieldBegin("week_hour", thrift.DOUBLE, 18); err != nil {
 		goto WriteFieldBeginError
 	}
-	if err := oprot.WriteI32(p.WeekHour); err != nil {
+	if err := oprot.WriteDouble(p.WeekHour); err != nil {
 		return err
 	}
 	if err = oprot.WriteFieldEnd(); err != nil {
@@ -86174,7 +86174,7 @@ func (p *ModelCourse) Field17DeepEqual(src string) bool {
 	}
 	return true
 }
-func (p *ModelCourse) Field18DeepEqual(src int32) bool {
+func (p *ModelCourse) Field18DeepEqual(src float64) bool {
 
 	if p.WeekHour != src {
 		return false
