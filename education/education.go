@@ -16200,7 +16200,7 @@ type ModelCourse struct {
 	Credit                float64 `thrift:"credit,15" frugal:"15,default,double" json:"credit" gorm:"column:credit"`
 	TeachClass            string  `thrift:"teach_class,16" frugal:"16,default,string" json:"teach_class" gorm:"column:teach_class"`
 	ClassName             string  `thrift:"class_name,17" frugal:"17,default,string" json:"class_name" gorm:"column:class_name"`
-	WeekHour              int32   `thrift:"week_hour,18" frugal:"18,default,i32" json:"week_hour" gorm:"column:week_hour"`
+	WeekHour              float64 `thrift:"week_hour,18" frugal:"18,default,double" json:"week_hour" gorm:"column:week_hour"`
 	StartWeek             int32   `thrift:"start_week,19" frugal:"19,default,i32" json:"start_week" gorm:"column:start_week"`
 	EndWeek               int32   `thrift:"end_week,20" frugal:"20,default,i32" json:"end_week" gorm:"column:end_week"`
 	SaeWeek               string  `thrift:"sae_week,21" frugal:"21,default,string" json:"sae_week" gorm:"column:sae_week"`
@@ -16301,7 +16301,7 @@ func (p *ModelCourse) GetClassName() (v string) {
 	return p.ClassName
 }
 
-func (p *ModelCourse) GetWeekHour() (v int32) {
+func (p *ModelCourse) GetWeekHour() (v float64) {
 	return p.WeekHour
 }
 
@@ -16447,7 +16447,7 @@ func (p *ModelCourse) SetTeachClass(val string) {
 func (p *ModelCourse) SetClassName(val string) {
 	p.ClassName = val
 }
-func (p *ModelCourse) SetWeekHour(val int32) {
+func (p *ModelCourse) SetWeekHour(val float64) {
 	p.WeekHour = val
 }
 func (p *ModelCourse) SetStartWeek(val int32) {
@@ -18401,7 +18401,7 @@ type ModelWorkloadStatistics struct {
 	NotClassTime        string  `thrift:"not_class_time,14" frugal:"14,default,string" json:"not_class_time" gorm:"column:not_class_time"`
 	StudentNumber       int32   `thrift:"student_number,15" frugal:"15,default,i32" json:"student_number" gorm:"column:student_number"`
 	NumberFactor        float64 `thrift:"number_factor,16" frugal:"16,default,double" json:"number_factor" gorm:"column:number_factor"`
-	WeekHour            int32   `thrift:"week_hour,17" frugal:"17,default,i32" json:"week_hour" gorm:"column:week_hour"`
+	WeekHour            float64 `thrift:"week_hour,17" frugal:"17,default,double" json:"week_hour" gorm:"column:week_hour"`
 	TheoryWn            int32   `thrift:"theory_wn,18" frugal:"18,default,i32" json:"theory_wn" gorm:"column:theory_wn"`
 	TrainingWn          int32   `thrift:"training_wn,19" frugal:"19,default,i32" json:"training_wn" gorm:"column:training_wn"`
 	TheoryCourseHours   float64 `thrift:"theory_course_hours,20" frugal:"20,default,double" json:"theory_course_hours" gorm:"column:theory_course_hours"`
@@ -18503,7 +18503,7 @@ func (p *ModelWorkloadStatistics) GetNumberFactor() (v float64) {
 	return p.NumberFactor
 }
 
-func (p *ModelWorkloadStatistics) GetWeekHour() (v int32) {
+func (p *ModelWorkloadStatistics) GetWeekHour() (v float64) {
 	return p.WeekHour
 }
 
@@ -18666,7 +18666,7 @@ func (p *ModelWorkloadStatistics) SetStudentNumber(val int32) {
 func (p *ModelWorkloadStatistics) SetNumberFactor(val float64) {
 	p.NumberFactor = val
 }
-func (p *ModelWorkloadStatistics) SetWeekHour(val int32) {
+func (p *ModelWorkloadStatistics) SetWeekHour(val float64) {
 	p.WeekHour = val
 }
 func (p *ModelWorkloadStatistics) SetTheoryWn(val int32) {

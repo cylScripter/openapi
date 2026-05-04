@@ -54750,7 +54750,7 @@ func (p *ModelCourse) FastRead(buf []byte) (int, error) {
 				}
 			}
 		case 18:
-			if fieldTypeId == thrift.I32 {
+			if fieldTypeId == thrift.DOUBLE {
 				l, err = p.FastReadField18(buf[offset:])
 				offset += l
 				if err != nil {
@@ -55344,8 +55344,8 @@ func (p *ModelCourse) FastReadField17(buf []byte) (int, error) {
 func (p *ModelCourse) FastReadField18(buf []byte) (int, error) {
 	offset := 0
 
-	var _field int32
-	if v, l, err := thrift.Binary.ReadI32(buf[offset:]); err != nil {
+	var _field float64
+	if v, l, err := thrift.Binary.ReadDouble(buf[offset:]); err != nil {
 		return offset, err
 	} else {
 		offset += l
@@ -55900,8 +55900,8 @@ func (p *ModelCourse) fastWriteField17(buf []byte, w thrift.NocopyWriter) int {
 
 func (p *ModelCourse) fastWriteField18(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
-	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 18)
-	offset += thrift.Binary.WriteI32(buf[offset:], p.WeekHour)
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.DOUBLE, 18)
+	offset += thrift.Binary.WriteDouble(buf[offset:], p.WeekHour)
 	return offset
 }
 
@@ -56188,7 +56188,7 @@ func (p *ModelCourse) field17Length() int {
 func (p *ModelCourse) field18Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.I32Length()
+	l += thrift.Binary.DoubleLength()
 	return l
 }
 
@@ -64988,7 +64988,7 @@ func (p *ModelWorkloadStatistics) FastRead(buf []byte) (int, error) {
 				}
 			}
 		case 17:
-			if fieldTypeId == thrift.I32 {
+			if fieldTypeId == thrift.DOUBLE {
 				l, err = p.FastReadField17(buf[offset:])
 				offset += l
 				if err != nil {
@@ -65638,8 +65638,8 @@ func (p *ModelWorkloadStatistics) FastReadField16(buf []byte) (int, error) {
 func (p *ModelWorkloadStatistics) FastReadField17(buf []byte) (int, error) {
 	offset := 0
 
-	var _field int32
-	if v, l, err := thrift.Binary.ReadI32(buf[offset:]); err != nil {
+	var _field float64
+	if v, l, err := thrift.Binary.ReadDouble(buf[offset:]); err != nil {
 		return offset, err
 	} else {
 		offset += l
@@ -66265,8 +66265,8 @@ func (p *ModelWorkloadStatistics) fastWriteField16(buf []byte, w thrift.NocopyWr
 
 func (p *ModelWorkloadStatistics) fastWriteField17(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
-	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 17)
-	offset += thrift.Binary.WriteI32(buf[offset:], p.WeekHour)
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.DOUBLE, 17)
+	offset += thrift.Binary.WriteDouble(buf[offset:], p.WeekHour)
 	return offset
 }
 
@@ -66581,7 +66581,7 @@ func (p *ModelWorkloadStatistics) field16Length() int {
 func (p *ModelWorkloadStatistics) field17Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.I32Length()
+	l += thrift.Binary.DoubleLength()
 	return l
 }
 
