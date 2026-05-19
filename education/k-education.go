@@ -50304,7 +50304,7 @@ func (p *ModelUser) FastReadField12(buf []byte) (int, error) {
 		offset += l
 		_field = v
 	}
-	p.Type = _field
+	p.UserType = _field
 	return offset, nil
 }
 
@@ -50432,7 +50432,7 @@ func (p *ModelUser) fastWriteField11(buf []byte, w thrift.NocopyWriter) int {
 func (p *ModelUser) fastWriteField12(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 12)
-	offset += thrift.Binary.WriteI32(buf[offset:], p.Type)
+	offset += thrift.Binary.WriteI32(buf[offset:], p.UserType)
 	return offset
 }
 

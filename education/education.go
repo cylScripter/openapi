@@ -15192,7 +15192,7 @@ type ModelUser struct {
 	Email     string `thrift:"email,9" frugal:"9,default,string" gorm:"column:email" json:"email"`
 	Avatar    string `thrift:"avatar,10" frugal:"10,default,string" gorm:"column:avatar" json:"avatar"`
 	AppId     int32  `thrift:"app_id,11" frugal:"11,default,i32" gorm:"column:app_id" json:"app_id"`
-	Type      int32  `thrift:"type,12" frugal:"12,default,i32" gorm:"column:type;default:1" json:"type"`
+	UserType  int32  `thrift:"user_type,12" frugal:"12,default,i32" gorm:"column:user_type;default:1" json:"user_type"`
 }
 
 func NewModelUser() *ModelUser {
@@ -15246,8 +15246,8 @@ func (p *ModelUser) GetAppId() (v int32) {
 	return p.AppId
 }
 
-func (p *ModelUser) GetType() (v int32) {
-	return p.Type
+func (p *ModelUser) GetUserType() (v int32) {
+	return p.UserType
 }
 func (p *ModelUser) SetId(val int32) {
 	p.Id = val
@@ -15282,8 +15282,8 @@ func (p *ModelUser) SetAvatar(val string) {
 func (p *ModelUser) SetAppId(val int32) {
 	p.AppId = val
 }
-func (p *ModelUser) SetType(val int32) {
-	p.Type = val
+func (p *ModelUser) SetUserType(val int32) {
+	p.UserType = val
 }
 
 func (p *ModelUser) String() string {
@@ -15305,7 +15305,7 @@ var fieldIDToName_ModelUser = map[int16]string{
 	9:  "email",
 	10: "avatar",
 	11: "app_id",
-	12: "type",
+	12: "user_type",
 }
 
 type ModelRole struct {
