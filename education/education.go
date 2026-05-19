@@ -1289,6 +1289,7 @@ const (
 	GetUserListOption_user_name GetUserListOption = 3
 	GetUserListOption_email     GetUserListOption = 4
 	GetUserListOption_mobile    GetUserListOption = 5
+	GetUserListOption_user_type GetUserListOption = 6
 )
 
 func (p GetUserListOption) String() string {
@@ -1303,6 +1304,8 @@ func (p GetUserListOption) String() string {
 		return "email"
 	case GetUserListOption_mobile:
 		return "mobile"
+	case GetUserListOption_user_type:
+		return "user_type"
 	}
 	return "<UNSET>"
 }
@@ -1319,6 +1322,8 @@ func GetUserListOptionFromString(s string) (GetUserListOption, error) {
 		return GetUserListOption_email, nil
 	case "mobile":
 		return GetUserListOption_mobile, nil
+	case "user_type":
+		return GetUserListOption_user_type, nil
 	}
 	return GetUserListOption(0), fmt.Errorf("not a valid GetUserListOption string")
 }
@@ -2369,6 +2374,81 @@ func (p *ModelWorkloadStatisticsCategory) Value() (driver.Value, error) {
 	}
 	return int64(*p), nil
 }
+
+type EditClassReq struct {
+	Id          int32  `thrift:"id,1" frugal:"1,default,i32" json:"id"`
+	Name        string `thrift:"name,2" frugal:"2,default,string" json:"name" binding:"required"`
+	Description string `thrift:"description,3" frugal:"3,default,string" json:"description"`
+	Grade       string `thrift:"grade,4" frugal:"4,default,string" json:"grade"`
+}
+
+func NewEditClassReq() *EditClassReq {
+	return &EditClassReq{}
+}
+
+func (p *EditClassReq) InitDefault() {
+}
+
+func (p *EditClassReq) GetId() (v int32) {
+	return p.Id
+}
+
+func (p *EditClassReq) GetName() (v string) {
+	return p.Name
+}
+
+func (p *EditClassReq) GetDescription() (v string) {
+	return p.Description
+}
+
+func (p *EditClassReq) GetGrade() (v string) {
+	return p.Grade
+}
+func (p *EditClassReq) SetId(val int32) {
+	p.Id = val
+}
+func (p *EditClassReq) SetName(val string) {
+	p.Name = val
+}
+func (p *EditClassReq) SetDescription(val string) {
+	p.Description = val
+}
+func (p *EditClassReq) SetGrade(val string) {
+	p.Grade = val
+}
+
+func (p *EditClassReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("EditClassReq(%+v)", *p)
+}
+
+var fieldIDToName_EditClassReq = map[int16]string{
+	1: "id",
+	2: "name",
+	3: "description",
+	4: "grade",
+}
+
+type EditClassResp struct {
+}
+
+func NewEditClassResp() *EditClassResp {
+	return &EditClassResp{}
+}
+
+func (p *EditClassResp) InitDefault() {
+}
+
+func (p *EditClassResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("EditClassResp(%+v)", *p)
+}
+
+var fieldIDToName_EditClassResp = map[int16]string{}
 
 type GetButtonPermissionReq struct {
 	ParentMenuName string `thrift:"parent_menu_name,1" frugal:"1,default,string" json:"parent_menu_name" binding:"required"`
@@ -11545,6 +11625,107 @@ var fieldIDToName_MenuItem = map[int16]string{
 	6: "children",
 }
 
+type DynamicForm struct {
+	Name        string `thrift:"name,1" frugal:"1,default,string" json:"name"`
+	Label       string `thrift:"label,2" frugal:"2,default,string" json:"label"`
+	Type        string `thrift:"type,3" frugal:"3,default,string" json:"type"`
+	Placeholder string `thrift:"placeholder,4" frugal:"4,default,string" json:"placeholder"`
+	Value       string `thrift:"value,5" frugal:"5,default,string" json:"value"`
+	Rules       string `thrift:"rules,6" frugal:"6,default,string" json:"rules"`
+	Options     string `thrift:"options,7" frugal:"7,default,string" json:"options"`
+	Description string `thrift:"description,8" frugal:"8,default,string" json:"description"`
+	Component   string `thrift:"component,9" frugal:"9,default,string" json:"component"`
+}
+
+func NewDynamicForm() *DynamicForm {
+	return &DynamicForm{}
+}
+
+func (p *DynamicForm) InitDefault() {
+}
+
+func (p *DynamicForm) GetName() (v string) {
+	return p.Name
+}
+
+func (p *DynamicForm) GetLabel() (v string) {
+	return p.Label
+}
+
+func (p *DynamicForm) GetType() (v string) {
+	return p.Type
+}
+
+func (p *DynamicForm) GetPlaceholder() (v string) {
+	return p.Placeholder
+}
+
+func (p *DynamicForm) GetValue() (v string) {
+	return p.Value
+}
+
+func (p *DynamicForm) GetRules() (v string) {
+	return p.Rules
+}
+
+func (p *DynamicForm) GetOptions() (v string) {
+	return p.Options
+}
+
+func (p *DynamicForm) GetDescription() (v string) {
+	return p.Description
+}
+
+func (p *DynamicForm) GetComponent() (v string) {
+	return p.Component
+}
+func (p *DynamicForm) SetName(val string) {
+	p.Name = val
+}
+func (p *DynamicForm) SetLabel(val string) {
+	p.Label = val
+}
+func (p *DynamicForm) SetType(val string) {
+	p.Type = val
+}
+func (p *DynamicForm) SetPlaceholder(val string) {
+	p.Placeholder = val
+}
+func (p *DynamicForm) SetValue(val string) {
+	p.Value = val
+}
+func (p *DynamicForm) SetRules(val string) {
+	p.Rules = val
+}
+func (p *DynamicForm) SetOptions(val string) {
+	p.Options = val
+}
+func (p *DynamicForm) SetDescription(val string) {
+	p.Description = val
+}
+func (p *DynamicForm) SetComponent(val string) {
+	p.Component = val
+}
+
+func (p *DynamicForm) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("DynamicForm(%+v)", *p)
+}
+
+var fieldIDToName_DynamicForm = map[int16]string{
+	1: "name",
+	2: "label",
+	3: "type",
+	4: "placeholder",
+	5: "value",
+	6: "rules",
+	7: "options",
+	8: "description",
+	9: "component",
+}
+
 type GetMenuResp struct {
 	List []*MenuItem `thrift:"list,1" frugal:"1,default,list<MenuItem>" json:"list"`
 }
@@ -11714,6 +11895,7 @@ type CreateUserReq struct {
 	Mobile   string  `thrift:"mobile,5" frugal:"5,default,string" json:"mobile"`
 	Avatar   string  `thrift:"avatar,6" frugal:"6,default,string" json:"avatar"`
 	RoleIds  []int32 `thrift:"role_ids,7" frugal:"7,default,list<i32>" json:"role_ids" binding:"required"`
+	UserType int32   `thrift:"user_type,8" frugal:"8,default,i32" json:"user_type"`
 }
 
 func NewCreateUserReq() *CreateUserReq {
@@ -11750,6 +11932,10 @@ func (p *CreateUserReq) GetAvatar() (v string) {
 func (p *CreateUserReq) GetRoleIds() (v []int32) {
 	return p.RoleIds
 }
+
+func (p *CreateUserReq) GetUserType() (v int32) {
+	return p.UserType
+}
 func (p *CreateUserReq) SetUserName(val string) {
 	p.UserName = val
 }
@@ -11771,6 +11957,9 @@ func (p *CreateUserReq) SetAvatar(val string) {
 func (p *CreateUserReq) SetRoleIds(val []int32) {
 	p.RoleIds = val
 }
+func (p *CreateUserReq) SetUserType(val int32) {
+	p.UserType = val
+}
 
 func (p *CreateUserReq) String() string {
 	if p == nil {
@@ -11787,6 +11976,7 @@ var fieldIDToName_CreateUserReq = map[int16]string{
 	5: "mobile",
 	6: "avatar",
 	7: "role_ids",
+	8: "user_type",
 }
 
 type SetUserRoleReq struct {
@@ -14172,6 +14362,7 @@ type GetUserInfoResp struct {
 	Nickname string   `thrift:"nickname,6" frugal:"6,default,string" json:"nickname"`
 	Avatar   string   `thrift:"avatar,7" frugal:"7,default,string" json:"avatar"`
 	AppId    int32    `thrift:"app_id,8" frugal:"8,default,i32" json:"app_id"`
+	UserType int32    `thrift:"user_type,9" frugal:"9,default,i32" json:"user_type"`
 }
 
 func NewGetUserInfoResp() *GetUserInfoResp {
@@ -14212,6 +14403,10 @@ func (p *GetUserInfoResp) GetAvatar() (v string) {
 func (p *GetUserInfoResp) GetAppId() (v int32) {
 	return p.AppId
 }
+
+func (p *GetUserInfoResp) GetUserType() (v int32) {
+	return p.UserType
+}
 func (p *GetUserInfoResp) SetId(val int32) {
 	p.Id = val
 }
@@ -14236,6 +14431,9 @@ func (p *GetUserInfoResp) SetAvatar(val string) {
 func (p *GetUserInfoResp) SetAppId(val int32) {
 	p.AppId = val
 }
+func (p *GetUserInfoResp) SetUserType(val int32) {
+	p.UserType = val
+}
 
 func (p *GetUserInfoResp) String() string {
 	if p == nil {
@@ -14253,6 +14451,7 @@ var fieldIDToName_GetUserInfoResp = map[int16]string{
 	6: "nickname",
 	7: "avatar",
 	8: "app_id",
+	9: "user_type",
 }
 
 type GetAuthCodeReq struct {
@@ -14993,6 +15192,7 @@ type ModelUser struct {
 	Email     string `thrift:"email,9" frugal:"9,default,string" gorm:"column:email" json:"email"`
 	Avatar    string `thrift:"avatar,10" frugal:"10,default,string" gorm:"column:avatar" json:"avatar"`
 	AppId     int32  `thrift:"app_id,11" frugal:"11,default,i32" gorm:"column:app_id" json:"app_id"`
+	Type      int32  `thrift:"type,12" frugal:"12,default,i32" gorm:"column:type;default:1" json:"type"`
 }
 
 func NewModelUser() *ModelUser {
@@ -15045,6 +15245,10 @@ func (p *ModelUser) GetAvatar() (v string) {
 func (p *ModelUser) GetAppId() (v int32) {
 	return p.AppId
 }
+
+func (p *ModelUser) GetType() (v int32) {
+	return p.Type
+}
 func (p *ModelUser) SetId(val int32) {
 	p.Id = val
 }
@@ -15078,6 +15282,9 @@ func (p *ModelUser) SetAvatar(val string) {
 func (p *ModelUser) SetAppId(val int32) {
 	p.AppId = val
 }
+func (p *ModelUser) SetType(val int32) {
+	p.Type = val
+}
 
 func (p *ModelUser) String() string {
 	if p == nil {
@@ -15098,6 +15305,7 @@ var fieldIDToName_ModelUser = map[int16]string{
 	9:  "email",
 	10: "avatar",
 	11: "app_id",
+	12: "type",
 }
 
 type ModelRole struct {
@@ -15110,6 +15318,7 @@ type ModelRole struct {
 	Status      bool   `thrift:"status,7" frugal:"7,default,bool" gorm:"column:status;default:true" json:"status"`
 	StrRoleId   string `thrift:"str_role_id,8" frugal:"8,default,string" json:"str_role_id" gorm:"column:str_role_id"`
 	AppId       int32  `thrift:"app_id,9" frugal:"9,default,i32" json:"app_id" gorm:"column:app_id"`
+	UserType    int32  `thrift:"user_type,10" frugal:"10,default,i32" json:"user_type" gorm:"column:user_type;default:1"`
 }
 
 func NewModelRole() *ModelRole {
@@ -15154,6 +15363,10 @@ func (p *ModelRole) GetStrRoleId() (v string) {
 func (p *ModelRole) GetAppId() (v int32) {
 	return p.AppId
 }
+
+func (p *ModelRole) GetUserType() (v int32) {
+	return p.UserType
+}
 func (p *ModelRole) SetId(val int32) {
 	p.Id = val
 }
@@ -15181,6 +15394,9 @@ func (p *ModelRole) SetStrRoleId(val string) {
 func (p *ModelRole) SetAppId(val int32) {
 	p.AppId = val
 }
+func (p *ModelRole) SetUserType(val int32) {
+	p.UserType = val
+}
 
 func (p *ModelRole) String() string {
 	if p == nil {
@@ -15190,15 +15406,16 @@ func (p *ModelRole) String() string {
 }
 
 var fieldIDToName_ModelRole = map[int16]string{
-	1: "id",
-	2: "created_at",
-	3: "updated_at",
-	4: "deleted_at",
-	5: "name",
-	6: "description",
-	7: "status",
-	8: "str_role_id",
-	9: "app_id",
+	1:  "id",
+	2:  "created_at",
+	3:  "updated_at",
+	4:  "deleted_at",
+	5:  "name",
+	6:  "description",
+	7:  "status",
+	8:  "str_role_id",
+	9:  "app_id",
+	10: "user_type",
 }
 
 type ModelMenu struct {
@@ -15215,6 +15432,8 @@ type ModelMenu struct {
 	Children  []*ModelMenu `thrift:"children,11" frugal:"11,default,list<ModelMenu>" json:"children" gorm:"-"`
 	Status    bool         `thrift:"status,12" frugal:"12,default,bool" json:"status" gorm:"column:status;default:true"`
 	MenuType  int32        `thrift:"menu_type,13" frugal:"13,default,i32" json:"menu_type" gorm:"column:menu_type;default:1"`
+	MenuSide  int32        `thrift:"menu_side,14" frugal:"14,default,i32" json:"menu_side" gorm:"column:menu_side;default:1"`
+	Extend    string       `thrift:"extend,15" frugal:"15,default,string" json:"extend" gorm:"column:extend;type:text"`
 }
 
 func NewModelMenu() *ModelMenu {
@@ -15280,6 +15499,14 @@ func (p *ModelMenu) GetStatus() (v bool) {
 func (p *ModelMenu) GetMenuType() (v int32) {
 	return p.MenuType
 }
+
+func (p *ModelMenu) GetMenuSide() (v int32) {
+	return p.MenuSide
+}
+
+func (p *ModelMenu) GetExtend() (v string) {
+	return p.Extend
+}
 func (p *ModelMenu) SetId(val int32) {
 	p.Id = val
 }
@@ -15319,6 +15546,12 @@ func (p *ModelMenu) SetStatus(val bool) {
 func (p *ModelMenu) SetMenuType(val int32) {
 	p.MenuType = val
 }
+func (p *ModelMenu) SetMenuSide(val int32) {
+	p.MenuSide = val
+}
+func (p *ModelMenu) SetExtend(val string) {
+	p.Extend = val
+}
 
 func (p *ModelMenu) IsSetMeta() bool {
 	return p.Meta != nil
@@ -15345,6 +15578,8 @@ var fieldIDToName_ModelMenu = map[int16]string{
 	11: "children",
 	12: "status",
 	13: "menu_type",
+	14: "menu_side",
+	15: "extend",
 }
 
 type Meta struct {
@@ -16579,6 +16814,7 @@ type ModelClass struct {
 	Name        string `thrift:"name,5" frugal:"5,default,string" json:"name" gorm:"column:name"`
 	Description string `thrift:"description,6" frugal:"6,default,string" json:"description" gorm:"column:description"`
 	AppId       int32  `thrift:"app_id,7" frugal:"7,default,i32" json:"app_id" gorm:"column:app_id"`
+	Grade       string `thrift:"grade,8" frugal:"8,default,string" json:"grade" gorm:"column:grade"`
 }
 
 func NewModelClass() *ModelClass {
@@ -16615,6 +16851,10 @@ func (p *ModelClass) GetDescription() (v string) {
 func (p *ModelClass) GetAppId() (v int32) {
 	return p.AppId
 }
+
+func (p *ModelClass) GetGrade() (v string) {
+	return p.Grade
+}
 func (p *ModelClass) SetId(val int32) {
 	p.Id = val
 }
@@ -16636,6 +16876,9 @@ func (p *ModelClass) SetDescription(val string) {
 func (p *ModelClass) SetAppId(val int32) {
 	p.AppId = val
 }
+func (p *ModelClass) SetGrade(val string) {
+	p.Grade = val
+}
 
 func (p *ModelClass) String() string {
 	if p == nil {
@@ -16652,6 +16895,7 @@ var fieldIDToName_ModelClass = map[int16]string{
 	5: "name",
 	6: "description",
 	7: "app_id",
+	8: "grade",
 }
 
 type ModelCourseApply struct {
@@ -19321,6 +19565,89 @@ var fieldIDToName_ModelAdjustmentForm = map[int16]string{
 	11: "remark",
 }
 
+type ModelClassStudent struct {
+	Id        int32  `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
+	CreatedAt int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index" json:"created_at"`
+	UpdatedAt int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at" json:"updated_at"`
+	DeletedAt int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at" json:"deleted_at"`
+	AppId     int32  `thrift:"app_id,5" frugal:"5,default,i32" json:"app_id" gorm:"column:app_id;index"`
+	ClassId   int32  `thrift:"class_id,6" frugal:"6,default,i32" json:"class_id" gorm:"column:class_id"`
+	StudentId string `thrift:"student_id,7" frugal:"7,default,string" json:"student_id" gorm:"column:student_id"`
+}
+
+func NewModelClassStudent() *ModelClassStudent {
+	return &ModelClassStudent{}
+}
+
+func (p *ModelClassStudent) InitDefault() {
+}
+
+func (p *ModelClassStudent) GetId() (v int32) {
+	return p.Id
+}
+
+func (p *ModelClassStudent) GetCreatedAt() (v int32) {
+	return p.CreatedAt
+}
+
+func (p *ModelClassStudent) GetUpdatedAt() (v int32) {
+	return p.UpdatedAt
+}
+
+func (p *ModelClassStudent) GetDeletedAt() (v int32) {
+	return p.DeletedAt
+}
+
+func (p *ModelClassStudent) GetAppId() (v int32) {
+	return p.AppId
+}
+
+func (p *ModelClassStudent) GetClassId() (v int32) {
+	return p.ClassId
+}
+
+func (p *ModelClassStudent) GetStudentId() (v string) {
+	return p.StudentId
+}
+func (p *ModelClassStudent) SetId(val int32) {
+	p.Id = val
+}
+func (p *ModelClassStudent) SetCreatedAt(val int32) {
+	p.CreatedAt = val
+}
+func (p *ModelClassStudent) SetUpdatedAt(val int32) {
+	p.UpdatedAt = val
+}
+func (p *ModelClassStudent) SetDeletedAt(val int32) {
+	p.DeletedAt = val
+}
+func (p *ModelClassStudent) SetAppId(val int32) {
+	p.AppId = val
+}
+func (p *ModelClassStudent) SetClassId(val int32) {
+	p.ClassId = val
+}
+func (p *ModelClassStudent) SetStudentId(val string) {
+	p.StudentId = val
+}
+
+func (p *ModelClassStudent) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ModelClassStudent(%+v)", *p)
+}
+
+var fieldIDToName_ModelClassStudent = map[int16]string{
+	1: "id",
+	2: "created_at",
+	3: "updated_at",
+	4: "deleted_at",
+	5: "app_id",
+	6: "class_id",
+	7: "student_id",
+}
+
 type Educationservice interface {
 	CreateApp(ctx context.Context, req *CreateAppReq) (r *CreateAppResp, err error)
 
@@ -19581,6 +19908,8 @@ type Educationservice interface {
 	EditExamWorkload(ctx context.Context, req *EditExamWorkloadReq) (r *EditExamWorkloadResp, err error)
 
 	GetButtonPermission(ctx context.Context, req *GetButtonPermissionReq) (r *GetButtonPermissionResp, err error)
+
+	EditClass(ctx context.Context, req *EditClassReq) (r *EditClassResp, err error)
 }
 
 type EducationserviceCreateAppArgs struct {
@@ -29460,5 +29789,81 @@ func (p *EducationserviceGetButtonPermissionResult) String() string {
 }
 
 var fieldIDToName_EducationserviceGetButtonPermissionResult = map[int16]string{
+	0: "success",
+}
+
+type EducationserviceEditClassArgs struct {
+	Req *EditClassReq `thrift:"req,1" frugal:"1,default,EditClassReq" json:"req"`
+}
+
+func NewEducationserviceEditClassArgs() *EducationserviceEditClassArgs {
+	return &EducationserviceEditClassArgs{}
+}
+
+func (p *EducationserviceEditClassArgs) InitDefault() {
+}
+
+var EducationserviceEditClassArgs_Req_DEFAULT *EditClassReq
+
+func (p *EducationserviceEditClassArgs) GetReq() (v *EditClassReq) {
+	if !p.IsSetReq() {
+		return EducationserviceEditClassArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *EducationserviceEditClassArgs) SetReq(val *EditClassReq) {
+	p.Req = val
+}
+
+func (p *EducationserviceEditClassArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *EducationserviceEditClassArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("EducationserviceEditClassArgs(%+v)", *p)
+}
+
+var fieldIDToName_EducationserviceEditClassArgs = map[int16]string{
+	1: "req",
+}
+
+type EducationserviceEditClassResult struct {
+	Success *EditClassResp `thrift:"success,0,optional" frugal:"0,optional,EditClassResp" json:"success,omitempty"`
+}
+
+func NewEducationserviceEditClassResult() *EducationserviceEditClassResult {
+	return &EducationserviceEditClassResult{}
+}
+
+func (p *EducationserviceEditClassResult) InitDefault() {
+}
+
+var EducationserviceEditClassResult_Success_DEFAULT *EditClassResp
+
+func (p *EducationserviceEditClassResult) GetSuccess() (v *EditClassResp) {
+	if !p.IsSetSuccess() {
+		return EducationserviceEditClassResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *EducationserviceEditClassResult) SetSuccess(x interface{}) {
+	p.Success = x.(*EditClassResp)
+}
+
+func (p *EducationserviceEditClassResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *EducationserviceEditClassResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("EducationserviceEditClassResult(%+v)", *p)
+}
+
+var fieldIDToName_EducationserviceEditClassResult = map[int16]string{
 	0: "success",
 }

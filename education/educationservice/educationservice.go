@@ -923,6 +923,13 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"EditClass": kitex.NewMethodInfo(
+		editClassHandler,
+		newEducationserviceEditClassArgs,
+		newEducationserviceEditClassResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -3329,6 +3336,24 @@ func newEducationserviceGetButtonPermissionResult() interface{} {
 	return education.NewEducationserviceGetButtonPermissionResult()
 }
 
+func editClassHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceEditClassArgs)
+	realResult := result.(*education.EducationserviceEditClassResult)
+	success, err := handler.(education.Educationservice).EditClass(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceEditClassArgs() interface{} {
+	return education.NewEducationserviceEditClassArgs()
+}
+
+func newEducationserviceEditClassResult() interface{} {
+	return education.NewEducationserviceEditClassResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -4634,6 +4659,16 @@ func (p *kClient) GetButtonPermission(ctx context.Context, req *education.GetBut
 	_args.Req = req
 	var _result education.EducationserviceGetButtonPermissionResult
 	if err = p.c.Call(ctx, "GetButtonPermission", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) EditClass(ctx context.Context, req *education.EditClassReq) (r *education.EditClassResp, err error) {
+	var _args education.EducationserviceEditClassArgs
+	_args.Req = req
+	var _result education.EducationserviceEditClassResult
+	if err = p.c.Call(ctx, "EditClass", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

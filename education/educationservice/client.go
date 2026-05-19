@@ -141,6 +141,7 @@ type Client interface {
 	ImportExamWorkload(ctx context.Context, req *education.ImportExamWorkloadReq, callOptions ...callopt.Option) (r *education.ImportExamWorkloadResp, err error)
 	EditExamWorkload(ctx context.Context, req *education.EditExamWorkloadReq, callOptions ...callopt.Option) (r *education.EditExamWorkloadResp, err error)
 	GetButtonPermission(ctx context.Context, req *education.GetButtonPermissionReq, callOptions ...callopt.Option) (r *education.GetButtonPermissionResp, err error)
+	EditClass(ctx context.Context, req *education.EditClassReq, callOptions ...callopt.Option) (r *education.EditClassResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -820,4 +821,9 @@ func (p *kEducationserviceClient) EditExamWorkload(ctx context.Context, req *edu
 func (p *kEducationserviceClient) GetButtonPermission(ctx context.Context, req *education.GetButtonPermissionReq, callOptions ...callopt.Option) (r *education.GetButtonPermissionResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.GetButtonPermission(ctx, req)
+}
+
+func (p *kEducationserviceClient) EditClass(ctx context.Context, req *education.EditClassReq, callOptions ...callopt.Option) (r *education.EditClassResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.EditClass(ctx, req)
 }

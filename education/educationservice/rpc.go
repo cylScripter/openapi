@@ -655,3 +655,8 @@ func GetButtonPermission(ctx context.Context, req *education.GetButtonPermission
 	clients := MustNewClient("education", callOptions...)
 	return clients.GetButtonPermission(ctx, req)
 }
+
+func EditClass(ctx context.Context, req *education.EditClassReq, callOptions ...client.Option) (resp *education.EditClassResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.EditClass(ctx, req)
+}
