@@ -1501,6 +1501,7 @@ const (
 	GetMenuListOption_title      GetMenuListOption = 7
 	GetMenuListOption_created_at GetMenuListOption = 8
 	GetMenuListOption_status     GetMenuListOption = 9
+	GetMenuListOption_menu_side  GetMenuListOption = 10
 )
 
 func (p GetMenuListOption) String() string {
@@ -1523,6 +1524,8 @@ func (p GetMenuListOption) String() string {
 		return "created_at"
 	case GetMenuListOption_status:
 		return "status"
+	case GetMenuListOption_menu_side:
+		return "menu_side"
 	}
 	return "<UNSET>"
 }
@@ -1547,6 +1550,8 @@ func GetMenuListOptionFromString(s string) (GetMenuListOption, error) {
 		return GetMenuListOption_created_at, nil
 	case "status":
 		return GetMenuListOption_status, nil
+	case "menu_side":
+		return GetMenuListOption_menu_side, nil
 	}
 	return GetMenuListOption(0), fmt.Errorf("not a valid GetMenuListOption string")
 }
