@@ -18,6 +18,7 @@ const (
 	GetMajorPracticeTeachingPlanListReqOption_class_name    GetMajorPracticeTeachingPlanListReqOption = 3
 	GetMajorPracticeTeachingPlanListReqOption_academic_year GetMajorPracticeTeachingPlanListReqOption = 4
 	GetMajorPracticeTeachingPlanListReqOption_semester      GetMajorPracticeTeachingPlanListReqOption = 5
+	GetMajorPracticeTeachingPlanListReqOption_major         GetMajorPracticeTeachingPlanListReqOption = 6
 )
 
 func (p GetMajorPracticeTeachingPlanListReqOption) String() string {
@@ -32,6 +33,8 @@ func (p GetMajorPracticeTeachingPlanListReqOption) String() string {
 		return "academic_year"
 	case GetMajorPracticeTeachingPlanListReqOption_semester:
 		return "semester"
+	case GetMajorPracticeTeachingPlanListReqOption_major:
+		return "major"
 	}
 	return "<UNSET>"
 }
@@ -48,6 +51,8 @@ func GetMajorPracticeTeachingPlanListReqOptionFromString(s string) (GetMajorPrac
 		return GetMajorPracticeTeachingPlanListReqOption_academic_year, nil
 	case "semester":
 		return GetMajorPracticeTeachingPlanListReqOption_semester, nil
+	case "major":
+		return GetMajorPracticeTeachingPlanListReqOption_major, nil
 	}
 	return GetMajorPracticeTeachingPlanListReqOption(0), fmt.Errorf("not a valid GetMajorPracticeTeachingPlanListReqOption string")
 }
