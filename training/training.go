@@ -1252,6 +1252,7 @@ type ImportMajorPracticeTeachingReq struct {
 	AcademicYear string `thrift:"academic_year,1" frugal:"1,default,string" json:"academic_year" binding:"required"`
 	Semester     string `thrift:"semester,2" frugal:"2,default,string" json:"semester" binding:"required"`
 	UploadId     string `thrift:"upload_id,3" frugal:"3,default,string" json:"upload_id" binding:"required"`
+	CourseType   int32  `thrift:"course_type,4" frugal:"4,default,i32" json:"course_type"`
 }
 
 func NewImportMajorPracticeTeachingReq() *ImportMajorPracticeTeachingReq {
@@ -1272,6 +1273,10 @@ func (p *ImportMajorPracticeTeachingReq) GetSemester() (v string) {
 func (p *ImportMajorPracticeTeachingReq) GetUploadId() (v string) {
 	return p.UploadId
 }
+
+func (p *ImportMajorPracticeTeachingReq) GetCourseType() (v int32) {
+	return p.CourseType
+}
 func (p *ImportMajorPracticeTeachingReq) SetAcademicYear(val string) {
 	p.AcademicYear = val
 }
@@ -1280,6 +1285,9 @@ func (p *ImportMajorPracticeTeachingReq) SetSemester(val string) {
 }
 func (p *ImportMajorPracticeTeachingReq) SetUploadId(val string) {
 	p.UploadId = val
+}
+func (p *ImportMajorPracticeTeachingReq) SetCourseType(val int32) {
+	p.CourseType = val
 }
 
 func (p *ImportMajorPracticeTeachingReq) String() string {
@@ -1293,6 +1301,7 @@ var fieldIDToName_ImportMajorPracticeTeachingReq = map[int16]string{
 	1: "academic_year",
 	2: "semester",
 	3: "upload_id",
+	4: "course_type",
 }
 
 type ExportMajorPracticeTeachingResp struct {
@@ -1532,11 +1541,12 @@ var fieldIDToName_GetClassroomListReq = map[int16]string{
 }
 
 type UpdatePastMajorReq struct {
-	Id                 int32  `thrift:"id,1" frugal:"1,default,i32" json:"id" binding:"required"`
-	Name               string `thrift:"name,2" frugal:"2,default,string" json:"name" binding:"required"`
-	Orders             int32  `thrift:"orders,3" frugal:"3,default,i32" json:"orders"`
-	ResearchDirectorId string `thrift:"research_director_id,4" frugal:"4,default,string" json:"research_director_id" binding:"required"`
-	ResearchDirector   string `thrift:"research_director,5" frugal:"5,default,string" json:"research_director" binding:"required"`
+	Id                 int32   `thrift:"id,1" frugal:"1,default,i32" json:"id" binding:"required"`
+	Name               string  `thrift:"name,2" frugal:"2,default,string" json:"name" binding:"required"`
+	Orders             int32   `thrift:"orders,3" frugal:"3,default,i32" json:"orders"`
+	ResearchDirectorId string  `thrift:"research_director_id,4" frugal:"4,default,string" json:"research_director_id" binding:"required"`
+	ResearchDirector   string  `thrift:"research_director,5" frugal:"5,default,string" json:"research_director" binding:"required"`
+	BudgetTotal        float64 `thrift:"budget_total,6" frugal:"6,default,double" json:"budget_total" gorm:"column:budget_total"`
 }
 
 func NewUpdatePastMajorReq() *UpdatePastMajorReq {
@@ -1565,6 +1575,10 @@ func (p *UpdatePastMajorReq) GetResearchDirectorId() (v string) {
 func (p *UpdatePastMajorReq) GetResearchDirector() (v string) {
 	return p.ResearchDirector
 }
+
+func (p *UpdatePastMajorReq) GetBudgetTotal() (v float64) {
+	return p.BudgetTotal
+}
 func (p *UpdatePastMajorReq) SetId(val int32) {
 	p.Id = val
 }
@@ -1580,6 +1594,9 @@ func (p *UpdatePastMajorReq) SetResearchDirectorId(val string) {
 func (p *UpdatePastMajorReq) SetResearchDirector(val string) {
 	p.ResearchDirector = val
 }
+func (p *UpdatePastMajorReq) SetBudgetTotal(val float64) {
+	p.BudgetTotal = val
+}
 
 func (p *UpdatePastMajorReq) String() string {
 	if p == nil {
@@ -1594,6 +1611,7 @@ var fieldIDToName_UpdatePastMajorReq = map[int16]string{
 	3: "orders",
 	4: "research_director_id",
 	5: "research_director",
+	6: "budget_total",
 }
 
 type UpdatePastMajorResp struct {
@@ -1616,9 +1634,10 @@ func (p *UpdatePastMajorResp) String() string {
 var fieldIDToName_UpdatePastMajorResp = map[int16]string{}
 
 type AddPastMajorReq struct {
-	Name               string `thrift:"name,1" frugal:"1,default,string" json:"name" binding:"required"`
-	Orders             int32  `thrift:"orders,2" frugal:"2,default,i32" json:"orders"`
-	ResearchDirectorId string `thrift:"research_director_id,3" frugal:"3,default,string" json:"research_director_id" binding:"required"`
+	Name               string  `thrift:"name,1" frugal:"1,default,string" json:"name" binding:"required"`
+	Orders             int32   `thrift:"orders,2" frugal:"2,default,i32" json:"orders"`
+	ResearchDirectorId string  `thrift:"research_director_id,3" frugal:"3,default,string" json:"research_director_id" binding:"required"`
+	BudgetTotal        float64 `thrift:"budget_total,4" frugal:"4,default,double" json:"budget_total" gorm:"column:budget_total"`
 }
 
 func NewAddPastMajorReq() *AddPastMajorReq {
@@ -1639,6 +1658,10 @@ func (p *AddPastMajorReq) GetOrders() (v int32) {
 func (p *AddPastMajorReq) GetResearchDirectorId() (v string) {
 	return p.ResearchDirectorId
 }
+
+func (p *AddPastMajorReq) GetBudgetTotal() (v float64) {
+	return p.BudgetTotal
+}
 func (p *AddPastMajorReq) SetName(val string) {
 	p.Name = val
 }
@@ -1647,6 +1670,9 @@ func (p *AddPastMajorReq) SetOrders(val int32) {
 }
 func (p *AddPastMajorReq) SetResearchDirectorId(val string) {
 	p.ResearchDirectorId = val
+}
+func (p *AddPastMajorReq) SetBudgetTotal(val float64) {
+	p.BudgetTotal = val
 }
 
 func (p *AddPastMajorReq) String() string {
@@ -1660,6 +1686,7 @@ var fieldIDToName_AddPastMajorReq = map[int16]string{
 	1: "name",
 	2: "orders",
 	3: "research_director_id",
+	4: "budget_total",
 }
 
 type AddPastMajorResp struct {
@@ -4088,15 +4115,16 @@ var fieldIDToName_ModelTrainingCourseTeacher = map[int16]string{
 }
 
 type ModelMajor struct {
-	Id                 int32  `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
-	CreatedAt          int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index" json:"created_at"`
-	UpdatedAt          int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at" json:"updated_at"`
-	DeletedAt          int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at" json:"deleted_at"`
-	Name               string `thrift:"name,5" frugal:"5,default,string" json:"name" gorm:"column:name"`
-	AppId              int32  `thrift:"app_id,6" frugal:"6,default,i32" json:"app_id" gorm:"column:app_id"`
-	Orders             int32  `thrift:"orders,7" frugal:"7,default,i32" json:"orders" gorm:"column:orders"`
-	ResearchDirector   string `thrift:"research_director,8" frugal:"8,default,string" json:"research_director" gorm:"column:research_director"`
-	ResearchDirectorId string `thrift:"research_director_id,9" frugal:"9,default,string" json:"research_director_id" gorm:"column:research_director_id"`
+	Id                 int32   `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
+	CreatedAt          int32   `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index" json:"created_at"`
+	UpdatedAt          int32   `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at" json:"updated_at"`
+	DeletedAt          int32   `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at" json:"deleted_at"`
+	Name               string  `thrift:"name,5" frugal:"5,default,string" json:"name" gorm:"column:name"`
+	AppId              int32   `thrift:"app_id,6" frugal:"6,default,i32" json:"app_id" gorm:"column:app_id"`
+	Orders             int32   `thrift:"orders,7" frugal:"7,default,i32" json:"orders" gorm:"column:orders"`
+	ResearchDirector   string  `thrift:"research_director,8" frugal:"8,default,string" json:"research_director" gorm:"column:research_director"`
+	ResearchDirectorId string  `thrift:"research_director_id,9" frugal:"9,default,string" json:"research_director_id" gorm:"column:research_director_id"`
+	BudgetTotal        float64 `thrift:"budget_total,10" frugal:"10,default,double" json:"budget_total" gorm:"column:budget_total"`
 }
 
 func NewModelMajor() *ModelMajor {
@@ -4141,6 +4169,10 @@ func (p *ModelMajor) GetResearchDirector() (v string) {
 func (p *ModelMajor) GetResearchDirectorId() (v string) {
 	return p.ResearchDirectorId
 }
+
+func (p *ModelMajor) GetBudgetTotal() (v float64) {
+	return p.BudgetTotal
+}
 func (p *ModelMajor) SetId(val int32) {
 	p.Id = val
 }
@@ -4168,6 +4200,9 @@ func (p *ModelMajor) SetResearchDirector(val string) {
 func (p *ModelMajor) SetResearchDirectorId(val string) {
 	p.ResearchDirectorId = val
 }
+func (p *ModelMajor) SetBudgetTotal(val float64) {
+	p.BudgetTotal = val
+}
 
 func (p *ModelMajor) String() string {
 	if p == nil {
@@ -4177,15 +4212,16 @@ func (p *ModelMajor) String() string {
 }
 
 var fieldIDToName_ModelMajor = map[int16]string{
-	1: "id",
-	2: "created_at",
-	3: "updated_at",
-	4: "deleted_at",
-	5: "name",
-	6: "app_id",
-	7: "orders",
-	8: "research_director",
-	9: "research_director_id",
+	1:  "id",
+	2:  "created_at",
+	3:  "updated_at",
+	4:  "deleted_at",
+	5:  "name",
+	6:  "app_id",
+	7:  "orders",
+	8:  "research_director",
+	9:  "research_director_id",
+	10: "budget_total",
 }
 
 type ModelTeacherCourseIndex struct {
@@ -4579,6 +4615,8 @@ type ModelMajorPracticeTeachingPlan struct {
 	AcademicYear      string `thrift:"academic_year,13" frugal:"13,default,string" json:"academic_year" gorm:"column:academic_year"`
 	Semester          string `thrift:"semester,14" frugal:"14,default,string" json:"semester" gorm:"column:semester"`
 	AppId             int32  `thrift:"app_id,15" frugal:"15,default,i32" json:"app_id" gorm:"column:app_id"`
+	Grade             string `thrift:"grade,16" frugal:"16,default,string" json:"grade" gorm:"column:grade"`
+	CourseType        int32  `thrift:"course_type,17" frugal:"17,default,i32" json:"course_type" gorm:"column:course_type;default:1"`
 }
 
 func NewModelMajorPracticeTeachingPlan() *ModelMajorPracticeTeachingPlan {
@@ -4647,6 +4685,14 @@ func (p *ModelMajorPracticeTeachingPlan) GetSemester() (v string) {
 func (p *ModelMajorPracticeTeachingPlan) GetAppId() (v int32) {
 	return p.AppId
 }
+
+func (p *ModelMajorPracticeTeachingPlan) GetGrade() (v string) {
+	return p.Grade
+}
+
+func (p *ModelMajorPracticeTeachingPlan) GetCourseType() (v int32) {
+	return p.CourseType
+}
 func (p *ModelMajorPracticeTeachingPlan) SetId(val int32) {
 	p.Id = val
 }
@@ -4692,6 +4738,12 @@ func (p *ModelMajorPracticeTeachingPlan) SetSemester(val string) {
 func (p *ModelMajorPracticeTeachingPlan) SetAppId(val int32) {
 	p.AppId = val
 }
+func (p *ModelMajorPracticeTeachingPlan) SetGrade(val string) {
+	p.Grade = val
+}
+func (p *ModelMajorPracticeTeachingPlan) SetCourseType(val int32) {
+	p.CourseType = val
+}
 
 func (p *ModelMajorPracticeTeachingPlan) String() string {
 	if p == nil {
@@ -4716,6 +4768,8 @@ var fieldIDToName_ModelMajorPracticeTeachingPlan = map[int16]string{
 	13: "academic_year",
 	14: "semester",
 	15: "app_id",
+	16: "grade",
+	17: "course_type",
 }
 
 type Trainingservice interface {
