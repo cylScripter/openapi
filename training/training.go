@@ -3625,6 +3625,8 @@ type ModelTrainingCourse struct {
 	CourseType               int32  `thrift:"course_type,27" frugal:"27,default,i32" json:"course_type" gorm:"column:course_type;default:1"`
 	Filler                   string `thrift:"filler,28" frugal:"28,default,string" json:"filler" gorm:"column:filler"`
 	ProjectSourceProofPerson string `thrift:"project_source_proof_person,29" frugal:"29,default,string" json:"project_source_proof_person" gorm:"column:project_source_proof_person"`
+	ClassTime                string `thrift:"class_time,30" frugal:"30,default,string" json:"class_time" gorm:"column:class_time"`
+	SourceProductName        string `thrift:"source_product_name,31" frugal:"31,default,string" json:"source_product_name" gorm:"column:source_product_name"`
 }
 
 func NewModelTrainingCourse() *ModelTrainingCourse {
@@ -3749,6 +3751,14 @@ func (p *ModelTrainingCourse) GetFiller() (v string) {
 func (p *ModelTrainingCourse) GetProjectSourceProofPerson() (v string) {
 	return p.ProjectSourceProofPerson
 }
+
+func (p *ModelTrainingCourse) GetClassTime() (v string) {
+	return p.ClassTime
+}
+
+func (p *ModelTrainingCourse) GetSourceProductName() (v string) {
+	return p.SourceProductName
+}
 func (p *ModelTrainingCourse) SetId(val int32) {
 	p.Id = val
 }
@@ -3836,6 +3846,12 @@ func (p *ModelTrainingCourse) SetFiller(val string) {
 func (p *ModelTrainingCourse) SetProjectSourceProofPerson(val string) {
 	p.ProjectSourceProofPerson = val
 }
+func (p *ModelTrainingCourse) SetClassTime(val string) {
+	p.ClassTime = val
+}
+func (p *ModelTrainingCourse) SetSourceProductName(val string) {
+	p.SourceProductName = val
+}
 
 func (p *ModelTrainingCourse) String() string {
 	if p == nil {
@@ -3874,6 +3890,8 @@ var fieldIDToName_ModelTrainingCourse = map[int16]string{
 	27: "course_type",
 	28: "filler",
 	29: "project_source_proof_person",
+	30: "class_time",
+	31: "source_product_name",
 }
 
 type CourseFile struct {
@@ -4837,6 +4855,197 @@ var fieldIDToName_ModelMajorPracticeTeachingPlan = map[int16]string{
 	15: "app_id",
 	16: "grade",
 	17: "course_type",
+}
+
+type ModelPracticeTeachingStats struct {
+	Id                      int32  `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
+	CreatedAt               int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index" json:"created_at"`
+	UpdatedAt               int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at" json:"updated_at"`
+	DeletedAt               int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at" json:"deleted_at"`
+	Grade                   string `thrift:"grade,5" frugal:"5,default,string" json:"grade" gorm:"column:grade"`
+	Major                   string `thrift:"major,6" frugal:"6,default,string" json:"major" gorm:"column:major"`
+	StudentCount            int32  `thrift:"student_count,7" frugal:"7,default,i32" json:"student_count" gorm:"column:student_count"`
+	ClassCount              int32  `thrift:"class_count,8" frugal:"8,default,i32" json:"class_count" gorm:"column:class_count"`
+	ProjectCount            int32  `thrift:"project_count,9" frugal:"9,default,i32" json:"project_count" gorm:"column:project_count"`
+	LocationCount           int32  `thrift:"location_count,10" frugal:"10,default,i32" json:"location_count" gorm:"column:location_count"`
+	InstructorCount         int32  `thrift:"instructor_count,11" frugal:"11,default,i32" json:"instructor_count" gorm:"column:instructor_count"`
+	InternalInstructorCount int32  `thrift:"internal_instructor_count,12" frugal:"12,default,i32" json:"internal_instructor_count" gorm:"column:internal_instructor_count"`
+	ExternalInstructorCount int32  `thrift:"external_instructor_count,13" frugal:"13,default,i32" json:"external_instructor_count" gorm:"column:external_instructor_count"`
+	SafetyMeasures          string `thrift:"safety_measures,14" frugal:"14,default,string" json:"safety_measures" gorm:"column:safety_measures;type:text"`
+	AppId                   int32  `thrift:"app_id,15" frugal:"15,default,i32" json:"app_id" gorm:"column:app_id"`
+	AcademicYear            string `thrift:"academic_year,16" frugal:"16,default,string" json:"academic_year" gorm:"column:academic_year"`
+	Semester                string `thrift:"semester,17" frugal:"17,default,string" json:"semester" gorm:"column:semester"`
+	Type                    int32  `thrift:"type,18" frugal:"18,default,i32" json:"course_type" gorm:"column:course_type;default:1"`
+	HasEmergencyPlan        int32  `thrift:"has_emergency_plan,19" frugal:"19,default,i32" json:"has_emergency_plan" gorm:"column:has_emergency_plan;default:2"`
+}
+
+func NewModelPracticeTeachingStats() *ModelPracticeTeachingStats {
+	return &ModelPracticeTeachingStats{}
+}
+
+func (p *ModelPracticeTeachingStats) InitDefault() {
+}
+
+func (p *ModelPracticeTeachingStats) GetId() (v int32) {
+	return p.Id
+}
+
+func (p *ModelPracticeTeachingStats) GetCreatedAt() (v int32) {
+	return p.CreatedAt
+}
+
+func (p *ModelPracticeTeachingStats) GetUpdatedAt() (v int32) {
+	return p.UpdatedAt
+}
+
+func (p *ModelPracticeTeachingStats) GetDeletedAt() (v int32) {
+	return p.DeletedAt
+}
+
+func (p *ModelPracticeTeachingStats) GetGrade() (v string) {
+	return p.Grade
+}
+
+func (p *ModelPracticeTeachingStats) GetMajor() (v string) {
+	return p.Major
+}
+
+func (p *ModelPracticeTeachingStats) GetStudentCount() (v int32) {
+	return p.StudentCount
+}
+
+func (p *ModelPracticeTeachingStats) GetClassCount() (v int32) {
+	return p.ClassCount
+}
+
+func (p *ModelPracticeTeachingStats) GetProjectCount() (v int32) {
+	return p.ProjectCount
+}
+
+func (p *ModelPracticeTeachingStats) GetLocationCount() (v int32) {
+	return p.LocationCount
+}
+
+func (p *ModelPracticeTeachingStats) GetInstructorCount() (v int32) {
+	return p.InstructorCount
+}
+
+func (p *ModelPracticeTeachingStats) GetInternalInstructorCount() (v int32) {
+	return p.InternalInstructorCount
+}
+
+func (p *ModelPracticeTeachingStats) GetExternalInstructorCount() (v int32) {
+	return p.ExternalInstructorCount
+}
+
+func (p *ModelPracticeTeachingStats) GetSafetyMeasures() (v string) {
+	return p.SafetyMeasures
+}
+
+func (p *ModelPracticeTeachingStats) GetAppId() (v int32) {
+	return p.AppId
+}
+
+func (p *ModelPracticeTeachingStats) GetAcademicYear() (v string) {
+	return p.AcademicYear
+}
+
+func (p *ModelPracticeTeachingStats) GetSemester() (v string) {
+	return p.Semester
+}
+
+func (p *ModelPracticeTeachingStats) GetType() (v int32) {
+	return p.Type
+}
+
+func (p *ModelPracticeTeachingStats) GetHasEmergencyPlan() (v int32) {
+	return p.HasEmergencyPlan
+}
+func (p *ModelPracticeTeachingStats) SetId(val int32) {
+	p.Id = val
+}
+func (p *ModelPracticeTeachingStats) SetCreatedAt(val int32) {
+	p.CreatedAt = val
+}
+func (p *ModelPracticeTeachingStats) SetUpdatedAt(val int32) {
+	p.UpdatedAt = val
+}
+func (p *ModelPracticeTeachingStats) SetDeletedAt(val int32) {
+	p.DeletedAt = val
+}
+func (p *ModelPracticeTeachingStats) SetGrade(val string) {
+	p.Grade = val
+}
+func (p *ModelPracticeTeachingStats) SetMajor(val string) {
+	p.Major = val
+}
+func (p *ModelPracticeTeachingStats) SetStudentCount(val int32) {
+	p.StudentCount = val
+}
+func (p *ModelPracticeTeachingStats) SetClassCount(val int32) {
+	p.ClassCount = val
+}
+func (p *ModelPracticeTeachingStats) SetProjectCount(val int32) {
+	p.ProjectCount = val
+}
+func (p *ModelPracticeTeachingStats) SetLocationCount(val int32) {
+	p.LocationCount = val
+}
+func (p *ModelPracticeTeachingStats) SetInstructorCount(val int32) {
+	p.InstructorCount = val
+}
+func (p *ModelPracticeTeachingStats) SetInternalInstructorCount(val int32) {
+	p.InternalInstructorCount = val
+}
+func (p *ModelPracticeTeachingStats) SetExternalInstructorCount(val int32) {
+	p.ExternalInstructorCount = val
+}
+func (p *ModelPracticeTeachingStats) SetSafetyMeasures(val string) {
+	p.SafetyMeasures = val
+}
+func (p *ModelPracticeTeachingStats) SetAppId(val int32) {
+	p.AppId = val
+}
+func (p *ModelPracticeTeachingStats) SetAcademicYear(val string) {
+	p.AcademicYear = val
+}
+func (p *ModelPracticeTeachingStats) SetSemester(val string) {
+	p.Semester = val
+}
+func (p *ModelPracticeTeachingStats) SetType(val int32) {
+	p.Type = val
+}
+func (p *ModelPracticeTeachingStats) SetHasEmergencyPlan(val int32) {
+	p.HasEmergencyPlan = val
+}
+
+func (p *ModelPracticeTeachingStats) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ModelPracticeTeachingStats(%+v)", *p)
+}
+
+var fieldIDToName_ModelPracticeTeachingStats = map[int16]string{
+	1:  "id",
+	2:  "created_at",
+	3:  "updated_at",
+	4:  "deleted_at",
+	5:  "grade",
+	6:  "major",
+	7:  "student_count",
+	8:  "class_count",
+	9:  "project_count",
+	10: "location_count",
+	11: "instructor_count",
+	12: "internal_instructor_count",
+	13: "external_instructor_count",
+	14: "safety_measures",
+	15: "app_id",
+	16: "academic_year",
+	17: "semester",
+	18: "type",
+	19: "has_emergency_plan",
 }
 
 type Trainingservice interface {
