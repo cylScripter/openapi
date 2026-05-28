@@ -1380,6 +1380,73 @@ var fieldIDToName_ExportMajorPracticeTeachingReq = map[int16]string{
 	3: "export_type",
 }
 
+type ExportPracticeSummaryResp struct {
+	TaskKey string `thrift:"task_key,1" frugal:"1,default,string" json:"task_key"`
+}
+
+func NewExportPracticeSummaryResp() *ExportPracticeSummaryResp {
+	return &ExportPracticeSummaryResp{}
+}
+
+func (p *ExportPracticeSummaryResp) InitDefault() {
+}
+
+func (p *ExportPracticeSummaryResp) GetTaskKey() (v string) {
+	return p.TaskKey
+}
+func (p *ExportPracticeSummaryResp) SetTaskKey(val string) {
+	p.TaskKey = val
+}
+
+func (p *ExportPracticeSummaryResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ExportPracticeSummaryResp(%+v)", *p)
+}
+
+var fieldIDToName_ExportPracticeSummaryResp = map[int16]string{
+	1: "task_key",
+}
+
+type ExportPracticeSummaryReq struct {
+	AcademicYear string `thrift:"academic_year,1" frugal:"1,default,string" json:"academic_year" binding:"required"`
+	Semester     string `thrift:"semester,2" frugal:"2,default,string" json:"semester" binding:"required"`
+}
+
+func NewExportPracticeSummaryReq() *ExportPracticeSummaryReq {
+	return &ExportPracticeSummaryReq{}
+}
+
+func (p *ExportPracticeSummaryReq) InitDefault() {
+}
+
+func (p *ExportPracticeSummaryReq) GetAcademicYear() (v string) {
+	return p.AcademicYear
+}
+
+func (p *ExportPracticeSummaryReq) GetSemester() (v string) {
+	return p.Semester
+}
+func (p *ExportPracticeSummaryReq) SetAcademicYear(val string) {
+	p.AcademicYear = val
+}
+func (p *ExportPracticeSummaryReq) SetSemester(val string) {
+	p.Semester = val
+}
+
+func (p *ExportPracticeSummaryReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ExportPracticeSummaryReq(%+v)", *p)
+}
+
+var fieldIDToName_ExportPracticeSummaryReq = map[int16]string{
+	1: "academic_year",
+	2: "semester",
+}
+
 type EditClassroomResp struct {
 }
 
@@ -4825,6 +4892,8 @@ type Trainingservice interface {
 
 	ExportMajorPracticeTeaching(ctx context.Context, req *ExportMajorPracticeTeachingReq) (r *ExportMajorPracticeTeachingResp, err error)
 
+	ExportPracticeSummary(ctx context.Context, req *ExportPracticeSummaryReq) (r *ExportPracticeSummaryResp, err error)
+
 	ImportMajorPracticeTeaching(ctx context.Context, req *ImportMajorPracticeTeachingReq) (r *ImportMajorPracticeTeachingResp, err error)
 
 	GetMajorPracticeTeachingPlanList(ctx context.Context, req *GetMajorPracticeTeachingPlanListReq) (r *GetMajorPracticeTeachingPlanListResp, err error)
@@ -6819,6 +6888,82 @@ func (p *TrainingserviceExportMajorPracticeTeachingResult) String() string {
 }
 
 var fieldIDToName_TrainingserviceExportMajorPracticeTeachingResult = map[int16]string{
+	0: "success",
+}
+
+type TrainingserviceExportPracticeSummaryArgs struct {
+	Req *ExportPracticeSummaryReq `thrift:"req,1" frugal:"1,default,ExportPracticeSummaryReq" json:"req"`
+}
+
+func NewTrainingserviceExportPracticeSummaryArgs() *TrainingserviceExportPracticeSummaryArgs {
+	return &TrainingserviceExportPracticeSummaryArgs{}
+}
+
+func (p *TrainingserviceExportPracticeSummaryArgs) InitDefault() {
+}
+
+var TrainingserviceExportPracticeSummaryArgs_Req_DEFAULT *ExportPracticeSummaryReq
+
+func (p *TrainingserviceExportPracticeSummaryArgs) GetReq() (v *ExportPracticeSummaryReq) {
+	if !p.IsSetReq() {
+		return TrainingserviceExportPracticeSummaryArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *TrainingserviceExportPracticeSummaryArgs) SetReq(val *ExportPracticeSummaryReq) {
+	p.Req = val
+}
+
+func (p *TrainingserviceExportPracticeSummaryArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *TrainingserviceExportPracticeSummaryArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceExportPracticeSummaryArgs(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceExportPracticeSummaryArgs = map[int16]string{
+	1: "req",
+}
+
+type TrainingserviceExportPracticeSummaryResult struct {
+	Success *ExportPracticeSummaryResp `thrift:"success,0,optional" frugal:"0,optional,ExportPracticeSummaryResp" json:"success,omitempty"`
+}
+
+func NewTrainingserviceExportPracticeSummaryResult() *TrainingserviceExportPracticeSummaryResult {
+	return &TrainingserviceExportPracticeSummaryResult{}
+}
+
+func (p *TrainingserviceExportPracticeSummaryResult) InitDefault() {
+}
+
+var TrainingserviceExportPracticeSummaryResult_Success_DEFAULT *ExportPracticeSummaryResp
+
+func (p *TrainingserviceExportPracticeSummaryResult) GetSuccess() (v *ExportPracticeSummaryResp) {
+	if !p.IsSetSuccess() {
+		return TrainingserviceExportPracticeSummaryResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *TrainingserviceExportPracticeSummaryResult) SetSuccess(x interface{}) {
+	p.Success = x.(*ExportPracticeSummaryResp)
+}
+
+func (p *TrainingserviceExportPracticeSummaryResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *TrainingserviceExportPracticeSummaryResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceExportPracticeSummaryResult(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceExportPracticeSummaryResult = map[int16]string{
 	0: "success",
 }
 

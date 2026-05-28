@@ -195,6 +195,13 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"ExportPracticeSummary": kitex.NewMethodInfo(
+		exportPracticeSummaryHandler,
+		newTrainingserviceExportPracticeSummaryArgs,
+		newTrainingserviceExportPracticeSummaryResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 	"ImportMajorPracticeTeaching": kitex.NewMethodInfo(
 		importMajorPracticeTeachingHandler,
 		newTrainingserviceImportMajorPracticeTeachingArgs,
@@ -799,6 +806,24 @@ func newTrainingserviceExportMajorPracticeTeachingResult() interface{} {
 	return training.NewTrainingserviceExportMajorPracticeTeachingResult()
 }
 
+func exportPracticeSummaryHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceExportPracticeSummaryArgs)
+	realResult := result.(*training.TrainingserviceExportPracticeSummaryResult)
+	success, err := handler.(training.Trainingservice).ExportPracticeSummary(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceExportPracticeSummaryArgs() interface{} {
+	return training.NewTrainingserviceExportPracticeSummaryArgs()
+}
+
+func newTrainingserviceExportPracticeSummaryResult() interface{} {
+	return training.NewTrainingserviceExportPracticeSummaryResult()
+}
+
 func importMajorPracticeTeachingHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
 	realArg := arg.(*training.TrainingserviceImportMajorPracticeTeachingArgs)
 	realResult := result.(*training.TrainingserviceImportMajorPracticeTeachingResult)
@@ -1244,6 +1269,16 @@ func (p *kClient) ExportMajorPracticeTeaching(ctx context.Context, req *training
 	_args.Req = req
 	var _result training.TrainingserviceExportMajorPracticeTeachingResult
 	if err = p.c.Call(ctx, "ExportMajorPracticeTeaching", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ExportPracticeSummary(ctx context.Context, req *training.ExportPracticeSummaryReq) (r *training.ExportPracticeSummaryResp, err error) {
+	var _args training.TrainingserviceExportPracticeSummaryArgs
+	_args.Req = req
+	var _result training.TrainingserviceExportPracticeSummaryResult
+	if err = p.c.Call(ctx, "ExportPracticeSummary", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

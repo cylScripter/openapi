@@ -136,6 +136,11 @@ func ExportMajorPracticeTeaching(ctx context.Context, req *training.ExportMajorP
 	return clients.ExportMajorPracticeTeaching(ctx, req)
 }
 
+func ExportPracticeSummary(ctx context.Context, req *training.ExportPracticeSummaryReq, callOptions ...client.Option) (resp *training.ExportPracticeSummaryResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.ExportPracticeSummary(ctx, req)
+}
+
 func ImportMajorPracticeTeaching(ctx context.Context, req *training.ImportMajorPracticeTeachingReq, callOptions ...client.Option) (resp *training.ImportMajorPracticeTeachingResp, err error) {
 	clients := MustNewClient("training", callOptions...)
 	return clients.ImportMajorPracticeTeaching(ctx, req)

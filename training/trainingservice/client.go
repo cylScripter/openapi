@@ -37,6 +37,7 @@ type Client interface {
 	ImportClassroom(ctx context.Context, req *training.ImportClassroomReq, callOptions ...callopt.Option) (r *training.ImportClassroomResp, err error)
 	EditClassroom(ctx context.Context, req *training.EditClassroomReq, callOptions ...callopt.Option) (r *training.EditClassroomResp, err error)
 	ExportMajorPracticeTeaching(ctx context.Context, req *training.ExportMajorPracticeTeachingReq, callOptions ...callopt.Option) (r *training.ExportMajorPracticeTeachingResp, err error)
+	ExportPracticeSummary(ctx context.Context, req *training.ExportPracticeSummaryReq, callOptions ...callopt.Option) (r *training.ExportPracticeSummaryResp, err error)
 	ImportMajorPracticeTeaching(ctx context.Context, req *training.ImportMajorPracticeTeachingReq, callOptions ...callopt.Option) (r *training.ImportMajorPracticeTeachingResp, err error)
 	GetMajorPracticeTeachingPlanList(ctx context.Context, req *training.GetMajorPracticeTeachingPlanListReq, callOptions ...callopt.Option) (r *training.GetMajorPracticeTeachingPlanListResp, err error)
 	FillMajorPracticeTeachingBudget(ctx context.Context, req *training.FillMajorPracticeTeachingBudgetReq, callOptions ...callopt.Option) (r *training.FillMajorPracticeTeachingBudgetResp, err error)
@@ -206,6 +207,11 @@ func (p *kTrainingserviceClient) EditClassroom(ctx context.Context, req *trainin
 func (p *kTrainingserviceClient) ExportMajorPracticeTeaching(ctx context.Context, req *training.ExportMajorPracticeTeachingReq, callOptions ...callopt.Option) (r *training.ExportMajorPracticeTeachingResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.ExportMajorPracticeTeaching(ctx, req)
+}
+
+func (p *kTrainingserviceClient) ExportPracticeSummary(ctx context.Context, req *training.ExportPracticeSummaryReq, callOptions ...callopt.Option) (r *training.ExportPracticeSummaryResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ExportPracticeSummary(ctx, req)
 }
 
 func (p *kTrainingserviceClient) ImportMajorPracticeTeaching(ctx context.Context, req *training.ImportMajorPracticeTeachingReq, callOptions ...callopt.Option) (r *training.ImportMajorPracticeTeachingResp, err error) {
