@@ -2380,11 +2380,144 @@ func (p *ModelWorkloadStatisticsCategory) Value() (driver.Value, error) {
 	return int64(*p), nil
 }
 
+type EditClassStudentReq struct {
+	Id          int32  `thrift:"id,1" frugal:"1,default,i32" json:"id"`
+	StudentId   string `thrift:"student_id,2" frugal:"2,default,string" json:"student_id" binding:"required"`
+	ClassId     string `thrift:"class_id,3" frugal:"3,default,string" json:"class_id" binding:"required"`
+	StudentName string `thrift:"student_name,4" frugal:"4,default,string" json:"student_name" binding:"required"`
+	IsDelete    int32  `thrift:"is_delete,5" frugal:"5,default,i32" json:"is_delete" binding:"is_delete"`
+}
+
+func NewEditClassStudentReq() *EditClassStudentReq {
+	return &EditClassStudentReq{}
+}
+
+func (p *EditClassStudentReq) InitDefault() {
+}
+
+func (p *EditClassStudentReq) GetId() (v int32) {
+	return p.Id
+}
+
+func (p *EditClassStudentReq) GetStudentId() (v string) {
+	return p.StudentId
+}
+
+func (p *EditClassStudentReq) GetClassId() (v string) {
+	return p.ClassId
+}
+
+func (p *EditClassStudentReq) GetStudentName() (v string) {
+	return p.StudentName
+}
+
+func (p *EditClassStudentReq) GetIsDelete() (v int32) {
+	return p.IsDelete
+}
+func (p *EditClassStudentReq) SetId(val int32) {
+	p.Id = val
+}
+func (p *EditClassStudentReq) SetStudentId(val string) {
+	p.StudentId = val
+}
+func (p *EditClassStudentReq) SetClassId(val string) {
+	p.ClassId = val
+}
+func (p *EditClassStudentReq) SetStudentName(val string) {
+	p.StudentName = val
+}
+func (p *EditClassStudentReq) SetIsDelete(val int32) {
+	p.IsDelete = val
+}
+
+func (p *EditClassStudentReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("EditClassStudentReq(%+v)", *p)
+}
+
+var fieldIDToName_EditClassStudentReq = map[int16]string{
+	1: "id",
+	2: "student_id",
+	3: "class_id",
+	4: "student_name",
+	5: "is_delete",
+}
+
+type EditClassStudentResp struct {
+}
+
+func NewEditClassStudentResp() *EditClassStudentResp {
+	return &EditClassStudentResp{}
+}
+
+func (p *EditClassStudentResp) InitDefault() {
+}
+
+func (p *EditClassStudentResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("EditClassStudentResp(%+v)", *p)
+}
+
+var fieldIDToName_EditClassStudentResp = map[int16]string{}
+
+type ImportClassStudentResp struct {
+}
+
+func NewImportClassStudentResp() *ImportClassStudentResp {
+	return &ImportClassStudentResp{}
+}
+
+func (p *ImportClassStudentResp) InitDefault() {
+}
+
+func (p *ImportClassStudentResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ImportClassStudentResp(%+v)", *p)
+}
+
+var fieldIDToName_ImportClassStudentResp = map[int16]string{}
+
+type ImportClassStudentReq struct {
+	UploadId string `thrift:"upload_id,1" frugal:"1,default,string" json:"upload_id" binding:"required"`
+}
+
+func NewImportClassStudentReq() *ImportClassStudentReq {
+	return &ImportClassStudentReq{}
+}
+
+func (p *ImportClassStudentReq) InitDefault() {
+}
+
+func (p *ImportClassStudentReq) GetUploadId() (v string) {
+	return p.UploadId
+}
+func (p *ImportClassStudentReq) SetUploadId(val string) {
+	p.UploadId = val
+}
+
+func (p *ImportClassStudentReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ImportClassStudentReq(%+v)", *p)
+}
+
+var fieldIDToName_ImportClassStudentReq = map[int16]string{
+	1: "upload_id",
+}
+
 type EditClassReq struct {
 	Id          int32  `thrift:"id,1" frugal:"1,default,i32" json:"id"`
 	Name        string `thrift:"name,2" frugal:"2,default,string" json:"name" binding:"required"`
 	Description string `thrift:"description,3" frugal:"3,default,string" json:"description"`
 	Grade       string `thrift:"grade,4" frugal:"4,default,string" json:"grade"`
+	IsDelete    int32  `thrift:"is_delete,5" frugal:"5,default,i32" json:"is_delete"`
 }
 
 func NewEditClassReq() *EditClassReq {
@@ -2409,6 +2542,10 @@ func (p *EditClassReq) GetDescription() (v string) {
 func (p *EditClassReq) GetGrade() (v string) {
 	return p.Grade
 }
+
+func (p *EditClassReq) GetIsDelete() (v int32) {
+	return p.IsDelete
+}
 func (p *EditClassReq) SetId(val int32) {
 	p.Id = val
 }
@@ -2420,6 +2557,9 @@ func (p *EditClassReq) SetDescription(val string) {
 }
 func (p *EditClassReq) SetGrade(val string) {
 	p.Grade = val
+}
+func (p *EditClassReq) SetIsDelete(val int32) {
+	p.IsDelete = val
 }
 
 func (p *EditClassReq) String() string {
@@ -2434,6 +2574,7 @@ var fieldIDToName_EditClassReq = map[int16]string{
 	2: "name",
 	3: "description",
 	4: "grade",
+	5: "is_delete",
 }
 
 type EditClassResp struct {
@@ -19571,13 +19712,16 @@ var fieldIDToName_ModelAdjustmentForm = map[int16]string{
 }
 
 type ModelClassStudent struct {
-	Id        int32  `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
-	CreatedAt int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index" json:"created_at"`
-	UpdatedAt int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at" json:"updated_at"`
-	DeletedAt int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at" json:"deleted_at"`
-	AppId     int32  `thrift:"app_id,5" frugal:"5,default,i32" json:"app_id" gorm:"column:app_id;index"`
-	ClassId   int32  `thrift:"class_id,6" frugal:"6,default,i32" json:"class_id" gorm:"column:class_id"`
-	StudentId string `thrift:"student_id,7" frugal:"7,default,string" json:"student_id" gorm:"column:student_id"`
+	Id          int32  `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
+	CreatedAt   int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index" json:"created_at"`
+	UpdatedAt   int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at" json:"updated_at"`
+	DeletedAt   int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at" json:"deleted_at"`
+	AppId       int32  `thrift:"app_id,5" frugal:"5,default,i32" json:"app_id" gorm:"column:app_id;index"`
+	ClassId     int32  `thrift:"class_id,6" frugal:"6,default,i32" json:"class_id" gorm:"column:class_id"`
+	StudentId   string `thrift:"student_id,7" frugal:"7,default,string" json:"student_id" gorm:"column:student_id"`
+	StudentName string `thrift:"student_name,8" frugal:"8,default,string" json:"student_name" gorm:"column:student_name"`
+	Grade       string `thrift:"grade,9" frugal:"9,default,string" json:"grade" gorm:"column:grade"`
+	ClassName   string `thrift:"class_name,10" frugal:"10,default,string" json:"class_name" gorm:"column:class_name"`
 }
 
 func NewModelClassStudent() *ModelClassStudent {
@@ -19614,6 +19758,18 @@ func (p *ModelClassStudent) GetClassId() (v int32) {
 func (p *ModelClassStudent) GetStudentId() (v string) {
 	return p.StudentId
 }
+
+func (p *ModelClassStudent) GetStudentName() (v string) {
+	return p.StudentName
+}
+
+func (p *ModelClassStudent) GetGrade() (v string) {
+	return p.Grade
+}
+
+func (p *ModelClassStudent) GetClassName() (v string) {
+	return p.ClassName
+}
 func (p *ModelClassStudent) SetId(val int32) {
 	p.Id = val
 }
@@ -19635,6 +19791,15 @@ func (p *ModelClassStudent) SetClassId(val int32) {
 func (p *ModelClassStudent) SetStudentId(val string) {
 	p.StudentId = val
 }
+func (p *ModelClassStudent) SetStudentName(val string) {
+	p.StudentName = val
+}
+func (p *ModelClassStudent) SetGrade(val string) {
+	p.Grade = val
+}
+func (p *ModelClassStudent) SetClassName(val string) {
+	p.ClassName = val
+}
 
 func (p *ModelClassStudent) String() string {
 	if p == nil {
@@ -19644,13 +19809,16 @@ func (p *ModelClassStudent) String() string {
 }
 
 var fieldIDToName_ModelClassStudent = map[int16]string{
-	1: "id",
-	2: "created_at",
-	3: "updated_at",
-	4: "deleted_at",
-	5: "app_id",
-	6: "class_id",
-	7: "student_id",
+	1:  "id",
+	2:  "created_at",
+	3:  "updated_at",
+	4:  "deleted_at",
+	5:  "app_id",
+	6:  "class_id",
+	7:  "student_id",
+	8:  "student_name",
+	9:  "grade",
+	10: "class_name",
 }
 
 type Educationservice interface {
@@ -19915,6 +20083,10 @@ type Educationservice interface {
 	GetButtonPermission(ctx context.Context, req *GetButtonPermissionReq) (r *GetButtonPermissionResp, err error)
 
 	EditClass(ctx context.Context, req *EditClassReq) (r *EditClassResp, err error)
+
+	ImportClassStudent(ctx context.Context, req *ImportClassStudentReq) (r *ImportClassStudentResp, err error)
+
+	EditClassStudent(ctx context.Context, req *EditClassStudentReq) (r *EditClassStudentResp, err error)
 }
 
 type EducationserviceCreateAppArgs struct {
@@ -29870,5 +30042,157 @@ func (p *EducationserviceEditClassResult) String() string {
 }
 
 var fieldIDToName_EducationserviceEditClassResult = map[int16]string{
+	0: "success",
+}
+
+type EducationserviceImportClassStudentArgs struct {
+	Req *ImportClassStudentReq `thrift:"req,1" frugal:"1,default,ImportClassStudentReq" json:"req"`
+}
+
+func NewEducationserviceImportClassStudentArgs() *EducationserviceImportClassStudentArgs {
+	return &EducationserviceImportClassStudentArgs{}
+}
+
+func (p *EducationserviceImportClassStudentArgs) InitDefault() {
+}
+
+var EducationserviceImportClassStudentArgs_Req_DEFAULT *ImportClassStudentReq
+
+func (p *EducationserviceImportClassStudentArgs) GetReq() (v *ImportClassStudentReq) {
+	if !p.IsSetReq() {
+		return EducationserviceImportClassStudentArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *EducationserviceImportClassStudentArgs) SetReq(val *ImportClassStudentReq) {
+	p.Req = val
+}
+
+func (p *EducationserviceImportClassStudentArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *EducationserviceImportClassStudentArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("EducationserviceImportClassStudentArgs(%+v)", *p)
+}
+
+var fieldIDToName_EducationserviceImportClassStudentArgs = map[int16]string{
+	1: "req",
+}
+
+type EducationserviceImportClassStudentResult struct {
+	Success *ImportClassStudentResp `thrift:"success,0,optional" frugal:"0,optional,ImportClassStudentResp" json:"success,omitempty"`
+}
+
+func NewEducationserviceImportClassStudentResult() *EducationserviceImportClassStudentResult {
+	return &EducationserviceImportClassStudentResult{}
+}
+
+func (p *EducationserviceImportClassStudentResult) InitDefault() {
+}
+
+var EducationserviceImportClassStudentResult_Success_DEFAULT *ImportClassStudentResp
+
+func (p *EducationserviceImportClassStudentResult) GetSuccess() (v *ImportClassStudentResp) {
+	if !p.IsSetSuccess() {
+		return EducationserviceImportClassStudentResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *EducationserviceImportClassStudentResult) SetSuccess(x interface{}) {
+	p.Success = x.(*ImportClassStudentResp)
+}
+
+func (p *EducationserviceImportClassStudentResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *EducationserviceImportClassStudentResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("EducationserviceImportClassStudentResult(%+v)", *p)
+}
+
+var fieldIDToName_EducationserviceImportClassStudentResult = map[int16]string{
+	0: "success",
+}
+
+type EducationserviceEditClassStudentArgs struct {
+	Req *EditClassStudentReq `thrift:"req,1" frugal:"1,default,EditClassStudentReq" json:"req"`
+}
+
+func NewEducationserviceEditClassStudentArgs() *EducationserviceEditClassStudentArgs {
+	return &EducationserviceEditClassStudentArgs{}
+}
+
+func (p *EducationserviceEditClassStudentArgs) InitDefault() {
+}
+
+var EducationserviceEditClassStudentArgs_Req_DEFAULT *EditClassStudentReq
+
+func (p *EducationserviceEditClassStudentArgs) GetReq() (v *EditClassStudentReq) {
+	if !p.IsSetReq() {
+		return EducationserviceEditClassStudentArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *EducationserviceEditClassStudentArgs) SetReq(val *EditClassStudentReq) {
+	p.Req = val
+}
+
+func (p *EducationserviceEditClassStudentArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *EducationserviceEditClassStudentArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("EducationserviceEditClassStudentArgs(%+v)", *p)
+}
+
+var fieldIDToName_EducationserviceEditClassStudentArgs = map[int16]string{
+	1: "req",
+}
+
+type EducationserviceEditClassStudentResult struct {
+	Success *EditClassStudentResp `thrift:"success,0,optional" frugal:"0,optional,EditClassStudentResp" json:"success,omitempty"`
+}
+
+func NewEducationserviceEditClassStudentResult() *EducationserviceEditClassStudentResult {
+	return &EducationserviceEditClassStudentResult{}
+}
+
+func (p *EducationserviceEditClassStudentResult) InitDefault() {
+}
+
+var EducationserviceEditClassStudentResult_Success_DEFAULT *EditClassStudentResp
+
+func (p *EducationserviceEditClassStudentResult) GetSuccess() (v *EditClassStudentResp) {
+	if !p.IsSetSuccess() {
+		return EducationserviceEditClassStudentResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *EducationserviceEditClassStudentResult) SetSuccess(x interface{}) {
+	p.Success = x.(*EditClassStudentResp)
+}
+
+func (p *EducationserviceEditClassStudentResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *EducationserviceEditClassStudentResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("EducationserviceEditClassStudentResult(%+v)", *p)
+}
+
+var fieldIDToName_EducationserviceEditClassStudentResult = map[int16]string{
 	0: "success",
 }

@@ -930,6 +930,20 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"ImportClassStudent": kitex.NewMethodInfo(
+		importClassStudentHandler,
+		newEducationserviceImportClassStudentArgs,
+		newEducationserviceImportClassStudentResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"EditClassStudent": kitex.NewMethodInfo(
+		editClassStudentHandler,
+		newEducationserviceEditClassStudentArgs,
+		newEducationserviceEditClassStudentResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -3354,6 +3368,42 @@ func newEducationserviceEditClassResult() interface{} {
 	return education.NewEducationserviceEditClassResult()
 }
 
+func importClassStudentHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceImportClassStudentArgs)
+	realResult := result.(*education.EducationserviceImportClassStudentResult)
+	success, err := handler.(education.Educationservice).ImportClassStudent(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceImportClassStudentArgs() interface{} {
+	return education.NewEducationserviceImportClassStudentArgs()
+}
+
+func newEducationserviceImportClassStudentResult() interface{} {
+	return education.NewEducationserviceImportClassStudentResult()
+}
+
+func editClassStudentHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceEditClassStudentArgs)
+	realResult := result.(*education.EducationserviceEditClassStudentResult)
+	success, err := handler.(education.Educationservice).EditClassStudent(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceEditClassStudentArgs() interface{} {
+	return education.NewEducationserviceEditClassStudentArgs()
+}
+
+func newEducationserviceEditClassStudentResult() interface{} {
+	return education.NewEducationserviceEditClassStudentResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -4669,6 +4719,26 @@ func (p *kClient) EditClass(ctx context.Context, req *education.EditClassReq) (r
 	_args.Req = req
 	var _result education.EducationserviceEditClassResult
 	if err = p.c.Call(ctx, "EditClass", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ImportClassStudent(ctx context.Context, req *education.ImportClassStudentReq) (r *education.ImportClassStudentResp, err error) {
+	var _args education.EducationserviceImportClassStudentArgs
+	_args.Req = req
+	var _result education.EducationserviceImportClassStudentResult
+	if err = p.c.Call(ctx, "ImportClassStudent", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) EditClassStudent(ctx context.Context, req *education.EditClassStudentReq) (r *education.EditClassStudentResp, err error) {
+	var _args education.EducationserviceEditClassStudentArgs
+	_args.Req = req
+	var _result education.EducationserviceEditClassStudentResult
+	if err = p.c.Call(ctx, "EditClassStudent", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

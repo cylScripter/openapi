@@ -660,3 +660,13 @@ func EditClass(ctx context.Context, req *education.EditClassReq, callOptions ...
 	clients := MustNewClient("education", callOptions...)
 	return clients.EditClass(ctx, req)
 }
+
+func ImportClassStudent(ctx context.Context, req *education.ImportClassStudentReq, callOptions ...client.Option) (resp *education.ImportClassStudentResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.ImportClassStudent(ctx, req)
+}
+
+func EditClassStudent(ctx context.Context, req *education.EditClassStudentReq, callOptions ...client.Option) (resp *education.EditClassStudentResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.EditClassStudent(ctx, req)
+}
