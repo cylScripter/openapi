@@ -944,6 +944,13 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"GetClassStudentList": kitex.NewMethodInfo(
+		getClassStudentListHandler,
+		newEducationserviceGetClassStudentListArgs,
+		newEducationserviceGetClassStudentListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -3404,6 +3411,24 @@ func newEducationserviceEditClassStudentResult() interface{} {
 	return education.NewEducationserviceEditClassStudentResult()
 }
 
+func getClassStudentListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*education.EducationserviceGetClassStudentListArgs)
+	realResult := result.(*education.EducationserviceGetClassStudentListResult)
+	success, err := handler.(education.Educationservice).GetClassStudentList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newEducationserviceGetClassStudentListArgs() interface{} {
+	return education.NewEducationserviceGetClassStudentListArgs()
+}
+
+func newEducationserviceGetClassStudentListResult() interface{} {
+	return education.NewEducationserviceGetClassStudentListResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -4739,6 +4764,16 @@ func (p *kClient) EditClassStudent(ctx context.Context, req *education.EditClass
 	_args.Req = req
 	var _result education.EducationserviceEditClassStudentResult
 	if err = p.c.Call(ctx, "EditClassStudent", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetClassStudentList(ctx context.Context, req *education.GetClassStudentListReq) (r *education.GetClassStudentListResp, err error) {
+	var _args education.EducationserviceGetClassStudentListArgs
+	_args.Req = req
+	var _result education.EducationserviceGetClassStudentListResult
+	if err = p.c.Call(ctx, "GetClassStudentList", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

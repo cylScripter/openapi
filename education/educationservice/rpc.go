@@ -670,3 +670,8 @@ func EditClassStudent(ctx context.Context, req *education.EditClassStudentReq, c
 	clients := MustNewClient("education", callOptions...)
 	return clients.EditClassStudent(ctx, req)
 }
+
+func GetClassStudentList(ctx context.Context, req *education.GetClassStudentListReq, callOptions ...client.Option) (resp *education.GetClassStudentListResp, err error) {
+	clients := MustNewClient("education", callOptions...)
+	return clients.GetClassStudentList(ctx, req)
+}

@@ -75,6 +75,60 @@ var (
 	}
 )
 
+type GetClassStudentListReqOption int64
+
+const (
+	GetClassStudentListReqOption_id           GetClassStudentListReqOption = 1
+	GetClassStudentListReqOption_class_id     GetClassStudentListReqOption = 2
+	GetClassStudentListReqOption_student_name GetClassStudentListReqOption = 3
+	GetClassStudentListReqOption_student_id   GetClassStudentListReqOption = 4
+)
+
+func (p GetClassStudentListReqOption) String() string {
+	switch p {
+	case GetClassStudentListReqOption_id:
+		return "id"
+	case GetClassStudentListReqOption_class_id:
+		return "class_id"
+	case GetClassStudentListReqOption_student_name:
+		return "student_name"
+	case GetClassStudentListReqOption_student_id:
+		return "student_id"
+	}
+	return "<UNSET>"
+}
+
+func GetClassStudentListReqOptionFromString(s string) (GetClassStudentListReqOption, error) {
+	switch s {
+	case "id":
+		return GetClassStudentListReqOption_id, nil
+	case "class_id":
+		return GetClassStudentListReqOption_class_id, nil
+	case "student_name":
+		return GetClassStudentListReqOption_student_name, nil
+	case "student_id":
+		return GetClassStudentListReqOption_student_id, nil
+	}
+	return GetClassStudentListReqOption(0), fmt.Errorf("not a valid GetClassStudentListReqOption string")
+}
+
+func GetClassStudentListReqOptionPtr(v GetClassStudentListReqOption) *GetClassStudentListReqOption {
+	return &v
+}
+func (p *GetClassStudentListReqOption) Scan(value interface{}) (err error) {
+	var result sql.NullInt64
+	err = result.Scan(value)
+	*p = GetClassStudentListReqOption(result.Int64)
+	return
+}
+
+func (p *GetClassStudentListReqOption) Value() (driver.Value, error) {
+	if p == nil {
+		return nil, nil
+	}
+	return int64(*p), nil
+}
+
 type ExamWorkloadListOption int64
 
 const (
@@ -2380,10 +2434,95 @@ func (p *ModelWorkloadStatisticsCategory) Value() (driver.Value, error) {
 	return int64(*p), nil
 }
 
+type GetClassStudentListReq struct {
+	ListOption *base.ListOption `thrift:"list_option,4" frugal:"4,default,base.ListOption" json:"list_option"`
+}
+
+func NewGetClassStudentListReq() *GetClassStudentListReq {
+	return &GetClassStudentListReq{}
+}
+
+func (p *GetClassStudentListReq) InitDefault() {
+}
+
+var GetClassStudentListReq_ListOption_DEFAULT *base.ListOption
+
+func (p *GetClassStudentListReq) GetListOption() (v *base.ListOption) {
+	if !p.IsSetListOption() {
+		return GetClassStudentListReq_ListOption_DEFAULT
+	}
+	return p.ListOption
+}
+func (p *GetClassStudentListReq) SetListOption(val *base.ListOption) {
+	p.ListOption = val
+}
+
+func (p *GetClassStudentListReq) IsSetListOption() bool {
+	return p.ListOption != nil
+}
+
+func (p *GetClassStudentListReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("GetClassStudentListReq(%+v)", *p)
+}
+
+var fieldIDToName_GetClassStudentListReq = map[int16]string{
+	4: "list_option",
+}
+
+type GetClassStudentListResp struct {
+	List     []*ModelClassStudent `thrift:"list,1" frugal:"1,default,list<ModelClassStudent>" json:"list"`
+	Paginate *base.Paginate       `thrift:"paginate,2" frugal:"2,default,base.Paginate" json:"paginate"`
+}
+
+func NewGetClassStudentListResp() *GetClassStudentListResp {
+	return &GetClassStudentListResp{}
+}
+
+func (p *GetClassStudentListResp) InitDefault() {
+}
+
+func (p *GetClassStudentListResp) GetList() (v []*ModelClassStudent) {
+	return p.List
+}
+
+var GetClassStudentListResp_Paginate_DEFAULT *base.Paginate
+
+func (p *GetClassStudentListResp) GetPaginate() (v *base.Paginate) {
+	if !p.IsSetPaginate() {
+		return GetClassStudentListResp_Paginate_DEFAULT
+	}
+	return p.Paginate
+}
+func (p *GetClassStudentListResp) SetList(val []*ModelClassStudent) {
+	p.List = val
+}
+func (p *GetClassStudentListResp) SetPaginate(val *base.Paginate) {
+	p.Paginate = val
+}
+
+func (p *GetClassStudentListResp) IsSetPaginate() bool {
+	return p.Paginate != nil
+}
+
+func (p *GetClassStudentListResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("GetClassStudentListResp(%+v)", *p)
+}
+
+var fieldIDToName_GetClassStudentListResp = map[int16]string{
+	1: "list",
+	2: "paginate",
+}
+
 type EditClassStudentReq struct {
 	Id          int32  `thrift:"id,1" frugal:"1,default,i32" json:"id"`
 	StudentId   string `thrift:"student_id,2" frugal:"2,default,string" json:"student_id" binding:"required"`
-	ClassId     string `thrift:"class_id,3" frugal:"3,default,string" json:"class_id" binding:"required"`
+	ClassId     int32  `thrift:"class_id,3" frugal:"3,default,i32" json:"class_id" binding:"required"`
 	StudentName string `thrift:"student_name,4" frugal:"4,default,string" json:"student_name" binding:"required"`
 	IsDelete    int32  `thrift:"is_delete,5" frugal:"5,default,i32" json:"is_delete" binding:"is_delete"`
 }
@@ -2403,7 +2542,7 @@ func (p *EditClassStudentReq) GetStudentId() (v string) {
 	return p.StudentId
 }
 
-func (p *EditClassStudentReq) GetClassId() (v string) {
+func (p *EditClassStudentReq) GetClassId() (v int32) {
 	return p.ClassId
 }
 
@@ -2420,7 +2559,7 @@ func (p *EditClassStudentReq) SetId(val int32) {
 func (p *EditClassStudentReq) SetStudentId(val string) {
 	p.StudentId = val
 }
-func (p *EditClassStudentReq) SetClassId(val string) {
+func (p *EditClassStudentReq) SetClassId(val int32) {
 	p.ClassId = val
 }
 func (p *EditClassStudentReq) SetStudentName(val string) {
@@ -20087,6 +20226,8 @@ type Educationservice interface {
 	ImportClassStudent(ctx context.Context, req *ImportClassStudentReq) (r *ImportClassStudentResp, err error)
 
 	EditClassStudent(ctx context.Context, req *EditClassStudentReq) (r *EditClassStudentResp, err error)
+
+	GetClassStudentList(ctx context.Context, req *GetClassStudentListReq) (r *GetClassStudentListResp, err error)
 }
 
 type EducationserviceCreateAppArgs struct {
@@ -30194,5 +30335,81 @@ func (p *EducationserviceEditClassStudentResult) String() string {
 }
 
 var fieldIDToName_EducationserviceEditClassStudentResult = map[int16]string{
+	0: "success",
+}
+
+type EducationserviceGetClassStudentListArgs struct {
+	Req *GetClassStudentListReq `thrift:"req,1" frugal:"1,default,GetClassStudentListReq" json:"req"`
+}
+
+func NewEducationserviceGetClassStudentListArgs() *EducationserviceGetClassStudentListArgs {
+	return &EducationserviceGetClassStudentListArgs{}
+}
+
+func (p *EducationserviceGetClassStudentListArgs) InitDefault() {
+}
+
+var EducationserviceGetClassStudentListArgs_Req_DEFAULT *GetClassStudentListReq
+
+func (p *EducationserviceGetClassStudentListArgs) GetReq() (v *GetClassStudentListReq) {
+	if !p.IsSetReq() {
+		return EducationserviceGetClassStudentListArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *EducationserviceGetClassStudentListArgs) SetReq(val *GetClassStudentListReq) {
+	p.Req = val
+}
+
+func (p *EducationserviceGetClassStudentListArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *EducationserviceGetClassStudentListArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("EducationserviceGetClassStudentListArgs(%+v)", *p)
+}
+
+var fieldIDToName_EducationserviceGetClassStudentListArgs = map[int16]string{
+	1: "req",
+}
+
+type EducationserviceGetClassStudentListResult struct {
+	Success *GetClassStudentListResp `thrift:"success,0,optional" frugal:"0,optional,GetClassStudentListResp" json:"success,omitempty"`
+}
+
+func NewEducationserviceGetClassStudentListResult() *EducationserviceGetClassStudentListResult {
+	return &EducationserviceGetClassStudentListResult{}
+}
+
+func (p *EducationserviceGetClassStudentListResult) InitDefault() {
+}
+
+var EducationserviceGetClassStudentListResult_Success_DEFAULT *GetClassStudentListResp
+
+func (p *EducationserviceGetClassStudentListResult) GetSuccess() (v *GetClassStudentListResp) {
+	if !p.IsSetSuccess() {
+		return EducationserviceGetClassStudentListResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *EducationserviceGetClassStudentListResult) SetSuccess(x interface{}) {
+	p.Success = x.(*GetClassStudentListResp)
+}
+
+func (p *EducationserviceGetClassStudentListResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *EducationserviceGetClassStudentListResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("EducationserviceGetClassStudentListResult(%+v)", *p)
+}
+
+var fieldIDToName_EducationserviceGetClassStudentListResult = map[int16]string{
 	0: "success",
 }

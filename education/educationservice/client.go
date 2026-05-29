@@ -144,6 +144,7 @@ type Client interface {
 	EditClass(ctx context.Context, req *education.EditClassReq, callOptions ...callopt.Option) (r *education.EditClassResp, err error)
 	ImportClassStudent(ctx context.Context, req *education.ImportClassStudentReq, callOptions ...callopt.Option) (r *education.ImportClassStudentResp, err error)
 	EditClassStudent(ctx context.Context, req *education.EditClassStudentReq, callOptions ...callopt.Option) (r *education.EditClassStudentResp, err error)
+	GetClassStudentList(ctx context.Context, req *education.GetClassStudentListReq, callOptions ...callopt.Option) (r *education.GetClassStudentListResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -838,4 +839,9 @@ func (p *kEducationserviceClient) ImportClassStudent(ctx context.Context, req *e
 func (p *kEducationserviceClient) EditClassStudent(ctx context.Context, req *education.EditClassStudentReq, callOptions ...callopt.Option) (r *education.EditClassStudentResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.EditClassStudent(ctx, req)
+}
+
+func (p *kEducationserviceClient) GetClassStudentList(ctx context.Context, req *education.GetClassStudentListReq, callOptions ...callopt.Option) (r *education.GetClassStudentListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetClassStudentList(ctx, req)
 }
