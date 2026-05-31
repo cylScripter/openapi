@@ -190,3 +190,53 @@ func ResetTeachSchedule(ctx context.Context, req *training.ResetTeachScheduleReq
 	clients := MustNewClient("training", callOptions...)
 	return clients.ResetTeachSchedule(ctx, req)
 }
+
+func SyncPracticeReport(ctx context.Context, req *training.SyncPracticeReportReq, callOptions ...client.Option) (resp *training.SyncPracticeReportResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.SyncPracticeReport(ctx, req)
+}
+
+func GetPracticeReportList(ctx context.Context, req *training.GetPracticeReportListReq, callOptions ...client.Option) (resp *training.GetPracticeReportListResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.GetPracticeReportList(ctx, req)
+}
+
+func ListPracticeCourseEvaluation(ctx context.Context, req *training.ListPracticeCourseEvaluationReq, callOptions ...client.Option) (resp *training.ListPracticeCourseEvaluationResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.ListPracticeCourseEvaluation(ctx, req)
+}
+
+func FillPracticeReport(ctx context.Context, req *training.FillPracticeReportReq, callOptions ...client.Option) (resp *training.FillPracticeReportResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.FillPracticeReport(ctx, req)
+}
+
+func OnePracticeReport(ctx context.Context, req *training.OnePracticeReportReq, callOptions ...client.Option) (resp *training.OnePracticeReportResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.OnePracticeReport(ctx, req)
+}
+
+func ExportPracticeReport(ctx context.Context, req *training.ExportPracticeReportReq, callOptions ...client.Option) (resp *training.ExportPracticeReportResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.ExportPracticeReport(ctx, req)
+}
+
+func ExportAllPracticeReport(ctx context.Context, req *training.ExportAllPracticeReportReq, callOptions ...client.Option) (resp *training.ExportAllPracticeReportResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.ExportAllPracticeReport(ctx, req)
+}
+
+func FillAttendance(ctx context.Context, req *training.FillAttendanceReq, callOptions ...client.Option) (resp *training.FillAttendanceResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.FillAttendance(ctx, req)
+}
+
+func EditAttendance(ctx context.Context, req *training.EditAttendanceReq, callOptions ...client.Option) (resp *training.EditAttendanceResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.EditAttendance(ctx, req)
+}
+
+func EvaluatePracticeReport(ctx context.Context, req *training.EvaluatePracticeReportReq, callOptions ...client.Option) (resp *training.EvaluatePracticeReportResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.EvaluatePracticeReport(ctx, req)
+}

@@ -10,6 +10,149 @@ import (
 	"github.com/cylScripter/openapi/base"
 )
 
+type ListPracticeCourseEvaluationReqOption int64
+
+const (
+	ListPracticeCourseEvaluationReqOption_class_name    ListPracticeCourseEvaluationReqOption = 1
+	ListPracticeCourseEvaluationReqOption_major         ListPracticeCourseEvaluationReqOption = 2
+	ListPracticeCourseEvaluationReqOption_name          ListPracticeCourseEvaluationReqOption = 3
+	ListPracticeCourseEvaluationReqOption_academic_year ListPracticeCourseEvaluationReqOption = 4
+	ListPracticeCourseEvaluationReqOption_semester      ListPracticeCourseEvaluationReqOption = 5
+	ListPracticeCourseEvaluationReqOption_teacher_name  ListPracticeCourseEvaluationReqOption = 6
+	ListPracticeCourseEvaluationReqOption_teacher_id    ListPracticeCourseEvaluationReqOption = 7
+)
+
+func (p ListPracticeCourseEvaluationReqOption) String() string {
+	switch p {
+	case ListPracticeCourseEvaluationReqOption_class_name:
+		return "class_name"
+	case ListPracticeCourseEvaluationReqOption_major:
+		return "major"
+	case ListPracticeCourseEvaluationReqOption_name:
+		return "name"
+	case ListPracticeCourseEvaluationReqOption_academic_year:
+		return "academic_year"
+	case ListPracticeCourseEvaluationReqOption_semester:
+		return "semester"
+	case ListPracticeCourseEvaluationReqOption_teacher_name:
+		return "teacher_name"
+	case ListPracticeCourseEvaluationReqOption_teacher_id:
+		return "teacher_id"
+	}
+	return "<UNSET>"
+}
+
+func ListPracticeCourseEvaluationReqOptionFromString(s string) (ListPracticeCourseEvaluationReqOption, error) {
+	switch s {
+	case "class_name":
+		return ListPracticeCourseEvaluationReqOption_class_name, nil
+	case "major":
+		return ListPracticeCourseEvaluationReqOption_major, nil
+	case "name":
+		return ListPracticeCourseEvaluationReqOption_name, nil
+	case "academic_year":
+		return ListPracticeCourseEvaluationReqOption_academic_year, nil
+	case "semester":
+		return ListPracticeCourseEvaluationReqOption_semester, nil
+	case "teacher_name":
+		return ListPracticeCourseEvaluationReqOption_teacher_name, nil
+	case "teacher_id":
+		return ListPracticeCourseEvaluationReqOption_teacher_id, nil
+	}
+	return ListPracticeCourseEvaluationReqOption(0), fmt.Errorf("not a valid ListPracticeCourseEvaluationReqOption string")
+}
+
+func ListPracticeCourseEvaluationReqOptionPtr(v ListPracticeCourseEvaluationReqOption) *ListPracticeCourseEvaluationReqOption {
+	return &v
+}
+func (p *ListPracticeCourseEvaluationReqOption) Scan(value interface{}) (err error) {
+	var result sql.NullInt64
+	err = result.Scan(value)
+	*p = ListPracticeCourseEvaluationReqOption(result.Int64)
+	return
+}
+
+func (p *ListPracticeCourseEvaluationReqOption) Value() (driver.Value, error) {
+	if p == nil {
+		return nil, nil
+	}
+	return int64(*p), nil
+}
+
+type GetPracticeReportListReqOption int64
+
+const (
+	GetPracticeReportListReqOption_class_name    GetPracticeReportListReqOption = 1
+	GetPracticeReportListReqOption_student_name  GetPracticeReportListReqOption = 2
+	GetPracticeReportListReqOption_student_id    GetPracticeReportListReqOption = 3
+	GetPracticeReportListReqOption_major         GetPracticeReportListReqOption = 4
+	GetPracticeReportListReqOption_name          GetPracticeReportListReqOption = 5
+	GetPracticeReportListReqOption_academic_year GetPracticeReportListReqOption = 6
+	GetPracticeReportListReqOption_semester      GetPracticeReportListReqOption = 7
+	GetPracticeReportListReqOption_evaluation_id GetPracticeReportListReqOption = 8
+)
+
+func (p GetPracticeReportListReqOption) String() string {
+	switch p {
+	case GetPracticeReportListReqOption_class_name:
+		return "class_name"
+	case GetPracticeReportListReqOption_student_name:
+		return "student_name"
+	case GetPracticeReportListReqOption_student_id:
+		return "student_id"
+	case GetPracticeReportListReqOption_major:
+		return "major"
+	case GetPracticeReportListReqOption_name:
+		return "name"
+	case GetPracticeReportListReqOption_academic_year:
+		return "academic_year"
+	case GetPracticeReportListReqOption_semester:
+		return "semester"
+	case GetPracticeReportListReqOption_evaluation_id:
+		return "evaluation_id"
+	}
+	return "<UNSET>"
+}
+
+func GetPracticeReportListReqOptionFromString(s string) (GetPracticeReportListReqOption, error) {
+	switch s {
+	case "class_name":
+		return GetPracticeReportListReqOption_class_name, nil
+	case "student_name":
+		return GetPracticeReportListReqOption_student_name, nil
+	case "student_id":
+		return GetPracticeReportListReqOption_student_id, nil
+	case "major":
+		return GetPracticeReportListReqOption_major, nil
+	case "name":
+		return GetPracticeReportListReqOption_name, nil
+	case "academic_year":
+		return GetPracticeReportListReqOption_academic_year, nil
+	case "semester":
+		return GetPracticeReportListReqOption_semester, nil
+	case "evaluation_id":
+		return GetPracticeReportListReqOption_evaluation_id, nil
+	}
+	return GetPracticeReportListReqOption(0), fmt.Errorf("not a valid GetPracticeReportListReqOption string")
+}
+
+func GetPracticeReportListReqOptionPtr(v GetPracticeReportListReqOption) *GetPracticeReportListReqOption {
+	return &v
+}
+func (p *GetPracticeReportListReqOption) Scan(value interface{}) (err error) {
+	var result sql.NullInt64
+	err = result.Scan(value)
+	*p = GetPracticeReportListReqOption(result.Int64)
+	return
+}
+
+func (p *GetPracticeReportListReqOption) Value() (driver.Value, error) {
+	if p == nil {
+		return nil, nil
+	}
+	return int64(*p), nil
+}
+
 type GetMajorPracticeTeachingPlanListReqOption int64
 
 const (
@@ -297,6 +440,826 @@ func (p *CourseType) Value() (driver.Value, error) {
 		return nil, nil
 	}
 	return int64(*p), nil
+}
+
+type EvaluatePracticeReportReq struct {
+	ReportId                 int32  `thrift:"report_id,1" frugal:"1,default,i32" json:"report_id" binding:"required"`
+	AttendDays               int32  `thrift:"attend_days,2" frugal:"2,default,i32" json:"attend_days"`
+	ActualAttendDays         int32  `thrift:"actual_attend_days,3" frugal:"3,default,i32" json:"actual_attend_days"`
+	LateEarlyCount           int32  `thrift:"late_early_count,4" frugal:"4,default,i32" json:"late_early_count"`
+	Absenteeism              int32  `thrift:"absenteeism,5" frugal:"5,default,i32" json:"absenteeism"`
+	Leave                    int32  `thrift:"leave,6" frugal:"6,default,i32" json:"leave"`
+	EnterpriseTeacherComment string `thrift:"enterprise_teacher_comment,7" frugal:"7,default,string" json:"enterprise_teacher_comment"`
+	SchoolTeacherComment     string `thrift:"school_teacher_comment,8" frugal:"8,default,string" json:"school_teacher_comment"`
+	EnterpriseTeacherScore   int32  `thrift:"enterprise_teacher_score,9" frugal:"9,default,i32" json:"enterprise_teacher_score"`
+	Grade                    int32  `thrift:"grade,10" frugal:"10,default,i32" json:"grade"`
+}
+
+func NewEvaluatePracticeReportReq() *EvaluatePracticeReportReq {
+	return &EvaluatePracticeReportReq{}
+}
+
+func (p *EvaluatePracticeReportReq) InitDefault() {
+}
+
+func (p *EvaluatePracticeReportReq) GetReportId() (v int32) {
+	return p.ReportId
+}
+
+func (p *EvaluatePracticeReportReq) GetAttendDays() (v int32) {
+	return p.AttendDays
+}
+
+func (p *EvaluatePracticeReportReq) GetActualAttendDays() (v int32) {
+	return p.ActualAttendDays
+}
+
+func (p *EvaluatePracticeReportReq) GetLateEarlyCount() (v int32) {
+	return p.LateEarlyCount
+}
+
+func (p *EvaluatePracticeReportReq) GetAbsenteeism() (v int32) {
+	return p.Absenteeism
+}
+
+func (p *EvaluatePracticeReportReq) GetLeave() (v int32) {
+	return p.Leave
+}
+
+func (p *EvaluatePracticeReportReq) GetEnterpriseTeacherComment() (v string) {
+	return p.EnterpriseTeacherComment
+}
+
+func (p *EvaluatePracticeReportReq) GetSchoolTeacherComment() (v string) {
+	return p.SchoolTeacherComment
+}
+
+func (p *EvaluatePracticeReportReq) GetEnterpriseTeacherScore() (v int32) {
+	return p.EnterpriseTeacherScore
+}
+
+func (p *EvaluatePracticeReportReq) GetGrade() (v int32) {
+	return p.Grade
+}
+func (p *EvaluatePracticeReportReq) SetReportId(val int32) {
+	p.ReportId = val
+}
+func (p *EvaluatePracticeReportReq) SetAttendDays(val int32) {
+	p.AttendDays = val
+}
+func (p *EvaluatePracticeReportReq) SetActualAttendDays(val int32) {
+	p.ActualAttendDays = val
+}
+func (p *EvaluatePracticeReportReq) SetLateEarlyCount(val int32) {
+	p.LateEarlyCount = val
+}
+func (p *EvaluatePracticeReportReq) SetAbsenteeism(val int32) {
+	p.Absenteeism = val
+}
+func (p *EvaluatePracticeReportReq) SetLeave(val int32) {
+	p.Leave = val
+}
+func (p *EvaluatePracticeReportReq) SetEnterpriseTeacherComment(val string) {
+	p.EnterpriseTeacherComment = val
+}
+func (p *EvaluatePracticeReportReq) SetSchoolTeacherComment(val string) {
+	p.SchoolTeacherComment = val
+}
+func (p *EvaluatePracticeReportReq) SetEnterpriseTeacherScore(val int32) {
+	p.EnterpriseTeacherScore = val
+}
+func (p *EvaluatePracticeReportReq) SetGrade(val int32) {
+	p.Grade = val
+}
+
+func (p *EvaluatePracticeReportReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("EvaluatePracticeReportReq(%+v)", *p)
+}
+
+var fieldIDToName_EvaluatePracticeReportReq = map[int16]string{
+	1:  "report_id",
+	2:  "attend_days",
+	3:  "actual_attend_days",
+	4:  "late_early_count",
+	5:  "absenteeism",
+	6:  "leave",
+	7:  "enterprise_teacher_comment",
+	8:  "school_teacher_comment",
+	9:  "enterprise_teacher_score",
+	10: "grade",
+}
+
+type EvaluatePracticeReportResp struct {
+}
+
+func NewEvaluatePracticeReportResp() *EvaluatePracticeReportResp {
+	return &EvaluatePracticeReportResp{}
+}
+
+func (p *EvaluatePracticeReportResp) InitDefault() {
+}
+
+func (p *EvaluatePracticeReportResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("EvaluatePracticeReportResp(%+v)", *p)
+}
+
+var fieldIDToName_EvaluatePracticeReportResp = map[int16]string{}
+
+type EditAttendanceReq struct {
+	ReportId         int32 `thrift:"report_id,1" frugal:"1,default,i32" json:"report_id" binding:"required"`
+	AttendDays       int32 `thrift:"attend_days,2" frugal:"2,default,i32" json:"attend_days"`
+	ActualAttendDays int32 `thrift:"actual_attend_days,3" frugal:"3,default,i32" json:"actual_attend_days"`
+	LateEarlyCount   int32 `thrift:"late_early_count,4" frugal:"4,default,i32" json:"late_early_count"`
+	Absenteeism      int32 `thrift:"absenteeism,5" frugal:"5,default,i32" json:"absenteeism"`
+	Leave            int32 `thrift:"leave,6" frugal:"6,default,i32" json:"leave"`
+}
+
+func NewEditAttendanceReq() *EditAttendanceReq {
+	return &EditAttendanceReq{}
+}
+
+func (p *EditAttendanceReq) InitDefault() {
+}
+
+func (p *EditAttendanceReq) GetReportId() (v int32) {
+	return p.ReportId
+}
+
+func (p *EditAttendanceReq) GetAttendDays() (v int32) {
+	return p.AttendDays
+}
+
+func (p *EditAttendanceReq) GetActualAttendDays() (v int32) {
+	return p.ActualAttendDays
+}
+
+func (p *EditAttendanceReq) GetLateEarlyCount() (v int32) {
+	return p.LateEarlyCount
+}
+
+func (p *EditAttendanceReq) GetAbsenteeism() (v int32) {
+	return p.Absenteeism
+}
+
+func (p *EditAttendanceReq) GetLeave() (v int32) {
+	return p.Leave
+}
+func (p *EditAttendanceReq) SetReportId(val int32) {
+	p.ReportId = val
+}
+func (p *EditAttendanceReq) SetAttendDays(val int32) {
+	p.AttendDays = val
+}
+func (p *EditAttendanceReq) SetActualAttendDays(val int32) {
+	p.ActualAttendDays = val
+}
+func (p *EditAttendanceReq) SetLateEarlyCount(val int32) {
+	p.LateEarlyCount = val
+}
+func (p *EditAttendanceReq) SetAbsenteeism(val int32) {
+	p.Absenteeism = val
+}
+func (p *EditAttendanceReq) SetLeave(val int32) {
+	p.Leave = val
+}
+
+func (p *EditAttendanceReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("EditAttendanceReq(%+v)", *p)
+}
+
+var fieldIDToName_EditAttendanceReq = map[int16]string{
+	1: "report_id",
+	2: "attend_days",
+	3: "actual_attend_days",
+	4: "late_early_count",
+	5: "absenteeism",
+	6: "leave",
+}
+
+type EditAttendanceResp struct {
+}
+
+func NewEditAttendanceResp() *EditAttendanceResp {
+	return &EditAttendanceResp{}
+}
+
+func (p *EditAttendanceResp) InitDefault() {
+}
+
+func (p *EditAttendanceResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("EditAttendanceResp(%+v)", *p)
+}
+
+var fieldIDToName_EditAttendanceResp = map[int16]string{}
+
+type FillAttendanceReq struct {
+	EvaluationId string `thrift:"evaluation_id,1" frugal:"1,default,string" json:"evaluation_id" binding:"required"`
+	Type         int32  `thrift:"type,2" frugal:"2,default,i32" json:"type" binding:"required"`
+}
+
+func NewFillAttendanceReq() *FillAttendanceReq {
+	return &FillAttendanceReq{}
+}
+
+func (p *FillAttendanceReq) InitDefault() {
+}
+
+func (p *FillAttendanceReq) GetEvaluationId() (v string) {
+	return p.EvaluationId
+}
+
+func (p *FillAttendanceReq) GetType() (v int32) {
+	return p.Type
+}
+func (p *FillAttendanceReq) SetEvaluationId(val string) {
+	p.EvaluationId = val
+}
+func (p *FillAttendanceReq) SetType(val int32) {
+	p.Type = val
+}
+
+func (p *FillAttendanceReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("FillAttendanceReq(%+v)", *p)
+}
+
+var fieldIDToName_FillAttendanceReq = map[int16]string{
+	1: "evaluation_id",
+	2: "type",
+}
+
+type FillAttendanceResp struct {
+	TaskKey string `thrift:"task_key,1" frugal:"1,default,string" json:"task_key"`
+}
+
+func NewFillAttendanceResp() *FillAttendanceResp {
+	return &FillAttendanceResp{}
+}
+
+func (p *FillAttendanceResp) InitDefault() {
+}
+
+func (p *FillAttendanceResp) GetTaskKey() (v string) {
+	return p.TaskKey
+}
+func (p *FillAttendanceResp) SetTaskKey(val string) {
+	p.TaskKey = val
+}
+
+func (p *FillAttendanceResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("FillAttendanceResp(%+v)", *p)
+}
+
+var fieldIDToName_FillAttendanceResp = map[int16]string{
+	1: "task_key",
+}
+
+type ExportAllPracticeReportReq struct {
+	AcademicYear string `thrift:"academic_year,1" frugal:"1,default,string" json:"academic_year" binding:"required"`
+	Semester     string `thrift:"semester,2" frugal:"2,default,string" json:"semester" binding:"required"`
+	EvaluationId string `thrift:"evaluation_id,3" frugal:"3,default,string" json:"evaluation_id"`
+}
+
+func NewExportAllPracticeReportReq() *ExportAllPracticeReportReq {
+	return &ExportAllPracticeReportReq{}
+}
+
+func (p *ExportAllPracticeReportReq) InitDefault() {
+}
+
+func (p *ExportAllPracticeReportReq) GetAcademicYear() (v string) {
+	return p.AcademicYear
+}
+
+func (p *ExportAllPracticeReportReq) GetSemester() (v string) {
+	return p.Semester
+}
+
+func (p *ExportAllPracticeReportReq) GetEvaluationId() (v string) {
+	return p.EvaluationId
+}
+func (p *ExportAllPracticeReportReq) SetAcademicYear(val string) {
+	p.AcademicYear = val
+}
+func (p *ExportAllPracticeReportReq) SetSemester(val string) {
+	p.Semester = val
+}
+func (p *ExportAllPracticeReportReq) SetEvaluationId(val string) {
+	p.EvaluationId = val
+}
+
+func (p *ExportAllPracticeReportReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ExportAllPracticeReportReq(%+v)", *p)
+}
+
+var fieldIDToName_ExportAllPracticeReportReq = map[int16]string{
+	1: "academic_year",
+	2: "semester",
+	3: "evaluation_id",
+}
+
+type ExportAllPracticeReportResp struct {
+	TaskKey string `thrift:"task_key,1" frugal:"1,default,string" json:"task_key"`
+}
+
+func NewExportAllPracticeReportResp() *ExportAllPracticeReportResp {
+	return &ExportAllPracticeReportResp{}
+}
+
+func (p *ExportAllPracticeReportResp) InitDefault() {
+}
+
+func (p *ExportAllPracticeReportResp) GetTaskKey() (v string) {
+	return p.TaskKey
+}
+func (p *ExportAllPracticeReportResp) SetTaskKey(val string) {
+	p.TaskKey = val
+}
+
+func (p *ExportAllPracticeReportResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ExportAllPracticeReportResp(%+v)", *p)
+}
+
+var fieldIDToName_ExportAllPracticeReportResp = map[int16]string{
+	1: "task_key",
+}
+
+type ExportPracticeReportReq struct {
+	ReportId int32 `thrift:"report_id,1" frugal:"1,default,i32" json:"report_id" binding:"required"`
+}
+
+func NewExportPracticeReportReq() *ExportPracticeReportReq {
+	return &ExportPracticeReportReq{}
+}
+
+func (p *ExportPracticeReportReq) InitDefault() {
+}
+
+func (p *ExportPracticeReportReq) GetReportId() (v int32) {
+	return p.ReportId
+}
+func (p *ExportPracticeReportReq) SetReportId(val int32) {
+	p.ReportId = val
+}
+
+func (p *ExportPracticeReportReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ExportPracticeReportReq(%+v)", *p)
+}
+
+var fieldIDToName_ExportPracticeReportReq = map[int16]string{
+	1: "report_id",
+}
+
+type ExportPracticeReportResp struct {
+	TaskKey string `thrift:"task_key,1" frugal:"1,default,string" json:"task_key"`
+}
+
+func NewExportPracticeReportResp() *ExportPracticeReportResp {
+	return &ExportPracticeReportResp{}
+}
+
+func (p *ExportPracticeReportResp) InitDefault() {
+}
+
+func (p *ExportPracticeReportResp) GetTaskKey() (v string) {
+	return p.TaskKey
+}
+func (p *ExportPracticeReportResp) SetTaskKey(val string) {
+	p.TaskKey = val
+}
+
+func (p *ExportPracticeReportResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ExportPracticeReportResp(%+v)", *p)
+}
+
+var fieldIDToName_ExportPracticeReportResp = map[int16]string{
+	1: "task_key",
+}
+
+type OnePracticeReportReq struct {
+	ReportId int32 `thrift:"report_id,1" frugal:"1,default,i32" json:"report_id" binding:"required"`
+}
+
+func NewOnePracticeReportReq() *OnePracticeReportReq {
+	return &OnePracticeReportReq{}
+}
+
+func (p *OnePracticeReportReq) InitDefault() {
+}
+
+func (p *OnePracticeReportReq) GetReportId() (v int32) {
+	return p.ReportId
+}
+func (p *OnePracticeReportReq) SetReportId(val int32) {
+	p.ReportId = val
+}
+
+func (p *OnePracticeReportReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("OnePracticeReportReq(%+v)", *p)
+}
+
+var fieldIDToName_OnePracticeReportReq = map[int16]string{
+	1: "report_id",
+}
+
+type OnePracticeReportResp struct {
+	Info *ModelStuPracticeReport `thrift:"info,1" frugal:"1,default,ModelStuPracticeReport" json:"info"`
+}
+
+func NewOnePracticeReportResp() *OnePracticeReportResp {
+	return &OnePracticeReportResp{}
+}
+
+func (p *OnePracticeReportResp) InitDefault() {
+}
+
+var OnePracticeReportResp_Info_DEFAULT *ModelStuPracticeReport
+
+func (p *OnePracticeReportResp) GetInfo() (v *ModelStuPracticeReport) {
+	if !p.IsSetInfo() {
+		return OnePracticeReportResp_Info_DEFAULT
+	}
+	return p.Info
+}
+func (p *OnePracticeReportResp) SetInfo(val *ModelStuPracticeReport) {
+	p.Info = val
+}
+
+func (p *OnePracticeReportResp) IsSetInfo() bool {
+	return p.Info != nil
+}
+
+func (p *OnePracticeReportResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("OnePracticeReportResp(%+v)", *p)
+}
+
+var fieldIDToName_OnePracticeReportResp = map[int16]string{
+	1: "info",
+}
+
+type FillPracticeReportReq struct {
+	ReportId          int32                `thrift:"report_id,1" frugal:"1,default,i32" json:"report_id" binding:"required"`
+	PracticeTime      string               `thrift:"practice_time,2" frugal:"2,default,string" json:"practice_time" binding:"required"`
+	SchoolTeacher     string               `thrift:"school_teacher,3" frugal:"3,default,string" json:"school_teacher" binding:"required"`
+	EnterpriseTeacher []*EnterpriseTeacher `thrift:"enterprise_teacher,4" frugal:"4,default,list<EnterpriseTeacher>" json:"enterprise_teacher"`
+	Content           string               `thrift:"content,5" frugal:"5,default,string" json:"content" binding:"required"`
+	Summary           string               `thrift:"summary,6" frugal:"6,default,string" json:"summary" binding:"required"`
+}
+
+func NewFillPracticeReportReq() *FillPracticeReportReq {
+	return &FillPracticeReportReq{}
+}
+
+func (p *FillPracticeReportReq) InitDefault() {
+}
+
+func (p *FillPracticeReportReq) GetReportId() (v int32) {
+	return p.ReportId
+}
+
+func (p *FillPracticeReportReq) GetPracticeTime() (v string) {
+	return p.PracticeTime
+}
+
+func (p *FillPracticeReportReq) GetSchoolTeacher() (v string) {
+	return p.SchoolTeacher
+}
+
+func (p *FillPracticeReportReq) GetEnterpriseTeacher() (v []*EnterpriseTeacher) {
+	return p.EnterpriseTeacher
+}
+
+func (p *FillPracticeReportReq) GetContent() (v string) {
+	return p.Content
+}
+
+func (p *FillPracticeReportReq) GetSummary() (v string) {
+	return p.Summary
+}
+func (p *FillPracticeReportReq) SetReportId(val int32) {
+	p.ReportId = val
+}
+func (p *FillPracticeReportReq) SetPracticeTime(val string) {
+	p.PracticeTime = val
+}
+func (p *FillPracticeReportReq) SetSchoolTeacher(val string) {
+	p.SchoolTeacher = val
+}
+func (p *FillPracticeReportReq) SetEnterpriseTeacher(val []*EnterpriseTeacher) {
+	p.EnterpriseTeacher = val
+}
+func (p *FillPracticeReportReq) SetContent(val string) {
+	p.Content = val
+}
+func (p *FillPracticeReportReq) SetSummary(val string) {
+	p.Summary = val
+}
+
+func (p *FillPracticeReportReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("FillPracticeReportReq(%+v)", *p)
+}
+
+var fieldIDToName_FillPracticeReportReq = map[int16]string{
+	1: "report_id",
+	2: "practice_time",
+	3: "school_teacher",
+	4: "enterprise_teacher",
+	5: "content",
+	6: "summary",
+}
+
+type FillPracticeReportResp struct {
+}
+
+func NewFillPracticeReportResp() *FillPracticeReportResp {
+	return &FillPracticeReportResp{}
+}
+
+func (p *FillPracticeReportResp) InitDefault() {
+}
+
+func (p *FillPracticeReportResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("FillPracticeReportResp(%+v)", *p)
+}
+
+var fieldIDToName_FillPracticeReportResp = map[int16]string{}
+
+type ListPracticeCourseEvaluationReq struct {
+	ListOption *base.ListOption `thrift:"list_option,1" frugal:"1,default,base.ListOption" json:"list_option" binding:"required"`
+}
+
+func NewListPracticeCourseEvaluationReq() *ListPracticeCourseEvaluationReq {
+	return &ListPracticeCourseEvaluationReq{}
+}
+
+func (p *ListPracticeCourseEvaluationReq) InitDefault() {
+}
+
+var ListPracticeCourseEvaluationReq_ListOption_DEFAULT *base.ListOption
+
+func (p *ListPracticeCourseEvaluationReq) GetListOption() (v *base.ListOption) {
+	if !p.IsSetListOption() {
+		return ListPracticeCourseEvaluationReq_ListOption_DEFAULT
+	}
+	return p.ListOption
+}
+func (p *ListPracticeCourseEvaluationReq) SetListOption(val *base.ListOption) {
+	p.ListOption = val
+}
+
+func (p *ListPracticeCourseEvaluationReq) IsSetListOption() bool {
+	return p.ListOption != nil
+}
+
+func (p *ListPracticeCourseEvaluationReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ListPracticeCourseEvaluationReq(%+v)", *p)
+}
+
+var fieldIDToName_ListPracticeCourseEvaluationReq = map[int16]string{
+	1: "list_option",
+}
+
+type ListPracticeCourseEvaluationResp struct {
+	List     []*ModelPracticeCourseEvaluation `thrift:"list,1" frugal:"1,default,list<ModelPracticeCourseEvaluation>" json:"list"`
+	Paginate *base.Paginate                   `thrift:"paginate,2" frugal:"2,default,base.Paginate" json:"paginate"`
+}
+
+func NewListPracticeCourseEvaluationResp() *ListPracticeCourseEvaluationResp {
+	return &ListPracticeCourseEvaluationResp{}
+}
+
+func (p *ListPracticeCourseEvaluationResp) InitDefault() {
+}
+
+func (p *ListPracticeCourseEvaluationResp) GetList() (v []*ModelPracticeCourseEvaluation) {
+	return p.List
+}
+
+var ListPracticeCourseEvaluationResp_Paginate_DEFAULT *base.Paginate
+
+func (p *ListPracticeCourseEvaluationResp) GetPaginate() (v *base.Paginate) {
+	if !p.IsSetPaginate() {
+		return ListPracticeCourseEvaluationResp_Paginate_DEFAULT
+	}
+	return p.Paginate
+}
+func (p *ListPracticeCourseEvaluationResp) SetList(val []*ModelPracticeCourseEvaluation) {
+	p.List = val
+}
+func (p *ListPracticeCourseEvaluationResp) SetPaginate(val *base.Paginate) {
+	p.Paginate = val
+}
+
+func (p *ListPracticeCourseEvaluationResp) IsSetPaginate() bool {
+	return p.Paginate != nil
+}
+
+func (p *ListPracticeCourseEvaluationResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ListPracticeCourseEvaluationResp(%+v)", *p)
+}
+
+var fieldIDToName_ListPracticeCourseEvaluationResp = map[int16]string{
+	1: "list",
+	2: "paginate",
+}
+
+type GetPracticeReportListReq struct {
+	ListOption *base.ListOption `thrift:"list_option,1" frugal:"1,default,base.ListOption" json:"list_option" binding:"required"`
+}
+
+func NewGetPracticeReportListReq() *GetPracticeReportListReq {
+	return &GetPracticeReportListReq{}
+}
+
+func (p *GetPracticeReportListReq) InitDefault() {
+}
+
+var GetPracticeReportListReq_ListOption_DEFAULT *base.ListOption
+
+func (p *GetPracticeReportListReq) GetListOption() (v *base.ListOption) {
+	if !p.IsSetListOption() {
+		return GetPracticeReportListReq_ListOption_DEFAULT
+	}
+	return p.ListOption
+}
+func (p *GetPracticeReportListReq) SetListOption(val *base.ListOption) {
+	p.ListOption = val
+}
+
+func (p *GetPracticeReportListReq) IsSetListOption() bool {
+	return p.ListOption != nil
+}
+
+func (p *GetPracticeReportListReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("GetPracticeReportListReq(%+v)", *p)
+}
+
+var fieldIDToName_GetPracticeReportListReq = map[int16]string{
+	1: "list_option",
+}
+
+type GetPracticeReportListResp struct {
+	List     []*ModelStuPracticeReport `thrift:"list,1" frugal:"1,default,list<ModelStuPracticeReport>" json:"list"`
+	Paginate *base.Paginate            `thrift:"paginate,2" frugal:"2,default,base.Paginate" json:"paginate"`
+}
+
+func NewGetPracticeReportListResp() *GetPracticeReportListResp {
+	return &GetPracticeReportListResp{}
+}
+
+func (p *GetPracticeReportListResp) InitDefault() {
+}
+
+func (p *GetPracticeReportListResp) GetList() (v []*ModelStuPracticeReport) {
+	return p.List
+}
+
+var GetPracticeReportListResp_Paginate_DEFAULT *base.Paginate
+
+func (p *GetPracticeReportListResp) GetPaginate() (v *base.Paginate) {
+	if !p.IsSetPaginate() {
+		return GetPracticeReportListResp_Paginate_DEFAULT
+	}
+	return p.Paginate
+}
+func (p *GetPracticeReportListResp) SetList(val []*ModelStuPracticeReport) {
+	p.List = val
+}
+func (p *GetPracticeReportListResp) SetPaginate(val *base.Paginate) {
+	p.Paginate = val
+}
+
+func (p *GetPracticeReportListResp) IsSetPaginate() bool {
+	return p.Paginate != nil
+}
+
+func (p *GetPracticeReportListResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("GetPracticeReportListResp(%+v)", *p)
+}
+
+var fieldIDToName_GetPracticeReportListResp = map[int16]string{
+	1: "list",
+	2: "paginate",
+}
+
+type SyncPracticeReportReq struct {
+	AcademicYear string `thrift:"academic_year,1" frugal:"1,default,string" json:"academic_year" binding:"required"`
+	Semester     string `thrift:"semester,2" frugal:"2,default,string" json:"semester" binding:"required"`
+}
+
+func NewSyncPracticeReportReq() *SyncPracticeReportReq {
+	return &SyncPracticeReportReq{}
+}
+
+func (p *SyncPracticeReportReq) InitDefault() {
+}
+
+func (p *SyncPracticeReportReq) GetAcademicYear() (v string) {
+	return p.AcademicYear
+}
+
+func (p *SyncPracticeReportReq) GetSemester() (v string) {
+	return p.Semester
+}
+func (p *SyncPracticeReportReq) SetAcademicYear(val string) {
+	p.AcademicYear = val
+}
+func (p *SyncPracticeReportReq) SetSemester(val string) {
+	p.Semester = val
+}
+
+func (p *SyncPracticeReportReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("SyncPracticeReportReq(%+v)", *p)
+}
+
+var fieldIDToName_SyncPracticeReportReq = map[int16]string{
+	1: "academic_year",
+	2: "semester",
+}
+
+type SyncPracticeReportResp struct {
+	TaskKey string `thrift:"task_key,2" frugal:"2,default,string" json:"task_key"`
+}
+
+func NewSyncPracticeReportResp() *SyncPracticeReportResp {
+	return &SyncPracticeReportResp{}
+}
+
+func (p *SyncPracticeReportResp) InitDefault() {
+}
+
+func (p *SyncPracticeReportResp) GetTaskKey() (v string) {
+	return p.TaskKey
+}
+func (p *SyncPracticeReportResp) SetTaskKey(val string) {
+	p.TaskKey = val
+}
+
+func (p *SyncPracticeReportResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("SyncPracticeReportResp(%+v)", *p)
+}
+
+var fieldIDToName_SyncPracticeReportResp = map[int16]string{
+	2: "task_key",
 }
 
 type ResetTeachScheduleReq struct {
@@ -5048,6 +6011,516 @@ var fieldIDToName_ModelPracticeTeachingStats = map[int16]string{
 	19: "has_emergency_plan",
 }
 
+type ModelPracticeCourseEvaluation struct {
+	Id            int32  `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
+	CreatedAt     int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index" json:"created_at"`
+	UpdatedAt     int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at" json:"updated_at"`
+	DeletedAt     int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at" json:"deleted_at"`
+	Name          string `thrift:"name,5" frugal:"5,default,string" json:"name" gorm:"column:name"`
+	Major         string `thrift:"major,6" frugal:"6,default,string" json:"major" gorm:"column:major"`
+	ClassName     string `thrift:"class_name,7" frugal:"7,default,string" json:"class_name" gorm:"column:class_name"`
+	Week          string `thrift:"week,8" frugal:"8,default,string" json:"week" gorm:"column:week"`
+	TeacherId     string `thrift:"teacher_id,9" frugal:"9,default,string" json:"teacher_id" gorm:"column:teacher_id"`
+	Status        int32  `thrift:"status,10" frugal:"10,default,i32" json:"status" gorm:"column:status;default:1"`
+	AcademicYear  string `thrift:"academic_year,11" frugal:"11,default,string" json:"academic_year" gorm:"column:academic_year"`
+	Semester      string `thrift:"semester,12" frugal:"12,default,string" json:"semester" gorm:"column:semester"`
+	AppId         int32  `thrift:"app_id,13" frugal:"13,default,i32" json:"app_id" gorm:"column:app_id"`
+	LastTeacherId string `thrift:"last_teacher_id,14" frugal:"14,default,string" json:"last_teacher_id" gorm:"column:last_teacher_id"`
+	LastTime      string `thrift:"last_time,15" frugal:"15,default,string" json:"last_time" gorm:"column:last_time"`
+	TeacherName   string `thrift:"teacher_name,16" frugal:"16,default,string" json:"teacher_name" gorm:"column:teacher_name"`
+	StudentNumber int32  `thrift:"student_number,17" frugal:"17,default,i32" json:"student_number" gorm:"column:student_number"`
+}
+
+func NewModelPracticeCourseEvaluation() *ModelPracticeCourseEvaluation {
+	return &ModelPracticeCourseEvaluation{}
+}
+
+func (p *ModelPracticeCourseEvaluation) InitDefault() {
+}
+
+func (p *ModelPracticeCourseEvaluation) GetId() (v int32) {
+	return p.Id
+}
+
+func (p *ModelPracticeCourseEvaluation) GetCreatedAt() (v int32) {
+	return p.CreatedAt
+}
+
+func (p *ModelPracticeCourseEvaluation) GetUpdatedAt() (v int32) {
+	return p.UpdatedAt
+}
+
+func (p *ModelPracticeCourseEvaluation) GetDeletedAt() (v int32) {
+	return p.DeletedAt
+}
+
+func (p *ModelPracticeCourseEvaluation) GetName() (v string) {
+	return p.Name
+}
+
+func (p *ModelPracticeCourseEvaluation) GetMajor() (v string) {
+	return p.Major
+}
+
+func (p *ModelPracticeCourseEvaluation) GetClassName() (v string) {
+	return p.ClassName
+}
+
+func (p *ModelPracticeCourseEvaluation) GetWeek() (v string) {
+	return p.Week
+}
+
+func (p *ModelPracticeCourseEvaluation) GetTeacherId() (v string) {
+	return p.TeacherId
+}
+
+func (p *ModelPracticeCourseEvaluation) GetStatus() (v int32) {
+	return p.Status
+}
+
+func (p *ModelPracticeCourseEvaluation) GetAcademicYear() (v string) {
+	return p.AcademicYear
+}
+
+func (p *ModelPracticeCourseEvaluation) GetSemester() (v string) {
+	return p.Semester
+}
+
+func (p *ModelPracticeCourseEvaluation) GetAppId() (v int32) {
+	return p.AppId
+}
+
+func (p *ModelPracticeCourseEvaluation) GetLastTeacherId() (v string) {
+	return p.LastTeacherId
+}
+
+func (p *ModelPracticeCourseEvaluation) GetLastTime() (v string) {
+	return p.LastTime
+}
+
+func (p *ModelPracticeCourseEvaluation) GetTeacherName() (v string) {
+	return p.TeacherName
+}
+
+func (p *ModelPracticeCourseEvaluation) GetStudentNumber() (v int32) {
+	return p.StudentNumber
+}
+func (p *ModelPracticeCourseEvaluation) SetId(val int32) {
+	p.Id = val
+}
+func (p *ModelPracticeCourseEvaluation) SetCreatedAt(val int32) {
+	p.CreatedAt = val
+}
+func (p *ModelPracticeCourseEvaluation) SetUpdatedAt(val int32) {
+	p.UpdatedAt = val
+}
+func (p *ModelPracticeCourseEvaluation) SetDeletedAt(val int32) {
+	p.DeletedAt = val
+}
+func (p *ModelPracticeCourseEvaluation) SetName(val string) {
+	p.Name = val
+}
+func (p *ModelPracticeCourseEvaluation) SetMajor(val string) {
+	p.Major = val
+}
+func (p *ModelPracticeCourseEvaluation) SetClassName(val string) {
+	p.ClassName = val
+}
+func (p *ModelPracticeCourseEvaluation) SetWeek(val string) {
+	p.Week = val
+}
+func (p *ModelPracticeCourseEvaluation) SetTeacherId(val string) {
+	p.TeacherId = val
+}
+func (p *ModelPracticeCourseEvaluation) SetStatus(val int32) {
+	p.Status = val
+}
+func (p *ModelPracticeCourseEvaluation) SetAcademicYear(val string) {
+	p.AcademicYear = val
+}
+func (p *ModelPracticeCourseEvaluation) SetSemester(val string) {
+	p.Semester = val
+}
+func (p *ModelPracticeCourseEvaluation) SetAppId(val int32) {
+	p.AppId = val
+}
+func (p *ModelPracticeCourseEvaluation) SetLastTeacherId(val string) {
+	p.LastTeacherId = val
+}
+func (p *ModelPracticeCourseEvaluation) SetLastTime(val string) {
+	p.LastTime = val
+}
+func (p *ModelPracticeCourseEvaluation) SetTeacherName(val string) {
+	p.TeacherName = val
+}
+func (p *ModelPracticeCourseEvaluation) SetStudentNumber(val int32) {
+	p.StudentNumber = val
+}
+
+func (p *ModelPracticeCourseEvaluation) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ModelPracticeCourseEvaluation(%+v)", *p)
+}
+
+var fieldIDToName_ModelPracticeCourseEvaluation = map[int16]string{
+	1:  "id",
+	2:  "created_at",
+	3:  "updated_at",
+	4:  "deleted_at",
+	5:  "name",
+	6:  "major",
+	7:  "class_name",
+	8:  "week",
+	9:  "teacher_id",
+	10: "status",
+	11: "academic_year",
+	12: "semester",
+	13: "app_id",
+	14: "last_teacher_id",
+	15: "last_time",
+	16: "teacher_name",
+	17: "student_number",
+}
+
+type ModelStuPracticeReport struct {
+	Id                       int32   `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
+	CreatedAt                int32   `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index" json:"created_at"`
+	UpdatedAt                int32   `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at" json:"updated_at"`
+	DeletedAt                int32   `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at" json:"deleted_at"`
+	Name                     string  `thrift:"name,5" frugal:"5,default,string" json:"student_name" gorm:"column:student_name"`
+	ClassName                string  `thrift:"class_name,6" frugal:"6,default,string" json:"class_name" gorm:"column:class_name"`
+	Major                    string  `thrift:"major,7" frugal:"7,default,string" json:"major" gorm:"column:major"`
+	Weeks                    string  `thrift:"weeks,8" frugal:"8,default,string" json:"weeks" gorm:"column:weeks"`
+	SchoolTeacher            string  `thrift:"school_teacher,9" frugal:"9,default,string" json:"school_teacher" gorm:"column:school_teacher;type:text"`
+	EnterpriseTeacher        string  `thrift:"enterprise_teacher,10" frugal:"10,default,string" json:"enterprise_teacher" gorm:"column:enterprise_teacher;type:text"`
+	Content                  string  `thrift:"content,11" frugal:"11,default,string" json:"content" gorm:"column:content;type:text"`
+	Summary                  string  `thrift:"summary,12" frugal:"12,default,string" json:"summary" gorm:"column:summary;type:text"`
+	EnterpriseTeacherComment string  `thrift:"enterprise_teacher_comment,13" frugal:"13,default,string" json:"enterprise_teacher_comment" gorm:"column:enterprise_teacher_comment;type:text"`
+	SchoolTeacherComment     string  `thrift:"school_teacher_comment,14" frugal:"14,default,string" json:"school_teacher_comment" gorm:"column:school_teacher_comment;type:text"`
+	EnterpriseTeacherGrade   float64 `thrift:"enterprise_teacher_grade,15" frugal:"15,default,double" json:"enterprise_teacher_grade" gorm:"column:enterprise_teacher_grade"`
+	Grade                    float64 `thrift:"grade,16" frugal:"16,default,double" json:"grade" gorm:"column:grade"`
+	AppId                    int32   `thrift:"app_id,17" frugal:"17,default,i32" json:"app_id" gorm:"column:app_id"`
+	AcademicYear             string  `thrift:"academic_year,18" frugal:"18,default,string" json:"academic_year" gorm:"column:academic_year"`
+	Semester                 string  `thrift:"semester,19" frugal:"19,default,string" json:"semester" gorm:"column:semester"`
+	AttendDays               int32   `thrift:"attend_days,20" frugal:"20,default,i32" json:"attend_days" gorm:"column:attend_days"`
+	ActualAttendDays         int32   `thrift:"actual_attend_days,21" frugal:"21,default,i32" json:"actual_attend_days" gorm:"column:actual_attend_days"`
+	LateEarlyLeaveTimes      int32   `thrift:"late_early_leave_times,22" frugal:"22,default,i32" json:"late_early_leave_times" gorm:"column:late_early_leave_times"`
+	Absenteeism              int32   `thrift:"absenteeism,23" frugal:"23,default,i32" json:"absenteeism" gorm:"column:absenteeism"`
+	Leave                    int32   `thrift:"leave,24" frugal:"24,default,i32" json:"leave" gorm:"column:leave"`
+	StudentId                string  `thrift:"student_id,25" frugal:"25,default,string" json:"student_id" gorm:"column:student_id"`
+	StudentName              string  `thrift:"student_name,26" frugal:"26,default,string" json:"student_name" gorm:"column:student_name"`
+	EvaluationId             int32   `thrift:"evaluation_id,27" frugal:"27,default,i32" json:"evaluation_id" gorm:"column:evaluation_id"`
+	PracticeTime             string  `thrift:"practice_time,28" frugal:"28,default,string" json:"practice_time" gorm:"column:practice_time"`
+}
+
+func NewModelStuPracticeReport() *ModelStuPracticeReport {
+	return &ModelStuPracticeReport{}
+}
+
+func (p *ModelStuPracticeReport) InitDefault() {
+}
+
+func (p *ModelStuPracticeReport) GetId() (v int32) {
+	return p.Id
+}
+
+func (p *ModelStuPracticeReport) GetCreatedAt() (v int32) {
+	return p.CreatedAt
+}
+
+func (p *ModelStuPracticeReport) GetUpdatedAt() (v int32) {
+	return p.UpdatedAt
+}
+
+func (p *ModelStuPracticeReport) GetDeletedAt() (v int32) {
+	return p.DeletedAt
+}
+
+func (p *ModelStuPracticeReport) GetName() (v string) {
+	return p.Name
+}
+
+func (p *ModelStuPracticeReport) GetClassName() (v string) {
+	return p.ClassName
+}
+
+func (p *ModelStuPracticeReport) GetMajor() (v string) {
+	return p.Major
+}
+
+func (p *ModelStuPracticeReport) GetWeeks() (v string) {
+	return p.Weeks
+}
+
+func (p *ModelStuPracticeReport) GetSchoolTeacher() (v string) {
+	return p.SchoolTeacher
+}
+
+func (p *ModelStuPracticeReport) GetEnterpriseTeacher() (v string) {
+	return p.EnterpriseTeacher
+}
+
+func (p *ModelStuPracticeReport) GetContent() (v string) {
+	return p.Content
+}
+
+func (p *ModelStuPracticeReport) GetSummary() (v string) {
+	return p.Summary
+}
+
+func (p *ModelStuPracticeReport) GetEnterpriseTeacherComment() (v string) {
+	return p.EnterpriseTeacherComment
+}
+
+func (p *ModelStuPracticeReport) GetSchoolTeacherComment() (v string) {
+	return p.SchoolTeacherComment
+}
+
+func (p *ModelStuPracticeReport) GetEnterpriseTeacherGrade() (v float64) {
+	return p.EnterpriseTeacherGrade
+}
+
+func (p *ModelStuPracticeReport) GetGrade() (v float64) {
+	return p.Grade
+}
+
+func (p *ModelStuPracticeReport) GetAppId() (v int32) {
+	return p.AppId
+}
+
+func (p *ModelStuPracticeReport) GetAcademicYear() (v string) {
+	return p.AcademicYear
+}
+
+func (p *ModelStuPracticeReport) GetSemester() (v string) {
+	return p.Semester
+}
+
+func (p *ModelStuPracticeReport) GetAttendDays() (v int32) {
+	return p.AttendDays
+}
+
+func (p *ModelStuPracticeReport) GetActualAttendDays() (v int32) {
+	return p.ActualAttendDays
+}
+
+func (p *ModelStuPracticeReport) GetLateEarlyLeaveTimes() (v int32) {
+	return p.LateEarlyLeaveTimes
+}
+
+func (p *ModelStuPracticeReport) GetAbsenteeism() (v int32) {
+	return p.Absenteeism
+}
+
+func (p *ModelStuPracticeReport) GetLeave() (v int32) {
+	return p.Leave
+}
+
+func (p *ModelStuPracticeReport) GetStudentId() (v string) {
+	return p.StudentId
+}
+
+func (p *ModelStuPracticeReport) GetStudentName() (v string) {
+	return p.StudentName
+}
+
+func (p *ModelStuPracticeReport) GetEvaluationId() (v int32) {
+	return p.EvaluationId
+}
+
+func (p *ModelStuPracticeReport) GetPracticeTime() (v string) {
+	return p.PracticeTime
+}
+func (p *ModelStuPracticeReport) SetId(val int32) {
+	p.Id = val
+}
+func (p *ModelStuPracticeReport) SetCreatedAt(val int32) {
+	p.CreatedAt = val
+}
+func (p *ModelStuPracticeReport) SetUpdatedAt(val int32) {
+	p.UpdatedAt = val
+}
+func (p *ModelStuPracticeReport) SetDeletedAt(val int32) {
+	p.DeletedAt = val
+}
+func (p *ModelStuPracticeReport) SetName(val string) {
+	p.Name = val
+}
+func (p *ModelStuPracticeReport) SetClassName(val string) {
+	p.ClassName = val
+}
+func (p *ModelStuPracticeReport) SetMajor(val string) {
+	p.Major = val
+}
+func (p *ModelStuPracticeReport) SetWeeks(val string) {
+	p.Weeks = val
+}
+func (p *ModelStuPracticeReport) SetSchoolTeacher(val string) {
+	p.SchoolTeacher = val
+}
+func (p *ModelStuPracticeReport) SetEnterpriseTeacher(val string) {
+	p.EnterpriseTeacher = val
+}
+func (p *ModelStuPracticeReport) SetContent(val string) {
+	p.Content = val
+}
+func (p *ModelStuPracticeReport) SetSummary(val string) {
+	p.Summary = val
+}
+func (p *ModelStuPracticeReport) SetEnterpriseTeacherComment(val string) {
+	p.EnterpriseTeacherComment = val
+}
+func (p *ModelStuPracticeReport) SetSchoolTeacherComment(val string) {
+	p.SchoolTeacherComment = val
+}
+func (p *ModelStuPracticeReport) SetEnterpriseTeacherGrade(val float64) {
+	p.EnterpriseTeacherGrade = val
+}
+func (p *ModelStuPracticeReport) SetGrade(val float64) {
+	p.Grade = val
+}
+func (p *ModelStuPracticeReport) SetAppId(val int32) {
+	p.AppId = val
+}
+func (p *ModelStuPracticeReport) SetAcademicYear(val string) {
+	p.AcademicYear = val
+}
+func (p *ModelStuPracticeReport) SetSemester(val string) {
+	p.Semester = val
+}
+func (p *ModelStuPracticeReport) SetAttendDays(val int32) {
+	p.AttendDays = val
+}
+func (p *ModelStuPracticeReport) SetActualAttendDays(val int32) {
+	p.ActualAttendDays = val
+}
+func (p *ModelStuPracticeReport) SetLateEarlyLeaveTimes(val int32) {
+	p.LateEarlyLeaveTimes = val
+}
+func (p *ModelStuPracticeReport) SetAbsenteeism(val int32) {
+	p.Absenteeism = val
+}
+func (p *ModelStuPracticeReport) SetLeave(val int32) {
+	p.Leave = val
+}
+func (p *ModelStuPracticeReport) SetStudentId(val string) {
+	p.StudentId = val
+}
+func (p *ModelStuPracticeReport) SetStudentName(val string) {
+	p.StudentName = val
+}
+func (p *ModelStuPracticeReport) SetEvaluationId(val int32) {
+	p.EvaluationId = val
+}
+func (p *ModelStuPracticeReport) SetPracticeTime(val string) {
+	p.PracticeTime = val
+}
+
+func (p *ModelStuPracticeReport) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ModelStuPracticeReport(%+v)", *p)
+}
+
+var fieldIDToName_ModelStuPracticeReport = map[int16]string{
+	1:  "id",
+	2:  "created_at",
+	3:  "updated_at",
+	4:  "deleted_at",
+	5:  "name",
+	6:  "class_name",
+	7:  "major",
+	8:  "weeks",
+	9:  "school_teacher",
+	10: "enterprise_teacher",
+	11: "content",
+	12: "summary",
+	13: "enterprise_teacher_comment",
+	14: "school_teacher_comment",
+	15: "enterprise_teacher_grade",
+	16: "grade",
+	17: "app_id",
+	18: "academic_year",
+	19: "semester",
+	20: "attend_days",
+	21: "actual_attend_days",
+	22: "late_early_leave_times",
+	23: "absenteeism",
+	24: "leave",
+	25: "student_id",
+	26: "student_name",
+	27: "evaluation_id",
+	28: "practice_time",
+}
+
+type EnterpriseTeacher struct {
+	Name       string `thrift:"name,1" frugal:"1,default,string" json:"name"`
+	Mobile     string `thrift:"mobile,2" frugal:"2,default,string" json:"mobile"`
+	Title      string `thrift:"title,3" frugal:"3,default,string" json:"title"`
+	Speciality string `thrift:"speciality,4" frugal:"4,default,string" json:"speciality"`
+	JobYears   string `thrift:"job_years,5" frugal:"5,default,string" json:"job_years"`
+}
+
+func NewEnterpriseTeacher() *EnterpriseTeacher {
+	return &EnterpriseTeacher{}
+}
+
+func (p *EnterpriseTeacher) InitDefault() {
+}
+
+func (p *EnterpriseTeacher) GetName() (v string) {
+	return p.Name
+}
+
+func (p *EnterpriseTeacher) GetMobile() (v string) {
+	return p.Mobile
+}
+
+func (p *EnterpriseTeacher) GetTitle() (v string) {
+	return p.Title
+}
+
+func (p *EnterpriseTeacher) GetSpeciality() (v string) {
+	return p.Speciality
+}
+
+func (p *EnterpriseTeacher) GetJobYears() (v string) {
+	return p.JobYears
+}
+func (p *EnterpriseTeacher) SetName(val string) {
+	p.Name = val
+}
+func (p *EnterpriseTeacher) SetMobile(val string) {
+	p.Mobile = val
+}
+func (p *EnterpriseTeacher) SetTitle(val string) {
+	p.Title = val
+}
+func (p *EnterpriseTeacher) SetSpeciality(val string) {
+	p.Speciality = val
+}
+func (p *EnterpriseTeacher) SetJobYears(val string) {
+	p.JobYears = val
+}
+
+func (p *EnterpriseTeacher) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("EnterpriseTeacher(%+v)", *p)
+}
+
+var fieldIDToName_EnterpriseTeacher = map[int16]string{
+	1: "name",
+	2: "mobile",
+	3: "title",
+	4: "speciality",
+	5: "job_years",
+}
+
 type Trainingservice interface {
 	ImportTrainingCourse(ctx context.Context, req *ImportTrainingCourseReq) (r *ImportTrainingCourseResp, err error)
 
@@ -5122,6 +6595,26 @@ type Trainingservice interface {
 	GetPlanDetail(ctx context.Context, req *GetPlanDetailReq) (r *GetPlanDetailResp, err error)
 
 	ResetTeachSchedule(ctx context.Context, req *ResetTeachScheduleReq) (r *ResetTeachScheduleResp, err error)
+
+	SyncPracticeReport(ctx context.Context, req *SyncPracticeReportReq) (r *SyncPracticeReportResp, err error)
+
+	GetPracticeReportList(ctx context.Context, req *GetPracticeReportListReq) (r *GetPracticeReportListResp, err error)
+
+	ListPracticeCourseEvaluation(ctx context.Context, req *ListPracticeCourseEvaluationReq) (r *ListPracticeCourseEvaluationResp, err error)
+
+	FillPracticeReport(ctx context.Context, req *FillPracticeReportReq) (r *FillPracticeReportResp, err error)
+
+	OnePracticeReport(ctx context.Context, req *OnePracticeReportReq) (r *OnePracticeReportResp, err error)
+
+	ExportPracticeReport(ctx context.Context, req *ExportPracticeReportReq) (r *ExportPracticeReportResp, err error)
+
+	ExportAllPracticeReport(ctx context.Context, req *ExportAllPracticeReportReq) (r *ExportAllPracticeReportResp, err error)
+
+	FillAttendance(ctx context.Context, req *FillAttendanceReq) (r *FillAttendanceResp, err error)
+
+	EditAttendance(ctx context.Context, req *EditAttendanceReq) (r *EditAttendanceResp, err error)
+
+	EvaluatePracticeReport(ctx context.Context, req *EvaluatePracticeReportReq) (r *EvaluatePracticeReportResp, err error)
 }
 
 type TrainingserviceImportTrainingCourseArgs struct {
@@ -7933,5 +9426,765 @@ func (p *TrainingserviceResetTeachScheduleResult) String() string {
 }
 
 var fieldIDToName_TrainingserviceResetTeachScheduleResult = map[int16]string{
+	0: "success",
+}
+
+type TrainingserviceSyncPracticeReportArgs struct {
+	Req *SyncPracticeReportReq `thrift:"req,1" frugal:"1,default,SyncPracticeReportReq" json:"req"`
+}
+
+func NewTrainingserviceSyncPracticeReportArgs() *TrainingserviceSyncPracticeReportArgs {
+	return &TrainingserviceSyncPracticeReportArgs{}
+}
+
+func (p *TrainingserviceSyncPracticeReportArgs) InitDefault() {
+}
+
+var TrainingserviceSyncPracticeReportArgs_Req_DEFAULT *SyncPracticeReportReq
+
+func (p *TrainingserviceSyncPracticeReportArgs) GetReq() (v *SyncPracticeReportReq) {
+	if !p.IsSetReq() {
+		return TrainingserviceSyncPracticeReportArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *TrainingserviceSyncPracticeReportArgs) SetReq(val *SyncPracticeReportReq) {
+	p.Req = val
+}
+
+func (p *TrainingserviceSyncPracticeReportArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *TrainingserviceSyncPracticeReportArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceSyncPracticeReportArgs(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceSyncPracticeReportArgs = map[int16]string{
+	1: "req",
+}
+
+type TrainingserviceSyncPracticeReportResult struct {
+	Success *SyncPracticeReportResp `thrift:"success,0,optional" frugal:"0,optional,SyncPracticeReportResp" json:"success,omitempty"`
+}
+
+func NewTrainingserviceSyncPracticeReportResult() *TrainingserviceSyncPracticeReportResult {
+	return &TrainingserviceSyncPracticeReportResult{}
+}
+
+func (p *TrainingserviceSyncPracticeReportResult) InitDefault() {
+}
+
+var TrainingserviceSyncPracticeReportResult_Success_DEFAULT *SyncPracticeReportResp
+
+func (p *TrainingserviceSyncPracticeReportResult) GetSuccess() (v *SyncPracticeReportResp) {
+	if !p.IsSetSuccess() {
+		return TrainingserviceSyncPracticeReportResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *TrainingserviceSyncPracticeReportResult) SetSuccess(x interface{}) {
+	p.Success = x.(*SyncPracticeReportResp)
+}
+
+func (p *TrainingserviceSyncPracticeReportResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *TrainingserviceSyncPracticeReportResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceSyncPracticeReportResult(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceSyncPracticeReportResult = map[int16]string{
+	0: "success",
+}
+
+type TrainingserviceGetPracticeReportListArgs struct {
+	Req *GetPracticeReportListReq `thrift:"req,1" frugal:"1,default,GetPracticeReportListReq" json:"req"`
+}
+
+func NewTrainingserviceGetPracticeReportListArgs() *TrainingserviceGetPracticeReportListArgs {
+	return &TrainingserviceGetPracticeReportListArgs{}
+}
+
+func (p *TrainingserviceGetPracticeReportListArgs) InitDefault() {
+}
+
+var TrainingserviceGetPracticeReportListArgs_Req_DEFAULT *GetPracticeReportListReq
+
+func (p *TrainingserviceGetPracticeReportListArgs) GetReq() (v *GetPracticeReportListReq) {
+	if !p.IsSetReq() {
+		return TrainingserviceGetPracticeReportListArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *TrainingserviceGetPracticeReportListArgs) SetReq(val *GetPracticeReportListReq) {
+	p.Req = val
+}
+
+func (p *TrainingserviceGetPracticeReportListArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *TrainingserviceGetPracticeReportListArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceGetPracticeReportListArgs(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceGetPracticeReportListArgs = map[int16]string{
+	1: "req",
+}
+
+type TrainingserviceGetPracticeReportListResult struct {
+	Success *GetPracticeReportListResp `thrift:"success,0,optional" frugal:"0,optional,GetPracticeReportListResp" json:"success,omitempty"`
+}
+
+func NewTrainingserviceGetPracticeReportListResult() *TrainingserviceGetPracticeReportListResult {
+	return &TrainingserviceGetPracticeReportListResult{}
+}
+
+func (p *TrainingserviceGetPracticeReportListResult) InitDefault() {
+}
+
+var TrainingserviceGetPracticeReportListResult_Success_DEFAULT *GetPracticeReportListResp
+
+func (p *TrainingserviceGetPracticeReportListResult) GetSuccess() (v *GetPracticeReportListResp) {
+	if !p.IsSetSuccess() {
+		return TrainingserviceGetPracticeReportListResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *TrainingserviceGetPracticeReportListResult) SetSuccess(x interface{}) {
+	p.Success = x.(*GetPracticeReportListResp)
+}
+
+func (p *TrainingserviceGetPracticeReportListResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *TrainingserviceGetPracticeReportListResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceGetPracticeReportListResult(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceGetPracticeReportListResult = map[int16]string{
+	0: "success",
+}
+
+type TrainingserviceListPracticeCourseEvaluationArgs struct {
+	Req *ListPracticeCourseEvaluationReq `thrift:"req,1" frugal:"1,default,ListPracticeCourseEvaluationReq" json:"req"`
+}
+
+func NewTrainingserviceListPracticeCourseEvaluationArgs() *TrainingserviceListPracticeCourseEvaluationArgs {
+	return &TrainingserviceListPracticeCourseEvaluationArgs{}
+}
+
+func (p *TrainingserviceListPracticeCourseEvaluationArgs) InitDefault() {
+}
+
+var TrainingserviceListPracticeCourseEvaluationArgs_Req_DEFAULT *ListPracticeCourseEvaluationReq
+
+func (p *TrainingserviceListPracticeCourseEvaluationArgs) GetReq() (v *ListPracticeCourseEvaluationReq) {
+	if !p.IsSetReq() {
+		return TrainingserviceListPracticeCourseEvaluationArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *TrainingserviceListPracticeCourseEvaluationArgs) SetReq(val *ListPracticeCourseEvaluationReq) {
+	p.Req = val
+}
+
+func (p *TrainingserviceListPracticeCourseEvaluationArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *TrainingserviceListPracticeCourseEvaluationArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceListPracticeCourseEvaluationArgs(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceListPracticeCourseEvaluationArgs = map[int16]string{
+	1: "req",
+}
+
+type TrainingserviceListPracticeCourseEvaluationResult struct {
+	Success *ListPracticeCourseEvaluationResp `thrift:"success,0,optional" frugal:"0,optional,ListPracticeCourseEvaluationResp" json:"success,omitempty"`
+}
+
+func NewTrainingserviceListPracticeCourseEvaluationResult() *TrainingserviceListPracticeCourseEvaluationResult {
+	return &TrainingserviceListPracticeCourseEvaluationResult{}
+}
+
+func (p *TrainingserviceListPracticeCourseEvaluationResult) InitDefault() {
+}
+
+var TrainingserviceListPracticeCourseEvaluationResult_Success_DEFAULT *ListPracticeCourseEvaluationResp
+
+func (p *TrainingserviceListPracticeCourseEvaluationResult) GetSuccess() (v *ListPracticeCourseEvaluationResp) {
+	if !p.IsSetSuccess() {
+		return TrainingserviceListPracticeCourseEvaluationResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *TrainingserviceListPracticeCourseEvaluationResult) SetSuccess(x interface{}) {
+	p.Success = x.(*ListPracticeCourseEvaluationResp)
+}
+
+func (p *TrainingserviceListPracticeCourseEvaluationResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *TrainingserviceListPracticeCourseEvaluationResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceListPracticeCourseEvaluationResult(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceListPracticeCourseEvaluationResult = map[int16]string{
+	0: "success",
+}
+
+type TrainingserviceFillPracticeReportArgs struct {
+	Req *FillPracticeReportReq `thrift:"req,1" frugal:"1,default,FillPracticeReportReq" json:"req"`
+}
+
+func NewTrainingserviceFillPracticeReportArgs() *TrainingserviceFillPracticeReportArgs {
+	return &TrainingserviceFillPracticeReportArgs{}
+}
+
+func (p *TrainingserviceFillPracticeReportArgs) InitDefault() {
+}
+
+var TrainingserviceFillPracticeReportArgs_Req_DEFAULT *FillPracticeReportReq
+
+func (p *TrainingserviceFillPracticeReportArgs) GetReq() (v *FillPracticeReportReq) {
+	if !p.IsSetReq() {
+		return TrainingserviceFillPracticeReportArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *TrainingserviceFillPracticeReportArgs) SetReq(val *FillPracticeReportReq) {
+	p.Req = val
+}
+
+func (p *TrainingserviceFillPracticeReportArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *TrainingserviceFillPracticeReportArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceFillPracticeReportArgs(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceFillPracticeReportArgs = map[int16]string{
+	1: "req",
+}
+
+type TrainingserviceFillPracticeReportResult struct {
+	Success *FillPracticeReportResp `thrift:"success,0,optional" frugal:"0,optional,FillPracticeReportResp" json:"success,omitempty"`
+}
+
+func NewTrainingserviceFillPracticeReportResult() *TrainingserviceFillPracticeReportResult {
+	return &TrainingserviceFillPracticeReportResult{}
+}
+
+func (p *TrainingserviceFillPracticeReportResult) InitDefault() {
+}
+
+var TrainingserviceFillPracticeReportResult_Success_DEFAULT *FillPracticeReportResp
+
+func (p *TrainingserviceFillPracticeReportResult) GetSuccess() (v *FillPracticeReportResp) {
+	if !p.IsSetSuccess() {
+		return TrainingserviceFillPracticeReportResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *TrainingserviceFillPracticeReportResult) SetSuccess(x interface{}) {
+	p.Success = x.(*FillPracticeReportResp)
+}
+
+func (p *TrainingserviceFillPracticeReportResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *TrainingserviceFillPracticeReportResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceFillPracticeReportResult(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceFillPracticeReportResult = map[int16]string{
+	0: "success",
+}
+
+type TrainingserviceOnePracticeReportArgs struct {
+	Req *OnePracticeReportReq `thrift:"req,1" frugal:"1,default,OnePracticeReportReq" json:"req"`
+}
+
+func NewTrainingserviceOnePracticeReportArgs() *TrainingserviceOnePracticeReportArgs {
+	return &TrainingserviceOnePracticeReportArgs{}
+}
+
+func (p *TrainingserviceOnePracticeReportArgs) InitDefault() {
+}
+
+var TrainingserviceOnePracticeReportArgs_Req_DEFAULT *OnePracticeReportReq
+
+func (p *TrainingserviceOnePracticeReportArgs) GetReq() (v *OnePracticeReportReq) {
+	if !p.IsSetReq() {
+		return TrainingserviceOnePracticeReportArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *TrainingserviceOnePracticeReportArgs) SetReq(val *OnePracticeReportReq) {
+	p.Req = val
+}
+
+func (p *TrainingserviceOnePracticeReportArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *TrainingserviceOnePracticeReportArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceOnePracticeReportArgs(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceOnePracticeReportArgs = map[int16]string{
+	1: "req",
+}
+
+type TrainingserviceOnePracticeReportResult struct {
+	Success *OnePracticeReportResp `thrift:"success,0,optional" frugal:"0,optional,OnePracticeReportResp" json:"success,omitempty"`
+}
+
+func NewTrainingserviceOnePracticeReportResult() *TrainingserviceOnePracticeReportResult {
+	return &TrainingserviceOnePracticeReportResult{}
+}
+
+func (p *TrainingserviceOnePracticeReportResult) InitDefault() {
+}
+
+var TrainingserviceOnePracticeReportResult_Success_DEFAULT *OnePracticeReportResp
+
+func (p *TrainingserviceOnePracticeReportResult) GetSuccess() (v *OnePracticeReportResp) {
+	if !p.IsSetSuccess() {
+		return TrainingserviceOnePracticeReportResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *TrainingserviceOnePracticeReportResult) SetSuccess(x interface{}) {
+	p.Success = x.(*OnePracticeReportResp)
+}
+
+func (p *TrainingserviceOnePracticeReportResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *TrainingserviceOnePracticeReportResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceOnePracticeReportResult(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceOnePracticeReportResult = map[int16]string{
+	0: "success",
+}
+
+type TrainingserviceExportPracticeReportArgs struct {
+	Req *ExportPracticeReportReq `thrift:"req,1" frugal:"1,default,ExportPracticeReportReq" json:"req"`
+}
+
+func NewTrainingserviceExportPracticeReportArgs() *TrainingserviceExportPracticeReportArgs {
+	return &TrainingserviceExportPracticeReportArgs{}
+}
+
+func (p *TrainingserviceExportPracticeReportArgs) InitDefault() {
+}
+
+var TrainingserviceExportPracticeReportArgs_Req_DEFAULT *ExportPracticeReportReq
+
+func (p *TrainingserviceExportPracticeReportArgs) GetReq() (v *ExportPracticeReportReq) {
+	if !p.IsSetReq() {
+		return TrainingserviceExportPracticeReportArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *TrainingserviceExportPracticeReportArgs) SetReq(val *ExportPracticeReportReq) {
+	p.Req = val
+}
+
+func (p *TrainingserviceExportPracticeReportArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *TrainingserviceExportPracticeReportArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceExportPracticeReportArgs(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceExportPracticeReportArgs = map[int16]string{
+	1: "req",
+}
+
+type TrainingserviceExportPracticeReportResult struct {
+	Success *ExportPracticeReportResp `thrift:"success,0,optional" frugal:"0,optional,ExportPracticeReportResp" json:"success,omitempty"`
+}
+
+func NewTrainingserviceExportPracticeReportResult() *TrainingserviceExportPracticeReportResult {
+	return &TrainingserviceExportPracticeReportResult{}
+}
+
+func (p *TrainingserviceExportPracticeReportResult) InitDefault() {
+}
+
+var TrainingserviceExportPracticeReportResult_Success_DEFAULT *ExportPracticeReportResp
+
+func (p *TrainingserviceExportPracticeReportResult) GetSuccess() (v *ExportPracticeReportResp) {
+	if !p.IsSetSuccess() {
+		return TrainingserviceExportPracticeReportResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *TrainingserviceExportPracticeReportResult) SetSuccess(x interface{}) {
+	p.Success = x.(*ExportPracticeReportResp)
+}
+
+func (p *TrainingserviceExportPracticeReportResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *TrainingserviceExportPracticeReportResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceExportPracticeReportResult(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceExportPracticeReportResult = map[int16]string{
+	0: "success",
+}
+
+type TrainingserviceExportAllPracticeReportArgs struct {
+	Req *ExportAllPracticeReportReq `thrift:"req,1" frugal:"1,default,ExportAllPracticeReportReq" json:"req"`
+}
+
+func NewTrainingserviceExportAllPracticeReportArgs() *TrainingserviceExportAllPracticeReportArgs {
+	return &TrainingserviceExportAllPracticeReportArgs{}
+}
+
+func (p *TrainingserviceExportAllPracticeReportArgs) InitDefault() {
+}
+
+var TrainingserviceExportAllPracticeReportArgs_Req_DEFAULT *ExportAllPracticeReportReq
+
+func (p *TrainingserviceExportAllPracticeReportArgs) GetReq() (v *ExportAllPracticeReportReq) {
+	if !p.IsSetReq() {
+		return TrainingserviceExportAllPracticeReportArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *TrainingserviceExportAllPracticeReportArgs) SetReq(val *ExportAllPracticeReportReq) {
+	p.Req = val
+}
+
+func (p *TrainingserviceExportAllPracticeReportArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *TrainingserviceExportAllPracticeReportArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceExportAllPracticeReportArgs(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceExportAllPracticeReportArgs = map[int16]string{
+	1: "req",
+}
+
+type TrainingserviceExportAllPracticeReportResult struct {
+	Success *ExportAllPracticeReportResp `thrift:"success,0,optional" frugal:"0,optional,ExportAllPracticeReportResp" json:"success,omitempty"`
+}
+
+func NewTrainingserviceExportAllPracticeReportResult() *TrainingserviceExportAllPracticeReportResult {
+	return &TrainingserviceExportAllPracticeReportResult{}
+}
+
+func (p *TrainingserviceExportAllPracticeReportResult) InitDefault() {
+}
+
+var TrainingserviceExportAllPracticeReportResult_Success_DEFAULT *ExportAllPracticeReportResp
+
+func (p *TrainingserviceExportAllPracticeReportResult) GetSuccess() (v *ExportAllPracticeReportResp) {
+	if !p.IsSetSuccess() {
+		return TrainingserviceExportAllPracticeReportResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *TrainingserviceExportAllPracticeReportResult) SetSuccess(x interface{}) {
+	p.Success = x.(*ExportAllPracticeReportResp)
+}
+
+func (p *TrainingserviceExportAllPracticeReportResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *TrainingserviceExportAllPracticeReportResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceExportAllPracticeReportResult(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceExportAllPracticeReportResult = map[int16]string{
+	0: "success",
+}
+
+type TrainingserviceFillAttendanceArgs struct {
+	Req *FillAttendanceReq `thrift:"req,1" frugal:"1,default,FillAttendanceReq" json:"req"`
+}
+
+func NewTrainingserviceFillAttendanceArgs() *TrainingserviceFillAttendanceArgs {
+	return &TrainingserviceFillAttendanceArgs{}
+}
+
+func (p *TrainingserviceFillAttendanceArgs) InitDefault() {
+}
+
+var TrainingserviceFillAttendanceArgs_Req_DEFAULT *FillAttendanceReq
+
+func (p *TrainingserviceFillAttendanceArgs) GetReq() (v *FillAttendanceReq) {
+	if !p.IsSetReq() {
+		return TrainingserviceFillAttendanceArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *TrainingserviceFillAttendanceArgs) SetReq(val *FillAttendanceReq) {
+	p.Req = val
+}
+
+func (p *TrainingserviceFillAttendanceArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *TrainingserviceFillAttendanceArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceFillAttendanceArgs(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceFillAttendanceArgs = map[int16]string{
+	1: "req",
+}
+
+type TrainingserviceFillAttendanceResult struct {
+	Success *FillAttendanceResp `thrift:"success,0,optional" frugal:"0,optional,FillAttendanceResp" json:"success,omitempty"`
+}
+
+func NewTrainingserviceFillAttendanceResult() *TrainingserviceFillAttendanceResult {
+	return &TrainingserviceFillAttendanceResult{}
+}
+
+func (p *TrainingserviceFillAttendanceResult) InitDefault() {
+}
+
+var TrainingserviceFillAttendanceResult_Success_DEFAULT *FillAttendanceResp
+
+func (p *TrainingserviceFillAttendanceResult) GetSuccess() (v *FillAttendanceResp) {
+	if !p.IsSetSuccess() {
+		return TrainingserviceFillAttendanceResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *TrainingserviceFillAttendanceResult) SetSuccess(x interface{}) {
+	p.Success = x.(*FillAttendanceResp)
+}
+
+func (p *TrainingserviceFillAttendanceResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *TrainingserviceFillAttendanceResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceFillAttendanceResult(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceFillAttendanceResult = map[int16]string{
+	0: "success",
+}
+
+type TrainingserviceEditAttendanceArgs struct {
+	Req *EditAttendanceReq `thrift:"req,1" frugal:"1,default,EditAttendanceReq" json:"req"`
+}
+
+func NewTrainingserviceEditAttendanceArgs() *TrainingserviceEditAttendanceArgs {
+	return &TrainingserviceEditAttendanceArgs{}
+}
+
+func (p *TrainingserviceEditAttendanceArgs) InitDefault() {
+}
+
+var TrainingserviceEditAttendanceArgs_Req_DEFAULT *EditAttendanceReq
+
+func (p *TrainingserviceEditAttendanceArgs) GetReq() (v *EditAttendanceReq) {
+	if !p.IsSetReq() {
+		return TrainingserviceEditAttendanceArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *TrainingserviceEditAttendanceArgs) SetReq(val *EditAttendanceReq) {
+	p.Req = val
+}
+
+func (p *TrainingserviceEditAttendanceArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *TrainingserviceEditAttendanceArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceEditAttendanceArgs(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceEditAttendanceArgs = map[int16]string{
+	1: "req",
+}
+
+type TrainingserviceEditAttendanceResult struct {
+	Success *EditAttendanceResp `thrift:"success,0,optional" frugal:"0,optional,EditAttendanceResp" json:"success,omitempty"`
+}
+
+func NewTrainingserviceEditAttendanceResult() *TrainingserviceEditAttendanceResult {
+	return &TrainingserviceEditAttendanceResult{}
+}
+
+func (p *TrainingserviceEditAttendanceResult) InitDefault() {
+}
+
+var TrainingserviceEditAttendanceResult_Success_DEFAULT *EditAttendanceResp
+
+func (p *TrainingserviceEditAttendanceResult) GetSuccess() (v *EditAttendanceResp) {
+	if !p.IsSetSuccess() {
+		return TrainingserviceEditAttendanceResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *TrainingserviceEditAttendanceResult) SetSuccess(x interface{}) {
+	p.Success = x.(*EditAttendanceResp)
+}
+
+func (p *TrainingserviceEditAttendanceResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *TrainingserviceEditAttendanceResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceEditAttendanceResult(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceEditAttendanceResult = map[int16]string{
+	0: "success",
+}
+
+type TrainingserviceEvaluatePracticeReportArgs struct {
+	Req *EvaluatePracticeReportReq `thrift:"req,1" frugal:"1,default,EvaluatePracticeReportReq" json:"req"`
+}
+
+func NewTrainingserviceEvaluatePracticeReportArgs() *TrainingserviceEvaluatePracticeReportArgs {
+	return &TrainingserviceEvaluatePracticeReportArgs{}
+}
+
+func (p *TrainingserviceEvaluatePracticeReportArgs) InitDefault() {
+}
+
+var TrainingserviceEvaluatePracticeReportArgs_Req_DEFAULT *EvaluatePracticeReportReq
+
+func (p *TrainingserviceEvaluatePracticeReportArgs) GetReq() (v *EvaluatePracticeReportReq) {
+	if !p.IsSetReq() {
+		return TrainingserviceEvaluatePracticeReportArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *TrainingserviceEvaluatePracticeReportArgs) SetReq(val *EvaluatePracticeReportReq) {
+	p.Req = val
+}
+
+func (p *TrainingserviceEvaluatePracticeReportArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *TrainingserviceEvaluatePracticeReportArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceEvaluatePracticeReportArgs(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceEvaluatePracticeReportArgs = map[int16]string{
+	1: "req",
+}
+
+type TrainingserviceEvaluatePracticeReportResult struct {
+	Success *EvaluatePracticeReportResp `thrift:"success,0,optional" frugal:"0,optional,EvaluatePracticeReportResp" json:"success,omitempty"`
+}
+
+func NewTrainingserviceEvaluatePracticeReportResult() *TrainingserviceEvaluatePracticeReportResult {
+	return &TrainingserviceEvaluatePracticeReportResult{}
+}
+
+func (p *TrainingserviceEvaluatePracticeReportResult) InitDefault() {
+}
+
+var TrainingserviceEvaluatePracticeReportResult_Success_DEFAULT *EvaluatePracticeReportResp
+
+func (p *TrainingserviceEvaluatePracticeReportResult) GetSuccess() (v *EvaluatePracticeReportResp) {
+	if !p.IsSetSuccess() {
+		return TrainingserviceEvaluatePracticeReportResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *TrainingserviceEvaluatePracticeReportResult) SetSuccess(x interface{}) {
+	p.Success = x.(*EvaluatePracticeReportResp)
+}
+
+func (p *TrainingserviceEvaluatePracticeReportResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *TrainingserviceEvaluatePracticeReportResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceEvaluatePracticeReportResult(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceEvaluatePracticeReportResult = map[int16]string{
 	0: "success",
 }

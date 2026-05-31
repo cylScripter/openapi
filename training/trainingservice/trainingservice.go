@@ -272,6 +272,76 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"SyncPracticeReport": kitex.NewMethodInfo(
+		syncPracticeReportHandler,
+		newTrainingserviceSyncPracticeReportArgs,
+		newTrainingserviceSyncPracticeReportResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetPracticeReportList": kitex.NewMethodInfo(
+		getPracticeReportListHandler,
+		newTrainingserviceGetPracticeReportListArgs,
+		newTrainingserviceGetPracticeReportListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"ListPracticeCourseEvaluation": kitex.NewMethodInfo(
+		listPracticeCourseEvaluationHandler,
+		newTrainingserviceListPracticeCourseEvaluationArgs,
+		newTrainingserviceListPracticeCourseEvaluationResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"FillPracticeReport": kitex.NewMethodInfo(
+		fillPracticeReportHandler,
+		newTrainingserviceFillPracticeReportArgs,
+		newTrainingserviceFillPracticeReportResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"OnePracticeReport": kitex.NewMethodInfo(
+		onePracticeReportHandler,
+		newTrainingserviceOnePracticeReportArgs,
+		newTrainingserviceOnePracticeReportResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"ExportPracticeReport": kitex.NewMethodInfo(
+		exportPracticeReportHandler,
+		newTrainingserviceExportPracticeReportArgs,
+		newTrainingserviceExportPracticeReportResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"ExportAllPracticeReport": kitex.NewMethodInfo(
+		exportAllPracticeReportHandler,
+		newTrainingserviceExportAllPracticeReportArgs,
+		newTrainingserviceExportAllPracticeReportResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"FillAttendance": kitex.NewMethodInfo(
+		fillAttendanceHandler,
+		newTrainingserviceFillAttendanceArgs,
+		newTrainingserviceFillAttendanceResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"EditAttendance": kitex.NewMethodInfo(
+		editAttendanceHandler,
+		newTrainingserviceEditAttendanceArgs,
+		newTrainingserviceEditAttendanceResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"EvaluatePracticeReport": kitex.NewMethodInfo(
+		evaluatePracticeReportHandler,
+		newTrainingserviceEvaluatePracticeReportArgs,
+		newTrainingserviceEvaluatePracticeReportResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -1004,6 +1074,186 @@ func newTrainingserviceResetTeachScheduleResult() interface{} {
 	return training.NewTrainingserviceResetTeachScheduleResult()
 }
 
+func syncPracticeReportHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceSyncPracticeReportArgs)
+	realResult := result.(*training.TrainingserviceSyncPracticeReportResult)
+	success, err := handler.(training.Trainingservice).SyncPracticeReport(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceSyncPracticeReportArgs() interface{} {
+	return training.NewTrainingserviceSyncPracticeReportArgs()
+}
+
+func newTrainingserviceSyncPracticeReportResult() interface{} {
+	return training.NewTrainingserviceSyncPracticeReportResult()
+}
+
+func getPracticeReportListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceGetPracticeReportListArgs)
+	realResult := result.(*training.TrainingserviceGetPracticeReportListResult)
+	success, err := handler.(training.Trainingservice).GetPracticeReportList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceGetPracticeReportListArgs() interface{} {
+	return training.NewTrainingserviceGetPracticeReportListArgs()
+}
+
+func newTrainingserviceGetPracticeReportListResult() interface{} {
+	return training.NewTrainingserviceGetPracticeReportListResult()
+}
+
+func listPracticeCourseEvaluationHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceListPracticeCourseEvaluationArgs)
+	realResult := result.(*training.TrainingserviceListPracticeCourseEvaluationResult)
+	success, err := handler.(training.Trainingservice).ListPracticeCourseEvaluation(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceListPracticeCourseEvaluationArgs() interface{} {
+	return training.NewTrainingserviceListPracticeCourseEvaluationArgs()
+}
+
+func newTrainingserviceListPracticeCourseEvaluationResult() interface{} {
+	return training.NewTrainingserviceListPracticeCourseEvaluationResult()
+}
+
+func fillPracticeReportHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceFillPracticeReportArgs)
+	realResult := result.(*training.TrainingserviceFillPracticeReportResult)
+	success, err := handler.(training.Trainingservice).FillPracticeReport(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceFillPracticeReportArgs() interface{} {
+	return training.NewTrainingserviceFillPracticeReportArgs()
+}
+
+func newTrainingserviceFillPracticeReportResult() interface{} {
+	return training.NewTrainingserviceFillPracticeReportResult()
+}
+
+func onePracticeReportHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceOnePracticeReportArgs)
+	realResult := result.(*training.TrainingserviceOnePracticeReportResult)
+	success, err := handler.(training.Trainingservice).OnePracticeReport(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceOnePracticeReportArgs() interface{} {
+	return training.NewTrainingserviceOnePracticeReportArgs()
+}
+
+func newTrainingserviceOnePracticeReportResult() interface{} {
+	return training.NewTrainingserviceOnePracticeReportResult()
+}
+
+func exportPracticeReportHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceExportPracticeReportArgs)
+	realResult := result.(*training.TrainingserviceExportPracticeReportResult)
+	success, err := handler.(training.Trainingservice).ExportPracticeReport(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceExportPracticeReportArgs() interface{} {
+	return training.NewTrainingserviceExportPracticeReportArgs()
+}
+
+func newTrainingserviceExportPracticeReportResult() interface{} {
+	return training.NewTrainingserviceExportPracticeReportResult()
+}
+
+func exportAllPracticeReportHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceExportAllPracticeReportArgs)
+	realResult := result.(*training.TrainingserviceExportAllPracticeReportResult)
+	success, err := handler.(training.Trainingservice).ExportAllPracticeReport(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceExportAllPracticeReportArgs() interface{} {
+	return training.NewTrainingserviceExportAllPracticeReportArgs()
+}
+
+func newTrainingserviceExportAllPracticeReportResult() interface{} {
+	return training.NewTrainingserviceExportAllPracticeReportResult()
+}
+
+func fillAttendanceHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceFillAttendanceArgs)
+	realResult := result.(*training.TrainingserviceFillAttendanceResult)
+	success, err := handler.(training.Trainingservice).FillAttendance(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceFillAttendanceArgs() interface{} {
+	return training.NewTrainingserviceFillAttendanceArgs()
+}
+
+func newTrainingserviceFillAttendanceResult() interface{} {
+	return training.NewTrainingserviceFillAttendanceResult()
+}
+
+func editAttendanceHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceEditAttendanceArgs)
+	realResult := result.(*training.TrainingserviceEditAttendanceResult)
+	success, err := handler.(training.Trainingservice).EditAttendance(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceEditAttendanceArgs() interface{} {
+	return training.NewTrainingserviceEditAttendanceArgs()
+}
+
+func newTrainingserviceEditAttendanceResult() interface{} {
+	return training.NewTrainingserviceEditAttendanceResult()
+}
+
+func evaluatePracticeReportHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceEvaluatePracticeReportArgs)
+	realResult := result.(*training.TrainingserviceEvaluatePracticeReportResult)
+	success, err := handler.(training.Trainingservice).EvaluatePracticeReport(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceEvaluatePracticeReportArgs() interface{} {
+	return training.NewTrainingserviceEvaluatePracticeReportArgs()
+}
+
+func newTrainingserviceEvaluatePracticeReportResult() interface{} {
+	return training.NewTrainingserviceEvaluatePracticeReportResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -1379,6 +1629,106 @@ func (p *kClient) ResetTeachSchedule(ctx context.Context, req *training.ResetTea
 	_args.Req = req
 	var _result training.TrainingserviceResetTeachScheduleResult
 	if err = p.c.Call(ctx, "ResetTeachSchedule", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) SyncPracticeReport(ctx context.Context, req *training.SyncPracticeReportReq) (r *training.SyncPracticeReportResp, err error) {
+	var _args training.TrainingserviceSyncPracticeReportArgs
+	_args.Req = req
+	var _result training.TrainingserviceSyncPracticeReportResult
+	if err = p.c.Call(ctx, "SyncPracticeReport", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetPracticeReportList(ctx context.Context, req *training.GetPracticeReportListReq) (r *training.GetPracticeReportListResp, err error) {
+	var _args training.TrainingserviceGetPracticeReportListArgs
+	_args.Req = req
+	var _result training.TrainingserviceGetPracticeReportListResult
+	if err = p.c.Call(ctx, "GetPracticeReportList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ListPracticeCourseEvaluation(ctx context.Context, req *training.ListPracticeCourseEvaluationReq) (r *training.ListPracticeCourseEvaluationResp, err error) {
+	var _args training.TrainingserviceListPracticeCourseEvaluationArgs
+	_args.Req = req
+	var _result training.TrainingserviceListPracticeCourseEvaluationResult
+	if err = p.c.Call(ctx, "ListPracticeCourseEvaluation", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) FillPracticeReport(ctx context.Context, req *training.FillPracticeReportReq) (r *training.FillPracticeReportResp, err error) {
+	var _args training.TrainingserviceFillPracticeReportArgs
+	_args.Req = req
+	var _result training.TrainingserviceFillPracticeReportResult
+	if err = p.c.Call(ctx, "FillPracticeReport", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) OnePracticeReport(ctx context.Context, req *training.OnePracticeReportReq) (r *training.OnePracticeReportResp, err error) {
+	var _args training.TrainingserviceOnePracticeReportArgs
+	_args.Req = req
+	var _result training.TrainingserviceOnePracticeReportResult
+	if err = p.c.Call(ctx, "OnePracticeReport", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ExportPracticeReport(ctx context.Context, req *training.ExportPracticeReportReq) (r *training.ExportPracticeReportResp, err error) {
+	var _args training.TrainingserviceExportPracticeReportArgs
+	_args.Req = req
+	var _result training.TrainingserviceExportPracticeReportResult
+	if err = p.c.Call(ctx, "ExportPracticeReport", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ExportAllPracticeReport(ctx context.Context, req *training.ExportAllPracticeReportReq) (r *training.ExportAllPracticeReportResp, err error) {
+	var _args training.TrainingserviceExportAllPracticeReportArgs
+	_args.Req = req
+	var _result training.TrainingserviceExportAllPracticeReportResult
+	if err = p.c.Call(ctx, "ExportAllPracticeReport", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) FillAttendance(ctx context.Context, req *training.FillAttendanceReq) (r *training.FillAttendanceResp, err error) {
+	var _args training.TrainingserviceFillAttendanceArgs
+	_args.Req = req
+	var _result training.TrainingserviceFillAttendanceResult
+	if err = p.c.Call(ctx, "FillAttendance", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) EditAttendance(ctx context.Context, req *training.EditAttendanceReq) (r *training.EditAttendanceResp, err error) {
+	var _args training.TrainingserviceEditAttendanceArgs
+	_args.Req = req
+	var _result training.TrainingserviceEditAttendanceResult
+	if err = p.c.Call(ctx, "EditAttendance", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) EvaluatePracticeReport(ctx context.Context, req *training.EvaluatePracticeReportReq) (r *training.EvaluatePracticeReportResp, err error) {
+	var _args training.TrainingserviceEvaluatePracticeReportArgs
+	_args.Req = req
+	var _result training.TrainingserviceEvaluatePracticeReportResult
+	if err = p.c.Call(ctx, "EvaluatePracticeReport", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

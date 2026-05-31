@@ -48,6 +48,16 @@ type Client interface {
 	GetClassroomUsage(ctx context.Context, req *training.GetClassroomUsageReq, callOptions ...callopt.Option) (r *training.GetClassroomUsageResp, err error)
 	GetPlanDetail(ctx context.Context, req *training.GetPlanDetailReq, callOptions ...callopt.Option) (r *training.GetPlanDetailResp, err error)
 	ResetTeachSchedule(ctx context.Context, req *training.ResetTeachScheduleReq, callOptions ...callopt.Option) (r *training.ResetTeachScheduleResp, err error)
+	SyncPracticeReport(ctx context.Context, req *training.SyncPracticeReportReq, callOptions ...callopt.Option) (r *training.SyncPracticeReportResp, err error)
+	GetPracticeReportList(ctx context.Context, req *training.GetPracticeReportListReq, callOptions ...callopt.Option) (r *training.GetPracticeReportListResp, err error)
+	ListPracticeCourseEvaluation(ctx context.Context, req *training.ListPracticeCourseEvaluationReq, callOptions ...callopt.Option) (r *training.ListPracticeCourseEvaluationResp, err error)
+	FillPracticeReport(ctx context.Context, req *training.FillPracticeReportReq, callOptions ...callopt.Option) (r *training.FillPracticeReportResp, err error)
+	OnePracticeReport(ctx context.Context, req *training.OnePracticeReportReq, callOptions ...callopt.Option) (r *training.OnePracticeReportResp, err error)
+	ExportPracticeReport(ctx context.Context, req *training.ExportPracticeReportReq, callOptions ...callopt.Option) (r *training.ExportPracticeReportResp, err error)
+	ExportAllPracticeReport(ctx context.Context, req *training.ExportAllPracticeReportReq, callOptions ...callopt.Option) (r *training.ExportAllPracticeReportResp, err error)
+	FillAttendance(ctx context.Context, req *training.FillAttendanceReq, callOptions ...callopt.Option) (r *training.FillAttendanceResp, err error)
+	EditAttendance(ctx context.Context, req *training.EditAttendanceReq, callOptions ...callopt.Option) (r *training.EditAttendanceResp, err error)
+	EvaluatePracticeReport(ctx context.Context, req *training.EvaluatePracticeReportReq, callOptions ...callopt.Option) (r *training.EvaluatePracticeReportResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -262,4 +272,54 @@ func (p *kTrainingserviceClient) GetPlanDetail(ctx context.Context, req *trainin
 func (p *kTrainingserviceClient) ResetTeachSchedule(ctx context.Context, req *training.ResetTeachScheduleReq, callOptions ...callopt.Option) (r *training.ResetTeachScheduleResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.ResetTeachSchedule(ctx, req)
+}
+
+func (p *kTrainingserviceClient) SyncPracticeReport(ctx context.Context, req *training.SyncPracticeReportReq, callOptions ...callopt.Option) (r *training.SyncPracticeReportResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.SyncPracticeReport(ctx, req)
+}
+
+func (p *kTrainingserviceClient) GetPracticeReportList(ctx context.Context, req *training.GetPracticeReportListReq, callOptions ...callopt.Option) (r *training.GetPracticeReportListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetPracticeReportList(ctx, req)
+}
+
+func (p *kTrainingserviceClient) ListPracticeCourseEvaluation(ctx context.Context, req *training.ListPracticeCourseEvaluationReq, callOptions ...callopt.Option) (r *training.ListPracticeCourseEvaluationResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ListPracticeCourseEvaluation(ctx, req)
+}
+
+func (p *kTrainingserviceClient) FillPracticeReport(ctx context.Context, req *training.FillPracticeReportReq, callOptions ...callopt.Option) (r *training.FillPracticeReportResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.FillPracticeReport(ctx, req)
+}
+
+func (p *kTrainingserviceClient) OnePracticeReport(ctx context.Context, req *training.OnePracticeReportReq, callOptions ...callopt.Option) (r *training.OnePracticeReportResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.OnePracticeReport(ctx, req)
+}
+
+func (p *kTrainingserviceClient) ExportPracticeReport(ctx context.Context, req *training.ExportPracticeReportReq, callOptions ...callopt.Option) (r *training.ExportPracticeReportResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ExportPracticeReport(ctx, req)
+}
+
+func (p *kTrainingserviceClient) ExportAllPracticeReport(ctx context.Context, req *training.ExportAllPracticeReportReq, callOptions ...callopt.Option) (r *training.ExportAllPracticeReportResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ExportAllPracticeReport(ctx, req)
+}
+
+func (p *kTrainingserviceClient) FillAttendance(ctx context.Context, req *training.FillAttendanceReq, callOptions ...callopt.Option) (r *training.FillAttendanceResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.FillAttendance(ctx, req)
+}
+
+func (p *kTrainingserviceClient) EditAttendance(ctx context.Context, req *training.EditAttendanceReq, callOptions ...callopt.Option) (r *training.EditAttendanceResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.EditAttendance(ctx, req)
+}
+
+func (p *kTrainingserviceClient) EvaluatePracticeReport(ctx context.Context, req *training.EvaluatePracticeReportReq, callOptions ...callopt.Option) (r *training.EvaluatePracticeReportResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.EvaluatePracticeReport(ctx, req)
 }
