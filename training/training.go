@@ -6189,7 +6189,7 @@ type ModelStuPracticeReport struct {
 	CreatedAt                int32   `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index" json:"created_at"`
 	UpdatedAt                int32   `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at" json:"updated_at"`
 	DeletedAt                int32   `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at" json:"deleted_at"`
-	Name                     string  `thrift:"name,5" frugal:"5,default,string" json:"student_name" gorm:"column:student_name"`
+	Name                     string  `thrift:"name,5" frugal:"5,default,string" json:"name" gorm:"column:name"`
 	ClassName                string  `thrift:"class_name,6" frugal:"6,default,string" json:"class_name" gorm:"column:class_name"`
 	Major                    string  `thrift:"major,7" frugal:"7,default,string" json:"major" gorm:"column:major"`
 	Weeks                    string  `thrift:"weeks,8" frugal:"8,default,string" json:"weeks" gorm:"column:weeks"`
