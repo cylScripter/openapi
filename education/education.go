@@ -2537,9 +2537,9 @@ var fieldIDToName_GetClassStudentListResp = map[int16]string{
 type EditClassStudentReq struct {
 	Id          int32  `thrift:"id,1" frugal:"1,default,i32" json:"id"`
 	StudentId   string `thrift:"student_id,2" frugal:"2,default,string" json:"student_id" binding:"required"`
-	ClassId     int32  `thrift:"class_id,3" frugal:"3,default,i32" json:"class_id" binding:"required"`
+	ClassName   string `thrift:"class_name,3" frugal:"3,default,string" json:"class_name" binding:"required"`
 	StudentName string `thrift:"student_name,4" frugal:"4,default,string" json:"student_name" binding:"required"`
-	IsDelete    int32  `thrift:"is_delete,5" frugal:"5,default,i32" json:"is_delete" binding:"is_delete"`
+	IsDelete    int32  `thrift:"is_delete,5" frugal:"5,default,i32" json:"is_delete"`
 }
 
 func NewEditClassStudentReq() *EditClassStudentReq {
@@ -2557,8 +2557,8 @@ func (p *EditClassStudentReq) GetStudentId() (v string) {
 	return p.StudentId
 }
 
-func (p *EditClassStudentReq) GetClassId() (v int32) {
-	return p.ClassId
+func (p *EditClassStudentReq) GetClassName() (v string) {
+	return p.ClassName
 }
 
 func (p *EditClassStudentReq) GetStudentName() (v string) {
@@ -2574,8 +2574,8 @@ func (p *EditClassStudentReq) SetId(val int32) {
 func (p *EditClassStudentReq) SetStudentId(val string) {
 	p.StudentId = val
 }
-func (p *EditClassStudentReq) SetClassId(val int32) {
-	p.ClassId = val
+func (p *EditClassStudentReq) SetClassName(val string) {
+	p.ClassName = val
 }
 func (p *EditClassStudentReq) SetStudentName(val string) {
 	p.StudentName = val
@@ -2594,7 +2594,7 @@ func (p *EditClassStudentReq) String() string {
 var fieldIDToName_EditClassStudentReq = map[int16]string{
 	1: "id",
 	2: "student_id",
-	3: "class_id",
+	3: "class_name",
 	4: "student_name",
 	5: "is_delete",
 }
