@@ -82,6 +82,8 @@ const (
 	GetClassStudentListReqOption_class_id     GetClassStudentListReqOption = 2
 	GetClassStudentListReqOption_student_name GetClassStudentListReqOption = 3
 	GetClassStudentListReqOption_student_id   GetClassStudentListReqOption = 4
+	GetClassStudentListReqOption_grade        GetClassStudentListReqOption = 5
+	GetClassStudentListReqOption_class_name   GetClassStudentListReqOption = 6
 )
 
 func (p GetClassStudentListReqOption) String() string {
@@ -94,6 +96,10 @@ func (p GetClassStudentListReqOption) String() string {
 		return "student_name"
 	case GetClassStudentListReqOption_student_id:
 		return "student_id"
+	case GetClassStudentListReqOption_grade:
+		return "grade"
+	case GetClassStudentListReqOption_class_name:
+		return "class_name"
 	}
 	return "<UNSET>"
 }
@@ -108,6 +114,10 @@ func GetClassStudentListReqOptionFromString(s string) (GetClassStudentListReqOpt
 		return GetClassStudentListReqOption_student_name, nil
 	case "student_id":
 		return GetClassStudentListReqOption_student_id, nil
+	case "grade":
+		return GetClassStudentListReqOption_grade, nil
+	case "class_name":
+		return GetClassStudentListReqOption_class_name, nil
 	}
 	return GetClassStudentListReqOption(0), fmt.Errorf("not a valid GetClassStudentListReqOption string")
 }
@@ -1769,8 +1779,9 @@ func (p *GetSelfCourseApplyListOption) Value() (driver.Value, error) {
 type GetClassListReqOption int64
 
 const (
-	GetClassListReqOption_id   GetClassListReqOption = 1
-	GetClassListReqOption_name GetClassListReqOption = 2
+	GetClassListReqOption_id    GetClassListReqOption = 1
+	GetClassListReqOption_name  GetClassListReqOption = 2
+	GetClassListReqOption_grade GetClassListReqOption = 3
 )
 
 func (p GetClassListReqOption) String() string {
@@ -1779,6 +1790,8 @@ func (p GetClassListReqOption) String() string {
 		return "id"
 	case GetClassListReqOption_name:
 		return "name"
+	case GetClassListReqOption_grade:
+		return "grade"
 	}
 	return "<UNSET>"
 }
@@ -1789,6 +1802,8 @@ func GetClassListReqOptionFromString(s string) (GetClassListReqOption, error) {
 		return GetClassListReqOption_id, nil
 	case "name":
 		return GetClassListReqOption_name, nil
+	case "grade":
+		return GetClassListReqOption_grade, nil
 	}
 	return GetClassListReqOption(0), fmt.Errorf("not a valid GetClassListReqOption string")
 }
