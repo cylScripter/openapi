@@ -162,6 +162,7 @@ const (
 	GetMajorPracticeTeachingPlanListReqOption_academic_year GetMajorPracticeTeachingPlanListReqOption = 4
 	GetMajorPracticeTeachingPlanListReqOption_semester      GetMajorPracticeTeachingPlanListReqOption = 5
 	GetMajorPracticeTeachingPlanListReqOption_major         GetMajorPracticeTeachingPlanListReqOption = 6
+	GetMajorPracticeTeachingPlanListReqOption_is_fill       GetMajorPracticeTeachingPlanListReqOption = 7
 )
 
 func (p GetMajorPracticeTeachingPlanListReqOption) String() string {
@@ -178,6 +179,8 @@ func (p GetMajorPracticeTeachingPlanListReqOption) String() string {
 		return "semester"
 	case GetMajorPracticeTeachingPlanListReqOption_major:
 		return "major"
+	case GetMajorPracticeTeachingPlanListReqOption_is_fill:
+		return "is_fill"
 	}
 	return "<UNSET>"
 }
@@ -196,6 +199,8 @@ func GetMajorPracticeTeachingPlanListReqOptionFromString(s string) (GetMajorPrac
 		return GetMajorPracticeTeachingPlanListReqOption_semester, nil
 	case "major":
 		return GetMajorPracticeTeachingPlanListReqOption_major, nil
+	case "is_fill":
+		return GetMajorPracticeTeachingPlanListReqOption_is_fill, nil
 	}
 	return GetMajorPracticeTeachingPlanListReqOption(0), fmt.Errorf("not a valid GetMajorPracticeTeachingPlanListReqOption string")
 }
@@ -265,6 +270,8 @@ const (
 	GetPastMajorListOption_id                   GetPastMajorListOption = 1
 	GetPastMajorListOption_name                 GetPastMajorListOption = 2
 	GetPastMajorListOption_research_director_id GetPastMajorListOption = 3
+	GetPastMajorListOption_academic_year        GetPastMajorListOption = 4
+	GetPastMajorListOption_semester             GetPastMajorListOption = 5
 )
 
 func (p GetPastMajorListOption) String() string {
@@ -275,6 +282,10 @@ func (p GetPastMajorListOption) String() string {
 		return "name"
 	case GetPastMajorListOption_research_director_id:
 		return "research_director_id"
+	case GetPastMajorListOption_academic_year:
+		return "academic_year"
+	case GetPastMajorListOption_semester:
+		return "semester"
 	}
 	return "<UNSET>"
 }
@@ -287,6 +298,10 @@ func GetPastMajorListOptionFromString(s string) (GetPastMajorListOption, error) 
 		return GetPastMajorListOption_name, nil
 	case "research_director_id":
 		return GetPastMajorListOption_research_director_id, nil
+	case "academic_year":
+		return GetPastMajorListOption_academic_year, nil
+	case "semester":
+		return GetPastMajorListOption_semester, nil
 	}
 	return GetPastMajorListOption(0), fmt.Errorf("not a valid GetPastMajorListOption string")
 }
@@ -2825,8 +2840,9 @@ var fieldIDToName_GetPastMajorListReq = map[int16]string{
 }
 
 type GetPastMajorListResp struct {
-	List     []*ModelMajor  `thrift:"list,1" frugal:"1,default,list<ModelMajor>" json:"list"`
-	Paginate *base.Paginate `thrift:"paginate,2" frugal:"2,default,base.Paginate" json:"paginate"`
+	List      []*ModelMajor      `thrift:"list,1" frugal:"1,default,list<ModelMajor>" json:"list"`
+	Paginate  *base.Paginate     `thrift:"paginate,2" frugal:"2,default,base.Paginate" json:"paginate"`
+	BudgetMap map[string]float64 `thrift:"budget_map,3" frugal:"3,default,map<string:double>" json:"budget_total"`
 }
 
 func NewGetPastMajorListResp() *GetPastMajorListResp {
@@ -2848,11 +2864,18 @@ func (p *GetPastMajorListResp) GetPaginate() (v *base.Paginate) {
 	}
 	return p.Paginate
 }
+
+func (p *GetPastMajorListResp) GetBudgetMap() (v map[string]float64) {
+	return p.BudgetMap
+}
 func (p *GetPastMajorListResp) SetList(val []*ModelMajor) {
 	p.List = val
 }
 func (p *GetPastMajorListResp) SetPaginate(val *base.Paginate) {
 	p.Paginate = val
+}
+func (p *GetPastMajorListResp) SetBudgetMap(val map[string]float64) {
+	p.BudgetMap = val
 }
 
 func (p *GetPastMajorListResp) IsSetPaginate() bool {
@@ -2869,6 +2892,7 @@ func (p *GetPastMajorListResp) String() string {
 var fieldIDToName_GetPastMajorListResp = map[int16]string{
 	1: "list",
 	2: "paginate",
+	3: "budget_map",
 }
 
 type GetExportResultReq struct {
