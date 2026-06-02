@@ -2842,7 +2842,7 @@ var fieldIDToName_GetPastMajorListReq = map[int16]string{
 type GetPastMajorListResp struct {
 	List      []*ModelMajor      `thrift:"list,1" frugal:"1,default,list<ModelMajor>" json:"list"`
 	Paginate  *base.Paginate     `thrift:"paginate,2" frugal:"2,default,base.Paginate" json:"paginate"`
-	BudgetMap map[string]float64 `thrift:"budget_map,3" frugal:"3,default,map<string:double>" json:"budget_total"`
+	BudgetMap map[string]float64 `thrift:"budget_map,3" frugal:"3,default,map<string:double>" json:"budget_map"`
 }
 
 func NewGetPastMajorListResp() *GetPastMajorListResp {
