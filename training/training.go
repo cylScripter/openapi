@@ -1914,14 +1914,14 @@ type EditMajorPracticeTeachingPlanReq struct {
 	IsDelete          int32  `thrift:"is_delete,2" frugal:"2,default,i32" json:"is_delete"`
 	Major             string `thrift:"major,5" frugal:"5,default,string" json:"major"`
 	ClassName         string `thrift:"class_name,6" frugal:"6,default,string" json:"class_name"`
-	StudentNumber     int32  `thrift:"student_number,7" frugal:"7,default,i32" json:"student_number" binding:"required"`
-	CourseName        string `thrift:"course_name,8" frugal:"8,default,string" json:"course_name" binding:"required"`
+	StudentNumber     int32  `thrift:"student_number,7" frugal:"7,default,i32" json:"student_number"`
+	CourseName        string `thrift:"course_name,8" frugal:"8,default,string" json:"course_name"`
 	Week              int32  `thrift:"week,9" frugal:"9,default,i32" json:"week"binding:"required"`
 	EnterpriseName    string `thrift:"enterprise_name,10" frugal:"10,default,string" json:"enterprise_name"`
 	CostBudget        string `thrift:"cost_budget,11" frugal:"11,default,string" json:"cost_budget"`
 	CostBudgetExplain string `thrift:"cost_budget_explain,12" frugal:"12,default,string" json:"cost_budget_explain"`
-	AcademicYear      string `thrift:"academic_year,13" frugal:"13,default,string" json:"academic_year" binding:"required"`
-	Semester          string `thrift:"semester,14" frugal:"14,default,string" json:"semester" binding:"required"`
+	AcademicYear      string `thrift:"academic_year,13" frugal:"13,default,string" json:"academic_year" `
+	Semester          string `thrift:"semester,14" frugal:"14,default,string" json:"semester" `
 }
 
 func NewEditMajorPracticeTeachingPlanReq() *EditMajorPracticeTeachingPlanReq {
