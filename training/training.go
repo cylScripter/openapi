@@ -6249,6 +6249,8 @@ type ModelStuPracticeReport struct {
 	PracticeAddress          string  `thrift:"practice_address,29" frugal:"29,default,string" json:"practice_address" gorm:"column:practice_address"`
 	TeacherName              string  `thrift:"teacher_name,30" frugal:"30,default,string" json:"teacher_name" gorm:"column:teacher_name"`
 	TeacherId                string  `thrift:"teacher_id,31" frugal:"31,default,string" json:"teacher_id" gorm:"column:teacher_id"`
+	FillReportTime           float64 `thrift:"fill_report_time,32" frugal:"32,default,double" json:"fill_report_time" gorm:"column:fill_report_time"`
+	Status                   int32   `thrift:"status,33" frugal:"33,default,i32" json:"status" gorm:"column:status;default:1"`
 }
 
 func NewModelStuPracticeReport() *ModelStuPracticeReport {
@@ -6381,6 +6383,14 @@ func (p *ModelStuPracticeReport) GetTeacherName() (v string) {
 func (p *ModelStuPracticeReport) GetTeacherId() (v string) {
 	return p.TeacherId
 }
+
+func (p *ModelStuPracticeReport) GetFillReportTime() (v float64) {
+	return p.FillReportTime
+}
+
+func (p *ModelStuPracticeReport) GetStatus() (v int32) {
+	return p.Status
+}
 func (p *ModelStuPracticeReport) SetId(val int32) {
 	p.Id = val
 }
@@ -6474,6 +6484,12 @@ func (p *ModelStuPracticeReport) SetTeacherName(val string) {
 func (p *ModelStuPracticeReport) SetTeacherId(val string) {
 	p.TeacherId = val
 }
+func (p *ModelStuPracticeReport) SetFillReportTime(val float64) {
+	p.FillReportTime = val
+}
+func (p *ModelStuPracticeReport) SetStatus(val int32) {
+	p.Status = val
+}
 
 func (p *ModelStuPracticeReport) String() string {
 	if p == nil {
@@ -6514,6 +6530,8 @@ var fieldIDToName_ModelStuPracticeReport = map[int16]string{
 	29: "practice_address",
 	30: "teacher_name",
 	31: "teacher_id",
+	32: "fill_report_time",
+	33: "status",
 }
 
 type EnterpriseTeacher struct {

@@ -23458,6 +23458,34 @@ func (p *ModelStuPracticeReport) FastRead(buf []byte) (int, error) {
 					goto SkipFieldError
 				}
 			}
+		case 32:
+			if fieldTypeId == thrift.DOUBLE {
+				l, err = p.FastReadField32(buf[offset:])
+				offset += l
+				if err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
+				offset += l
+				if err != nil {
+					goto SkipFieldError
+				}
+			}
+		case 33:
+			if fieldTypeId == thrift.I32 {
+				l, err = p.FastReadField33(buf[offset:])
+				offset += l
+				if err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
+				offset += l
+				if err != nil {
+					goto SkipFieldError
+				}
+			}
 		default:
 			l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
 			offset += l
@@ -23910,6 +23938,34 @@ func (p *ModelStuPracticeReport) FastReadField31(buf []byte) (int, error) {
 	return offset, nil
 }
 
+func (p *ModelStuPracticeReport) FastReadField32(buf []byte) (int, error) {
+	offset := 0
+
+	var _field float64
+	if v, l, err := thrift.Binary.ReadDouble(buf[offset:]); err != nil {
+		return offset, err
+	} else {
+		offset += l
+		_field = v
+	}
+	p.FillReportTime = _field
+	return offset, nil
+}
+
+func (p *ModelStuPracticeReport) FastReadField33(buf []byte) (int, error) {
+	offset := 0
+
+	var _field int32
+	if v, l, err := thrift.Binary.ReadI32(buf[offset:]); err != nil {
+		return offset, err
+	} else {
+		offset += l
+		_field = v
+	}
+	p.Status = _field
+	return offset, nil
+}
+
 func (p *ModelStuPracticeReport) FastWrite(buf []byte) int {
 	return p.FastWriteNocopy(buf, nil)
 }
@@ -23930,6 +23986,8 @@ func (p *ModelStuPracticeReport) FastWriteNocopy(buf []byte, w thrift.NocopyWrit
 		offset += p.fastWriteField23(buf[offset:], w)
 		offset += p.fastWriteField24(buf[offset:], w)
 		offset += p.fastWriteField27(buf[offset:], w)
+		offset += p.fastWriteField32(buf[offset:], w)
+		offset += p.fastWriteField33(buf[offset:], w)
 		offset += p.fastWriteField5(buf[offset:], w)
 		offset += p.fastWriteField6(buf[offset:], w)
 		offset += p.fastWriteField7(buf[offset:], w)
@@ -23987,6 +24045,8 @@ func (p *ModelStuPracticeReport) BLength() int {
 		l += p.field29Length()
 		l += p.field30Length()
 		l += p.field31Length()
+		l += p.field32Length()
+		l += p.field33Length()
 	}
 	l += thrift.Binary.FieldStopLength()
 	return l
@@ -24209,6 +24269,20 @@ func (p *ModelStuPracticeReport) fastWriteField31(buf []byte, w thrift.NocopyWri
 	return offset
 }
 
+func (p *ModelStuPracticeReport) fastWriteField32(buf []byte, w thrift.NocopyWriter) int {
+	offset := 0
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.DOUBLE, 32)
+	offset += thrift.Binary.WriteDouble(buf[offset:], p.FillReportTime)
+	return offset
+}
+
+func (p *ModelStuPracticeReport) fastWriteField33(buf []byte, w thrift.NocopyWriter) int {
+	offset := 0
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 33)
+	offset += thrift.Binary.WriteI32(buf[offset:], p.Status)
+	return offset
+}
+
 func (p *ModelStuPracticeReport) field1Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
@@ -24423,6 +24497,20 @@ func (p *ModelStuPracticeReport) field31Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.StringLengthNocopy(p.TeacherId)
+	return l
+}
+
+func (p *ModelStuPracticeReport) field32Length() int {
+	l := 0
+	l += thrift.Binary.FieldBeginLength()
+	l += thrift.Binary.DoubleLength()
+	return l
+}
+
+func (p *ModelStuPracticeReport) field33Length() int {
+	l := 0
+	l += thrift.Binary.FieldBeginLength()
+	l += thrift.Binary.I32Length()
 	return l
 }
 
