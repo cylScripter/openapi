@@ -522,17 +522,20 @@ func (p *CourseType) Value() (driver.Value, error) {
 }
 
 type EditPracticeTeachingStatsReq struct {
-	Id                      int32  `thrift:"id,1" frugal:"1,default,i32" json:"id"`
-	StudentCount            int32  `thrift:"student_count,7" frugal:"7,default,i32" json:"student_count"`
-	ClassCount              int32  `thrift:"class_count,8" frugal:"8,default,i32" json:"class_count"`
-	ProjectCount            int32  `thrift:"project_count,9" frugal:"9,default,i32" json:"project_count"`
-	LocationCount           int32  `thrift:"location_count,10" frugal:"10,default,i32" json:"location_count"`
-	InstructorCount         int32  `thrift:"instructor_count,11" frugal:"11,default,i32" json:"instructor_count"`
-	InternalInstructorCount int32  `thrift:"internal_instructor_count,12" frugal:"12,default,i32" json:"internal_instructor_count"`
-	ExternalInstructorCount int32  `thrift:"external_instructor_count,13" frugal:"13,default,i32" json:"external_instructor_count"`
-	SafetyMeasures          string `thrift:"safety_measures,14" frugal:"14,default,string" json:"safety_measures"`
-	HasEmergencyPlan        int32  `thrift:"has_emergency_plan,19" frugal:"19,default,i32" json:"has_emergency_plan"`
-	IsDelete                int32  `thrift:"is_delete,20" frugal:"20,default,i32" json:"has_safety_measures"`
+	Id                        int32  `thrift:"id,1" frugal:"1,default,i32" json:"id"`
+	StudentCount              int32  `thrift:"student_count,7" frugal:"7,default,i32" json:"student_count"`
+	ClassCount                int32  `thrift:"class_count,8" frugal:"8,default,i32" json:"class_count"`
+	ProjectCount              int32  `thrift:"project_count,9" frugal:"9,default,i32" json:"project_count"`
+	LocationCount             int32  `thrift:"location_count,10" frugal:"10,default,i32" json:"location_count"`
+	InstructorCount           int32  `thrift:"instructor_count,11" frugal:"11,default,i32" json:"instructor_count"`
+	InternalInstructorCount   int32  `thrift:"internal_instructor_count,12" frugal:"12,default,i32" json:"internal_instructor_count"`
+	ExternalInstructorCount   int32  `thrift:"external_instructor_count,13" frugal:"13,default,i32" json:"external_instructor_count"`
+	SafetyMeasures            string `thrift:"safety_measures,14" frugal:"14,default,string" json:"safety_measures"`
+	HasEmergencyPlan          int32  `thrift:"has_emergency_plan,19" frugal:"19,default,i32" json:"has_emergency_plan"`
+	Type                      int32  `thrift:"type,18" frugal:"18,default,i32" json:"course_type" gorm:"column:course_type;default:1"`
+	OutsidePracticeTotalWeeks int32  `thrift:"outside_practice_total_weeks,20" frugal:"20,default,i32" json:"outside_practice_total_weeks" gorm:"column:outside_practice_total_weeks"`
+	LocationIsShenzhen        int32  `thrift:"location_is_shenzhen,21" frugal:"21,default,i32" json:"location_is_shenzhen" gorm:"column:location_is_shenzhen;default:2"`
+	IsDelete                  int32  `thrift:"is_delete,22" frugal:"22,default,i32" json:"has_safety_measures"`
 }
 
 func NewEditPracticeTeachingStatsReq() *EditPracticeTeachingStatsReq {
@@ -582,6 +585,18 @@ func (p *EditPracticeTeachingStatsReq) GetHasEmergencyPlan() (v int32) {
 	return p.HasEmergencyPlan
 }
 
+func (p *EditPracticeTeachingStatsReq) GetType() (v int32) {
+	return p.Type
+}
+
+func (p *EditPracticeTeachingStatsReq) GetOutsidePracticeTotalWeeks() (v int32) {
+	return p.OutsidePracticeTotalWeeks
+}
+
+func (p *EditPracticeTeachingStatsReq) GetLocationIsShenzhen() (v int32) {
+	return p.LocationIsShenzhen
+}
+
 func (p *EditPracticeTeachingStatsReq) GetIsDelete() (v int32) {
 	return p.IsDelete
 }
@@ -615,6 +630,15 @@ func (p *EditPracticeTeachingStatsReq) SetSafetyMeasures(val string) {
 func (p *EditPracticeTeachingStatsReq) SetHasEmergencyPlan(val int32) {
 	p.HasEmergencyPlan = val
 }
+func (p *EditPracticeTeachingStatsReq) SetType(val int32) {
+	p.Type = val
+}
+func (p *EditPracticeTeachingStatsReq) SetOutsidePracticeTotalWeeks(val int32) {
+	p.OutsidePracticeTotalWeeks = val
+}
+func (p *EditPracticeTeachingStatsReq) SetLocationIsShenzhen(val int32) {
+	p.LocationIsShenzhen = val
+}
 func (p *EditPracticeTeachingStatsReq) SetIsDelete(val int32) {
 	p.IsDelete = val
 }
@@ -637,7 +661,10 @@ var fieldIDToName_EditPracticeTeachingStatsReq = map[int16]string{
 	13: "external_instructor_count",
 	14: "safety_measures",
 	19: "has_emergency_plan",
-	20: "is_delete",
+	18: "type",
+	20: "outside_practice_total_weeks",
+	21: "location_is_shenzhen",
+	22: "is_delete",
 }
 
 type EditPracticeTeachingStatsResp struct {

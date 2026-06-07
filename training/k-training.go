@@ -183,9 +183,51 @@ func (p *EditPracticeTeachingStatsReq) FastRead(buf []byte) (int, error) {
 					goto SkipFieldError
 				}
 			}
+		case 18:
+			if fieldTypeId == thrift.I32 {
+				l, err = p.FastReadField18(buf[offset:])
+				offset += l
+				if err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
+				offset += l
+				if err != nil {
+					goto SkipFieldError
+				}
+			}
 		case 20:
 			if fieldTypeId == thrift.I32 {
 				l, err = p.FastReadField20(buf[offset:])
+				offset += l
+				if err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
+				offset += l
+				if err != nil {
+					goto SkipFieldError
+				}
+			}
+		case 21:
+			if fieldTypeId == thrift.I32 {
+				l, err = p.FastReadField21(buf[offset:])
+				offset += l
+				if err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
+				offset += l
+				if err != nil {
+					goto SkipFieldError
+				}
+			}
+		case 22:
+			if fieldTypeId == thrift.I32 {
+				l, err = p.FastReadField22(buf[offset:])
 				offset += l
 				if err != nil {
 					goto ReadFieldError
@@ -355,7 +397,49 @@ func (p *EditPracticeTeachingStatsReq) FastReadField19(buf []byte) (int, error) 
 	return offset, nil
 }
 
+func (p *EditPracticeTeachingStatsReq) FastReadField18(buf []byte) (int, error) {
+	offset := 0
+
+	var _field int32
+	if v, l, err := thrift.Binary.ReadI32(buf[offset:]); err != nil {
+		return offset, err
+	} else {
+		offset += l
+		_field = v
+	}
+	p.Type = _field
+	return offset, nil
+}
+
 func (p *EditPracticeTeachingStatsReq) FastReadField20(buf []byte) (int, error) {
+	offset := 0
+
+	var _field int32
+	if v, l, err := thrift.Binary.ReadI32(buf[offset:]); err != nil {
+		return offset, err
+	} else {
+		offset += l
+		_field = v
+	}
+	p.OutsidePracticeTotalWeeks = _field
+	return offset, nil
+}
+
+func (p *EditPracticeTeachingStatsReq) FastReadField21(buf []byte) (int, error) {
+	offset := 0
+
+	var _field int32
+	if v, l, err := thrift.Binary.ReadI32(buf[offset:]); err != nil {
+		return offset, err
+	} else {
+		offset += l
+		_field = v
+	}
+	p.LocationIsShenzhen = _field
+	return offset, nil
+}
+
+func (p *EditPracticeTeachingStatsReq) FastReadField22(buf []byte) (int, error) {
 	offset := 0
 
 	var _field int32
@@ -385,7 +469,10 @@ func (p *EditPracticeTeachingStatsReq) FastWriteNocopy(buf []byte, w thrift.Noco
 		offset += p.fastWriteField12(buf[offset:], w)
 		offset += p.fastWriteField13(buf[offset:], w)
 		offset += p.fastWriteField19(buf[offset:], w)
+		offset += p.fastWriteField18(buf[offset:], w)
 		offset += p.fastWriteField20(buf[offset:], w)
+		offset += p.fastWriteField21(buf[offset:], w)
+		offset += p.fastWriteField22(buf[offset:], w)
 		offset += p.fastWriteField14(buf[offset:], w)
 	}
 	offset += thrift.Binary.WriteFieldStop(buf[offset:])
@@ -405,7 +492,10 @@ func (p *EditPracticeTeachingStatsReq) BLength() int {
 		l += p.field13Length()
 		l += p.field14Length()
 		l += p.field19Length()
+		l += p.field18Length()
 		l += p.field20Length()
+		l += p.field21Length()
+		l += p.field22Length()
 	}
 	l += thrift.Binary.FieldStopLength()
 	return l
@@ -481,9 +571,30 @@ func (p *EditPracticeTeachingStatsReq) fastWriteField19(buf []byte, w thrift.Noc
 	return offset
 }
 
+func (p *EditPracticeTeachingStatsReq) fastWriteField18(buf []byte, w thrift.NocopyWriter) int {
+	offset := 0
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 18)
+	offset += thrift.Binary.WriteI32(buf[offset:], p.Type)
+	return offset
+}
+
 func (p *EditPracticeTeachingStatsReq) fastWriteField20(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 20)
+	offset += thrift.Binary.WriteI32(buf[offset:], p.OutsidePracticeTotalWeeks)
+	return offset
+}
+
+func (p *EditPracticeTeachingStatsReq) fastWriteField21(buf []byte, w thrift.NocopyWriter) int {
+	offset := 0
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 21)
+	offset += thrift.Binary.WriteI32(buf[offset:], p.LocationIsShenzhen)
+	return offset
+}
+
+func (p *EditPracticeTeachingStatsReq) fastWriteField22(buf []byte, w thrift.NocopyWriter) int {
+	offset := 0
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 22)
 	offset += thrift.Binary.WriteI32(buf[offset:], p.IsDelete)
 	return offset
 }
@@ -558,7 +669,28 @@ func (p *EditPracticeTeachingStatsReq) field19Length() int {
 	return l
 }
 
+func (p *EditPracticeTeachingStatsReq) field18Length() int {
+	l := 0
+	l += thrift.Binary.FieldBeginLength()
+	l += thrift.Binary.I32Length()
+	return l
+}
+
 func (p *EditPracticeTeachingStatsReq) field20Length() int {
+	l := 0
+	l += thrift.Binary.FieldBeginLength()
+	l += thrift.Binary.I32Length()
+	return l
+}
+
+func (p *EditPracticeTeachingStatsReq) field21Length() int {
+	l := 0
+	l += thrift.Binary.FieldBeginLength()
+	l += thrift.Binary.I32Length()
+	return l
+}
+
+func (p *EditPracticeTeachingStatsReq) field22Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.I32Length()
