@@ -342,6 +342,20 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"ListPracticeTeachingStats": kitex.NewMethodInfo(
+		listPracticeTeachingStatsHandler,
+		newTrainingserviceListPracticeTeachingStatsArgs,
+		newTrainingserviceListPracticeTeachingStatsResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"EditPracticeTeachingStats": kitex.NewMethodInfo(
+		editPracticeTeachingStatsHandler,
+		newTrainingserviceEditPracticeTeachingStatsArgs,
+		newTrainingserviceEditPracticeTeachingStatsResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -1254,6 +1268,42 @@ func newTrainingserviceEvaluatePracticeReportResult() interface{} {
 	return training.NewTrainingserviceEvaluatePracticeReportResult()
 }
 
+func listPracticeTeachingStatsHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceListPracticeTeachingStatsArgs)
+	realResult := result.(*training.TrainingserviceListPracticeTeachingStatsResult)
+	success, err := handler.(training.Trainingservice).ListPracticeTeachingStats(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceListPracticeTeachingStatsArgs() interface{} {
+	return training.NewTrainingserviceListPracticeTeachingStatsArgs()
+}
+
+func newTrainingserviceListPracticeTeachingStatsResult() interface{} {
+	return training.NewTrainingserviceListPracticeTeachingStatsResult()
+}
+
+func editPracticeTeachingStatsHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceEditPracticeTeachingStatsArgs)
+	realResult := result.(*training.TrainingserviceEditPracticeTeachingStatsResult)
+	success, err := handler.(training.Trainingservice).EditPracticeTeachingStats(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceEditPracticeTeachingStatsArgs() interface{} {
+	return training.NewTrainingserviceEditPracticeTeachingStatsArgs()
+}
+
+func newTrainingserviceEditPracticeTeachingStatsResult() interface{} {
+	return training.NewTrainingserviceEditPracticeTeachingStatsResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -1729,6 +1779,26 @@ func (p *kClient) EvaluatePracticeReport(ctx context.Context, req *training.Eval
 	_args.Req = req
 	var _result training.TrainingserviceEvaluatePracticeReportResult
 	if err = p.c.Call(ctx, "EvaluatePracticeReport", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ListPracticeTeachingStats(ctx context.Context, req *training.ListPracticeTeachingStatsReq) (r *training.ListPracticeTeachingStatsResp, err error) {
+	var _args training.TrainingserviceListPracticeTeachingStatsArgs
+	_args.Req = req
+	var _result training.TrainingserviceListPracticeTeachingStatsResult
+	if err = p.c.Call(ctx, "ListPracticeTeachingStats", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) EditPracticeTeachingStats(ctx context.Context, req *training.EditPracticeTeachingStatsReq) (r *training.EditPracticeTeachingStatsResp, err error) {
+	var _args training.TrainingserviceEditPracticeTeachingStatsArgs
+	_args.Req = req
+	var _result training.TrainingserviceEditPracticeTeachingStatsResult
+	if err = p.c.Call(ctx, "EditPracticeTeachingStats", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

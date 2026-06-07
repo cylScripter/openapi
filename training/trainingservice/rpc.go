@@ -240,3 +240,13 @@ func EvaluatePracticeReport(ctx context.Context, req *training.EvaluatePracticeR
 	clients := MustNewClient("training", callOptions...)
 	return clients.EvaluatePracticeReport(ctx, req)
 }
+
+func ListPracticeTeachingStats(ctx context.Context, req *training.ListPracticeTeachingStatsReq, callOptions ...client.Option) (resp *training.ListPracticeTeachingStatsResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.ListPracticeTeachingStats(ctx, req)
+}
+
+func EditPracticeTeachingStats(ctx context.Context, req *training.EditPracticeTeachingStatsReq, callOptions ...client.Option) (resp *training.EditPracticeTeachingStatsResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.EditPracticeTeachingStats(ctx, req)
+}

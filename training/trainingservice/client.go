@@ -58,6 +58,8 @@ type Client interface {
 	FillAttendance(ctx context.Context, req *training.FillAttendanceReq, callOptions ...callopt.Option) (r *training.FillAttendanceResp, err error)
 	EditAttendance(ctx context.Context, req *training.EditAttendanceReq, callOptions ...callopt.Option) (r *training.EditAttendanceResp, err error)
 	EvaluatePracticeReport(ctx context.Context, req *training.EvaluatePracticeReportReq, callOptions ...callopt.Option) (r *training.EvaluatePracticeReportResp, err error)
+	ListPracticeTeachingStats(ctx context.Context, req *training.ListPracticeTeachingStatsReq, callOptions ...callopt.Option) (r *training.ListPracticeTeachingStatsResp, err error)
+	EditPracticeTeachingStats(ctx context.Context, req *training.EditPracticeTeachingStatsReq, callOptions ...callopt.Option) (r *training.EditPracticeTeachingStatsResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -322,4 +324,14 @@ func (p *kTrainingserviceClient) EditAttendance(ctx context.Context, req *traini
 func (p *kTrainingserviceClient) EvaluatePracticeReport(ctx context.Context, req *training.EvaluatePracticeReportReq, callOptions ...callopt.Option) (r *training.EvaluatePracticeReportResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.EvaluatePracticeReport(ctx, req)
+}
+
+func (p *kTrainingserviceClient) ListPracticeTeachingStats(ctx context.Context, req *training.ListPracticeTeachingStatsReq, callOptions ...callopt.Option) (r *training.ListPracticeTeachingStatsResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ListPracticeTeachingStats(ctx, req)
+}
+
+func (p *kTrainingserviceClient) EditPracticeTeachingStats(ctx context.Context, req *training.EditPracticeTeachingStatsReq, callOptions ...callopt.Option) (r *training.EditPracticeTeachingStatsResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.EditPracticeTeachingStats(ctx, req)
 }

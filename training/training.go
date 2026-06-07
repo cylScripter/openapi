@@ -10,6 +10,70 @@ import (
 	"github.com/cylScripter/openapi/base"
 )
 
+type ListPracticeTeachingStatsReqOption int64
+
+const (
+	ListPracticeTeachingStatsReqOption_id            ListPracticeTeachingStatsReqOption = 1
+	ListPracticeTeachingStatsReqOption_grade         ListPracticeTeachingStatsReqOption = 2
+	ListPracticeTeachingStatsReqOption_major         ListPracticeTeachingStatsReqOption = 3
+	ListPracticeTeachingStatsReqOption_academic_year ListPracticeTeachingStatsReqOption = 4
+	ListPracticeTeachingStatsReqOption_semester      ListPracticeTeachingStatsReqOption = 5
+	ListPracticeTeachingStatsReqOption_type          ListPracticeTeachingStatsReqOption = 6
+)
+
+func (p ListPracticeTeachingStatsReqOption) String() string {
+	switch p {
+	case ListPracticeTeachingStatsReqOption_id:
+		return "id"
+	case ListPracticeTeachingStatsReqOption_grade:
+		return "grade"
+	case ListPracticeTeachingStatsReqOption_major:
+		return "major"
+	case ListPracticeTeachingStatsReqOption_academic_year:
+		return "academic_year"
+	case ListPracticeTeachingStatsReqOption_semester:
+		return "semester"
+	case ListPracticeTeachingStatsReqOption_type:
+		return "type"
+	}
+	return "<UNSET>"
+}
+
+func ListPracticeTeachingStatsReqOptionFromString(s string) (ListPracticeTeachingStatsReqOption, error) {
+	switch s {
+	case "id":
+		return ListPracticeTeachingStatsReqOption_id, nil
+	case "grade":
+		return ListPracticeTeachingStatsReqOption_grade, nil
+	case "major":
+		return ListPracticeTeachingStatsReqOption_major, nil
+	case "academic_year":
+		return ListPracticeTeachingStatsReqOption_academic_year, nil
+	case "semester":
+		return ListPracticeTeachingStatsReqOption_semester, nil
+	case "type":
+		return ListPracticeTeachingStatsReqOption_type, nil
+	}
+	return ListPracticeTeachingStatsReqOption(0), fmt.Errorf("not a valid ListPracticeTeachingStatsReqOption string")
+}
+
+func ListPracticeTeachingStatsReqOptionPtr(v ListPracticeTeachingStatsReqOption) *ListPracticeTeachingStatsReqOption {
+	return &v
+}
+func (p *ListPracticeTeachingStatsReqOption) Scan(value interface{}) (err error) {
+	var result sql.NullInt64
+	err = result.Scan(value)
+	*p = ListPracticeTeachingStatsReqOption(result.Int64)
+	return
+}
+
+func (p *ListPracticeTeachingStatsReqOption) Value() (driver.Value, error) {
+	if p == nil {
+		return nil, nil
+	}
+	return int64(*p), nil
+}
+
 type ListPracticeCourseEvaluationReqOption int64
 
 const (
@@ -455,6 +519,229 @@ func (p *CourseType) Value() (driver.Value, error) {
 		return nil, nil
 	}
 	return int64(*p), nil
+}
+
+type EditPracticeTeachingStatsReq struct {
+	Id                      int32  `thrift:"id,1" frugal:"1,default,i32" json:"id"`
+	StudentCount            int32  `thrift:"student_count,7" frugal:"7,default,i32" json:"student_count"`
+	ClassCount              int32  `thrift:"class_count,8" frugal:"8,default,i32" json:"class_count"`
+	ProjectCount            int32  `thrift:"project_count,9" frugal:"9,default,i32" json:"project_count"`
+	LocationCount           int32  `thrift:"location_count,10" frugal:"10,default,i32" json:"location_count"`
+	InstructorCount         int32  `thrift:"instructor_count,11" frugal:"11,default,i32" json:"instructor_count"`
+	InternalInstructorCount int32  `thrift:"internal_instructor_count,12" frugal:"12,default,i32" json:"internal_instructor_count"`
+	ExternalInstructorCount int32  `thrift:"external_instructor_count,13" frugal:"13,default,i32" json:"external_instructor_count"`
+	SafetyMeasures          string `thrift:"safety_measures,14" frugal:"14,default,string" json:"safety_measures"`
+	HasEmergencyPlan        int32  `thrift:"has_emergency_plan,19" frugal:"19,default,i32" json:"has_emergency_plan"`
+	IsDelete                int32  `thrift:"is_delete,20" frugal:"20,default,i32" json:"has_safety_measures"`
+}
+
+func NewEditPracticeTeachingStatsReq() *EditPracticeTeachingStatsReq {
+	return &EditPracticeTeachingStatsReq{}
+}
+
+func (p *EditPracticeTeachingStatsReq) InitDefault() {
+}
+
+func (p *EditPracticeTeachingStatsReq) GetId() (v int32) {
+	return p.Id
+}
+
+func (p *EditPracticeTeachingStatsReq) GetStudentCount() (v int32) {
+	return p.StudentCount
+}
+
+func (p *EditPracticeTeachingStatsReq) GetClassCount() (v int32) {
+	return p.ClassCount
+}
+
+func (p *EditPracticeTeachingStatsReq) GetProjectCount() (v int32) {
+	return p.ProjectCount
+}
+
+func (p *EditPracticeTeachingStatsReq) GetLocationCount() (v int32) {
+	return p.LocationCount
+}
+
+func (p *EditPracticeTeachingStatsReq) GetInstructorCount() (v int32) {
+	return p.InstructorCount
+}
+
+func (p *EditPracticeTeachingStatsReq) GetInternalInstructorCount() (v int32) {
+	return p.InternalInstructorCount
+}
+
+func (p *EditPracticeTeachingStatsReq) GetExternalInstructorCount() (v int32) {
+	return p.ExternalInstructorCount
+}
+
+func (p *EditPracticeTeachingStatsReq) GetSafetyMeasures() (v string) {
+	return p.SafetyMeasures
+}
+
+func (p *EditPracticeTeachingStatsReq) GetHasEmergencyPlan() (v int32) {
+	return p.HasEmergencyPlan
+}
+
+func (p *EditPracticeTeachingStatsReq) GetIsDelete() (v int32) {
+	return p.IsDelete
+}
+func (p *EditPracticeTeachingStatsReq) SetId(val int32) {
+	p.Id = val
+}
+func (p *EditPracticeTeachingStatsReq) SetStudentCount(val int32) {
+	p.StudentCount = val
+}
+func (p *EditPracticeTeachingStatsReq) SetClassCount(val int32) {
+	p.ClassCount = val
+}
+func (p *EditPracticeTeachingStatsReq) SetProjectCount(val int32) {
+	p.ProjectCount = val
+}
+func (p *EditPracticeTeachingStatsReq) SetLocationCount(val int32) {
+	p.LocationCount = val
+}
+func (p *EditPracticeTeachingStatsReq) SetInstructorCount(val int32) {
+	p.InstructorCount = val
+}
+func (p *EditPracticeTeachingStatsReq) SetInternalInstructorCount(val int32) {
+	p.InternalInstructorCount = val
+}
+func (p *EditPracticeTeachingStatsReq) SetExternalInstructorCount(val int32) {
+	p.ExternalInstructorCount = val
+}
+func (p *EditPracticeTeachingStatsReq) SetSafetyMeasures(val string) {
+	p.SafetyMeasures = val
+}
+func (p *EditPracticeTeachingStatsReq) SetHasEmergencyPlan(val int32) {
+	p.HasEmergencyPlan = val
+}
+func (p *EditPracticeTeachingStatsReq) SetIsDelete(val int32) {
+	p.IsDelete = val
+}
+
+func (p *EditPracticeTeachingStatsReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("EditPracticeTeachingStatsReq(%+v)", *p)
+}
+
+var fieldIDToName_EditPracticeTeachingStatsReq = map[int16]string{
+	1:  "id",
+	7:  "student_count",
+	8:  "class_count",
+	9:  "project_count",
+	10: "location_count",
+	11: "instructor_count",
+	12: "internal_instructor_count",
+	13: "external_instructor_count",
+	14: "safety_measures",
+	19: "has_emergency_plan",
+	20: "is_delete",
+}
+
+type EditPracticeTeachingStatsResp struct {
+}
+
+func NewEditPracticeTeachingStatsResp() *EditPracticeTeachingStatsResp {
+	return &EditPracticeTeachingStatsResp{}
+}
+
+func (p *EditPracticeTeachingStatsResp) InitDefault() {
+}
+
+func (p *EditPracticeTeachingStatsResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("EditPracticeTeachingStatsResp(%+v)", *p)
+}
+
+var fieldIDToName_EditPracticeTeachingStatsResp = map[int16]string{}
+
+type ListPracticeTeachingStatsReq struct {
+	ListOption *base.ListOption `thrift:"list_option,1" frugal:"1,default,base.ListOption" json:"list_option" binding:"required"`
+}
+
+func NewListPracticeTeachingStatsReq() *ListPracticeTeachingStatsReq {
+	return &ListPracticeTeachingStatsReq{}
+}
+
+func (p *ListPracticeTeachingStatsReq) InitDefault() {
+}
+
+var ListPracticeTeachingStatsReq_ListOption_DEFAULT *base.ListOption
+
+func (p *ListPracticeTeachingStatsReq) GetListOption() (v *base.ListOption) {
+	if !p.IsSetListOption() {
+		return ListPracticeTeachingStatsReq_ListOption_DEFAULT
+	}
+	return p.ListOption
+}
+func (p *ListPracticeTeachingStatsReq) SetListOption(val *base.ListOption) {
+	p.ListOption = val
+}
+
+func (p *ListPracticeTeachingStatsReq) IsSetListOption() bool {
+	return p.ListOption != nil
+}
+
+func (p *ListPracticeTeachingStatsReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ListPracticeTeachingStatsReq(%+v)", *p)
+}
+
+var fieldIDToName_ListPracticeTeachingStatsReq = map[int16]string{
+	1: "list_option",
+}
+
+type ListPracticeTeachingStatsResp struct {
+	List     []*ModelPracticeTeachingStats `thrift:"list,1" frugal:"1,default,list<ModelPracticeTeachingStats>" json:"list"`
+	Paginate *base.Paginate                `thrift:"paginate,2" frugal:"2,default,base.Paginate" json:"paginate"`
+}
+
+func NewListPracticeTeachingStatsResp() *ListPracticeTeachingStatsResp {
+	return &ListPracticeTeachingStatsResp{}
+}
+
+func (p *ListPracticeTeachingStatsResp) InitDefault() {
+}
+
+func (p *ListPracticeTeachingStatsResp) GetList() (v []*ModelPracticeTeachingStats) {
+	return p.List
+}
+
+var ListPracticeTeachingStatsResp_Paginate_DEFAULT *base.Paginate
+
+func (p *ListPracticeTeachingStatsResp) GetPaginate() (v *base.Paginate) {
+	if !p.IsSetPaginate() {
+		return ListPracticeTeachingStatsResp_Paginate_DEFAULT
+	}
+	return p.Paginate
+}
+func (p *ListPracticeTeachingStatsResp) SetList(val []*ModelPracticeTeachingStats) {
+	p.List = val
+}
+func (p *ListPracticeTeachingStatsResp) SetPaginate(val *base.Paginate) {
+	p.Paginate = val
+}
+
+func (p *ListPracticeTeachingStatsResp) IsSetPaginate() bool {
+	return p.Paginate != nil
+}
+
+func (p *ListPracticeTeachingStatsResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ListPracticeTeachingStatsResp(%+v)", *p)
+}
+
+var fieldIDToName_ListPracticeTeachingStatsResp = map[int16]string{
+	1: "list",
+	2: "paginate",
 }
 
 type EvaluatePracticeReportReq struct {
@@ -5854,25 +6141,27 @@ var fieldIDToName_ModelMajorPracticeTeachingPlan = map[int16]string{
 }
 
 type ModelPracticeTeachingStats struct {
-	Id                      int32  `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
-	CreatedAt               int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index" json:"created_at"`
-	UpdatedAt               int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at" json:"updated_at"`
-	DeletedAt               int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at" json:"deleted_at"`
-	Grade                   string `thrift:"grade,5" frugal:"5,default,string" json:"grade" gorm:"column:grade"`
-	Major                   string `thrift:"major,6" frugal:"6,default,string" json:"major" gorm:"column:major"`
-	StudentCount            int32  `thrift:"student_count,7" frugal:"7,default,i32" json:"student_count" gorm:"column:student_count"`
-	ClassCount              int32  `thrift:"class_count,8" frugal:"8,default,i32" json:"class_count" gorm:"column:class_count"`
-	ProjectCount            int32  `thrift:"project_count,9" frugal:"9,default,i32" json:"project_count" gorm:"column:project_count"`
-	LocationCount           int32  `thrift:"location_count,10" frugal:"10,default,i32" json:"location_count" gorm:"column:location_count"`
-	InstructorCount         int32  `thrift:"instructor_count,11" frugal:"11,default,i32" json:"instructor_count" gorm:"column:instructor_count"`
-	InternalInstructorCount int32  `thrift:"internal_instructor_count,12" frugal:"12,default,i32" json:"internal_instructor_count" gorm:"column:internal_instructor_count"`
-	ExternalInstructorCount int32  `thrift:"external_instructor_count,13" frugal:"13,default,i32" json:"external_instructor_count" gorm:"column:external_instructor_count"`
-	SafetyMeasures          string `thrift:"safety_measures,14" frugal:"14,default,string" json:"safety_measures" gorm:"column:safety_measures;type:text"`
-	AppId                   int32  `thrift:"app_id,15" frugal:"15,default,i32" json:"app_id" gorm:"column:app_id"`
-	AcademicYear            string `thrift:"academic_year,16" frugal:"16,default,string" json:"academic_year" gorm:"column:academic_year"`
-	Semester                string `thrift:"semester,17" frugal:"17,default,string" json:"semester" gorm:"column:semester"`
-	Type                    int32  `thrift:"type,18" frugal:"18,default,i32" json:"course_type" gorm:"column:course_type;default:1"`
-	HasEmergencyPlan        int32  `thrift:"has_emergency_plan,19" frugal:"19,default,i32" json:"has_emergency_plan" gorm:"column:has_emergency_plan;default:2"`
+	Id                        int32  `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
+	CreatedAt                 int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index" json:"created_at"`
+	UpdatedAt                 int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at" json:"updated_at"`
+	DeletedAt                 int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at" json:"deleted_at"`
+	Grade                     string `thrift:"grade,5" frugal:"5,default,string" json:"grade" gorm:"column:grade"`
+	Major                     string `thrift:"major,6" frugal:"6,default,string" json:"major" gorm:"column:major"`
+	StudentCount              int32  `thrift:"student_count,7" frugal:"7,default,i32" json:"student_count" gorm:"column:student_count"`
+	ClassCount                int32  `thrift:"class_count,8" frugal:"8,default,i32" json:"class_count" gorm:"column:class_count"`
+	ProjectCount              int32  `thrift:"project_count,9" frugal:"9,default,i32" json:"project_count" gorm:"column:project_count"`
+	LocationCount             int32  `thrift:"location_count,10" frugal:"10,default,i32" json:"location_count" gorm:"column:location_count"`
+	InstructorCount           int32  `thrift:"instructor_count,11" frugal:"11,default,i32" json:"instructor_count" gorm:"column:instructor_count"`
+	InternalInstructorCount   int32  `thrift:"internal_instructor_count,12" frugal:"12,default,i32" json:"internal_instructor_count" gorm:"column:internal_instructor_count"`
+	ExternalInstructorCount   int32  `thrift:"external_instructor_count,13" frugal:"13,default,i32" json:"external_instructor_count" gorm:"column:external_instructor_count"`
+	SafetyMeasures            string `thrift:"safety_measures,14" frugal:"14,default,string" json:"safety_measures" gorm:"column:safety_measures;type:text"`
+	AppId                     int32  `thrift:"app_id,15" frugal:"15,default,i32" json:"app_id" gorm:"column:app_id"`
+	AcademicYear              string `thrift:"academic_year,16" frugal:"16,default,string" json:"academic_year" gorm:"column:academic_year"`
+	Semester                  string `thrift:"semester,17" frugal:"17,default,string" json:"semester" gorm:"column:semester"`
+	Type                      int32  `thrift:"type,18" frugal:"18,default,i32" json:"course_type" gorm:"column:course_type;default:1"`
+	HasEmergencyPlan          int32  `thrift:"has_emergency_plan,19" frugal:"19,default,i32" json:"has_emergency_plan" gorm:"column:has_emergency_plan;default:2"`
+	OutsidePracticeTotalWeeks int32  `thrift:"outside_practice_total_weeks,20" frugal:"20,default,i32" json:"outside_practice_total_weeks" gorm:"column:outside_practice_total_weeks"`
+	LocationIsShenzhen        int32  `thrift:"location_is_shenzhen,21" frugal:"21,default,i32" json:"location_is_shenzhen" gorm:"column:location_is_shenzhen;default:2"`
 }
 
 func NewModelPracticeTeachingStats() *ModelPracticeTeachingStats {
@@ -5957,6 +6246,14 @@ func (p *ModelPracticeTeachingStats) GetType() (v int32) {
 func (p *ModelPracticeTeachingStats) GetHasEmergencyPlan() (v int32) {
 	return p.HasEmergencyPlan
 }
+
+func (p *ModelPracticeTeachingStats) GetOutsidePracticeTotalWeeks() (v int32) {
+	return p.OutsidePracticeTotalWeeks
+}
+
+func (p *ModelPracticeTeachingStats) GetLocationIsShenzhen() (v int32) {
+	return p.LocationIsShenzhen
+}
 func (p *ModelPracticeTeachingStats) SetId(val int32) {
 	p.Id = val
 }
@@ -6014,6 +6311,12 @@ func (p *ModelPracticeTeachingStats) SetType(val int32) {
 func (p *ModelPracticeTeachingStats) SetHasEmergencyPlan(val int32) {
 	p.HasEmergencyPlan = val
 }
+func (p *ModelPracticeTeachingStats) SetOutsidePracticeTotalWeeks(val int32) {
+	p.OutsidePracticeTotalWeeks = val
+}
+func (p *ModelPracticeTeachingStats) SetLocationIsShenzhen(val int32) {
+	p.LocationIsShenzhen = val
+}
 
 func (p *ModelPracticeTeachingStats) String() string {
 	if p == nil {
@@ -6042,6 +6345,8 @@ var fieldIDToName_ModelPracticeTeachingStats = map[int16]string{
 	17: "semester",
 	18: "type",
 	19: "has_emergency_plan",
+	20: "outside_practice_total_weeks",
+	21: "location_is_shenzhen",
 }
 
 type ModelPracticeCourseEvaluation struct {
@@ -6693,6 +6998,10 @@ type Trainingservice interface {
 	EditAttendance(ctx context.Context, req *EditAttendanceReq) (r *EditAttendanceResp, err error)
 
 	EvaluatePracticeReport(ctx context.Context, req *EvaluatePracticeReportReq) (r *EvaluatePracticeReportResp, err error)
+
+	ListPracticeTeachingStats(ctx context.Context, req *ListPracticeTeachingStatsReq) (r *ListPracticeTeachingStatsResp, err error)
+
+	EditPracticeTeachingStats(ctx context.Context, req *EditPracticeTeachingStatsReq) (r *EditPracticeTeachingStatsResp, err error)
 }
 
 type TrainingserviceImportTrainingCourseArgs struct {
@@ -10264,5 +10573,157 @@ func (p *TrainingserviceEvaluatePracticeReportResult) String() string {
 }
 
 var fieldIDToName_TrainingserviceEvaluatePracticeReportResult = map[int16]string{
+	0: "success",
+}
+
+type TrainingserviceListPracticeTeachingStatsArgs struct {
+	Req *ListPracticeTeachingStatsReq `thrift:"req,1" frugal:"1,default,ListPracticeTeachingStatsReq" json:"req"`
+}
+
+func NewTrainingserviceListPracticeTeachingStatsArgs() *TrainingserviceListPracticeTeachingStatsArgs {
+	return &TrainingserviceListPracticeTeachingStatsArgs{}
+}
+
+func (p *TrainingserviceListPracticeTeachingStatsArgs) InitDefault() {
+}
+
+var TrainingserviceListPracticeTeachingStatsArgs_Req_DEFAULT *ListPracticeTeachingStatsReq
+
+func (p *TrainingserviceListPracticeTeachingStatsArgs) GetReq() (v *ListPracticeTeachingStatsReq) {
+	if !p.IsSetReq() {
+		return TrainingserviceListPracticeTeachingStatsArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *TrainingserviceListPracticeTeachingStatsArgs) SetReq(val *ListPracticeTeachingStatsReq) {
+	p.Req = val
+}
+
+func (p *TrainingserviceListPracticeTeachingStatsArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *TrainingserviceListPracticeTeachingStatsArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceListPracticeTeachingStatsArgs(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceListPracticeTeachingStatsArgs = map[int16]string{
+	1: "req",
+}
+
+type TrainingserviceListPracticeTeachingStatsResult struct {
+	Success *ListPracticeTeachingStatsResp `thrift:"success,0,optional" frugal:"0,optional,ListPracticeTeachingStatsResp" json:"success,omitempty"`
+}
+
+func NewTrainingserviceListPracticeTeachingStatsResult() *TrainingserviceListPracticeTeachingStatsResult {
+	return &TrainingserviceListPracticeTeachingStatsResult{}
+}
+
+func (p *TrainingserviceListPracticeTeachingStatsResult) InitDefault() {
+}
+
+var TrainingserviceListPracticeTeachingStatsResult_Success_DEFAULT *ListPracticeTeachingStatsResp
+
+func (p *TrainingserviceListPracticeTeachingStatsResult) GetSuccess() (v *ListPracticeTeachingStatsResp) {
+	if !p.IsSetSuccess() {
+		return TrainingserviceListPracticeTeachingStatsResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *TrainingserviceListPracticeTeachingStatsResult) SetSuccess(x interface{}) {
+	p.Success = x.(*ListPracticeTeachingStatsResp)
+}
+
+func (p *TrainingserviceListPracticeTeachingStatsResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *TrainingserviceListPracticeTeachingStatsResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceListPracticeTeachingStatsResult(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceListPracticeTeachingStatsResult = map[int16]string{
+	0: "success",
+}
+
+type TrainingserviceEditPracticeTeachingStatsArgs struct {
+	Req *EditPracticeTeachingStatsReq `thrift:"req,1" frugal:"1,default,EditPracticeTeachingStatsReq" json:"req"`
+}
+
+func NewTrainingserviceEditPracticeTeachingStatsArgs() *TrainingserviceEditPracticeTeachingStatsArgs {
+	return &TrainingserviceEditPracticeTeachingStatsArgs{}
+}
+
+func (p *TrainingserviceEditPracticeTeachingStatsArgs) InitDefault() {
+}
+
+var TrainingserviceEditPracticeTeachingStatsArgs_Req_DEFAULT *EditPracticeTeachingStatsReq
+
+func (p *TrainingserviceEditPracticeTeachingStatsArgs) GetReq() (v *EditPracticeTeachingStatsReq) {
+	if !p.IsSetReq() {
+		return TrainingserviceEditPracticeTeachingStatsArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *TrainingserviceEditPracticeTeachingStatsArgs) SetReq(val *EditPracticeTeachingStatsReq) {
+	p.Req = val
+}
+
+func (p *TrainingserviceEditPracticeTeachingStatsArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *TrainingserviceEditPracticeTeachingStatsArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceEditPracticeTeachingStatsArgs(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceEditPracticeTeachingStatsArgs = map[int16]string{
+	1: "req",
+}
+
+type TrainingserviceEditPracticeTeachingStatsResult struct {
+	Success *EditPracticeTeachingStatsResp `thrift:"success,0,optional" frugal:"0,optional,EditPracticeTeachingStatsResp" json:"success,omitempty"`
+}
+
+func NewTrainingserviceEditPracticeTeachingStatsResult() *TrainingserviceEditPracticeTeachingStatsResult {
+	return &TrainingserviceEditPracticeTeachingStatsResult{}
+}
+
+func (p *TrainingserviceEditPracticeTeachingStatsResult) InitDefault() {
+}
+
+var TrainingserviceEditPracticeTeachingStatsResult_Success_DEFAULT *EditPracticeTeachingStatsResp
+
+func (p *TrainingserviceEditPracticeTeachingStatsResult) GetSuccess() (v *EditPracticeTeachingStatsResp) {
+	if !p.IsSetSuccess() {
+		return TrainingserviceEditPracticeTeachingStatsResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *TrainingserviceEditPracticeTeachingStatsResult) SetSuccess(x interface{}) {
+	p.Success = x.(*EditPracticeTeachingStatsResp)
+}
+
+func (p *TrainingserviceEditPracticeTeachingStatsResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *TrainingserviceEditPracticeTeachingStatsResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceEditPracticeTeachingStatsResult(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceEditPracticeTeachingStatsResult = map[int16]string{
 	0: "success",
 }
