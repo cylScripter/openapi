@@ -250,3 +250,8 @@ func EditPracticeTeachingStats(ctx context.Context, req *training.EditPracticeTe
 	clients := MustNewClient("training", callOptions...)
 	return clients.EditPracticeTeachingStats(ctx, req)
 }
+
+func PracticeTeachingStats(ctx context.Context, req *training.PracticeTeachingStatsReq, callOptions ...client.Option) (resp *training.PracticeTeachingStatsResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.PracticeTeachingStats(ctx, req)
+}

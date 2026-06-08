@@ -521,6 +521,73 @@ func (p *CourseType) Value() (driver.Value, error) {
 	return int64(*p), nil
 }
 
+type PracticeTeachingStatsReq struct {
+	AcademicYear string `thrift:"academic_year,1" frugal:"1,default,string" json:"academic_year"`
+	Semester     string `thrift:"semester,2" frugal:"2,default,string" json:"semester"`
+}
+
+func NewPracticeTeachingStatsReq() *PracticeTeachingStatsReq {
+	return &PracticeTeachingStatsReq{}
+}
+
+func (p *PracticeTeachingStatsReq) InitDefault() {
+}
+
+func (p *PracticeTeachingStatsReq) GetAcademicYear() (v string) {
+	return p.AcademicYear
+}
+
+func (p *PracticeTeachingStatsReq) GetSemester() (v string) {
+	return p.Semester
+}
+func (p *PracticeTeachingStatsReq) SetAcademicYear(val string) {
+	p.AcademicYear = val
+}
+func (p *PracticeTeachingStatsReq) SetSemester(val string) {
+	p.Semester = val
+}
+
+func (p *PracticeTeachingStatsReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("PracticeTeachingStatsReq(%+v)", *p)
+}
+
+var fieldIDToName_PracticeTeachingStatsReq = map[int16]string{
+	1: "academic_year",
+	2: "semester",
+}
+
+type PracticeTeachingStatsResp struct {
+	TaskKey string `thrift:"task_key,1" frugal:"1,default,string" json:"task_key"`
+}
+
+func NewPracticeTeachingStatsResp() *PracticeTeachingStatsResp {
+	return &PracticeTeachingStatsResp{}
+}
+
+func (p *PracticeTeachingStatsResp) InitDefault() {
+}
+
+func (p *PracticeTeachingStatsResp) GetTaskKey() (v string) {
+	return p.TaskKey
+}
+func (p *PracticeTeachingStatsResp) SetTaskKey(val string) {
+	p.TaskKey = val
+}
+
+func (p *PracticeTeachingStatsResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("PracticeTeachingStatsResp(%+v)", *p)
+}
+
+var fieldIDToName_PracticeTeachingStatsResp = map[int16]string{
+	1: "task_key",
+}
+
 type EditPracticeTeachingStatsReq struct {
 	Id                        int32  `thrift:"id,1" frugal:"1,default,i32" json:"id"`
 	StudentCount              int32  `thrift:"student_count,7" frugal:"7,default,i32" json:"student_count"`
@@ -7029,6 +7096,8 @@ type Trainingservice interface {
 	ListPracticeTeachingStats(ctx context.Context, req *ListPracticeTeachingStatsReq) (r *ListPracticeTeachingStatsResp, err error)
 
 	EditPracticeTeachingStats(ctx context.Context, req *EditPracticeTeachingStatsReq) (r *EditPracticeTeachingStatsResp, err error)
+
+	PracticeTeachingStats(ctx context.Context, req *PracticeTeachingStatsReq) (r *PracticeTeachingStatsResp, err error)
 }
 
 type TrainingserviceImportTrainingCourseArgs struct {
@@ -10752,5 +10821,81 @@ func (p *TrainingserviceEditPracticeTeachingStatsResult) String() string {
 }
 
 var fieldIDToName_TrainingserviceEditPracticeTeachingStatsResult = map[int16]string{
+	0: "success",
+}
+
+type TrainingservicePracticeTeachingStatsArgs struct {
+	Req *PracticeTeachingStatsReq `thrift:"req,1" frugal:"1,default,PracticeTeachingStatsReq" json:"req"`
+}
+
+func NewTrainingservicePracticeTeachingStatsArgs() *TrainingservicePracticeTeachingStatsArgs {
+	return &TrainingservicePracticeTeachingStatsArgs{}
+}
+
+func (p *TrainingservicePracticeTeachingStatsArgs) InitDefault() {
+}
+
+var TrainingservicePracticeTeachingStatsArgs_Req_DEFAULT *PracticeTeachingStatsReq
+
+func (p *TrainingservicePracticeTeachingStatsArgs) GetReq() (v *PracticeTeachingStatsReq) {
+	if !p.IsSetReq() {
+		return TrainingservicePracticeTeachingStatsArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *TrainingservicePracticeTeachingStatsArgs) SetReq(val *PracticeTeachingStatsReq) {
+	p.Req = val
+}
+
+func (p *TrainingservicePracticeTeachingStatsArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *TrainingservicePracticeTeachingStatsArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingservicePracticeTeachingStatsArgs(%+v)", *p)
+}
+
+var fieldIDToName_TrainingservicePracticeTeachingStatsArgs = map[int16]string{
+	1: "req",
+}
+
+type TrainingservicePracticeTeachingStatsResult struct {
+	Success *PracticeTeachingStatsResp `thrift:"success,0,optional" frugal:"0,optional,PracticeTeachingStatsResp" json:"success,omitempty"`
+}
+
+func NewTrainingservicePracticeTeachingStatsResult() *TrainingservicePracticeTeachingStatsResult {
+	return &TrainingservicePracticeTeachingStatsResult{}
+}
+
+func (p *TrainingservicePracticeTeachingStatsResult) InitDefault() {
+}
+
+var TrainingservicePracticeTeachingStatsResult_Success_DEFAULT *PracticeTeachingStatsResp
+
+func (p *TrainingservicePracticeTeachingStatsResult) GetSuccess() (v *PracticeTeachingStatsResp) {
+	if !p.IsSetSuccess() {
+		return TrainingservicePracticeTeachingStatsResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *TrainingservicePracticeTeachingStatsResult) SetSuccess(x interface{}) {
+	p.Success = x.(*PracticeTeachingStatsResp)
+}
+
+func (p *TrainingservicePracticeTeachingStatsResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *TrainingservicePracticeTeachingStatsResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingservicePracticeTeachingStatsResult(%+v)", *p)
+}
+
+var fieldIDToName_TrainingservicePracticeTeachingStatsResult = map[int16]string{
 	0: "success",
 }

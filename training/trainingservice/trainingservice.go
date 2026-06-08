@@ -356,6 +356,13 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"PracticeTeachingStats": kitex.NewMethodInfo(
+		practiceTeachingStatsHandler,
+		newTrainingservicePracticeTeachingStatsArgs,
+		newTrainingservicePracticeTeachingStatsResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -1304,6 +1311,24 @@ func newTrainingserviceEditPracticeTeachingStatsResult() interface{} {
 	return training.NewTrainingserviceEditPracticeTeachingStatsResult()
 }
 
+func practiceTeachingStatsHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingservicePracticeTeachingStatsArgs)
+	realResult := result.(*training.TrainingservicePracticeTeachingStatsResult)
+	success, err := handler.(training.Trainingservice).PracticeTeachingStats(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingservicePracticeTeachingStatsArgs() interface{} {
+	return training.NewTrainingservicePracticeTeachingStatsArgs()
+}
+
+func newTrainingservicePracticeTeachingStatsResult() interface{} {
+	return training.NewTrainingservicePracticeTeachingStatsResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -1799,6 +1824,16 @@ func (p *kClient) EditPracticeTeachingStats(ctx context.Context, req *training.E
 	_args.Req = req
 	var _result training.TrainingserviceEditPracticeTeachingStatsResult
 	if err = p.c.Call(ctx, "EditPracticeTeachingStats", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) PracticeTeachingStats(ctx context.Context, req *training.PracticeTeachingStatsReq) (r *training.PracticeTeachingStatsResp, err error) {
+	var _args training.TrainingservicePracticeTeachingStatsArgs
+	_args.Req = req
+	var _result training.TrainingservicePracticeTeachingStatsResult
+	if err = p.c.Call(ctx, "PracticeTeachingStats", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
