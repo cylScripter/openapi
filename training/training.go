@@ -6252,7 +6252,7 @@ type ModelPracticeTeachingStats struct {
 	AppId                     int32  `thrift:"app_id,15" frugal:"15,default,i32" json:"app_id" gorm:"column:app_id"`
 	AcademicYear              string `thrift:"academic_year,16" frugal:"16,default,string" json:"academic_year" gorm:"column:academic_year"`
 	Semester                  string `thrift:"semester,17" frugal:"17,default,string" json:"semester" gorm:"column:semester"`
-	Type                      int32  `thrift:"type,18" frugal:"18,default,i32" json:"course_type" gorm:"column:course_type;default:1"`
+	Type                      int32  `thrift:"type,18" frugal:"18,default,i32" json:"type" gorm:"column:type;default:1"`
 	HasEmergencyPlan          int32  `thrift:"has_emergency_plan,19" frugal:"19,default,i32" json:"has_emergency_plan" gorm:"column:has_emergency_plan;default:2"`
 	OutsidePracticeTotalWeeks int32  `thrift:"outside_practice_total_weeks,20" frugal:"20,default,i32" json:"outside_practice_total_weeks" gorm:"column:outside_practice_total_weeks"`
 	LocationIsShenzhen        int32  `thrift:"location_is_shenzhen,21" frugal:"21,default,i32" json:"location_is_shenzhen" gorm:"column:location_is_shenzhen;default:2"`
