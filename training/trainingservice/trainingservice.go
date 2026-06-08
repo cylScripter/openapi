@@ -363,6 +363,13 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"ExportPracticeTeachingStats": kitex.NewMethodInfo(
+		exportPracticeTeachingStatsHandler,
+		newTrainingserviceExportPracticeTeachingStatsArgs,
+		newTrainingserviceExportPracticeTeachingStatsResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -1329,6 +1336,24 @@ func newTrainingservicePracticeTeachingStatsResult() interface{} {
 	return training.NewTrainingservicePracticeTeachingStatsResult()
 }
 
+func exportPracticeTeachingStatsHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceExportPracticeTeachingStatsArgs)
+	realResult := result.(*training.TrainingserviceExportPracticeTeachingStatsResult)
+	success, err := handler.(training.Trainingservice).ExportPracticeTeachingStats(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceExportPracticeTeachingStatsArgs() interface{} {
+	return training.NewTrainingserviceExportPracticeTeachingStatsArgs()
+}
+
+func newTrainingserviceExportPracticeTeachingStatsResult() interface{} {
+	return training.NewTrainingserviceExportPracticeTeachingStatsResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -1834,6 +1859,16 @@ func (p *kClient) PracticeTeachingStats(ctx context.Context, req *training.Pract
 	_args.Req = req
 	var _result training.TrainingservicePracticeTeachingStatsResult
 	if err = p.c.Call(ctx, "PracticeTeachingStats", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ExportPracticeTeachingStats(ctx context.Context, req *training.ExportPracticeTeachingStatsReq) (r *training.ExportPracticeTeachingStatsResp, err error) {
+	var _args training.TrainingserviceExportPracticeTeachingStatsArgs
+	_args.Req = req
+	var _result training.TrainingserviceExportPracticeTeachingStatsResult
+	if err = p.c.Call(ctx, "ExportPracticeTeachingStats", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
