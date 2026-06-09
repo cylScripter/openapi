@@ -121,6 +121,11 @@ func GetClassroomList(ctx context.Context, req *training.GetClassroomListReq, ca
 	return clients.GetClassroomList(ctx, req)
 }
 
+func GetClassroomDetail(ctx context.Context, req *training.GetClassroomDetailReq, callOptions ...client.Option) (resp *training.GetClassroomDetailResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.GetClassroomDetail(ctx, req)
+}
+
 func ImportClassroom(ctx context.Context, req *training.ImportClassroomReq, callOptions ...client.Option) (resp *training.ImportClassroomResp, err error) {
 	clients := MustNewClient("training", callOptions...)
 	return clients.ImportClassroom(ctx, req)

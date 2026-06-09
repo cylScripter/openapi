@@ -174,6 +174,13 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"GetClassroomDetail": kitex.NewMethodInfo(
+		getClassroomDetailHandler,
+		newTrainingserviceGetClassroomDetailArgs,
+		newTrainingserviceGetClassroomDetailResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 	"ImportClassroom": kitex.NewMethodInfo(
 		importClassroomHandler,
 		newTrainingserviceImportClassroomArgs,
@@ -848,6 +855,24 @@ func newTrainingserviceGetClassroomListArgs() interface{} {
 
 func newTrainingserviceGetClassroomListResult() interface{} {
 	return training.NewTrainingserviceGetClassroomListResult()
+}
+
+func getClassroomDetailHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceGetClassroomDetailArgs)
+	realResult := result.(*training.TrainingserviceGetClassroomDetailResult)
+	success, err := handler.(training.Trainingservice).GetClassroomDetail(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceGetClassroomDetailArgs() interface{} {
+	return training.NewTrainingserviceGetClassroomDetailArgs()
+}
+
+func newTrainingserviceGetClassroomDetailResult() interface{} {
+	return training.NewTrainingserviceGetClassroomDetailResult()
 }
 
 func importClassroomHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
@@ -1589,6 +1614,16 @@ func (p *kClient) GetClassroomList(ctx context.Context, req *training.GetClassro
 	_args.Req = req
 	var _result training.TrainingserviceGetClassroomListResult
 	if err = p.c.Call(ctx, "GetClassroomList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetClassroomDetail(ctx context.Context, req *training.GetClassroomDetailReq) (r *training.GetClassroomDetailResp, err error) {
+	var _args training.TrainingserviceGetClassroomDetailArgs
+	_args.Req = req
+	var _result training.TrainingserviceGetClassroomDetailResult
+	if err = p.c.Call(ctx, "GetClassroomDetail", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

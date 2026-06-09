@@ -3159,6 +3159,73 @@ var fieldIDToName_GetClassroomListReq = map[int16]string{
 	1: "list_option",
 }
 
+type GetClassroomDetailResp struct {
+	Detail *ModelClassroom `thrift:"detail,1" frugal:"1,default,ModelClassroom" json:"detail"`
+}
+
+func NewGetClassroomDetailResp() *GetClassroomDetailResp {
+	return &GetClassroomDetailResp{}
+}
+
+func (p *GetClassroomDetailResp) InitDefault() {
+}
+
+var GetClassroomDetailResp_Detail_DEFAULT *ModelClassroom
+
+func (p *GetClassroomDetailResp) GetDetail() (v *ModelClassroom) {
+	if !p.IsSetDetail() {
+		return GetClassroomDetailResp_Detail_DEFAULT
+	}
+	return p.Detail
+}
+func (p *GetClassroomDetailResp) SetDetail(val *ModelClassroom) {
+	p.Detail = val
+}
+
+func (p *GetClassroomDetailResp) IsSetDetail() bool {
+	return p.Detail != nil
+}
+
+func (p *GetClassroomDetailResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("GetClassroomDetailResp(%+v)", *p)
+}
+
+var fieldIDToName_GetClassroomDetailResp = map[int16]string{
+	1: "detail",
+}
+
+type GetClassroomDetailReq struct {
+	Id int32 `thrift:"id,1" frugal:"1,default,i32" json:"id" binding:"required"`
+}
+
+func NewGetClassroomDetailReq() *GetClassroomDetailReq {
+	return &GetClassroomDetailReq{}
+}
+
+func (p *GetClassroomDetailReq) InitDefault() {
+}
+
+func (p *GetClassroomDetailReq) GetId() (v int32) {
+	return p.Id
+}
+func (p *GetClassroomDetailReq) SetId(val int32) {
+	p.Id = val
+}
+
+func (p *GetClassroomDetailReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("GetClassroomDetailReq(%+v)", *p)
+}
+
+var fieldIDToName_GetClassroomDetailReq = map[int16]string{
+	1: "id",
+}
+
 type UpdatePastMajorReq struct {
 	Id                 int32   `thrift:"id,1" frugal:"1,default,i32" json:"id" binding:"required"`
 	Name               string  `thrift:"name,2" frugal:"2,default,string" json:"name" binding:"required"`
@@ -7346,6 +7413,8 @@ type Trainingservice interface {
 
 	GetClassroomList(ctx context.Context, req *GetClassroomListReq) (r *GetClassroomListResp, err error)
 
+	GetClassroomDetail(ctx context.Context, req *GetClassroomDetailReq) (r *GetClassroomDetailResp, err error)
+
 	ImportClassroom(ctx context.Context, req *ImportClassroomReq) (r *ImportClassroomResp, err error)
 
 	EditClassroom(ctx context.Context, req *EditClassroomReq) (r *EditClassroomResp, err error)
@@ -9148,6 +9217,82 @@ func (p *TrainingserviceGetClassroomListResult) String() string {
 }
 
 var fieldIDToName_TrainingserviceGetClassroomListResult = map[int16]string{
+	0: "success",
+}
+
+type TrainingserviceGetClassroomDetailArgs struct {
+	Req *GetClassroomDetailReq `thrift:"req,1" frugal:"1,default,GetClassroomDetailReq" json:"req"`
+}
+
+func NewTrainingserviceGetClassroomDetailArgs() *TrainingserviceGetClassroomDetailArgs {
+	return &TrainingserviceGetClassroomDetailArgs{}
+}
+
+func (p *TrainingserviceGetClassroomDetailArgs) InitDefault() {
+}
+
+var TrainingserviceGetClassroomDetailArgs_Req_DEFAULT *GetClassroomDetailReq
+
+func (p *TrainingserviceGetClassroomDetailArgs) GetReq() (v *GetClassroomDetailReq) {
+	if !p.IsSetReq() {
+		return TrainingserviceGetClassroomDetailArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *TrainingserviceGetClassroomDetailArgs) SetReq(val *GetClassroomDetailReq) {
+	p.Req = val
+}
+
+func (p *TrainingserviceGetClassroomDetailArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *TrainingserviceGetClassroomDetailArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceGetClassroomDetailArgs(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceGetClassroomDetailArgs = map[int16]string{
+	1: "req",
+}
+
+type TrainingserviceGetClassroomDetailResult struct {
+	Success *GetClassroomDetailResp `thrift:"success,0,optional" frugal:"0,optional,GetClassroomDetailResp" json:"success,omitempty"`
+}
+
+func NewTrainingserviceGetClassroomDetailResult() *TrainingserviceGetClassroomDetailResult {
+	return &TrainingserviceGetClassroomDetailResult{}
+}
+
+func (p *TrainingserviceGetClassroomDetailResult) InitDefault() {
+}
+
+var TrainingserviceGetClassroomDetailResult_Success_DEFAULT *GetClassroomDetailResp
+
+func (p *TrainingserviceGetClassroomDetailResult) GetSuccess() (v *GetClassroomDetailResp) {
+	if !p.IsSetSuccess() {
+		return TrainingserviceGetClassroomDetailResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *TrainingserviceGetClassroomDetailResult) SetSuccess(x interface{}) {
+	p.Success = x.(*GetClassroomDetailResp)
+}
+
+func (p *TrainingserviceGetClassroomDetailResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *TrainingserviceGetClassroomDetailResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceGetClassroomDetailResult(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceGetClassroomDetailResult = map[int16]string{
 	0: "success",
 }
 

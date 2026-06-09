@@ -34,6 +34,7 @@ type Client interface {
 	AddPastMajor(ctx context.Context, req *training.AddPastMajorReq, callOptions ...callopt.Option) (r *training.AddPastMajorResp, err error)
 	UpdatePastMajor(ctx context.Context, req *training.UpdatePastMajorReq, callOptions ...callopt.Option) (r *training.UpdatePastMajorResp, err error)
 	GetClassroomList(ctx context.Context, req *training.GetClassroomListReq, callOptions ...callopt.Option) (r *training.GetClassroomListResp, err error)
+	GetClassroomDetail(ctx context.Context, req *training.GetClassroomDetailReq, callOptions ...callopt.Option) (r *training.GetClassroomDetailResp, err error)
 	ImportClassroom(ctx context.Context, req *training.ImportClassroomReq, callOptions ...callopt.Option) (r *training.ImportClassroomResp, err error)
 	EditClassroom(ctx context.Context, req *training.EditClassroomReq, callOptions ...callopt.Option) (r *training.EditClassroomResp, err error)
 	ExportMajorPracticeTeaching(ctx context.Context, req *training.ExportMajorPracticeTeachingReq, callOptions ...callopt.Option) (r *training.ExportMajorPracticeTeachingResp, err error)
@@ -206,6 +207,11 @@ func (p *kTrainingserviceClient) UpdatePastMajor(ctx context.Context, req *train
 func (p *kTrainingserviceClient) GetClassroomList(ctx context.Context, req *training.GetClassroomListReq, callOptions ...callopt.Option) (r *training.GetClassroomListResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.GetClassroomList(ctx, req)
+}
+
+func (p *kTrainingserviceClient) GetClassroomDetail(ctx context.Context, req *training.GetClassroomDetailReq, callOptions ...callopt.Option) (r *training.GetClassroomDetailResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetClassroomDetail(ctx, req)
 }
 
 func (p *kTrainingserviceClient) ImportClassroom(ctx context.Context, req *training.ImportClassroomReq, callOptions ...callopt.Option) (r *training.ImportClassroomResp, err error) {
