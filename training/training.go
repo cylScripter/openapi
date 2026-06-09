@@ -669,7 +669,7 @@ type EditPracticeTeachingStatsReq struct {
 	Type                      int32  `thrift:"type,18" frugal:"18,default,i32" json:"course_type" gorm:"column:course_type;default:1"`
 	OutsidePracticeTotalWeeks int32  `thrift:"outside_practice_total_weeks,20" frugal:"20,default,i32" json:"outside_practice_total_weeks" gorm:"column:outside_practice_total_weeks"`
 	LocationIsShenzhen        int32  `thrift:"location_is_shenzhen,21" frugal:"21,default,i32" json:"location_is_shenzhen" gorm:"column:location_is_shenzhen;default:2"`
-	IsDelete                  int32  `thrift:"is_delete,22" frugal:"22,default,i32" json:"has_safety_measures"`
+	IsDelete                  int32  `thrift:"is_delete,22" frugal:"22,default,i32" json:"is_delete"`
 }
 
 func NewEditPracticeTeachingStatsReq() *EditPracticeTeachingStatsReq {
@@ -2902,10 +2902,23 @@ func (p *EditClassroomResp) String() string {
 var fieldIDToName_EditClassroomResp = map[int16]string{}
 
 type EditClassroomReq struct {
-	Id       int32  `thrift:"id,1" frugal:"1,default,i32" json:"id"`
-	Name     string `thrift:"name,2" frugal:"2,default,string" json:"name" binding:"required"`
-	Location string `thrift:"location,3" frugal:"3,default,string" json:"location" binding:"required"`
-	IsDelete int32  `thrift:"is_delete,4" frugal:"4,default,i32" json:"is_delete"`
+	Id                  int32  `thrift:"id,1" frugal:"1,default,i32" json:"id"`
+	Name                string `thrift:"name,2" frugal:"2,default,string" json:"name" binding:"required"`
+	Location            string `thrift:"location,3" frugal:"3,default,string" json:"location" binding:"required"`
+	IsDelete            int32  `thrift:"is_delete,4" frugal:"4,default,i32" json:"is_delete"`
+	ComputerCount       int32  `thrift:"computer_count,5" frugal:"5,default,i32" json:"computer_count"`
+	SeatCount           int32  `thrift:"seat_count,6" frugal:"6,default,i32" json:"seat_count"`
+	ComputerBrand       string `thrift:"computer_brand,7" frugal:"7,default,string" json:"computer_brand"`
+	ComputerModel       string `thrift:"computer_model,8" frugal:"8,default,string" json:"computer_model"`
+	Cpu                 string `thrift:"cpu,9" frugal:"9,default,string" json:"cpu"`
+	Disk                string `thrift:"disk,10" frugal:"10,default,string" json:"disk"`
+	Memory              string `thrift:"memory,11" frugal:"11,default,string" json:"memory"`
+	HasDiscreteGraphics string `thrift:"has_discrete_graphics,12" frugal:"12,default,string" json:"has_discrete_graphics"`
+	Graphics            string `thrift:"graphics,13" frugal:"13,default,string" json:"graphics"`
+	MonitorSize         string `thrift:"monitor_size,14" frugal:"14,default,string" json:"monitor_size"`
+	OperatingSystem     string `thrift:"operating_system,15" frugal:"15,default,string" json:"operating_system"`
+	PurchaseDate        string `thrift:"purchase_date,16" frugal:"16,default,string" json:"purchase_date"`
+	StatisticsDate      string `thrift:"statistics_date,17" frugal:"17,default,string" json:"statistics_date"`
 }
 
 func NewEditClassroomReq() *EditClassroomReq {
@@ -2930,6 +2943,58 @@ func (p *EditClassroomReq) GetLocation() (v string) {
 func (p *EditClassroomReq) GetIsDelete() (v int32) {
 	return p.IsDelete
 }
+
+func (p *EditClassroomReq) GetComputerCount() (v int32) {
+	return p.ComputerCount
+}
+
+func (p *EditClassroomReq) GetSeatCount() (v int32) {
+	return p.SeatCount
+}
+
+func (p *EditClassroomReq) GetComputerBrand() (v string) {
+	return p.ComputerBrand
+}
+
+func (p *EditClassroomReq) GetComputerModel() (v string) {
+	return p.ComputerModel
+}
+
+func (p *EditClassroomReq) GetCpu() (v string) {
+	return p.Cpu
+}
+
+func (p *EditClassroomReq) GetDisk() (v string) {
+	return p.Disk
+}
+
+func (p *EditClassroomReq) GetMemory() (v string) {
+	return p.Memory
+}
+
+func (p *EditClassroomReq) GetHasDiscreteGraphics() (v string) {
+	return p.HasDiscreteGraphics
+}
+
+func (p *EditClassroomReq) GetGraphics() (v string) {
+	return p.Graphics
+}
+
+func (p *EditClassroomReq) GetMonitorSize() (v string) {
+	return p.MonitorSize
+}
+
+func (p *EditClassroomReq) GetOperatingSystem() (v string) {
+	return p.OperatingSystem
+}
+
+func (p *EditClassroomReq) GetPurchaseDate() (v string) {
+	return p.PurchaseDate
+}
+
+func (p *EditClassroomReq) GetStatisticsDate() (v string) {
+	return p.StatisticsDate
+}
 func (p *EditClassroomReq) SetId(val int32) {
 	p.Id = val
 }
@@ -2942,6 +3007,45 @@ func (p *EditClassroomReq) SetLocation(val string) {
 func (p *EditClassroomReq) SetIsDelete(val int32) {
 	p.IsDelete = val
 }
+func (p *EditClassroomReq) SetComputerCount(val int32) {
+	p.ComputerCount = val
+}
+func (p *EditClassroomReq) SetSeatCount(val int32) {
+	p.SeatCount = val
+}
+func (p *EditClassroomReq) SetComputerBrand(val string) {
+	p.ComputerBrand = val
+}
+func (p *EditClassroomReq) SetComputerModel(val string) {
+	p.ComputerModel = val
+}
+func (p *EditClassroomReq) SetCpu(val string) {
+	p.Cpu = val
+}
+func (p *EditClassroomReq) SetDisk(val string) {
+	p.Disk = val
+}
+func (p *EditClassroomReq) SetMemory(val string) {
+	p.Memory = val
+}
+func (p *EditClassroomReq) SetHasDiscreteGraphics(val string) {
+	p.HasDiscreteGraphics = val
+}
+func (p *EditClassroomReq) SetGraphics(val string) {
+	p.Graphics = val
+}
+func (p *EditClassroomReq) SetMonitorSize(val string) {
+	p.MonitorSize = val
+}
+func (p *EditClassroomReq) SetOperatingSystem(val string) {
+	p.OperatingSystem = val
+}
+func (p *EditClassroomReq) SetPurchaseDate(val string) {
+	p.PurchaseDate = val
+}
+func (p *EditClassroomReq) SetStatisticsDate(val string) {
+	p.StatisticsDate = val
+}
 
 func (p *EditClassroomReq) String() string {
 	if p == nil {
@@ -2951,10 +3055,23 @@ func (p *EditClassroomReq) String() string {
 }
 
 var fieldIDToName_EditClassroomReq = map[int16]string{
-	1: "id",
-	2: "name",
-	3: "location",
-	4: "is_delete",
+	1:  "id",
+	2:  "name",
+	3:  "location",
+	4:  "is_delete",
+	5:  "computer_count",
+	6:  "seat_count",
+	7:  "computer_brand",
+	8:  "computer_model",
+	9:  "cpu",
+	10: "disk",
+	11: "memory",
+	12: "has_discrete_graphics",
+	13: "graphics",
+	14: "monitor_size",
+	15: "operating_system",
+	16: "purchase_date",
+	17: "statistics_date",
 }
 
 type GetClassroomListResp struct {
@@ -5864,14 +5981,27 @@ var fieldIDToName_ModelTeacherCourseIndex = map[int16]string{
 }
 
 type ModelClassroom struct {
-	Id        int32  `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
-	CreatedAt int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index" json:"created_at"`
-	UpdatedAt int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at" json:"updated_at"`
-	DeletedAt int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at" json:"deleted_at"`
-	Name      string `thrift:"name,5" frugal:"5,default,string" json:"name" gorm:"column:name"`
-	AppId     int32  `thrift:"app_id,6" frugal:"6,default,i32" json:"app_id" gorm:"column:app_id"`
-	Orders    int32  `thrift:"orders,7" frugal:"7,default,i32" json:"orders" gorm:"column:orders"`
-	Location  string `thrift:"location,8" frugal:"8,default,string" json:"location" gorm:"column:location"`
+	Id                  int32  `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
+	CreatedAt           int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index" json:"created_at"`
+	UpdatedAt           int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at" json:"updated_at"`
+	DeletedAt           int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at" json:"deleted_at"`
+	Name                string `thrift:"name,5" frugal:"5,default,string" json:"name" gorm:"column:name"`
+	AppId               int32  `thrift:"app_id,6" frugal:"6,default,i32" json:"app_id" gorm:"column:app_id"`
+	Orders              int32  `thrift:"orders,7" frugal:"7,default,i32" json:"orders" gorm:"column:orders"`
+	Location            string `thrift:"location,8" frugal:"8,default,string" json:"location" gorm:"column:location"`
+	ComputerCount       int32  `thrift:"computer_count,9" frugal:"9,default,i32" json:"computer_count" gorm:"column:computer_count"`
+	SeatCount           int32  `thrift:"seat_count,10" frugal:"10,default,i32" json:"seat_count" gorm:"column:seat_count"`
+	ComputerBrand       string `thrift:"computer_brand,11" frugal:"11,default,string" json:"computer_brand" gorm:"column:computer_brand"`
+	ComputerModel       string `thrift:"computer_model,12" frugal:"12,default,string" json:"computer_model" gorm:"column:computer_model"`
+	Cpu                 string `thrift:"cpu,13" frugal:"13,default,string" json:"cpu" gorm:"column:cpu"`
+	Disk                string `thrift:"disk,14" frugal:"14,default,string" json:"disk" gorm:"column:disk"`
+	Memory              string `thrift:"memory,15" frugal:"15,default,string" json:"memory" gorm:"column:memory"`
+	HasDiscreteGraphics string `thrift:"has_discrete_graphics,16" frugal:"16,default,string" json:"has_discrete_graphics" gorm:"column:has_discrete_graphics"`
+	Graphics            string `thrift:"graphics,17" frugal:"17,default,string" json:"graphics" gorm:"column:graphics"`
+	MonitorSize         string `thrift:"monitor_size,18" frugal:"18,default,string" json:"monitor_size" gorm:"column:monitor_size"`
+	OperatingSystem     string `thrift:"operating_system,19" frugal:"19,default,string" json:"operating_system" gorm:"column:operating_system"`
+	PurchaseDate        string `thrift:"purchase_date,20" frugal:"20,default,string" json:"purchase_date" gorm:"column:purchase_date"`
+	StatisticsDate      string `thrift:"statistics_date,21" frugal:"21,default,string" json:"statistics_date" gorm:"column:statistics_date"`
 }
 
 func NewModelClassroom() *ModelClassroom {
@@ -5912,6 +6042,58 @@ func (p *ModelClassroom) GetOrders() (v int32) {
 func (p *ModelClassroom) GetLocation() (v string) {
 	return p.Location
 }
+
+func (p *ModelClassroom) GetComputerCount() (v int32) {
+	return p.ComputerCount
+}
+
+func (p *ModelClassroom) GetSeatCount() (v int32) {
+	return p.SeatCount
+}
+
+func (p *ModelClassroom) GetComputerBrand() (v string) {
+	return p.ComputerBrand
+}
+
+func (p *ModelClassroom) GetComputerModel() (v string) {
+	return p.ComputerModel
+}
+
+func (p *ModelClassroom) GetCpu() (v string) {
+	return p.Cpu
+}
+
+func (p *ModelClassroom) GetDisk() (v string) {
+	return p.Disk
+}
+
+func (p *ModelClassroom) GetMemory() (v string) {
+	return p.Memory
+}
+
+func (p *ModelClassroom) GetHasDiscreteGraphics() (v string) {
+	return p.HasDiscreteGraphics
+}
+
+func (p *ModelClassroom) GetGraphics() (v string) {
+	return p.Graphics
+}
+
+func (p *ModelClassroom) GetMonitorSize() (v string) {
+	return p.MonitorSize
+}
+
+func (p *ModelClassroom) GetOperatingSystem() (v string) {
+	return p.OperatingSystem
+}
+
+func (p *ModelClassroom) GetPurchaseDate() (v string) {
+	return p.PurchaseDate
+}
+
+func (p *ModelClassroom) GetStatisticsDate() (v string) {
+	return p.StatisticsDate
+}
 func (p *ModelClassroom) SetId(val int32) {
 	p.Id = val
 }
@@ -5936,6 +6118,45 @@ func (p *ModelClassroom) SetOrders(val int32) {
 func (p *ModelClassroom) SetLocation(val string) {
 	p.Location = val
 }
+func (p *ModelClassroom) SetComputerCount(val int32) {
+	p.ComputerCount = val
+}
+func (p *ModelClassroom) SetSeatCount(val int32) {
+	p.SeatCount = val
+}
+func (p *ModelClassroom) SetComputerBrand(val string) {
+	p.ComputerBrand = val
+}
+func (p *ModelClassroom) SetComputerModel(val string) {
+	p.ComputerModel = val
+}
+func (p *ModelClassroom) SetCpu(val string) {
+	p.Cpu = val
+}
+func (p *ModelClassroom) SetDisk(val string) {
+	p.Disk = val
+}
+func (p *ModelClassroom) SetMemory(val string) {
+	p.Memory = val
+}
+func (p *ModelClassroom) SetHasDiscreteGraphics(val string) {
+	p.HasDiscreteGraphics = val
+}
+func (p *ModelClassroom) SetGraphics(val string) {
+	p.Graphics = val
+}
+func (p *ModelClassroom) SetMonitorSize(val string) {
+	p.MonitorSize = val
+}
+func (p *ModelClassroom) SetOperatingSystem(val string) {
+	p.OperatingSystem = val
+}
+func (p *ModelClassroom) SetPurchaseDate(val string) {
+	p.PurchaseDate = val
+}
+func (p *ModelClassroom) SetStatisticsDate(val string) {
+	p.StatisticsDate = val
+}
 
 func (p *ModelClassroom) String() string {
 	if p == nil {
@@ -5945,14 +6166,27 @@ func (p *ModelClassroom) String() string {
 }
 
 var fieldIDToName_ModelClassroom = map[int16]string{
-	1: "id",
-	2: "created_at",
-	3: "updated_at",
-	4: "deleted_at",
-	5: "name",
-	6: "app_id",
-	7: "orders",
-	8: "location",
+	1:  "id",
+	2:  "created_at",
+	3:  "updated_at",
+	4:  "deleted_at",
+	5:  "name",
+	6:  "app_id",
+	7:  "orders",
+	8:  "location",
+	9:  "computer_count",
+	10: "seat_count",
+	11: "computer_brand",
+	12: "computer_model",
+	13: "cpu",
+	14: "disk",
+	15: "memory",
+	16: "has_discrete_graphics",
+	17: "graphics",
+	18: "monitor_size",
+	19: "operating_system",
+	20: "purchase_date",
+	21: "statistics_date",
 }
 
 type ModelTeachSchedule struct {
