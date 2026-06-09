@@ -2904,7 +2904,7 @@ var fieldIDToName_EditClassroomResp = map[int16]string{}
 type EditClassroomReq struct {
 	Id                  int32  `thrift:"id,1" frugal:"1,default,i32" json:"id"`
 	Name                string `thrift:"name,2" frugal:"2,default,string" json:"name" binding:"required"`
-	Location            string `thrift:"location,3" frugal:"3,default,string" json:"location" binding:"required"`
+	Location            string `thrift:"location,3" frugal:"3,default,string" json:"location"`
 	IsDelete            int32  `thrift:"is_delete,4" frugal:"4,default,i32" json:"is_delete"`
 	ComputerCount       int32  `thrift:"computer_count,5" frugal:"5,default,i32" json:"computer_count"`
 	SeatCount           int32  `thrift:"seat_count,6" frugal:"6,default,i32" json:"seat_count"`
