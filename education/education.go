@@ -2752,6 +2752,7 @@ var fieldIDToName_EditClassResp = map[int16]string{}
 
 type GetButtonPermissionReq struct {
 	ParentMenuName string `thrift:"parent_menu_name,1" frugal:"1,default,string" json:"parent_menu_name" binding:"required"`
+	MenuType       int32  `thrift:"menu_type,2" frugal:"2,default,i32" json:"menu_type"`
 }
 
 func NewGetButtonPermissionReq() *GetButtonPermissionReq {
@@ -2764,8 +2765,15 @@ func (p *GetButtonPermissionReq) InitDefault() {
 func (p *GetButtonPermissionReq) GetParentMenuName() (v string) {
 	return p.ParentMenuName
 }
+
+func (p *GetButtonPermissionReq) GetMenuType() (v int32) {
+	return p.MenuType
+}
 func (p *GetButtonPermissionReq) SetParentMenuName(val string) {
 	p.ParentMenuName = val
+}
+func (p *GetButtonPermissionReq) SetMenuType(val int32) {
+	p.MenuType = val
 }
 
 func (p *GetButtonPermissionReq) String() string {
@@ -2777,6 +2785,7 @@ func (p *GetButtonPermissionReq) String() string {
 
 var fieldIDToName_GetButtonPermissionReq = map[int16]string{
 	1: "parent_menu_name",
+	2: "menu_type",
 }
 
 type GetButtonPermissionResp struct {
