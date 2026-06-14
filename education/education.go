@@ -2809,12 +2809,15 @@ var fieldIDToName_GetButtonPermissionResp = map[int16]string{
 }
 
 type GetButtonPermissionRespItem struct {
-	Name      string `thrift:"name,1" frugal:"1,default,string" json:"name"`
-	Path      string `thrift:"path,2" frugal:"2,default,string" json:"path"`
-	Component string `thrift:"component,3" frugal:"3,default,string" json:"component"`
-	Redirect  string `thrift:"redirect,4" frugal:"4,default,string" json:"redirect"`
-	Title     string `thrift:"title,5" frugal:"5,default,string" json:"title"`
-	Icon      string `thrift:"icon,6" frugal:"6,default,string" json:"icon"`
+	Name        string         `thrift:"name,1" frugal:"1,default,string" json:"name"`
+	Path        string         `thrift:"path,2" frugal:"2,default,string" json:"path"`
+	Component   string         `thrift:"component,3" frugal:"3,default,string" json:"component"`
+	Redirect    string         `thrift:"redirect,4" frugal:"4,default,string" json:"redirect"`
+	Title       string         `thrift:"title,5" frugal:"5,default,string" json:"title"`
+	Icon        string         `thrift:"icon,6" frugal:"6,default,string" json:"icon"`
+	DynamicForm []*DynamicForm `thrift:"dynamic_form,7" frugal:"7,default,list<DynamicForm>" json:"dynamic_form"`
+	ExportApi   string         `thrift:"export_api,8" frugal:"8,default,string" json:"export_api"`
+	Method      string         `thrift:"method,9" frugal:"9,default,string" json:"method"`
 }
 
 func NewGetButtonPermissionRespItem() *GetButtonPermissionRespItem {
@@ -2847,6 +2850,18 @@ func (p *GetButtonPermissionRespItem) GetTitle() (v string) {
 func (p *GetButtonPermissionRespItem) GetIcon() (v string) {
 	return p.Icon
 }
+
+func (p *GetButtonPermissionRespItem) GetDynamicForm() (v []*DynamicForm) {
+	return p.DynamicForm
+}
+
+func (p *GetButtonPermissionRespItem) GetExportApi() (v string) {
+	return p.ExportApi
+}
+
+func (p *GetButtonPermissionRespItem) GetMethod() (v string) {
+	return p.Method
+}
 func (p *GetButtonPermissionRespItem) SetName(val string) {
 	p.Name = val
 }
@@ -2865,6 +2880,15 @@ func (p *GetButtonPermissionRespItem) SetTitle(val string) {
 func (p *GetButtonPermissionRespItem) SetIcon(val string) {
 	p.Icon = val
 }
+func (p *GetButtonPermissionRespItem) SetDynamicForm(val []*DynamicForm) {
+	p.DynamicForm = val
+}
+func (p *GetButtonPermissionRespItem) SetExportApi(val string) {
+	p.ExportApi = val
+}
+func (p *GetButtonPermissionRespItem) SetMethod(val string) {
+	p.Method = val
+}
 
 func (p *GetButtonPermissionRespItem) String() string {
 	if p == nil {
@@ -2880,6 +2904,9 @@ var fieldIDToName_GetButtonPermissionRespItem = map[int16]string{
 	4: "redirect",
 	5: "title",
 	6: "icon",
+	7: "dynamic_form",
+	8: "export_api",
+	9: "method",
 }
 
 type EditExamWorkloadResp struct {
@@ -11843,12 +11870,13 @@ func (p *GetMenuReq) String() string {
 var fieldIDToName_GetMenuReq = map[int16]string{}
 
 type MenuItem struct {
-	Component string      `thrift:"component,1" frugal:"1,default,string" json:"component"`
-	Meta      *Meta       `thrift:"meta,2" frugal:"2,default,Meta" json:"meta" gorm:"column:meta;embedded"`
-	Name      string      `thrift:"name,3" frugal:"3,default,string" json:"name"`
-	Path      string      `thrift:"path,4" frugal:"4,default,string" json:"path"`
-	Redirect  string      `thrift:"redirect,5" frugal:"5,default,string" json:"redirect"`
-	Children  []*MenuItem `thrift:"children,6" frugal:"6,default,list<MenuItem>" json:"children" gorm:"-"`
+	Component   string         `thrift:"component,1" frugal:"1,default,string" json:"component"`
+	Meta        *Meta          `thrift:"meta,2" frugal:"2,default,Meta" json:"meta" gorm:"column:meta;embedded"`
+	Name        string         `thrift:"name,3" frugal:"3,default,string" json:"name"`
+	Path        string         `thrift:"path,4" frugal:"4,default,string" json:"path"`
+	Redirect    string         `thrift:"redirect,5" frugal:"5,default,string" json:"redirect"`
+	Children    []*MenuItem    `thrift:"children,6" frugal:"6,default,list<MenuItem>" json:"children" gorm:"-"`
+	DynamicForm []*DynamicForm `thrift:"dynamic_form,7" frugal:"7,default,list<DynamicForm>" json:"dynamic_form" gorm:"-"`
 }
 
 func NewMenuItem() *MenuItem {
@@ -11886,6 +11914,10 @@ func (p *MenuItem) GetRedirect() (v string) {
 func (p *MenuItem) GetChildren() (v []*MenuItem) {
 	return p.Children
 }
+
+func (p *MenuItem) GetDynamicForm() (v []*DynamicForm) {
+	return p.DynamicForm
+}
 func (p *MenuItem) SetComponent(val string) {
 	p.Component = val
 }
@@ -11903,6 +11935,9 @@ func (p *MenuItem) SetRedirect(val string) {
 }
 func (p *MenuItem) SetChildren(val []*MenuItem) {
 	p.Children = val
+}
+func (p *MenuItem) SetDynamicForm(val []*DynamicForm) {
+	p.DynamicForm = val
 }
 
 func (p *MenuItem) IsSetMeta() bool {
@@ -11923,18 +11958,146 @@ var fieldIDToName_MenuItem = map[int16]string{
 	4: "path",
 	5: "redirect",
 	6: "children",
+	7: "dynamic_form",
+}
+
+type DynamicFormOption struct {
+	Label     string `thrift:"label,1" frugal:"1,default,string" json:"label"`
+	Value     string `thrift:"value,2" frugal:"2,default,string" json:"value"`
+	ValueType string `thrift:"value_type,3" frugal:"3,default,string" json:"value_type"`
+}
+
+func NewDynamicFormOption() *DynamicFormOption {
+	return &DynamicFormOption{}
+}
+
+func (p *DynamicFormOption) InitDefault() {
+}
+
+func (p *DynamicFormOption) GetLabel() (v string) {
+	return p.Label
+}
+
+func (p *DynamicFormOption) GetValue() (v string) {
+	return p.Value
+}
+
+func (p *DynamicFormOption) GetValueType() (v string) {
+	return p.ValueType
+}
+func (p *DynamicFormOption) SetLabel(val string) {
+	p.Label = val
+}
+func (p *DynamicFormOption) SetValue(val string) {
+	p.Value = val
+}
+func (p *DynamicFormOption) SetValueType(val string) {
+	p.ValueType = val
+}
+
+func (p *DynamicFormOption) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("DynamicFormOption(%+v)", *p)
+}
+
+var fieldIDToName_DynamicFormOption = map[int16]string{
+	1: "label",
+	2: "value",
+	3: "value_type",
+}
+
+type DynamicFormOptionApi struct {
+	Url        string `thrift:"url,1" frugal:"1,default,string" json:"url"`
+	Method     string `thrift:"method,2" frugal:"2,default,string" json:"method"`
+	Params     string `thrift:"params,3" frugal:"3,default,string" json:"params"`
+	DataPath   string `thrift:"data_path,4" frugal:"4,default,string" json:"data_path"`
+	LabelField string `thrift:"label_field,5" frugal:"5,default,string" json:"label_field"`
+	ValueField string `thrift:"value_field,6" frugal:"6,default,string" json:"value_field"`
+}
+
+func NewDynamicFormOptionApi() *DynamicFormOptionApi {
+	return &DynamicFormOptionApi{}
+}
+
+func (p *DynamicFormOptionApi) InitDefault() {
+}
+
+func (p *DynamicFormOptionApi) GetUrl() (v string) {
+	return p.Url
+}
+
+func (p *DynamicFormOptionApi) GetMethod() (v string) {
+	return p.Method
+}
+
+func (p *DynamicFormOptionApi) GetParams() (v string) {
+	return p.Params
+}
+
+func (p *DynamicFormOptionApi) GetDataPath() (v string) {
+	return p.DataPath
+}
+
+func (p *DynamicFormOptionApi) GetLabelField() (v string) {
+	return p.LabelField
+}
+
+func (p *DynamicFormOptionApi) GetValueField() (v string) {
+	return p.ValueField
+}
+func (p *DynamicFormOptionApi) SetUrl(val string) {
+	p.Url = val
+}
+func (p *DynamicFormOptionApi) SetMethod(val string) {
+	p.Method = val
+}
+func (p *DynamicFormOptionApi) SetParams(val string) {
+	p.Params = val
+}
+func (p *DynamicFormOptionApi) SetDataPath(val string) {
+	p.DataPath = val
+}
+func (p *DynamicFormOptionApi) SetLabelField(val string) {
+	p.LabelField = val
+}
+func (p *DynamicFormOptionApi) SetValueField(val string) {
+	p.ValueField = val
+}
+
+func (p *DynamicFormOptionApi) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("DynamicFormOptionApi(%+v)", *p)
+}
+
+var fieldIDToName_DynamicFormOptionApi = map[int16]string{
+	1: "url",
+	2: "method",
+	3: "params",
+	4: "data_path",
+	5: "label_field",
+	6: "value_field",
 }
 
 type DynamicForm struct {
-	Name        string `thrift:"name,1" frugal:"1,default,string" json:"name"`
-	Label       string `thrift:"label,2" frugal:"2,default,string" json:"label"`
-	Type        string `thrift:"type,3" frugal:"3,default,string" json:"type"`
-	Placeholder string `thrift:"placeholder,4" frugal:"4,default,string" json:"placeholder"`
-	Value       string `thrift:"value,5" frugal:"5,default,string" json:"value"`
-	Rules       string `thrift:"rules,6" frugal:"6,default,string" json:"rules"`
-	Options     string `thrift:"options,7" frugal:"7,default,string" json:"options"`
-	Description string `thrift:"description,8" frugal:"8,default,string" json:"description"`
-	Component   string `thrift:"component,9" frugal:"9,default,string" json:"component"`
+	Name         string                `thrift:"name,1" frugal:"1,default,string" json:"name"`
+	Label        string                `thrift:"label,2" frugal:"2,default,string" json:"label"`
+	Type         string                `thrift:"type,3" frugal:"3,default,string" json:"type"`
+	Placeholder  string                `thrift:"placeholder,4" frugal:"4,default,string" json:"placeholder"`
+	Value        string                `thrift:"value,5" frugal:"5,default,string" json:"value"`
+	Rules        string                `thrift:"rules,6" frugal:"6,default,string" json:"rules"`
+	Options      []*DynamicFormOption  `thrift:"options,7" frugal:"7,default,list<DynamicFormOption>" json:"options"`
+	Description  string                `thrift:"description,8" frugal:"8,default,string" json:"description"`
+	Component    string                `thrift:"component,9" frugal:"9,default,string" json:"component"`
+	DefaultValue string                `thrift:"default_value,10" frugal:"10,default,string" json:"default_value"`
+	Required     bool                  `thrift:"required,11" frugal:"11,default,bool" json:"required"`
+	Sort         int32                 `thrift:"sort,12" frugal:"12,default,i32" json:"sort"`
+	Hidden       bool                  `thrift:"hidden,13" frugal:"13,default,bool" json:"hidden"`
+	OptionSource string                `thrift:"option_source,14" frugal:"14,default,string" json:"option_source"`
+	OptionApi    *DynamicFormOptionApi `thrift:"option_api,15" frugal:"15,default,DynamicFormOptionApi" json:"option_api"`
 }
 
 func NewDynamicForm() *DynamicForm {
@@ -11968,7 +12131,7 @@ func (p *DynamicForm) GetRules() (v string) {
 	return p.Rules
 }
 
-func (p *DynamicForm) GetOptions() (v string) {
+func (p *DynamicForm) GetOptions() (v []*DynamicFormOption) {
 	return p.Options
 }
 
@@ -11978,6 +12141,35 @@ func (p *DynamicForm) GetDescription() (v string) {
 
 func (p *DynamicForm) GetComponent() (v string) {
 	return p.Component
+}
+
+func (p *DynamicForm) GetDefaultValue() (v string) {
+	return p.DefaultValue
+}
+
+func (p *DynamicForm) GetRequired() (v bool) {
+	return p.Required
+}
+
+func (p *DynamicForm) GetSort() (v int32) {
+	return p.Sort
+}
+
+func (p *DynamicForm) GetHidden() (v bool) {
+	return p.Hidden
+}
+
+func (p *DynamicForm) GetOptionSource() (v string) {
+	return p.OptionSource
+}
+
+var DynamicForm_OptionApi_DEFAULT *DynamicFormOptionApi
+
+func (p *DynamicForm) GetOptionApi() (v *DynamicFormOptionApi) {
+	if !p.IsSetOptionApi() {
+		return DynamicForm_OptionApi_DEFAULT
+	}
+	return p.OptionApi
 }
 func (p *DynamicForm) SetName(val string) {
 	p.Name = val
@@ -11997,7 +12189,7 @@ func (p *DynamicForm) SetValue(val string) {
 func (p *DynamicForm) SetRules(val string) {
 	p.Rules = val
 }
-func (p *DynamicForm) SetOptions(val string) {
+func (p *DynamicForm) SetOptions(val []*DynamicFormOption) {
 	p.Options = val
 }
 func (p *DynamicForm) SetDescription(val string) {
@@ -12005,6 +12197,28 @@ func (p *DynamicForm) SetDescription(val string) {
 }
 func (p *DynamicForm) SetComponent(val string) {
 	p.Component = val
+}
+func (p *DynamicForm) SetDefaultValue(val string) {
+	p.DefaultValue = val
+}
+func (p *DynamicForm) SetRequired(val bool) {
+	p.Required = val
+}
+func (p *DynamicForm) SetSort(val int32) {
+	p.Sort = val
+}
+func (p *DynamicForm) SetHidden(val bool) {
+	p.Hidden = val
+}
+func (p *DynamicForm) SetOptionSource(val string) {
+	p.OptionSource = val
+}
+func (p *DynamicForm) SetOptionApi(val *DynamicFormOptionApi) {
+	p.OptionApi = val
+}
+
+func (p *DynamicForm) IsSetOptionApi() bool {
+	return p.OptionApi != nil
 }
 
 func (p *DynamicForm) String() string {
@@ -12015,15 +12229,21 @@ func (p *DynamicForm) String() string {
 }
 
 var fieldIDToName_DynamicForm = map[int16]string{
-	1: "name",
-	2: "label",
-	3: "type",
-	4: "placeholder",
-	5: "value",
-	6: "rules",
-	7: "options",
-	8: "description",
-	9: "component",
+	1:  "name",
+	2:  "label",
+	3:  "type",
+	4:  "placeholder",
+	5:  "value",
+	6:  "rules",
+	7:  "options",
+	8:  "description",
+	9:  "component",
+	10: "default_value",
+	11: "required",
+	12: "sort",
+	13: "hidden",
+	14: "option_source",
+	15: "option_api",
 }
 
 type GetMenuResp struct {
@@ -15734,6 +15954,8 @@ type ModelMenu struct {
 	MenuType  int32        `thrift:"menu_type,13" frugal:"13,default,i32" json:"menu_type" gorm:"column:menu_type;default:1"`
 	MenuSide  int32        `thrift:"menu_side,14" frugal:"14,default,i32" json:"menu_side" gorm:"column:menu_side;default:1"`
 	Extend    string       `thrift:"extend,15" frugal:"15,default,string" json:"extend" gorm:"column:extend;type:text"`
+	ExportApi string       `thrift:"export_api,16" frugal:"16,default,string" json:"export_api" gorm:"column:export_api;type:text"`
+	Method    string       `thrift:"method,17" frugal:"17,default,string" json:"method" gorm:"column:method;default:post"`
 }
 
 func NewModelMenu() *ModelMenu {
@@ -15807,6 +16029,14 @@ func (p *ModelMenu) GetMenuSide() (v int32) {
 func (p *ModelMenu) GetExtend() (v string) {
 	return p.Extend
 }
+
+func (p *ModelMenu) GetExportApi() (v string) {
+	return p.ExportApi
+}
+
+func (p *ModelMenu) GetMethod() (v string) {
+	return p.Method
+}
 func (p *ModelMenu) SetId(val int32) {
 	p.Id = val
 }
@@ -15852,6 +16082,12 @@ func (p *ModelMenu) SetMenuSide(val int32) {
 func (p *ModelMenu) SetExtend(val string) {
 	p.Extend = val
 }
+func (p *ModelMenu) SetExportApi(val string) {
+	p.ExportApi = val
+}
+func (p *ModelMenu) SetMethod(val string) {
+	p.Method = val
+}
 
 func (p *ModelMenu) IsSetMeta() bool {
 	return p.Meta != nil
@@ -15880,6 +16116,8 @@ var fieldIDToName_ModelMenu = map[int16]string{
 	13: "menu_type",
 	14: "menu_side",
 	15: "extend",
+	16: "export_api",
+	17: "method",
 }
 
 type Meta struct {
