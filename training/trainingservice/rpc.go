@@ -265,3 +265,8 @@ func ExportPracticeTeachingStats(ctx context.Context, req *training.ExportPracti
 	clients := MustNewClient("training", callOptions...)
 	return clients.ExportPracticeTeachingStats(ctx, req)
 }
+
+func ExportCourseFillStatus(ctx context.Context, req *training.ExportCourseFillStatusReq, callOptions ...client.Option) (resp *training.ExportCourseFillStatusResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.ExportCourseFillStatus(ctx, req)
+}

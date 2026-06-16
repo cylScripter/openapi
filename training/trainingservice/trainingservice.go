@@ -377,6 +377,13 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"ExportCourseFillStatus": kitex.NewMethodInfo(
+		exportCourseFillStatusHandler,
+		newTrainingserviceExportCourseFillStatusArgs,
+		newTrainingserviceExportCourseFillStatusResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -1379,6 +1386,24 @@ func newTrainingserviceExportPracticeTeachingStatsResult() interface{} {
 	return training.NewTrainingserviceExportPracticeTeachingStatsResult()
 }
 
+func exportCourseFillStatusHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceExportCourseFillStatusArgs)
+	realResult := result.(*training.TrainingserviceExportCourseFillStatusResult)
+	success, err := handler.(training.Trainingservice).ExportCourseFillStatus(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceExportCourseFillStatusArgs() interface{} {
+	return training.NewTrainingserviceExportCourseFillStatusArgs()
+}
+
+func newTrainingserviceExportCourseFillStatusResult() interface{} {
+	return training.NewTrainingserviceExportCourseFillStatusResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -1904,6 +1929,16 @@ func (p *kClient) ExportPracticeTeachingStats(ctx context.Context, req *training
 	_args.Req = req
 	var _result training.TrainingserviceExportPracticeTeachingStatsResult
 	if err = p.c.Call(ctx, "ExportPracticeTeachingStats", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ExportCourseFillStatus(ctx context.Context, req *training.ExportCourseFillStatusReq) (r *training.ExportCourseFillStatusResp, err error) {
+	var _args training.TrainingserviceExportCourseFillStatusArgs
+	_args.Req = req
+	var _result training.TrainingserviceExportCourseFillStatusResult
+	if err = p.c.Call(ctx, "ExportCourseFillStatus", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
