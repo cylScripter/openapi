@@ -270,3 +270,8 @@ func ExportCourseFillStatus(ctx context.Context, req *training.ExportCourseFillS
 	clients := MustNewClient("training", callOptions...)
 	return clients.ExportCourseFillStatus(ctx, req)
 }
+
+func UploadEvaluationSign(ctx context.Context, req *training.UploadEvaluationSignReq, callOptions ...client.Option) (resp *training.UploadEvaluationSignResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.UploadEvaluationSign(ctx, req)
+}

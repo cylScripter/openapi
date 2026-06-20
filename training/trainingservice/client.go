@@ -64,6 +64,7 @@ type Client interface {
 	PracticeTeachingStats(ctx context.Context, req *training.PracticeTeachingStatsReq, callOptions ...callopt.Option) (r *training.PracticeTeachingStatsResp, err error)
 	ExportPracticeTeachingStats(ctx context.Context, req *training.ExportPracticeTeachingStatsReq, callOptions ...callopt.Option) (r *training.ExportPracticeTeachingStatsResp, err error)
 	ExportCourseFillStatus(ctx context.Context, req *training.ExportCourseFillStatusReq, callOptions ...callopt.Option) (r *training.ExportCourseFillStatusResp, err error)
+	UploadEvaluationSign(ctx context.Context, req *training.UploadEvaluationSignReq, callOptions ...callopt.Option) (r *training.UploadEvaluationSignResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -358,4 +359,9 @@ func (p *kTrainingserviceClient) ExportPracticeTeachingStats(ctx context.Context
 func (p *kTrainingserviceClient) ExportCourseFillStatus(ctx context.Context, req *training.ExportCourseFillStatusReq, callOptions ...callopt.Option) (r *training.ExportCourseFillStatusResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.ExportCourseFillStatus(ctx, req)
+}
+
+func (p *kTrainingserviceClient) UploadEvaluationSign(ctx context.Context, req *training.UploadEvaluationSignReq, callOptions ...callopt.Option) (r *training.UploadEvaluationSignResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.UploadEvaluationSign(ctx, req)
 }

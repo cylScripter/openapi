@@ -521,6 +521,72 @@ func (p *CourseType) Value() (driver.Value, error) {
 	return int64(*p), nil
 }
 
+type UploadEvaluationSignReq struct {
+	UploadId           string `thrift:"upload_id,1" frugal:"1,default,string" json:"upload_id"`
+	EvaluationSignType int32  `thrift:"evaluation_sign_type,2" frugal:"2,default,i32" json:"evaluation_sign_type"`
+	EvaluationId       int32  `thrift:"evaluation_id,3" frugal:"3,default,i32" json:"evaluation_id"`
+}
+
+func NewUploadEvaluationSignReq() *UploadEvaluationSignReq {
+	return &UploadEvaluationSignReq{}
+}
+
+func (p *UploadEvaluationSignReq) InitDefault() {
+}
+
+func (p *UploadEvaluationSignReq) GetUploadId() (v string) {
+	return p.UploadId
+}
+
+func (p *UploadEvaluationSignReq) GetEvaluationSignType() (v int32) {
+	return p.EvaluationSignType
+}
+
+func (p *UploadEvaluationSignReq) GetEvaluationId() (v int32) {
+	return p.EvaluationId
+}
+func (p *UploadEvaluationSignReq) SetUploadId(val string) {
+	p.UploadId = val
+}
+func (p *UploadEvaluationSignReq) SetEvaluationSignType(val int32) {
+	p.EvaluationSignType = val
+}
+func (p *UploadEvaluationSignReq) SetEvaluationId(val int32) {
+	p.EvaluationId = val
+}
+
+func (p *UploadEvaluationSignReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("UploadEvaluationSignReq(%+v)", *p)
+}
+
+var fieldIDToName_UploadEvaluationSignReq = map[int16]string{
+	1: "upload_id",
+	2: "evaluation_sign_type",
+	3: "evaluation_id",
+}
+
+type UploadEvaluationSignResp struct {
+}
+
+func NewUploadEvaluationSignResp() *UploadEvaluationSignResp {
+	return &UploadEvaluationSignResp{}
+}
+
+func (p *UploadEvaluationSignResp) InitDefault() {
+}
+
+func (p *UploadEvaluationSignResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("UploadEvaluationSignResp(%+v)", *p)
+}
+
+var fieldIDToName_UploadEvaluationSignResp = map[int16]string{}
+
 type ExportCourseFillStatusReq struct {
 	AcademicYear string `thrift:"academic_year,1" frugal:"1,default,string" json:"academic_year"`
 	Semester     string `thrift:"semester,2" frugal:"2,default,string" json:"semester"`
@@ -6879,23 +6945,25 @@ var fieldIDToName_ModelPracticeTeachingStats = map[int16]string{
 }
 
 type ModelPracticeCourseEvaluation struct {
-	Id            int32  `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
-	CreatedAt     int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index" json:"created_at"`
-	UpdatedAt     int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at" json:"updated_at"`
-	DeletedAt     int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at" json:"deleted_at"`
-	Name          string `thrift:"name,5" frugal:"5,default,string" json:"name" gorm:"column:name"`
-	Major         string `thrift:"major,6" frugal:"6,default,string" json:"major" gorm:"column:major"`
-	ClassName     string `thrift:"class_name,7" frugal:"7,default,string" json:"class_name" gorm:"column:class_name"`
-	Week          string `thrift:"week,8" frugal:"8,default,string" json:"week" gorm:"column:week"`
-	TeacherId     string `thrift:"teacher_id,9" frugal:"9,default,string" json:"teacher_id" gorm:"column:teacher_id"`
-	Status        int32  `thrift:"status,10" frugal:"10,default,i32" json:"status" gorm:"column:status;default:1"`
-	AcademicYear  string `thrift:"academic_year,11" frugal:"11,default,string" json:"academic_year" gorm:"column:academic_year"`
-	Semester      string `thrift:"semester,12" frugal:"12,default,string" json:"semester" gorm:"column:semester"`
-	AppId         int32  `thrift:"app_id,13" frugal:"13,default,i32" json:"app_id" gorm:"column:app_id"`
-	LastTeacherId string `thrift:"last_teacher_id,14" frugal:"14,default,string" json:"last_teacher_id" gorm:"column:last_teacher_id"`
-	LastTime      string `thrift:"last_time,15" frugal:"15,default,string" json:"last_time" gorm:"column:last_time"`
-	TeacherName   string `thrift:"teacher_name,16" frugal:"16,default,string" json:"teacher_name" gorm:"column:teacher_name"`
-	StudentNumber int32  `thrift:"student_number,17" frugal:"17,default,i32" json:"student_number" gorm:"column:student_number"`
+	Id                    int32  `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
+	CreatedAt             int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index" json:"created_at"`
+	UpdatedAt             int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at" json:"updated_at"`
+	DeletedAt             int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at" json:"deleted_at"`
+	Name                  string `thrift:"name,5" frugal:"5,default,string" json:"name" gorm:"column:name"`
+	Major                 string `thrift:"major,6" frugal:"6,default,string" json:"major" gorm:"column:major"`
+	ClassName             string `thrift:"class_name,7" frugal:"7,default,string" json:"class_name" gorm:"column:class_name"`
+	Week                  string `thrift:"week,8" frugal:"8,default,string" json:"week" gorm:"column:week"`
+	TeacherId             string `thrift:"teacher_id,9" frugal:"9,default,string" json:"teacher_id" gorm:"column:teacher_id"`
+	Status                int32  `thrift:"status,10" frugal:"10,default,i32" json:"status" gorm:"column:status;default:1"`
+	AcademicYear          string `thrift:"academic_year,11" frugal:"11,default,string" json:"academic_year" gorm:"column:academic_year"`
+	Semester              string `thrift:"semester,12" frugal:"12,default,string" json:"semester" gorm:"column:semester"`
+	AppId                 int32  `thrift:"app_id,13" frugal:"13,default,i32" json:"app_id" gorm:"column:app_id"`
+	LastTeacherId         string `thrift:"last_teacher_id,14" frugal:"14,default,string" json:"last_teacher_id" gorm:"column:last_teacher_id"`
+	LastTime              string `thrift:"last_time,15" frugal:"15,default,string" json:"last_time" gorm:"column:last_time"`
+	TeacherName           string `thrift:"teacher_name,16" frugal:"16,default,string" json:"teacher_name" gorm:"column:teacher_name"`
+	StudentNumber         int32  `thrift:"student_number,17" frugal:"17,default,i32" json:"student_number" gorm:"column:student_number"`
+	EnterpriseTeacherSign string `thrift:"enterprise_teacher_sign,18" frugal:"18,default,string" json:"enterprise_teacher_sign" gorm:"column:enterprise_teacher_sign;type:text"`
+	TeacherSign           string `thrift:"teacher_sign,19" frugal:"19,default,string" json:"teacher_sign" gorm:"column:teacher_sign;type:text"`
 }
 
 func NewModelPracticeCourseEvaluation() *ModelPracticeCourseEvaluation {
@@ -6972,6 +7040,14 @@ func (p *ModelPracticeCourseEvaluation) GetTeacherName() (v string) {
 func (p *ModelPracticeCourseEvaluation) GetStudentNumber() (v int32) {
 	return p.StudentNumber
 }
+
+func (p *ModelPracticeCourseEvaluation) GetEnterpriseTeacherSign() (v string) {
+	return p.EnterpriseTeacherSign
+}
+
+func (p *ModelPracticeCourseEvaluation) GetTeacherSign() (v string) {
+	return p.TeacherSign
+}
 func (p *ModelPracticeCourseEvaluation) SetId(val int32) {
 	p.Id = val
 }
@@ -7023,6 +7099,12 @@ func (p *ModelPracticeCourseEvaluation) SetTeacherName(val string) {
 func (p *ModelPracticeCourseEvaluation) SetStudentNumber(val int32) {
 	p.StudentNumber = val
 }
+func (p *ModelPracticeCourseEvaluation) SetEnterpriseTeacherSign(val string) {
+	p.EnterpriseTeacherSign = val
+}
+func (p *ModelPracticeCourseEvaluation) SetTeacherSign(val string) {
+	p.TeacherSign = val
+}
 
 func (p *ModelPracticeCourseEvaluation) String() string {
 	if p == nil {
@@ -7049,6 +7131,8 @@ var fieldIDToName_ModelPracticeCourseEvaluation = map[int16]string{
 	15: "last_time",
 	16: "teacher_name",
 	17: "student_number",
+	18: "enterprise_teacher_sign",
+	19: "teacher_sign",
 }
 
 type ModelStuPracticeReport struct {
@@ -7539,6 +7623,8 @@ type Trainingservice interface {
 	ExportPracticeTeachingStats(ctx context.Context, req *ExportPracticeTeachingStatsReq) (r *ExportPracticeTeachingStatsResp, err error)
 
 	ExportCourseFillStatus(ctx context.Context, req *ExportCourseFillStatusReq) (r *ExportCourseFillStatusResp, err error)
+
+	UploadEvaluationSign(ctx context.Context, req *UploadEvaluationSignReq) (r *UploadEvaluationSignResp, err error)
 }
 
 type TrainingserviceImportTrainingCourseArgs struct {
@@ -11566,5 +11652,81 @@ func (p *TrainingserviceExportCourseFillStatusResult) String() string {
 }
 
 var fieldIDToName_TrainingserviceExportCourseFillStatusResult = map[int16]string{
+	0: "success",
+}
+
+type TrainingserviceUploadEvaluationSignArgs struct {
+	Req *UploadEvaluationSignReq `thrift:"req,1" frugal:"1,default,UploadEvaluationSignReq" json:"req"`
+}
+
+func NewTrainingserviceUploadEvaluationSignArgs() *TrainingserviceUploadEvaluationSignArgs {
+	return &TrainingserviceUploadEvaluationSignArgs{}
+}
+
+func (p *TrainingserviceUploadEvaluationSignArgs) InitDefault() {
+}
+
+var TrainingserviceUploadEvaluationSignArgs_Req_DEFAULT *UploadEvaluationSignReq
+
+func (p *TrainingserviceUploadEvaluationSignArgs) GetReq() (v *UploadEvaluationSignReq) {
+	if !p.IsSetReq() {
+		return TrainingserviceUploadEvaluationSignArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *TrainingserviceUploadEvaluationSignArgs) SetReq(val *UploadEvaluationSignReq) {
+	p.Req = val
+}
+
+func (p *TrainingserviceUploadEvaluationSignArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *TrainingserviceUploadEvaluationSignArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceUploadEvaluationSignArgs(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceUploadEvaluationSignArgs = map[int16]string{
+	1: "req",
+}
+
+type TrainingserviceUploadEvaluationSignResult struct {
+	Success *UploadEvaluationSignResp `thrift:"success,0,optional" frugal:"0,optional,UploadEvaluationSignResp" json:"success,omitempty"`
+}
+
+func NewTrainingserviceUploadEvaluationSignResult() *TrainingserviceUploadEvaluationSignResult {
+	return &TrainingserviceUploadEvaluationSignResult{}
+}
+
+func (p *TrainingserviceUploadEvaluationSignResult) InitDefault() {
+}
+
+var TrainingserviceUploadEvaluationSignResult_Success_DEFAULT *UploadEvaluationSignResp
+
+func (p *TrainingserviceUploadEvaluationSignResult) GetSuccess() (v *UploadEvaluationSignResp) {
+	if !p.IsSetSuccess() {
+		return TrainingserviceUploadEvaluationSignResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *TrainingserviceUploadEvaluationSignResult) SetSuccess(x interface{}) {
+	p.Success = x.(*UploadEvaluationSignResp)
+}
+
+func (p *TrainingserviceUploadEvaluationSignResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *TrainingserviceUploadEvaluationSignResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceUploadEvaluationSignResult(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceUploadEvaluationSignResult = map[int16]string{
 	0: "success",
 }

@@ -384,6 +384,13 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"UploadEvaluationSign": kitex.NewMethodInfo(
+		uploadEvaluationSignHandler,
+		newTrainingserviceUploadEvaluationSignArgs,
+		newTrainingserviceUploadEvaluationSignResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -1404,6 +1411,24 @@ func newTrainingserviceExportCourseFillStatusResult() interface{} {
 	return training.NewTrainingserviceExportCourseFillStatusResult()
 }
 
+func uploadEvaluationSignHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceUploadEvaluationSignArgs)
+	realResult := result.(*training.TrainingserviceUploadEvaluationSignResult)
+	success, err := handler.(training.Trainingservice).UploadEvaluationSign(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceUploadEvaluationSignArgs() interface{} {
+	return training.NewTrainingserviceUploadEvaluationSignArgs()
+}
+
+func newTrainingserviceUploadEvaluationSignResult() interface{} {
+	return training.NewTrainingserviceUploadEvaluationSignResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -1939,6 +1964,16 @@ func (p *kClient) ExportCourseFillStatus(ctx context.Context, req *training.Expo
 	_args.Req = req
 	var _result training.TrainingserviceExportCourseFillStatusResult
 	if err = p.c.Call(ctx, "ExportCourseFillStatus", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) UploadEvaluationSign(ctx context.Context, req *training.UploadEvaluationSignReq) (r *training.UploadEvaluationSignResp, err error) {
+	var _args training.TrainingserviceUploadEvaluationSignArgs
+	_args.Req = req
+	var _result training.TrainingserviceUploadEvaluationSignResult
+	if err = p.c.Call(ctx, "UploadEvaluationSign", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
