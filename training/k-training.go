@@ -38985,7 +38985,7 @@ func (p *TrainingserviceExportCourseFillStatusResult) field0Length() int {
 	return l
 }
 
-func (p *TrainingserviceExportPracticeTeachingCheckRegisterArgs) FastRead(buf []byte) (int, error) {
+func (p *TrainingserviceExportPracticeCheckArgs) FastRead(buf []byte) (int, error) {
 
 	var err error
 	var offset int
@@ -39029,12 +39029,12 @@ func (p *TrainingserviceExportPracticeTeachingCheckRegisterArgs) FastRead(buf []
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_TrainingserviceExportPracticeTeachingCheckRegisterArgs[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_TrainingserviceExportPracticeCheckArgs[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 }
 
-func (p *TrainingserviceExportPracticeTeachingCheckRegisterArgs) FastReadField1(buf []byte) (int, error) {
+func (p *TrainingserviceExportPracticeCheckArgs) FastReadField1(buf []byte) (int, error) {
 	offset := 0
 	_field := NewExportPracticeCheckReq()
 	if l, err := _field.FastRead(buf[offset:]); err != nil {
@@ -39046,11 +39046,11 @@ func (p *TrainingserviceExportPracticeTeachingCheckRegisterArgs) FastReadField1(
 	return offset, nil
 }
 
-func (p *TrainingserviceExportPracticeTeachingCheckRegisterArgs) FastWrite(buf []byte) int {
+func (p *TrainingserviceExportPracticeCheckArgs) FastWrite(buf []byte) int {
 	return p.FastWriteNocopy(buf, nil)
 }
 
-func (p *TrainingserviceExportPracticeTeachingCheckRegisterArgs) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
+func (p *TrainingserviceExportPracticeCheckArgs) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p != nil {
 		offset += p.fastWriteField1(buf[offset:], w)
@@ -39059,7 +39059,7 @@ func (p *TrainingserviceExportPracticeTeachingCheckRegisterArgs) FastWriteNocopy
 	return offset
 }
 
-func (p *TrainingserviceExportPracticeTeachingCheckRegisterArgs) BLength() int {
+func (p *TrainingserviceExportPracticeCheckArgs) BLength() int {
 	l := 0
 	if p != nil {
 		l += p.field1Length()
@@ -39068,21 +39068,21 @@ func (p *TrainingserviceExportPracticeTeachingCheckRegisterArgs) BLength() int {
 	return l
 }
 
-func (p *TrainingserviceExportPracticeTeachingCheckRegisterArgs) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
+func (p *TrainingserviceExportPracticeCheckArgs) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRUCT, 1)
 	offset += p.Req.FastWriteNocopy(buf[offset:], w)
 	return offset
 }
 
-func (p *TrainingserviceExportPracticeTeachingCheckRegisterArgs) field1Length() int {
+func (p *TrainingserviceExportPracticeCheckArgs) field1Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += p.Req.BLength()
 	return l
 }
 
-func (p *TrainingserviceExportPracticeTeachingCheckRegisterResult) FastRead(buf []byte) (int, error) {
+func (p *TrainingserviceExportPracticeCheckResult) FastRead(buf []byte) (int, error) {
 
 	var err error
 	var offset int
@@ -39126,12 +39126,12 @@ func (p *TrainingserviceExportPracticeTeachingCheckRegisterResult) FastRead(buf 
 ReadFieldBeginError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d begin error: ", p, fieldId), err)
 ReadFieldError:
-	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_TrainingserviceExportPracticeTeachingCheckRegisterResult[fieldId]), err)
+	return offset, thrift.PrependError(fmt.Sprintf("%T read field %d '%s' error: ", p, fieldId, fieldIDToName_TrainingserviceExportPracticeCheckResult[fieldId]), err)
 SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 }
 
-func (p *TrainingserviceExportPracticeTeachingCheckRegisterResult) FastReadField0(buf []byte) (int, error) {
+func (p *TrainingserviceExportPracticeCheckResult) FastReadField0(buf []byte) (int, error) {
 	offset := 0
 	_field := NewExportPracticeCheckResp()
 	if l, err := _field.FastRead(buf[offset:]); err != nil {
@@ -39143,11 +39143,11 @@ func (p *TrainingserviceExportPracticeTeachingCheckRegisterResult) FastReadField
 	return offset, nil
 }
 
-func (p *TrainingserviceExportPracticeTeachingCheckRegisterResult) FastWrite(buf []byte) int {
+func (p *TrainingserviceExportPracticeCheckResult) FastWrite(buf []byte) int {
 	return p.FastWriteNocopy(buf, nil)
 }
 
-func (p *TrainingserviceExportPracticeTeachingCheckRegisterResult) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
+func (p *TrainingserviceExportPracticeCheckResult) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p != nil {
 		offset += p.fastWriteField0(buf[offset:], w)
@@ -39156,7 +39156,7 @@ func (p *TrainingserviceExportPracticeTeachingCheckRegisterResult) FastWriteNoco
 	return offset
 }
 
-func (p *TrainingserviceExportPracticeTeachingCheckRegisterResult) BLength() int {
+func (p *TrainingserviceExportPracticeCheckResult) BLength() int {
 	l := 0
 	if p != nil {
 		l += p.field0Length()
@@ -39165,7 +39165,7 @@ func (p *TrainingserviceExportPracticeTeachingCheckRegisterResult) BLength() int
 	return l
 }
 
-func (p *TrainingserviceExportPracticeTeachingCheckRegisterResult) fastWriteField0(buf []byte, w thrift.NocopyWriter) int {
+func (p *TrainingserviceExportPracticeCheckResult) fastWriteField0(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p.IsSetSuccess() {
 		offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRUCT, 0)
@@ -39174,7 +39174,7 @@ func (p *TrainingserviceExportPracticeTeachingCheckRegisterResult) fastWriteFiel
 	return offset
 }
 
-func (p *TrainingserviceExportPracticeTeachingCheckRegisterResult) field0Length() int {
+func (p *TrainingserviceExportPracticeCheckResult) field0Length() int {
 	l := 0
 	if p.IsSetSuccess() {
 		l += thrift.Binary.FieldBeginLength()
@@ -39805,11 +39805,11 @@ func (p *TrainingserviceExportCourseFillStatusResult) GetResult() interface{} {
 	return p.Success
 }
 
-func (p *TrainingserviceExportPracticeTeachingCheckRegisterArgs) GetFirstArgument() interface{} {
+func (p *TrainingserviceExportPracticeCheckArgs) GetFirstArgument() interface{} {
 	return p.Req
 }
 
-func (p *TrainingserviceExportPracticeTeachingCheckRegisterResult) GetResult() interface{} {
+func (p *TrainingserviceExportPracticeCheckResult) GetResult() interface{} {
 	return p.Success
 }
 

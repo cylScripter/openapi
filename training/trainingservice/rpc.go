@@ -271,9 +271,9 @@ func ExportCourseFillStatus(ctx context.Context, req *training.ExportCourseFillS
 	return clients.ExportCourseFillStatus(ctx, req)
 }
 
-func ExportPracticeTeachingCheckRegister(ctx context.Context, req *training.ExportPracticeCheckReq, callOptions ...client.Option) (resp *training.ExportPracticeCheckResp, err error) {
+func ExportPracticeCheck(ctx context.Context, req *training.ExportPracticeCheckReq, callOptions ...client.Option) (resp *training.ExportPracticeCheckResp, err error) {
 	clients := MustNewClient("training", callOptions...)
-	return clients.ExportPracticeTeachingCheckRegister(ctx, req)
+	return clients.ExportPracticeCheck(ctx, req)
 }
 
 func UploadEvaluationSign(ctx context.Context, req *training.UploadEvaluationSignReq, callOptions ...client.Option) (resp *training.UploadEvaluationSignResp, err error) {
