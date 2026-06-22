@@ -654,6 +654,73 @@ var fieldIDToName_ExportCourseFillStatusResp = map[int16]string{
 	1: "task_key",
 }
 
+type ExportPracticeCheckReq struct {
+	AcademicYear string `thrift:"academic_year,1" frugal:"1,default,string" json:"academic_year"`
+	Semester     string `thrift:"semester,2" frugal:"2,default,string" json:"semester"`
+}
+
+func NewExportPracticeCheckReq() *ExportPracticeCheckReq {
+	return &ExportPracticeCheckReq{}
+}
+
+func (p *ExportPracticeCheckReq) InitDefault() {
+}
+
+func (p *ExportPracticeCheckReq) GetAcademicYear() (v string) {
+	return p.AcademicYear
+}
+
+func (p *ExportPracticeCheckReq) GetSemester() (v string) {
+	return p.Semester
+}
+func (p *ExportPracticeCheckReq) SetAcademicYear(val string) {
+	p.AcademicYear = val
+}
+func (p *ExportPracticeCheckReq) SetSemester(val string) {
+	p.Semester = val
+}
+
+func (p *ExportPracticeCheckReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ExportPracticeCheckReq(%+v)", *p)
+}
+
+var fieldIDToName_ExportPracticeCheckReq = map[int16]string{
+	1: "academic_year",
+	2: "semester",
+}
+
+type ExportPracticeCheckResp struct {
+	TaskKey string `thrift:"task_key,1" frugal:"1,default,string" json:"task_key"`
+}
+
+func NewExportPracticeCheckResp() *ExportPracticeCheckResp {
+	return &ExportPracticeCheckResp{}
+}
+
+func (p *ExportPracticeCheckResp) InitDefault() {
+}
+
+func (p *ExportPracticeCheckResp) GetTaskKey() (v string) {
+	return p.TaskKey
+}
+func (p *ExportPracticeCheckResp) SetTaskKey(val string) {
+	p.TaskKey = val
+}
+
+func (p *ExportPracticeCheckResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ExportPracticeCheckResp(%+v)", *p)
+}
+
+var fieldIDToName_ExportPracticeCheckResp = map[int16]string{
+	1: "task_key",
+}
+
 type ExportPracticeTeachingStatsReq struct {
 	AcademicYear string `thrift:"academic_year,1" frugal:"1,default,string" json:"academic_year"`
 	Semester     string `thrift:"semester,2" frugal:"2,default,string" json:"semester"`
@@ -7624,6 +7691,8 @@ type Trainingservice interface {
 
 	ExportCourseFillStatus(ctx context.Context, req *ExportCourseFillStatusReq) (r *ExportCourseFillStatusResp, err error)
 
+	ExportPracticeTeachingCheckRegister(ctx context.Context, req *ExportPracticeCheckReq) (r *ExportPracticeCheckResp, err error)
+
 	UploadEvaluationSign(ctx context.Context, req *UploadEvaluationSignReq) (r *UploadEvaluationSignResp, err error)
 }
 
@@ -11652,6 +11721,82 @@ func (p *TrainingserviceExportCourseFillStatusResult) String() string {
 }
 
 var fieldIDToName_TrainingserviceExportCourseFillStatusResult = map[int16]string{
+	0: "success",
+}
+
+type TrainingserviceExportPracticeTeachingCheckRegisterArgs struct {
+	Req *ExportPracticeCheckReq `thrift:"req,1" frugal:"1,default,ExportPracticeCheckReq" json:"req"`
+}
+
+func NewTrainingserviceExportPracticeTeachingCheckRegisterArgs() *TrainingserviceExportPracticeTeachingCheckRegisterArgs {
+	return &TrainingserviceExportPracticeTeachingCheckRegisterArgs{}
+}
+
+func (p *TrainingserviceExportPracticeTeachingCheckRegisterArgs) InitDefault() {
+}
+
+var TrainingserviceExportPracticeTeachingCheckRegisterArgs_Req_DEFAULT *ExportPracticeCheckReq
+
+func (p *TrainingserviceExportPracticeTeachingCheckRegisterArgs) GetReq() (v *ExportPracticeCheckReq) {
+	if !p.IsSetReq() {
+		return TrainingserviceExportPracticeTeachingCheckRegisterArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *TrainingserviceExportPracticeTeachingCheckRegisterArgs) SetReq(val *ExportPracticeCheckReq) {
+	p.Req = val
+}
+
+func (p *TrainingserviceExportPracticeTeachingCheckRegisterArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *TrainingserviceExportPracticeTeachingCheckRegisterArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceExportPracticeTeachingCheckRegisterArgs(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceExportPracticeTeachingCheckRegisterArgs = map[int16]string{
+	1: "req",
+}
+
+type TrainingserviceExportPracticeTeachingCheckRegisterResult struct {
+	Success *ExportPracticeCheckResp `thrift:"success,0,optional" frugal:"0,optional,ExportPracticeCheckResp" json:"success,omitempty"`
+}
+
+func NewTrainingserviceExportPracticeTeachingCheckRegisterResult() *TrainingserviceExportPracticeTeachingCheckRegisterResult {
+	return &TrainingserviceExportPracticeTeachingCheckRegisterResult{}
+}
+
+func (p *TrainingserviceExportPracticeTeachingCheckRegisterResult) InitDefault() {
+}
+
+var TrainingserviceExportPracticeTeachingCheckRegisterResult_Success_DEFAULT *ExportPracticeCheckResp
+
+func (p *TrainingserviceExportPracticeTeachingCheckRegisterResult) GetSuccess() (v *ExportPracticeCheckResp) {
+	if !p.IsSetSuccess() {
+		return TrainingserviceExportPracticeTeachingCheckRegisterResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *TrainingserviceExportPracticeTeachingCheckRegisterResult) SetSuccess(x interface{}) {
+	p.Success = x.(*ExportPracticeCheckResp)
+}
+
+func (p *TrainingserviceExportPracticeTeachingCheckRegisterResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *TrainingserviceExportPracticeTeachingCheckRegisterResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceExportPracticeTeachingCheckRegisterResult(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceExportPracticeTeachingCheckRegisterResult = map[int16]string{
 	0: "success",
 }
 

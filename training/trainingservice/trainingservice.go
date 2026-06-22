@@ -384,6 +384,13 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"ExportPracticeTeachingCheckRegister": kitex.NewMethodInfo(
+		exportPracticeTeachingCheckRegisterHandler,
+		newTrainingserviceExportPracticeTeachingCheckRegisterArgs,
+		newTrainingserviceExportPracticeTeachingCheckRegisterResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 	"UploadEvaluationSign": kitex.NewMethodInfo(
 		uploadEvaluationSignHandler,
 		newTrainingserviceUploadEvaluationSignArgs,
@@ -1411,6 +1418,24 @@ func newTrainingserviceExportCourseFillStatusResult() interface{} {
 	return training.NewTrainingserviceExportCourseFillStatusResult()
 }
 
+func exportPracticeTeachingCheckRegisterHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceExportPracticeTeachingCheckRegisterArgs)
+	realResult := result.(*training.TrainingserviceExportPracticeTeachingCheckRegisterResult)
+	success, err := handler.(training.Trainingservice).ExportPracticeTeachingCheckRegister(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceExportPracticeTeachingCheckRegisterArgs() interface{} {
+	return training.NewTrainingserviceExportPracticeTeachingCheckRegisterArgs()
+}
+
+func newTrainingserviceExportPracticeTeachingCheckRegisterResult() interface{} {
+	return training.NewTrainingserviceExportPracticeTeachingCheckRegisterResult()
+}
+
 func uploadEvaluationSignHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
 	realArg := arg.(*training.TrainingserviceUploadEvaluationSignArgs)
 	realResult := result.(*training.TrainingserviceUploadEvaluationSignResult)
@@ -1964,6 +1989,16 @@ func (p *kClient) ExportCourseFillStatus(ctx context.Context, req *training.Expo
 	_args.Req = req
 	var _result training.TrainingserviceExportCourseFillStatusResult
 	if err = p.c.Call(ctx, "ExportCourseFillStatus", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ExportPracticeTeachingCheckRegister(ctx context.Context, req *training.ExportPracticeCheckReq) (r *training.ExportPracticeCheckResp, err error) {
+	var _args training.TrainingserviceExportPracticeTeachingCheckRegisterArgs
+	_args.Req = req
+	var _result training.TrainingserviceExportPracticeTeachingCheckRegisterResult
+	if err = p.c.Call(ctx, "ExportPracticeTeachingCheckRegister", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
