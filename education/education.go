@@ -20123,6 +20123,12 @@ type ModelClassStudent struct {
 	StudentName string `thrift:"student_name,8" frugal:"8,default,string" json:"student_name" gorm:"column:student_name"`
 	Grade       string `thrift:"grade,9" frugal:"9,default,string" json:"grade" gorm:"column:grade"`
 	ClassName   string `thrift:"class_name,10" frugal:"10,default,string" json:"class_name" gorm:"column:class_name"`
+	ClassType   string `thrift:"class_type,11" frugal:"11,default,string" json:"class_type" gorm:"column:class_type;default:1"`
+	MajorNo     string `thrift:"major_no,12" frugal:"12,default,string" json:"major_no" gorm:"column:major_no"`
+	MajorName   string `thrift:"major_name,13" frugal:"13,default,string" json:"major_name" gorm:"column:major_name"`
+	Sex         string `thrift:"sex,14" frugal:"14,default,string" json:"sex" gorm:"column:sex"`
+	ClassNo     string `thrift:"class_no,15" frugal:"15,default,string" json:"class_no" gorm:"column:class_no"`
+	Mobile      string `thrift:"mobile,16" frugal:"16,default,string" json:"mobile" gorm:"column:mobile"`
 }
 
 func NewModelClassStudent() *ModelClassStudent {
@@ -20171,6 +20177,30 @@ func (p *ModelClassStudent) GetGrade() (v string) {
 func (p *ModelClassStudent) GetClassName() (v string) {
 	return p.ClassName
 }
+
+func (p *ModelClassStudent) GetClassType() (v string) {
+	return p.ClassType
+}
+
+func (p *ModelClassStudent) GetMajorNo() (v string) {
+	return p.MajorNo
+}
+
+func (p *ModelClassStudent) GetMajorName() (v string) {
+	return p.MajorName
+}
+
+func (p *ModelClassStudent) GetSex() (v string) {
+	return p.Sex
+}
+
+func (p *ModelClassStudent) GetClassNo() (v string) {
+	return p.ClassNo
+}
+
+func (p *ModelClassStudent) GetMobile() (v string) {
+	return p.Mobile
+}
 func (p *ModelClassStudent) SetId(val int32) {
 	p.Id = val
 }
@@ -20201,6 +20231,24 @@ func (p *ModelClassStudent) SetGrade(val string) {
 func (p *ModelClassStudent) SetClassName(val string) {
 	p.ClassName = val
 }
+func (p *ModelClassStudent) SetClassType(val string) {
+	p.ClassType = val
+}
+func (p *ModelClassStudent) SetMajorNo(val string) {
+	p.MajorNo = val
+}
+func (p *ModelClassStudent) SetMajorName(val string) {
+	p.MajorName = val
+}
+func (p *ModelClassStudent) SetSex(val string) {
+	p.Sex = val
+}
+func (p *ModelClassStudent) SetClassNo(val string) {
+	p.ClassNo = val
+}
+func (p *ModelClassStudent) SetMobile(val string) {
+	p.Mobile = val
+}
 
 func (p *ModelClassStudent) String() string {
 	if p == nil {
@@ -20220,6 +20268,12 @@ var fieldIDToName_ModelClassStudent = map[int16]string{
 	8:  "student_name",
 	9:  "grade",
 	10: "class_name",
+	11: "class_type",
+	12: "major_no",
+	13: "major_name",
+	14: "sex",
+	15: "class_no",
+	16: "mobile",
 }
 
 type Educationservice interface {
