@@ -3433,6 +3433,7 @@ type UpdatePastMajorReq struct {
 	ResearchDirectorId string  `thrift:"research_director_id,4" frugal:"4,default,string" json:"research_director_id" binding:"required"`
 	ResearchDirector   string  `thrift:"research_director,5" frugal:"5,default,string" json:"research_director" binding:"required"`
 	BudgetTotal        float64 `thrift:"budget_total,6" frugal:"6,default,double" json:"budget_total" gorm:"column:budget_total"`
+	MajorNo            string  `thrift:"major_no,7" frugal:"7,default,string" json:"major_no"`
 }
 
 func NewUpdatePastMajorReq() *UpdatePastMajorReq {
@@ -3465,6 +3466,10 @@ func (p *UpdatePastMajorReq) GetResearchDirector() (v string) {
 func (p *UpdatePastMajorReq) GetBudgetTotal() (v float64) {
 	return p.BudgetTotal
 }
+
+func (p *UpdatePastMajorReq) GetMajorNo() (v string) {
+	return p.MajorNo
+}
 func (p *UpdatePastMajorReq) SetId(val int32) {
 	p.Id = val
 }
@@ -3483,6 +3488,9 @@ func (p *UpdatePastMajorReq) SetResearchDirector(val string) {
 func (p *UpdatePastMajorReq) SetBudgetTotal(val float64) {
 	p.BudgetTotal = val
 }
+func (p *UpdatePastMajorReq) SetMajorNo(val string) {
+	p.MajorNo = val
+}
 
 func (p *UpdatePastMajorReq) String() string {
 	if p == nil {
@@ -3498,6 +3506,7 @@ var fieldIDToName_UpdatePastMajorReq = map[int16]string{
 	4: "research_director_id",
 	5: "research_director",
 	6: "budget_total",
+	7: "major_no",
 }
 
 type UpdatePastMajorResp struct {
