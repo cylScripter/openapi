@@ -6038,6 +6038,7 @@ type ModelMajor struct {
 	ResearchDirector   string  `thrift:"research_director,8" frugal:"8,default,string" json:"research_director" gorm:"column:research_director"`
 	ResearchDirectorId string  `thrift:"research_director_id,9" frugal:"9,default,string" json:"research_director_id" gorm:"column:research_director_id"`
 	BudgetTotal        float64 `thrift:"budget_total,10" frugal:"10,default,double" json:"budget_total" gorm:"column:budget_total"`
+	MajorNo            string  `thrift:"major_no,11" frugal:"11,default,string" json:"major_no" gorm:"column:major_no"`
 }
 
 func NewModelMajor() *ModelMajor {
@@ -6086,6 +6087,10 @@ func (p *ModelMajor) GetResearchDirectorId() (v string) {
 func (p *ModelMajor) GetBudgetTotal() (v float64) {
 	return p.BudgetTotal
 }
+
+func (p *ModelMajor) GetMajorNo() (v string) {
+	return p.MajorNo
+}
 func (p *ModelMajor) SetId(val int32) {
 	p.Id = val
 }
@@ -6116,6 +6121,9 @@ func (p *ModelMajor) SetResearchDirectorId(val string) {
 func (p *ModelMajor) SetBudgetTotal(val float64) {
 	p.BudgetTotal = val
 }
+func (p *ModelMajor) SetMajorNo(val string) {
+	p.MajorNo = val
+}
 
 func (p *ModelMajor) String() string {
 	if p == nil {
@@ -6135,6 +6143,7 @@ var fieldIDToName_ModelMajor = map[int16]string{
 	8:  "research_director",
 	9:  "research_director_id",
 	10: "budget_total",
+	11: "major_no",
 }
 
 type ModelTeacherCourseIndex struct {
@@ -7031,6 +7040,7 @@ type ModelPracticeCourseEvaluation struct {
 	StudentNumber         int32  `thrift:"student_number,17" frugal:"17,default,i32" json:"student_number" gorm:"column:student_number"`
 	EnterpriseTeacherSign string `thrift:"enterprise_teacher_sign,18" frugal:"18,default,string" json:"enterprise_teacher_sign" gorm:"column:enterprise_teacher_sign;type:text"`
 	TeacherSign           string `thrift:"teacher_sign,19" frugal:"19,default,string" json:"teacher_sign" gorm:"column:teacher_sign;type:text"`
+	ProjectName           string `thrift:"project_name,20" frugal:"20,default,string" json:"project_name" gorm:"column:project_name"`
 }
 
 func NewModelPracticeCourseEvaluation() *ModelPracticeCourseEvaluation {
@@ -7115,6 +7125,10 @@ func (p *ModelPracticeCourseEvaluation) GetEnterpriseTeacherSign() (v string) {
 func (p *ModelPracticeCourseEvaluation) GetTeacherSign() (v string) {
 	return p.TeacherSign
 }
+
+func (p *ModelPracticeCourseEvaluation) GetProjectName() (v string) {
+	return p.ProjectName
+}
 func (p *ModelPracticeCourseEvaluation) SetId(val int32) {
 	p.Id = val
 }
@@ -7172,6 +7186,9 @@ func (p *ModelPracticeCourseEvaluation) SetEnterpriseTeacherSign(val string) {
 func (p *ModelPracticeCourseEvaluation) SetTeacherSign(val string) {
 	p.TeacherSign = val
 }
+func (p *ModelPracticeCourseEvaluation) SetProjectName(val string) {
+	p.ProjectName = val
+}
 
 func (p *ModelPracticeCourseEvaluation) String() string {
 	if p == nil {
@@ -7200,6 +7217,7 @@ var fieldIDToName_ModelPracticeCourseEvaluation = map[int16]string{
 	17: "student_number",
 	18: "enterprise_teacher_sign",
 	19: "teacher_sign",
+	20: "project_name",
 }
 
 type ModelStuPracticeReport struct {
@@ -7236,6 +7254,7 @@ type ModelStuPracticeReport struct {
 	TeacherId                string  `thrift:"teacher_id,31" frugal:"31,default,string" json:"teacher_id" gorm:"column:teacher_id"`
 	FillReportTime           float64 `thrift:"fill_report_time,32" frugal:"32,default,double" json:"fill_report_time" gorm:"column:fill_report_time"`
 	Status                   int32   `thrift:"status,33" frugal:"33,default,i32" json:"status" gorm:"column:status;default:1"`
+	ProjectName              string  `thrift:"project_name,34" frugal:"34,default,string" json:"project_name" gorm:"column:project_name"`
 }
 
 func NewModelStuPracticeReport() *ModelStuPracticeReport {
@@ -7376,6 +7395,10 @@ func (p *ModelStuPracticeReport) GetFillReportTime() (v float64) {
 func (p *ModelStuPracticeReport) GetStatus() (v int32) {
 	return p.Status
 }
+
+func (p *ModelStuPracticeReport) GetProjectName() (v string) {
+	return p.ProjectName
+}
 func (p *ModelStuPracticeReport) SetId(val int32) {
 	p.Id = val
 }
@@ -7475,6 +7498,9 @@ func (p *ModelStuPracticeReport) SetFillReportTime(val float64) {
 func (p *ModelStuPracticeReport) SetStatus(val int32) {
 	p.Status = val
 }
+func (p *ModelStuPracticeReport) SetProjectName(val string) {
+	p.ProjectName = val
+}
 
 func (p *ModelStuPracticeReport) String() string {
 	if p == nil {
@@ -7517,6 +7543,7 @@ var fieldIDToName_ModelStuPracticeReport = map[int16]string{
 	31: "teacher_id",
 	32: "fill_report_time",
 	33: "status",
+	34: "project_name",
 }
 
 type EnterpriseTeacher struct {
