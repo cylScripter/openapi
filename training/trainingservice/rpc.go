@@ -280,3 +280,13 @@ func UploadEvaluationSign(ctx context.Context, req *training.UploadEvaluationSig
 	clients := MustNewClient("training", callOptions...)
 	return clients.UploadEvaluationSign(ctx, req)
 }
+
+func ExportPracticeDataTable(ctx context.Context, req *training.ExportPracticeDataTableReq, callOptions ...client.Option) (resp *training.ExportPracticeDataTableResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.ExportPracticeDataTable(ctx, req)
+}
+
+func ExportPracticeProcessDataTable(ctx context.Context, req *training.ExportPracticeProcessDataTableReq, callOptions ...client.Option) (resp *training.ExportPracticeProcessDataTableResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.ExportPracticeProcessDataTable(ctx, req)
+}

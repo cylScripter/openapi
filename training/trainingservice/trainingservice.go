@@ -398,6 +398,20 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"ExportPracticeDataTable": kitex.NewMethodInfo(
+		exportPracticeDataTableHandler,
+		newTrainingserviceExportPracticeDataTableArgs,
+		newTrainingserviceExportPracticeDataTableResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"ExportPracticeProcessDataTable": kitex.NewMethodInfo(
+		exportPracticeProcessDataTableHandler,
+		newTrainingserviceExportPracticeProcessDataTableArgs,
+		newTrainingserviceExportPracticeProcessDataTableResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 }
 
 var (
@@ -1454,6 +1468,42 @@ func newTrainingserviceUploadEvaluationSignResult() interface{} {
 	return training.NewTrainingserviceUploadEvaluationSignResult()
 }
 
+func exportPracticeDataTableHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceExportPracticeDataTableArgs)
+	realResult := result.(*training.TrainingserviceExportPracticeDataTableResult)
+	success, err := handler.(training.Trainingservice).ExportPracticeDataTable(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceExportPracticeDataTableArgs() interface{} {
+	return training.NewTrainingserviceExportPracticeDataTableArgs()
+}
+
+func newTrainingserviceExportPracticeDataTableResult() interface{} {
+	return training.NewTrainingserviceExportPracticeDataTableResult()
+}
+
+func exportPracticeProcessDataTableHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceExportPracticeProcessDataTableArgs)
+	realResult := result.(*training.TrainingserviceExportPracticeProcessDataTableResult)
+	success, err := handler.(training.Trainingservice).ExportPracticeProcessDataTable(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceExportPracticeProcessDataTableArgs() interface{} {
+	return training.NewTrainingserviceExportPracticeProcessDataTableArgs()
+}
+
+func newTrainingserviceExportPracticeProcessDataTableResult() interface{} {
+	return training.NewTrainingserviceExportPracticeProcessDataTableResult()
+}
+
 type kClient struct {
 	c client.Client
 }
@@ -2009,6 +2059,26 @@ func (p *kClient) UploadEvaluationSign(ctx context.Context, req *training.Upload
 	_args.Req = req
 	var _result training.TrainingserviceUploadEvaluationSignResult
 	if err = p.c.Call(ctx, "UploadEvaluationSign", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ExportPracticeDataTable(ctx context.Context, req *training.ExportPracticeDataTableReq) (r *training.ExportPracticeDataTableResp, err error) {
+	var _args training.TrainingserviceExportPracticeDataTableArgs
+	_args.Req = req
+	var _result training.TrainingserviceExportPracticeDataTableResult
+	if err = p.c.Call(ctx, "ExportPracticeDataTable", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ExportPracticeProcessDataTable(ctx context.Context, req *training.ExportPracticeProcessDataTableReq) (r *training.ExportPracticeProcessDataTableResp, err error) {
+	var _args training.TrainingserviceExportPracticeProcessDataTableArgs
+	_args.Req = req
+	var _result training.TrainingserviceExportPracticeProcessDataTableResult
+	if err = p.c.Call(ctx, "ExportPracticeProcessDataTable", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

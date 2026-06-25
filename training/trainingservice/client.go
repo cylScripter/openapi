@@ -66,6 +66,8 @@ type Client interface {
 	ExportCourseFillStatus(ctx context.Context, req *training.ExportCourseFillStatusReq, callOptions ...callopt.Option) (r *training.ExportCourseFillStatusResp, err error)
 	ExportPracticeCheck(ctx context.Context, req *training.ExportPracticeCheckReq, callOptions ...callopt.Option) (r *training.ExportPracticeCheckResp, err error)
 	UploadEvaluationSign(ctx context.Context, req *training.UploadEvaluationSignReq, callOptions ...callopt.Option) (r *training.UploadEvaluationSignResp, err error)
+	ExportPracticeDataTable(ctx context.Context, req *training.ExportPracticeDataTableReq, callOptions ...callopt.Option) (r *training.ExportPracticeDataTableResp, err error)
+	ExportPracticeProcessDataTable(ctx context.Context, req *training.ExportPracticeProcessDataTableReq, callOptions ...callopt.Option) (r *training.ExportPracticeProcessDataTableResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -370,4 +372,14 @@ func (p *kTrainingserviceClient) ExportPracticeCheck(ctx context.Context, req *t
 func (p *kTrainingserviceClient) UploadEvaluationSign(ctx context.Context, req *training.UploadEvaluationSignReq, callOptions ...callopt.Option) (r *training.UploadEvaluationSignResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.UploadEvaluationSign(ctx, req)
+}
+
+func (p *kTrainingserviceClient) ExportPracticeDataTable(ctx context.Context, req *training.ExportPracticeDataTableReq, callOptions ...callopt.Option) (r *training.ExportPracticeDataTableResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ExportPracticeDataTable(ctx, req)
+}
+
+func (p *kTrainingserviceClient) ExportPracticeProcessDataTable(ctx context.Context, req *training.ExportPracticeProcessDataTableReq, callOptions ...callopt.Option) (r *training.ExportPracticeProcessDataTableResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ExportPracticeProcessDataTable(ctx, req)
 }
