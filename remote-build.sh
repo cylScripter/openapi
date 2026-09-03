@@ -19,7 +19,7 @@ version=$(generate_random_version)
 
 echo "生成版本号: $version"
 
-kitex -module github.com/cylScripter/openapi -template-dir /home/ubuntu/kitex/client/standard2 -gen-path ./ -I ~/idl $1.thrift
+kitex -module github.com/cylScripter/openapi -template-dir /home/ubuntu/kitex/client/standard2 -gen-path ./ -I  /home/ubuntu/idl $1.thrift
 
 git add .
 git commit -m "feat: $1 $version"
