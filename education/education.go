@@ -10418,7 +10418,9 @@ var fieldIDToName_GetCourseListReq = map[int16]string{
 }
 
 type ExportTeacherInfoReq struct {
-	Ids []int32 `thrift:"ids,1" frugal:"1,default,list<i32>" json:"ids"`
+	Ids          []int32 `thrift:"ids,1" frugal:"1,default,list<i32>" json:"ids"`
+	AcademicYear string  `thrift:"academic_year,2" frugal:"2,default,string" json:"academic_year" binding:"required"`
+	Semester     string  `thrift:"semester,3" frugal:"3,default,string" json:"semester" binding:"required"`
 }
 
 func NewExportTeacherInfoReq() *ExportTeacherInfoReq {
@@ -10431,8 +10433,22 @@ func (p *ExportTeacherInfoReq) InitDefault() {
 func (p *ExportTeacherInfoReq) GetIds() (v []int32) {
 	return p.Ids
 }
+
+func (p *ExportTeacherInfoReq) GetAcademicYear() (v string) {
+	return p.AcademicYear
+}
+
+func (p *ExportTeacherInfoReq) GetSemester() (v string) {
+	return p.Semester
+}
 func (p *ExportTeacherInfoReq) SetIds(val []int32) {
 	p.Ids = val
+}
+func (p *ExportTeacherInfoReq) SetAcademicYear(val string) {
+	p.AcademicYear = val
+}
+func (p *ExportTeacherInfoReq) SetSemester(val string) {
+	p.Semester = val
 }
 
 func (p *ExportTeacherInfoReq) String() string {
@@ -10444,6 +10460,8 @@ func (p *ExportTeacherInfoReq) String() string {
 
 var fieldIDToName_ExportTeacherInfoReq = map[int16]string{
 	1: "ids",
+	2: "academic_year",
+	3: "semester",
 }
 
 type ExportTeacherInfoResp struct {
@@ -10488,6 +10506,8 @@ type CreateTeacherInfoReq struct {
 	Remunerate    int64  `thrift:"remunerate,10" frugal:"10,default,i64" json:"remunerate" `
 	IdCategory    string `thrift:"id_category,11" frugal:"11,default,string" json:"id_category" `
 	IsExternal    int32  `thrift:"is_external,12" frugal:"12,default,i32" json:"is_external" `
+	AcademicYear  string `thrift:"academic_year,13" frugal:"13,default,string" json:"academic_year" binding:"required"`
+	Semester      string `thrift:"semester,14" frugal:"14,default,string" json:"semester" binding:"required"`
 }
 
 func NewCreateTeacherInfoReq() *CreateTeacherInfoReq {
@@ -10544,6 +10564,14 @@ func (p *CreateTeacherInfoReq) GetIdCategory() (v string) {
 func (p *CreateTeacherInfoReq) GetIsExternal() (v int32) {
 	return p.IsExternal
 }
+
+func (p *CreateTeacherInfoReq) GetAcademicYear() (v string) {
+	return p.AcademicYear
+}
+
+func (p *CreateTeacherInfoReq) GetSemester() (v string) {
+	return p.Semester
+}
 func (p *CreateTeacherInfoReq) SetName(val string) {
 	p.Name = val
 }
@@ -10580,6 +10608,12 @@ func (p *CreateTeacherInfoReq) SetIdCategory(val string) {
 func (p *CreateTeacherInfoReq) SetIsExternal(val int32) {
 	p.IsExternal = val
 }
+func (p *CreateTeacherInfoReq) SetAcademicYear(val string) {
+	p.AcademicYear = val
+}
+func (p *CreateTeacherInfoReq) SetSemester(val string) {
+	p.Semester = val
+}
 
 func (p *CreateTeacherInfoReq) String() string {
 	if p == nil {
@@ -10601,6 +10635,8 @@ var fieldIDToName_CreateTeacherInfoReq = map[int16]string{
 	10: "remunerate",
 	11: "id_category",
 	12: "is_external",
+	13: "academic_year",
+	14: "semester",
 }
 
 type CreateTeacherInfoResp struct {
@@ -10623,7 +10659,9 @@ func (p *CreateTeacherInfoResp) String() string {
 var fieldIDToName_CreateTeacherInfoResp = map[int16]string{}
 
 type DeleteTeacherInfoReq struct {
-	Ids []int32 `thrift:"ids,1" frugal:"1,default,list<i32>" json:"ids" binding:"required"`
+	Ids          []int32 `thrift:"ids,1" frugal:"1,default,list<i32>" json:"ids" binding:"required"`
+	AcademicYear string  `thrift:"academic_year,2" frugal:"2,default,string" json:"academic_year" binding:"required"`
+	Semester     string  `thrift:"semester,3" frugal:"3,default,string" json:"semester" binding:"required"`
 }
 
 func NewDeleteTeacherInfoReq() *DeleteTeacherInfoReq {
@@ -10636,8 +10674,22 @@ func (p *DeleteTeacherInfoReq) InitDefault() {
 func (p *DeleteTeacherInfoReq) GetIds() (v []int32) {
 	return p.Ids
 }
+
+func (p *DeleteTeacherInfoReq) GetAcademicYear() (v string) {
+	return p.AcademicYear
+}
+
+func (p *DeleteTeacherInfoReq) GetSemester() (v string) {
+	return p.Semester
+}
 func (p *DeleteTeacherInfoReq) SetIds(val []int32) {
 	p.Ids = val
+}
+func (p *DeleteTeacherInfoReq) SetAcademicYear(val string) {
+	p.AcademicYear = val
+}
+func (p *DeleteTeacherInfoReq) SetSemester(val string) {
+	p.Semester = val
 }
 
 func (p *DeleteTeacherInfoReq) String() string {
@@ -10649,6 +10701,8 @@ func (p *DeleteTeacherInfoReq) String() string {
 
 var fieldIDToName_DeleteTeacherInfoReq = map[int16]string{
 	1: "ids",
+	2: "academic_year",
+	3: "semester",
 }
 
 type DeleteTeacherInfoResp struct {
@@ -11174,7 +11228,9 @@ var fieldIDToName_GetTokenResp = map[int16]string{
 }
 
 type GetTeacherInfoListReq struct {
-	ListOption *base.ListOption `thrift:"list_option,1" frugal:"1,default,base.ListOption" json:"list_option"`
+	ListOption   *base.ListOption `thrift:"list_option,1" frugal:"1,default,base.ListOption" json:"list_option"`
+	AcademicYear string           `thrift:"academic_year,2" frugal:"2,default,string" json:"academic_year" binding:"required"`
+	Semester     string           `thrift:"semester,3" frugal:"3,default,string" json:"semester" binding:"required"`
 }
 
 func NewGetTeacherInfoListReq() *GetTeacherInfoListReq {
@@ -11192,8 +11248,22 @@ func (p *GetTeacherInfoListReq) GetListOption() (v *base.ListOption) {
 	}
 	return p.ListOption
 }
+
+func (p *GetTeacherInfoListReq) GetAcademicYear() (v string) {
+	return p.AcademicYear
+}
+
+func (p *GetTeacherInfoListReq) GetSemester() (v string) {
+	return p.Semester
+}
 func (p *GetTeacherInfoListReq) SetListOption(val *base.ListOption) {
 	p.ListOption = val
+}
+func (p *GetTeacherInfoListReq) SetAcademicYear(val string) {
+	p.AcademicYear = val
+}
+func (p *GetTeacherInfoListReq) SetSemester(val string) {
+	p.Semester = val
 }
 
 func (p *GetTeacherInfoListReq) IsSetListOption() bool {
@@ -11209,6 +11279,8 @@ func (p *GetTeacherInfoListReq) String() string {
 
 var fieldIDToName_GetTeacherInfoListReq = map[int16]string{
 	1: "list_option",
+	2: "academic_year",
+	3: "semester",
 }
 
 type GetTeacherInfoListResp struct {
@@ -11269,6 +11341,8 @@ var fieldIDToName_GetTeacherInfoListResp = map[int16]string{
 
 type ImportTeacherInfoReq struct {
 	FileUploadId string `thrift:"file_upload_id,1" frugal:"1,default,string" json:"file_upload_id" binding:"required"`
+	AcademicYear string `thrift:"academic_year,2" frugal:"2,default,string" json:"academic_year" binding:"required"`
+	Semester     string `thrift:"semester,3" frugal:"3,default,string" json:"semester" binding:"required"`
 }
 
 func NewImportTeacherInfoReq() *ImportTeacherInfoReq {
@@ -11281,8 +11355,22 @@ func (p *ImportTeacherInfoReq) InitDefault() {
 func (p *ImportTeacherInfoReq) GetFileUploadId() (v string) {
 	return p.FileUploadId
 }
+
+func (p *ImportTeacherInfoReq) GetAcademicYear() (v string) {
+	return p.AcademicYear
+}
+
+func (p *ImportTeacherInfoReq) GetSemester() (v string) {
+	return p.Semester
+}
 func (p *ImportTeacherInfoReq) SetFileUploadId(val string) {
 	p.FileUploadId = val
+}
+func (p *ImportTeacherInfoReq) SetAcademicYear(val string) {
+	p.AcademicYear = val
+}
+func (p *ImportTeacherInfoReq) SetSemester(val string) {
+	p.Semester = val
 }
 
 func (p *ImportTeacherInfoReq) String() string {
@@ -11294,6 +11382,8 @@ func (p *ImportTeacherInfoReq) String() string {
 
 var fieldIDToName_ImportTeacherInfoReq = map[int16]string{
 	1: "file_upload_id",
+	2: "academic_year",
+	3: "semester",
 }
 
 type ImportTeacherInfoResp struct {
@@ -11338,6 +11428,8 @@ type UpdateTeacherInfoReq struct {
 	Order         int32  `thrift:"order,10" frugal:"10,default,i32" json:"order"`
 	Department    string `thrift:"department,11" frugal:"11,default,string" json:"department"`
 	Id            int32  `thrift:"id,12" frugal:"12,default,i32" json:"id" binding:"required"`
+	AcademicYear  string `thrift:"academic_year,13" frugal:"13,default,string" json:"academic_year" binding:"required"`
+	Semester      string `thrift:"semester,14" frugal:"14,default,string" json:"semester" binding:"required"`
 }
 
 func NewUpdateTeacherInfoReq() *UpdateTeacherInfoReq {
@@ -11394,6 +11486,14 @@ func (p *UpdateTeacherInfoReq) GetDepartment() (v string) {
 func (p *UpdateTeacherInfoReq) GetId() (v int32) {
 	return p.Id
 }
+
+func (p *UpdateTeacherInfoReq) GetAcademicYear() (v string) {
+	return p.AcademicYear
+}
+
+func (p *UpdateTeacherInfoReq) GetSemester() (v string) {
+	return p.Semester
+}
 func (p *UpdateTeacherInfoReq) SetUid(val int32) {
 	p.Uid = val
 }
@@ -11430,6 +11530,12 @@ func (p *UpdateTeacherInfoReq) SetDepartment(val string) {
 func (p *UpdateTeacherInfoReq) SetId(val int32) {
 	p.Id = val
 }
+func (p *UpdateTeacherInfoReq) SetAcademicYear(val string) {
+	p.AcademicYear = val
+}
+func (p *UpdateTeacherInfoReq) SetSemester(val string) {
+	p.Semester = val
+}
 
 func (p *UpdateTeacherInfoReq) String() string {
 	if p == nil {
@@ -11451,6 +11557,8 @@ var fieldIDToName_UpdateTeacherInfoReq = map[int16]string{
 	10: "order",
 	11: "department",
 	12: "id",
+	13: "academic_year",
+	14: "semester",
 }
 
 type UpdateTeacherInfoResp struct {
@@ -11473,7 +11581,9 @@ func (p *UpdateTeacherInfoResp) String() string {
 var fieldIDToName_UpdateTeacherInfoResp = map[int16]string{}
 
 type SetTeacherInfoStatusReq struct {
-	Item []*SetTeacherInfoStatusReq_Value `thrift:"item,1" frugal:"1,default,list<SetTeacherInfoStatusReq_Value>" json:"item" binding:"required"`
+	Item         []*SetTeacherInfoStatusReq_Value `thrift:"item,1" frugal:"1,default,list<SetTeacherInfoStatusReq_Value>" json:"item" binding:"required"`
+	AcademicYear string                           `thrift:"academic_year,2" frugal:"2,default,string" json:"academic_year" binding:"required"`
+	Semester     string                           `thrift:"semester,3" frugal:"3,default,string" json:"semester" binding:"required"`
 }
 
 func NewSetTeacherInfoStatusReq() *SetTeacherInfoStatusReq {
@@ -11486,8 +11596,22 @@ func (p *SetTeacherInfoStatusReq) InitDefault() {
 func (p *SetTeacherInfoStatusReq) GetItem() (v []*SetTeacherInfoStatusReq_Value) {
 	return p.Item
 }
+
+func (p *SetTeacherInfoStatusReq) GetAcademicYear() (v string) {
+	return p.AcademicYear
+}
+
+func (p *SetTeacherInfoStatusReq) GetSemester() (v string) {
+	return p.Semester
+}
 func (p *SetTeacherInfoStatusReq) SetItem(val []*SetTeacherInfoStatusReq_Value) {
 	p.Item = val
+}
+func (p *SetTeacherInfoStatusReq) SetAcademicYear(val string) {
+	p.AcademicYear = val
+}
+func (p *SetTeacherInfoStatusReq) SetSemester(val string) {
+	p.Semester = val
 }
 
 func (p *SetTeacherInfoStatusReq) String() string {
@@ -11499,6 +11623,8 @@ func (p *SetTeacherInfoStatusReq) String() string {
 
 var fieldIDToName_SetTeacherInfoStatusReq = map[int16]string{
 	1: "item",
+	2: "academic_year",
+	3: "semester",
 }
 
 type SetTeacherInfoStatusReq_Value struct {
@@ -13254,7 +13380,9 @@ func (p *DeleteUserResp) String() string {
 var fieldIDToName_DeleteUserResp = map[int16]string{}
 
 type DeleteUserReq struct {
-	UserId int32 `thrift:"user_id,1" frugal:"1,default,i32" json:"user_id" binding:"required"`
+	UserId       int32  `thrift:"user_id,1" frugal:"1,default,i32" json:"user_id" binding:"required"`
+	AcademicYear string `thrift:"academic_year,2" frugal:"2,default,string" json:"academic_year" binding:"required"`
+	Semester     string `thrift:"semester,3" frugal:"3,default,string" json:"semester" binding:"required"`
 }
 
 func NewDeleteUserReq() *DeleteUserReq {
@@ -13267,8 +13395,22 @@ func (p *DeleteUserReq) InitDefault() {
 func (p *DeleteUserReq) GetUserId() (v int32) {
 	return p.UserId
 }
+
+func (p *DeleteUserReq) GetAcademicYear() (v string) {
+	return p.AcademicYear
+}
+
+func (p *DeleteUserReq) GetSemester() (v string) {
+	return p.Semester
+}
 func (p *DeleteUserReq) SetUserId(val int32) {
 	p.UserId = val
+}
+func (p *DeleteUserReq) SetAcademicYear(val string) {
+	p.AcademicYear = val
+}
+func (p *DeleteUserReq) SetSemester(val string) {
+	p.Semester = val
 }
 
 func (p *DeleteUserReq) String() string {
@@ -13280,6 +13422,8 @@ func (p *DeleteUserReq) String() string {
 
 var fieldIDToName_DeleteUserReq = map[int16]string{
 	1: "user_id",
+	2: "academic_year",
+	3: "semester",
 }
 
 type GetMenuListReq struct {
@@ -13416,6 +13560,8 @@ var fieldIDToName_ImportCourseApplyReq = map[int16]string{
 
 type ImportUserReq struct {
 	FileUploadId string `thrift:"file_upload_id,1" frugal:"1,default,string" json:"file_upload_id" binding:"required"`
+	AcademicYear string `thrift:"academic_year,2" frugal:"2,default,string" json:"academic_year" binding:"required"`
+	Semester     string `thrift:"semester,3" frugal:"3,default,string" json:"semester" binding:"required"`
 }
 
 func NewImportUserReq() *ImportUserReq {
@@ -13428,8 +13574,22 @@ func (p *ImportUserReq) InitDefault() {
 func (p *ImportUserReq) GetFileUploadId() (v string) {
 	return p.FileUploadId
 }
+
+func (p *ImportUserReq) GetAcademicYear() (v string) {
+	return p.AcademicYear
+}
+
+func (p *ImportUserReq) GetSemester() (v string) {
+	return p.Semester
+}
 func (p *ImportUserReq) SetFileUploadId(val string) {
 	p.FileUploadId = val
+}
+func (p *ImportUserReq) SetAcademicYear(val string) {
+	p.AcademicYear = val
+}
+func (p *ImportUserReq) SetSemester(val string) {
+	p.Semester = val
 }
 
 func (p *ImportUserReq) String() string {
@@ -13441,6 +13601,8 @@ func (p *ImportUserReq) String() string {
 
 var fieldIDToName_ImportUserReq = map[int16]string{
 	1: "file_upload_id",
+	2: "academic_year",
+	3: "semester",
 }
 
 type ImportUserResp struct {
@@ -18153,6 +18315,8 @@ type ModelTeacherInfo struct {
 	Orders         int32  `thrift:"orders,18" frugal:"18,default,i32" json:"orders" gorm:"column:orders;default:1"`
 	UserName       string `thrift:"user_name,19" frugal:"19,default,string" json:"user_name" gorm:"column:user_name"`
 	EducationLevel int32  `thrift:"education_level,22" frugal:"22,default,i32" json:"education_level" gorm:"column:education_level;default:1"`
+	AcademicYear   string `thrift:"academic_year,23" frugal:"23,default,string" json:"academic_year" gorm:"column:academic_year;index"`
+	Semester       string `thrift:"semester,24" frugal:"24,default,string" json:"semester" gorm:"column:semester;index"`
 }
 
 func NewModelTeacherInfo() *ModelTeacherInfo {
@@ -18241,6 +18405,14 @@ func (p *ModelTeacherInfo) GetUserName() (v string) {
 func (p *ModelTeacherInfo) GetEducationLevel() (v int32) {
 	return p.EducationLevel
 }
+
+func (p *ModelTeacherInfo) GetAcademicYear() (v string) {
+	return p.AcademicYear
+}
+
+func (p *ModelTeacherInfo) GetSemester() (v string) {
+	return p.Semester
+}
 func (p *ModelTeacherInfo) SetId(val int32) {
 	p.Id = val
 }
@@ -18301,6 +18473,12 @@ func (p *ModelTeacherInfo) SetUserName(val string) {
 func (p *ModelTeacherInfo) SetEducationLevel(val int32) {
 	p.EducationLevel = val
 }
+func (p *ModelTeacherInfo) SetAcademicYear(val string) {
+	p.AcademicYear = val
+}
+func (p *ModelTeacherInfo) SetSemester(val string) {
+	p.Semester = val
+}
 
 func (p *ModelTeacherInfo) String() string {
 	if p == nil {
@@ -18330,6 +18508,8 @@ var fieldIDToName_ModelTeacherInfo = map[int16]string{
 	18: "orders",
 	19: "user_name",
 	22: "education_level",
+	23: "academic_year",
+	24: "semester",
 }
 
 type ModelHoliday struct {
