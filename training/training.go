@@ -6373,6 +6373,107 @@ var fieldIDToName_ModelMajor = map[int16]string{
 	11: "major_no",
 }
 
+type ModelMajorBudget struct {
+	Id           int32   `thrift:"id,1" frugal:"1,default,i32" json:"id" gorm:"column:id;primaryKey"`
+	CreatedAt    int32   `thrift:"created_at,2" frugal:"2,default,i32" json:"created_at" gorm:"column:created_at"`
+	UpdatedAt    int32   `thrift:"updated_at,3" frugal:"3,default,i32" json:"updated_at" gorm:"column:updated_at"`
+	DeletedAt    int32   `thrift:"deleted_at,4" frugal:"4,default,i32" json:"deleted_at" gorm:"column:deleted_at"`
+	AppId        int32   `thrift:"app_id,5" frugal:"5,default,i32" json:"app_id" gorm:"column:app_id"`
+	MajorId      int32   `thrift:"major_id,6" frugal:"6,default,i32" json:"major_id" gorm:"column:major_id"`
+	AcademicYear string  `thrift:"academic_year,7" frugal:"7,default,string" json:"academic_year" gorm:"column:academic_year"`
+	Semester     string  `thrift:"semester,8" frugal:"8,default,string" json:"semester" gorm:"column:semester"`
+	BudgetTotal  float64 `thrift:"budget_total,9" frugal:"9,default,double" json:"budget_total" gorm:"column:budget_total"`
+}
+
+func NewModelMajorBudget() *ModelMajorBudget {
+	return &ModelMajorBudget{}
+}
+
+func (p *ModelMajorBudget) InitDefault() {
+}
+
+func (p *ModelMajorBudget) GetId() (v int32) {
+	return p.Id
+}
+
+func (p *ModelMajorBudget) GetCreatedAt() (v int32) {
+	return p.CreatedAt
+}
+
+func (p *ModelMajorBudget) GetUpdatedAt() (v int32) {
+	return p.UpdatedAt
+}
+
+func (p *ModelMajorBudget) GetDeletedAt() (v int32) {
+	return p.DeletedAt
+}
+
+func (p *ModelMajorBudget) GetAppId() (v int32) {
+	return p.AppId
+}
+
+func (p *ModelMajorBudget) GetMajorId() (v int32) {
+	return p.MajorId
+}
+
+func (p *ModelMajorBudget) GetAcademicYear() (v string) {
+	return p.AcademicYear
+}
+
+func (p *ModelMajorBudget) GetSemester() (v string) {
+	return p.Semester
+}
+
+func (p *ModelMajorBudget) GetBudgetTotal() (v float64) {
+	return p.BudgetTotal
+}
+func (p *ModelMajorBudget) SetId(val int32) {
+	p.Id = val
+}
+func (p *ModelMajorBudget) SetCreatedAt(val int32) {
+	p.CreatedAt = val
+}
+func (p *ModelMajorBudget) SetUpdatedAt(val int32) {
+	p.UpdatedAt = val
+}
+func (p *ModelMajorBudget) SetDeletedAt(val int32) {
+	p.DeletedAt = val
+}
+func (p *ModelMajorBudget) SetAppId(val int32) {
+	p.AppId = val
+}
+func (p *ModelMajorBudget) SetMajorId(val int32) {
+	p.MajorId = val
+}
+func (p *ModelMajorBudget) SetAcademicYear(val string) {
+	p.AcademicYear = val
+}
+func (p *ModelMajorBudget) SetSemester(val string) {
+	p.Semester = val
+}
+func (p *ModelMajorBudget) SetBudgetTotal(val float64) {
+	p.BudgetTotal = val
+}
+
+func (p *ModelMajorBudget) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ModelMajorBudget(%+v)", *p)
+}
+
+var fieldIDToName_ModelMajorBudget = map[int16]string{
+	1: "id",
+	2: "created_at",
+	3: "updated_at",
+	4: "deleted_at",
+	5: "app_id",
+	6: "major_id",
+	7: "academic_year",
+	8: "semester",
+	9: "budget_total",
+}
+
 type ModelTeacherCourseIndex struct {
 	Id           int32  `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
 	CreatedAt    int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index" json:"created_at"`
