@@ -279,6 +279,41 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"GetTeacherPracticeTeachingPlanList": kitex.NewMethodInfo(
+		getTeacherPracticeTeachingPlanListHandler,
+		newTrainingserviceGetTeacherPracticeTeachingPlanListArgs,
+		newTrainingserviceGetTeacherPracticeTeachingPlanListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"FillTeacherPracticeTeachingBudget": kitex.NewMethodInfo(
+		fillTeacherPracticeTeachingBudgetHandler,
+		newTrainingserviceFillTeacherPracticeTeachingBudgetArgs,
+		newTrainingserviceFillTeacherPracticeTeachingBudgetResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"ScheduleTeacherTeaching": kitex.NewMethodInfo(
+		scheduleTeacherTeachingHandler,
+		newTrainingserviceScheduleTeacherTeachingArgs,
+		newTrainingserviceScheduleTeacherTeachingResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetTeacherTeachSchedule": kitex.NewMethodInfo(
+		getTeacherTeachScheduleHandler,
+		newTrainingserviceGetTeacherTeachScheduleArgs,
+		newTrainingserviceGetTeacherTeachScheduleResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetTeacherPlanDetail": kitex.NewMethodInfo(
+		getTeacherPlanDetailHandler,
+		newTrainingserviceGetTeacherPlanDetailArgs,
+		newTrainingserviceGetTeacherPlanDetailResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 	"ResetTeachSchedule": kitex.NewMethodInfo(
 		resetTeachScheduleHandler,
 		newTrainingserviceResetTeachScheduleArgs,
@@ -1169,6 +1204,96 @@ func newTrainingserviceGetPlanDetailResult() interface{} {
 	return training.NewTrainingserviceGetPlanDetailResult()
 }
 
+func getTeacherPracticeTeachingPlanListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceGetTeacherPracticeTeachingPlanListArgs)
+	realResult := result.(*training.TrainingserviceGetTeacherPracticeTeachingPlanListResult)
+	success, err := handler.(training.Trainingservice).GetTeacherPracticeTeachingPlanList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceGetTeacherPracticeTeachingPlanListArgs() interface{} {
+	return training.NewTrainingserviceGetTeacherPracticeTeachingPlanListArgs()
+}
+
+func newTrainingserviceGetTeacherPracticeTeachingPlanListResult() interface{} {
+	return training.NewTrainingserviceGetTeacherPracticeTeachingPlanListResult()
+}
+
+func fillTeacherPracticeTeachingBudgetHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceFillTeacherPracticeTeachingBudgetArgs)
+	realResult := result.(*training.TrainingserviceFillTeacherPracticeTeachingBudgetResult)
+	success, err := handler.(training.Trainingservice).FillTeacherPracticeTeachingBudget(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceFillTeacherPracticeTeachingBudgetArgs() interface{} {
+	return training.NewTrainingserviceFillTeacherPracticeTeachingBudgetArgs()
+}
+
+func newTrainingserviceFillTeacherPracticeTeachingBudgetResult() interface{} {
+	return training.NewTrainingserviceFillTeacherPracticeTeachingBudgetResult()
+}
+
+func scheduleTeacherTeachingHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceScheduleTeacherTeachingArgs)
+	realResult := result.(*training.TrainingserviceScheduleTeacherTeachingResult)
+	success, err := handler.(training.Trainingservice).ScheduleTeacherTeaching(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceScheduleTeacherTeachingArgs() interface{} {
+	return training.NewTrainingserviceScheduleTeacherTeachingArgs()
+}
+
+func newTrainingserviceScheduleTeacherTeachingResult() interface{} {
+	return training.NewTrainingserviceScheduleTeacherTeachingResult()
+}
+
+func getTeacherTeachScheduleHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceGetTeacherTeachScheduleArgs)
+	realResult := result.(*training.TrainingserviceGetTeacherTeachScheduleResult)
+	success, err := handler.(training.Trainingservice).GetTeacherTeachSchedule(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceGetTeacherTeachScheduleArgs() interface{} {
+	return training.NewTrainingserviceGetTeacherTeachScheduleArgs()
+}
+
+func newTrainingserviceGetTeacherTeachScheduleResult() interface{} {
+	return training.NewTrainingserviceGetTeacherTeachScheduleResult()
+}
+
+func getTeacherPlanDetailHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceGetTeacherPlanDetailArgs)
+	realResult := result.(*training.TrainingserviceGetTeacherPlanDetailResult)
+	success, err := handler.(training.Trainingservice).GetTeacherPlanDetail(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceGetTeacherPlanDetailArgs() interface{} {
+	return training.NewTrainingserviceGetTeacherPlanDetailArgs()
+}
+
+func newTrainingserviceGetTeacherPlanDetailResult() interface{} {
+	return training.NewTrainingserviceGetTeacherPlanDetailResult()
+}
+
 func resetTeachScheduleHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
 	realArg := arg.(*training.TrainingserviceResetTeachScheduleArgs)
 	realResult := result.(*training.TrainingserviceResetTeachScheduleResult)
@@ -1914,6 +2039,56 @@ func (p *kClient) GetPlanDetail(ctx context.Context, req *training.GetPlanDetail
 	_args.Req = req
 	var _result training.TrainingserviceGetPlanDetailResult
 	if err = p.c.Call(ctx, "GetPlanDetail", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetTeacherPracticeTeachingPlanList(ctx context.Context, req *training.GetMajorPracticeTeachingPlanListReq) (r *training.GetMajorPracticeTeachingPlanListResp, err error) {
+	var _args training.TrainingserviceGetTeacherPracticeTeachingPlanListArgs
+	_args.Req = req
+	var _result training.TrainingserviceGetTeacherPracticeTeachingPlanListResult
+	if err = p.c.Call(ctx, "GetTeacherPracticeTeachingPlanList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) FillTeacherPracticeTeachingBudget(ctx context.Context, req *training.FillMajorPracticeTeachingBudgetReq) (r *training.FillMajorPracticeTeachingBudgetResp, err error) {
+	var _args training.TrainingserviceFillTeacherPracticeTeachingBudgetArgs
+	_args.Req = req
+	var _result training.TrainingserviceFillTeacherPracticeTeachingBudgetResult
+	if err = p.c.Call(ctx, "FillTeacherPracticeTeachingBudget", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ScheduleTeacherTeaching(ctx context.Context, req *training.ScheduleTeachingReq) (r *training.ScheduleTeachingResp, err error) {
+	var _args training.TrainingserviceScheduleTeacherTeachingArgs
+	_args.Req = req
+	var _result training.TrainingserviceScheduleTeacherTeachingResult
+	if err = p.c.Call(ctx, "ScheduleTeacherTeaching", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetTeacherTeachSchedule(ctx context.Context, req *training.GetTeachScheduleReq) (r *training.GetTeachScheduleResp, err error) {
+	var _args training.TrainingserviceGetTeacherTeachScheduleArgs
+	_args.Req = req
+	var _result training.TrainingserviceGetTeacherTeachScheduleResult
+	if err = p.c.Call(ctx, "GetTeacherTeachSchedule", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetTeacherPlanDetail(ctx context.Context, req *training.GetPlanDetailReq) (r *training.GetPlanDetailResp, err error) {
+	var _args training.TrainingserviceGetTeacherPlanDetailArgs
+	_args.Req = req
+	var _result training.TrainingserviceGetTeacherPlanDetailResult
+	if err = p.c.Call(ctx, "GetTeacherPlanDetail", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

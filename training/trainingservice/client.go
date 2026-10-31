@@ -49,6 +49,11 @@ type Client interface {
 	GetTeachSchedule(ctx context.Context, req *training.GetTeachScheduleReq, callOptions ...callopt.Option) (r *training.GetTeachScheduleResp, err error)
 	GetClassroomUsage(ctx context.Context, req *training.GetClassroomUsageReq, callOptions ...callopt.Option) (r *training.GetClassroomUsageResp, err error)
 	GetPlanDetail(ctx context.Context, req *training.GetPlanDetailReq, callOptions ...callopt.Option) (r *training.GetPlanDetailResp, err error)
+	GetTeacherPracticeTeachingPlanList(ctx context.Context, req *training.GetMajorPracticeTeachingPlanListReq, callOptions ...callopt.Option) (r *training.GetMajorPracticeTeachingPlanListResp, err error)
+	FillTeacherPracticeTeachingBudget(ctx context.Context, req *training.FillMajorPracticeTeachingBudgetReq, callOptions ...callopt.Option) (r *training.FillMajorPracticeTeachingBudgetResp, err error)
+	ScheduleTeacherTeaching(ctx context.Context, req *training.ScheduleTeachingReq, callOptions ...callopt.Option) (r *training.ScheduleTeachingResp, err error)
+	GetTeacherTeachSchedule(ctx context.Context, req *training.GetTeachScheduleReq, callOptions ...callopt.Option) (r *training.GetTeachScheduleResp, err error)
+	GetTeacherPlanDetail(ctx context.Context, req *training.GetPlanDetailReq, callOptions ...callopt.Option) (r *training.GetPlanDetailResp, err error)
 	ResetTeachSchedule(ctx context.Context, req *training.ResetTeachScheduleReq, callOptions ...callopt.Option) (r *training.ResetTeachScheduleResp, err error)
 	SyncPracticeReport(ctx context.Context, req *training.SyncPracticeReportReq, callOptions ...callopt.Option) (r *training.SyncPracticeReportResp, err error)
 	GetPracticeReportList(ctx context.Context, req *training.GetPracticeReportListReq, callOptions ...callopt.Option) (r *training.GetPracticeReportListResp, err error)
@@ -288,6 +293,31 @@ func (p *kTrainingserviceClient) GetClassroomUsage(ctx context.Context, req *tra
 func (p *kTrainingserviceClient) GetPlanDetail(ctx context.Context, req *training.GetPlanDetailReq, callOptions ...callopt.Option) (r *training.GetPlanDetailResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.GetPlanDetail(ctx, req)
+}
+
+func (p *kTrainingserviceClient) GetTeacherPracticeTeachingPlanList(ctx context.Context, req *training.GetMajorPracticeTeachingPlanListReq, callOptions ...callopt.Option) (r *training.GetMajorPracticeTeachingPlanListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetTeacherPracticeTeachingPlanList(ctx, req)
+}
+
+func (p *kTrainingserviceClient) FillTeacherPracticeTeachingBudget(ctx context.Context, req *training.FillMajorPracticeTeachingBudgetReq, callOptions ...callopt.Option) (r *training.FillMajorPracticeTeachingBudgetResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.FillTeacherPracticeTeachingBudget(ctx, req)
+}
+
+func (p *kTrainingserviceClient) ScheduleTeacherTeaching(ctx context.Context, req *training.ScheduleTeachingReq, callOptions ...callopt.Option) (r *training.ScheduleTeachingResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ScheduleTeacherTeaching(ctx, req)
+}
+
+func (p *kTrainingserviceClient) GetTeacherTeachSchedule(ctx context.Context, req *training.GetTeachScheduleReq, callOptions ...callopt.Option) (r *training.GetTeachScheduleResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetTeacherTeachSchedule(ctx, req)
+}
+
+func (p *kTrainingserviceClient) GetTeacherPlanDetail(ctx context.Context, req *training.GetPlanDetailReq, callOptions ...callopt.Option) (r *training.GetPlanDetailResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetTeacherPlanDetail(ctx, req)
 }
 
 func (p *kTrainingserviceClient) ResetTeachSchedule(ctx context.Context, req *training.ResetTeachScheduleReq, callOptions ...callopt.Option) (r *training.ResetTeachScheduleResp, err error) {
