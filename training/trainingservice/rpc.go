@@ -196,31 +196,6 @@ func GetPlanDetail(ctx context.Context, req *training.GetPlanDetailReq, callOpti
 	return clients.GetPlanDetail(ctx, req)
 }
 
-func GetTeacherPracticeTeachingPlanList(ctx context.Context, req *training.GetMajorPracticeTeachingPlanListReq, callOptions ...client.Option) (resp *training.GetMajorPracticeTeachingPlanListResp, err error) {
-	clients := MustNewClient("training", callOptions...)
-	return clients.GetTeacherPracticeTeachingPlanList(ctx, req)
-}
-
-func FillTeacherPracticeTeachingBudget(ctx context.Context, req *training.FillMajorPracticeTeachingBudgetReq, callOptions ...client.Option) (resp *training.FillMajorPracticeTeachingBudgetResp, err error) {
-	clients := MustNewClient("training", callOptions...)
-	return clients.FillTeacherPracticeTeachingBudget(ctx, req)
-}
-
-func ScheduleTeacherTeaching(ctx context.Context, req *training.ScheduleTeachingReq, callOptions ...client.Option) (resp *training.ScheduleTeachingResp, err error) {
-	clients := MustNewClient("training", callOptions...)
-	return clients.ScheduleTeacherTeaching(ctx, req)
-}
-
-func GetTeacherTeachSchedule(ctx context.Context, req *training.GetTeachScheduleReq, callOptions ...client.Option) (resp *training.GetTeachScheduleResp, err error) {
-	clients := MustNewClient("training", callOptions...)
-	return clients.GetTeacherTeachSchedule(ctx, req)
-}
-
-func GetTeacherPlanDetail(ctx context.Context, req *training.GetPlanDetailReq, callOptions ...client.Option) (resp *training.GetPlanDetailResp, err error) {
-	clients := MustNewClient("training", callOptions...)
-	return clients.GetTeacherPlanDetail(ctx, req)
-}
-
 func ResetTeachSchedule(ctx context.Context, req *training.ResetTeachScheduleReq, callOptions ...client.Option) (resp *training.ResetTeachScheduleResp, err error) {
 	clients := MustNewClient("training", callOptions...)
 	return clients.ResetTeachSchedule(ctx, req)
