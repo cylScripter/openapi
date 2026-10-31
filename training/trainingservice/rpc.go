@@ -116,6 +116,11 @@ func UpdatePastMajor(ctx context.Context, req *training.UpdatePastMajorReq, call
 	return clients.UpdatePastMajor(ctx, req)
 }
 
+func SetMajorBudget(ctx context.Context, req *training.SetMajorBudgetReq, callOptions ...client.Option) (resp *training.SetMajorBudgetResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.SetMajorBudget(ctx, req)
+}
+
 func GetClassroomList(ctx context.Context, req *training.GetClassroomListReq, callOptions ...client.Option) (resp *training.GetClassroomListResp, err error) {
 	clients := MustNewClient("training", callOptions...)
 	return clients.GetClassroomList(ctx, req)
