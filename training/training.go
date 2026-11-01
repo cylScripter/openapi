@@ -3105,74 +3105,9 @@ var fieldIDToName_GetTeachingPlanManagementListReq = map[int16]string{
 	1: "list_option",
 }
 
-type ModelTeachingPlanManagementItem struct {
-	Info            *ModelMajorPracticeTeachingPlan `thrift:"info,1" frugal:"1,default,ModelMajorPracticeTeachingPlan" json:"info"`
-	BudgetStatus    int32                           `thrift:"budget_status,2" frugal:"2,default,i32" json:"budget_status"`
-	TeacherStatus   int32                           `thrift:"teacher_status,3" frugal:"3,default,i32" json:"teacher_status"`
-	ClassroomStatus int32                           `thrift:"classroom_status,4" frugal:"4,default,i32" json:"classroom_status"`
-}
-
-func NewModelTeachingPlanManagementItem() *ModelTeachingPlanManagementItem {
-	return &ModelTeachingPlanManagementItem{}
-}
-
-func (p *ModelTeachingPlanManagementItem) InitDefault() {
-}
-
-var ModelTeachingPlanManagementItem_Info_DEFAULT *ModelMajorPracticeTeachingPlan
-
-func (p *ModelTeachingPlanManagementItem) GetInfo() (v *ModelMajorPracticeTeachingPlan) {
-	if !p.IsSetInfo() {
-		return ModelTeachingPlanManagementItem_Info_DEFAULT
-	}
-	return p.Info
-}
-
-func (p *ModelTeachingPlanManagementItem) GetBudgetStatus() (v int32) {
-	return p.BudgetStatus
-}
-
-func (p *ModelTeachingPlanManagementItem) GetTeacherStatus() (v int32) {
-	return p.TeacherStatus
-}
-
-func (p *ModelTeachingPlanManagementItem) GetClassroomStatus() (v int32) {
-	return p.ClassroomStatus
-}
-func (p *ModelTeachingPlanManagementItem) SetInfo(val *ModelMajorPracticeTeachingPlan) {
-	p.Info = val
-}
-func (p *ModelTeachingPlanManagementItem) SetBudgetStatus(val int32) {
-	p.BudgetStatus = val
-}
-func (p *ModelTeachingPlanManagementItem) SetTeacherStatus(val int32) {
-	p.TeacherStatus = val
-}
-func (p *ModelTeachingPlanManagementItem) SetClassroomStatus(val int32) {
-	p.ClassroomStatus = val
-}
-
-func (p *ModelTeachingPlanManagementItem) IsSetInfo() bool {
-	return p.Info != nil
-}
-
-func (p *ModelTeachingPlanManagementItem) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("ModelTeachingPlanManagementItem(%+v)", *p)
-}
-
-var fieldIDToName_ModelTeachingPlanManagementItem = map[int16]string{
-	1: "info",
-	2: "budget_status",
-	3: "teacher_status",
-	4: "classroom_status",
-}
-
 type GetTeachingPlanManagementListResp struct {
-	List     []*ModelTeachingPlanManagementItem `thrift:"list,1" frugal:"1,default,list<ModelTeachingPlanManagementItem>" json:"list"`
-	Paginate *base.Paginate                     `thrift:"paginate,2" frugal:"2,default,base.Paginate" json:"paginate"`
+	List     []*ModelMajorPracticeTeachingPlan `thrift:"list,1" frugal:"1,default,list<ModelMajorPracticeTeachingPlan>" json:"list"`
+	Paginate *base.Paginate                    `thrift:"paginate,2" frugal:"2,default,base.Paginate" json:"paginate"`
 }
 
 func NewGetTeachingPlanManagementListResp() *GetTeachingPlanManagementListResp {
@@ -3182,7 +3117,7 @@ func NewGetTeachingPlanManagementListResp() *GetTeachingPlanManagementListResp {
 func (p *GetTeachingPlanManagementListResp) InitDefault() {
 }
 
-func (p *GetTeachingPlanManagementListResp) GetList() (v []*ModelTeachingPlanManagementItem) {
+func (p *GetTeachingPlanManagementListResp) GetList() (v []*ModelMajorPracticeTeachingPlan) {
 	return p.List
 }
 
@@ -3194,7 +3129,7 @@ func (p *GetTeachingPlanManagementListResp) GetPaginate() (v *base.Paginate) {
 	}
 	return p.Paginate
 }
-func (p *GetTeachingPlanManagementListResp) SetList(val []*ModelTeachingPlanManagementItem) {
+func (p *GetTeachingPlanManagementListResp) SetList(val []*ModelMajorPracticeTeachingPlan) {
 	p.List = val
 }
 func (p *GetTeachingPlanManagementListResp) SetPaginate(val *base.Paginate) {
@@ -3219,11 +3154,11 @@ var fieldIDToName_GetTeachingPlanManagementListResp = map[int16]string{
 
 type SaveTeachingPlanReq struct {
 	Id            int32                       `thrift:"id,1" frugal:"1,default,i32" json:"id" binding:"required"`
-	Major         string                      `thrift:"major,2" frugal:"2,default,string" json:"major" binding:"required"`
-	ClassName     string                      `thrift:"class_name,3" frugal:"3,default,string" json:"class_name" binding:"required"`
-	CourseName    string                      `thrift:"course_name,4" frugal:"4,default,string" json:"course_name" binding:"required"`
-	StudentNumber *int32                      `thrift:"student_number,5,optional" frugal:"5,optional,i32" json:"student_number" binding:"required"`
-	Week          int32                       `thrift:"week,6" frugal:"6,default,i32" json:"week" binding:"required"`
+	Major         string                      `thrift:"major,2" frugal:"2,default,string" json:"major"`
+	ClassName     string                      `thrift:"class_name,3" frugal:"3,default,string" json:"class_name"`
+	StudentNumber int32                       `thrift:"student_number,4" frugal:"4,default,i32" json:"student_number"`
+	CourseName    string                      `thrift:"course_name,5" frugal:"5,default,string" json:"course_name"`
+	Week          int32                       `thrift:"week,6" frugal:"6,default,i32" json:"week"`
 	Teachers      []*ScheduleTeachingReqItem  `thrift:"teachers,7,optional" frugal:"7,optional,list<ScheduleTeachingReqItem>" json:"teachers"`
 	Classrooms    []*ScheduleClassroomReqItem `thrift:"classrooms,8,optional" frugal:"8,optional,list<ScheduleClassroomReqItem>" json:"classrooms"`
 }
@@ -3247,17 +3182,12 @@ func (p *SaveTeachingPlanReq) GetClassName() (v string) {
 	return p.ClassName
 }
 
-func (p *SaveTeachingPlanReq) GetCourseName() (v string) {
-	return p.CourseName
+func (p *SaveTeachingPlanReq) GetStudentNumber() (v int32) {
+	return p.StudentNumber
 }
 
-var SaveTeachingPlanReq_StudentNumber_DEFAULT int32
-
-func (p *SaveTeachingPlanReq) GetStudentNumber() (v int32) {
-	if !p.IsSetStudentNumber() {
-		return SaveTeachingPlanReq_StudentNumber_DEFAULT
-	}
-	return *p.StudentNumber
+func (p *SaveTeachingPlanReq) GetCourseName() (v string) {
+	return p.CourseName
 }
 
 func (p *SaveTeachingPlanReq) GetWeek() (v int32) {
@@ -3290,11 +3220,11 @@ func (p *SaveTeachingPlanReq) SetMajor(val string) {
 func (p *SaveTeachingPlanReq) SetClassName(val string) {
 	p.ClassName = val
 }
+func (p *SaveTeachingPlanReq) SetStudentNumber(val int32) {
+	p.StudentNumber = val
+}
 func (p *SaveTeachingPlanReq) SetCourseName(val string) {
 	p.CourseName = val
-}
-func (p *SaveTeachingPlanReq) SetStudentNumber(val *int32) {
-	p.StudentNumber = val
 }
 func (p *SaveTeachingPlanReq) SetWeek(val int32) {
 	p.Week = val
@@ -3304,10 +3234,6 @@ func (p *SaveTeachingPlanReq) SetTeachers(val []*ScheduleTeachingReqItem) {
 }
 func (p *SaveTeachingPlanReq) SetClassrooms(val []*ScheduleClassroomReqItem) {
 	p.Classrooms = val
-}
-
-func (p *SaveTeachingPlanReq) IsSetStudentNumber() bool {
-	return p.StudentNumber != nil
 }
 
 func (p *SaveTeachingPlanReq) IsSetTeachers() bool {
@@ -3329,16 +3255,14 @@ var fieldIDToName_SaveTeachingPlanReq = map[int16]string{
 	1: "id",
 	2: "major",
 	3: "class_name",
-	4: "course_name",
-	5: "student_number",
+	4: "student_number",
+	5: "course_name",
 	6: "week",
 	7: "teachers",
 	8: "classrooms",
 }
 
 type SaveTeachingPlanResp struct {
-	RefreshPending bool   `thrift:"refresh_pending,1" frugal:"1,default,bool" json:"refresh_pending"`
-	Message        string `thrift:"message,2" frugal:"2,default,string" json:"message"`
 }
 
 func NewSaveTeachingPlanResp() *SaveTeachingPlanResp {
@@ -3348,20 +3272,6 @@ func NewSaveTeachingPlanResp() *SaveTeachingPlanResp {
 func (p *SaveTeachingPlanResp) InitDefault() {
 }
 
-func (p *SaveTeachingPlanResp) GetRefreshPending() (v bool) {
-	return p.RefreshPending
-}
-
-func (p *SaveTeachingPlanResp) GetMessage() (v string) {
-	return p.Message
-}
-func (p *SaveTeachingPlanResp) SetRefreshPending(val bool) {
-	p.RefreshPending = val
-}
-func (p *SaveTeachingPlanResp) SetMessage(val string) {
-	p.Message = val
-}
-
 func (p *SaveTeachingPlanResp) String() string {
 	if p == nil {
 		return "<nil>"
@@ -3369,10 +3279,7 @@ func (p *SaveTeachingPlanResp) String() string {
 	return fmt.Sprintf("SaveTeachingPlanResp(%+v)", *p)
 }
 
-var fieldIDToName_SaveTeachingPlanResp = map[int16]string{
-	1: "refresh_pending",
-	2: "message",
-}
+var fieldIDToName_SaveTeachingPlanResp = map[int16]string{}
 
 type ImportMajorPracticeTeachingResp struct {
 	TaskKey string `thrift:"task_key,1" frugal:"1,default,string" json:"task_key"`
