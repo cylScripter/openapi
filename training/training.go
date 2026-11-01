@@ -7370,13 +7370,24 @@ type ModelMajorPracticeTeachingPlan struct {
 	AppId             int32  `thrift:"app_id,15" frugal:"15,default,i32" json:"app_id" gorm:"column:app_id"`
 	Grade             string `thrift:"grade,16" frugal:"16,default,string" json:"grade" gorm:"column:grade"`
 	CourseType        int32  `thrift:"course_type,17" frugal:"17,default,i32" json:"course_type" gorm:"column:course_type;default:1"`
+	BudgetStatus      int32  `thrift:"budget_status,18" frugal:"18,default,i32" json:"budget_status" gorm:"column:budget_status;default:2"`
+	TeacherStatus     int32  `thrift:"teacher_status,19" frugal:"19,default,i32" json:"teacher_status" gorm:"column:teacher_status;default:2"`
+	ClassroomStatus   int32  `thrift:"classroom_status,20" frugal:"20,default,i32" json:"classroom_status" gorm:"column:classroom_status;default:2"`
 }
 
 func NewModelMajorPracticeTeachingPlan() *ModelMajorPracticeTeachingPlan {
-	return &ModelMajorPracticeTeachingPlan{}
+	return &ModelMajorPracticeTeachingPlan{
+
+		BudgetStatus:    2,
+		TeacherStatus:   2,
+		ClassroomStatus: 2,
+	}
 }
 
 func (p *ModelMajorPracticeTeachingPlan) InitDefault() {
+	p.BudgetStatus = 2
+	p.TeacherStatus = 2
+	p.ClassroomStatus = 2
 }
 
 func (p *ModelMajorPracticeTeachingPlan) GetId() (v int32) {
@@ -7446,6 +7457,18 @@ func (p *ModelMajorPracticeTeachingPlan) GetGrade() (v string) {
 func (p *ModelMajorPracticeTeachingPlan) GetCourseType() (v int32) {
 	return p.CourseType
 }
+
+func (p *ModelMajorPracticeTeachingPlan) GetBudgetStatus() (v int32) {
+	return p.BudgetStatus
+}
+
+func (p *ModelMajorPracticeTeachingPlan) GetTeacherStatus() (v int32) {
+	return p.TeacherStatus
+}
+
+func (p *ModelMajorPracticeTeachingPlan) GetClassroomStatus() (v int32) {
+	return p.ClassroomStatus
+}
 func (p *ModelMajorPracticeTeachingPlan) SetId(val int32) {
 	p.Id = val
 }
@@ -7497,6 +7520,15 @@ func (p *ModelMajorPracticeTeachingPlan) SetGrade(val string) {
 func (p *ModelMajorPracticeTeachingPlan) SetCourseType(val int32) {
 	p.CourseType = val
 }
+func (p *ModelMajorPracticeTeachingPlan) SetBudgetStatus(val int32) {
+	p.BudgetStatus = val
+}
+func (p *ModelMajorPracticeTeachingPlan) SetTeacherStatus(val int32) {
+	p.TeacherStatus = val
+}
+func (p *ModelMajorPracticeTeachingPlan) SetClassroomStatus(val int32) {
+	p.ClassroomStatus = val
+}
 
 func (p *ModelMajorPracticeTeachingPlan) String() string {
 	if p == nil {
@@ -7523,6 +7555,9 @@ var fieldIDToName_ModelMajorPracticeTeachingPlan = map[int16]string{
 	15: "app_id",
 	16: "grade",
 	17: "course_type",
+	18: "budget_status",
+	19: "teacher_status",
+	20: "classroom_status",
 }
 
 type ModelPracticeTeachingStats struct {
