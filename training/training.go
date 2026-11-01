@@ -521,6 +521,53 @@ func (p *CourseType) Value() (driver.Value, error) {
 	return int64(*p), nil
 }
 
+type ManagedPlanCompletion int64
+
+const (
+	ManagedPlanCompletion_ALL       ManagedPlanCompletion = 0
+	ManagedPlanCompletion_COMPLETED ManagedPlanCompletion = 1
+	ManagedPlanCompletion_PENDING   ManagedPlanCompletion = 2
+)
+
+func (p ManagedPlanCompletion) String() string {
+	switch p {
+	case ManagedPlanCompletion_ALL:
+		return "ALL"
+	case ManagedPlanCompletion_COMPLETED:
+		return "COMPLETED"
+	case ManagedPlanCompletion_PENDING:
+		return "PENDING"
+	}
+	return "<UNSET>"
+}
+
+func ManagedPlanCompletionFromString(s string) (ManagedPlanCompletion, error) {
+	switch s {
+	case "ALL":
+		return ManagedPlanCompletion_ALL, nil
+	case "COMPLETED":
+		return ManagedPlanCompletion_COMPLETED, nil
+	case "PENDING":
+		return ManagedPlanCompletion_PENDING, nil
+	}
+	return ManagedPlanCompletion(0), fmt.Errorf("not a valid ManagedPlanCompletion string")
+}
+
+func ManagedPlanCompletionPtr(v ManagedPlanCompletion) *ManagedPlanCompletion { return &v }
+func (p *ManagedPlanCompletion) Scan(value interface{}) (err error) {
+	var result sql.NullInt64
+	err = result.Scan(value)
+	*p = ManagedPlanCompletion(result.Int64)
+	return
+}
+
+func (p *ManagedPlanCompletion) Value() (driver.Value, error) {
+	if p == nil {
+		return nil, nil
+	}
+	return int64(*p), nil
+}
+
 type ExportPracticeProcessDataTableReq struct {
 	AcademicYear string `thrift:"academic_year,1" frugal:"1,default,string" json:"academic_year"`
 	Semester     string `thrift:"semester,2" frugal:"2,default,string" json:"semester"`
@@ -8013,6 +8060,734 @@ var fieldIDToName_ModelMajorCourseConfig = map[int16]string{
 	6: "project_number",
 }
 
+type ModelManagedTeachingPlanItem struct {
+	Info              *ModelMajorPracticeTeachingPlan `thrift:"info,1" frugal:"1,default,ModelMajorPracticeTeachingPlan" json:"info"`
+	BudgetFilled      bool                            `thrift:"budget_filled,2" frugal:"2,default,bool" json:"budget_filled"`
+	TeacherArranged   bool                            `thrift:"teacher_arranged,3" frugal:"3,default,bool" json:"teacher_arranged"`
+	ClassroomArranged bool                            `thrift:"classroom_arranged,4" frugal:"4,default,bool" json:"classroom_arranged"`
+	TeacherCount      int32                           `thrift:"teacher_count,5" frugal:"5,default,i32" json:"teacher_count"`
+	ClassroomCount    int32                           `thrift:"classroom_count,6" frugal:"6,default,i32" json:"classroom_count"`
+}
+
+func NewModelManagedTeachingPlanItem() *ModelManagedTeachingPlanItem {
+	return &ModelManagedTeachingPlanItem{}
+}
+
+func (p *ModelManagedTeachingPlanItem) InitDefault() {
+}
+
+var ModelManagedTeachingPlanItem_Info_DEFAULT *ModelMajorPracticeTeachingPlan
+
+func (p *ModelManagedTeachingPlanItem) GetInfo() (v *ModelMajorPracticeTeachingPlan) {
+	if !p.IsSetInfo() {
+		return ModelManagedTeachingPlanItem_Info_DEFAULT
+	}
+	return p.Info
+}
+
+func (p *ModelManagedTeachingPlanItem) GetBudgetFilled() (v bool) {
+	return p.BudgetFilled
+}
+
+func (p *ModelManagedTeachingPlanItem) GetTeacherArranged() (v bool) {
+	return p.TeacherArranged
+}
+
+func (p *ModelManagedTeachingPlanItem) GetClassroomArranged() (v bool) {
+	return p.ClassroomArranged
+}
+
+func (p *ModelManagedTeachingPlanItem) GetTeacherCount() (v int32) {
+	return p.TeacherCount
+}
+
+func (p *ModelManagedTeachingPlanItem) GetClassroomCount() (v int32) {
+	return p.ClassroomCount
+}
+func (p *ModelManagedTeachingPlanItem) SetInfo(val *ModelMajorPracticeTeachingPlan) {
+	p.Info = val
+}
+func (p *ModelManagedTeachingPlanItem) SetBudgetFilled(val bool) {
+	p.BudgetFilled = val
+}
+func (p *ModelManagedTeachingPlanItem) SetTeacherArranged(val bool) {
+	p.TeacherArranged = val
+}
+func (p *ModelManagedTeachingPlanItem) SetClassroomArranged(val bool) {
+	p.ClassroomArranged = val
+}
+func (p *ModelManagedTeachingPlanItem) SetTeacherCount(val int32) {
+	p.TeacherCount = val
+}
+func (p *ModelManagedTeachingPlanItem) SetClassroomCount(val int32) {
+	p.ClassroomCount = val
+}
+
+func (p *ModelManagedTeachingPlanItem) IsSetInfo() bool {
+	return p.Info != nil
+}
+
+func (p *ModelManagedTeachingPlanItem) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ModelManagedTeachingPlanItem(%+v)", *p)
+}
+
+var fieldIDToName_ModelManagedTeachingPlanItem = map[int16]string{
+	1: "info",
+	2: "budget_filled",
+	3: "teacher_arranged",
+	4: "classroom_arranged",
+	5: "teacher_count",
+	6: "classroom_count",
+}
+
+type ListManagedTeachingPlansReq struct {
+	ListOption     *base.ListOption      `thrift:"list_option,1" frugal:"1,default,base.ListOption" json:"list_option" binding:"required"`
+	BudgetState    ManagedPlanCompletion `thrift:"budget_state,2" frugal:"2,default,ManagedPlanCompletion" json:"budget_state"`
+	TeacherState   ManagedPlanCompletion `thrift:"teacher_state,3" frugal:"3,default,ManagedPlanCompletion" json:"teacher_state"`
+	ClassroomState ManagedPlanCompletion `thrift:"classroom_state,4" frugal:"4,default,ManagedPlanCompletion" json:"classroom_state"`
+}
+
+func NewListManagedTeachingPlansReq() *ListManagedTeachingPlansReq {
+	return &ListManagedTeachingPlansReq{}
+}
+
+func (p *ListManagedTeachingPlansReq) InitDefault() {
+}
+
+var ListManagedTeachingPlansReq_ListOption_DEFAULT *base.ListOption
+
+func (p *ListManagedTeachingPlansReq) GetListOption() (v *base.ListOption) {
+	if !p.IsSetListOption() {
+		return ListManagedTeachingPlansReq_ListOption_DEFAULT
+	}
+	return p.ListOption
+}
+
+func (p *ListManagedTeachingPlansReq) GetBudgetState() (v ManagedPlanCompletion) {
+	return p.BudgetState
+}
+
+func (p *ListManagedTeachingPlansReq) GetTeacherState() (v ManagedPlanCompletion) {
+	return p.TeacherState
+}
+
+func (p *ListManagedTeachingPlansReq) GetClassroomState() (v ManagedPlanCompletion) {
+	return p.ClassroomState
+}
+func (p *ListManagedTeachingPlansReq) SetListOption(val *base.ListOption) {
+	p.ListOption = val
+}
+func (p *ListManagedTeachingPlansReq) SetBudgetState(val ManagedPlanCompletion) {
+	p.BudgetState = val
+}
+func (p *ListManagedTeachingPlansReq) SetTeacherState(val ManagedPlanCompletion) {
+	p.TeacherState = val
+}
+func (p *ListManagedTeachingPlansReq) SetClassroomState(val ManagedPlanCompletion) {
+	p.ClassroomState = val
+}
+
+func (p *ListManagedTeachingPlansReq) IsSetListOption() bool {
+	return p.ListOption != nil
+}
+
+func (p *ListManagedTeachingPlansReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ListManagedTeachingPlansReq(%+v)", *p)
+}
+
+var fieldIDToName_ListManagedTeachingPlansReq = map[int16]string{
+	1: "list_option",
+	2: "budget_state",
+	3: "teacher_state",
+	4: "classroom_state",
+}
+
+type ListManagedTeachingPlansResp struct {
+	List     []*ModelManagedTeachingPlanItem `thrift:"list,1" frugal:"1,default,list<ModelManagedTeachingPlanItem>" json:"list"`
+	Paginate *base.Paginate                  `thrift:"paginate,2" frugal:"2,default,base.Paginate" json:"paginate"`
+}
+
+func NewListManagedTeachingPlansResp() *ListManagedTeachingPlansResp {
+	return &ListManagedTeachingPlansResp{}
+}
+
+func (p *ListManagedTeachingPlansResp) InitDefault() {
+}
+
+func (p *ListManagedTeachingPlansResp) GetList() (v []*ModelManagedTeachingPlanItem) {
+	return p.List
+}
+
+var ListManagedTeachingPlansResp_Paginate_DEFAULT *base.Paginate
+
+func (p *ListManagedTeachingPlansResp) GetPaginate() (v *base.Paginate) {
+	if !p.IsSetPaginate() {
+		return ListManagedTeachingPlansResp_Paginate_DEFAULT
+	}
+	return p.Paginate
+}
+func (p *ListManagedTeachingPlansResp) SetList(val []*ModelManagedTeachingPlanItem) {
+	p.List = val
+}
+func (p *ListManagedTeachingPlansResp) SetPaginate(val *base.Paginate) {
+	p.Paginate = val
+}
+
+func (p *ListManagedTeachingPlansResp) IsSetPaginate() bool {
+	return p.Paginate != nil
+}
+
+func (p *ListManagedTeachingPlansResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ListManagedTeachingPlansResp(%+v)", *p)
+}
+
+var fieldIDToName_ListManagedTeachingPlansResp = map[int16]string{
+	1: "list",
+	2: "paginate",
+}
+
+type GetManagedTeachingPlanReq struct {
+	Id int32 `thrift:"id,1" frugal:"1,default,i32" json:"id" binding:"required"`
+}
+
+func NewGetManagedTeachingPlanReq() *GetManagedTeachingPlanReq {
+	return &GetManagedTeachingPlanReq{}
+}
+
+func (p *GetManagedTeachingPlanReq) InitDefault() {
+}
+
+func (p *GetManagedTeachingPlanReq) GetId() (v int32) {
+	return p.Id
+}
+func (p *GetManagedTeachingPlanReq) SetId(val int32) {
+	p.Id = val
+}
+
+func (p *GetManagedTeachingPlanReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("GetManagedTeachingPlanReq(%+v)", *p)
+}
+
+var fieldIDToName_GetManagedTeachingPlanReq = map[int16]string{
+	1: "id",
+}
+
+type GetManagedTeachingPlanResp struct {
+	Detail   *GetPlanDetailResp `thrift:"detail,1" frugal:"1,default,GetPlanDetailResp" json:"detail"`
+	Revision string             `thrift:"revision,2" frugal:"2,default,string" json:"revision"`
+}
+
+func NewGetManagedTeachingPlanResp() *GetManagedTeachingPlanResp {
+	return &GetManagedTeachingPlanResp{}
+}
+
+func (p *GetManagedTeachingPlanResp) InitDefault() {
+}
+
+var GetManagedTeachingPlanResp_Detail_DEFAULT *GetPlanDetailResp
+
+func (p *GetManagedTeachingPlanResp) GetDetail() (v *GetPlanDetailResp) {
+	if !p.IsSetDetail() {
+		return GetManagedTeachingPlanResp_Detail_DEFAULT
+	}
+	return p.Detail
+}
+
+func (p *GetManagedTeachingPlanResp) GetRevision() (v string) {
+	return p.Revision
+}
+func (p *GetManagedTeachingPlanResp) SetDetail(val *GetPlanDetailResp) {
+	p.Detail = val
+}
+func (p *GetManagedTeachingPlanResp) SetRevision(val string) {
+	p.Revision = val
+}
+
+func (p *GetManagedTeachingPlanResp) IsSetDetail() bool {
+	return p.Detail != nil
+}
+
+func (p *GetManagedTeachingPlanResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("GetManagedTeachingPlanResp(%+v)", *p)
+}
+
+var fieldIDToName_GetManagedTeachingPlanResp = map[int16]string{
+	1: "detail",
+	2: "revision",
+}
+
+type GetManagedTeachScheduleReq struct {
+	CourseId  int32  `thrift:"course_id,1" frugal:"1,default,i32" json:"course_id" binding:"required"`
+	WeekNum   int32  `thrift:"week_num,2" frugal:"2,default,i32" json:"week_num" binding:"required"`
+	Category  int32  `thrift:"category,3" frugal:"3,default,i32" json:"category" binding:"required"`
+	Id        string `thrift:"id,4" frugal:"4,default,string" json:"id"`
+	Name      string `thrift:"name,5" frugal:"5,default,string" json:"name" binding:"required"`
+	IsOutside int32  `thrift:"is_outside,6" frugal:"6,default,i32" json:"is_outside"`
+}
+
+func NewGetManagedTeachScheduleReq() *GetManagedTeachScheduleReq {
+	return &GetManagedTeachScheduleReq{}
+}
+
+func (p *GetManagedTeachScheduleReq) InitDefault() {
+}
+
+func (p *GetManagedTeachScheduleReq) GetCourseId() (v int32) {
+	return p.CourseId
+}
+
+func (p *GetManagedTeachScheduleReq) GetWeekNum() (v int32) {
+	return p.WeekNum
+}
+
+func (p *GetManagedTeachScheduleReq) GetCategory() (v int32) {
+	return p.Category
+}
+
+func (p *GetManagedTeachScheduleReq) GetId() (v string) {
+	return p.Id
+}
+
+func (p *GetManagedTeachScheduleReq) GetName() (v string) {
+	return p.Name
+}
+
+func (p *GetManagedTeachScheduleReq) GetIsOutside() (v int32) {
+	return p.IsOutside
+}
+func (p *GetManagedTeachScheduleReq) SetCourseId(val int32) {
+	p.CourseId = val
+}
+func (p *GetManagedTeachScheduleReq) SetWeekNum(val int32) {
+	p.WeekNum = val
+}
+func (p *GetManagedTeachScheduleReq) SetCategory(val int32) {
+	p.Category = val
+}
+func (p *GetManagedTeachScheduleReq) SetId(val string) {
+	p.Id = val
+}
+func (p *GetManagedTeachScheduleReq) SetName(val string) {
+	p.Name = val
+}
+func (p *GetManagedTeachScheduleReq) SetIsOutside(val int32) {
+	p.IsOutside = val
+}
+
+func (p *GetManagedTeachScheduleReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("GetManagedTeachScheduleReq(%+v)", *p)
+}
+
+var fieldIDToName_GetManagedTeachScheduleReq = map[int16]string{
+	1: "course_id",
+	2: "week_num",
+	3: "category",
+	4: "id",
+	5: "name",
+	6: "is_outside",
+}
+
+type ModelManagedPlanSchedule struct {
+	Teachers   []*ScheduleTeachingReqItem  `thrift:"teachers,1" frugal:"1,default,list<ScheduleTeachingReqItem>" json:"teachers"`
+	Classrooms []*ScheduleClassroomReqItem `thrift:"classrooms,2" frugal:"2,default,list<ScheduleClassroomReqItem>" json:"classrooms"`
+}
+
+func NewModelManagedPlanSchedule() *ModelManagedPlanSchedule {
+	return &ModelManagedPlanSchedule{}
+}
+
+func (p *ModelManagedPlanSchedule) InitDefault() {
+}
+
+func (p *ModelManagedPlanSchedule) GetTeachers() (v []*ScheduleTeachingReqItem) {
+	return p.Teachers
+}
+
+func (p *ModelManagedPlanSchedule) GetClassrooms() (v []*ScheduleClassroomReqItem) {
+	return p.Classrooms
+}
+func (p *ModelManagedPlanSchedule) SetTeachers(val []*ScheduleTeachingReqItem) {
+	p.Teachers = val
+}
+func (p *ModelManagedPlanSchedule) SetClassrooms(val []*ScheduleClassroomReqItem) {
+	p.Classrooms = val
+}
+
+func (p *ModelManagedPlanSchedule) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ModelManagedPlanSchedule(%+v)", *p)
+}
+
+var fieldIDToName_ModelManagedPlanSchedule = map[int16]string{
+	1: "teachers",
+	2: "classrooms",
+}
+
+type SaveManagedTeachingPlanReq struct {
+	Id            int32                     `thrift:"id,1" frugal:"1,default,i32" json:"id" binding:"required"`
+	Revision      string                    `thrift:"revision,2" frugal:"2,default,string" json:"revision" binding:"required"`
+	Major         string                    `thrift:"major,3" frugal:"3,default,string" json:"major" binding:"required"`
+	ClassName     string                    `thrift:"class_name,4" frugal:"4,default,string" json:"class_name" binding:"required"`
+	CourseName    string                    `thrift:"course_name,5" frugal:"5,default,string" json:"course_name" binding:"required"`
+	StudentNumber int32                     `thrift:"student_number,6" frugal:"6,default,i32" json:"student_number"`
+	Week          int32                     `thrift:"week,7" frugal:"7,default,i32" json:"week" binding:"required"`
+	Schedule      *ModelManagedPlanSchedule `thrift:"schedule,8" frugal:"8,default,ModelManagedPlanSchedule" json:"schedule" binding:"required"`
+}
+
+func NewSaveManagedTeachingPlanReq() *SaveManagedTeachingPlanReq {
+	return &SaveManagedTeachingPlanReq{}
+}
+
+func (p *SaveManagedTeachingPlanReq) InitDefault() {
+}
+
+func (p *SaveManagedTeachingPlanReq) GetId() (v int32) {
+	return p.Id
+}
+
+func (p *SaveManagedTeachingPlanReq) GetRevision() (v string) {
+	return p.Revision
+}
+
+func (p *SaveManagedTeachingPlanReq) GetMajor() (v string) {
+	return p.Major
+}
+
+func (p *SaveManagedTeachingPlanReq) GetClassName() (v string) {
+	return p.ClassName
+}
+
+func (p *SaveManagedTeachingPlanReq) GetCourseName() (v string) {
+	return p.CourseName
+}
+
+func (p *SaveManagedTeachingPlanReq) GetStudentNumber() (v int32) {
+	return p.StudentNumber
+}
+
+func (p *SaveManagedTeachingPlanReq) GetWeek() (v int32) {
+	return p.Week
+}
+
+var SaveManagedTeachingPlanReq_Schedule_DEFAULT *ModelManagedPlanSchedule
+
+func (p *SaveManagedTeachingPlanReq) GetSchedule() (v *ModelManagedPlanSchedule) {
+	if !p.IsSetSchedule() {
+		return SaveManagedTeachingPlanReq_Schedule_DEFAULT
+	}
+	return p.Schedule
+}
+func (p *SaveManagedTeachingPlanReq) SetId(val int32) {
+	p.Id = val
+}
+func (p *SaveManagedTeachingPlanReq) SetRevision(val string) {
+	p.Revision = val
+}
+func (p *SaveManagedTeachingPlanReq) SetMajor(val string) {
+	p.Major = val
+}
+func (p *SaveManagedTeachingPlanReq) SetClassName(val string) {
+	p.ClassName = val
+}
+func (p *SaveManagedTeachingPlanReq) SetCourseName(val string) {
+	p.CourseName = val
+}
+func (p *SaveManagedTeachingPlanReq) SetStudentNumber(val int32) {
+	p.StudentNumber = val
+}
+func (p *SaveManagedTeachingPlanReq) SetWeek(val int32) {
+	p.Week = val
+}
+func (p *SaveManagedTeachingPlanReq) SetSchedule(val *ModelManagedPlanSchedule) {
+	p.Schedule = val
+}
+
+func (p *SaveManagedTeachingPlanReq) IsSetSchedule() bool {
+	return p.Schedule != nil
+}
+
+func (p *SaveManagedTeachingPlanReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("SaveManagedTeachingPlanReq(%+v)", *p)
+}
+
+var fieldIDToName_SaveManagedTeachingPlanReq = map[int16]string{
+	1: "id",
+	2: "revision",
+	3: "major",
+	4: "class_name",
+	5: "course_name",
+	6: "student_number",
+	7: "week",
+	8: "schedule",
+}
+
+type ResetManagedTeachingPlanReq struct {
+	Id       int32  `thrift:"id,1" frugal:"1,default,i32" json:"id" binding:"required"`
+	Revision string `thrift:"revision,2" frugal:"2,default,string" json:"revision" binding:"required"`
+}
+
+func NewResetManagedTeachingPlanReq() *ResetManagedTeachingPlanReq {
+	return &ResetManagedTeachingPlanReq{}
+}
+
+func (p *ResetManagedTeachingPlanReq) InitDefault() {
+}
+
+func (p *ResetManagedTeachingPlanReq) GetId() (v int32) {
+	return p.Id
+}
+
+func (p *ResetManagedTeachingPlanReq) GetRevision() (v string) {
+	return p.Revision
+}
+func (p *ResetManagedTeachingPlanReq) SetId(val int32) {
+	p.Id = val
+}
+func (p *ResetManagedTeachingPlanReq) SetRevision(val string) {
+	p.Revision = val
+}
+
+func (p *ResetManagedTeachingPlanReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ResetManagedTeachingPlanReq(%+v)", *p)
+}
+
+var fieldIDToName_ResetManagedTeachingPlanReq = map[int16]string{
+	1: "id",
+	2: "revision",
+}
+
+type DeleteManagedTeachingPlanReq struct {
+	Id       int32  `thrift:"id,1" frugal:"1,default,i32" json:"id" binding:"required"`
+	Revision string `thrift:"revision,2" frugal:"2,default,string" json:"revision" binding:"required"`
+}
+
+func NewDeleteManagedTeachingPlanReq() *DeleteManagedTeachingPlanReq {
+	return &DeleteManagedTeachingPlanReq{}
+}
+
+func (p *DeleteManagedTeachingPlanReq) InitDefault() {
+}
+
+func (p *DeleteManagedTeachingPlanReq) GetId() (v int32) {
+	return p.Id
+}
+
+func (p *DeleteManagedTeachingPlanReq) GetRevision() (v string) {
+	return p.Revision
+}
+func (p *DeleteManagedTeachingPlanReq) SetId(val int32) {
+	p.Id = val
+}
+func (p *DeleteManagedTeachingPlanReq) SetRevision(val string) {
+	p.Revision = val
+}
+
+func (p *DeleteManagedTeachingPlanReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("DeleteManagedTeachingPlanReq(%+v)", *p)
+}
+
+var fieldIDToName_DeleteManagedTeachingPlanReq = map[int16]string{
+	1: "id",
+	2: "revision",
+}
+
+type ManagedPlanWriteResp struct {
+	Committed     bool   `thrift:"committed,1" frugal:"1,default,bool" json:"committed"`
+	CommitUnknown bool   `thrift:"commit_unknown,2" frugal:"2,default,bool" json:"commit_unknown"`
+	Revision      string `thrift:"revision,3" frugal:"3,default,string" json:"revision"`
+	CachePending  bool   `thrift:"cache_pending,4" frugal:"4,default,bool" json:"cache_pending"`
+}
+
+func NewManagedPlanWriteResp() *ManagedPlanWriteResp {
+	return &ManagedPlanWriteResp{}
+}
+
+func (p *ManagedPlanWriteResp) InitDefault() {
+}
+
+func (p *ManagedPlanWriteResp) GetCommitted() (v bool) {
+	return p.Committed
+}
+
+func (p *ManagedPlanWriteResp) GetCommitUnknown() (v bool) {
+	return p.CommitUnknown
+}
+
+func (p *ManagedPlanWriteResp) GetRevision() (v string) {
+	return p.Revision
+}
+
+func (p *ManagedPlanWriteResp) GetCachePending() (v bool) {
+	return p.CachePending
+}
+func (p *ManagedPlanWriteResp) SetCommitted(val bool) {
+	p.Committed = val
+}
+func (p *ManagedPlanWriteResp) SetCommitUnknown(val bool) {
+	p.CommitUnknown = val
+}
+func (p *ManagedPlanWriteResp) SetRevision(val string) {
+	p.Revision = val
+}
+func (p *ManagedPlanWriteResp) SetCachePending(val bool) {
+	p.CachePending = val
+}
+
+func (p *ManagedPlanWriteResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ManagedPlanWriteResp(%+v)", *p)
+}
+
+var fieldIDToName_ManagedPlanWriteResp = map[int16]string{
+	1: "committed",
+	2: "commit_unknown",
+	3: "revision",
+	4: "cache_pending",
+}
+
+type ModelManagedPlanCacheResource struct {
+	Category     int32  `thrift:"category,1" frugal:"1,default,i32" json:"category"`
+	ResourceId   string `thrift:"resource_id,2" frugal:"2,default,string" json:"resource_id"`
+	ResourceName string `thrift:"resource_name,3" frugal:"3,default,string" json:"resource_name"`
+	WeekNumber   int32  `thrift:"week_number,4" frugal:"4,default,i32" json:"week_number"`
+}
+
+func NewModelManagedPlanCacheResource() *ModelManagedPlanCacheResource {
+	return &ModelManagedPlanCacheResource{}
+}
+
+func (p *ModelManagedPlanCacheResource) InitDefault() {
+}
+
+func (p *ModelManagedPlanCacheResource) GetCategory() (v int32) {
+	return p.Category
+}
+
+func (p *ModelManagedPlanCacheResource) GetResourceId() (v string) {
+	return p.ResourceId
+}
+
+func (p *ModelManagedPlanCacheResource) GetResourceName() (v string) {
+	return p.ResourceName
+}
+
+func (p *ModelManagedPlanCacheResource) GetWeekNumber() (v int32) {
+	return p.WeekNumber
+}
+func (p *ModelManagedPlanCacheResource) SetCategory(val int32) {
+	p.Category = val
+}
+func (p *ModelManagedPlanCacheResource) SetResourceId(val string) {
+	p.ResourceId = val
+}
+func (p *ModelManagedPlanCacheResource) SetResourceName(val string) {
+	p.ResourceName = val
+}
+func (p *ModelManagedPlanCacheResource) SetWeekNumber(val int32) {
+	p.WeekNumber = val
+}
+
+func (p *ModelManagedPlanCacheResource) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ModelManagedPlanCacheResource(%+v)", *p)
+}
+
+var fieldIDToName_ModelManagedPlanCacheResource = map[int16]string{
+	1: "category",
+	2: "resource_id",
+	3: "resource_name",
+	4: "week_number",
+}
+
+type ModelManagedPlanCacheRepair struct {
+	AppId        int32                            `thrift:"app_id,1" frugal:"1,default,i32" json:"app_id"`
+	AcademicYear string                           `thrift:"academic_year,2" frugal:"2,default,string" json:"academic_year"`
+	Semester     string                           `thrift:"semester,3" frugal:"3,default,string" json:"semester"`
+	Resources    []*ModelManagedPlanCacheResource `thrift:"resources,4" frugal:"4,default,list<ModelManagedPlanCacheResource>" json:"resources"`
+}
+
+func NewModelManagedPlanCacheRepair() *ModelManagedPlanCacheRepair {
+	return &ModelManagedPlanCacheRepair{}
+}
+
+func (p *ModelManagedPlanCacheRepair) InitDefault() {
+}
+
+func (p *ModelManagedPlanCacheRepair) GetAppId() (v int32) {
+	return p.AppId
+}
+
+func (p *ModelManagedPlanCacheRepair) GetAcademicYear() (v string) {
+	return p.AcademicYear
+}
+
+func (p *ModelManagedPlanCacheRepair) GetSemester() (v string) {
+	return p.Semester
+}
+
+func (p *ModelManagedPlanCacheRepair) GetResources() (v []*ModelManagedPlanCacheResource) {
+	return p.Resources
+}
+func (p *ModelManagedPlanCacheRepair) SetAppId(val int32) {
+	p.AppId = val
+}
+func (p *ModelManagedPlanCacheRepair) SetAcademicYear(val string) {
+	p.AcademicYear = val
+}
+func (p *ModelManagedPlanCacheRepair) SetSemester(val string) {
+	p.Semester = val
+}
+func (p *ModelManagedPlanCacheRepair) SetResources(val []*ModelManagedPlanCacheResource) {
+	p.Resources = val
+}
+
+func (p *ModelManagedPlanCacheRepair) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ModelManagedPlanCacheRepair(%+v)", *p)
+}
+
+var fieldIDToName_ModelManagedPlanCacheRepair = map[int16]string{
+	1: "app_id",
+	2: "academic_year",
+	3: "semester",
+	4: "resources",
+}
+
 type Trainingservice interface {
 	ImportTrainingCourse(ctx context.Context, req *ImportTrainingCourseReq) (r *ImportTrainingCourseResp, err error)
 
@@ -8129,6 +8904,18 @@ type Trainingservice interface {
 	ExportPracticeDataTable(ctx context.Context, req *ExportPracticeDataTableReq) (r *ExportPracticeDataTableResp, err error)
 
 	ExportPracticeProcessDataTable(ctx context.Context, req *ExportPracticeProcessDataTableReq) (r *ExportPracticeProcessDataTableResp, err error)
+
+	ListManagedTeachingPlans(ctx context.Context, req *ListManagedTeachingPlansReq) (r *ListManagedTeachingPlansResp, err error)
+
+	GetManagedTeachingPlan(ctx context.Context, req *GetManagedTeachingPlanReq) (r *GetManagedTeachingPlanResp, err error)
+
+	GetManagedTeachSchedule(ctx context.Context, req *GetManagedTeachScheduleReq) (r *GetTeachScheduleResp, err error)
+
+	SaveManagedTeachingPlan(ctx context.Context, req *SaveManagedTeachingPlanReq) (r *ManagedPlanWriteResp, err error)
+
+	ResetManagedTeachingPlan(ctx context.Context, req *ResetManagedTeachingPlanReq) (r *ManagedPlanWriteResp, err error)
+
+	DeleteManagedTeachingPlan(ctx context.Context, req *DeleteManagedTeachingPlanReq) (r *ManagedPlanWriteResp, err error)
 }
 
 type TrainingserviceImportTrainingCourseArgs struct {
@@ -12536,5 +13323,461 @@ func (p *TrainingserviceExportPracticeProcessDataTableResult) String() string {
 }
 
 var fieldIDToName_TrainingserviceExportPracticeProcessDataTableResult = map[int16]string{
+	0: "success",
+}
+
+type TrainingserviceListManagedTeachingPlansArgs struct {
+	Req *ListManagedTeachingPlansReq `thrift:"req,1" frugal:"1,default,ListManagedTeachingPlansReq" json:"req"`
+}
+
+func NewTrainingserviceListManagedTeachingPlansArgs() *TrainingserviceListManagedTeachingPlansArgs {
+	return &TrainingserviceListManagedTeachingPlansArgs{}
+}
+
+func (p *TrainingserviceListManagedTeachingPlansArgs) InitDefault() {
+}
+
+var TrainingserviceListManagedTeachingPlansArgs_Req_DEFAULT *ListManagedTeachingPlansReq
+
+func (p *TrainingserviceListManagedTeachingPlansArgs) GetReq() (v *ListManagedTeachingPlansReq) {
+	if !p.IsSetReq() {
+		return TrainingserviceListManagedTeachingPlansArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *TrainingserviceListManagedTeachingPlansArgs) SetReq(val *ListManagedTeachingPlansReq) {
+	p.Req = val
+}
+
+func (p *TrainingserviceListManagedTeachingPlansArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *TrainingserviceListManagedTeachingPlansArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceListManagedTeachingPlansArgs(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceListManagedTeachingPlansArgs = map[int16]string{
+	1: "req",
+}
+
+type TrainingserviceListManagedTeachingPlansResult struct {
+	Success *ListManagedTeachingPlansResp `thrift:"success,0,optional" frugal:"0,optional,ListManagedTeachingPlansResp" json:"success,omitempty"`
+}
+
+func NewTrainingserviceListManagedTeachingPlansResult() *TrainingserviceListManagedTeachingPlansResult {
+	return &TrainingserviceListManagedTeachingPlansResult{}
+}
+
+func (p *TrainingserviceListManagedTeachingPlansResult) InitDefault() {
+}
+
+var TrainingserviceListManagedTeachingPlansResult_Success_DEFAULT *ListManagedTeachingPlansResp
+
+func (p *TrainingserviceListManagedTeachingPlansResult) GetSuccess() (v *ListManagedTeachingPlansResp) {
+	if !p.IsSetSuccess() {
+		return TrainingserviceListManagedTeachingPlansResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *TrainingserviceListManagedTeachingPlansResult) SetSuccess(x interface{}) {
+	p.Success = x.(*ListManagedTeachingPlansResp)
+}
+
+func (p *TrainingserviceListManagedTeachingPlansResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *TrainingserviceListManagedTeachingPlansResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceListManagedTeachingPlansResult(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceListManagedTeachingPlansResult = map[int16]string{
+	0: "success",
+}
+
+type TrainingserviceGetManagedTeachingPlanArgs struct {
+	Req *GetManagedTeachingPlanReq `thrift:"req,1" frugal:"1,default,GetManagedTeachingPlanReq" json:"req"`
+}
+
+func NewTrainingserviceGetManagedTeachingPlanArgs() *TrainingserviceGetManagedTeachingPlanArgs {
+	return &TrainingserviceGetManagedTeachingPlanArgs{}
+}
+
+func (p *TrainingserviceGetManagedTeachingPlanArgs) InitDefault() {
+}
+
+var TrainingserviceGetManagedTeachingPlanArgs_Req_DEFAULT *GetManagedTeachingPlanReq
+
+func (p *TrainingserviceGetManagedTeachingPlanArgs) GetReq() (v *GetManagedTeachingPlanReq) {
+	if !p.IsSetReq() {
+		return TrainingserviceGetManagedTeachingPlanArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *TrainingserviceGetManagedTeachingPlanArgs) SetReq(val *GetManagedTeachingPlanReq) {
+	p.Req = val
+}
+
+func (p *TrainingserviceGetManagedTeachingPlanArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *TrainingserviceGetManagedTeachingPlanArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceGetManagedTeachingPlanArgs(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceGetManagedTeachingPlanArgs = map[int16]string{
+	1: "req",
+}
+
+type TrainingserviceGetManagedTeachingPlanResult struct {
+	Success *GetManagedTeachingPlanResp `thrift:"success,0,optional" frugal:"0,optional,GetManagedTeachingPlanResp" json:"success,omitempty"`
+}
+
+func NewTrainingserviceGetManagedTeachingPlanResult() *TrainingserviceGetManagedTeachingPlanResult {
+	return &TrainingserviceGetManagedTeachingPlanResult{}
+}
+
+func (p *TrainingserviceGetManagedTeachingPlanResult) InitDefault() {
+}
+
+var TrainingserviceGetManagedTeachingPlanResult_Success_DEFAULT *GetManagedTeachingPlanResp
+
+func (p *TrainingserviceGetManagedTeachingPlanResult) GetSuccess() (v *GetManagedTeachingPlanResp) {
+	if !p.IsSetSuccess() {
+		return TrainingserviceGetManagedTeachingPlanResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *TrainingserviceGetManagedTeachingPlanResult) SetSuccess(x interface{}) {
+	p.Success = x.(*GetManagedTeachingPlanResp)
+}
+
+func (p *TrainingserviceGetManagedTeachingPlanResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *TrainingserviceGetManagedTeachingPlanResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceGetManagedTeachingPlanResult(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceGetManagedTeachingPlanResult = map[int16]string{
+	0: "success",
+}
+
+type TrainingserviceGetManagedTeachScheduleArgs struct {
+	Req *GetManagedTeachScheduleReq `thrift:"req,1" frugal:"1,default,GetManagedTeachScheduleReq" json:"req"`
+}
+
+func NewTrainingserviceGetManagedTeachScheduleArgs() *TrainingserviceGetManagedTeachScheduleArgs {
+	return &TrainingserviceGetManagedTeachScheduleArgs{}
+}
+
+func (p *TrainingserviceGetManagedTeachScheduleArgs) InitDefault() {
+}
+
+var TrainingserviceGetManagedTeachScheduleArgs_Req_DEFAULT *GetManagedTeachScheduleReq
+
+func (p *TrainingserviceGetManagedTeachScheduleArgs) GetReq() (v *GetManagedTeachScheduleReq) {
+	if !p.IsSetReq() {
+		return TrainingserviceGetManagedTeachScheduleArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *TrainingserviceGetManagedTeachScheduleArgs) SetReq(val *GetManagedTeachScheduleReq) {
+	p.Req = val
+}
+
+func (p *TrainingserviceGetManagedTeachScheduleArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *TrainingserviceGetManagedTeachScheduleArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceGetManagedTeachScheduleArgs(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceGetManagedTeachScheduleArgs = map[int16]string{
+	1: "req",
+}
+
+type TrainingserviceGetManagedTeachScheduleResult struct {
+	Success *GetTeachScheduleResp `thrift:"success,0,optional" frugal:"0,optional,GetTeachScheduleResp" json:"success,omitempty"`
+}
+
+func NewTrainingserviceGetManagedTeachScheduleResult() *TrainingserviceGetManagedTeachScheduleResult {
+	return &TrainingserviceGetManagedTeachScheduleResult{}
+}
+
+func (p *TrainingserviceGetManagedTeachScheduleResult) InitDefault() {
+}
+
+var TrainingserviceGetManagedTeachScheduleResult_Success_DEFAULT *GetTeachScheduleResp
+
+func (p *TrainingserviceGetManagedTeachScheduleResult) GetSuccess() (v *GetTeachScheduleResp) {
+	if !p.IsSetSuccess() {
+		return TrainingserviceGetManagedTeachScheduleResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *TrainingserviceGetManagedTeachScheduleResult) SetSuccess(x interface{}) {
+	p.Success = x.(*GetTeachScheduleResp)
+}
+
+func (p *TrainingserviceGetManagedTeachScheduleResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *TrainingserviceGetManagedTeachScheduleResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceGetManagedTeachScheduleResult(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceGetManagedTeachScheduleResult = map[int16]string{
+	0: "success",
+}
+
+type TrainingserviceSaveManagedTeachingPlanArgs struct {
+	Req *SaveManagedTeachingPlanReq `thrift:"req,1" frugal:"1,default,SaveManagedTeachingPlanReq" json:"req"`
+}
+
+func NewTrainingserviceSaveManagedTeachingPlanArgs() *TrainingserviceSaveManagedTeachingPlanArgs {
+	return &TrainingserviceSaveManagedTeachingPlanArgs{}
+}
+
+func (p *TrainingserviceSaveManagedTeachingPlanArgs) InitDefault() {
+}
+
+var TrainingserviceSaveManagedTeachingPlanArgs_Req_DEFAULT *SaveManagedTeachingPlanReq
+
+func (p *TrainingserviceSaveManagedTeachingPlanArgs) GetReq() (v *SaveManagedTeachingPlanReq) {
+	if !p.IsSetReq() {
+		return TrainingserviceSaveManagedTeachingPlanArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *TrainingserviceSaveManagedTeachingPlanArgs) SetReq(val *SaveManagedTeachingPlanReq) {
+	p.Req = val
+}
+
+func (p *TrainingserviceSaveManagedTeachingPlanArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *TrainingserviceSaveManagedTeachingPlanArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceSaveManagedTeachingPlanArgs(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceSaveManagedTeachingPlanArgs = map[int16]string{
+	1: "req",
+}
+
+type TrainingserviceSaveManagedTeachingPlanResult struct {
+	Success *ManagedPlanWriteResp `thrift:"success,0,optional" frugal:"0,optional,ManagedPlanWriteResp" json:"success,omitempty"`
+}
+
+func NewTrainingserviceSaveManagedTeachingPlanResult() *TrainingserviceSaveManagedTeachingPlanResult {
+	return &TrainingserviceSaveManagedTeachingPlanResult{}
+}
+
+func (p *TrainingserviceSaveManagedTeachingPlanResult) InitDefault() {
+}
+
+var TrainingserviceSaveManagedTeachingPlanResult_Success_DEFAULT *ManagedPlanWriteResp
+
+func (p *TrainingserviceSaveManagedTeachingPlanResult) GetSuccess() (v *ManagedPlanWriteResp) {
+	if !p.IsSetSuccess() {
+		return TrainingserviceSaveManagedTeachingPlanResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *TrainingserviceSaveManagedTeachingPlanResult) SetSuccess(x interface{}) {
+	p.Success = x.(*ManagedPlanWriteResp)
+}
+
+func (p *TrainingserviceSaveManagedTeachingPlanResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *TrainingserviceSaveManagedTeachingPlanResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceSaveManagedTeachingPlanResult(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceSaveManagedTeachingPlanResult = map[int16]string{
+	0: "success",
+}
+
+type TrainingserviceResetManagedTeachingPlanArgs struct {
+	Req *ResetManagedTeachingPlanReq `thrift:"req,1" frugal:"1,default,ResetManagedTeachingPlanReq" json:"req"`
+}
+
+func NewTrainingserviceResetManagedTeachingPlanArgs() *TrainingserviceResetManagedTeachingPlanArgs {
+	return &TrainingserviceResetManagedTeachingPlanArgs{}
+}
+
+func (p *TrainingserviceResetManagedTeachingPlanArgs) InitDefault() {
+}
+
+var TrainingserviceResetManagedTeachingPlanArgs_Req_DEFAULT *ResetManagedTeachingPlanReq
+
+func (p *TrainingserviceResetManagedTeachingPlanArgs) GetReq() (v *ResetManagedTeachingPlanReq) {
+	if !p.IsSetReq() {
+		return TrainingserviceResetManagedTeachingPlanArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *TrainingserviceResetManagedTeachingPlanArgs) SetReq(val *ResetManagedTeachingPlanReq) {
+	p.Req = val
+}
+
+func (p *TrainingserviceResetManagedTeachingPlanArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *TrainingserviceResetManagedTeachingPlanArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceResetManagedTeachingPlanArgs(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceResetManagedTeachingPlanArgs = map[int16]string{
+	1: "req",
+}
+
+type TrainingserviceResetManagedTeachingPlanResult struct {
+	Success *ManagedPlanWriteResp `thrift:"success,0,optional" frugal:"0,optional,ManagedPlanWriteResp" json:"success,omitempty"`
+}
+
+func NewTrainingserviceResetManagedTeachingPlanResult() *TrainingserviceResetManagedTeachingPlanResult {
+	return &TrainingserviceResetManagedTeachingPlanResult{}
+}
+
+func (p *TrainingserviceResetManagedTeachingPlanResult) InitDefault() {
+}
+
+var TrainingserviceResetManagedTeachingPlanResult_Success_DEFAULT *ManagedPlanWriteResp
+
+func (p *TrainingserviceResetManagedTeachingPlanResult) GetSuccess() (v *ManagedPlanWriteResp) {
+	if !p.IsSetSuccess() {
+		return TrainingserviceResetManagedTeachingPlanResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *TrainingserviceResetManagedTeachingPlanResult) SetSuccess(x interface{}) {
+	p.Success = x.(*ManagedPlanWriteResp)
+}
+
+func (p *TrainingserviceResetManagedTeachingPlanResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *TrainingserviceResetManagedTeachingPlanResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceResetManagedTeachingPlanResult(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceResetManagedTeachingPlanResult = map[int16]string{
+	0: "success",
+}
+
+type TrainingserviceDeleteManagedTeachingPlanArgs struct {
+	Req *DeleteManagedTeachingPlanReq `thrift:"req,1" frugal:"1,default,DeleteManagedTeachingPlanReq" json:"req"`
+}
+
+func NewTrainingserviceDeleteManagedTeachingPlanArgs() *TrainingserviceDeleteManagedTeachingPlanArgs {
+	return &TrainingserviceDeleteManagedTeachingPlanArgs{}
+}
+
+func (p *TrainingserviceDeleteManagedTeachingPlanArgs) InitDefault() {
+}
+
+var TrainingserviceDeleteManagedTeachingPlanArgs_Req_DEFAULT *DeleteManagedTeachingPlanReq
+
+func (p *TrainingserviceDeleteManagedTeachingPlanArgs) GetReq() (v *DeleteManagedTeachingPlanReq) {
+	if !p.IsSetReq() {
+		return TrainingserviceDeleteManagedTeachingPlanArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *TrainingserviceDeleteManagedTeachingPlanArgs) SetReq(val *DeleteManagedTeachingPlanReq) {
+	p.Req = val
+}
+
+func (p *TrainingserviceDeleteManagedTeachingPlanArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *TrainingserviceDeleteManagedTeachingPlanArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceDeleteManagedTeachingPlanArgs(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceDeleteManagedTeachingPlanArgs = map[int16]string{
+	1: "req",
+}
+
+type TrainingserviceDeleteManagedTeachingPlanResult struct {
+	Success *ManagedPlanWriteResp `thrift:"success,0,optional" frugal:"0,optional,ManagedPlanWriteResp" json:"success,omitempty"`
+}
+
+func NewTrainingserviceDeleteManagedTeachingPlanResult() *TrainingserviceDeleteManagedTeachingPlanResult {
+	return &TrainingserviceDeleteManagedTeachingPlanResult{}
+}
+
+func (p *TrainingserviceDeleteManagedTeachingPlanResult) InitDefault() {
+}
+
+var TrainingserviceDeleteManagedTeachingPlanResult_Success_DEFAULT *ManagedPlanWriteResp
+
+func (p *TrainingserviceDeleteManagedTeachingPlanResult) GetSuccess() (v *ManagedPlanWriteResp) {
+	if !p.IsSetSuccess() {
+		return TrainingserviceDeleteManagedTeachingPlanResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *TrainingserviceDeleteManagedTeachingPlanResult) SetSuccess(x interface{}) {
+	p.Success = x.(*ManagedPlanWriteResp)
+}
+
+func (p *TrainingserviceDeleteManagedTeachingPlanResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *TrainingserviceDeleteManagedTeachingPlanResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceDeleteManagedTeachingPlanResult(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceDeleteManagedTeachingPlanResult = map[int16]string{
 	0: "success",
 }

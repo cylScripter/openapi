@@ -69,6 +69,12 @@ type Client interface {
 	UploadEvaluationSign(ctx context.Context, req *training.UploadEvaluationSignReq, callOptions ...callopt.Option) (r *training.UploadEvaluationSignResp, err error)
 	ExportPracticeDataTable(ctx context.Context, req *training.ExportPracticeDataTableReq, callOptions ...callopt.Option) (r *training.ExportPracticeDataTableResp, err error)
 	ExportPracticeProcessDataTable(ctx context.Context, req *training.ExportPracticeProcessDataTableReq, callOptions ...callopt.Option) (r *training.ExportPracticeProcessDataTableResp, err error)
+	ListManagedTeachingPlans(ctx context.Context, req *training.ListManagedTeachingPlansReq, callOptions ...callopt.Option) (r *training.ListManagedTeachingPlansResp, err error)
+	GetManagedTeachingPlan(ctx context.Context, req *training.GetManagedTeachingPlanReq, callOptions ...callopt.Option) (r *training.GetManagedTeachingPlanResp, err error)
+	GetManagedTeachSchedule(ctx context.Context, req *training.GetManagedTeachScheduleReq, callOptions ...callopt.Option) (r *training.GetTeachScheduleResp, err error)
+	SaveManagedTeachingPlan(ctx context.Context, req *training.SaveManagedTeachingPlanReq, callOptions ...callopt.Option) (r *training.ManagedPlanWriteResp, err error)
+	ResetManagedTeachingPlan(ctx context.Context, req *training.ResetManagedTeachingPlanReq, callOptions ...callopt.Option) (r *training.ManagedPlanWriteResp, err error)
+	DeleteManagedTeachingPlan(ctx context.Context, req *training.DeleteManagedTeachingPlanReq, callOptions ...callopt.Option) (r *training.ManagedPlanWriteResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -388,4 +394,34 @@ func (p *kTrainingserviceClient) ExportPracticeDataTable(ctx context.Context, re
 func (p *kTrainingserviceClient) ExportPracticeProcessDataTable(ctx context.Context, req *training.ExportPracticeProcessDataTableReq, callOptions ...callopt.Option) (r *training.ExportPracticeProcessDataTableResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.ExportPracticeProcessDataTable(ctx, req)
+}
+
+func (p *kTrainingserviceClient) ListManagedTeachingPlans(ctx context.Context, req *training.ListManagedTeachingPlansReq, callOptions ...callopt.Option) (r *training.ListManagedTeachingPlansResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ListManagedTeachingPlans(ctx, req)
+}
+
+func (p *kTrainingserviceClient) GetManagedTeachingPlan(ctx context.Context, req *training.GetManagedTeachingPlanReq, callOptions ...callopt.Option) (r *training.GetManagedTeachingPlanResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetManagedTeachingPlan(ctx, req)
+}
+
+func (p *kTrainingserviceClient) GetManagedTeachSchedule(ctx context.Context, req *training.GetManagedTeachScheduleReq, callOptions ...callopt.Option) (r *training.GetTeachScheduleResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetManagedTeachSchedule(ctx, req)
+}
+
+func (p *kTrainingserviceClient) SaveManagedTeachingPlan(ctx context.Context, req *training.SaveManagedTeachingPlanReq, callOptions ...callopt.Option) (r *training.ManagedPlanWriteResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.SaveManagedTeachingPlan(ctx, req)
+}
+
+func (p *kTrainingserviceClient) ResetManagedTeachingPlan(ctx context.Context, req *training.ResetManagedTeachingPlanReq, callOptions ...callopt.Option) (r *training.ManagedPlanWriteResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ResetManagedTeachingPlan(ctx, req)
+}
+
+func (p *kTrainingserviceClient) DeleteManagedTeachingPlan(ctx context.Context, req *training.DeleteManagedTeachingPlanReq, callOptions ...callopt.Option) (r *training.ManagedPlanWriteResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.DeleteManagedTeachingPlan(ctx, req)
 }
