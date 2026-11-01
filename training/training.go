@@ -286,6 +286,85 @@ func (p *GetMajorPracticeTeachingPlanListReqOption) Value() (driver.Value, error
 	return int64(*p), nil
 }
 
+type GetTeachingPlanManagementListReqOption int64
+
+const (
+	GetTeachingPlanManagementListReqOption_id               GetTeachingPlanManagementListReqOption = 1
+	GetTeachingPlanManagementListReqOption_course_name      GetTeachingPlanManagementListReqOption = 2
+	GetTeachingPlanManagementListReqOption_class_name       GetTeachingPlanManagementListReqOption = 3
+	GetTeachingPlanManagementListReqOption_academic_year    GetTeachingPlanManagementListReqOption = 4
+	GetTeachingPlanManagementListReqOption_semester         GetTeachingPlanManagementListReqOption = 5
+	GetTeachingPlanManagementListReqOption_major            GetTeachingPlanManagementListReqOption = 6
+	GetTeachingPlanManagementListReqOption_budget_status    GetTeachingPlanManagementListReqOption = 7
+	GetTeachingPlanManagementListReqOption_teacher_status   GetTeachingPlanManagementListReqOption = 8
+	GetTeachingPlanManagementListReqOption_classroom_status GetTeachingPlanManagementListReqOption = 9
+)
+
+func (p GetTeachingPlanManagementListReqOption) String() string {
+	switch p {
+	case GetTeachingPlanManagementListReqOption_id:
+		return "id"
+	case GetTeachingPlanManagementListReqOption_course_name:
+		return "course_name"
+	case GetTeachingPlanManagementListReqOption_class_name:
+		return "class_name"
+	case GetTeachingPlanManagementListReqOption_academic_year:
+		return "academic_year"
+	case GetTeachingPlanManagementListReqOption_semester:
+		return "semester"
+	case GetTeachingPlanManagementListReqOption_major:
+		return "major"
+	case GetTeachingPlanManagementListReqOption_budget_status:
+		return "budget_status"
+	case GetTeachingPlanManagementListReqOption_teacher_status:
+		return "teacher_status"
+	case GetTeachingPlanManagementListReqOption_classroom_status:
+		return "classroom_status"
+	}
+	return "<UNSET>"
+}
+
+func GetTeachingPlanManagementListReqOptionFromString(s string) (GetTeachingPlanManagementListReqOption, error) {
+	switch s {
+	case "id":
+		return GetTeachingPlanManagementListReqOption_id, nil
+	case "course_name":
+		return GetTeachingPlanManagementListReqOption_course_name, nil
+	case "class_name":
+		return GetTeachingPlanManagementListReqOption_class_name, nil
+	case "academic_year":
+		return GetTeachingPlanManagementListReqOption_academic_year, nil
+	case "semester":
+		return GetTeachingPlanManagementListReqOption_semester, nil
+	case "major":
+		return GetTeachingPlanManagementListReqOption_major, nil
+	case "budget_status":
+		return GetTeachingPlanManagementListReqOption_budget_status, nil
+	case "teacher_status":
+		return GetTeachingPlanManagementListReqOption_teacher_status, nil
+	case "classroom_status":
+		return GetTeachingPlanManagementListReqOption_classroom_status, nil
+	}
+	return GetTeachingPlanManagementListReqOption(0), fmt.Errorf("not a valid GetTeachingPlanManagementListReqOption string")
+}
+
+func GetTeachingPlanManagementListReqOptionPtr(v GetTeachingPlanManagementListReqOption) *GetTeachingPlanManagementListReqOption {
+	return &v
+}
+func (p *GetTeachingPlanManagementListReqOption) Scan(value interface{}) (err error) {
+	var result sql.NullInt64
+	err = result.Scan(value)
+	*p = GetTeachingPlanManagementListReqOption(result.Int64)
+	return
+}
+
+func (p *GetTeachingPlanManagementListReqOption) Value() (driver.Value, error) {
+	if p == nil {
+		return nil, nil
+	}
+	return int64(*p), nil
+}
+
 type OptionItem int64
 
 const (
@@ -2986,6 +3065,313 @@ func (p *GetMajorPracticeTeachingPlanListReq) String() string {
 
 var fieldIDToName_GetMajorPracticeTeachingPlanListReq = map[int16]string{
 	1: "list_option",
+}
+
+type GetTeachingPlanManagementListReq struct {
+	ListOption *base.ListOption `thrift:"list_option,1" frugal:"1,default,base.ListOption" json:"list_option" binding:"required"`
+}
+
+func NewGetTeachingPlanManagementListReq() *GetTeachingPlanManagementListReq {
+	return &GetTeachingPlanManagementListReq{}
+}
+
+func (p *GetTeachingPlanManagementListReq) InitDefault() {
+}
+
+var GetTeachingPlanManagementListReq_ListOption_DEFAULT *base.ListOption
+
+func (p *GetTeachingPlanManagementListReq) GetListOption() (v *base.ListOption) {
+	if !p.IsSetListOption() {
+		return GetTeachingPlanManagementListReq_ListOption_DEFAULT
+	}
+	return p.ListOption
+}
+func (p *GetTeachingPlanManagementListReq) SetListOption(val *base.ListOption) {
+	p.ListOption = val
+}
+
+func (p *GetTeachingPlanManagementListReq) IsSetListOption() bool {
+	return p.ListOption != nil
+}
+
+func (p *GetTeachingPlanManagementListReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("GetTeachingPlanManagementListReq(%+v)", *p)
+}
+
+var fieldIDToName_GetTeachingPlanManagementListReq = map[int16]string{
+	1: "list_option",
+}
+
+type ModelTeachingPlanManagementItem struct {
+	Info            *ModelMajorPracticeTeachingPlan `thrift:"info,1" frugal:"1,default,ModelMajorPracticeTeachingPlan" json:"info"`
+	BudgetStatus    int32                           `thrift:"budget_status,2" frugal:"2,default,i32" json:"budget_status"`
+	TeacherStatus   int32                           `thrift:"teacher_status,3" frugal:"3,default,i32" json:"teacher_status"`
+	ClassroomStatus int32                           `thrift:"classroom_status,4" frugal:"4,default,i32" json:"classroom_status"`
+}
+
+func NewModelTeachingPlanManagementItem() *ModelTeachingPlanManagementItem {
+	return &ModelTeachingPlanManagementItem{}
+}
+
+func (p *ModelTeachingPlanManagementItem) InitDefault() {
+}
+
+var ModelTeachingPlanManagementItem_Info_DEFAULT *ModelMajorPracticeTeachingPlan
+
+func (p *ModelTeachingPlanManagementItem) GetInfo() (v *ModelMajorPracticeTeachingPlan) {
+	if !p.IsSetInfo() {
+		return ModelTeachingPlanManagementItem_Info_DEFAULT
+	}
+	return p.Info
+}
+
+func (p *ModelTeachingPlanManagementItem) GetBudgetStatus() (v int32) {
+	return p.BudgetStatus
+}
+
+func (p *ModelTeachingPlanManagementItem) GetTeacherStatus() (v int32) {
+	return p.TeacherStatus
+}
+
+func (p *ModelTeachingPlanManagementItem) GetClassroomStatus() (v int32) {
+	return p.ClassroomStatus
+}
+func (p *ModelTeachingPlanManagementItem) SetInfo(val *ModelMajorPracticeTeachingPlan) {
+	p.Info = val
+}
+func (p *ModelTeachingPlanManagementItem) SetBudgetStatus(val int32) {
+	p.BudgetStatus = val
+}
+func (p *ModelTeachingPlanManagementItem) SetTeacherStatus(val int32) {
+	p.TeacherStatus = val
+}
+func (p *ModelTeachingPlanManagementItem) SetClassroomStatus(val int32) {
+	p.ClassroomStatus = val
+}
+
+func (p *ModelTeachingPlanManagementItem) IsSetInfo() bool {
+	return p.Info != nil
+}
+
+func (p *ModelTeachingPlanManagementItem) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ModelTeachingPlanManagementItem(%+v)", *p)
+}
+
+var fieldIDToName_ModelTeachingPlanManagementItem = map[int16]string{
+	1: "info",
+	2: "budget_status",
+	3: "teacher_status",
+	4: "classroom_status",
+}
+
+type GetTeachingPlanManagementListResp struct {
+	List     []*ModelTeachingPlanManagementItem `thrift:"list,1" frugal:"1,default,list<ModelTeachingPlanManagementItem>" json:"list"`
+	Paginate *base.Paginate                     `thrift:"paginate,2" frugal:"2,default,base.Paginate" json:"paginate"`
+}
+
+func NewGetTeachingPlanManagementListResp() *GetTeachingPlanManagementListResp {
+	return &GetTeachingPlanManagementListResp{}
+}
+
+func (p *GetTeachingPlanManagementListResp) InitDefault() {
+}
+
+func (p *GetTeachingPlanManagementListResp) GetList() (v []*ModelTeachingPlanManagementItem) {
+	return p.List
+}
+
+var GetTeachingPlanManagementListResp_Paginate_DEFAULT *base.Paginate
+
+func (p *GetTeachingPlanManagementListResp) GetPaginate() (v *base.Paginate) {
+	if !p.IsSetPaginate() {
+		return GetTeachingPlanManagementListResp_Paginate_DEFAULT
+	}
+	return p.Paginate
+}
+func (p *GetTeachingPlanManagementListResp) SetList(val []*ModelTeachingPlanManagementItem) {
+	p.List = val
+}
+func (p *GetTeachingPlanManagementListResp) SetPaginate(val *base.Paginate) {
+	p.Paginate = val
+}
+
+func (p *GetTeachingPlanManagementListResp) IsSetPaginate() bool {
+	return p.Paginate != nil
+}
+
+func (p *GetTeachingPlanManagementListResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("GetTeachingPlanManagementListResp(%+v)", *p)
+}
+
+var fieldIDToName_GetTeachingPlanManagementListResp = map[int16]string{
+	1: "list",
+	2: "paginate",
+}
+
+type SaveTeachingPlanReq struct {
+	Id            int32                       `thrift:"id,1" frugal:"1,default,i32" json:"id" binding:"required"`
+	Major         string                      `thrift:"major,2" frugal:"2,default,string" json:"major" binding:"required"`
+	ClassName     string                      `thrift:"class_name,3" frugal:"3,default,string" json:"class_name" binding:"required"`
+	CourseName    string                      `thrift:"course_name,4" frugal:"4,default,string" json:"course_name" binding:"required"`
+	StudentNumber *int32                      `thrift:"student_number,5,optional" frugal:"5,optional,i32" json:"student_number" binding:"required"`
+	Week          int32                       `thrift:"week,6" frugal:"6,default,i32" json:"week" binding:"required"`
+	Teachers      []*ScheduleTeachingReqItem  `thrift:"teachers,7,optional" frugal:"7,optional,list<ScheduleTeachingReqItem>" json:"teachers"`
+	Classrooms    []*ScheduleClassroomReqItem `thrift:"classrooms,8,optional" frugal:"8,optional,list<ScheduleClassroomReqItem>" json:"classrooms"`
+}
+
+func NewSaveTeachingPlanReq() *SaveTeachingPlanReq {
+	return &SaveTeachingPlanReq{}
+}
+
+func (p *SaveTeachingPlanReq) InitDefault() {
+}
+
+func (p *SaveTeachingPlanReq) GetId() (v int32) {
+	return p.Id
+}
+
+func (p *SaveTeachingPlanReq) GetMajor() (v string) {
+	return p.Major
+}
+
+func (p *SaveTeachingPlanReq) GetClassName() (v string) {
+	return p.ClassName
+}
+
+func (p *SaveTeachingPlanReq) GetCourseName() (v string) {
+	return p.CourseName
+}
+
+var SaveTeachingPlanReq_StudentNumber_DEFAULT int32
+
+func (p *SaveTeachingPlanReq) GetStudentNumber() (v int32) {
+	if !p.IsSetStudentNumber() {
+		return SaveTeachingPlanReq_StudentNumber_DEFAULT
+	}
+	return *p.StudentNumber
+}
+
+func (p *SaveTeachingPlanReq) GetWeek() (v int32) {
+	return p.Week
+}
+
+var SaveTeachingPlanReq_Teachers_DEFAULT []*ScheduleTeachingReqItem
+
+func (p *SaveTeachingPlanReq) GetTeachers() (v []*ScheduleTeachingReqItem) {
+	if !p.IsSetTeachers() {
+		return SaveTeachingPlanReq_Teachers_DEFAULT
+	}
+	return p.Teachers
+}
+
+var SaveTeachingPlanReq_Classrooms_DEFAULT []*ScheduleClassroomReqItem
+
+func (p *SaveTeachingPlanReq) GetClassrooms() (v []*ScheduleClassroomReqItem) {
+	if !p.IsSetClassrooms() {
+		return SaveTeachingPlanReq_Classrooms_DEFAULT
+	}
+	return p.Classrooms
+}
+func (p *SaveTeachingPlanReq) SetId(val int32) {
+	p.Id = val
+}
+func (p *SaveTeachingPlanReq) SetMajor(val string) {
+	p.Major = val
+}
+func (p *SaveTeachingPlanReq) SetClassName(val string) {
+	p.ClassName = val
+}
+func (p *SaveTeachingPlanReq) SetCourseName(val string) {
+	p.CourseName = val
+}
+func (p *SaveTeachingPlanReq) SetStudentNumber(val *int32) {
+	p.StudentNumber = val
+}
+func (p *SaveTeachingPlanReq) SetWeek(val int32) {
+	p.Week = val
+}
+func (p *SaveTeachingPlanReq) SetTeachers(val []*ScheduleTeachingReqItem) {
+	p.Teachers = val
+}
+func (p *SaveTeachingPlanReq) SetClassrooms(val []*ScheduleClassroomReqItem) {
+	p.Classrooms = val
+}
+
+func (p *SaveTeachingPlanReq) IsSetStudentNumber() bool {
+	return p.StudentNumber != nil
+}
+
+func (p *SaveTeachingPlanReq) IsSetTeachers() bool {
+	return p.Teachers != nil
+}
+
+func (p *SaveTeachingPlanReq) IsSetClassrooms() bool {
+	return p.Classrooms != nil
+}
+
+func (p *SaveTeachingPlanReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("SaveTeachingPlanReq(%+v)", *p)
+}
+
+var fieldIDToName_SaveTeachingPlanReq = map[int16]string{
+	1: "id",
+	2: "major",
+	3: "class_name",
+	4: "course_name",
+	5: "student_number",
+	6: "week",
+	7: "teachers",
+	8: "classrooms",
+}
+
+type SaveTeachingPlanResp struct {
+	RefreshPending bool   `thrift:"refresh_pending,1" frugal:"1,default,bool" json:"refresh_pending"`
+	Message        string `thrift:"message,2" frugal:"2,default,string" json:"message"`
+}
+
+func NewSaveTeachingPlanResp() *SaveTeachingPlanResp {
+	return &SaveTeachingPlanResp{}
+}
+
+func (p *SaveTeachingPlanResp) InitDefault() {
+}
+
+func (p *SaveTeachingPlanResp) GetRefreshPending() (v bool) {
+	return p.RefreshPending
+}
+
+func (p *SaveTeachingPlanResp) GetMessage() (v string) {
+	return p.Message
+}
+func (p *SaveTeachingPlanResp) SetRefreshPending(val bool) {
+	p.RefreshPending = val
+}
+func (p *SaveTeachingPlanResp) SetMessage(val string) {
+	p.Message = val
+}
+
+func (p *SaveTeachingPlanResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("SaveTeachingPlanResp(%+v)", *p)
+}
+
+var fieldIDToName_SaveTeachingPlanResp = map[int16]string{
+	1: "refresh_pending",
+	2: "message",
 }
 
 type ImportMajorPracticeTeachingResp struct {
@@ -8076,6 +8462,10 @@ type Trainingservice interface {
 
 	GetMajorPracticeTeachingPlanList(ctx context.Context, req *GetMajorPracticeTeachingPlanListReq) (r *GetMajorPracticeTeachingPlanListResp, err error)
 
+	GetTeachingPlanManagementList(ctx context.Context, req *GetTeachingPlanManagementListReq) (r *GetTeachingPlanManagementListResp, err error)
+
+	SaveTeachingPlan(ctx context.Context, req *SaveTeachingPlanReq) (r *SaveTeachingPlanResp, err error)
+
 	FillMajorPracticeTeachingBudget(ctx context.Context, req *FillMajorPracticeTeachingBudgetReq) (r *FillMajorPracticeTeachingBudgetResp, err error)
 
 	EditMajorPracticeTeachingPlan(ctx context.Context, req *EditMajorPracticeTeachingPlanReq) (r *EditMajorPracticeTeachingPlanResp, err error)
@@ -10484,6 +10874,158 @@ func (p *TrainingserviceGetMajorPracticeTeachingPlanListResult) String() string 
 }
 
 var fieldIDToName_TrainingserviceGetMajorPracticeTeachingPlanListResult = map[int16]string{
+	0: "success",
+}
+
+type TrainingserviceGetTeachingPlanManagementListArgs struct {
+	Req *GetTeachingPlanManagementListReq `thrift:"req,1" frugal:"1,default,GetTeachingPlanManagementListReq" json:"req"`
+}
+
+func NewTrainingserviceGetTeachingPlanManagementListArgs() *TrainingserviceGetTeachingPlanManagementListArgs {
+	return &TrainingserviceGetTeachingPlanManagementListArgs{}
+}
+
+func (p *TrainingserviceGetTeachingPlanManagementListArgs) InitDefault() {
+}
+
+var TrainingserviceGetTeachingPlanManagementListArgs_Req_DEFAULT *GetTeachingPlanManagementListReq
+
+func (p *TrainingserviceGetTeachingPlanManagementListArgs) GetReq() (v *GetTeachingPlanManagementListReq) {
+	if !p.IsSetReq() {
+		return TrainingserviceGetTeachingPlanManagementListArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *TrainingserviceGetTeachingPlanManagementListArgs) SetReq(val *GetTeachingPlanManagementListReq) {
+	p.Req = val
+}
+
+func (p *TrainingserviceGetTeachingPlanManagementListArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *TrainingserviceGetTeachingPlanManagementListArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceGetTeachingPlanManagementListArgs(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceGetTeachingPlanManagementListArgs = map[int16]string{
+	1: "req",
+}
+
+type TrainingserviceGetTeachingPlanManagementListResult struct {
+	Success *GetTeachingPlanManagementListResp `thrift:"success,0,optional" frugal:"0,optional,GetTeachingPlanManagementListResp" json:"success,omitempty"`
+}
+
+func NewTrainingserviceGetTeachingPlanManagementListResult() *TrainingserviceGetTeachingPlanManagementListResult {
+	return &TrainingserviceGetTeachingPlanManagementListResult{}
+}
+
+func (p *TrainingserviceGetTeachingPlanManagementListResult) InitDefault() {
+}
+
+var TrainingserviceGetTeachingPlanManagementListResult_Success_DEFAULT *GetTeachingPlanManagementListResp
+
+func (p *TrainingserviceGetTeachingPlanManagementListResult) GetSuccess() (v *GetTeachingPlanManagementListResp) {
+	if !p.IsSetSuccess() {
+		return TrainingserviceGetTeachingPlanManagementListResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *TrainingserviceGetTeachingPlanManagementListResult) SetSuccess(x interface{}) {
+	p.Success = x.(*GetTeachingPlanManagementListResp)
+}
+
+func (p *TrainingserviceGetTeachingPlanManagementListResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *TrainingserviceGetTeachingPlanManagementListResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceGetTeachingPlanManagementListResult(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceGetTeachingPlanManagementListResult = map[int16]string{
+	0: "success",
+}
+
+type TrainingserviceSaveTeachingPlanArgs struct {
+	Req *SaveTeachingPlanReq `thrift:"req,1" frugal:"1,default,SaveTeachingPlanReq" json:"req"`
+}
+
+func NewTrainingserviceSaveTeachingPlanArgs() *TrainingserviceSaveTeachingPlanArgs {
+	return &TrainingserviceSaveTeachingPlanArgs{}
+}
+
+func (p *TrainingserviceSaveTeachingPlanArgs) InitDefault() {
+}
+
+var TrainingserviceSaveTeachingPlanArgs_Req_DEFAULT *SaveTeachingPlanReq
+
+func (p *TrainingserviceSaveTeachingPlanArgs) GetReq() (v *SaveTeachingPlanReq) {
+	if !p.IsSetReq() {
+		return TrainingserviceSaveTeachingPlanArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *TrainingserviceSaveTeachingPlanArgs) SetReq(val *SaveTeachingPlanReq) {
+	p.Req = val
+}
+
+func (p *TrainingserviceSaveTeachingPlanArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *TrainingserviceSaveTeachingPlanArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceSaveTeachingPlanArgs(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceSaveTeachingPlanArgs = map[int16]string{
+	1: "req",
+}
+
+type TrainingserviceSaveTeachingPlanResult struct {
+	Success *SaveTeachingPlanResp `thrift:"success,0,optional" frugal:"0,optional,SaveTeachingPlanResp" json:"success,omitempty"`
+}
+
+func NewTrainingserviceSaveTeachingPlanResult() *TrainingserviceSaveTeachingPlanResult {
+	return &TrainingserviceSaveTeachingPlanResult{}
+}
+
+func (p *TrainingserviceSaveTeachingPlanResult) InitDefault() {
+}
+
+var TrainingserviceSaveTeachingPlanResult_Success_DEFAULT *SaveTeachingPlanResp
+
+func (p *TrainingserviceSaveTeachingPlanResult) GetSuccess() (v *SaveTeachingPlanResp) {
+	if !p.IsSetSuccess() {
+		return TrainingserviceSaveTeachingPlanResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *TrainingserviceSaveTeachingPlanResult) SetSuccess(x interface{}) {
+	p.Success = x.(*SaveTeachingPlanResp)
+}
+
+func (p *TrainingserviceSaveTeachingPlanResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *TrainingserviceSaveTeachingPlanResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceSaveTeachingPlanResult(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceSaveTeachingPlanResult = map[int16]string{
 	0: "success",
 }
 

@@ -161,6 +161,16 @@ func GetMajorPracticeTeachingPlanList(ctx context.Context, req *training.GetMajo
 	return clients.GetMajorPracticeTeachingPlanList(ctx, req)
 }
 
+func GetTeachingPlanManagementList(ctx context.Context, req *training.GetTeachingPlanManagementListReq, callOptions ...client.Option) (resp *training.GetTeachingPlanManagementListResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.GetTeachingPlanManagementList(ctx, req)
+}
+
+func SaveTeachingPlan(ctx context.Context, req *training.SaveTeachingPlanReq, callOptions ...client.Option) (resp *training.SaveTeachingPlanResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.SaveTeachingPlan(ctx, req)
+}
+
 func FillMajorPracticeTeachingBudget(ctx context.Context, req *training.FillMajorPracticeTeachingBudgetReq, callOptions ...client.Option) (resp *training.FillMajorPracticeTeachingBudgetResp, err error) {
 	clients := MustNewClient("training", callOptions...)
 	return clients.FillMajorPracticeTeachingBudget(ctx, req)

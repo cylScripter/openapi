@@ -230,6 +230,20 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"GetTeachingPlanManagementList": kitex.NewMethodInfo(
+		getTeachingPlanManagementListHandler,
+		newTrainingserviceGetTeachingPlanManagementListArgs,
+		newTrainingserviceGetTeachingPlanManagementListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"SaveTeachingPlan": kitex.NewMethodInfo(
+		saveTeachingPlanHandler,
+		newTrainingserviceSaveTeachingPlanArgs,
+		newTrainingserviceSaveTeachingPlanResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 	"FillMajorPracticeTeachingBudget": kitex.NewMethodInfo(
 		fillMajorPracticeTeachingBudgetHandler,
 		newTrainingserviceFillMajorPracticeTeachingBudgetArgs,
@@ -1043,6 +1057,42 @@ func newTrainingserviceGetMajorPracticeTeachingPlanListResult() interface{} {
 	return training.NewTrainingserviceGetMajorPracticeTeachingPlanListResult()
 }
 
+func getTeachingPlanManagementListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceGetTeachingPlanManagementListArgs)
+	realResult := result.(*training.TrainingserviceGetTeachingPlanManagementListResult)
+	success, err := handler.(training.Trainingservice).GetTeachingPlanManagementList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceGetTeachingPlanManagementListArgs() interface{} {
+	return training.NewTrainingserviceGetTeachingPlanManagementListArgs()
+}
+
+func newTrainingserviceGetTeachingPlanManagementListResult() interface{} {
+	return training.NewTrainingserviceGetTeachingPlanManagementListResult()
+}
+
+func saveTeachingPlanHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceSaveTeachingPlanArgs)
+	realResult := result.(*training.TrainingserviceSaveTeachingPlanResult)
+	success, err := handler.(training.Trainingservice).SaveTeachingPlan(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceSaveTeachingPlanArgs() interface{} {
+	return training.NewTrainingserviceSaveTeachingPlanArgs()
+}
+
+func newTrainingserviceSaveTeachingPlanResult() interface{} {
+	return training.NewTrainingserviceSaveTeachingPlanResult()
+}
+
 func fillMajorPracticeTeachingBudgetHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
 	realArg := arg.(*training.TrainingserviceFillMajorPracticeTeachingBudgetArgs)
 	realResult := result.(*training.TrainingserviceFillMajorPracticeTeachingBudgetResult)
@@ -1844,6 +1894,26 @@ func (p *kClient) GetMajorPracticeTeachingPlanList(ctx context.Context, req *tra
 	_args.Req = req
 	var _result training.TrainingserviceGetMajorPracticeTeachingPlanListResult
 	if err = p.c.Call(ctx, "GetMajorPracticeTeachingPlanList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetTeachingPlanManagementList(ctx context.Context, req *training.GetTeachingPlanManagementListReq) (r *training.GetTeachingPlanManagementListResp, err error) {
+	var _args training.TrainingserviceGetTeachingPlanManagementListArgs
+	_args.Req = req
+	var _result training.TrainingserviceGetTeachingPlanManagementListResult
+	if err = p.c.Call(ctx, "GetTeachingPlanManagementList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) SaveTeachingPlan(ctx context.Context, req *training.SaveTeachingPlanReq) (r *training.SaveTeachingPlanResp, err error) {
+	var _args training.TrainingserviceSaveTeachingPlanArgs
+	_args.Req = req
+	var _result training.TrainingserviceSaveTeachingPlanResult
+	if err = p.c.Call(ctx, "SaveTeachingPlan", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
