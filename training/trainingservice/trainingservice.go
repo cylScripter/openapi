@@ -125,6 +125,20 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"ListTrainingCourseFileHistory": kitex.NewMethodInfo(
+		listTrainingCourseFileHistoryHandler,
+		newTrainingserviceListTrainingCourseFileHistoryArgs,
+		newTrainingserviceListTrainingCourseFileHistoryResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetTrainingCourseFileHistoryFile": kitex.NewMethodInfo(
+		getTrainingCourseFileHistoryFileHandler,
+		newTrainingserviceGetTrainingCourseFileHistoryFileArgs,
+		newTrainingserviceGetTrainingCourseFileHistoryFileResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 	"ExportTrainingCourseSource": kitex.NewMethodInfo(
 		exportTrainingCourseSourceHandler,
 		newTrainingserviceExportTrainingCourseSourceArgs,
@@ -227,6 +241,20 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		getMajorPracticeTeachingPlanListHandler,
 		newTrainingserviceGetMajorPracticeTeachingPlanListArgs,
 		newTrainingserviceGetMajorPracticeTeachingPlanListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetTeachingPlanManagementList": kitex.NewMethodInfo(
+		getTeachingPlanManagementListHandler,
+		newTrainingserviceGetTeachingPlanManagementListArgs,
+		newTrainingserviceGetTeachingPlanManagementListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"SaveTeachingPlan": kitex.NewMethodInfo(
+		saveTeachingPlanHandler,
+		newTrainingserviceSaveTeachingPlanArgs,
+		newTrainingserviceSaveTeachingPlanResult,
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
@@ -416,48 +444,6 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		exportPracticeProcessDataTableHandler,
 		newTrainingserviceExportPracticeProcessDataTableArgs,
 		newTrainingserviceExportPracticeProcessDataTableResult,
-		false,
-		kitex.WithStreamingMode(kitex.StreamingNone),
-	),
-	"ListManagedTeachingPlans": kitex.NewMethodInfo(
-		listManagedTeachingPlansHandler,
-		newTrainingserviceListManagedTeachingPlansArgs,
-		newTrainingserviceListManagedTeachingPlansResult,
-		false,
-		kitex.WithStreamingMode(kitex.StreamingNone),
-	),
-	"GetManagedTeachingPlan": kitex.NewMethodInfo(
-		getManagedTeachingPlanHandler,
-		newTrainingserviceGetManagedTeachingPlanArgs,
-		newTrainingserviceGetManagedTeachingPlanResult,
-		false,
-		kitex.WithStreamingMode(kitex.StreamingNone),
-	),
-	"GetManagedTeachSchedule": kitex.NewMethodInfo(
-		getManagedTeachScheduleHandler,
-		newTrainingserviceGetManagedTeachScheduleArgs,
-		newTrainingserviceGetManagedTeachScheduleResult,
-		false,
-		kitex.WithStreamingMode(kitex.StreamingNone),
-	),
-	"SaveManagedTeachingPlan": kitex.NewMethodInfo(
-		saveManagedTeachingPlanHandler,
-		newTrainingserviceSaveManagedTeachingPlanArgs,
-		newTrainingserviceSaveManagedTeachingPlanResult,
-		false,
-		kitex.WithStreamingMode(kitex.StreamingNone),
-	),
-	"ResetManagedTeachingPlan": kitex.NewMethodInfo(
-		resetManagedTeachingPlanHandler,
-		newTrainingserviceResetManagedTeachingPlanArgs,
-		newTrainingserviceResetManagedTeachingPlanResult,
-		false,
-		kitex.WithStreamingMode(kitex.StreamingNone),
-	),
-	"DeleteManagedTeachingPlan": kitex.NewMethodInfo(
-		deleteManagedTeachingPlanHandler,
-		newTrainingserviceDeleteManagedTeachingPlanArgs,
-		newTrainingserviceDeleteManagedTeachingPlanResult,
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
@@ -815,6 +801,42 @@ func newTrainingserviceUploadTrainingCourseSourceResult() interface{} {
 	return training.NewTrainingserviceUploadTrainingCourseSourceResult()
 }
 
+func listTrainingCourseFileHistoryHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceListTrainingCourseFileHistoryArgs)
+	realResult := result.(*training.TrainingserviceListTrainingCourseFileHistoryResult)
+	success, err := handler.(training.Trainingservice).ListTrainingCourseFileHistory(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceListTrainingCourseFileHistoryArgs() interface{} {
+	return training.NewTrainingserviceListTrainingCourseFileHistoryArgs()
+}
+
+func newTrainingserviceListTrainingCourseFileHistoryResult() interface{} {
+	return training.NewTrainingserviceListTrainingCourseFileHistoryResult()
+}
+
+func getTrainingCourseFileHistoryFileHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceGetTrainingCourseFileHistoryFileArgs)
+	realResult := result.(*training.TrainingserviceGetTrainingCourseFileHistoryFileResult)
+	success, err := handler.(training.Trainingservice).GetTrainingCourseFileHistoryFile(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceGetTrainingCourseFileHistoryFileArgs() interface{} {
+	return training.NewTrainingserviceGetTrainingCourseFileHistoryFileArgs()
+}
+
+func newTrainingserviceGetTrainingCourseFileHistoryFileResult() interface{} {
+	return training.NewTrainingserviceGetTrainingCourseFileHistoryFileResult()
+}
+
 func exportTrainingCourseSourceHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
 	realArg := arg.(*training.TrainingserviceExportTrainingCourseSourceArgs)
 	realResult := result.(*training.TrainingserviceExportTrainingCourseSourceResult)
@@ -1083,6 +1105,42 @@ func newTrainingserviceGetMajorPracticeTeachingPlanListArgs() interface{} {
 
 func newTrainingserviceGetMajorPracticeTeachingPlanListResult() interface{} {
 	return training.NewTrainingserviceGetMajorPracticeTeachingPlanListResult()
+}
+
+func getTeachingPlanManagementListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceGetTeachingPlanManagementListArgs)
+	realResult := result.(*training.TrainingserviceGetTeachingPlanManagementListResult)
+	success, err := handler.(training.Trainingservice).GetTeachingPlanManagementList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceGetTeachingPlanManagementListArgs() interface{} {
+	return training.NewTrainingserviceGetTeachingPlanManagementListArgs()
+}
+
+func newTrainingserviceGetTeachingPlanManagementListResult() interface{} {
+	return training.NewTrainingserviceGetTeachingPlanManagementListResult()
+}
+
+func saveTeachingPlanHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceSaveTeachingPlanArgs)
+	realResult := result.(*training.TrainingserviceSaveTeachingPlanResult)
+	success, err := handler.(training.Trainingservice).SaveTeachingPlan(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceSaveTeachingPlanArgs() interface{} {
+	return training.NewTrainingserviceSaveTeachingPlanArgs()
+}
+
+func newTrainingserviceSaveTeachingPlanResult() interface{} {
+	return training.NewTrainingserviceSaveTeachingPlanResult()
 }
 
 func fillMajorPracticeTeachingBudgetHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
@@ -1571,114 +1629,6 @@ func newTrainingserviceExportPracticeProcessDataTableResult() interface{} {
 	return training.NewTrainingserviceExportPracticeProcessDataTableResult()
 }
 
-func listManagedTeachingPlansHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
-	realArg := arg.(*training.TrainingserviceListManagedTeachingPlansArgs)
-	realResult := result.(*training.TrainingserviceListManagedTeachingPlansResult)
-	success, err := handler.(training.Trainingservice).ListManagedTeachingPlans(ctx, realArg.Req)
-	if err != nil {
-		return err
-	}
-	realResult.Success = success
-	return nil
-}
-func newTrainingserviceListManagedTeachingPlansArgs() interface{} {
-	return training.NewTrainingserviceListManagedTeachingPlansArgs()
-}
-
-func newTrainingserviceListManagedTeachingPlansResult() interface{} {
-	return training.NewTrainingserviceListManagedTeachingPlansResult()
-}
-
-func getManagedTeachingPlanHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
-	realArg := arg.(*training.TrainingserviceGetManagedTeachingPlanArgs)
-	realResult := result.(*training.TrainingserviceGetManagedTeachingPlanResult)
-	success, err := handler.(training.Trainingservice).GetManagedTeachingPlan(ctx, realArg.Req)
-	if err != nil {
-		return err
-	}
-	realResult.Success = success
-	return nil
-}
-func newTrainingserviceGetManagedTeachingPlanArgs() interface{} {
-	return training.NewTrainingserviceGetManagedTeachingPlanArgs()
-}
-
-func newTrainingserviceGetManagedTeachingPlanResult() interface{} {
-	return training.NewTrainingserviceGetManagedTeachingPlanResult()
-}
-
-func getManagedTeachScheduleHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
-	realArg := arg.(*training.TrainingserviceGetManagedTeachScheduleArgs)
-	realResult := result.(*training.TrainingserviceGetManagedTeachScheduleResult)
-	success, err := handler.(training.Trainingservice).GetManagedTeachSchedule(ctx, realArg.Req)
-	if err != nil {
-		return err
-	}
-	realResult.Success = success
-	return nil
-}
-func newTrainingserviceGetManagedTeachScheduleArgs() interface{} {
-	return training.NewTrainingserviceGetManagedTeachScheduleArgs()
-}
-
-func newTrainingserviceGetManagedTeachScheduleResult() interface{} {
-	return training.NewTrainingserviceGetManagedTeachScheduleResult()
-}
-
-func saveManagedTeachingPlanHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
-	realArg := arg.(*training.TrainingserviceSaveManagedTeachingPlanArgs)
-	realResult := result.(*training.TrainingserviceSaveManagedTeachingPlanResult)
-	success, err := handler.(training.Trainingservice).SaveManagedTeachingPlan(ctx, realArg.Req)
-	if err != nil {
-		return err
-	}
-	realResult.Success = success
-	return nil
-}
-func newTrainingserviceSaveManagedTeachingPlanArgs() interface{} {
-	return training.NewTrainingserviceSaveManagedTeachingPlanArgs()
-}
-
-func newTrainingserviceSaveManagedTeachingPlanResult() interface{} {
-	return training.NewTrainingserviceSaveManagedTeachingPlanResult()
-}
-
-func resetManagedTeachingPlanHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
-	realArg := arg.(*training.TrainingserviceResetManagedTeachingPlanArgs)
-	realResult := result.(*training.TrainingserviceResetManagedTeachingPlanResult)
-	success, err := handler.(training.Trainingservice).ResetManagedTeachingPlan(ctx, realArg.Req)
-	if err != nil {
-		return err
-	}
-	realResult.Success = success
-	return nil
-}
-func newTrainingserviceResetManagedTeachingPlanArgs() interface{} {
-	return training.NewTrainingserviceResetManagedTeachingPlanArgs()
-}
-
-func newTrainingserviceResetManagedTeachingPlanResult() interface{} {
-	return training.NewTrainingserviceResetManagedTeachingPlanResult()
-}
-
-func deleteManagedTeachingPlanHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
-	realArg := arg.(*training.TrainingserviceDeleteManagedTeachingPlanArgs)
-	realResult := result.(*training.TrainingserviceDeleteManagedTeachingPlanResult)
-	success, err := handler.(training.Trainingservice).DeleteManagedTeachingPlan(ctx, realArg.Req)
-	if err != nil {
-		return err
-	}
-	realResult.Success = success
-	return nil
-}
-func newTrainingserviceDeleteManagedTeachingPlanArgs() interface{} {
-	return training.NewTrainingserviceDeleteManagedTeachingPlanArgs()
-}
-
-func newTrainingserviceDeleteManagedTeachingPlanResult() interface{} {
-	return training.NewTrainingserviceDeleteManagedTeachingPlanResult()
-}
-
 type kClient struct {
 	c client.Client
 }
@@ -1849,6 +1799,26 @@ func (p *kClient) UploadTrainingCourseSource(ctx context.Context, req *training.
 	return _result.GetSuccess(), nil
 }
 
+func (p *kClient) ListTrainingCourseFileHistory(ctx context.Context, req *training.ListTrainingCourseFileHistoryReq) (r *training.ListTrainingCourseFileHistoryResp, err error) {
+	var _args training.TrainingserviceListTrainingCourseFileHistoryArgs
+	_args.Req = req
+	var _result training.TrainingserviceListTrainingCourseFileHistoryResult
+	if err = p.c.Call(ctx, "ListTrainingCourseFileHistory", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetTrainingCourseFileHistoryFile(ctx context.Context, req *training.GetTrainingCourseFileHistoryFileReq) (r *training.GetTrainingCourseFileHistoryFileResp, err error) {
+	var _args training.TrainingserviceGetTrainingCourseFileHistoryFileArgs
+	_args.Req = req
+	var _result training.TrainingserviceGetTrainingCourseFileHistoryFileResult
+	if err = p.c.Call(ctx, "GetTrainingCourseFileHistoryFile", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
 func (p *kClient) ExportTrainingCourseSource(ctx context.Context, req *training.ExportTrainingCourseSourceReq) (r *training.ExportTrainingCourseSourceResp, err error) {
 	var _args training.TrainingserviceExportTrainingCourseSourceArgs
 	_args.Req = req
@@ -1994,6 +1964,26 @@ func (p *kClient) GetMajorPracticeTeachingPlanList(ctx context.Context, req *tra
 	_args.Req = req
 	var _result training.TrainingserviceGetMajorPracticeTeachingPlanListResult
 	if err = p.c.Call(ctx, "GetMajorPracticeTeachingPlanList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetTeachingPlanManagementList(ctx context.Context, req *training.GetTeachingPlanManagementListReq) (r *training.GetTeachingPlanManagementListResp, err error) {
+	var _args training.TrainingserviceGetTeachingPlanManagementListArgs
+	_args.Req = req
+	var _result training.TrainingserviceGetTeachingPlanManagementListResult
+	if err = p.c.Call(ctx, "GetTeachingPlanManagementList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) SaveTeachingPlan(ctx context.Context, req *training.SaveTeachingPlanReq) (r *training.SaveTeachingPlanResp, err error) {
+	var _args training.TrainingserviceSaveTeachingPlanArgs
+	_args.Req = req
+	var _result training.TrainingserviceSaveTeachingPlanResult
+	if err = p.c.Call(ctx, "SaveTeachingPlan", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
@@ -2264,66 +2254,6 @@ func (p *kClient) ExportPracticeProcessDataTable(ctx context.Context, req *train
 	_args.Req = req
 	var _result training.TrainingserviceExportPracticeProcessDataTableResult
 	if err = p.c.Call(ctx, "ExportPracticeProcessDataTable", &_args, &_result); err != nil {
-		return
-	}
-	return _result.GetSuccess(), nil
-}
-
-func (p *kClient) ListManagedTeachingPlans(ctx context.Context, req *training.ListManagedTeachingPlansReq) (r *training.ListManagedTeachingPlansResp, err error) {
-	var _args training.TrainingserviceListManagedTeachingPlansArgs
-	_args.Req = req
-	var _result training.TrainingserviceListManagedTeachingPlansResult
-	if err = p.c.Call(ctx, "ListManagedTeachingPlans", &_args, &_result); err != nil {
-		return
-	}
-	return _result.GetSuccess(), nil
-}
-
-func (p *kClient) GetManagedTeachingPlan(ctx context.Context, req *training.GetManagedTeachingPlanReq) (r *training.GetManagedTeachingPlanResp, err error) {
-	var _args training.TrainingserviceGetManagedTeachingPlanArgs
-	_args.Req = req
-	var _result training.TrainingserviceGetManagedTeachingPlanResult
-	if err = p.c.Call(ctx, "GetManagedTeachingPlan", &_args, &_result); err != nil {
-		return
-	}
-	return _result.GetSuccess(), nil
-}
-
-func (p *kClient) GetManagedTeachSchedule(ctx context.Context, req *training.GetManagedTeachScheduleReq) (r *training.GetTeachScheduleResp, err error) {
-	var _args training.TrainingserviceGetManagedTeachScheduleArgs
-	_args.Req = req
-	var _result training.TrainingserviceGetManagedTeachScheduleResult
-	if err = p.c.Call(ctx, "GetManagedTeachSchedule", &_args, &_result); err != nil {
-		return
-	}
-	return _result.GetSuccess(), nil
-}
-
-func (p *kClient) SaveManagedTeachingPlan(ctx context.Context, req *training.SaveManagedTeachingPlanReq) (r *training.ManagedPlanWriteResp, err error) {
-	var _args training.TrainingserviceSaveManagedTeachingPlanArgs
-	_args.Req = req
-	var _result training.TrainingserviceSaveManagedTeachingPlanResult
-	if err = p.c.Call(ctx, "SaveManagedTeachingPlan", &_args, &_result); err != nil {
-		return
-	}
-	return _result.GetSuccess(), nil
-}
-
-func (p *kClient) ResetManagedTeachingPlan(ctx context.Context, req *training.ResetManagedTeachingPlanReq) (r *training.ManagedPlanWriteResp, err error) {
-	var _args training.TrainingserviceResetManagedTeachingPlanArgs
-	_args.Req = req
-	var _result training.TrainingserviceResetManagedTeachingPlanResult
-	if err = p.c.Call(ctx, "ResetManagedTeachingPlan", &_args, &_result); err != nil {
-		return
-	}
-	return _result.GetSuccess(), nil
-}
-
-func (p *kClient) DeleteManagedTeachingPlan(ctx context.Context, req *training.DeleteManagedTeachingPlanReq) (r *training.ManagedPlanWriteResp, err error) {
-	var _args training.TrainingserviceDeleteManagedTeachingPlanArgs
-	_args.Req = req
-	var _result training.TrainingserviceDeleteManagedTeachingPlanResult
-	if err = p.c.Call(ctx, "DeleteManagedTeachingPlan", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

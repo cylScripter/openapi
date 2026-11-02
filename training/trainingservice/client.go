@@ -27,6 +27,8 @@ type Client interface {
 	ExportTrainingCourseFile(ctx context.Context, req *training.ExportTrainingCourseFileReq, callOptions ...callopt.Option) (r *training.ExportTrainingCourseFileResp, err error)
 	ExportTrainingCourseCase(ctx context.Context, req *training.ExportTrainingCourseCaseReq, callOptions ...callopt.Option) (r *training.ExportTrainingCourseCaseResp, err error)
 	UploadTrainingCourseSource(ctx context.Context, req *training.UploadTrainingCourseSourceReq, callOptions ...callopt.Option) (r *training.UploadTrainingCourseSourceResp, err error)
+	ListTrainingCourseFileHistory(ctx context.Context, req *training.ListTrainingCourseFileHistoryReq, callOptions ...callopt.Option) (r *training.ListTrainingCourseFileHistoryResp, err error)
+	GetTrainingCourseFileHistoryFile(ctx context.Context, req *training.GetTrainingCourseFileHistoryFileReq, callOptions ...callopt.Option) (r *training.GetTrainingCourseFileHistoryFileResp, err error)
 	ExportTrainingCourseSource(ctx context.Context, req *training.ExportTrainingCourseSourceReq, callOptions ...callopt.Option) (r *training.ExportTrainingCourseSourceResp, err error)
 	GetExportResult_(ctx context.Context, req *training.GetExportResultReq, callOptions ...callopt.Option) (r *training.GetExportResultResp, err error)
 	GetPastMajorList(ctx context.Context, req *training.GetPastMajorListReq, callOptions ...callopt.Option) (r *training.GetPastMajorListResp, err error)
@@ -42,6 +44,8 @@ type Client interface {
 	ExportPracticeSummary(ctx context.Context, req *training.ExportPracticeSummaryReq, callOptions ...callopt.Option) (r *training.ExportPracticeSummaryResp, err error)
 	ImportMajorPracticeTeaching(ctx context.Context, req *training.ImportMajorPracticeTeachingReq, callOptions ...callopt.Option) (r *training.ImportMajorPracticeTeachingResp, err error)
 	GetMajorPracticeTeachingPlanList(ctx context.Context, req *training.GetMajorPracticeTeachingPlanListReq, callOptions ...callopt.Option) (r *training.GetMajorPracticeTeachingPlanListResp, err error)
+	GetTeachingPlanManagementList(ctx context.Context, req *training.GetTeachingPlanManagementListReq, callOptions ...callopt.Option) (r *training.GetTeachingPlanManagementListResp, err error)
+	SaveTeachingPlan(ctx context.Context, req *training.SaveTeachingPlanReq, callOptions ...callopt.Option) (r *training.SaveTeachingPlanResp, err error)
 	FillMajorPracticeTeachingBudget(ctx context.Context, req *training.FillMajorPracticeTeachingBudgetReq, callOptions ...callopt.Option) (r *training.FillMajorPracticeTeachingBudgetResp, err error)
 	EditMajorPracticeTeachingPlan(ctx context.Context, req *training.EditMajorPracticeTeachingPlanReq, callOptions ...callopt.Option) (r *training.EditMajorPracticeTeachingPlanResp, err error)
 	ScheduleTeaching(ctx context.Context, req *training.ScheduleTeachingReq, callOptions ...callopt.Option) (r *training.ScheduleTeachingResp, err error)
@@ -69,12 +73,6 @@ type Client interface {
 	UploadEvaluationSign(ctx context.Context, req *training.UploadEvaluationSignReq, callOptions ...callopt.Option) (r *training.UploadEvaluationSignResp, err error)
 	ExportPracticeDataTable(ctx context.Context, req *training.ExportPracticeDataTableReq, callOptions ...callopt.Option) (r *training.ExportPracticeDataTableResp, err error)
 	ExportPracticeProcessDataTable(ctx context.Context, req *training.ExportPracticeProcessDataTableReq, callOptions ...callopt.Option) (r *training.ExportPracticeProcessDataTableResp, err error)
-	ListManagedTeachingPlans(ctx context.Context, req *training.ListManagedTeachingPlansReq, callOptions ...callopt.Option) (r *training.ListManagedTeachingPlansResp, err error)
-	GetManagedTeachingPlan(ctx context.Context, req *training.GetManagedTeachingPlanReq, callOptions ...callopt.Option) (r *training.GetManagedTeachingPlanResp, err error)
-	GetManagedTeachSchedule(ctx context.Context, req *training.GetManagedTeachScheduleReq, callOptions ...callopt.Option) (r *training.GetTeachScheduleResp, err error)
-	SaveManagedTeachingPlan(ctx context.Context, req *training.SaveManagedTeachingPlanReq, callOptions ...callopt.Option) (r *training.ManagedPlanWriteResp, err error)
-	ResetManagedTeachingPlan(ctx context.Context, req *training.ResetManagedTeachingPlanReq, callOptions ...callopt.Option) (r *training.ManagedPlanWriteResp, err error)
-	DeleteManagedTeachingPlan(ctx context.Context, req *training.DeleteManagedTeachingPlanReq, callOptions ...callopt.Option) (r *training.ManagedPlanWriteResp, err error)
 }
 
 // NewClient creates a client for the service defined in IDL.
@@ -186,6 +184,16 @@ func (p *kTrainingserviceClient) UploadTrainingCourseSource(ctx context.Context,
 	return p.kClient.UploadTrainingCourseSource(ctx, req)
 }
 
+func (p *kTrainingserviceClient) ListTrainingCourseFileHistory(ctx context.Context, req *training.ListTrainingCourseFileHistoryReq, callOptions ...callopt.Option) (r *training.ListTrainingCourseFileHistoryResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ListTrainingCourseFileHistory(ctx, req)
+}
+
+func (p *kTrainingserviceClient) GetTrainingCourseFileHistoryFile(ctx context.Context, req *training.GetTrainingCourseFileHistoryFileReq, callOptions ...callopt.Option) (r *training.GetTrainingCourseFileHistoryFileResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetTrainingCourseFileHistoryFile(ctx, req)
+}
+
 func (p *kTrainingserviceClient) ExportTrainingCourseSource(ctx context.Context, req *training.ExportTrainingCourseSourceReq, callOptions ...callopt.Option) (r *training.ExportTrainingCourseSourceResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.ExportTrainingCourseSource(ctx, req)
@@ -259,6 +267,16 @@ func (p *kTrainingserviceClient) ImportMajorPracticeTeaching(ctx context.Context
 func (p *kTrainingserviceClient) GetMajorPracticeTeachingPlanList(ctx context.Context, req *training.GetMajorPracticeTeachingPlanListReq, callOptions ...callopt.Option) (r *training.GetMajorPracticeTeachingPlanListResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.GetMajorPracticeTeachingPlanList(ctx, req)
+}
+
+func (p *kTrainingserviceClient) GetTeachingPlanManagementList(ctx context.Context, req *training.GetTeachingPlanManagementListReq, callOptions ...callopt.Option) (r *training.GetTeachingPlanManagementListResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.GetTeachingPlanManagementList(ctx, req)
+}
+
+func (p *kTrainingserviceClient) SaveTeachingPlan(ctx context.Context, req *training.SaveTeachingPlanReq, callOptions ...callopt.Option) (r *training.SaveTeachingPlanResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.SaveTeachingPlan(ctx, req)
 }
 
 func (p *kTrainingserviceClient) FillMajorPracticeTeachingBudget(ctx context.Context, req *training.FillMajorPracticeTeachingBudgetReq, callOptions ...callopt.Option) (r *training.FillMajorPracticeTeachingBudgetResp, err error) {
@@ -394,34 +412,4 @@ func (p *kTrainingserviceClient) ExportPracticeDataTable(ctx context.Context, re
 func (p *kTrainingserviceClient) ExportPracticeProcessDataTable(ctx context.Context, req *training.ExportPracticeProcessDataTableReq, callOptions ...callopt.Option) (r *training.ExportPracticeProcessDataTableResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.ExportPracticeProcessDataTable(ctx, req)
-}
-
-func (p *kTrainingserviceClient) ListManagedTeachingPlans(ctx context.Context, req *training.ListManagedTeachingPlansReq, callOptions ...callopt.Option) (r *training.ListManagedTeachingPlansResp, err error) {
-	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
-	return p.kClient.ListManagedTeachingPlans(ctx, req)
-}
-
-func (p *kTrainingserviceClient) GetManagedTeachingPlan(ctx context.Context, req *training.GetManagedTeachingPlanReq, callOptions ...callopt.Option) (r *training.GetManagedTeachingPlanResp, err error) {
-	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
-	return p.kClient.GetManagedTeachingPlan(ctx, req)
-}
-
-func (p *kTrainingserviceClient) GetManagedTeachSchedule(ctx context.Context, req *training.GetManagedTeachScheduleReq, callOptions ...callopt.Option) (r *training.GetTeachScheduleResp, err error) {
-	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
-	return p.kClient.GetManagedTeachSchedule(ctx, req)
-}
-
-func (p *kTrainingserviceClient) SaveManagedTeachingPlan(ctx context.Context, req *training.SaveManagedTeachingPlanReq, callOptions ...callopt.Option) (r *training.ManagedPlanWriteResp, err error) {
-	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
-	return p.kClient.SaveManagedTeachingPlan(ctx, req)
-}
-
-func (p *kTrainingserviceClient) ResetManagedTeachingPlan(ctx context.Context, req *training.ResetManagedTeachingPlanReq, callOptions ...callopt.Option) (r *training.ManagedPlanWriteResp, err error) {
-	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
-	return p.kClient.ResetManagedTeachingPlan(ctx, req)
-}
-
-func (p *kTrainingserviceClient) DeleteManagedTeachingPlan(ctx context.Context, req *training.DeleteManagedTeachingPlanReq, callOptions ...callopt.Option) (r *training.ManagedPlanWriteResp, err error) {
-	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
-	return p.kClient.DeleteManagedTeachingPlan(ctx, req)
 }

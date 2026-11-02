@@ -86,6 +86,16 @@ func UploadTrainingCourseSource(ctx context.Context, req *training.UploadTrainin
 	return clients.UploadTrainingCourseSource(ctx, req)
 }
 
+func ListTrainingCourseFileHistory(ctx context.Context, req *training.ListTrainingCourseFileHistoryReq, callOptions ...client.Option) (resp *training.ListTrainingCourseFileHistoryResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.ListTrainingCourseFileHistory(ctx, req)
+}
+
+func GetTrainingCourseFileHistoryFile(ctx context.Context, req *training.GetTrainingCourseFileHistoryFileReq, callOptions ...client.Option) (resp *training.GetTrainingCourseFileHistoryFileResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.GetTrainingCourseFileHistoryFile(ctx, req)
+}
+
 func ExportTrainingCourseSource(ctx context.Context, req *training.ExportTrainingCourseSourceReq, callOptions ...client.Option) (resp *training.ExportTrainingCourseSourceResp, err error) {
 	clients := MustNewClient("training", callOptions...)
 	return clients.ExportTrainingCourseSource(ctx, req)
@@ -159,6 +169,16 @@ func ImportMajorPracticeTeaching(ctx context.Context, req *training.ImportMajorP
 func GetMajorPracticeTeachingPlanList(ctx context.Context, req *training.GetMajorPracticeTeachingPlanListReq, callOptions ...client.Option) (resp *training.GetMajorPracticeTeachingPlanListResp, err error) {
 	clients := MustNewClient("training", callOptions...)
 	return clients.GetMajorPracticeTeachingPlanList(ctx, req)
+}
+
+func GetTeachingPlanManagementList(ctx context.Context, req *training.GetTeachingPlanManagementListReq, callOptions ...client.Option) (resp *training.GetTeachingPlanManagementListResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.GetTeachingPlanManagementList(ctx, req)
+}
+
+func SaveTeachingPlan(ctx context.Context, req *training.SaveTeachingPlanReq, callOptions ...client.Option) (resp *training.SaveTeachingPlanResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.SaveTeachingPlan(ctx, req)
 }
 
 func FillMajorPracticeTeachingBudget(ctx context.Context, req *training.FillMajorPracticeTeachingBudgetReq, callOptions ...client.Option) (resp *training.FillMajorPracticeTeachingBudgetResp, err error) {
@@ -294,34 +314,4 @@ func ExportPracticeDataTable(ctx context.Context, req *training.ExportPracticeDa
 func ExportPracticeProcessDataTable(ctx context.Context, req *training.ExportPracticeProcessDataTableReq, callOptions ...client.Option) (resp *training.ExportPracticeProcessDataTableResp, err error) {
 	clients := MustNewClient("training", callOptions...)
 	return clients.ExportPracticeProcessDataTable(ctx, req)
-}
-
-func ListManagedTeachingPlans(ctx context.Context, req *training.ListManagedTeachingPlansReq, callOptions ...client.Option) (resp *training.ListManagedTeachingPlansResp, err error) {
-	clients := MustNewClient("training", callOptions...)
-	return clients.ListManagedTeachingPlans(ctx, req)
-}
-
-func GetManagedTeachingPlan(ctx context.Context, req *training.GetManagedTeachingPlanReq, callOptions ...client.Option) (resp *training.GetManagedTeachingPlanResp, err error) {
-	clients := MustNewClient("training", callOptions...)
-	return clients.GetManagedTeachingPlan(ctx, req)
-}
-
-func GetManagedTeachSchedule(ctx context.Context, req *training.GetManagedTeachScheduleReq, callOptions ...client.Option) (resp *training.GetTeachScheduleResp, err error) {
-	clients := MustNewClient("training", callOptions...)
-	return clients.GetManagedTeachSchedule(ctx, req)
-}
-
-func SaveManagedTeachingPlan(ctx context.Context, req *training.SaveManagedTeachingPlanReq, callOptions ...client.Option) (resp *training.ManagedPlanWriteResp, err error) {
-	clients := MustNewClient("training", callOptions...)
-	return clients.SaveManagedTeachingPlan(ctx, req)
-}
-
-func ResetManagedTeachingPlan(ctx context.Context, req *training.ResetManagedTeachingPlanReq, callOptions ...client.Option) (resp *training.ManagedPlanWriteResp, err error) {
-	clients := MustNewClient("training", callOptions...)
-	return clients.ResetManagedTeachingPlan(ctx, req)
-}
-
-func DeleteManagedTeachingPlan(ctx context.Context, req *training.DeleteManagedTeachingPlanReq, callOptions ...client.Option) (resp *training.ManagedPlanWriteResp, err error) {
-	clients := MustNewClient("training", callOptions...)
-	return clients.DeleteManagedTeachingPlan(ctx, req)
 }
