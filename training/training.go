@@ -513,6 +513,50 @@ func (p *TrainingCourseMaterialType) Value() (driver.Value, error) {
 	return int64(*p), nil
 }
 
+type ListTrainingCourseFileHistoryReqOption int64
+
+const (
+	ListTrainingCourseFileHistoryReqOption_training_course_id ListTrainingCourseFileHistoryReqOption = 1
+	ListTrainingCourseFileHistoryReqOption_material_type      ListTrainingCourseFileHistoryReqOption = 2
+)
+
+func (p ListTrainingCourseFileHistoryReqOption) String() string {
+	switch p {
+	case ListTrainingCourseFileHistoryReqOption_training_course_id:
+		return "training_course_id"
+	case ListTrainingCourseFileHistoryReqOption_material_type:
+		return "material_type"
+	}
+	return "<UNSET>"
+}
+
+func ListTrainingCourseFileHistoryReqOptionFromString(s string) (ListTrainingCourseFileHistoryReqOption, error) {
+	switch s {
+	case "training_course_id":
+		return ListTrainingCourseFileHistoryReqOption_training_course_id, nil
+	case "material_type":
+		return ListTrainingCourseFileHistoryReqOption_material_type, nil
+	}
+	return ListTrainingCourseFileHistoryReqOption(0), fmt.Errorf("not a valid ListTrainingCourseFileHistoryReqOption string")
+}
+
+func ListTrainingCourseFileHistoryReqOptionPtr(v ListTrainingCourseFileHistoryReqOption) *ListTrainingCourseFileHistoryReqOption {
+	return &v
+}
+func (p *ListTrainingCourseFileHistoryReqOption) Scan(value interface{}) (err error) {
+	var result sql.NullInt64
+	err = result.Scan(value)
+	*p = ListTrainingCourseFileHistoryReqOption(result.Int64)
+	return
+}
+
+func (p *ListTrainingCourseFileHistoryReqOption) Value() (driver.Value, error) {
+	if p == nil {
+		return nil, nil
+	}
+	return int64(*p), nil
+}
+
 type TrainingCourseListReqOption int64
 
 const (
@@ -4382,15 +4426,18 @@ var fieldIDToName_GetExportResultResp = map[int16]string{
 }
 
 type ModelTrainingCourseFileHistory struct {
-	Id           int32  `thrift:"id,1" frugal:"1,default,i32" json:"id"`
-	MaterialType int32  `thrift:"material_type,2" frugal:"2,default,i32" json:"material_type"`
-	UploadId     string `thrift:"upload_id,3" frugal:"3,default,string" json:"upload_id"`
-	FileName     string `thrift:"file_name,4" frugal:"4,default,string" json:"file_name"`
-	Uploader     string `thrift:"uploader,5" frugal:"5,default,string" json:"uploader"`
-	UploaderName string `thrift:"uploader_name,6" frugal:"6,default,string" json:"uploader_name"`
-	UploadedAt   int64  `thrift:"uploaded_at,7" frugal:"7,default,i64" json:"uploaded_at"`
-	IsBaseline   bool   `thrift:"is_baseline,8" frugal:"8,default,bool" json:"is_baseline"`
-	IsCurrent    bool   `thrift:"is_current,9" frugal:"9,default,bool" json:"is_current"`
+	Id           int32  `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
+	CreatedAt    int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index" json:"created_at"`
+	UpdatedAt    int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at" json:"updated_at"`
+	DeletedAt    int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at" json:"deleted_at"`
+	MaterialType int32  `thrift:"material_type,5" frugal:"5,default,i32" gorm:"column:material_type" json:"material_type"`
+	UploadId     string `thrift:"upload_id,6" frugal:"6,default,string" gorm:"column:upload_id" json:"upload_id"`
+	FileName     string `thrift:"file_name,7" frugal:"7,default,string" gorm:"column:file_name" json:"file_name"`
+	Uploader     string `thrift:"uploader,8" frugal:"8,default,string" gorm:"column:uploader" json:"uploader"`
+	UploaderName string `thrift:"uploader_name,9" frugal:"9,default,string" gorm:"column:uploader_name" json:"uploader_name"`
+	UploadedAt   int64  `thrift:"uploaded_at,10" frugal:"10,default,i64" gorm:"column:uploaded_at" json:"uploaded_at"`
+	IsBaseline   bool   `thrift:"is_baseline,11" frugal:"11,default,bool" gorm:"column:is_baseline" json:"is_baseline"`
+	IsCurrent    bool   `thrift:"is_current,12" frugal:"12,default,bool" gorm:"-" json:"is_current"`
 }
 
 func NewModelTrainingCourseFileHistory() *ModelTrainingCourseFileHistory {
@@ -4402,6 +4449,18 @@ func (p *ModelTrainingCourseFileHistory) InitDefault() {
 
 func (p *ModelTrainingCourseFileHistory) GetId() (v int32) {
 	return p.Id
+}
+
+func (p *ModelTrainingCourseFileHistory) GetCreatedAt() (v int32) {
+	return p.CreatedAt
+}
+
+func (p *ModelTrainingCourseFileHistory) GetUpdatedAt() (v int32) {
+	return p.UpdatedAt
+}
+
+func (p *ModelTrainingCourseFileHistory) GetDeletedAt() (v int32) {
+	return p.DeletedAt
 }
 
 func (p *ModelTrainingCourseFileHistory) GetMaterialType() (v int32) {
@@ -4438,6 +4497,15 @@ func (p *ModelTrainingCourseFileHistory) GetIsCurrent() (v bool) {
 func (p *ModelTrainingCourseFileHistory) SetId(val int32) {
 	p.Id = val
 }
+func (p *ModelTrainingCourseFileHistory) SetCreatedAt(val int32) {
+	p.CreatedAt = val
+}
+func (p *ModelTrainingCourseFileHistory) SetUpdatedAt(val int32) {
+	p.UpdatedAt = val
+}
+func (p *ModelTrainingCourseFileHistory) SetDeletedAt(val int32) {
+	p.DeletedAt = val
+}
 func (p *ModelTrainingCourseFileHistory) SetMaterialType(val int32) {
 	p.MaterialType = val
 }
@@ -4471,21 +4539,22 @@ func (p *ModelTrainingCourseFileHistory) String() string {
 }
 
 var fieldIDToName_ModelTrainingCourseFileHistory = map[int16]string{
-	1: "id",
-	2: "material_type",
-	3: "upload_id",
-	4: "file_name",
-	5: "uploader",
-	6: "uploader_name",
-	7: "uploaded_at",
-	8: "is_baseline",
-	9: "is_current",
+	1:  "id",
+	2:  "created_at",
+	3:  "updated_at",
+	4:  "deleted_at",
+	5:  "material_type",
+	6:  "upload_id",
+	7:  "file_name",
+	8:  "uploader",
+	9:  "uploader_name",
+	10: "uploaded_at",
+	11: "is_baseline",
+	12: "is_current",
 }
 
 type ListTrainingCourseFileHistoryReq struct {
-	TrainingCourseId int32            `thrift:"training_course_id,1" frugal:"1,default,i32" json:"training_course_id" binding:"required,gt=0"`
-	MaterialType     int32            `thrift:"material_type,2" frugal:"2,default,i32" json:"material_type" binding:"omitempty,oneof=1 2 3"`
-	ListOption       *base.ListOption `thrift:"list_option,3" frugal:"3,default,base.ListOption" json:"list_option" binding:"required"`
+	ListOption *base.ListOption `thrift:"list_option,3" frugal:"3,default,base.ListOption" json:"list_option" binding:"required"`
 }
 
 func NewListTrainingCourseFileHistoryReq() *ListTrainingCourseFileHistoryReq {
@@ -4495,14 +4564,6 @@ func NewListTrainingCourseFileHistoryReq() *ListTrainingCourseFileHistoryReq {
 func (p *ListTrainingCourseFileHistoryReq) InitDefault() {
 }
 
-func (p *ListTrainingCourseFileHistoryReq) GetTrainingCourseId() (v int32) {
-	return p.TrainingCourseId
-}
-
-func (p *ListTrainingCourseFileHistoryReq) GetMaterialType() (v int32) {
-	return p.MaterialType
-}
-
 var ListTrainingCourseFileHistoryReq_ListOption_DEFAULT *base.ListOption
 
 func (p *ListTrainingCourseFileHistoryReq) GetListOption() (v *base.ListOption) {
@@ -4510,12 +4571,6 @@ func (p *ListTrainingCourseFileHistoryReq) GetListOption() (v *base.ListOption) 
 		return ListTrainingCourseFileHistoryReq_ListOption_DEFAULT
 	}
 	return p.ListOption
-}
-func (p *ListTrainingCourseFileHistoryReq) SetTrainingCourseId(val int32) {
-	p.TrainingCourseId = val
-}
-func (p *ListTrainingCourseFileHistoryReq) SetMaterialType(val int32) {
-	p.MaterialType = val
 }
 func (p *ListTrainingCourseFileHistoryReq) SetListOption(val *base.ListOption) {
 	p.ListOption = val
@@ -4533,8 +4588,6 @@ func (p *ListTrainingCourseFileHistoryReq) String() string {
 }
 
 var fieldIDToName_ListTrainingCourseFileHistoryReq = map[int16]string{
-	1: "training_course_id",
-	2: "material_type",
 	3: "list_option",
 }
 

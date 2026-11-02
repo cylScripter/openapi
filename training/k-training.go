@@ -14033,7 +14033,7 @@ func (p *ModelTrainingCourseFileHistory) FastRead(buf []byte) (int, error) {
 				}
 			}
 		case 3:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.I32 {
 				l, err = p.FastReadField3(buf[offset:])
 				offset += l
 				if err != nil {
@@ -14047,7 +14047,7 @@ func (p *ModelTrainingCourseFileHistory) FastRead(buf []byte) (int, error) {
 				}
 			}
 		case 4:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.I32 {
 				l, err = p.FastReadField4(buf[offset:])
 				offset += l
 				if err != nil {
@@ -14061,7 +14061,7 @@ func (p *ModelTrainingCourseFileHistory) FastRead(buf []byte) (int, error) {
 				}
 			}
 		case 5:
-			if fieldTypeId == thrift.STRING {
+			if fieldTypeId == thrift.I32 {
 				l, err = p.FastReadField5(buf[offset:])
 				offset += l
 				if err != nil {
@@ -14089,7 +14089,7 @@ func (p *ModelTrainingCourseFileHistory) FastRead(buf []byte) (int, error) {
 				}
 			}
 		case 7:
-			if fieldTypeId == thrift.I64 {
+			if fieldTypeId == thrift.STRING {
 				l, err = p.FastReadField7(buf[offset:])
 				offset += l
 				if err != nil {
@@ -14103,7 +14103,7 @@ func (p *ModelTrainingCourseFileHistory) FastRead(buf []byte) (int, error) {
 				}
 			}
 		case 8:
-			if fieldTypeId == thrift.BOOL {
+			if fieldTypeId == thrift.STRING {
 				l, err = p.FastReadField8(buf[offset:])
 				offset += l
 				if err != nil {
@@ -14117,8 +14117,50 @@ func (p *ModelTrainingCourseFileHistory) FastRead(buf []byte) (int, error) {
 				}
 			}
 		case 9:
-			if fieldTypeId == thrift.BOOL {
+			if fieldTypeId == thrift.STRING {
 				l, err = p.FastReadField9(buf[offset:])
+				offset += l
+				if err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
+				offset += l
+				if err != nil {
+					goto SkipFieldError
+				}
+			}
+		case 10:
+			if fieldTypeId == thrift.I64 {
+				l, err = p.FastReadField10(buf[offset:])
+				offset += l
+				if err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
+				offset += l
+				if err != nil {
+					goto SkipFieldError
+				}
+			}
+		case 11:
+			if fieldTypeId == thrift.BOOL {
+				l, err = p.FastReadField11(buf[offset:])
+				offset += l
+				if err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
+				offset += l
+				if err != nil {
+					goto SkipFieldError
+				}
+			}
+		case 12:
+			if fieldTypeId == thrift.BOOL {
+				l, err = p.FastReadField12(buf[offset:])
 				offset += l
 				if err != nil {
 					goto ReadFieldError
@@ -14172,49 +14214,49 @@ func (p *ModelTrainingCourseFileHistory) FastReadField2(buf []byte) (int, error)
 		offset += l
 		_field = v
 	}
-	p.MaterialType = _field
+	p.CreatedAt = _field
 	return offset, nil
 }
 
 func (p *ModelTrainingCourseFileHistory) FastReadField3(buf []byte) (int, error) {
 	offset := 0
 
-	var _field string
-	if v, l, err := thrift.Binary.ReadString(buf[offset:]); err != nil {
+	var _field int32
+	if v, l, err := thrift.Binary.ReadI32(buf[offset:]); err != nil {
 		return offset, err
 	} else {
 		offset += l
 		_field = v
 	}
-	p.UploadId = _field
+	p.UpdatedAt = _field
 	return offset, nil
 }
 
 func (p *ModelTrainingCourseFileHistory) FastReadField4(buf []byte) (int, error) {
 	offset := 0
 
-	var _field string
-	if v, l, err := thrift.Binary.ReadString(buf[offset:]); err != nil {
+	var _field int32
+	if v, l, err := thrift.Binary.ReadI32(buf[offset:]); err != nil {
 		return offset, err
 	} else {
 		offset += l
 		_field = v
 	}
-	p.FileName = _field
+	p.DeletedAt = _field
 	return offset, nil
 }
 
 func (p *ModelTrainingCourseFileHistory) FastReadField5(buf []byte) (int, error) {
 	offset := 0
 
-	var _field string
-	if v, l, err := thrift.Binary.ReadString(buf[offset:]); err != nil {
+	var _field int32
+	if v, l, err := thrift.Binary.ReadI32(buf[offset:]); err != nil {
 		return offset, err
 	} else {
 		offset += l
 		_field = v
 	}
-	p.Uploader = _field
+	p.MaterialType = _field
 	return offset, nil
 }
 
@@ -14228,11 +14270,53 @@ func (p *ModelTrainingCourseFileHistory) FastReadField6(buf []byte) (int, error)
 		offset += l
 		_field = v
 	}
-	p.UploaderName = _field
+	p.UploadId = _field
 	return offset, nil
 }
 
 func (p *ModelTrainingCourseFileHistory) FastReadField7(buf []byte) (int, error) {
+	offset := 0
+
+	var _field string
+	if v, l, err := thrift.Binary.ReadString(buf[offset:]); err != nil {
+		return offset, err
+	} else {
+		offset += l
+		_field = v
+	}
+	p.FileName = _field
+	return offset, nil
+}
+
+func (p *ModelTrainingCourseFileHistory) FastReadField8(buf []byte) (int, error) {
+	offset := 0
+
+	var _field string
+	if v, l, err := thrift.Binary.ReadString(buf[offset:]); err != nil {
+		return offset, err
+	} else {
+		offset += l
+		_field = v
+	}
+	p.Uploader = _field
+	return offset, nil
+}
+
+func (p *ModelTrainingCourseFileHistory) FastReadField9(buf []byte) (int, error) {
+	offset := 0
+
+	var _field string
+	if v, l, err := thrift.Binary.ReadString(buf[offset:]); err != nil {
+		return offset, err
+	} else {
+		offset += l
+		_field = v
+	}
+	p.UploaderName = _field
+	return offset, nil
+}
+
+func (p *ModelTrainingCourseFileHistory) FastReadField10(buf []byte) (int, error) {
 	offset := 0
 
 	var _field int64
@@ -14246,7 +14330,7 @@ func (p *ModelTrainingCourseFileHistory) FastReadField7(buf []byte) (int, error)
 	return offset, nil
 }
 
-func (p *ModelTrainingCourseFileHistory) FastReadField8(buf []byte) (int, error) {
+func (p *ModelTrainingCourseFileHistory) FastReadField11(buf []byte) (int, error) {
 	offset := 0
 
 	var _field bool
@@ -14260,7 +14344,7 @@ func (p *ModelTrainingCourseFileHistory) FastReadField8(buf []byte) (int, error)
 	return offset, nil
 }
 
-func (p *ModelTrainingCourseFileHistory) FastReadField9(buf []byte) (int, error) {
+func (p *ModelTrainingCourseFileHistory) FastReadField12(buf []byte) (int, error) {
 	offset := 0
 
 	var _field bool
@@ -14283,13 +14367,16 @@ func (p *ModelTrainingCourseFileHistory) FastWriteNocopy(buf []byte, w thrift.No
 	if p != nil {
 		offset += p.fastWriteField1(buf[offset:], w)
 		offset += p.fastWriteField2(buf[offset:], w)
-		offset += p.fastWriteField7(buf[offset:], w)
-		offset += p.fastWriteField8(buf[offset:], w)
-		offset += p.fastWriteField9(buf[offset:], w)
 		offset += p.fastWriteField3(buf[offset:], w)
 		offset += p.fastWriteField4(buf[offset:], w)
 		offset += p.fastWriteField5(buf[offset:], w)
+		offset += p.fastWriteField10(buf[offset:], w)
+		offset += p.fastWriteField11(buf[offset:], w)
+		offset += p.fastWriteField12(buf[offset:], w)
 		offset += p.fastWriteField6(buf[offset:], w)
+		offset += p.fastWriteField7(buf[offset:], w)
+		offset += p.fastWriteField8(buf[offset:], w)
+		offset += p.fastWriteField9(buf[offset:], w)
 	}
 	offset += thrift.Binary.WriteFieldStop(buf[offset:])
 	return offset
@@ -14307,6 +14394,9 @@ func (p *ModelTrainingCourseFileHistory) BLength() int {
 		l += p.field7Length()
 		l += p.field8Length()
 		l += p.field9Length()
+		l += p.field10Length()
+		l += p.field11Length()
+		l += p.field12Length()
 	}
 	l += thrift.Binary.FieldStopLength()
 	return l
@@ -14322,55 +14412,76 @@ func (p *ModelTrainingCourseFileHistory) fastWriteField1(buf []byte, w thrift.No
 func (p *ModelTrainingCourseFileHistory) fastWriteField2(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 2)
-	offset += thrift.Binary.WriteI32(buf[offset:], p.MaterialType)
+	offset += thrift.Binary.WriteI32(buf[offset:], p.CreatedAt)
 	return offset
 }
 
 func (p *ModelTrainingCourseFileHistory) fastWriteField3(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
-	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 3)
-	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.UploadId)
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 3)
+	offset += thrift.Binary.WriteI32(buf[offset:], p.UpdatedAt)
 	return offset
 }
 
 func (p *ModelTrainingCourseFileHistory) fastWriteField4(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
-	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 4)
-	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.FileName)
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 4)
+	offset += thrift.Binary.WriteI32(buf[offset:], p.DeletedAt)
 	return offset
 }
 
 func (p *ModelTrainingCourseFileHistory) fastWriteField5(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
-	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 5)
-	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.Uploader)
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 5)
+	offset += thrift.Binary.WriteI32(buf[offset:], p.MaterialType)
 	return offset
 }
 
 func (p *ModelTrainingCourseFileHistory) fastWriteField6(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 6)
-	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.UploaderName)
+	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.UploadId)
 	return offset
 }
 
 func (p *ModelTrainingCourseFileHistory) fastWriteField7(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
-	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I64, 7)
-	offset += thrift.Binary.WriteI64(buf[offset:], p.UploadedAt)
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 7)
+	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.FileName)
 	return offset
 }
 
 func (p *ModelTrainingCourseFileHistory) fastWriteField8(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
-	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.BOOL, 8)
-	offset += thrift.Binary.WriteBool(buf[offset:], p.IsBaseline)
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 8)
+	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.Uploader)
 	return offset
 }
 
 func (p *ModelTrainingCourseFileHistory) fastWriteField9(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
-	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.BOOL, 9)
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRING, 9)
+	offset += thrift.Binary.WriteStringNocopy(buf[offset:], w, p.UploaderName)
+	return offset
+}
+
+func (p *ModelTrainingCourseFileHistory) fastWriteField10(buf []byte, w thrift.NocopyWriter) int {
+	offset := 0
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I64, 10)
+	offset += thrift.Binary.WriteI64(buf[offset:], p.UploadedAt)
+	return offset
+}
+
+func (p *ModelTrainingCourseFileHistory) fastWriteField11(buf []byte, w thrift.NocopyWriter) int {
+	offset := 0
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.BOOL, 11)
+	offset += thrift.Binary.WriteBool(buf[offset:], p.IsBaseline)
+	return offset
+}
+
+func (p *ModelTrainingCourseFileHistory) fastWriteField12(buf []byte, w thrift.NocopyWriter) int {
+	offset := 0
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.BOOL, 12)
 	offset += thrift.Binary.WriteBool(buf[offset:], p.IsCurrent)
 	return offset
 }
@@ -14392,46 +14503,67 @@ func (p *ModelTrainingCourseFileHistory) field2Length() int {
 func (p *ModelTrainingCourseFileHistory) field3Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.StringLengthNocopy(p.UploadId)
+	l += thrift.Binary.I32Length()
 	return l
 }
 
 func (p *ModelTrainingCourseFileHistory) field4Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.StringLengthNocopy(p.FileName)
+	l += thrift.Binary.I32Length()
 	return l
 }
 
 func (p *ModelTrainingCourseFileHistory) field5Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.StringLengthNocopy(p.Uploader)
+	l += thrift.Binary.I32Length()
 	return l
 }
 
 func (p *ModelTrainingCourseFileHistory) field6Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.StringLengthNocopy(p.UploaderName)
+	l += thrift.Binary.StringLengthNocopy(p.UploadId)
 	return l
 }
 
 func (p *ModelTrainingCourseFileHistory) field7Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.I64Length()
+	l += thrift.Binary.StringLengthNocopy(p.FileName)
 	return l
 }
 
 func (p *ModelTrainingCourseFileHistory) field8Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.BoolLength()
+	l += thrift.Binary.StringLengthNocopy(p.Uploader)
 	return l
 }
 
 func (p *ModelTrainingCourseFileHistory) field9Length() int {
+	l := 0
+	l += thrift.Binary.FieldBeginLength()
+	l += thrift.Binary.StringLengthNocopy(p.UploaderName)
+	return l
+}
+
+func (p *ModelTrainingCourseFileHistory) field10Length() int {
+	l := 0
+	l += thrift.Binary.FieldBeginLength()
+	l += thrift.Binary.I64Length()
+	return l
+}
+
+func (p *ModelTrainingCourseFileHistory) field11Length() int {
+	l := 0
+	l += thrift.Binary.FieldBeginLength()
+	l += thrift.Binary.BoolLength()
+	return l
+}
+
+func (p *ModelTrainingCourseFileHistory) field12Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
 	l += thrift.Binary.BoolLength()
@@ -14455,34 +14587,6 @@ func (p *ListTrainingCourseFileHistoryReq) FastRead(buf []byte) (int, error) {
 			break
 		}
 		switch fieldId {
-		case 1:
-			if fieldTypeId == thrift.I32 {
-				l, err = p.FastReadField1(buf[offset:])
-				offset += l
-				if err != nil {
-					goto ReadFieldError
-				}
-			} else {
-				l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
-				offset += l
-				if err != nil {
-					goto SkipFieldError
-				}
-			}
-		case 2:
-			if fieldTypeId == thrift.I32 {
-				l, err = p.FastReadField2(buf[offset:])
-				offset += l
-				if err != nil {
-					goto ReadFieldError
-				}
-			} else {
-				l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
-				offset += l
-				if err != nil {
-					goto SkipFieldError
-				}
-			}
 		case 3:
 			if fieldTypeId == thrift.STRUCT {
 				l, err = p.FastReadField3(buf[offset:])
@@ -14515,34 +14619,6 @@ SkipFieldError:
 	return offset, thrift.PrependError(fmt.Sprintf("%T field %d skip type %d error: ", p, fieldId, fieldTypeId), err)
 }
 
-func (p *ListTrainingCourseFileHistoryReq) FastReadField1(buf []byte) (int, error) {
-	offset := 0
-
-	var _field int32
-	if v, l, err := thrift.Binary.ReadI32(buf[offset:]); err != nil {
-		return offset, err
-	} else {
-		offset += l
-		_field = v
-	}
-	p.TrainingCourseId = _field
-	return offset, nil
-}
-
-func (p *ListTrainingCourseFileHistoryReq) FastReadField2(buf []byte) (int, error) {
-	offset := 0
-
-	var _field int32
-	if v, l, err := thrift.Binary.ReadI32(buf[offset:]); err != nil {
-		return offset, err
-	} else {
-		offset += l
-		_field = v
-	}
-	p.MaterialType = _field
-	return offset, nil
-}
-
 func (p *ListTrainingCourseFileHistoryReq) FastReadField3(buf []byte) (int, error) {
 	offset := 0
 	_field := base.NewListOption()
@@ -14562,8 +14638,6 @@ func (p *ListTrainingCourseFileHistoryReq) FastWrite(buf []byte) int {
 func (p *ListTrainingCourseFileHistoryReq) FastWriteNocopy(buf []byte, w thrift.NocopyWriter) int {
 	offset := 0
 	if p != nil {
-		offset += p.fastWriteField1(buf[offset:], w)
-		offset += p.fastWriteField2(buf[offset:], w)
 		offset += p.fastWriteField3(buf[offset:], w)
 	}
 	offset += thrift.Binary.WriteFieldStop(buf[offset:])
@@ -14573,26 +14647,10 @@ func (p *ListTrainingCourseFileHistoryReq) FastWriteNocopy(buf []byte, w thrift.
 func (p *ListTrainingCourseFileHistoryReq) BLength() int {
 	l := 0
 	if p != nil {
-		l += p.field1Length()
-		l += p.field2Length()
 		l += p.field3Length()
 	}
 	l += thrift.Binary.FieldStopLength()
 	return l
-}
-
-func (p *ListTrainingCourseFileHistoryReq) fastWriteField1(buf []byte, w thrift.NocopyWriter) int {
-	offset := 0
-	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 1)
-	offset += thrift.Binary.WriteI32(buf[offset:], p.TrainingCourseId)
-	return offset
-}
-
-func (p *ListTrainingCourseFileHistoryReq) fastWriteField2(buf []byte, w thrift.NocopyWriter) int {
-	offset := 0
-	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I32, 2)
-	offset += thrift.Binary.WriteI32(buf[offset:], p.MaterialType)
-	return offset
 }
 
 func (p *ListTrainingCourseFileHistoryReq) fastWriteField3(buf []byte, w thrift.NocopyWriter) int {
@@ -14600,20 +14658,6 @@ func (p *ListTrainingCourseFileHistoryReq) fastWriteField3(buf []byte, w thrift.
 	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.STRUCT, 3)
 	offset += p.ListOption.FastWriteNocopy(buf[offset:], w)
 	return offset
-}
-
-func (p *ListTrainingCourseFileHistoryReq) field1Length() int {
-	l := 0
-	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.I32Length()
-	return l
-}
-
-func (p *ListTrainingCourseFileHistoryReq) field2Length() int {
-	l := 0
-	l += thrift.Binary.FieldBeginLength()
-	l += thrift.Binary.I32Length()
-	return l
 }
 
 func (p *ListTrainingCourseFileHistoryReq) field3Length() int {
