@@ -216,6 +216,13 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"UpdateClassroomStatus": kitex.NewMethodInfo(
+		updateClassroomStatusHandler,
+		newTrainingserviceUpdateClassroomStatusArgs,
+		newTrainingserviceUpdateClassroomStatusResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 	"ExportMajorPracticeTeaching": kitex.NewMethodInfo(
 		exportMajorPracticeTeachingHandler,
 		newTrainingserviceExportMajorPracticeTeachingArgs,
@@ -1033,6 +1040,24 @@ func newTrainingserviceEditClassroomArgs() interface{} {
 
 func newTrainingserviceEditClassroomResult() interface{} {
 	return training.NewTrainingserviceEditClassroomResult()
+}
+
+func updateClassroomStatusHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceUpdateClassroomStatusArgs)
+	realResult := result.(*training.TrainingserviceUpdateClassroomStatusResult)
+	success, err := handler.(training.Trainingservice).UpdateClassroomStatus(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceUpdateClassroomStatusArgs() interface{} {
+	return training.NewTrainingserviceUpdateClassroomStatusArgs()
+}
+
+func newTrainingserviceUpdateClassroomStatusResult() interface{} {
+	return training.NewTrainingserviceUpdateClassroomStatusResult()
 }
 
 func exportMajorPracticeTeachingHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
@@ -1924,6 +1949,16 @@ func (p *kClient) EditClassroom(ctx context.Context, req *training.EditClassroom
 	_args.Req = req
 	var _result training.TrainingserviceEditClassroomResult
 	if err = p.c.Call(ctx, "EditClassroom", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) UpdateClassroomStatus(ctx context.Context, req *training.UpdateClassroomStatusReq) (r *training.UpdateClassroomStatusResp, err error) {
+	var _args training.TrainingserviceUpdateClassroomStatusArgs
+	_args.Req = req
+	var _result training.TrainingserviceUpdateClassroomStatusResult
+	if err = p.c.Call(ctx, "UpdateClassroomStatus", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

@@ -40,6 +40,7 @@ type Client interface {
 	GetClassroomDetail(ctx context.Context, req *training.GetClassroomDetailReq, callOptions ...callopt.Option) (r *training.GetClassroomDetailResp, err error)
 	ImportClassroom(ctx context.Context, req *training.ImportClassroomReq, callOptions ...callopt.Option) (r *training.ImportClassroomResp, err error)
 	EditClassroom(ctx context.Context, req *training.EditClassroomReq, callOptions ...callopt.Option) (r *training.EditClassroomResp, err error)
+	UpdateClassroomStatus(ctx context.Context, req *training.UpdateClassroomStatusReq, callOptions ...callopt.Option) (r *training.UpdateClassroomStatusResp, err error)
 	ExportMajorPracticeTeaching(ctx context.Context, req *training.ExportMajorPracticeTeachingReq, callOptions ...callopt.Option) (r *training.ExportMajorPracticeTeachingResp, err error)
 	ExportPracticeSummary(ctx context.Context, req *training.ExportPracticeSummaryReq, callOptions ...callopt.Option) (r *training.ExportPracticeSummaryResp, err error)
 	ImportMajorPracticeTeaching(ctx context.Context, req *training.ImportMajorPracticeTeachingReq, callOptions ...callopt.Option) (r *training.ImportMajorPracticeTeachingResp, err error)
@@ -247,6 +248,11 @@ func (p *kTrainingserviceClient) ImportClassroom(ctx context.Context, req *train
 func (p *kTrainingserviceClient) EditClassroom(ctx context.Context, req *training.EditClassroomReq, callOptions ...callopt.Option) (r *training.EditClassroomResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.EditClassroom(ctx, req)
+}
+
+func (p *kTrainingserviceClient) UpdateClassroomStatus(ctx context.Context, req *training.UpdateClassroomStatusReq, callOptions ...callopt.Option) (r *training.UpdateClassroomStatusResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.UpdateClassroomStatus(ctx, req)
 }
 
 func (p *kTrainingserviceClient) ExportMajorPracticeTeaching(ctx context.Context, req *training.ExportMajorPracticeTeachingReq, callOptions ...callopt.Option) (r *training.ExportMajorPracticeTeachingResp, err error) {

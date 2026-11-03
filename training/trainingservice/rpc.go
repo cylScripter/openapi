@@ -151,6 +151,11 @@ func EditClassroom(ctx context.Context, req *training.EditClassroomReq, callOpti
 	return clients.EditClassroom(ctx, req)
 }
 
+func UpdateClassroomStatus(ctx context.Context, req *training.UpdateClassroomStatusReq, callOptions ...client.Option) (resp *training.UpdateClassroomStatusResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.UpdateClassroomStatus(ctx, req)
+}
+
 func ExportMajorPracticeTeaching(ctx context.Context, req *training.ExportMajorPracticeTeachingReq, callOptions ...client.Option) (resp *training.ExportMajorPracticeTeachingResp, err error) {
 	clients := MustNewClient("training", callOptions...)
 	return clients.ExportMajorPracticeTeaching(ctx, req)

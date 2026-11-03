@@ -3648,6 +3648,63 @@ var fieldIDToName_ExportPracticeSummaryReq = map[int16]string{
 	2: "semester",
 }
 
+type UpdateClassroomStatusReq struct {
+	Id     int32 `thrift:"id,1" frugal:"1,default,i32" json:"id" binding:"required,gt=0"`
+	Status int32 `thrift:"status,2" frugal:"2,default,i32" json:"status" binding:"required,oneof=1 2"`
+}
+
+func NewUpdateClassroomStatusReq() *UpdateClassroomStatusReq {
+	return &UpdateClassroomStatusReq{}
+}
+
+func (p *UpdateClassroomStatusReq) InitDefault() {
+}
+
+func (p *UpdateClassroomStatusReq) GetId() (v int32) {
+	return p.Id
+}
+
+func (p *UpdateClassroomStatusReq) GetStatus() (v int32) {
+	return p.Status
+}
+func (p *UpdateClassroomStatusReq) SetId(val int32) {
+	p.Id = val
+}
+func (p *UpdateClassroomStatusReq) SetStatus(val int32) {
+	p.Status = val
+}
+
+func (p *UpdateClassroomStatusReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("UpdateClassroomStatusReq(%+v)", *p)
+}
+
+var fieldIDToName_UpdateClassroomStatusReq = map[int16]string{
+	1: "id",
+	2: "status",
+}
+
+type UpdateClassroomStatusResp struct {
+}
+
+func NewUpdateClassroomStatusResp() *UpdateClassroomStatusResp {
+	return &UpdateClassroomStatusResp{}
+}
+
+func (p *UpdateClassroomStatusResp) InitDefault() {
+}
+
+func (p *UpdateClassroomStatusResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("UpdateClassroomStatusResp(%+v)", *p)
+}
+
+var fieldIDToName_UpdateClassroomStatusResp = map[int16]string{}
+
 type EditClassroomResp struct {
 }
 
@@ -7390,13 +7447,18 @@ type ModelClassroom struct {
 	OperatingSystem     string `thrift:"operating_system,19" frugal:"19,default,string" json:"operating_system" gorm:"column:operating_system"`
 	PurchaseDate        string `thrift:"purchase_date,20" frugal:"20,default,string" json:"purchase_date" gorm:"column:purchase_date"`
 	StatisticsDate      string `thrift:"statistics_date,21" frugal:"21,default,string" json:"statistics_date" gorm:"column:statistics_date"`
+	Status              int32  `thrift:"status,22" frugal:"22,default,i32" json:"status" gorm:"column:status;not null;default:1"`
 }
 
 func NewModelClassroom() *ModelClassroom {
-	return &ModelClassroom{}
+	return &ModelClassroom{
+
+		Status: 1,
+	}
 }
 
 func (p *ModelClassroom) InitDefault() {
+	p.Status = 1
 }
 
 func (p *ModelClassroom) GetId() (v int32) {
@@ -7482,6 +7544,10 @@ func (p *ModelClassroom) GetPurchaseDate() (v string) {
 func (p *ModelClassroom) GetStatisticsDate() (v string) {
 	return p.StatisticsDate
 }
+
+func (p *ModelClassroom) GetStatus() (v int32) {
+	return p.Status
+}
 func (p *ModelClassroom) SetId(val int32) {
 	p.Id = val
 }
@@ -7545,6 +7611,9 @@ func (p *ModelClassroom) SetPurchaseDate(val string) {
 func (p *ModelClassroom) SetStatisticsDate(val string) {
 	p.StatisticsDate = val
 }
+func (p *ModelClassroom) SetStatus(val int32) {
+	p.Status = val
+}
 
 func (p *ModelClassroom) String() string {
 	if p == nil {
@@ -7575,6 +7644,7 @@ var fieldIDToName_ModelClassroom = map[int16]string{
 	19: "operating_system",
 	20: "purchase_date",
 	21: "statistics_date",
+	22: "status",
 }
 
 type ModelTeachSchedule struct {
@@ -8908,6 +8978,8 @@ type Trainingservice interface {
 	ImportClassroom(ctx context.Context, req *ImportClassroomReq) (r *ImportClassroomResp, err error)
 
 	EditClassroom(ctx context.Context, req *EditClassroomReq) (r *EditClassroomResp, err error)
+
+	UpdateClassroomStatus(ctx context.Context, req *UpdateClassroomStatusReq) (r *UpdateClassroomStatusResp, err error)
 
 	ExportMajorPracticeTeaching(ctx context.Context, req *ExportMajorPracticeTeachingReq) (r *ExportMajorPracticeTeachingResp, err error)
 
@@ -11177,6 +11249,82 @@ func (p *TrainingserviceEditClassroomResult) String() string {
 }
 
 var fieldIDToName_TrainingserviceEditClassroomResult = map[int16]string{
+	0: "success",
+}
+
+type TrainingserviceUpdateClassroomStatusArgs struct {
+	Req *UpdateClassroomStatusReq `thrift:"req,1" frugal:"1,default,UpdateClassroomStatusReq" json:"req"`
+}
+
+func NewTrainingserviceUpdateClassroomStatusArgs() *TrainingserviceUpdateClassroomStatusArgs {
+	return &TrainingserviceUpdateClassroomStatusArgs{}
+}
+
+func (p *TrainingserviceUpdateClassroomStatusArgs) InitDefault() {
+}
+
+var TrainingserviceUpdateClassroomStatusArgs_Req_DEFAULT *UpdateClassroomStatusReq
+
+func (p *TrainingserviceUpdateClassroomStatusArgs) GetReq() (v *UpdateClassroomStatusReq) {
+	if !p.IsSetReq() {
+		return TrainingserviceUpdateClassroomStatusArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *TrainingserviceUpdateClassroomStatusArgs) SetReq(val *UpdateClassroomStatusReq) {
+	p.Req = val
+}
+
+func (p *TrainingserviceUpdateClassroomStatusArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *TrainingserviceUpdateClassroomStatusArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceUpdateClassroomStatusArgs(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceUpdateClassroomStatusArgs = map[int16]string{
+	1: "req",
+}
+
+type TrainingserviceUpdateClassroomStatusResult struct {
+	Success *UpdateClassroomStatusResp `thrift:"success,0,optional" frugal:"0,optional,UpdateClassroomStatusResp" json:"success,omitempty"`
+}
+
+func NewTrainingserviceUpdateClassroomStatusResult() *TrainingserviceUpdateClassroomStatusResult {
+	return &TrainingserviceUpdateClassroomStatusResult{}
+}
+
+func (p *TrainingserviceUpdateClassroomStatusResult) InitDefault() {
+}
+
+var TrainingserviceUpdateClassroomStatusResult_Success_DEFAULT *UpdateClassroomStatusResp
+
+func (p *TrainingserviceUpdateClassroomStatusResult) GetSuccess() (v *UpdateClassroomStatusResp) {
+	if !p.IsSetSuccess() {
+		return TrainingserviceUpdateClassroomStatusResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *TrainingserviceUpdateClassroomStatusResult) SetSuccess(x interface{}) {
+	p.Success = x.(*UpdateClassroomStatusResp)
+}
+
+func (p *TrainingserviceUpdateClassroomStatusResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *TrainingserviceUpdateClassroomStatusResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceUpdateClassroomStatusResult(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceUpdateClassroomStatusResult = map[int16]string{
 	0: "success",
 }
 
