@@ -3030,10 +3030,12 @@ func (p *FillMajorPracticeTeachingBudgetResp) String() string {
 var fieldIDToName_FillMajorPracticeTeachingBudgetResp = map[int16]string{}
 
 type FillMajorPracticeTeachingBudgetReq struct {
-	Id                int32  `thrift:"id,1" frugal:"1,default,i32" json:"id" binding:"required"`
-	CompanyName       string `thrift:"company_name,2" frugal:"2,default,string" json:"company_name"`
-	CostBudget        string `thrift:"cost_budget,3" frugal:"3,default,string" json:"cost_budget"`
-	CostBudgetExplain string `thrift:"cost_budget_explain,4" frugal:"4,default,string" json:"cost_budget_explain"`
+	Id                int32   `thrift:"id,1" frugal:"1,default,i32" json:"id" binding:"required"`
+	CompanyName       string  `thrift:"company_name,2" frugal:"2,default,string" json:"company_name"`
+	CostBudget        string  `thrift:"cost_budget,3" frugal:"3,default,string" json:"cost_budget"`
+	CostBudgetExplain string  `thrift:"cost_budget_explain,4" frugal:"4,default,string" json:"cost_budget_explain"`
+	ProjectType       *string `thrift:"project_type,5,optional" frugal:"5,optional,string" json:"project_type"`
+	EnterpriseType    *string `thrift:"enterprise_type,6,optional" frugal:"6,optional,string" json:"enterprise_type"`
 }
 
 func NewFillMajorPracticeTeachingBudgetReq() *FillMajorPracticeTeachingBudgetReq {
@@ -3058,6 +3060,24 @@ func (p *FillMajorPracticeTeachingBudgetReq) GetCostBudget() (v string) {
 func (p *FillMajorPracticeTeachingBudgetReq) GetCostBudgetExplain() (v string) {
 	return p.CostBudgetExplain
 }
+
+var FillMajorPracticeTeachingBudgetReq_ProjectType_DEFAULT string
+
+func (p *FillMajorPracticeTeachingBudgetReq) GetProjectType() (v string) {
+	if !p.IsSetProjectType() {
+		return FillMajorPracticeTeachingBudgetReq_ProjectType_DEFAULT
+	}
+	return *p.ProjectType
+}
+
+var FillMajorPracticeTeachingBudgetReq_EnterpriseType_DEFAULT string
+
+func (p *FillMajorPracticeTeachingBudgetReq) GetEnterpriseType() (v string) {
+	if !p.IsSetEnterpriseType() {
+		return FillMajorPracticeTeachingBudgetReq_EnterpriseType_DEFAULT
+	}
+	return *p.EnterpriseType
+}
 func (p *FillMajorPracticeTeachingBudgetReq) SetId(val int32) {
 	p.Id = val
 }
@@ -3069,6 +3089,20 @@ func (p *FillMajorPracticeTeachingBudgetReq) SetCostBudget(val string) {
 }
 func (p *FillMajorPracticeTeachingBudgetReq) SetCostBudgetExplain(val string) {
 	p.CostBudgetExplain = val
+}
+func (p *FillMajorPracticeTeachingBudgetReq) SetProjectType(val *string) {
+	p.ProjectType = val
+}
+func (p *FillMajorPracticeTeachingBudgetReq) SetEnterpriseType(val *string) {
+	p.EnterpriseType = val
+}
+
+func (p *FillMajorPracticeTeachingBudgetReq) IsSetProjectType() bool {
+	return p.ProjectType != nil
+}
+
+func (p *FillMajorPracticeTeachingBudgetReq) IsSetEnterpriseType() bool {
+	return p.EnterpriseType != nil
 }
 
 func (p *FillMajorPracticeTeachingBudgetReq) String() string {
@@ -3083,6 +3117,8 @@ var fieldIDToName_FillMajorPracticeTeachingBudgetReq = map[int16]string{
 	2: "company_name",
 	3: "cost_budget",
 	4: "cost_budget_explain",
+	5: "project_type",
+	6: "enterprise_type",
 }
 
 type GetMajorPracticeTeachingPlanListResp struct {
@@ -7735,6 +7771,8 @@ type ModelMajorPracticeTeachingPlan struct {
 	BudgetStatus      int32  `thrift:"budget_status,18" frugal:"18,default,i32" json:"budget_status" gorm:"column:budget_status;default:2"`
 	TeacherStatus     int32  `thrift:"teacher_status,19" frugal:"19,default,i32" json:"teacher_status" gorm:"column:teacher_status;default:2"`
 	ClassroomStatus   int32  `thrift:"classroom_status,20" frugal:"20,default,i32" json:"classroom_status" gorm:"column:classroom_status;default:2"`
+	ProjectType       string `thrift:"project_type,21" frugal:"21,default,string" json:"project_type" gorm:"column:project_type;size:64"`
+	EnterpriseType    string `thrift:"enterprise_type,22" frugal:"22,default,string" json:"enterprise_type" gorm:"column:enterprise_type;size:64"`
 }
 
 func NewModelMajorPracticeTeachingPlan() *ModelMajorPracticeTeachingPlan {
@@ -7831,6 +7869,14 @@ func (p *ModelMajorPracticeTeachingPlan) GetTeacherStatus() (v int32) {
 func (p *ModelMajorPracticeTeachingPlan) GetClassroomStatus() (v int32) {
 	return p.ClassroomStatus
 }
+
+func (p *ModelMajorPracticeTeachingPlan) GetProjectType() (v string) {
+	return p.ProjectType
+}
+
+func (p *ModelMajorPracticeTeachingPlan) GetEnterpriseType() (v string) {
+	return p.EnterpriseType
+}
 func (p *ModelMajorPracticeTeachingPlan) SetId(val int32) {
 	p.Id = val
 }
@@ -7891,6 +7937,12 @@ func (p *ModelMajorPracticeTeachingPlan) SetTeacherStatus(val int32) {
 func (p *ModelMajorPracticeTeachingPlan) SetClassroomStatus(val int32) {
 	p.ClassroomStatus = val
 }
+func (p *ModelMajorPracticeTeachingPlan) SetProjectType(val string) {
+	p.ProjectType = val
+}
+func (p *ModelMajorPracticeTeachingPlan) SetEnterpriseType(val string) {
+	p.EnterpriseType = val
+}
 
 func (p *ModelMajorPracticeTeachingPlan) String() string {
 	if p == nil {
@@ -7920,6 +7972,8 @@ var fieldIDToName_ModelMajorPracticeTeachingPlan = map[int16]string{
 	18: "budget_status",
 	19: "teacher_status",
 	20: "classroom_status",
+	21: "project_type",
+	22: "enterprise_type",
 }
 
 type ModelPracticeTeachingStats struct {
