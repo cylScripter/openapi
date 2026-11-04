@@ -11,6 +11,7 @@ import (
 
 // Client is designed to provide IDL-compatible methods with call-option parameter for kitex framework.
 type Client interface {
+	UpdateTrainingSchedule(ctx context.Context, req *training.UpdateTrainingScheduleReq, callOptions ...callopt.Option) (r *training.UpdateTrainingScheduleResp, err error)
 	ImportTrainingCourse(ctx context.Context, req *training.ImportTrainingCourseReq, callOptions ...callopt.Option) (r *training.ImportTrainingCourseResp, err error)
 	CreateTrainingCourse(ctx context.Context, req *training.CreateTrainingCourseReq, callOptions ...callopt.Option) (r *training.CreateTrainingCourseResp, err error)
 	GetTrainingCourseList(ctx context.Context, req *training.GetTrainingCourseListReq, callOptions ...callopt.Option) (r *training.GetTrainingCourseListResp, err error)
@@ -103,6 +104,11 @@ func MustNewClient(destService string, opts ...client.Option) Client {
 
 type kTrainingserviceClient struct {
 	*kClient
+}
+
+func (p *kTrainingserviceClient) UpdateTrainingSchedule(ctx context.Context, req *training.UpdateTrainingScheduleReq, callOptions ...callopt.Option) (r *training.UpdateTrainingScheduleResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.UpdateTrainingSchedule(ctx, req)
 }
 
 func (p *kTrainingserviceClient) ImportTrainingCourse(ctx context.Context, req *training.ImportTrainingCourseReq, callOptions ...callopt.Option) (r *training.ImportTrainingCourseResp, err error) {

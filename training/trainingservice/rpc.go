@@ -6,6 +6,11 @@ import (
 	"github.com/cylScripter/openapi/training"
 )
 
+func UpdateTrainingSchedule(ctx context.Context, req *training.UpdateTrainingScheduleReq, callOptions ...client.Option) (resp *training.UpdateTrainingScheduleResp, err error) {
+	clients := MustNewClient("training", callOptions...)
+	return clients.UpdateTrainingSchedule(ctx, req)
+}
+
 func ImportTrainingCourse(ctx context.Context, req *training.ImportTrainingCourseReq, callOptions ...client.Option) (resp *training.ImportTrainingCourseResp, err error) {
 	clients := MustNewClient("training", callOptions...)
 	return clients.ImportTrainingCourse(ctx, req)

@@ -13,6 +13,13 @@ import (
 var errInvalidMessageType = errors.New("invalid message type for service method handler")
 
 var serviceMethods = map[string]kitex.MethodInfo{
+	"UpdateTrainingSchedule": kitex.NewMethodInfo(
+		updateTrainingScheduleHandler,
+		newTrainingserviceUpdateTrainingScheduleArgs,
+		newTrainingserviceUpdateTrainingScheduleResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 	"ImportTrainingCourse": kitex.NewMethodInfo(
 		importTrainingCourseHandler,
 		newTrainingserviceImportTrainingCourseArgs,
@@ -518,6 +525,24 @@ func newServiceInfo(hasStreaming bool, keepStreamingMethods bool, keepNonStreami
 		Extra:           extra,
 	}
 	return svcInfo
+}
+
+func updateTrainingScheduleHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceUpdateTrainingScheduleArgs)
+	realResult := result.(*training.TrainingserviceUpdateTrainingScheduleResult)
+	success, err := handler.(training.Trainingservice).UpdateTrainingSchedule(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceUpdateTrainingScheduleArgs() interface{} {
+	return training.NewTrainingserviceUpdateTrainingScheduleArgs()
+}
+
+func newTrainingserviceUpdateTrainingScheduleResult() interface{} {
+	return training.NewTrainingserviceUpdateTrainingScheduleResult()
 }
 
 func importTrainingCourseHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
@@ -1662,6 +1687,16 @@ func newServiceClient(c client.Client) *kClient {
 	return &kClient{
 		c: c,
 	}
+}
+
+func (p *kClient) UpdateTrainingSchedule(ctx context.Context, req *training.UpdateTrainingScheduleReq) (r *training.UpdateTrainingScheduleResp, err error) {
+	var _args training.TrainingserviceUpdateTrainingScheduleArgs
+	_args.Req = req
+	var _result training.TrainingserviceUpdateTrainingScheduleResult
+	if err = p.c.Call(ctx, "UpdateTrainingSchedule", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
 }
 
 func (p *kClient) ImportTrainingCourse(ctx context.Context, req *training.ImportTrainingCourseReq) (r *training.ImportTrainingCourseResp, err error) {

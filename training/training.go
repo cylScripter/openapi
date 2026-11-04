@@ -5403,6 +5403,82 @@ func (p *UpdateTrainingCourseTeacherResp) String() string {
 
 var fieldIDToName_UpdateTrainingCourseTeacherResp = map[int16]string{}
 
+type UpdateTrainingScheduleReq struct {
+	AcademicYear string `thrift:"academic_year,1" frugal:"1,default,string" json:"academic_year" binding:"required"`
+	Semester     string `thrift:"semester,2" frugal:"2,default,string" json:"semester" binding:"required"`
+	Schedule     string `thrift:"schedule,3" frugal:"3,default,string" json:"schedule" binding:"required"`
+}
+
+func NewUpdateTrainingScheduleReq() *UpdateTrainingScheduleReq {
+	return &UpdateTrainingScheduleReq{}
+}
+
+func (p *UpdateTrainingScheduleReq) InitDefault() {
+}
+
+func (p *UpdateTrainingScheduleReq) GetAcademicYear() (v string) {
+	return p.AcademicYear
+}
+
+func (p *UpdateTrainingScheduleReq) GetSemester() (v string) {
+	return p.Semester
+}
+
+func (p *UpdateTrainingScheduleReq) GetSchedule() (v string) {
+	return p.Schedule
+}
+func (p *UpdateTrainingScheduleReq) SetAcademicYear(val string) {
+	p.AcademicYear = val
+}
+func (p *UpdateTrainingScheduleReq) SetSemester(val string) {
+	p.Semester = val
+}
+func (p *UpdateTrainingScheduleReq) SetSchedule(val string) {
+	p.Schedule = val
+}
+
+func (p *UpdateTrainingScheduleReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("UpdateTrainingScheduleReq(%+v)", *p)
+}
+
+var fieldIDToName_UpdateTrainingScheduleReq = map[int16]string{
+	1: "academic_year",
+	2: "semester",
+	3: "schedule",
+}
+
+type UpdateTrainingScheduleResp struct {
+	Schedule string `thrift:"schedule,1" frugal:"1,default,string" json:"schedule"`
+}
+
+func NewUpdateTrainingScheduleResp() *UpdateTrainingScheduleResp {
+	return &UpdateTrainingScheduleResp{}
+}
+
+func (p *UpdateTrainingScheduleResp) InitDefault() {
+}
+
+func (p *UpdateTrainingScheduleResp) GetSchedule() (v string) {
+	return p.Schedule
+}
+func (p *UpdateTrainingScheduleResp) SetSchedule(val string) {
+	p.Schedule = val
+}
+
+func (p *UpdateTrainingScheduleResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("UpdateTrainingScheduleResp(%+v)", *p)
+}
+
+var fieldIDToName_UpdateTrainingScheduleResp = map[int16]string{
+	1: "schedule",
+}
+
 type UpdateTrainingCourseReq struct {
 	TrainingCourseId      int32  `thrift:"training_course_id,1" frugal:"1,default,i32" json:"training_course_id" binding:"required"`
 	Major                 string `thrift:"major,5" frugal:"5,default,string" json:"major" `
@@ -8921,6 +8997,8 @@ var fieldIDToName_ModelMajorCourseConfig = map[int16]string{
 }
 
 type Trainingservice interface {
+	UpdateTrainingSchedule(ctx context.Context, req *UpdateTrainingScheduleReq) (r *UpdateTrainingScheduleResp, err error)
+
 	ImportTrainingCourse(ctx context.Context, req *ImportTrainingCourseReq) (r *ImportTrainingCourseResp, err error)
 
 	CreateTrainingCourse(ctx context.Context, req *CreateTrainingCourseReq) (r *CreateTrainingCourseResp, err error)
@@ -9046,6 +9124,82 @@ type Trainingservice interface {
 	ExportPracticeDataTable(ctx context.Context, req *ExportPracticeDataTableReq) (r *ExportPracticeDataTableResp, err error)
 
 	ExportPracticeProcessDataTable(ctx context.Context, req *ExportPracticeProcessDataTableReq) (r *ExportPracticeProcessDataTableResp, err error)
+}
+
+type TrainingserviceUpdateTrainingScheduleArgs struct {
+	Req *UpdateTrainingScheduleReq `thrift:"req,1" frugal:"1,default,UpdateTrainingScheduleReq" json:"req"`
+}
+
+func NewTrainingserviceUpdateTrainingScheduleArgs() *TrainingserviceUpdateTrainingScheduleArgs {
+	return &TrainingserviceUpdateTrainingScheduleArgs{}
+}
+
+func (p *TrainingserviceUpdateTrainingScheduleArgs) InitDefault() {
+}
+
+var TrainingserviceUpdateTrainingScheduleArgs_Req_DEFAULT *UpdateTrainingScheduleReq
+
+func (p *TrainingserviceUpdateTrainingScheduleArgs) GetReq() (v *UpdateTrainingScheduleReq) {
+	if !p.IsSetReq() {
+		return TrainingserviceUpdateTrainingScheduleArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *TrainingserviceUpdateTrainingScheduleArgs) SetReq(val *UpdateTrainingScheduleReq) {
+	p.Req = val
+}
+
+func (p *TrainingserviceUpdateTrainingScheduleArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *TrainingserviceUpdateTrainingScheduleArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceUpdateTrainingScheduleArgs(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceUpdateTrainingScheduleArgs = map[int16]string{
+	1: "req",
+}
+
+type TrainingserviceUpdateTrainingScheduleResult struct {
+	Success *UpdateTrainingScheduleResp `thrift:"success,0,optional" frugal:"0,optional,UpdateTrainingScheduleResp" json:"success,omitempty"`
+}
+
+func NewTrainingserviceUpdateTrainingScheduleResult() *TrainingserviceUpdateTrainingScheduleResult {
+	return &TrainingserviceUpdateTrainingScheduleResult{}
+}
+
+func (p *TrainingserviceUpdateTrainingScheduleResult) InitDefault() {
+}
+
+var TrainingserviceUpdateTrainingScheduleResult_Success_DEFAULT *UpdateTrainingScheduleResp
+
+func (p *TrainingserviceUpdateTrainingScheduleResult) GetSuccess() (v *UpdateTrainingScheduleResp) {
+	if !p.IsSetSuccess() {
+		return TrainingserviceUpdateTrainingScheduleResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *TrainingserviceUpdateTrainingScheduleResult) SetSuccess(x interface{}) {
+	p.Success = x.(*UpdateTrainingScheduleResp)
+}
+
+func (p *TrainingserviceUpdateTrainingScheduleResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *TrainingserviceUpdateTrainingScheduleResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceUpdateTrainingScheduleResult(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceUpdateTrainingScheduleResult = map[int16]string{
+	0: "success",
 }
 
 type TrainingserviceImportTrainingCourseArgs struct {
