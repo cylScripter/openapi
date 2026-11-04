@@ -5480,18 +5480,20 @@ var fieldIDToName_UpdateTrainingScheduleResp = map[int16]string{
 }
 
 type UpdateTrainingCourseReq struct {
-	TrainingCourseId      int32  `thrift:"training_course_id,1" frugal:"1,default,i32" json:"training_course_id" binding:"required"`
-	Major                 string `thrift:"major,5" frugal:"5,default,string" json:"major" `
-	ClassName             string `thrift:"class_name,6" frugal:"6,default,string" json:"class_name"`
-	StudentNumber         int32  `thrift:"student_number,7" frugal:"7,default,i32" json:"student_number"`
-	CourseName            string `thrift:"course_name,8" frugal:"8,default,string" json:"course_name" `
-	Location              string `thrift:"location,9" frugal:"9,default,string" json:"location" `
-	CooperationEnterprise string `thrift:"cooperation_enterprise,10" frugal:"10,default,string" json:"cooperation_enterprise"`
-	TrainingWeek          int32  `thrift:"training_week,11" frugal:"11,default,i32" json:"training_week"`
-	Teachers              string `thrift:"teachers,13" frugal:"13,default,string" json:"teachers" gorm:"column:teachers;type:text"`
-	Grade                 string `thrift:"grade,17" frugal:"17,default,string" json:"grade" gorm:"column:grade"`
-	MainTeacher           string `thrift:"main_teacher,18" frugal:"18,default,string" json:"main_teacher" gorm:"column:main_teacher"`
-	CourseType            int32  `thrift:"course_type,14" frugal:"14,default,i32" json:"course_type"`
+	TrainingCourseId      int32   `thrift:"training_course_id,1" frugal:"1,default,i32" json:"training_course_id" binding:"required"`
+	Major                 string  `thrift:"major,5" frugal:"5,default,string" json:"major" `
+	ClassName             string  `thrift:"class_name,6" frugal:"6,default,string" json:"class_name"`
+	StudentNumber         int32   `thrift:"student_number,7" frugal:"7,default,i32" json:"student_number"`
+	CourseName            string  `thrift:"course_name,8" frugal:"8,default,string" json:"course_name" `
+	Location              string  `thrift:"location,9" frugal:"9,default,string" json:"location" `
+	CooperationEnterprise string  `thrift:"cooperation_enterprise,10" frugal:"10,default,string" json:"cooperation_enterprise"`
+	TrainingWeek          int32   `thrift:"training_week,11" frugal:"11,default,i32" json:"training_week"`
+	Teachers              string  `thrift:"teachers,13" frugal:"13,default,string" json:"teachers" gorm:"column:teachers;type:text"`
+	Grade                 string  `thrift:"grade,17" frugal:"17,default,string" json:"grade" gorm:"column:grade"`
+	MainTeacher           string  `thrift:"main_teacher,18" frugal:"18,default,string" json:"main_teacher" gorm:"column:main_teacher"`
+	CourseType            int32   `thrift:"course_type,14" frugal:"14,default,i32" json:"course_type"`
+	ProjectType           *string `thrift:"project_type,19,optional" frugal:"19,optional,string" json:"project_type"`
+	EnterpriseType        *string `thrift:"enterprise_type,20,optional" frugal:"20,optional,string" json:"enterprise_type"`
 }
 
 func NewUpdateTrainingCourseReq() *UpdateTrainingCourseReq {
@@ -5548,6 +5550,24 @@ func (p *UpdateTrainingCourseReq) GetMainTeacher() (v string) {
 func (p *UpdateTrainingCourseReq) GetCourseType() (v int32) {
 	return p.CourseType
 }
+
+var UpdateTrainingCourseReq_ProjectType_DEFAULT string
+
+func (p *UpdateTrainingCourseReq) GetProjectType() (v string) {
+	if !p.IsSetProjectType() {
+		return UpdateTrainingCourseReq_ProjectType_DEFAULT
+	}
+	return *p.ProjectType
+}
+
+var UpdateTrainingCourseReq_EnterpriseType_DEFAULT string
+
+func (p *UpdateTrainingCourseReq) GetEnterpriseType() (v string) {
+	if !p.IsSetEnterpriseType() {
+		return UpdateTrainingCourseReq_EnterpriseType_DEFAULT
+	}
+	return *p.EnterpriseType
+}
 func (p *UpdateTrainingCourseReq) SetTrainingCourseId(val int32) {
 	p.TrainingCourseId = val
 }
@@ -5584,6 +5604,20 @@ func (p *UpdateTrainingCourseReq) SetMainTeacher(val string) {
 func (p *UpdateTrainingCourseReq) SetCourseType(val int32) {
 	p.CourseType = val
 }
+func (p *UpdateTrainingCourseReq) SetProjectType(val *string) {
+	p.ProjectType = val
+}
+func (p *UpdateTrainingCourseReq) SetEnterpriseType(val *string) {
+	p.EnterpriseType = val
+}
+
+func (p *UpdateTrainingCourseReq) IsSetProjectType() bool {
+	return p.ProjectType != nil
+}
+
+func (p *UpdateTrainingCourseReq) IsSetEnterpriseType() bool {
+	return p.EnterpriseType != nil
+}
 
 func (p *UpdateTrainingCourseReq) String() string {
 	if p == nil {
@@ -5605,6 +5639,8 @@ var fieldIDToName_UpdateTrainingCourseReq = map[int16]string{
 	17: "grade",
 	18: "main_teacher",
 	14: "course_type",
+	19: "project_type",
+	20: "enterprise_type",
 }
 
 type UpdateTrainingCourseResp struct {
@@ -6599,6 +6635,8 @@ type ModelTrainingCourse struct {
 	ProjectSourceProofPerson string `thrift:"project_source_proof_person,29" frugal:"29,default,string" json:"project_source_proof_person" gorm:"column:project_source_proof_person"`
 	ClassTime                string `thrift:"class_time,30" frugal:"30,default,string" json:"class_time" gorm:"column:class_time"`
 	SourceProductName        string `thrift:"source_product_name,31" frugal:"31,default,string" json:"source_product_name" gorm:"column:source_product_name"`
+	ProjectType              string `thrift:"project_type,32" frugal:"32,default,string" json:"project_type" gorm:"column:project_type;size:64"`
+	EnterpriseType           string `thrift:"enterprise_type,33" frugal:"33,default,string" json:"enterprise_type" gorm:"column:enterprise_type;size:64"`
 }
 
 func NewModelTrainingCourse() *ModelTrainingCourse {
@@ -6731,6 +6769,14 @@ func (p *ModelTrainingCourse) GetClassTime() (v string) {
 func (p *ModelTrainingCourse) GetSourceProductName() (v string) {
 	return p.SourceProductName
 }
+
+func (p *ModelTrainingCourse) GetProjectType() (v string) {
+	return p.ProjectType
+}
+
+func (p *ModelTrainingCourse) GetEnterpriseType() (v string) {
+	return p.EnterpriseType
+}
 func (p *ModelTrainingCourse) SetId(val int32) {
 	p.Id = val
 }
@@ -6824,6 +6870,12 @@ func (p *ModelTrainingCourse) SetClassTime(val string) {
 func (p *ModelTrainingCourse) SetSourceProductName(val string) {
 	p.SourceProductName = val
 }
+func (p *ModelTrainingCourse) SetProjectType(val string) {
+	p.ProjectType = val
+}
+func (p *ModelTrainingCourse) SetEnterpriseType(val string) {
+	p.EnterpriseType = val
+}
 
 func (p *ModelTrainingCourse) String() string {
 	if p == nil {
@@ -6864,6 +6916,8 @@ var fieldIDToName_ModelTrainingCourse = map[int16]string{
 	29: "project_source_proof_person",
 	30: "class_time",
 	31: "source_product_name",
+	32: "project_type",
+	33: "enterprise_type",
 }
 
 type CourseFile struct {
