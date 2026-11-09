@@ -12,7 +12,6 @@ import (
 // Client is designed to provide IDL-compatible methods with call-option parameter for kitex framework.
 type Client interface {
 	SubmitPracticeTalk(ctx context.Context, req *training.SubmitPracticeTalkReq, callOptions ...callopt.Option) (r *training.SubmitPracticeTalkResp, err error)
-	GetPracticeTalkList(ctx context.Context, req *training.GetPracticeTalkListReq, callOptions ...callopt.Option) (r *training.GetPracticeTalkListResp, err error)
 	GetPracticeTalk(ctx context.Context, req *training.GetPracticeTalkReq, callOptions ...callopt.Option) (r *training.GetPracticeTalkResp, err error)
 	ReviewPracticeTalk(ctx context.Context, req *training.ReviewPracticeTalkReq, callOptions ...callopt.Option) (r *training.ReviewPracticeTalkResp, err error)
 	UpdateTrainingSchedule(ctx context.Context, req *training.UpdateTrainingScheduleReq, callOptions ...callopt.Option) (r *training.UpdateTrainingScheduleResp, err error)
@@ -115,11 +114,6 @@ type kTrainingserviceClient struct {
 func (p *kTrainingserviceClient) SubmitPracticeTalk(ctx context.Context, req *training.SubmitPracticeTalkReq, callOptions ...callopt.Option) (r *training.SubmitPracticeTalkResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.SubmitPracticeTalk(ctx, req)
-}
-
-func (p *kTrainingserviceClient) GetPracticeTalkList(ctx context.Context, req *training.GetPracticeTalkListReq, callOptions ...callopt.Option) (r *training.GetPracticeTalkListResp, err error) {
-	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
-	return p.kClient.GetPracticeTalkList(ctx, req)
 }
 
 func (p *kTrainingserviceClient) GetPracticeTalk(ctx context.Context, req *training.GetPracticeTalkReq, callOptions ...callopt.Option) (r *training.GetPracticeTalkResp, err error) {

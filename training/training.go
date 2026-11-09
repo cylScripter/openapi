@@ -703,73 +703,6 @@ func (p *CourseType) Value() (driver.Value, error) {
 	return int64(*p), nil
 }
 
-type PracticeTalkListOption int64
-
-const (
-	PracticeTalkListOption_id                 PracticeTalkListOption = 1
-	PracticeTalkListOption_academic_year      PracticeTalkListOption = 2
-	PracticeTalkListOption_semester           PracticeTalkListOption = 3
-	PracticeTalkListOption_major              PracticeTalkListOption = 4
-	PracticeTalkListOption_course_name        PracticeTalkListOption = 5
-	PracticeTalkListOption_status             PracticeTalkListOption = 6
-	PracticeTalkListOption_training_course_id PracticeTalkListOption = 7
-)
-
-func (p PracticeTalkListOption) String() string {
-	switch p {
-	case PracticeTalkListOption_id:
-		return "id"
-	case PracticeTalkListOption_academic_year:
-		return "academic_year"
-	case PracticeTalkListOption_semester:
-		return "semester"
-	case PracticeTalkListOption_major:
-		return "major"
-	case PracticeTalkListOption_course_name:
-		return "course_name"
-	case PracticeTalkListOption_status:
-		return "status"
-	case PracticeTalkListOption_training_course_id:
-		return "training_course_id"
-	}
-	return "<UNSET>"
-}
-
-func PracticeTalkListOptionFromString(s string) (PracticeTalkListOption, error) {
-	switch s {
-	case "id":
-		return PracticeTalkListOption_id, nil
-	case "academic_year":
-		return PracticeTalkListOption_academic_year, nil
-	case "semester":
-		return PracticeTalkListOption_semester, nil
-	case "major":
-		return PracticeTalkListOption_major, nil
-	case "course_name":
-		return PracticeTalkListOption_course_name, nil
-	case "status":
-		return PracticeTalkListOption_status, nil
-	case "training_course_id":
-		return PracticeTalkListOption_training_course_id, nil
-	}
-	return PracticeTalkListOption(0), fmt.Errorf("not a valid PracticeTalkListOption string")
-}
-
-func PracticeTalkListOptionPtr(v PracticeTalkListOption) *PracticeTalkListOption { return &v }
-func (p *PracticeTalkListOption) Scan(value interface{}) (err error) {
-	var result sql.NullInt64
-	err = result.Scan(value)
-	*p = PracticeTalkListOption(result.Int64)
-	return
-}
-
-func (p *PracticeTalkListOption) Value() (driver.Value, error) {
-	if p == nil {
-		return nil, nil
-	}
-	return int64(*p), nil
-}
-
 type ExportPracticeProcessDataTableReq struct {
 	AcademicYear string `thrift:"academic_year,1" frugal:"1,default,string" json:"academic_year"`
 	Semester     string `thrift:"semester,2" frugal:"2,default,string" json:"semester"`
@@ -6823,43 +6756,44 @@ var fieldIDToName_CreateTrainingCourseResp = map[int16]string{
 }
 
 type ModelTrainingCourse struct {
-	Id                       int32  `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
-	CreatedAt                int32  `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index;not null" json:"created_at"`
-	UpdatedAt                int32  `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at;not null" json:"updated_at"`
-	DeletedAt                int32  `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at;not null" json:"deleted_at"`
-	Major                    string `thrift:"major,5" frugal:"5,default,string" json:"major" gorm:"column:major"`
-	ClassName                string `thrift:"class_name,6" frugal:"6,default,string" json:"class_name" gorm:"column:class_name"`
-	StudentNumber            int32  `thrift:"student_number,7" frugal:"7,default,i32" json:"student_number" gorm:"column:student_number"`
-	CourseName               string `thrift:"course_name,8" frugal:"8,default,string" json:"course_name" gorm:"column:course_name"`
-	Location                 string `thrift:"location,9" frugal:"9,default,string" json:"location" gorm:"column:location;type:text"`
-	CooperationEnterprise    string `thrift:"cooperation_enterprise,10" frugal:"10,default,string" json:"cooperation_enterprise" gorm:"column:cooperation_enterprise"`
-	TrainingWeek             int32  `thrift:"training_week,11" frugal:"11,default,i32" json:"training_week" gorm:"column:training_week"`
-	AppId                    int32  `thrift:"app_id,12" frugal:"12,default,i32" json:"app_id" gorm:"column:app_id;not null"`
-	Teachers                 string `thrift:"teachers,13" frugal:"13,default,string" json:"teachers" gorm:"column:teachers;type:text"`
-	AcademicYear             string `thrift:"academic_year,14" frugal:"14,default,string" json:"academic_year" gorm:"column:academic_year"`
-	Semester                 string `thrift:"semester,15" frugal:"15,default,string" json:"semester" gorm:"column:semester"`
-	EducationLevel           int32  `thrift:"education_level,16" frugal:"16,default,i32" json:"education_level" gorm:"column:education_level;default:1"`
-	Grade                    string `thrift:"grade,17" frugal:"17,default,string" json:"grade" gorm:"column:grade"`
-	MainTeacher              string `thrift:"main_teacher,18" frugal:"18,default,string" json:"main_teacher" gorm:"column:main_teacher"`
-	IsApproved               int32  `thrift:"is_approved,19" frugal:"19,default,i32" json:"is_approved" gorm:"column:is_approved;default:0"`
-	ApprovedTime             int32  `thrift:"approved_time,20" frugal:"20,default,i32" json:"approved_time" gorm:"column:approved_time"`
-	TrainingFile             string `thrift:"training_file,21" frugal:"21,default,string" json:"training_file" gorm:"column:training_file;type:text"`
-	TrainingCaseFile         string `thrift:"training_case_file,22" frugal:"22,default,string" json:"training_case_file" gorm:"column:training_case_file;type:text"`
-	IsQualified              int32  `thrift:"is_qualified,23" frugal:"23,default,i32" json:"is_qualified" gorm:"column:is_qualified;default:0"`
-	TrainingFilePerson       string `thrift:"training_file_person,24" frugal:"24,default,string" json:"training_file_person" gorm:"column:training_file_person;type:text"`
-	TrainingCaseFilePerson   string `thrift:"training_case_file_person,25" frugal:"25,default,string" json:"training_case_file_person" gorm:"column:training_case_file_person;type:text"`
-	ProjectSourceProof       string `thrift:"project_source_proof,26" frugal:"26,default,string" json:"project_source_proof" gorm:"column:project_source_proof;type:text"`
-	CourseType               int32  `thrift:"course_type,27" frugal:"27,default,i32" json:"course_type" gorm:"column:course_type;default:1"`
-	Filler                   string `thrift:"filler,28" frugal:"28,default,string" json:"filler" gorm:"column:filler"`
-	ProjectSourceProofPerson string `thrift:"project_source_proof_person,29" frugal:"29,default,string" json:"project_source_proof_person" gorm:"column:project_source_proof_person"`
-	ClassTime                string `thrift:"class_time,30" frugal:"30,default,string" json:"class_time" gorm:"column:class_time"`
-	SourceProductName        string `thrift:"source_product_name,31" frugal:"31,default,string" json:"source_product_name" gorm:"column:source_product_name"`
-	ProjectType              string `thrift:"project_type,32" frugal:"32,default,string" json:"project_type" gorm:"column:project_type;size:64"`
-	EnterpriseType           string `thrift:"enterprise_type,33" frugal:"33,default,string" json:"enterprise_type" gorm:"column:enterprise_type;size:64"`
-	TypicalCaseFile          string `thrift:"typical_case_file,34" frugal:"34,default,string" json:"typical_case_file" gorm:"column:typical_case_file;type:text"`
-	TypicalCaseUploader      string `thrift:"typical_case_uploader,35" frugal:"35,default,string" json:"typical_case_uploader" gorm:"column:typical_case_uploader"`
-	TypicalCaseUploaderName  string `thrift:"typical_case_uploader_name,36" frugal:"36,default,string" json:"typical_case_uploader_name" gorm:"column:typical_case_uploader_name"`
-	TypicalCaseUploadedAt    int64  `thrift:"typical_case_uploaded_at,37" frugal:"37,default,i64" json:"typical_case_uploaded_at" gorm:"column:typical_case_uploaded_at"`
+	Id                       int32                `thrift:"id,1" frugal:"1,default,i32" gorm:"column:id" json:"id"`
+	CreatedAt                int32                `thrift:"created_at,2" frugal:"2,default,i32" gorm:"column:created_at;index;not null" json:"created_at"`
+	UpdatedAt                int32                `thrift:"updated_at,3" frugal:"3,default,i32" gorm:"column:updated_at;not null" json:"updated_at"`
+	DeletedAt                int32                `thrift:"deleted_at,4" frugal:"4,default,i32" gorm:"column:deleted_at;not null" json:"deleted_at"`
+	Major                    string               `thrift:"major,5" frugal:"5,default,string" json:"major" gorm:"column:major"`
+	ClassName                string               `thrift:"class_name,6" frugal:"6,default,string" json:"class_name" gorm:"column:class_name"`
+	StudentNumber            int32                `thrift:"student_number,7" frugal:"7,default,i32" json:"student_number" gorm:"column:student_number"`
+	CourseName               string               `thrift:"course_name,8" frugal:"8,default,string" json:"course_name" gorm:"column:course_name"`
+	Location                 string               `thrift:"location,9" frugal:"9,default,string" json:"location" gorm:"column:location;type:text"`
+	CooperationEnterprise    string               `thrift:"cooperation_enterprise,10" frugal:"10,default,string" json:"cooperation_enterprise" gorm:"column:cooperation_enterprise"`
+	TrainingWeek             int32                `thrift:"training_week,11" frugal:"11,default,i32" json:"training_week" gorm:"column:training_week"`
+	AppId                    int32                `thrift:"app_id,12" frugal:"12,default,i32" json:"app_id" gorm:"column:app_id;not null"`
+	Teachers                 string               `thrift:"teachers,13" frugal:"13,default,string" json:"teachers" gorm:"column:teachers;type:text"`
+	AcademicYear             string               `thrift:"academic_year,14" frugal:"14,default,string" json:"academic_year" gorm:"column:academic_year"`
+	Semester                 string               `thrift:"semester,15" frugal:"15,default,string" json:"semester" gorm:"column:semester"`
+	EducationLevel           int32                `thrift:"education_level,16" frugal:"16,default,i32" json:"education_level" gorm:"column:education_level;default:1"`
+	Grade                    string               `thrift:"grade,17" frugal:"17,default,string" json:"grade" gorm:"column:grade"`
+	MainTeacher              string               `thrift:"main_teacher,18" frugal:"18,default,string" json:"main_teacher" gorm:"column:main_teacher"`
+	IsApproved               int32                `thrift:"is_approved,19" frugal:"19,default,i32" json:"is_approved" gorm:"column:is_approved;default:0"`
+	ApprovedTime             int32                `thrift:"approved_time,20" frugal:"20,default,i32" json:"approved_time" gorm:"column:approved_time"`
+	TrainingFile             string               `thrift:"training_file,21" frugal:"21,default,string" json:"training_file" gorm:"column:training_file;type:text"`
+	TrainingCaseFile         string               `thrift:"training_case_file,22" frugal:"22,default,string" json:"training_case_file" gorm:"column:training_case_file;type:text"`
+	IsQualified              int32                `thrift:"is_qualified,23" frugal:"23,default,i32" json:"is_qualified" gorm:"column:is_qualified;default:0"`
+	TrainingFilePerson       string               `thrift:"training_file_person,24" frugal:"24,default,string" json:"training_file_person" gorm:"column:training_file_person;type:text"`
+	TrainingCaseFilePerson   string               `thrift:"training_case_file_person,25" frugal:"25,default,string" json:"training_case_file_person" gorm:"column:training_case_file_person;type:text"`
+	ProjectSourceProof       string               `thrift:"project_source_proof,26" frugal:"26,default,string" json:"project_source_proof" gorm:"column:project_source_proof;type:text"`
+	CourseType               int32                `thrift:"course_type,27" frugal:"27,default,i32" json:"course_type" gorm:"column:course_type;default:1"`
+	Filler                   string               `thrift:"filler,28" frugal:"28,default,string" json:"filler" gorm:"column:filler"`
+	ProjectSourceProofPerson string               `thrift:"project_source_proof_person,29" frugal:"29,default,string" json:"project_source_proof_person" gorm:"column:project_source_proof_person"`
+	ClassTime                string               `thrift:"class_time,30" frugal:"30,default,string" json:"class_time" gorm:"column:class_time"`
+	SourceProductName        string               `thrift:"source_product_name,31" frugal:"31,default,string" json:"source_product_name" gorm:"column:source_product_name"`
+	ProjectType              string               `thrift:"project_type,32" frugal:"32,default,string" json:"project_type" gorm:"column:project_type;size:64"`
+	EnterpriseType           string               `thrift:"enterprise_type,33" frugal:"33,default,string" json:"enterprise_type" gorm:"column:enterprise_type;size:64"`
+	TypicalCaseFile          string               `thrift:"typical_case_file,34" frugal:"34,default,string" json:"typical_case_file" gorm:"column:typical_case_file;type:text"`
+	TypicalCaseUploader      string               `thrift:"typical_case_uploader,35" frugal:"35,default,string" json:"typical_case_uploader" gorm:"column:typical_case_uploader"`
+	TypicalCaseUploaderName  string               `thrift:"typical_case_uploader_name,36" frugal:"36,default,string" json:"typical_case_uploader_name" gorm:"column:typical_case_uploader_name"`
+	TypicalCaseUploadedAt    int64                `thrift:"typical_case_uploaded_at,37" frugal:"37,default,i64" json:"typical_case_uploaded_at" gorm:"column:typical_case_uploaded_at"`
+	PracticeTalks            []*ModelPracticeTalk `thrift:"practice_talks,38" frugal:"38,default,list<ModelPracticeTalk>" json:"practice_talks" gorm:"-"`
 }
 
 func NewModelTrainingCourse() *ModelTrainingCourse {
@@ -7016,6 +6950,10 @@ func (p *ModelTrainingCourse) GetTypicalCaseUploaderName() (v string) {
 func (p *ModelTrainingCourse) GetTypicalCaseUploadedAt() (v int64) {
 	return p.TypicalCaseUploadedAt
 }
+
+func (p *ModelTrainingCourse) GetPracticeTalks() (v []*ModelPracticeTalk) {
+	return p.PracticeTalks
+}
 func (p *ModelTrainingCourse) SetId(val int32) {
 	p.Id = val
 }
@@ -7127,6 +7065,9 @@ func (p *ModelTrainingCourse) SetTypicalCaseUploaderName(val string) {
 func (p *ModelTrainingCourse) SetTypicalCaseUploadedAt(val int64) {
 	p.TypicalCaseUploadedAt = val
 }
+func (p *ModelTrainingCourse) SetPracticeTalks(val []*ModelPracticeTalk) {
+	p.PracticeTalks = val
+}
 
 func (p *ModelTrainingCourse) String() string {
 	if p == nil {
@@ -7173,6 +7114,7 @@ var fieldIDToName_ModelTrainingCourse = map[int16]string{
 	35: "typical_case_uploader",
 	36: "typical_case_uploader_name",
 	37: "typical_case_uploaded_at",
+	38: "practice_talks",
 }
 
 type CourseFile struct {
@@ -9635,100 +9577,6 @@ var fieldIDToName_SubmitPracticeTalkResp = map[int16]string{
 	1: "talk",
 }
 
-type GetPracticeTalkListReq struct {
-	ListOption *base.ListOption `thrift:"list_option,1" frugal:"1,default,base.ListOption" json:"list_option" binding:"required"`
-	RoleType   int32            `thrift:"role_type,2" frugal:"2,default,i32" json:"role_type" binding:"omitempty,oneof=1 2"`
-}
-
-func NewGetPracticeTalkListReq() *GetPracticeTalkListReq {
-	return &GetPracticeTalkListReq{}
-}
-
-func (p *GetPracticeTalkListReq) InitDefault() {
-}
-
-var GetPracticeTalkListReq_ListOption_DEFAULT *base.ListOption
-
-func (p *GetPracticeTalkListReq) GetListOption() (v *base.ListOption) {
-	if !p.IsSetListOption() {
-		return GetPracticeTalkListReq_ListOption_DEFAULT
-	}
-	return p.ListOption
-}
-
-func (p *GetPracticeTalkListReq) GetRoleType() (v int32) {
-	return p.RoleType
-}
-func (p *GetPracticeTalkListReq) SetListOption(val *base.ListOption) {
-	p.ListOption = val
-}
-func (p *GetPracticeTalkListReq) SetRoleType(val int32) {
-	p.RoleType = val
-}
-
-func (p *GetPracticeTalkListReq) IsSetListOption() bool {
-	return p.ListOption != nil
-}
-
-func (p *GetPracticeTalkListReq) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("GetPracticeTalkListReq(%+v)", *p)
-}
-
-var fieldIDToName_GetPracticeTalkListReq = map[int16]string{
-	1: "list_option",
-	2: "role_type",
-}
-
-type GetPracticeTalkListResp struct {
-	List     []*ModelPracticeTalk `thrift:"list,1" frugal:"1,default,list<ModelPracticeTalk>" json:"list"`
-	Paginate *base.Paginate       `thrift:"paginate,2" frugal:"2,default,base.Paginate" json:"paginate"`
-}
-
-func NewGetPracticeTalkListResp() *GetPracticeTalkListResp {
-	return &GetPracticeTalkListResp{}
-}
-
-func (p *GetPracticeTalkListResp) InitDefault() {
-}
-
-func (p *GetPracticeTalkListResp) GetList() (v []*ModelPracticeTalk) {
-	return p.List
-}
-
-var GetPracticeTalkListResp_Paginate_DEFAULT *base.Paginate
-
-func (p *GetPracticeTalkListResp) GetPaginate() (v *base.Paginate) {
-	if !p.IsSetPaginate() {
-		return GetPracticeTalkListResp_Paginate_DEFAULT
-	}
-	return p.Paginate
-}
-func (p *GetPracticeTalkListResp) SetList(val []*ModelPracticeTalk) {
-	p.List = val
-}
-func (p *GetPracticeTalkListResp) SetPaginate(val *base.Paginate) {
-	p.Paginate = val
-}
-
-func (p *GetPracticeTalkListResp) IsSetPaginate() bool {
-	return p.Paginate != nil
-}
-
-func (p *GetPracticeTalkListResp) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("GetPracticeTalkListResp(%+v)", *p)
-}
-
-var fieldIDToName_GetPracticeTalkListResp = map[int16]string{
-	1: "list",
-	2: "paginate",
-}
-
 type GetPracticeTalkReq struct {
 	Id int32 `thrift:"id,1" frugal:"1,default,i32" json:"id" binding:"required,gt=0"`
 }
@@ -9901,8 +9749,6 @@ var fieldIDToName_ReviewPracticeTalkResp = map[int16]string{
 
 type Trainingservice interface {
 	SubmitPracticeTalk(ctx context.Context, req *SubmitPracticeTalkReq) (r *SubmitPracticeTalkResp, err error)
-
-	GetPracticeTalkList(ctx context.Context, req *GetPracticeTalkListReq) (r *GetPracticeTalkListResp, err error)
 
 	GetPracticeTalk(ctx context.Context, req *GetPracticeTalkReq) (r *GetPracticeTalkResp, err error)
 
@@ -10114,82 +9960,6 @@ func (p *TrainingserviceSubmitPracticeTalkResult) String() string {
 }
 
 var fieldIDToName_TrainingserviceSubmitPracticeTalkResult = map[int16]string{
-	0: "success",
-}
-
-type TrainingserviceGetPracticeTalkListArgs struct {
-	Req *GetPracticeTalkListReq `thrift:"req,1" frugal:"1,default,GetPracticeTalkListReq" json:"req"`
-}
-
-func NewTrainingserviceGetPracticeTalkListArgs() *TrainingserviceGetPracticeTalkListArgs {
-	return &TrainingserviceGetPracticeTalkListArgs{}
-}
-
-func (p *TrainingserviceGetPracticeTalkListArgs) InitDefault() {
-}
-
-var TrainingserviceGetPracticeTalkListArgs_Req_DEFAULT *GetPracticeTalkListReq
-
-func (p *TrainingserviceGetPracticeTalkListArgs) GetReq() (v *GetPracticeTalkListReq) {
-	if !p.IsSetReq() {
-		return TrainingserviceGetPracticeTalkListArgs_Req_DEFAULT
-	}
-	return p.Req
-}
-func (p *TrainingserviceGetPracticeTalkListArgs) SetReq(val *GetPracticeTalkListReq) {
-	p.Req = val
-}
-
-func (p *TrainingserviceGetPracticeTalkListArgs) IsSetReq() bool {
-	return p.Req != nil
-}
-
-func (p *TrainingserviceGetPracticeTalkListArgs) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("TrainingserviceGetPracticeTalkListArgs(%+v)", *p)
-}
-
-var fieldIDToName_TrainingserviceGetPracticeTalkListArgs = map[int16]string{
-	1: "req",
-}
-
-type TrainingserviceGetPracticeTalkListResult struct {
-	Success *GetPracticeTalkListResp `thrift:"success,0,optional" frugal:"0,optional,GetPracticeTalkListResp" json:"success,omitempty"`
-}
-
-func NewTrainingserviceGetPracticeTalkListResult() *TrainingserviceGetPracticeTalkListResult {
-	return &TrainingserviceGetPracticeTalkListResult{}
-}
-
-func (p *TrainingserviceGetPracticeTalkListResult) InitDefault() {
-}
-
-var TrainingserviceGetPracticeTalkListResult_Success_DEFAULT *GetPracticeTalkListResp
-
-func (p *TrainingserviceGetPracticeTalkListResult) GetSuccess() (v *GetPracticeTalkListResp) {
-	if !p.IsSetSuccess() {
-		return TrainingserviceGetPracticeTalkListResult_Success_DEFAULT
-	}
-	return p.Success
-}
-func (p *TrainingserviceGetPracticeTalkListResult) SetSuccess(x interface{}) {
-	p.Success = x.(*GetPracticeTalkListResp)
-}
-
-func (p *TrainingserviceGetPracticeTalkListResult) IsSetSuccess() bool {
-	return p.Success != nil
-}
-
-func (p *TrainingserviceGetPracticeTalkListResult) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	return fmt.Sprintf("TrainingserviceGetPracticeTalkListResult(%+v)", *p)
-}
-
-var fieldIDToName_TrainingserviceGetPracticeTalkListResult = map[int16]string{
 	0: "success",
 }
 

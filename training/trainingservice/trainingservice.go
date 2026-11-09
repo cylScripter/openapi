@@ -20,13 +20,6 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
-	"GetPracticeTalkList": kitex.NewMethodInfo(
-		getPracticeTalkListHandler,
-		newTrainingserviceGetPracticeTalkListArgs,
-		newTrainingserviceGetPracticeTalkListResult,
-		false,
-		kitex.WithStreamingMode(kitex.StreamingNone),
-	),
 	"GetPracticeTalk": kitex.NewMethodInfo(
 		getPracticeTalkHandler,
 		newTrainingserviceGetPracticeTalkArgs,
@@ -585,24 +578,6 @@ func newTrainingserviceSubmitPracticeTalkArgs() interface{} {
 
 func newTrainingserviceSubmitPracticeTalkResult() interface{} {
 	return training.NewTrainingserviceSubmitPracticeTalkResult()
-}
-
-func getPracticeTalkListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
-	realArg := arg.(*training.TrainingserviceGetPracticeTalkListArgs)
-	realResult := result.(*training.TrainingserviceGetPracticeTalkListResult)
-	success, err := handler.(training.Trainingservice).GetPracticeTalkList(ctx, realArg.Req)
-	if err != nil {
-		return err
-	}
-	realResult.Success = success
-	return nil
-}
-func newTrainingserviceGetPracticeTalkListArgs() interface{} {
-	return training.NewTrainingserviceGetPracticeTalkListArgs()
-}
-
-func newTrainingserviceGetPracticeTalkListResult() interface{} {
-	return training.NewTrainingserviceGetPracticeTalkListResult()
 }
 
 func getPracticeTalkHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
@@ -1844,16 +1819,6 @@ func (p *kClient) SubmitPracticeTalk(ctx context.Context, req *training.SubmitPr
 	_args.Req = req
 	var _result training.TrainingserviceSubmitPracticeTalkResult
 	if err = p.c.Call(ctx, "SubmitPracticeTalk", &_args, &_result); err != nil {
-		return
-	}
-	return _result.GetSuccess(), nil
-}
-
-func (p *kClient) GetPracticeTalkList(ctx context.Context, req *training.GetPracticeTalkListReq) (r *training.GetPracticeTalkListResp, err error) {
-	var _args training.TrainingserviceGetPracticeTalkListArgs
-	_args.Req = req
-	var _result training.TrainingserviceGetPracticeTalkListResult
-	if err = p.c.Call(ctx, "GetPracticeTalkList", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil

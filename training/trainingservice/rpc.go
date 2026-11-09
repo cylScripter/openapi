@@ -11,11 +11,6 @@ func SubmitPracticeTalk(ctx context.Context, req *training.SubmitPracticeTalkReq
 	return clients.SubmitPracticeTalk(ctx, req)
 }
 
-func GetPracticeTalkList(ctx context.Context, req *training.GetPracticeTalkListReq, callOptions ...client.Option) (resp *training.GetPracticeTalkListResp, err error) {
-	clients := MustNewClient("training", callOptions...)
-	return clients.GetPracticeTalkList(ctx, req)
-}
-
 func GetPracticeTalk(ctx context.Context, req *training.GetPracticeTalkReq, callOptions ...client.Option) (resp *training.GetPracticeTalkResp, err error) {
 	clients := MustNewClient("training", callOptions...)
 	return clients.GetPracticeTalk(ctx, req)
