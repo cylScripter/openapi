@@ -9545,6 +9545,7 @@ type SubmitPracticeTalkReq struct {
 	TrainingCourseId int32    `thrift:"training_course_id,1" frugal:"1,default,i32" json:"training_course_id" binding:"required,gt=0"`
 	Title            string   `thrift:"title,2" frugal:"2,default,string" json:"title" binding:"required,max=255"`
 	UploadIds        []string `thrift:"upload_ids,3" frugal:"3,default,list<string>" json:"upload_ids" binding:"required,min=1,dive,required"`
+	Version          int64    `thrift:"version,4" frugal:"4,default,i64" json:"version" binding:"omitempty,gte=0"`
 }
 
 func NewSubmitPracticeTalkReq() *SubmitPracticeTalkReq {
@@ -9565,6 +9566,10 @@ func (p *SubmitPracticeTalkReq) GetTitle() (v string) {
 func (p *SubmitPracticeTalkReq) GetUploadIds() (v []string) {
 	return p.UploadIds
 }
+
+func (p *SubmitPracticeTalkReq) GetVersion() (v int64) {
+	return p.Version
+}
 func (p *SubmitPracticeTalkReq) SetTrainingCourseId(val int32) {
 	p.TrainingCourseId = val
 }
@@ -9573,6 +9578,9 @@ func (p *SubmitPracticeTalkReq) SetTitle(val string) {
 }
 func (p *SubmitPracticeTalkReq) SetUploadIds(val []string) {
 	p.UploadIds = val
+}
+func (p *SubmitPracticeTalkReq) SetVersion(val int64) {
+	p.Version = val
 }
 
 func (p *SubmitPracticeTalkReq) String() string {
@@ -9586,6 +9594,7 @@ var fieldIDToName_SubmitPracticeTalkReq = map[int16]string{
 	1: "training_course_id",
 	2: "title",
 	3: "upload_ids",
+	4: "version",
 }
 
 type SubmitPracticeTalkResp struct {

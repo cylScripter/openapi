@@ -35261,6 +35261,20 @@ func (p *SubmitPracticeTalkReq) FastRead(buf []byte) (int, error) {
 					goto SkipFieldError
 				}
 			}
+		case 4:
+			if fieldTypeId == thrift.I64 {
+				l, err = p.FastReadField4(buf[offset:])
+				offset += l
+				if err != nil {
+					goto ReadFieldError
+				}
+			} else {
+				l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
+				offset += l
+				if err != nil {
+					goto SkipFieldError
+				}
+			}
 		default:
 			l, err = thrift.Binary.Skip(buf[offset:], fieldTypeId)
 			offset += l
@@ -35331,6 +35345,20 @@ func (p *SubmitPracticeTalkReq) FastReadField3(buf []byte) (int, error) {
 	return offset, nil
 }
 
+func (p *SubmitPracticeTalkReq) FastReadField4(buf []byte) (int, error) {
+	offset := 0
+
+	var _field int64
+	if v, l, err := thrift.Binary.ReadI64(buf[offset:]); err != nil {
+		return offset, err
+	} else {
+		offset += l
+		_field = v
+	}
+	p.Version = _field
+	return offset, nil
+}
+
 func (p *SubmitPracticeTalkReq) FastWrite(buf []byte) int {
 	return p.FastWriteNocopy(buf, nil)
 }
@@ -35339,6 +35367,7 @@ func (p *SubmitPracticeTalkReq) FastWriteNocopy(buf []byte, w thrift.NocopyWrite
 	offset := 0
 	if p != nil {
 		offset += p.fastWriteField1(buf[offset:], w)
+		offset += p.fastWriteField4(buf[offset:], w)
 		offset += p.fastWriteField2(buf[offset:], w)
 		offset += p.fastWriteField3(buf[offset:], w)
 	}
@@ -35352,6 +35381,7 @@ func (p *SubmitPracticeTalkReq) BLength() int {
 		l += p.field1Length()
 		l += p.field2Length()
 		l += p.field3Length()
+		l += p.field4Length()
 	}
 	l += thrift.Binary.FieldStopLength()
 	return l
@@ -35385,6 +35415,13 @@ func (p *SubmitPracticeTalkReq) fastWriteField3(buf []byte, w thrift.NocopyWrite
 	return offset
 }
 
+func (p *SubmitPracticeTalkReq) fastWriteField4(buf []byte, w thrift.NocopyWriter) int {
+	offset := 0
+	offset += thrift.Binary.WriteFieldBegin(buf[offset:], thrift.I64, 4)
+	offset += thrift.Binary.WriteI64(buf[offset:], p.Version)
+	return offset
+}
+
 func (p *SubmitPracticeTalkReq) field1Length() int {
 	l := 0
 	l += thrift.Binary.FieldBeginLength()
@@ -35407,6 +35444,13 @@ func (p *SubmitPracticeTalkReq) field3Length() int {
 		_ = v
 		l += thrift.Binary.StringLengthNocopy(v)
 	}
+	return l
+}
+
+func (p *SubmitPracticeTalkReq) field4Length() int {
+	l := 0
+	l += thrift.Binary.FieldBeginLength()
+	l += thrift.Binary.I64Length()
 	return l
 }
 
