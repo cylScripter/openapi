@@ -27,6 +27,8 @@ type Client interface {
 	UploadTrainingCourseCase(ctx context.Context, req *training.UploadTrainingCourseCaseReq, callOptions ...callopt.Option) (r *training.UploadTrainingCourseCaseResp, err error)
 	ExportTrainingCourseFile(ctx context.Context, req *training.ExportTrainingCourseFileReq, callOptions ...callopt.Option) (r *training.ExportTrainingCourseFileResp, err error)
 	ExportTrainingCourseCase(ctx context.Context, req *training.ExportTrainingCourseCaseReq, callOptions ...callopt.Option) (r *training.ExportTrainingCourseCaseResp, err error)
+	UploadTypicalCase(ctx context.Context, req *training.UploadTypicalCaseReq, callOptions ...callopt.Option) (r *training.UploadTypicalCaseResp, err error)
+	ExportTypicalCase(ctx context.Context, req *training.ExportTypicalCaseReq, callOptions ...callopt.Option) (r *training.ExportTypicalCaseResp, err error)
 	UploadTrainingCourseSource(ctx context.Context, req *training.UploadTrainingCourseSourceReq, callOptions ...callopt.Option) (r *training.UploadTrainingCourseSourceResp, err error)
 	ListTrainingCourseFileHistory(ctx context.Context, req *training.ListTrainingCourseFileHistoryReq, callOptions ...callopt.Option) (r *training.ListTrainingCourseFileHistoryResp, err error)
 	GetTrainingCourseFileHistoryFile(ctx context.Context, req *training.GetTrainingCourseFileHistoryFileReq, callOptions ...callopt.Option) (r *training.GetTrainingCourseFileHistoryFileResp, err error)
@@ -184,6 +186,16 @@ func (p *kTrainingserviceClient) ExportTrainingCourseFile(ctx context.Context, r
 func (p *kTrainingserviceClient) ExportTrainingCourseCase(ctx context.Context, req *training.ExportTrainingCourseCaseReq, callOptions ...callopt.Option) (r *training.ExportTrainingCourseCaseResp, err error) {
 	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
 	return p.kClient.ExportTrainingCourseCase(ctx, req)
+}
+
+func (p *kTrainingserviceClient) UploadTypicalCase(ctx context.Context, req *training.UploadTypicalCaseReq, callOptions ...callopt.Option) (r *training.UploadTypicalCaseResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.UploadTypicalCase(ctx, req)
+}
+
+func (p *kTrainingserviceClient) ExportTypicalCase(ctx context.Context, req *training.ExportTypicalCaseReq, callOptions ...callopt.Option) (r *training.ExportTypicalCaseResp, err error) {
+	ctx = client.NewCtxWithCallOptions(ctx, callOptions)
+	return p.kClient.ExportTypicalCase(ctx, req)
 }
 
 func (p *kTrainingserviceClient) UploadTrainingCourseSource(ctx context.Context, req *training.UploadTrainingCourseSourceReq, callOptions ...callopt.Option) (r *training.UploadTrainingCourseSourceResp, err error) {

@@ -5148,6 +5148,149 @@ var fieldIDToName_ExportTrainingCourseFileResp = map[int16]string{
 	1: "task_key",
 }
 
+type UploadTypicalCaseReq struct {
+	UploadId         string `thrift:"upload_id,1" frugal:"1,default,string" json:"upload_id" binding:"required"`
+	TrainingCourseId int32  `thrift:"training_course_id,2" frugal:"2,default,i32" json:"training_course_id" binding:"required,gt=0"`
+}
+
+func NewUploadTypicalCaseReq() *UploadTypicalCaseReq {
+	return &UploadTypicalCaseReq{}
+}
+
+func (p *UploadTypicalCaseReq) InitDefault() {
+}
+
+func (p *UploadTypicalCaseReq) GetUploadId() (v string) {
+	return p.UploadId
+}
+
+func (p *UploadTypicalCaseReq) GetTrainingCourseId() (v int32) {
+	return p.TrainingCourseId
+}
+func (p *UploadTypicalCaseReq) SetUploadId(val string) {
+	p.UploadId = val
+}
+func (p *UploadTypicalCaseReq) SetTrainingCourseId(val int32) {
+	p.TrainingCourseId = val
+}
+
+func (p *UploadTypicalCaseReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("UploadTypicalCaseReq(%+v)", *p)
+}
+
+var fieldIDToName_UploadTypicalCaseReq = map[int16]string{
+	1: "upload_id",
+	2: "training_course_id",
+}
+
+type UploadTypicalCaseResp struct {
+	File *CourseFile `thrift:"file,1" frugal:"1,default,CourseFile" json:"file"`
+}
+
+func NewUploadTypicalCaseResp() *UploadTypicalCaseResp {
+	return &UploadTypicalCaseResp{}
+}
+
+func (p *UploadTypicalCaseResp) InitDefault() {
+}
+
+var UploadTypicalCaseResp_File_DEFAULT *CourseFile
+
+func (p *UploadTypicalCaseResp) GetFile() (v *CourseFile) {
+	if !p.IsSetFile() {
+		return UploadTypicalCaseResp_File_DEFAULT
+	}
+	return p.File
+}
+func (p *UploadTypicalCaseResp) SetFile(val *CourseFile) {
+	p.File = val
+}
+
+func (p *UploadTypicalCaseResp) IsSetFile() bool {
+	return p.File != nil
+}
+
+func (p *UploadTypicalCaseResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("UploadTypicalCaseResp(%+v)", *p)
+}
+
+var fieldIDToName_UploadTypicalCaseResp = map[int16]string{
+	1: "file",
+}
+
+type ExportTypicalCaseReq struct {
+	AcademicYear string `thrift:"academic_year,1" frugal:"1,default,string" json:"academic_year" binding:"required"`
+	Semester     string `thrift:"semester,2" frugal:"2,default,string" json:"semester" binding:"required"`
+}
+
+func NewExportTypicalCaseReq() *ExportTypicalCaseReq {
+	return &ExportTypicalCaseReq{}
+}
+
+func (p *ExportTypicalCaseReq) InitDefault() {
+}
+
+func (p *ExportTypicalCaseReq) GetAcademicYear() (v string) {
+	return p.AcademicYear
+}
+
+func (p *ExportTypicalCaseReq) GetSemester() (v string) {
+	return p.Semester
+}
+func (p *ExportTypicalCaseReq) SetAcademicYear(val string) {
+	p.AcademicYear = val
+}
+func (p *ExportTypicalCaseReq) SetSemester(val string) {
+	p.Semester = val
+}
+
+func (p *ExportTypicalCaseReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ExportTypicalCaseReq(%+v)", *p)
+}
+
+var fieldIDToName_ExportTypicalCaseReq = map[int16]string{
+	1: "academic_year",
+	2: "semester",
+}
+
+type ExportTypicalCaseResp struct {
+	TaskKey string `thrift:"task_key,1" frugal:"1,default,string" json:"task_key"`
+}
+
+func NewExportTypicalCaseResp() *ExportTypicalCaseResp {
+	return &ExportTypicalCaseResp{}
+}
+
+func (p *ExportTypicalCaseResp) InitDefault() {
+}
+
+func (p *ExportTypicalCaseResp) GetTaskKey() (v string) {
+	return p.TaskKey
+}
+func (p *ExportTypicalCaseResp) SetTaskKey(val string) {
+	p.TaskKey = val
+}
+
+func (p *ExportTypicalCaseResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ExportTypicalCaseResp(%+v)", *p)
+}
+
+var fieldIDToName_ExportTypicalCaseResp = map[int16]string{
+	1: "task_key",
+}
+
 type UploadTrainingCourseCaseReq struct {
 	UploadId         string `thrift:"upload_id,1" frugal:"1,default,string" json:"upload_id" binding:"required"`
 	TrainingCourseId int32  `thrift:"training_course_id,2" frugal:"2,default,i32" json:"training_course_id" binding:"required"`
@@ -6646,6 +6789,10 @@ type ModelTrainingCourse struct {
 	SourceProductName        string `thrift:"source_product_name,31" frugal:"31,default,string" json:"source_product_name" gorm:"column:source_product_name"`
 	ProjectType              string `thrift:"project_type,32" frugal:"32,default,string" json:"project_type" gorm:"column:project_type;size:64"`
 	EnterpriseType           string `thrift:"enterprise_type,33" frugal:"33,default,string" json:"enterprise_type" gorm:"column:enterprise_type;size:64"`
+	TypicalCaseFile          string `thrift:"typical_case_file,34" frugal:"34,default,string" json:"typical_case_file" gorm:"column:typical_case_file;type:text"`
+	TypicalCaseUploader      string `thrift:"typical_case_uploader,35" frugal:"35,default,string" json:"typical_case_uploader" gorm:"column:typical_case_uploader"`
+	TypicalCaseUploaderName  string `thrift:"typical_case_uploader_name,36" frugal:"36,default,string" json:"typical_case_uploader_name" gorm:"column:typical_case_uploader_name"`
+	TypicalCaseUploadedAt    int64  `thrift:"typical_case_uploaded_at,37" frugal:"37,default,i64" json:"typical_case_uploaded_at" gorm:"column:typical_case_uploaded_at"`
 }
 
 func NewModelTrainingCourse() *ModelTrainingCourse {
@@ -6786,6 +6933,22 @@ func (p *ModelTrainingCourse) GetProjectType() (v string) {
 func (p *ModelTrainingCourse) GetEnterpriseType() (v string) {
 	return p.EnterpriseType
 }
+
+func (p *ModelTrainingCourse) GetTypicalCaseFile() (v string) {
+	return p.TypicalCaseFile
+}
+
+func (p *ModelTrainingCourse) GetTypicalCaseUploader() (v string) {
+	return p.TypicalCaseUploader
+}
+
+func (p *ModelTrainingCourse) GetTypicalCaseUploaderName() (v string) {
+	return p.TypicalCaseUploaderName
+}
+
+func (p *ModelTrainingCourse) GetTypicalCaseUploadedAt() (v int64) {
+	return p.TypicalCaseUploadedAt
+}
 func (p *ModelTrainingCourse) SetId(val int32) {
 	p.Id = val
 }
@@ -6885,6 +7048,18 @@ func (p *ModelTrainingCourse) SetProjectType(val string) {
 func (p *ModelTrainingCourse) SetEnterpriseType(val string) {
 	p.EnterpriseType = val
 }
+func (p *ModelTrainingCourse) SetTypicalCaseFile(val string) {
+	p.TypicalCaseFile = val
+}
+func (p *ModelTrainingCourse) SetTypicalCaseUploader(val string) {
+	p.TypicalCaseUploader = val
+}
+func (p *ModelTrainingCourse) SetTypicalCaseUploaderName(val string) {
+	p.TypicalCaseUploaderName = val
+}
+func (p *ModelTrainingCourse) SetTypicalCaseUploadedAt(val int64) {
+	p.TypicalCaseUploadedAt = val
+}
 
 func (p *ModelTrainingCourse) String() string {
 	if p == nil {
@@ -6927,6 +7102,10 @@ var fieldIDToName_ModelTrainingCourse = map[int16]string{
 	31: "source_product_name",
 	32: "project_type",
 	33: "enterprise_type",
+	34: "typical_case_file",
+	35: "typical_case_uploader",
+	36: "typical_case_uploader_name",
+	37: "typical_case_uploaded_at",
 }
 
 type CourseFile struct {
@@ -9092,6 +9271,10 @@ type Trainingservice interface {
 
 	ExportTrainingCourseCase(ctx context.Context, req *ExportTrainingCourseCaseReq) (r *ExportTrainingCourseCaseResp, err error)
 
+	UploadTypicalCase(ctx context.Context, req *UploadTypicalCaseReq) (r *UploadTypicalCaseResp, err error)
+
+	ExportTypicalCase(ctx context.Context, req *ExportTypicalCaseReq) (r *ExportTypicalCaseResp, err error)
+
 	UploadTrainingCourseSource(ctx context.Context, req *UploadTrainingCourseSourceReq) (r *UploadTrainingCourseSourceResp, err error)
 
 	ListTrainingCourseFileHistory(ctx context.Context, req *ListTrainingCourseFileHistoryReq) (r *ListTrainingCourseFileHistoryResp, err error)
@@ -10402,6 +10585,158 @@ func (p *TrainingserviceExportTrainingCourseCaseResult) String() string {
 }
 
 var fieldIDToName_TrainingserviceExportTrainingCourseCaseResult = map[int16]string{
+	0: "success",
+}
+
+type TrainingserviceUploadTypicalCaseArgs struct {
+	Req *UploadTypicalCaseReq `thrift:"req,1" frugal:"1,default,UploadTypicalCaseReq" json:"req"`
+}
+
+func NewTrainingserviceUploadTypicalCaseArgs() *TrainingserviceUploadTypicalCaseArgs {
+	return &TrainingserviceUploadTypicalCaseArgs{}
+}
+
+func (p *TrainingserviceUploadTypicalCaseArgs) InitDefault() {
+}
+
+var TrainingserviceUploadTypicalCaseArgs_Req_DEFAULT *UploadTypicalCaseReq
+
+func (p *TrainingserviceUploadTypicalCaseArgs) GetReq() (v *UploadTypicalCaseReq) {
+	if !p.IsSetReq() {
+		return TrainingserviceUploadTypicalCaseArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *TrainingserviceUploadTypicalCaseArgs) SetReq(val *UploadTypicalCaseReq) {
+	p.Req = val
+}
+
+func (p *TrainingserviceUploadTypicalCaseArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *TrainingserviceUploadTypicalCaseArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceUploadTypicalCaseArgs(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceUploadTypicalCaseArgs = map[int16]string{
+	1: "req",
+}
+
+type TrainingserviceUploadTypicalCaseResult struct {
+	Success *UploadTypicalCaseResp `thrift:"success,0,optional" frugal:"0,optional,UploadTypicalCaseResp" json:"success,omitempty"`
+}
+
+func NewTrainingserviceUploadTypicalCaseResult() *TrainingserviceUploadTypicalCaseResult {
+	return &TrainingserviceUploadTypicalCaseResult{}
+}
+
+func (p *TrainingserviceUploadTypicalCaseResult) InitDefault() {
+}
+
+var TrainingserviceUploadTypicalCaseResult_Success_DEFAULT *UploadTypicalCaseResp
+
+func (p *TrainingserviceUploadTypicalCaseResult) GetSuccess() (v *UploadTypicalCaseResp) {
+	if !p.IsSetSuccess() {
+		return TrainingserviceUploadTypicalCaseResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *TrainingserviceUploadTypicalCaseResult) SetSuccess(x interface{}) {
+	p.Success = x.(*UploadTypicalCaseResp)
+}
+
+func (p *TrainingserviceUploadTypicalCaseResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *TrainingserviceUploadTypicalCaseResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceUploadTypicalCaseResult(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceUploadTypicalCaseResult = map[int16]string{
+	0: "success",
+}
+
+type TrainingserviceExportTypicalCaseArgs struct {
+	Req *ExportTypicalCaseReq `thrift:"req,1" frugal:"1,default,ExportTypicalCaseReq" json:"req"`
+}
+
+func NewTrainingserviceExportTypicalCaseArgs() *TrainingserviceExportTypicalCaseArgs {
+	return &TrainingserviceExportTypicalCaseArgs{}
+}
+
+func (p *TrainingserviceExportTypicalCaseArgs) InitDefault() {
+}
+
+var TrainingserviceExportTypicalCaseArgs_Req_DEFAULT *ExportTypicalCaseReq
+
+func (p *TrainingserviceExportTypicalCaseArgs) GetReq() (v *ExportTypicalCaseReq) {
+	if !p.IsSetReq() {
+		return TrainingserviceExportTypicalCaseArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *TrainingserviceExportTypicalCaseArgs) SetReq(val *ExportTypicalCaseReq) {
+	p.Req = val
+}
+
+func (p *TrainingserviceExportTypicalCaseArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *TrainingserviceExportTypicalCaseArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceExportTypicalCaseArgs(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceExportTypicalCaseArgs = map[int16]string{
+	1: "req",
+}
+
+type TrainingserviceExportTypicalCaseResult struct {
+	Success *ExportTypicalCaseResp `thrift:"success,0,optional" frugal:"0,optional,ExportTypicalCaseResp" json:"success,omitempty"`
+}
+
+func NewTrainingserviceExportTypicalCaseResult() *TrainingserviceExportTypicalCaseResult {
+	return &TrainingserviceExportTypicalCaseResult{}
+}
+
+func (p *TrainingserviceExportTypicalCaseResult) InitDefault() {
+}
+
+var TrainingserviceExportTypicalCaseResult_Success_DEFAULT *ExportTypicalCaseResp
+
+func (p *TrainingserviceExportTypicalCaseResult) GetSuccess() (v *ExportTypicalCaseResp) {
+	if !p.IsSetSuccess() {
+		return TrainingserviceExportTypicalCaseResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *TrainingserviceExportTypicalCaseResult) SetSuccess(x interface{}) {
+	p.Success = x.(*ExportTypicalCaseResp)
+}
+
+func (p *TrainingserviceExportTypicalCaseResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *TrainingserviceExportTypicalCaseResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceExportTypicalCaseResult(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceExportTypicalCaseResult = map[int16]string{
 	0: "success",
 }
 

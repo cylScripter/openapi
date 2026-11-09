@@ -125,6 +125,20 @@ var serviceMethods = map[string]kitex.MethodInfo{
 		false,
 		kitex.WithStreamingMode(kitex.StreamingNone),
 	),
+	"UploadTypicalCase": kitex.NewMethodInfo(
+		uploadTypicalCaseHandler,
+		newTrainingserviceUploadTypicalCaseArgs,
+		newTrainingserviceUploadTypicalCaseResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"ExportTypicalCase": kitex.NewMethodInfo(
+		exportTypicalCaseHandler,
+		newTrainingserviceExportTypicalCaseArgs,
+		newTrainingserviceExportTypicalCaseResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 	"UploadTrainingCourseSource": kitex.NewMethodInfo(
 		uploadTrainingCourseSourceHandler,
 		newTrainingserviceUploadTrainingCourseSourceArgs,
@@ -813,6 +827,42 @@ func newTrainingserviceExportTrainingCourseCaseArgs() interface{} {
 
 func newTrainingserviceExportTrainingCourseCaseResult() interface{} {
 	return training.NewTrainingserviceExportTrainingCourseCaseResult()
+}
+
+func uploadTypicalCaseHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceUploadTypicalCaseArgs)
+	realResult := result.(*training.TrainingserviceUploadTypicalCaseResult)
+	success, err := handler.(training.Trainingservice).UploadTypicalCase(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceUploadTypicalCaseArgs() interface{} {
+	return training.NewTrainingserviceUploadTypicalCaseArgs()
+}
+
+func newTrainingserviceUploadTypicalCaseResult() interface{} {
+	return training.NewTrainingserviceUploadTypicalCaseResult()
+}
+
+func exportTypicalCaseHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceExportTypicalCaseArgs)
+	realResult := result.(*training.TrainingserviceExportTypicalCaseResult)
+	success, err := handler.(training.Trainingservice).ExportTypicalCase(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceExportTypicalCaseArgs() interface{} {
+	return training.NewTrainingserviceExportTypicalCaseArgs()
+}
+
+func newTrainingserviceExportTypicalCaseResult() interface{} {
+	return training.NewTrainingserviceExportTypicalCaseResult()
 }
 
 func uploadTrainingCourseSourceHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
@@ -1844,6 +1894,26 @@ func (p *kClient) ExportTrainingCourseCase(ctx context.Context, req *training.Ex
 	_args.Req = req
 	var _result training.TrainingserviceExportTrainingCourseCaseResult
 	if err = p.c.Call(ctx, "ExportTrainingCourseCase", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) UploadTypicalCase(ctx context.Context, req *training.UploadTypicalCaseReq) (r *training.UploadTypicalCaseResp, err error) {
+	var _args training.TrainingserviceUploadTypicalCaseArgs
+	_args.Req = req
+	var _result training.TrainingserviceUploadTypicalCaseResult
+	if err = p.c.Call(ctx, "UploadTypicalCase", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ExportTypicalCase(ctx context.Context, req *training.ExportTypicalCaseReq) (r *training.ExportTypicalCaseResp, err error) {
+	var _args training.TrainingserviceExportTypicalCaseArgs
+	_args.Req = req
+	var _result training.TrainingserviceExportTypicalCaseResult
+	if err = p.c.Call(ctx, "ExportTypicalCase", &_args, &_result); err != nil {
 		return
 	}
 	return _result.GetSuccess(), nil
