@@ -9254,13 +9254,6 @@ type ModelPracticeTalk struct {
 	DeletedAt        int32  `thrift:"deleted_at,4" frugal:"4,default,i32" json:"deleted_at" gorm:"column:deleted_at;not null;default:0"`
 	AppId            int32  `thrift:"app_id,5" frugal:"5,default,i32" json:"app_id" gorm:"column:app_id;not null;uniqueIndex:uk_talk_owner,priority:1"`
 	TrainingCourseId int32  `thrift:"training_course_id,6" frugal:"6,default,i32" json:"training_course_id" gorm:"column:training_course_id;not null;uniqueIndex:uk_talk_owner,priority:2"`
-	AcademicYear     string `thrift:"academic_year,7" frugal:"7,default,string" json:"academic_year" gorm:"column:academic_year"`
-	Semester         string `thrift:"semester,8" frugal:"8,default,string" json:"semester" gorm:"column:semester"`
-	Major            string `thrift:"major,9" frugal:"9,default,string" json:"major" gorm:"column:major"`
-	Grade            string `thrift:"grade,10" frugal:"10,default,string" json:"grade" gorm:"column:grade"`
-	ClassName        string `thrift:"class_name,11" frugal:"11,default,string" json:"class_name" gorm:"column:class_name"`
-	CourseName       string `thrift:"course_name,12" frugal:"12,default,string" json:"course_name" gorm:"column:course_name;type:text"`
-	TrainingWeek     int32  `thrift:"training_week,13" frugal:"13,default,i32" json:"training_week" gorm:"column:training_week"`
 	Title            string `thrift:"title,14" frugal:"14,default,string" json:"title" gorm:"column:title;size:255"`
 	Files            string `thrift:"files,15" frugal:"15,default,string" json:"files" gorm:"column:files;type:longtext"`
 	Uploader         string `thrift:"uploader,16" frugal:"16,default,string" json:"uploader" gorm:"column:uploader;size:128;not null;uniqueIndex:uk_talk_owner,priority:3"`
@@ -9303,34 +9296,6 @@ func (p *ModelPracticeTalk) GetAppId() (v int32) {
 
 func (p *ModelPracticeTalk) GetTrainingCourseId() (v int32) {
 	return p.TrainingCourseId
-}
-
-func (p *ModelPracticeTalk) GetAcademicYear() (v string) {
-	return p.AcademicYear
-}
-
-func (p *ModelPracticeTalk) GetSemester() (v string) {
-	return p.Semester
-}
-
-func (p *ModelPracticeTalk) GetMajor() (v string) {
-	return p.Major
-}
-
-func (p *ModelPracticeTalk) GetGrade() (v string) {
-	return p.Grade
-}
-
-func (p *ModelPracticeTalk) GetClassName() (v string) {
-	return p.ClassName
-}
-
-func (p *ModelPracticeTalk) GetCourseName() (v string) {
-	return p.CourseName
-}
-
-func (p *ModelPracticeTalk) GetTrainingWeek() (v int32) {
-	return p.TrainingWeek
 }
 
 func (p *ModelPracticeTalk) GetTitle() (v string) {
@@ -9394,27 +9359,6 @@ func (p *ModelPracticeTalk) SetAppId(val int32) {
 func (p *ModelPracticeTalk) SetTrainingCourseId(val int32) {
 	p.TrainingCourseId = val
 }
-func (p *ModelPracticeTalk) SetAcademicYear(val string) {
-	p.AcademicYear = val
-}
-func (p *ModelPracticeTalk) SetSemester(val string) {
-	p.Semester = val
-}
-func (p *ModelPracticeTalk) SetMajor(val string) {
-	p.Major = val
-}
-func (p *ModelPracticeTalk) SetGrade(val string) {
-	p.Grade = val
-}
-func (p *ModelPracticeTalk) SetClassName(val string) {
-	p.ClassName = val
-}
-func (p *ModelPracticeTalk) SetCourseName(val string) {
-	p.CourseName = val
-}
-func (p *ModelPracticeTalk) SetTrainingWeek(val int32) {
-	p.TrainingWeek = val
-}
 func (p *ModelPracticeTalk) SetTitle(val string) {
 	p.Title = val
 }
@@ -9463,13 +9407,6 @@ var fieldIDToName_ModelPracticeTalk = map[int16]string{
 	4:  "deleted_at",
 	5:  "app_id",
 	6:  "training_course_id",
-	7:  "academic_year",
-	8:  "semester",
-	9:  "major",
-	10: "grade",
-	11: "class_name",
-	12: "course_name",
-	13: "training_week",
 	14: "title",
 	15: "files",
 	16: "uploader",
