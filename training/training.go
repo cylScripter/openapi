@@ -6260,6 +6260,7 @@ var fieldIDToName_GetTrainingCourseListResp = map[int16]string{
 
 type GetSelfTrainingCourseListReq struct {
 	ListOption *base.ListOption `thrift:"list_option,1" frugal:"1,default,base.ListOption" json:"list_option" binding:"required"`
+	RoleType   int32            `thrift:"role_type,2" frugal:"2,default,i32" json:"role_type" binding:"omitempty,oneof=1 2"`
 }
 
 func NewGetSelfTrainingCourseListReq() *GetSelfTrainingCourseListReq {
@@ -6277,8 +6278,15 @@ func (p *GetSelfTrainingCourseListReq) GetListOption() (v *base.ListOption) {
 	}
 	return p.ListOption
 }
+
+func (p *GetSelfTrainingCourseListReq) GetRoleType() (v int32) {
+	return p.RoleType
+}
 func (p *GetSelfTrainingCourseListReq) SetListOption(val *base.ListOption) {
 	p.ListOption = val
+}
+func (p *GetSelfTrainingCourseListReq) SetRoleType(val int32) {
+	p.RoleType = val
 }
 
 func (p *GetSelfTrainingCourseListReq) IsSetListOption() bool {
@@ -6294,6 +6302,7 @@ func (p *GetSelfTrainingCourseListReq) String() string {
 
 var fieldIDToName_GetSelfTrainingCourseListReq = map[int16]string{
 	1: "list_option",
+	2: "role_type",
 }
 
 type GetSelfTrainingCourseListResp struct {
