@@ -13,6 +13,34 @@ import (
 var errInvalidMessageType = errors.New("invalid message type for service method handler")
 
 var serviceMethods = map[string]kitex.MethodInfo{
+	"SubmitPracticeTalk": kitex.NewMethodInfo(
+		submitPracticeTalkHandler,
+		newTrainingserviceSubmitPracticeTalkArgs,
+		newTrainingserviceSubmitPracticeTalkResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetPracticeTalkList": kitex.NewMethodInfo(
+		getPracticeTalkListHandler,
+		newTrainingserviceGetPracticeTalkListArgs,
+		newTrainingserviceGetPracticeTalkListResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"GetPracticeTalk": kitex.NewMethodInfo(
+		getPracticeTalkHandler,
+		newTrainingserviceGetPracticeTalkArgs,
+		newTrainingserviceGetPracticeTalkResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
+	"ReviewPracticeTalk": kitex.NewMethodInfo(
+		reviewPracticeTalkHandler,
+		newTrainingserviceReviewPracticeTalkArgs,
+		newTrainingserviceReviewPracticeTalkResult,
+		false,
+		kitex.WithStreamingMode(kitex.StreamingNone),
+	),
 	"UpdateTrainingSchedule": kitex.NewMethodInfo(
 		updateTrainingScheduleHandler,
 		newTrainingserviceUpdateTrainingScheduleArgs,
@@ -539,6 +567,78 @@ func newServiceInfo(hasStreaming bool, keepStreamingMethods bool, keepNonStreami
 		Extra:           extra,
 	}
 	return svcInfo
+}
+
+func submitPracticeTalkHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceSubmitPracticeTalkArgs)
+	realResult := result.(*training.TrainingserviceSubmitPracticeTalkResult)
+	success, err := handler.(training.Trainingservice).SubmitPracticeTalk(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceSubmitPracticeTalkArgs() interface{} {
+	return training.NewTrainingserviceSubmitPracticeTalkArgs()
+}
+
+func newTrainingserviceSubmitPracticeTalkResult() interface{} {
+	return training.NewTrainingserviceSubmitPracticeTalkResult()
+}
+
+func getPracticeTalkListHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceGetPracticeTalkListArgs)
+	realResult := result.(*training.TrainingserviceGetPracticeTalkListResult)
+	success, err := handler.(training.Trainingservice).GetPracticeTalkList(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceGetPracticeTalkListArgs() interface{} {
+	return training.NewTrainingserviceGetPracticeTalkListArgs()
+}
+
+func newTrainingserviceGetPracticeTalkListResult() interface{} {
+	return training.NewTrainingserviceGetPracticeTalkListResult()
+}
+
+func getPracticeTalkHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceGetPracticeTalkArgs)
+	realResult := result.(*training.TrainingserviceGetPracticeTalkResult)
+	success, err := handler.(training.Trainingservice).GetPracticeTalk(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceGetPracticeTalkArgs() interface{} {
+	return training.NewTrainingserviceGetPracticeTalkArgs()
+}
+
+func newTrainingserviceGetPracticeTalkResult() interface{} {
+	return training.NewTrainingserviceGetPracticeTalkResult()
+}
+
+func reviewPracticeTalkHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
+	realArg := arg.(*training.TrainingserviceReviewPracticeTalkArgs)
+	realResult := result.(*training.TrainingserviceReviewPracticeTalkResult)
+	success, err := handler.(training.Trainingservice).ReviewPracticeTalk(ctx, realArg.Req)
+	if err != nil {
+		return err
+	}
+	realResult.Success = success
+	return nil
+}
+func newTrainingserviceReviewPracticeTalkArgs() interface{} {
+	return training.NewTrainingserviceReviewPracticeTalkArgs()
+}
+
+func newTrainingserviceReviewPracticeTalkResult() interface{} {
+	return training.NewTrainingserviceReviewPracticeTalkResult()
 }
 
 func updateTrainingScheduleHandler(ctx context.Context, handler interface{}, arg, result interface{}) error {
@@ -1737,6 +1837,46 @@ func newServiceClient(c client.Client) *kClient {
 	return &kClient{
 		c: c,
 	}
+}
+
+func (p *kClient) SubmitPracticeTalk(ctx context.Context, req *training.SubmitPracticeTalkReq) (r *training.SubmitPracticeTalkResp, err error) {
+	var _args training.TrainingserviceSubmitPracticeTalkArgs
+	_args.Req = req
+	var _result training.TrainingserviceSubmitPracticeTalkResult
+	if err = p.c.Call(ctx, "SubmitPracticeTalk", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetPracticeTalkList(ctx context.Context, req *training.GetPracticeTalkListReq) (r *training.GetPracticeTalkListResp, err error) {
+	var _args training.TrainingserviceGetPracticeTalkListArgs
+	_args.Req = req
+	var _result training.TrainingserviceGetPracticeTalkListResult
+	if err = p.c.Call(ctx, "GetPracticeTalkList", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) GetPracticeTalk(ctx context.Context, req *training.GetPracticeTalkReq) (r *training.GetPracticeTalkResp, err error) {
+	var _args training.TrainingserviceGetPracticeTalkArgs
+	_args.Req = req
+	var _result training.TrainingserviceGetPracticeTalkResult
+	if err = p.c.Call(ctx, "GetPracticeTalk", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
+}
+
+func (p *kClient) ReviewPracticeTalk(ctx context.Context, req *training.ReviewPracticeTalkReq) (r *training.ReviewPracticeTalkResp, err error) {
+	var _args training.TrainingserviceReviewPracticeTalkArgs
+	_args.Req = req
+	var _result training.TrainingserviceReviewPracticeTalkResult
+	if err = p.c.Call(ctx, "ReviewPracticeTalk", &_args, &_result); err != nil {
+		return
+	}
+	return _result.GetSuccess(), nil
 }
 
 func (p *kClient) UpdateTrainingSchedule(ctx context.Context, req *training.UpdateTrainingScheduleReq) (r *training.UpdateTrainingScheduleResp, err error) {

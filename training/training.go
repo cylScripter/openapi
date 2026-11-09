@@ -703,6 +703,73 @@ func (p *CourseType) Value() (driver.Value, error) {
 	return int64(*p), nil
 }
 
+type PracticeTalkListOption int64
+
+const (
+	PracticeTalkListOption_id                 PracticeTalkListOption = 1
+	PracticeTalkListOption_academic_year      PracticeTalkListOption = 2
+	PracticeTalkListOption_semester           PracticeTalkListOption = 3
+	PracticeTalkListOption_major              PracticeTalkListOption = 4
+	PracticeTalkListOption_course_name        PracticeTalkListOption = 5
+	PracticeTalkListOption_status             PracticeTalkListOption = 6
+	PracticeTalkListOption_training_course_id PracticeTalkListOption = 7
+)
+
+func (p PracticeTalkListOption) String() string {
+	switch p {
+	case PracticeTalkListOption_id:
+		return "id"
+	case PracticeTalkListOption_academic_year:
+		return "academic_year"
+	case PracticeTalkListOption_semester:
+		return "semester"
+	case PracticeTalkListOption_major:
+		return "major"
+	case PracticeTalkListOption_course_name:
+		return "course_name"
+	case PracticeTalkListOption_status:
+		return "status"
+	case PracticeTalkListOption_training_course_id:
+		return "training_course_id"
+	}
+	return "<UNSET>"
+}
+
+func PracticeTalkListOptionFromString(s string) (PracticeTalkListOption, error) {
+	switch s {
+	case "id":
+		return PracticeTalkListOption_id, nil
+	case "academic_year":
+		return PracticeTalkListOption_academic_year, nil
+	case "semester":
+		return PracticeTalkListOption_semester, nil
+	case "major":
+		return PracticeTalkListOption_major, nil
+	case "course_name":
+		return PracticeTalkListOption_course_name, nil
+	case "status":
+		return PracticeTalkListOption_status, nil
+	case "training_course_id":
+		return PracticeTalkListOption_training_course_id, nil
+	}
+	return PracticeTalkListOption(0), fmt.Errorf("not a valid PracticeTalkListOption string")
+}
+
+func PracticeTalkListOptionPtr(v PracticeTalkListOption) *PracticeTalkListOption { return &v }
+func (p *PracticeTalkListOption) Scan(value interface{}) (err error) {
+	var result sql.NullInt64
+	err = result.Scan(value)
+	*p = PracticeTalkListOption(result.Int64)
+	return
+}
+
+func (p *PracticeTalkListOption) Value() (driver.Value, error) {
+	if p == nil {
+		return nil, nil
+	}
+	return int64(*p), nil
+}
+
 type ExportPracticeProcessDataTableReq struct {
 	AcademicYear string `thrift:"academic_year,1" frugal:"1,default,string" json:"academic_year"`
 	Semester     string `thrift:"semester,2" frugal:"2,default,string" json:"semester"`
@@ -9238,7 +9305,600 @@ var fieldIDToName_ModelMajorCourseConfig = map[int16]string{
 	6: "project_number",
 }
 
+type ModelPracticeTalk struct {
+	Id               int32  `thrift:"id,1" frugal:"1,default,i32" json:"id" gorm:"column:id"`
+	CreatedAt        int32  `thrift:"created_at,2" frugal:"2,default,i32" json:"created_at" gorm:"column:created_at;not null"`
+	UpdatedAt        int32  `thrift:"updated_at,3" frugal:"3,default,i32" json:"updated_at" gorm:"column:updated_at;not null"`
+	DeletedAt        int32  `thrift:"deleted_at,4" frugal:"4,default,i32" json:"deleted_at" gorm:"column:deleted_at;not null;default:0"`
+	AppId            int32  `thrift:"app_id,5" frugal:"5,default,i32" json:"app_id" gorm:"column:app_id;not null;uniqueIndex:uk_talk_owner,priority:1"`
+	TrainingCourseId int32  `thrift:"training_course_id,6" frugal:"6,default,i32" json:"training_course_id" gorm:"column:training_course_id;not null;uniqueIndex:uk_talk_owner,priority:2"`
+	AcademicYear     string `thrift:"academic_year,7" frugal:"7,default,string" json:"academic_year" gorm:"column:academic_year"`
+	Semester         string `thrift:"semester,8" frugal:"8,default,string" json:"semester" gorm:"column:semester"`
+	Major            string `thrift:"major,9" frugal:"9,default,string" json:"major" gorm:"column:major"`
+	Grade            string `thrift:"grade,10" frugal:"10,default,string" json:"grade" gorm:"column:grade"`
+	ClassName        string `thrift:"class_name,11" frugal:"11,default,string" json:"class_name" gorm:"column:class_name"`
+	CourseName       string `thrift:"course_name,12" frugal:"12,default,string" json:"course_name" gorm:"column:course_name;type:text"`
+	TrainingWeek     int32  `thrift:"training_week,13" frugal:"13,default,i32" json:"training_week" gorm:"column:training_week"`
+	Title            string `thrift:"title,14" frugal:"14,default,string" json:"title" gorm:"column:title;size:255"`
+	Files            string `thrift:"files,15" frugal:"15,default,string" json:"files" gorm:"column:files;type:longtext"`
+	Uploader         string `thrift:"uploader,16" frugal:"16,default,string" json:"uploader" gorm:"column:uploader;size:128;not null;uniqueIndex:uk_talk_owner,priority:3"`
+	UploaderName     string `thrift:"uploader_name,17" frugal:"17,default,string" json:"uploader_name" gorm:"column:uploader_name"`
+	UploadedAt       int64  `thrift:"uploaded_at,18" frugal:"18,default,i64" json:"uploaded_at" gorm:"column:uploaded_at"`
+	Status           int32  `thrift:"status,19" frugal:"19,default,i32" json:"status" gorm:"column:status;default:0"`
+	Version          int64  `thrift:"version,20" frugal:"20,default,i64" json:"version" gorm:"column:version;default:1"`
+	Conclusion       string `thrift:"conclusion,21" frugal:"21,default,string" json:"conclusion" gorm:"column:conclusion;type:text"`
+	Reviewer         string `thrift:"reviewer,22" frugal:"22,default,string" json:"reviewer" gorm:"column:reviewer"`
+	ReviewerName     string `thrift:"reviewer_name,23" frugal:"23,default,string" json:"reviewer_name" gorm:"column:reviewer_name"`
+	ReviewedAt       int64  `thrift:"reviewed_at,24" frugal:"24,default,i64" json:"reviewed_at" gorm:"column:reviewed_at"`
+}
+
+func NewModelPracticeTalk() *ModelPracticeTalk {
+	return &ModelPracticeTalk{}
+}
+
+func (p *ModelPracticeTalk) InitDefault() {
+}
+
+func (p *ModelPracticeTalk) GetId() (v int32) {
+	return p.Id
+}
+
+func (p *ModelPracticeTalk) GetCreatedAt() (v int32) {
+	return p.CreatedAt
+}
+
+func (p *ModelPracticeTalk) GetUpdatedAt() (v int32) {
+	return p.UpdatedAt
+}
+
+func (p *ModelPracticeTalk) GetDeletedAt() (v int32) {
+	return p.DeletedAt
+}
+
+func (p *ModelPracticeTalk) GetAppId() (v int32) {
+	return p.AppId
+}
+
+func (p *ModelPracticeTalk) GetTrainingCourseId() (v int32) {
+	return p.TrainingCourseId
+}
+
+func (p *ModelPracticeTalk) GetAcademicYear() (v string) {
+	return p.AcademicYear
+}
+
+func (p *ModelPracticeTalk) GetSemester() (v string) {
+	return p.Semester
+}
+
+func (p *ModelPracticeTalk) GetMajor() (v string) {
+	return p.Major
+}
+
+func (p *ModelPracticeTalk) GetGrade() (v string) {
+	return p.Grade
+}
+
+func (p *ModelPracticeTalk) GetClassName() (v string) {
+	return p.ClassName
+}
+
+func (p *ModelPracticeTalk) GetCourseName() (v string) {
+	return p.CourseName
+}
+
+func (p *ModelPracticeTalk) GetTrainingWeek() (v int32) {
+	return p.TrainingWeek
+}
+
+func (p *ModelPracticeTalk) GetTitle() (v string) {
+	return p.Title
+}
+
+func (p *ModelPracticeTalk) GetFiles() (v string) {
+	return p.Files
+}
+
+func (p *ModelPracticeTalk) GetUploader() (v string) {
+	return p.Uploader
+}
+
+func (p *ModelPracticeTalk) GetUploaderName() (v string) {
+	return p.UploaderName
+}
+
+func (p *ModelPracticeTalk) GetUploadedAt() (v int64) {
+	return p.UploadedAt
+}
+
+func (p *ModelPracticeTalk) GetStatus() (v int32) {
+	return p.Status
+}
+
+func (p *ModelPracticeTalk) GetVersion() (v int64) {
+	return p.Version
+}
+
+func (p *ModelPracticeTalk) GetConclusion() (v string) {
+	return p.Conclusion
+}
+
+func (p *ModelPracticeTalk) GetReviewer() (v string) {
+	return p.Reviewer
+}
+
+func (p *ModelPracticeTalk) GetReviewerName() (v string) {
+	return p.ReviewerName
+}
+
+func (p *ModelPracticeTalk) GetReviewedAt() (v int64) {
+	return p.ReviewedAt
+}
+func (p *ModelPracticeTalk) SetId(val int32) {
+	p.Id = val
+}
+func (p *ModelPracticeTalk) SetCreatedAt(val int32) {
+	p.CreatedAt = val
+}
+func (p *ModelPracticeTalk) SetUpdatedAt(val int32) {
+	p.UpdatedAt = val
+}
+func (p *ModelPracticeTalk) SetDeletedAt(val int32) {
+	p.DeletedAt = val
+}
+func (p *ModelPracticeTalk) SetAppId(val int32) {
+	p.AppId = val
+}
+func (p *ModelPracticeTalk) SetTrainingCourseId(val int32) {
+	p.TrainingCourseId = val
+}
+func (p *ModelPracticeTalk) SetAcademicYear(val string) {
+	p.AcademicYear = val
+}
+func (p *ModelPracticeTalk) SetSemester(val string) {
+	p.Semester = val
+}
+func (p *ModelPracticeTalk) SetMajor(val string) {
+	p.Major = val
+}
+func (p *ModelPracticeTalk) SetGrade(val string) {
+	p.Grade = val
+}
+func (p *ModelPracticeTalk) SetClassName(val string) {
+	p.ClassName = val
+}
+func (p *ModelPracticeTalk) SetCourseName(val string) {
+	p.CourseName = val
+}
+func (p *ModelPracticeTalk) SetTrainingWeek(val int32) {
+	p.TrainingWeek = val
+}
+func (p *ModelPracticeTalk) SetTitle(val string) {
+	p.Title = val
+}
+func (p *ModelPracticeTalk) SetFiles(val string) {
+	p.Files = val
+}
+func (p *ModelPracticeTalk) SetUploader(val string) {
+	p.Uploader = val
+}
+func (p *ModelPracticeTalk) SetUploaderName(val string) {
+	p.UploaderName = val
+}
+func (p *ModelPracticeTalk) SetUploadedAt(val int64) {
+	p.UploadedAt = val
+}
+func (p *ModelPracticeTalk) SetStatus(val int32) {
+	p.Status = val
+}
+func (p *ModelPracticeTalk) SetVersion(val int64) {
+	p.Version = val
+}
+func (p *ModelPracticeTalk) SetConclusion(val string) {
+	p.Conclusion = val
+}
+func (p *ModelPracticeTalk) SetReviewer(val string) {
+	p.Reviewer = val
+}
+func (p *ModelPracticeTalk) SetReviewerName(val string) {
+	p.ReviewerName = val
+}
+func (p *ModelPracticeTalk) SetReviewedAt(val int64) {
+	p.ReviewedAt = val
+}
+
+func (p *ModelPracticeTalk) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ModelPracticeTalk(%+v)", *p)
+}
+
+var fieldIDToName_ModelPracticeTalk = map[int16]string{
+	1:  "id",
+	2:  "created_at",
+	3:  "updated_at",
+	4:  "deleted_at",
+	5:  "app_id",
+	6:  "training_course_id",
+	7:  "academic_year",
+	8:  "semester",
+	9:  "major",
+	10: "grade",
+	11: "class_name",
+	12: "course_name",
+	13: "training_week",
+	14: "title",
+	15: "files",
+	16: "uploader",
+	17: "uploader_name",
+	18: "uploaded_at",
+	19: "status",
+	20: "version",
+	21: "conclusion",
+	22: "reviewer",
+	23: "reviewer_name",
+	24: "reviewed_at",
+}
+
+type SubmitPracticeTalkReq struct {
+	TrainingCourseId int32    `thrift:"training_course_id,1" frugal:"1,default,i32" json:"training_course_id" binding:"required,gt=0"`
+	Title            string   `thrift:"title,2" frugal:"2,default,string" json:"title" binding:"required,max=255"`
+	UploadIds        []string `thrift:"upload_ids,3" frugal:"3,default,list<string>" json:"upload_ids" binding:"required,min=1,dive,required"`
+}
+
+func NewSubmitPracticeTalkReq() *SubmitPracticeTalkReq {
+	return &SubmitPracticeTalkReq{}
+}
+
+func (p *SubmitPracticeTalkReq) InitDefault() {
+}
+
+func (p *SubmitPracticeTalkReq) GetTrainingCourseId() (v int32) {
+	return p.TrainingCourseId
+}
+
+func (p *SubmitPracticeTalkReq) GetTitle() (v string) {
+	return p.Title
+}
+
+func (p *SubmitPracticeTalkReq) GetUploadIds() (v []string) {
+	return p.UploadIds
+}
+func (p *SubmitPracticeTalkReq) SetTrainingCourseId(val int32) {
+	p.TrainingCourseId = val
+}
+func (p *SubmitPracticeTalkReq) SetTitle(val string) {
+	p.Title = val
+}
+func (p *SubmitPracticeTalkReq) SetUploadIds(val []string) {
+	p.UploadIds = val
+}
+
+func (p *SubmitPracticeTalkReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("SubmitPracticeTalkReq(%+v)", *p)
+}
+
+var fieldIDToName_SubmitPracticeTalkReq = map[int16]string{
+	1: "training_course_id",
+	2: "title",
+	3: "upload_ids",
+}
+
+type SubmitPracticeTalkResp struct {
+	Talk *ModelPracticeTalk `thrift:"talk,1" frugal:"1,default,ModelPracticeTalk" json:"talk"`
+}
+
+func NewSubmitPracticeTalkResp() *SubmitPracticeTalkResp {
+	return &SubmitPracticeTalkResp{}
+}
+
+func (p *SubmitPracticeTalkResp) InitDefault() {
+}
+
+var SubmitPracticeTalkResp_Talk_DEFAULT *ModelPracticeTalk
+
+func (p *SubmitPracticeTalkResp) GetTalk() (v *ModelPracticeTalk) {
+	if !p.IsSetTalk() {
+		return SubmitPracticeTalkResp_Talk_DEFAULT
+	}
+	return p.Talk
+}
+func (p *SubmitPracticeTalkResp) SetTalk(val *ModelPracticeTalk) {
+	p.Talk = val
+}
+
+func (p *SubmitPracticeTalkResp) IsSetTalk() bool {
+	return p.Talk != nil
+}
+
+func (p *SubmitPracticeTalkResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("SubmitPracticeTalkResp(%+v)", *p)
+}
+
+var fieldIDToName_SubmitPracticeTalkResp = map[int16]string{
+	1: "talk",
+}
+
+type GetPracticeTalkListReq struct {
+	ListOption *base.ListOption `thrift:"list_option,1" frugal:"1,default,base.ListOption" json:"list_option" binding:"required"`
+	RoleType   int32            `thrift:"role_type,2" frugal:"2,default,i32" json:"role_type" binding:"omitempty,oneof=1 2"`
+}
+
+func NewGetPracticeTalkListReq() *GetPracticeTalkListReq {
+	return &GetPracticeTalkListReq{}
+}
+
+func (p *GetPracticeTalkListReq) InitDefault() {
+}
+
+var GetPracticeTalkListReq_ListOption_DEFAULT *base.ListOption
+
+func (p *GetPracticeTalkListReq) GetListOption() (v *base.ListOption) {
+	if !p.IsSetListOption() {
+		return GetPracticeTalkListReq_ListOption_DEFAULT
+	}
+	return p.ListOption
+}
+
+func (p *GetPracticeTalkListReq) GetRoleType() (v int32) {
+	return p.RoleType
+}
+func (p *GetPracticeTalkListReq) SetListOption(val *base.ListOption) {
+	p.ListOption = val
+}
+func (p *GetPracticeTalkListReq) SetRoleType(val int32) {
+	p.RoleType = val
+}
+
+func (p *GetPracticeTalkListReq) IsSetListOption() bool {
+	return p.ListOption != nil
+}
+
+func (p *GetPracticeTalkListReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("GetPracticeTalkListReq(%+v)", *p)
+}
+
+var fieldIDToName_GetPracticeTalkListReq = map[int16]string{
+	1: "list_option",
+	2: "role_type",
+}
+
+type GetPracticeTalkListResp struct {
+	List     []*ModelPracticeTalk `thrift:"list,1" frugal:"1,default,list<ModelPracticeTalk>" json:"list"`
+	Paginate *base.Paginate       `thrift:"paginate,2" frugal:"2,default,base.Paginate" json:"paginate"`
+}
+
+func NewGetPracticeTalkListResp() *GetPracticeTalkListResp {
+	return &GetPracticeTalkListResp{}
+}
+
+func (p *GetPracticeTalkListResp) InitDefault() {
+}
+
+func (p *GetPracticeTalkListResp) GetList() (v []*ModelPracticeTalk) {
+	return p.List
+}
+
+var GetPracticeTalkListResp_Paginate_DEFAULT *base.Paginate
+
+func (p *GetPracticeTalkListResp) GetPaginate() (v *base.Paginate) {
+	if !p.IsSetPaginate() {
+		return GetPracticeTalkListResp_Paginate_DEFAULT
+	}
+	return p.Paginate
+}
+func (p *GetPracticeTalkListResp) SetList(val []*ModelPracticeTalk) {
+	p.List = val
+}
+func (p *GetPracticeTalkListResp) SetPaginate(val *base.Paginate) {
+	p.Paginate = val
+}
+
+func (p *GetPracticeTalkListResp) IsSetPaginate() bool {
+	return p.Paginate != nil
+}
+
+func (p *GetPracticeTalkListResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("GetPracticeTalkListResp(%+v)", *p)
+}
+
+var fieldIDToName_GetPracticeTalkListResp = map[int16]string{
+	1: "list",
+	2: "paginate",
+}
+
+type GetPracticeTalkReq struct {
+	Id int32 `thrift:"id,1" frugal:"1,default,i32" json:"id" binding:"required,gt=0"`
+}
+
+func NewGetPracticeTalkReq() *GetPracticeTalkReq {
+	return &GetPracticeTalkReq{}
+}
+
+func (p *GetPracticeTalkReq) InitDefault() {
+}
+
+func (p *GetPracticeTalkReq) GetId() (v int32) {
+	return p.Id
+}
+func (p *GetPracticeTalkReq) SetId(val int32) {
+	p.Id = val
+}
+
+func (p *GetPracticeTalkReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("GetPracticeTalkReq(%+v)", *p)
+}
+
+var fieldIDToName_GetPracticeTalkReq = map[int16]string{
+	1: "id",
+}
+
+type GetPracticeTalkResp struct {
+	Talk  *ModelPracticeTalk `thrift:"talk,1" frugal:"1,default,ModelPracticeTalk" json:"talk"`
+	Files []*CourseFile      `thrift:"files,2" frugal:"2,default,list<CourseFile>" json:"files"`
+}
+
+func NewGetPracticeTalkResp() *GetPracticeTalkResp {
+	return &GetPracticeTalkResp{}
+}
+
+func (p *GetPracticeTalkResp) InitDefault() {
+}
+
+var GetPracticeTalkResp_Talk_DEFAULT *ModelPracticeTalk
+
+func (p *GetPracticeTalkResp) GetTalk() (v *ModelPracticeTalk) {
+	if !p.IsSetTalk() {
+		return GetPracticeTalkResp_Talk_DEFAULT
+	}
+	return p.Talk
+}
+
+func (p *GetPracticeTalkResp) GetFiles() (v []*CourseFile) {
+	return p.Files
+}
+func (p *GetPracticeTalkResp) SetTalk(val *ModelPracticeTalk) {
+	p.Talk = val
+}
+func (p *GetPracticeTalkResp) SetFiles(val []*CourseFile) {
+	p.Files = val
+}
+
+func (p *GetPracticeTalkResp) IsSetTalk() bool {
+	return p.Talk != nil
+}
+
+func (p *GetPracticeTalkResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("GetPracticeTalkResp(%+v)", *p)
+}
+
+var fieldIDToName_GetPracticeTalkResp = map[int16]string{
+	1: "talk",
+	2: "files",
+}
+
+type ReviewPracticeTalkReq struct {
+	Id         int32  `thrift:"id,1" frugal:"1,default,i32" json:"id" binding:"required,gt=0"`
+	Version    int64  `thrift:"version,2" frugal:"2,default,i64" json:"version" binding:"required,gt=0"`
+	Result_    int32  `thrift:"result,3" frugal:"3,default,i32" json:"result" binding:"required,oneof=1 2"`
+	Conclusion string `thrift:"conclusion,4" frugal:"4,default,string" json:"conclusion"`
+}
+
+func NewReviewPracticeTalkReq() *ReviewPracticeTalkReq {
+	return &ReviewPracticeTalkReq{}
+}
+
+func (p *ReviewPracticeTalkReq) InitDefault() {
+}
+
+func (p *ReviewPracticeTalkReq) GetId() (v int32) {
+	return p.Id
+}
+
+func (p *ReviewPracticeTalkReq) GetVersion() (v int64) {
+	return p.Version
+}
+
+func (p *ReviewPracticeTalkReq) GetResult_() (v int32) {
+	return p.Result_
+}
+
+func (p *ReviewPracticeTalkReq) GetConclusion() (v string) {
+	return p.Conclusion
+}
+func (p *ReviewPracticeTalkReq) SetId(val int32) {
+	p.Id = val
+}
+func (p *ReviewPracticeTalkReq) SetVersion(val int64) {
+	p.Version = val
+}
+func (p *ReviewPracticeTalkReq) SetResult_(val int32) {
+	p.Result_ = val
+}
+func (p *ReviewPracticeTalkReq) SetConclusion(val string) {
+	p.Conclusion = val
+}
+
+func (p *ReviewPracticeTalkReq) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ReviewPracticeTalkReq(%+v)", *p)
+}
+
+var fieldIDToName_ReviewPracticeTalkReq = map[int16]string{
+	1: "id",
+	2: "version",
+	3: "result",
+	4: "conclusion",
+}
+
+type ReviewPracticeTalkResp struct {
+	Talk *ModelPracticeTalk `thrift:"talk,1" frugal:"1,default,ModelPracticeTalk" json:"talk"`
+}
+
+func NewReviewPracticeTalkResp() *ReviewPracticeTalkResp {
+	return &ReviewPracticeTalkResp{}
+}
+
+func (p *ReviewPracticeTalkResp) InitDefault() {
+}
+
+var ReviewPracticeTalkResp_Talk_DEFAULT *ModelPracticeTalk
+
+func (p *ReviewPracticeTalkResp) GetTalk() (v *ModelPracticeTalk) {
+	if !p.IsSetTalk() {
+		return ReviewPracticeTalkResp_Talk_DEFAULT
+	}
+	return p.Talk
+}
+func (p *ReviewPracticeTalkResp) SetTalk(val *ModelPracticeTalk) {
+	p.Talk = val
+}
+
+func (p *ReviewPracticeTalkResp) IsSetTalk() bool {
+	return p.Talk != nil
+}
+
+func (p *ReviewPracticeTalkResp) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("ReviewPracticeTalkResp(%+v)", *p)
+}
+
+var fieldIDToName_ReviewPracticeTalkResp = map[int16]string{
+	1: "talk",
+}
+
 type Trainingservice interface {
+	SubmitPracticeTalk(ctx context.Context, req *SubmitPracticeTalkReq) (r *SubmitPracticeTalkResp, err error)
+
+	GetPracticeTalkList(ctx context.Context, req *GetPracticeTalkListReq) (r *GetPracticeTalkListResp, err error)
+
+	GetPracticeTalk(ctx context.Context, req *GetPracticeTalkReq) (r *GetPracticeTalkResp, err error)
+
+	ReviewPracticeTalk(ctx context.Context, req *ReviewPracticeTalkReq) (r *ReviewPracticeTalkResp, err error)
+
 	UpdateTrainingSchedule(ctx context.Context, req *UpdateTrainingScheduleReq) (r *UpdateTrainingScheduleResp, err error)
 
 	ImportTrainingCourse(ctx context.Context, req *ImportTrainingCourseReq) (r *ImportTrainingCourseResp, err error)
@@ -9370,6 +10030,310 @@ type Trainingservice interface {
 	ExportPracticeDataTable(ctx context.Context, req *ExportPracticeDataTableReq) (r *ExportPracticeDataTableResp, err error)
 
 	ExportPracticeProcessDataTable(ctx context.Context, req *ExportPracticeProcessDataTableReq) (r *ExportPracticeProcessDataTableResp, err error)
+}
+
+type TrainingserviceSubmitPracticeTalkArgs struct {
+	Req *SubmitPracticeTalkReq `thrift:"req,1" frugal:"1,default,SubmitPracticeTalkReq" json:"req"`
+}
+
+func NewTrainingserviceSubmitPracticeTalkArgs() *TrainingserviceSubmitPracticeTalkArgs {
+	return &TrainingserviceSubmitPracticeTalkArgs{}
+}
+
+func (p *TrainingserviceSubmitPracticeTalkArgs) InitDefault() {
+}
+
+var TrainingserviceSubmitPracticeTalkArgs_Req_DEFAULT *SubmitPracticeTalkReq
+
+func (p *TrainingserviceSubmitPracticeTalkArgs) GetReq() (v *SubmitPracticeTalkReq) {
+	if !p.IsSetReq() {
+		return TrainingserviceSubmitPracticeTalkArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *TrainingserviceSubmitPracticeTalkArgs) SetReq(val *SubmitPracticeTalkReq) {
+	p.Req = val
+}
+
+func (p *TrainingserviceSubmitPracticeTalkArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *TrainingserviceSubmitPracticeTalkArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceSubmitPracticeTalkArgs(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceSubmitPracticeTalkArgs = map[int16]string{
+	1: "req",
+}
+
+type TrainingserviceSubmitPracticeTalkResult struct {
+	Success *SubmitPracticeTalkResp `thrift:"success,0,optional" frugal:"0,optional,SubmitPracticeTalkResp" json:"success,omitempty"`
+}
+
+func NewTrainingserviceSubmitPracticeTalkResult() *TrainingserviceSubmitPracticeTalkResult {
+	return &TrainingserviceSubmitPracticeTalkResult{}
+}
+
+func (p *TrainingserviceSubmitPracticeTalkResult) InitDefault() {
+}
+
+var TrainingserviceSubmitPracticeTalkResult_Success_DEFAULT *SubmitPracticeTalkResp
+
+func (p *TrainingserviceSubmitPracticeTalkResult) GetSuccess() (v *SubmitPracticeTalkResp) {
+	if !p.IsSetSuccess() {
+		return TrainingserviceSubmitPracticeTalkResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *TrainingserviceSubmitPracticeTalkResult) SetSuccess(x interface{}) {
+	p.Success = x.(*SubmitPracticeTalkResp)
+}
+
+func (p *TrainingserviceSubmitPracticeTalkResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *TrainingserviceSubmitPracticeTalkResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceSubmitPracticeTalkResult(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceSubmitPracticeTalkResult = map[int16]string{
+	0: "success",
+}
+
+type TrainingserviceGetPracticeTalkListArgs struct {
+	Req *GetPracticeTalkListReq `thrift:"req,1" frugal:"1,default,GetPracticeTalkListReq" json:"req"`
+}
+
+func NewTrainingserviceGetPracticeTalkListArgs() *TrainingserviceGetPracticeTalkListArgs {
+	return &TrainingserviceGetPracticeTalkListArgs{}
+}
+
+func (p *TrainingserviceGetPracticeTalkListArgs) InitDefault() {
+}
+
+var TrainingserviceGetPracticeTalkListArgs_Req_DEFAULT *GetPracticeTalkListReq
+
+func (p *TrainingserviceGetPracticeTalkListArgs) GetReq() (v *GetPracticeTalkListReq) {
+	if !p.IsSetReq() {
+		return TrainingserviceGetPracticeTalkListArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *TrainingserviceGetPracticeTalkListArgs) SetReq(val *GetPracticeTalkListReq) {
+	p.Req = val
+}
+
+func (p *TrainingserviceGetPracticeTalkListArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *TrainingserviceGetPracticeTalkListArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceGetPracticeTalkListArgs(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceGetPracticeTalkListArgs = map[int16]string{
+	1: "req",
+}
+
+type TrainingserviceGetPracticeTalkListResult struct {
+	Success *GetPracticeTalkListResp `thrift:"success,0,optional" frugal:"0,optional,GetPracticeTalkListResp" json:"success,omitempty"`
+}
+
+func NewTrainingserviceGetPracticeTalkListResult() *TrainingserviceGetPracticeTalkListResult {
+	return &TrainingserviceGetPracticeTalkListResult{}
+}
+
+func (p *TrainingserviceGetPracticeTalkListResult) InitDefault() {
+}
+
+var TrainingserviceGetPracticeTalkListResult_Success_DEFAULT *GetPracticeTalkListResp
+
+func (p *TrainingserviceGetPracticeTalkListResult) GetSuccess() (v *GetPracticeTalkListResp) {
+	if !p.IsSetSuccess() {
+		return TrainingserviceGetPracticeTalkListResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *TrainingserviceGetPracticeTalkListResult) SetSuccess(x interface{}) {
+	p.Success = x.(*GetPracticeTalkListResp)
+}
+
+func (p *TrainingserviceGetPracticeTalkListResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *TrainingserviceGetPracticeTalkListResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceGetPracticeTalkListResult(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceGetPracticeTalkListResult = map[int16]string{
+	0: "success",
+}
+
+type TrainingserviceGetPracticeTalkArgs struct {
+	Req *GetPracticeTalkReq `thrift:"req,1" frugal:"1,default,GetPracticeTalkReq" json:"req"`
+}
+
+func NewTrainingserviceGetPracticeTalkArgs() *TrainingserviceGetPracticeTalkArgs {
+	return &TrainingserviceGetPracticeTalkArgs{}
+}
+
+func (p *TrainingserviceGetPracticeTalkArgs) InitDefault() {
+}
+
+var TrainingserviceGetPracticeTalkArgs_Req_DEFAULT *GetPracticeTalkReq
+
+func (p *TrainingserviceGetPracticeTalkArgs) GetReq() (v *GetPracticeTalkReq) {
+	if !p.IsSetReq() {
+		return TrainingserviceGetPracticeTalkArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *TrainingserviceGetPracticeTalkArgs) SetReq(val *GetPracticeTalkReq) {
+	p.Req = val
+}
+
+func (p *TrainingserviceGetPracticeTalkArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *TrainingserviceGetPracticeTalkArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceGetPracticeTalkArgs(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceGetPracticeTalkArgs = map[int16]string{
+	1: "req",
+}
+
+type TrainingserviceGetPracticeTalkResult struct {
+	Success *GetPracticeTalkResp `thrift:"success,0,optional" frugal:"0,optional,GetPracticeTalkResp" json:"success,omitempty"`
+}
+
+func NewTrainingserviceGetPracticeTalkResult() *TrainingserviceGetPracticeTalkResult {
+	return &TrainingserviceGetPracticeTalkResult{}
+}
+
+func (p *TrainingserviceGetPracticeTalkResult) InitDefault() {
+}
+
+var TrainingserviceGetPracticeTalkResult_Success_DEFAULT *GetPracticeTalkResp
+
+func (p *TrainingserviceGetPracticeTalkResult) GetSuccess() (v *GetPracticeTalkResp) {
+	if !p.IsSetSuccess() {
+		return TrainingserviceGetPracticeTalkResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *TrainingserviceGetPracticeTalkResult) SetSuccess(x interface{}) {
+	p.Success = x.(*GetPracticeTalkResp)
+}
+
+func (p *TrainingserviceGetPracticeTalkResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *TrainingserviceGetPracticeTalkResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceGetPracticeTalkResult(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceGetPracticeTalkResult = map[int16]string{
+	0: "success",
+}
+
+type TrainingserviceReviewPracticeTalkArgs struct {
+	Req *ReviewPracticeTalkReq `thrift:"req,1" frugal:"1,default,ReviewPracticeTalkReq" json:"req"`
+}
+
+func NewTrainingserviceReviewPracticeTalkArgs() *TrainingserviceReviewPracticeTalkArgs {
+	return &TrainingserviceReviewPracticeTalkArgs{}
+}
+
+func (p *TrainingserviceReviewPracticeTalkArgs) InitDefault() {
+}
+
+var TrainingserviceReviewPracticeTalkArgs_Req_DEFAULT *ReviewPracticeTalkReq
+
+func (p *TrainingserviceReviewPracticeTalkArgs) GetReq() (v *ReviewPracticeTalkReq) {
+	if !p.IsSetReq() {
+		return TrainingserviceReviewPracticeTalkArgs_Req_DEFAULT
+	}
+	return p.Req
+}
+func (p *TrainingserviceReviewPracticeTalkArgs) SetReq(val *ReviewPracticeTalkReq) {
+	p.Req = val
+}
+
+func (p *TrainingserviceReviewPracticeTalkArgs) IsSetReq() bool {
+	return p.Req != nil
+}
+
+func (p *TrainingserviceReviewPracticeTalkArgs) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceReviewPracticeTalkArgs(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceReviewPracticeTalkArgs = map[int16]string{
+	1: "req",
+}
+
+type TrainingserviceReviewPracticeTalkResult struct {
+	Success *ReviewPracticeTalkResp `thrift:"success,0,optional" frugal:"0,optional,ReviewPracticeTalkResp" json:"success,omitempty"`
+}
+
+func NewTrainingserviceReviewPracticeTalkResult() *TrainingserviceReviewPracticeTalkResult {
+	return &TrainingserviceReviewPracticeTalkResult{}
+}
+
+func (p *TrainingserviceReviewPracticeTalkResult) InitDefault() {
+}
+
+var TrainingserviceReviewPracticeTalkResult_Success_DEFAULT *ReviewPracticeTalkResp
+
+func (p *TrainingserviceReviewPracticeTalkResult) GetSuccess() (v *ReviewPracticeTalkResp) {
+	if !p.IsSetSuccess() {
+		return TrainingserviceReviewPracticeTalkResult_Success_DEFAULT
+	}
+	return p.Success
+}
+func (p *TrainingserviceReviewPracticeTalkResult) SetSuccess(x interface{}) {
+	p.Success = x.(*ReviewPracticeTalkResp)
+}
+
+func (p *TrainingserviceReviewPracticeTalkResult) IsSetSuccess() bool {
+	return p.Success != nil
+}
+
+func (p *TrainingserviceReviewPracticeTalkResult) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	return fmt.Sprintf("TrainingserviceReviewPracticeTalkResult(%+v)", *p)
+}
+
+var fieldIDToName_TrainingserviceReviewPracticeTalkResult = map[int16]string{
+	0: "success",
 }
 
 type TrainingserviceUpdateTrainingScheduleArgs struct {
